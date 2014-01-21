@@ -18,5 +18,5 @@ Materials are under development and subject to change.
 
 ### License
 
-These course materials are available under the Mozilla Public License (http://www.tldrlegal.com/l/MPL2). 
+These course materials are available under the Creative Commons Attribution NonCommercial ShareAlike (CC-NC-SA) license (http://www.tldrlegal.com/l/CC-NC-SA). 
 

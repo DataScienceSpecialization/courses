@@ -87,7 +87,7 @@ sessionInfo()
 ```
 
 ```
-## R version 3.0.2 Patched (2013-12-30 r64600)
+## R version 3.0.2 Patched (2014-01-20 r64849)
 ## Platform: x86_64-apple-darwin13.0.0 (64-bit)
 ## 
 ## locale:
@@ -112,13 +112,36 @@ sessionInfo()
 
 ---
 
-## DO: Think About the Pipeline
+## DO: Set Your Seed
 
-* Data analysis is a lengthy process
+* Random number generators generate pseudo-random numbers based on an
+  initial seed (usually a number or set of numbers)
+
+  - In R you can use the `set.seed()` function to set the seed and to
+    specify the random number generator to use
+
+* Setting the seed allows for the stream of random numbers to be
+  exactly reproducible
+
+* Whenever you generate random numbers for a non-trivial purpose,
+  **always set the seed**
+
+
+---
+
+## DO: Think About the Entire Pipeline
+
+* Data analysis is a lengthy process; it is not just tables / figures
+  / reports
+
+* Raw data &rarr; processed data &rarr; analysis &rarr; report
 
 * How you got the end is just as important as the end itself
 
-* The farther back in the pipeline you can "preserve" the better
+* The more of the data analysis pipeline you can make reproducible,
+  the better for everyone
+
+
 
 ---
 
@@ -128,6 +151,7 @@ sessionInfo()
 
 * Was any part of this analysis done by hand?
   - If so, are those parts *precisely* document?
+  - Does the documentation match reality?
 
 * Have we taught a computer to do as much as possible (i.e. coded)?
 

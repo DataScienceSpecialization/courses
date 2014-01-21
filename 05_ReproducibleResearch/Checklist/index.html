@@ -146,7 +146,7 @@ publish results</p></li>
     <pre><code class="r">sessionInfo()
 </code></pre>
 
-<pre><code>## R version 3.0.2 Patched (2013-12-30 r64600)
+<pre><code>## R version 3.0.2 Patched (2014-01-20 r64849)
 ## Platform: x86_64-apple-darwin13.0.0 (64-bit)
 ## 
 ## locale:
@@ -179,13 +179,21 @@ publish results</p></li>
 
       <slide class="" id="slide-9" style="background:;">
   <hgroup>
-    <h2>DO: Think About the Pipeline</h2>
+    <h2>DO: Set Your Seed</h2>
   </hgroup>
   <article>
     <ul>
-<li><p>Data analysis is a lengthy process</p></li>
-<li><p>How you got the end is just as important as the end itself</p></li>
-<li><p>The farther back in the pipeline you can &quot;preserve&quot; the better</p></li>
+<li><p>Random number generators generate pseudo-random numbers based on an
+initial seed (usually a number or set of numbers)</p>
+
+<ul>
+<li>In R you can use the <code>set.seed()</code> function to set the seed and to
+specify the random number generator to use</li>
+</ul></li>
+<li><p>Setting the seed allows for the stream of random numbers to be
+exactly reproducible</p></li>
+<li><p>Whenever you generate random numbers for a non-trivial purpose,
+<strong>always set the seed</strong></p></li>
 </ul>
 
   </article>
@@ -193,6 +201,24 @@ publish results</p></li>
 </slide>
 
       <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>DO: Think About the Entire Pipeline</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Data analysis is a lengthy process; it is not just tables / figures
+/ reports</p></li>
+<li><p>Raw data &rarr; processed data &rarr; analysis &rarr; report</p></li>
+<li><p>How you got the end is just as important as the end itself</p></li>
+<li><p>The more of the data analysis pipeline you can make reproducible,
+the better for everyone</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>Summary: Checklist</h2>
   </hgroup>
@@ -203,6 +229,7 @@ publish results</p></li>
 
 <ul>
 <li>If so, are those parts <em>precisely</em> document?</li>
+<li>Does the documentation match reality?</li>
 </ul></li>
 <li><p>Have we taught a computer to do as much as possible (i.e. coded)?</p></li>
 <li><p>Are we using a version control system?</p></li>

@@ -16,8 +16,8 @@ mode        : selfcontained # {standalone, draft}
 
 ## What is Shiny?
 
-- Shiny is a platform for creating interactive R programs embeded into a web page.
-- Suppose that you create a prediction algorith, with shiny you can *very easily* create web input form that calls R and thus your prediction algorithm and displays the results.
+- Shiny is a platform for creating interactive R programs embedded into a web page.
+- Suppose that you create a prediction algorithm, with shiny you can *very easily* create web input form that calls R and thus your prediction algorithm and displays the results.
 - Using Shiny, the time to create simple, yet powerful, web-based interactive data products in R is minimized.
   - However, it lacks the flexibility of full featured (and more complex) solutions.
 - Shiny is made by the fine folks at R Studio.

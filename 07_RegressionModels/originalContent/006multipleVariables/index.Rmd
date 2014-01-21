@@ -1,0 +1,236 @@
+---
+title       : Multiple regression
+subtitle    : 
+author      : Jeffrey Leek, Assistant Professor of Biostatistics 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## Key ideas
+
+* Regression with multiple covariates
+* Still using least squares/central limit theorem
+* Interpretation depends on all variables
+
+
+---
+
+## Example - Millenium Development Goal 1
+
+<img class=center src=../../assets/img/mdg1.png height=450>
+
+[http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf](http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf)
+
+[http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*](http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*)
+
+---
+
+## WHO childhood hunger data
+
+
+```{r whoDataLoad}
+download.file("http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*","./data/hunger.csv",method="curl")
+hunger <- read.csv("./data/hunger.csv")
+hunger <- hunger[hunger$Sex!="Both sexes",]
+head(hunger)
+```
+
+
+---
+
+## Plot percent hungry versus time
+
+```{r, dependson="whoDataLoad",fig.height=4,fig.width=4}
+lm1 <- lm(hunger$Numeric ~ hunger$Year)
+plot(hunger$Year,hunger$Numeric,pch=19,col="blue")
+```
+
+
+---
+
+## Remember the linear model
+
+$$Hu_i = b_0 + b_1 Y_i + e_i$$
+
+$b_0$ = percent hungry at Year 0
+
+$b_1$ = decrease in percent hungry per year
+
+$e_i$ = everything we didn't measure
+
+---
+
+## Add the linear model
+
+```{r, dependson="whoDataLoad",fig.height=4,fig.width=4}
+lm1 <- lm(hunger$Numeric ~ hunger$Year)
+plot(hunger$Year,hunger$Numeric,pch=19,col="blue")
+lines(hunger$Year,lm1$fitted,lwd=3,col="darkgrey")
+```
+
+
+---
+
+## Color by male/female
+
+```{r, dependson="whoDataLoad",fig.height=4,fig.width=4}
+plot(hunger$Year,hunger$Numeric,pch=19)
+points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex=="Male")*1+1))
+```
+
+
+
+---
+
+## Now two lines
+
+$$HuF_i = bf_0 + bf_1 YF_i + ef_i$$
+
+$bf_0$ = percent of girls hungry at Year 0
+
+$bf_1$ = decrease in percent of girls hungry per year
+
+$ef_i$ = everything we didn't measure 
+
+
+$$HuM_i = bm_0 + bm_1 YM_i + em_i$$
+
+$bm_0$ = percent of boys hungry at Year 0
+
+$bm_1$ = decrease in percent of boys hungry per year
+
+$em_i$ = everything we didn't measure 
+
+
+
+---
+
+## Color by male/female
+
+```{r, dependson="whoDataLoad",fig.height=3.5,fig.width=4}
+lmM <- lm(hunger$Numeric[hunger$Sex=="Male"] ~ hunger$Year[hunger$Sex=="Male"])
+lmF <- lm(hunger$Numeric[hunger$Sex=="Female"] ~ hunger$Year[hunger$Sex=="Female"])
+plot(hunger$Year,hunger$Numeric,pch=19)
+points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex=="Male")*1+1))
+lines(hunger$Year[hunger$Sex=="Male"],lmM$fitted,col="black",lwd=3)
+lines(hunger$Year[hunger$Sex=="Female"],lmF$fitted,col="red",lwd=3)
+```
+
+
+---
+
+## Two lines, same slope
+
+$$Hu_i = b_0 + b_1 \mathbb{1}(Sex_i="Male") + b_2 Y_i + e^*_i$$
+
+$b_0$ - percent hungry at year zero for females
+
+$b_0 + b_1$ - percent hungry at year zero for males
+
+$b_2$ - change in percent hungry (for either males or females) in one year
+
+$e^*_i$ - everything we didn't measure
+
+---
+
+## Two lines, same slope in R
+
+
+```{r, dependson="whoDataLoad",fig.height=4,fig.width=4}
+lmBoth <- lm(hunger$Numeric ~ hunger$Year + hunger$Sex)
+plot(hunger$Year,hunger$Numeric,pch=19)
+points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex=="Male")*1+1))
+abline(c(lmBoth$coeff[1],lmBoth$coeff[2]),col="red",lwd=3)
+abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] ),col="black",lwd=3)
+```
+
+
+
+
+
+---
+
+## Two lines, different slopes (interactions)
+
+$$Hu_i = b_0 + b_1 \mathbb{1}(Sex_i="Male") + b_2 Y_i + b_3 \mathbb{1}(Sex_i="Male")\times Y_i + e^+_i$$
+
+$b_0$ - percent hungry at year zero for females
+
+$b_0 + b_1$ - percent hungry at year zero for males
+
+$b_2$ - change in percent hungry (females) in one year
+
+$b_2 + b_3$ - change in percent hungry (males) in one year
+
+$e^+_i$ - everything we didn't measure
+
+---
+
+## Two lines, different slopes in R
+
+
+```{r lmBothChunk, dependson="whoDataLoad",fig.height=4,fig.width=4}
+lmBoth <- lm(hunger$Numeric ~ hunger$Year + hunger$Sex + hunger$Sex*hunger$Year)
+plot(hunger$Year,hunger$Numeric,pch=19)
+points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex=="Male")*1+1))
+abline(c(lmBoth$coeff[1],lmBoth$coeff[2]),col="red",lwd=3)
+abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] +lmBoth$coeff[4]),col="black",lwd=3)
+```
+
+
+---
+
+## Two lines, different slopes in R
+
+
+```{r, dependson="lmBothChunk",fig.height=4,fig.width=4}
+summary(lmBoth)
+```
+
+---
+
+## Interactions for continuous variables
+
+$$Hu_i = b_0 + b_1 In_i + b_2 Y_i + b_3 In_i \times Y_i + e^+_i$$
+
+$b_0$ - percent hungry at year zero for children with whose parents have no income
+
+$b_1$ - change in percent hungry for each dollar of income in year zero
+
+$b_2$ - change in percent hungry in one year for children whose parents have no income
+
+$b_3$ - increased change in percent hungry by year for each dollar of income  - e.g. if income is $10,000, then change in percent hungry in one year will be
+
+$$b_2 + 1e4 \times b_3$$
+
+$e^+_i$ - everything we didn't measure
+
+__Lot's of care/caution needed!__
+
+
+

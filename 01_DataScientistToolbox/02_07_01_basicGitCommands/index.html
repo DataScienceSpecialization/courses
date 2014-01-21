@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Basic Git Commands</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Basic Git Commands">
+  <meta name="author" content="Jeffrey Leek, Assistant Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Basic Git Commands</h1>
+        <h2></h2>
+        <p>Jeffrey Leek, Assistant Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>So you&#39;ve got a repo.... Now what?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Once you have a repository, you&#39;ll probably make changes over time</li>
+<li>Often, you&#39;ll want to share these changes with others (users, followers, collaborators, etc.)</li>
+<li><strong>Git</strong> allows you to track your changes locally (on your computer)</li>
+<li><strong>GitHub</strong> allows you to share your changes with the world (or just a few people, depending on whether your repo is public or private)</li>
+<li>But how to communicate between Git and GitHub?</li>
+<li>First we&#39;ll review some basic commands, then we&#39;ll look at a typical workflow</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Pushing and Pulling</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/gghuboverview.png height='500'/></p>
+
+<p><a href="http://gitready.com/beginner/2009/01/21/pushing-and-pulling.html">http://gitready.com/beginner/2009/01/21/pushing-and-pulling.html</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Adding</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Suppose you add some new files or make changes to a local repository (on your computer)</li>
+<li>You need to let Git know that you want it to pay attention to these files (i.e. &quot;track&quot; these files)</li>
+<li>From the directory where the repo is located on your computer (in Git Bash or Terminal, depending on whether you&#39;re on Windows or Mac, respectively):
+
+<ul>
+<li><code>git add .</code> adds all new files (note the period after <code>add</code>, which represents &quot;all files&quot;)</li>
+<li><code>git add -u</code> updates tracking for files that changed names or were deleted</li>
+<li><code>git add -A</code> or <code>git add --all</code> does both of the previous </li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Committing</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>You want to organize and save &quot;snapshots&quot; of the files you&#39;ve staged for commit</li>
+<li>You type the command
+
+<ul>
+<li><code>git commit -m &quot;your message goes here&quot;</code>, substituting a useful description (between the double quotes) of what changes you made since the last committed changes</li>
+</ul></li>
+<li>This only updates your local repo, not the remote repo on GitHub</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Log</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>To see a log of the commits you&#39;ve made locally, type <code>git log</code>
+
+<ul>
+<li>Spacebar advances page by page</li>
+<li>Return advances line by line</li>
+<li>Typing the letter &quot;Q&quot; exits the log</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Pushing</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Once you are pleased with your local commits, you would like to update the remote repo (on GitHub)</li>
+<li>The command <code>git push</code> sends your most recent commits to GitHub, updating your remote repository for the world to see</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Pull Requests</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>If you fork someone else&#39;s repo and make some changes or additions, you may want the original author to merge your changes into their code</li>
+<li>To do so you need to issue a pull request via GitHub</li>
+<li>Don&#39;t need anyone&#39;s permission to fork and make changes, but the original author is not obligated to accept your changes</li>
+<li>Pull requests offer a powerful means of contributing to open source software</li>
+</ul>
+
+<p><img class=center src=../../assets/img/01_DataScientistToolbox/pull_request1.png height='150'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Time to be a hacker!</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Git documentation <a href="http://git-scm.com/doc">http://git-scm.com/doc</a></li>
+<li>Github help <a href="https://help.github.com/">https://help.github.com/</a></li>
+<li>Google/Stack Overflow are great for Github</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

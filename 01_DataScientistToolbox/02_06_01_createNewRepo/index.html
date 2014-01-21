@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Creating a New GitHub Repository</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Creating a New GitHub Repository">
+  <meta name="author" content="Jeffrey Leek, Assistant Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Creating a New GitHub Repository</h1>
+        <h2></h2>
+        <p>Jeffrey Leek, Assistant Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Recap: Git vs. GitHub</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>You don&#39;t need GitHub to use Git</li>
+<li>Git = Local (on your computer); GitHub = Remote (on the web)</li>
+<li>GitHub allows you to:
+
+<ol>
+<li>Share your repositories with others</li>
+<li>Access other users&#39; repositories</li>
+<li>Store remote copies of your repositories (on GitHub&#39;s server) in case something happens to your local copies (on your computer)</li>
+</ol></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Creating a GitHub Repository</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Two methods of creating a GitHub repository:
+
+<ol>
+<li>Start a repository from scratch</li>
+<li>&quot;Fork&quot; another user&#39;s repository</li>
+</ol></li>
+<li>This lecture will walk you through the first method</li>
+<li><em>NOTE: A repository is often referred to as a &quot;repo&quot;</em></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Start a Repository From Scratch</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Either go to your profile page (<a href="https://github.com/your-user-name-goes-here/">https://github.com/your-user-name-goes-here/</a>) and click on &quot;Create a new repo&quot; in the upper righthand corner of the page</li>
+</ul>
+
+<p><strong>...OR...</strong></p>
+
+<ul>
+<li>Go directly to <a href="https://github.com/new">https://github.com/new</a> (you&#39;ll need to log into your GitHub account if you haven&#39;t already done so)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Start a Repository From Scratch</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Create a name for your repo and type a brief description of it</li>
+<li>Select &quot;Public&quot; (Private repos require a paid [or education] account)</li>
+<li>Check the box next to &quot;Initialize this repository with a README&quot;</li>
+<li>Click the &quot;Create repository&quot; button</li>
+</ul>
+
+<p><img class=center src=../../assets/img/CreateRepo/CreateRepo1.png height='350'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Start a Repository From Scratch</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Congratulations! You&#39;ve created a GitHub repository.</li>
+</ul>
+
+<p><img class=center src=../../assets/img/CreateRepo/CreateRepo2.png height='450'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Creating a Local Copy</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Now you need to create a copy of this repo on your computer so that you can make changes to it</li>
+<li>Open either Git Bash (for Windows users) or Terminal (for Mac users)</li>
+<li>Create a directory on your computer where you will store your copy of the repo:</li>
+</ul>
+
+<pre><code>$ mkdir ~/test-repo
+</code></pre>
+
+<ul>
+<li>Note: The tilda (<code>~</code>) symbol refers to your &quot;home&quot; directory, so this will create a directory called <code>test-repo</code> in your home directory</li>
+<li>Navigate to this new directory using the following command (<code>cd</code> stands for &quot;change directory&quot;):</li>
+</ul>
+
+<pre><code>$ cd ~/test-repo
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Creating a Local Copy</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Initialize a local Git repository in this directory</li>
+</ul>
+
+<pre><code>$ git init
+</code></pre>
+
+<ul>
+<li>Point your local repository at the remote repository you just created on the GitHub server</li>
+</ul>
+
+<pre><code>$ git remote add origin https://github.com/your-user-name-goes-here/test-repo.git
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Creating a Local Copy</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Here&#39;s what this process looks like in action:</li>
+</ul>
+
+<p><img class=center src=../../assets/img/CreateRepo/CreateRepo3.png height='350'/></p>
+
+<ul>
+<li>Note: Actual appearance may differ slightly depending on your operating system and default settings.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

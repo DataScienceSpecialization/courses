@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generalized linear models</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Generalized linear models">
+  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Generalized linear models</h1>
+    <h2>Regression Models</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Linear models</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Linear models are the most useful applied statistical technique. However, they are not without their limitations.
+
+<ul>
+<li>Additive response models don&#39;t make much sense if the response is discrete, or stricly positive.</li>
+<li>Additive error models often don&#39;t make sense, for example if the outcome has to be positive. </li>
+<li>Transformations are often hard to interpret. </li>
+<li>There&#39;s value in modeling the data on the scale that it was collected.</li>
+<li>Particularly interpetable transformations, natural logarithms in specific,   aren&#39;t applicable for negative or zero values.</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Generalized linear models</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Introduced in a 1972 RSSB paper by Nelder and Wedderburn. </li>
+<li>Involves three components
+
+<ul>
+<li>An <em>exponential family</em> model for the response.</li>
+<li>A systematic component via a linear predictor.</li>
+<li>A link function that connects the means of the response to the linear predictor.</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Example, linear models</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Assume that \(Y_i \sim N(\mu_i, \sigma^2)\) (the Gaussian distribution is an exponential family distribution.)</li>
+<li>Define the linear predictor to be \(\eta_i = \sum_{k=1}^p X_{ik} \beta_k\).</li>
+<li>The link function as \(g\) so that \(g(\mu) = \eta\).
+
+<ul>
+<li>For linear models \(g(\mu) = \mu\) so that \(\mu_i = \eta_i\)</li>
+</ul></li>
+<li>This yields the same likelihood model as our additive error Gaussian linear model
+\[
+Y_i = \sum_{k=1}^p X_{ik} \beta_k + \epsilon_{i}
+\]
+where \(\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Example, logistic regression</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Assume that \(Y_i \sim Bernoulli(\mu_i)\) so that \(E[Y_i] = \mu_i\) where \(0\leq \mu_i \leq 1\).</li>
+<li>Linear predictor \(\eta_i = \sum_{k=1}^p X_{ik} \beta_k\)</li>
+<li>Link function 
+\(g(\mu) = \eta = \log\left( \frac{\mu}{1 - \mu}\right)\)
+\(g\) is the (natural) log odds, referred to as the <strong>logit</strong>.</li>
+<li>Note then we can invert the logit function as
+\[
+\mu_i = \frac{\exp(\eta_i)}{1 + \exp(\eta_i)} ~~~\mbox{and}~~~
+1 - \mu_i = \frac{1}{1 + \exp(\eta_i)}
+\]
+Thus the likelihood is
+\[
+\prod_{i=1}^n \mu_i^{y_i} (1 - \mu_i)^{1-y_i}
+= \exp\left(\sum_{i=1}^n y_i \eta_i \right)
+\prod_{i=1}^n (1 + \eta_i)^{-1}
+\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Example, Poisson regression</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Assume that \(Y_i \sim Poisson(\mu_i)\) so that \(E[Y_i] = \mu_i\) where \(0\leq \mu_i\)</li>
+<li>Linear predictor \(\eta_i = \sum_{k=1}^p X_{ik} \beta_k\)</li>
+<li>Link function 
+\(g(\mu) = \eta = \log(\mu)\)</li>
+<li>Recall that \(e^x\) is the inverse of \(\log(x)\) so that 
+\[
+\mu_i = e^{\eta_i}
+\]
+Thus, the likelihood is
+\[
+\prod_{i=1}^n (y_i !)^{-1} \mu_i^{y_i}e^{-\mu_i}
+\propto \exp\left(\sum_{i=1}^n y_i \eta_i - \sum_{i=1}^n \mu_i\right)
+\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Some things to note</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>In each case, the only way in which the likelihood depends on the data is through 
+\[\sum_{i=1}^n y_i \eta_i =
+\sum_{i=1}^n y_i\sum_{k=1}^p X_{ik} \beta_k = 
+\sum_{k=1}^p \beta_k\sum_{i=1}^n X_{ik} y_i
+\]
+Thus if we don&#39;t need the full data, only \(\sum_{i=1}^n X_{ik} y_i\). This simplification is a consequence of chosing so-called &#39;canonical&#39; link functions.</li>
+<li>(This has to be derived). All models acheive their maximum at the root of the so called normal equations
+\[
+0=\sum_{i=1}^n \frac{(Y_i - \mu_i)}{Var(Y_i)}W_i
+\]
+where \(W_i\) are the derivative of the inverse of the link function.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>About variances</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\[
+0=\sum_{i=1}^n \frac{(Y_i - \mu_i)}{Var(Y_i)}W_i
+\]</p>
+
+<ul>
+<li>For the linear model \(Var(Y_i) = \sigma^2\) is constant.</li>
+<li>For Bernoulli case \(Var(Y_i) = \mu_i (1 - \mu_i)\)</li>
+<li>For the Poisson case \(Var(Y_i) = \mu_i\). </li>
+<li>In the latter cases, it is often relevant to have a more flexible variance model, even if it doesn&#39;t correspond to an actual likelihood
+\[
+0=\sum_{i=1}^n \frac{(Y_i - \mu_i)}{\phi \mu_i (1 - \mu_i ) } W_i ~~~\mbox{and}~~~
+0=\sum_{i=1}^n \frac{(Y_i - \mu_i)}{\phi \mu_i} W_i
+\]</li>
+<li>These are called &#39;quasi-likelihood&#39; normal equations </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Odds and ends</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The normal equations have to be solved iteratively. Resulting in 
+\(\hat \beta_k\) and, if included, \(\hat \phi\).</li>
+<li>Predicted linear predictor responses can be obtained as \(\hat \eta = \sum_{k=1}^p X_k \hat \beta_k\)</li>
+<li>Predicted mean responses as \(\hat \mu = g^{-1}(\hat \eta)\)</li>
+<li>Coefficients are interpretted as 
+\[
+g(E[Y | X_k = x_k + 1, X_{\sim k} = x_{\sim k}]) - g(E[Y | X_k = x_k, X_{\sim k}=x_{\sim k}]) = \beta_k
+\]
+or the change in the link function of the expected response per unit change in \(X_k\) holding other regressors constant.</li>
+<li>Variations on Newon/Raphson&#39;s algorithm are used to do it.</li>
+<li>Asymptotics are used for inference usually. </li>
+<li>Many of the ideas from linear models can be brought over to GLMs.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Linear models'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Generalized linear models'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Example, linear models'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Example, logistic regression'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Example, Poisson regression'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Some things to note'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='About variances'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Odds and ends'>
+         8
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

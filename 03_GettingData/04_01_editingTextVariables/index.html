@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Editing text variables</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Editing text variables">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Editing text variables</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Example - Baltimore camera data</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/03_ObtainingData/cameras.png height=500></p>
+
+<p><a href="https://data.baltimorecity.gov/Transportation/Baltimore-Fixed-Speed-Cameras/dz54-2aru">https://data.baltimorecity.gov/Transportation/Baltimore-Fixed-Speed-Cameras/dz54-2aru</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Fixing character vectors - tolower(), toupper()</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">if(!file.exists(&quot;./data&quot;)){dir.create(&quot;./data&quot;)}
+fileUrl &lt;- &quot;https://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD&quot;
+download.file(fileUrl,destfile=&quot;./data/cameras.csv&quot;,method=&quot;curl&quot;)
+cameraData &lt;- read.csv(&quot;./data/cameras.csv&quot;)
+names(cameraData)
+</code></pre>
+
+<pre><code>[1] &quot;address&quot;      &quot;direction&quot;    &quot;street&quot;       &quot;crossStreet&quot;  &quot;intersection&quot; &quot;Location.1&quot;  
+</code></pre>
+
+<pre><code class="r">tolower(names(cameraData))
+</code></pre>
+
+<pre><code>[1] &quot;address&quot;      &quot;direction&quot;    &quot;street&quot;       &quot;crossstreet&quot;  &quot;intersection&quot; &quot;location.1&quot;  
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Fixing character vectors - strsplit()</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Good for automatically splitting variable names</li>
+<li>Important parameters: <em>x</em>, <em>split</em></li>
+</ul>
+
+<pre><code class="r">splitNames = strsplit(names(cameraData),&quot;\\.&quot;)
+splitNames[[5]]
+</code></pre>
+
+<pre><code>[1] &quot;intersection&quot;
+</code></pre>
+
+<pre><code class="r">splitNames[[6]]
+</code></pre>
+
+<pre><code>[1] &quot;Location&quot; &quot;1&quot;       
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Quick aside - lists</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">mylist &lt;- list(letters = c(&quot;A&quot;, &quot;b&quot;, &quot;c&quot;), numbers = 1:3, matrix(1:25, ncol = 5))
+head(mylist)
+</code></pre>
+
+<pre><code>$letters
+[1] &quot;A&quot; &quot;b&quot; &quot;c&quot;
+
+$numbers
+[1] 1 2 3
+
+[[3]]
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    6   11   16   21
+[2,]    2    7   12   17   22
+[3,]    3    8   13   18   23
+[4,]    4    9   14   19   24
+[5,]    5   10   15   20   25
+</code></pre>
+
+<p><a href="http://www.biostat.jhsph.edu/%7Eajaffe/lec_winterR/Lecture%203.pdf">http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%203.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Quick aside - lists</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">mylist[1]
+</code></pre>
+
+<pre><code>$letters
+[1] &quot;A&quot; &quot;b&quot; &quot;c&quot;
+</code></pre>
+
+<pre><code class="r">mylist$letters
+</code></pre>
+
+<pre><code>[1] &quot;A&quot; &quot;b&quot; &quot;c&quot;
+</code></pre>
+
+<pre><code class="r">mylist[[1]]
+</code></pre>
+
+<pre><code>[1] &quot;A&quot; &quot;b&quot; &quot;c&quot;
+</code></pre>
+
+<p><a href="http://www.biostat.jhsph.edu/%7Eajaffe/lec_winterR/Lecture%203.pdf">http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%203.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Fixing character vectors - sapply()</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Applies a function to each element in a vector or list</li>
+<li>Important parameters: <em>X</em>,<em>FUN</em></li>
+</ul>
+
+<pre><code class="r">splitNames[[6]][1]
+</code></pre>
+
+<pre><code>[1] &quot;Location&quot;
+</code></pre>
+
+<pre><code class="r">firstElement &lt;- function(x){x[1]}
+sapply(splitNames,firstElement)
+</code></pre>
+
+<pre><code>[1] &quot;address&quot;      &quot;direction&quot;    &quot;street&quot;       &quot;crossStreet&quot;  &quot;intersection&quot; &quot;Location&quot;    
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Peer review experiment data</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src="../../assets/img/03_ObtainingData/cooperation.png" height=500 /></p>
+
+<p><a href="http://www.plosone.org/article/info:doi/10.1371/journal.pone.0026895">http://www.plosone.org/article/info:doi/10.1371/journal.pone.0026895</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Peer review data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">fileUrl1 &lt;- &quot;https://dl.dropboxusercontent.com/u/7710864/data/reviews-apr29.csv&quot;
+fileUrl2 &lt;- &quot;https://dl.dropboxusercontent.com/u/7710864/data/solutions-apr29.csv&quot;
+download.file(fileUrl1,destfile=&quot;./data/reviews.csv&quot;,method=&quot;curl&quot;)
+download.file(fileUrl2,destfile=&quot;./data/solutions.csv&quot;,method=&quot;curl&quot;)
+reviews &lt;- read.csv(&quot;./data/reviews.csv&quot;); solutions &lt;- read.csv(&quot;./data/solutions.csv&quot;)
+head(reviews,2)
+</code></pre>
+
+<pre><code>  id solution_id reviewer_id      start       stop time_left accept
+1  1           3          27 1304095698 1304095758      1754      1
+2  2           4          22 1304095188 1304095206      2306      1
+</code></pre>
+
+<pre><code class="r">head(solutions,2)
+</code></pre>
+
+<pre><code>  id problem_id subject_id      start       stop time_left answer
+1  1        156         29 1304095119 1304095169      2343      B
+2  2        269         25 1304095119 1304095183      2329      C
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Fixing character vectors - sub()</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Important parameters: <em>pattern</em>, <em>replacement</em>, <em>x</em></li>
+</ul>
+
+<pre><code class="r">names(reviews)
+</code></pre>
+
+<pre><code>[1] &quot;id&quot;          &quot;solution_id&quot; &quot;reviewer_id&quot; &quot;start&quot;       &quot;stop&quot;        &quot;time_left&quot;  
+[7] &quot;accept&quot;     
+</code></pre>
+
+<pre><code class="r">sub(&quot;_&quot;,&quot;&quot;,names(reviews),)
+</code></pre>
+
+<pre><code>[1] &quot;id&quot;         &quot;solutionid&quot; &quot;reviewerid&quot; &quot;start&quot;      &quot;stop&quot;       &quot;timeleft&quot;   &quot;accept&quot;    
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Fixing character vectors - gsub()</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">testName &lt;- &quot;this_is_a_test&quot;
+sub(&quot;_&quot;,&quot;&quot;,testName)
+</code></pre>
+
+<pre><code>[1] &quot;thisis_a_test&quot;
+</code></pre>
+
+<pre><code class="r">gsub(&quot;_&quot;,&quot;&quot;,testName)
+</code></pre>
+
+<pre><code>[1] &quot;thisisatest&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Finding values - grep(),grepl()</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">grep(&quot;Alameda&quot;,cameraData$intersection)
+</code></pre>
+
+<pre><code>[1]  4  5 36
+</code></pre>
+
+<pre><code class="r">table(grepl(&quot;Alameda&quot;,cameraData$intersection))
+</code></pre>
+
+<pre><code>
+FALSE  TRUE 
+   77     3 
+</code></pre>
+
+<pre><code class="r">cameraData2 &lt;- cameraData[!grepl(&quot;Alameda&quot;,cameraData$intersection),]
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>More on grep()</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">grep(&quot;Alameda&quot;,cameraData$intersection,value=TRUE)
+</code></pre>
+
+<pre><code>[1] &quot;The Alameda  &amp; 33rd St&quot;   &quot;E 33rd  &amp; The Alameda&quot;    &quot;Harford \n &amp; The Alameda&quot;
+</code></pre>
+
+<pre><code class="r">grep(&quot;JeffStreet&quot;,cameraData$intersection)
+</code></pre>
+
+<pre><code>integer(0)
+</code></pre>
+
+<pre><code class="r">length(grep(&quot;JeffStreet&quot;,cameraData$intersection))
+</code></pre>
+
+<pre><code>[1] 0
+</code></pre>
+
+<p><a href="http://www.biostat.jhsph.edu/%7Eajaffe/lec_winterR/Lecture%203.pdf">http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%203.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>More useful string functions</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(stringr)
+nchar(&quot;Jeffrey Leek&quot;)
+</code></pre>
+
+<pre><code>[1] 12
+</code></pre>
+
+<pre><code class="r">substr(&quot;Jeffrey Leek&quot;,1,7)
+</code></pre>
+
+<pre><code>[1] &quot;Jeffrey&quot;
+</code></pre>
+
+<pre><code class="r">paste(&quot;Jeffrey&quot;,&quot;Leek&quot;)
+</code></pre>
+
+<pre><code>[1] &quot;Jeffrey Leek&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>More useful string functions</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">paste0(&quot;Jeffrey&quot;,&quot;Leek&quot;)
+</code></pre>
+
+<pre><code>[1] &quot;JeffreyLeek&quot;
+</code></pre>
+
+<pre><code class="r">str_trim(&quot;Jeff      &quot;)
+</code></pre>
+
+<pre><code>[1] &quot;Jeff&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Important points about text in data sets</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Names of variables should be 
+
+<ul>
+<li>All lower case when possible</li>
+<li>Descriptive (Diagnosis versus Dx)</li>
+<li>Not duplicated</li>
+<li>Not have underscores or dots or white spaces</li>
+</ul></li>
+<li>Variables with character values
+
+<ul>
+<li>Should usually be made into factor variables (depends on application)</li>
+<li>Should be descriptive (use TRUE/FALSE instead of 0/1 and Male/Female versus 0/1 or M/F)</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

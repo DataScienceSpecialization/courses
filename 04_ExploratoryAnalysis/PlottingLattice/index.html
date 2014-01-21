@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The Lattice Plotting System in R</title>
+  <meta charset="utf-8">
+  <meta name="description" content="The Lattice Plotting System in R">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>The Lattice Plotting System in R</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>The Lattice Plotting System</h2>
+  </hgroup>
+  <article>
+    <p>The lattice plotting system is implemented using the following packages:</p>
+
+<ul>
+<li><p><em>lattice</em>: contains code for producing Trellis graphics, which are
+independent of the “base” graphics system; includes functions like
+<code>xyplot</code>, <code>bwplot</code>, <code>levelplot</code></p></li>
+<li><p><em>grid</em>: implements a different graphing system independent of the
+“base” system; the <em>lattice</em> package builds on top of <em>grid</em></p>
+
+<ul>
+<li>We seldom call functions from the <em>grid</em> package directly</li>
+</ul></li>
+<li><p>The lattice plotting system does not have a &quot;two-phase&quot; aspect with
+separate plotting and annotation like in base plotting</p></li>
+<li><p>All plotting/annotation is done at once with a single function call</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Lattice Functions</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><code>xyplot</code>: this is the main function for creating scatterplots </li>
+<li><code>bwplot</code>: box-and-whiskers plots (“boxplots”)</li>
+<li><code>histogram</code>: histograms</li>
+<li><code>stripplot</code>: like a boxplot but with actual points </li>
+<li><code>dotplot</code>: plot dots on &quot;violin strings&quot;</li>
+<li><code>splom</code>: scatterplot matrix; like <code>pairs</code> in base plotting system </li>
+<li><code>levelplot</code>, <code>contourplot</code>: for plotting &quot;image&quot; data</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Lattice Functions</h2>
+  </hgroup>
+  <article>
+    <p>Lattice functions generally take a formula for their first argument, usually of the form</p>
+
+<pre><code class="r">xyplot(y ~ x | f * g, data)
+</code></pre>
+
+<ul>
+<li><p>We use the <em>formula notation</em> here, hence the <code>~</code>.</p></li>
+<li><p>On the left of the ~ is the y-axis variable, on the right is the
+x-axis variable</p></li>
+<li><p>f and g are <em>conditioning variables</em> — they are optional</p>
+
+<ul>
+<li>the * indicates an interaction between two variables</li>
+</ul></li>
+<li><p>The second argument is the data frame or list from which the
+variables in the formula should be looked up</p>
+
+<ul>
+<li>If no data frame or list is passed, then the parent frame is used.</li>
+</ul></li>
+<li><p>If no other arguments are passed, there are defaults that can be used.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Simple Lattice Plot</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(lattice)
+library(datasets)
+## Simple scatterplot
+xyplot(Ozone ~ Wind, data = airquality)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Simple Lattice Plot</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(datasets)
+library(lattice)
+## Convert &#39;Month&#39; to a factor variable
+airquality &lt;- transform(airquality, Month = factor(Month))
+xyplot(Ozone ~ Wind | Month, data = airquality, layout = c(5, 1))
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Lattice Behavior</h2>
+  </hgroup>
+  <article>
+    <p>Lattice functions behave differently from base graphics functions in
+one critical way.</p>
+
+<ul>
+<li><p>Base graphics functions plot data directly to the graphics device
+(screen, PDF file, etc.)</p></li>
+<li><p>Lattice graphics functions return an object of class <strong>trellis</strong></p></li>
+<li><p>The print methods for lattice functions actually do the work of
+plotting the data on the graphics device.</p></li>
+<li><p>Lattice functions return &quot;plot objects&quot; that can, in principle, be
+stored (but it’s usually better to just save the code + data).</p></li>
+<li><p>On the command line, trellis objects are <em>auto-printed</em> so that it
+appears the function is plotting the data</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Lattice Behavior</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">p &lt;- xyplot(Ozone ~ Wind, data = airquality)  ## Nothing happens!
+print(p)  ## Plot appears
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+<pre><code class="r">xyplot(Ozone ~ Wind, data = airquality)  ## Auto-printing
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Lattice Panel Functions</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Lattice functions have a <strong>panel function</strong> which controls what
+happens inside each panel of the plot.</p></li>
+<li><p>The <em>lattice</em> package comes with default panel functions, but you
+can supply your own if you want to customize what happens in each
+panel</p></li>
+<li><p>Panel functions receive the x/y coordinates of the data points
+in their panel (along with any optional arguments)</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Lattice Panel Functions</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(10)
+x &lt;- rnorm(100)
+f &lt;- rep(0:1, each = 50)
+y &lt;- x + f - f * x + rnorm(100, sd = 0.5)
+f &lt;- factor(f, labels = c(&quot;Group 1&quot;, &quot;Group 2&quot;))
+xyplot(y ~ x | f, layout = c(2, 1))  ## Plot with 2 panels
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-5.png" alt="plot of chunk unnamed-chunk-5"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Lattice Panel Functions</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">## Custom panel function
+xyplot(y ~ x | f, panel = function(x, y, ...) {
+    panel.xyplot(x, y, ...)  ## First call the default panel function for &#39;xyplot&#39;
+    panel.abline(h = median(y), lty = 2)  ## Add a horizontal line at the median
+})
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-6.png" alt="plot of chunk unnamed-chunk-6"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Lattice Panel Functions: Regression line</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">## Custom panel function
+xyplot(y ~ x | f, panel = function(x, y, ...) {
+    panel.xyplot(x, y, ...)  ## First call default panel function
+    panel.lmline(x, y, col = 2)  ## Overlay a simple linear regression line
+})
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-7.png" alt="plot of chunk unnamed-chunk-7"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Many Panel Lattice Plot: Example from MAACS</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Study: Mouse Allergen and Asthma Cohort Study (MAACS)</p></li>
+<li><p>Study subjects: Children with asthma living in Baltimore City, many
+allergic to mouse allergen</p></li>
+<li><p>Design: Observational study, baseline home visit + every 3 months for a year.</p></li>
+<li><p>Question: How does indoor airborne mouse allergen vary over time and
+across subjects?</p></li>
+</ul>
+
+<p><a href="http://www.ncbi.nlm.nih.gov/pubmed/23810154">Ahluwalia et al., <em>Journal of Allergy and Clinical Immunology</em>, 2013</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Many Panel Lattice Plot</h2>
+  </hgroup>
+  <article>
+    <p><img src="figure/unnamed-chunk-8.png" alt="plot of chunk unnamed-chunk-8"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Lattice plots are constructed with a single function call to a core
+lattice function (e.g. <code>xyplot</code>)</p></li>
+<li><p>Aspects like margins and spacing are automatically handled and
+defaults are usually sufficient</p></li>
+<li><p>The lattice system is ideal for creating conditioning plots where
+you examine the same kind of plot under many different conditions</p></li>
+<li><p>Panel functions can be specified/customized to modify what is
+plotted in each of the plot panels</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

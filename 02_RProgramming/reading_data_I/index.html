@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reading and Writing Data Part I</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Reading and Writing Data Part I">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Reading and Writing Data Part I</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Reading Data</h2>
+  </hgroup>
+  <article>
+    <p>There are a few principal functions reading data into R. </p>
+
+<ul>
+<li><code>read.table</code>, <code>read.csv</code>, for reading tabular data </li>
+<li><code>readLines</code>, for reading lines of a text file</li>
+<li><code>source</code>, for reading in R code files (<code>inverse</code> of <code>dump</code>) </li>
+<li><code>dget</code>, for reading in R code files (<code>inverse</code> of <code>dput</code>)</li>
+<li><code>load</code>, for reading in saved workspaces</li>
+<li><code>unserialize</code>, for reading single R objects in binary form</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Writing Data</h2>
+  </hgroup>
+  <article>
+    <p>There are analogous functions for writing data to files</p>
+
+<ul>
+<li>write.table</li>
+<li>writeLines</li>
+<li>dump</li>
+<li>dput</li>
+<li>save</li>
+<li>serialize</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Reading Data Files with read.table</h2>
+  </hgroup>
+  <article>
+    <p>The <code>read.table</code> function is one of the most commonly used functions for reading data. It has a few important arguments:</p>
+
+<ul>
+<li><code>file</code>, the name of a file, or a connection</li>
+<li><code>header</code>, logical indicating if the file has a header line</li>
+<li><code>sep</code>, a string indicating how the columns are separated</li>
+<li><code>colClasses</code>, a character vector indicating the class of each column in the dataset </li>
+<li><code>nrows</code>, the number of rows in the dataset</li>
+<li><code>comment.char</code>, a character string indicating the comment character</li>
+<li><code>skip</code>, the number of lines to skip from the beginning</li>
+<li><code>stringsAsFactors</code>, should character variables be coded as factors?</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>read.table</h2>
+  </hgroup>
+  <article>
+    <p>For small to moderately sized datasets, you can usually call read.table without specifying any other arguments</p>
+
+<pre><code class="r">data &lt;- read.table(&quot;foo.txt&quot;)
+</code></pre>
+
+<p>R will automatically</p>
+
+<ul>
+<li>skip lines that begin with a #</li>
+<li>figure out how many rows there are (and how much memory needs to be allocated)</li>
+<li>figure what type of variable is in each column of the table
+Telling R all these things directly makes R run faster and more efficiently.</li>
+<li><code>read.csv</code> is identical to read.table except that the default separator is a comma.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Reading in Larger Datasets with read.table</h2>
+  </hgroup>
+  <article>
+    <p>With much larger datasets, doing the following things will make your life easier and will prevent R from choking.</p>
+
+<ul>
+<li>Read the help page for read.table, which contains many hints</li>
+<li>Make a rough calculation of the memory required to store your dataset. If the dataset is larger than the amount of RAM on your computer, you can probably stop right here.</li>
+<li>Set <code>comment.char = &quot;&quot;</code> if there are no commented lines in your file.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Reading in Larger Datasets with read.table</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Use the <code>colClasses</code> argument. Specifying this option instead of using the default can make ’read.table’ run MUCH faster, often twice as fast. In order to use this option, you have to know the class of each column in your data frame. If all of the columns are “numeric”, for example, then you can just set <code>colClasses = &quot;numeric&quot;</code>. A quick an dirty way to figure out the classes of each column is the following:</li>
+</ul>
+
+<pre><code class="r">initial &lt;- read.table(&quot;datatable.txt&quot;, nrows = 100)
+classes &lt;- sapply(initial, class)
+tabAll &lt;- read.table(&quot;datatable.txt&quot;,
+                     colClasses = classes)
+</code></pre>
+
+<ul>
+<li>Set <code>nrows</code>. This doesn’t make R run faster but it helps with memory usage. A mild overestimate is okay. You can use the Unix tool <code>wc</code> to calculate the number of lines in a file.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Know Thy System</h2>
+  </hgroup>
+  <article>
+    <p>In general, when using R with larger datasets, it’s useful to know a few things about your system.</p>
+
+<ul>
+<li>How much memory is available?</li>
+<li>What other applications are in use?</li>
+<li>Are there other users logged into the same system? </li>
+<li>What operating system?</li>
+<li>Is the OS 32 or 64 bit?</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Calculating Memory Requirements</h2>
+  </hgroup>
+  <article>
+    <p>I have a data frame with 1,500,000 rows and 120 columns, all of which are numeric data. Roughly, how much memory is required to store this data frame?</p>
+
+<p>1,500,000 × 120 × 8 bytes/numeric </p>
+
+<p>= 1440000000 bytes</p>
+
+<p>= 1440000000 / \(2^{20}\) bytes/MB  </p>
+
+<p>= 1,373.29 MB</p>
+
+<p>= 1.34 GB                     </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

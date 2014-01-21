@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The components of tidy data</title>
+  <meta charset="utf-8">
+  <meta name="description" content="The components of tidy data">
+  <meta name="author" content="Jeffrey Leek, Assistant Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/zenburn.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>The components of tidy data</h1>
+        <h2></h2>
+        <p>Jeffrey Leek, Assistant Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>The four things you should have</h2>
+  </hgroup>
+  <article>
+    <ol>
+<li>The raw data.</li>
+<li>A tidy data set</li>
+<li>A code book describing each variable and its values in the tidy data set.</li>
+<li>An explicit and exact recipe you used to go from 1 -&gt; 2,3.</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>The raw data</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The strange binary file your measurement machine spits out</li>
+<li>The unformatted Excel file with 10 worksheets the company you contracted with sent you</li>
+<li>The complicated JSON data you got from scraping the Twitter API</li>
+<li>The hand-entered numbers you collected looking through a microscope</li>
+</ul>
+
+<p><em>You know the raw data is in the right format if you</em> </p>
+
+<ol>
+<li>Ran no software on the data</li>
+<li>Did not manipulate any of the numbers in the data</li>
+<li>You did not remove any data from the data set</li>
+<li>You did not summarize the data in any way</li>
+</ol>
+
+<p><a href="https://github.com/jtleek/datasharing">https://github.com/jtleek/datasharing</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>The tidy data</h2>
+  </hgroup>
+  <article>
+    <ol>
+<li>Each variable you measure should be in one column</li>
+<li>Each different observation of that variable should be in a different row</li>
+<li>There should be one table for each &quot;kind&quot; of variable</li>
+<li>If you have multiple tables, they should include a column in the table that allows them to be linked</li>
+</ol>
+
+<p><em>Some other important tips</em></p>
+
+<ul>
+<li>Include a row at the top of each file with variable names. </li>
+<li>Make variable names human readable AgeAtDiagnosis instead of AgeDx</li>
+<li>In general data should be saved in one file per table.</li>
+</ul>
+
+<p><a href="https://github.com/jtleek/datasharing">https://github.com/jtleek/datasharing</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>The code book</h2>
+  </hgroup>
+  <article>
+    <ol>
+<li>Information about the variables (including units!) in the data set not contained in the tidy data</li>
+<li>Information about the summary choices you made</li>
+<li>Information about the experimental study design you used</li>
+</ol>
+
+<p><em>Some other important tips</em></p>
+
+<ul>
+<li>A common format for this document is a Word/text file. </li>
+<li>There should be a section called &quot;Study design&quot; that has a thorough description of how you collected the data. </li>
+<li>There must be a section called &quot;Code book&quot; that describes each variable and its units.</li>
+</ul>
+
+<p><a href="https://github.com/jtleek/datasharing">https://github.com/jtleek/datasharing</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>The instruction list</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Ideally a computer script (in R :-), but I suppose Python is ok too...)</li>
+<li>The input for the script is the raw data</li>
+<li>The output is the processed, tidy data</li>
+<li>There are no parameters to the script</li>
+</ul>
+
+<p>In some cases it will not be possible to script every step. In that case you should provide instructions like: </p>
+
+<ol>
+<li>Step 1 - take the raw file, run version 3.1.2 of summarize software with parameters a=1, b=2, c=3</li>
+<li>Step 2 - run the software separately for each sample</li>
+<li>Step 3 - take column three of outputfile.out for each sample and that is the corresponding row in the output data set</li>
+</ol>
+
+<p><a href="https://github.com/jtleek/datasharing">https://github.com/jtleek/datasharing</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Why is the instruction list important?</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/03_ObtainingData/rr.png height=200 /></p>
+
+<p><img class=center src=../../assets/img/03_ObtainingData/rrcolbert.jpeg height=250></p>
+
+<p><a href="http://www.colbertnation.com/the-colbert-report-videos/425748/april-23-2013/austerity-s-spreadsheet-error">http://www.colbertnation.com/the-colbert-report-videos/425748/april-23-2013/austerity-s-spreadsheet-error</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

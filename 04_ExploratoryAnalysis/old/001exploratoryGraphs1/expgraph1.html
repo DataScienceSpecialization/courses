@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Exploratory graphs</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Exploratory graphs">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Exploratory graphs</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Why do we use graphs in data analysis?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>To understand data properties</li>
+<li>To find patterns in data</li>
+<li>To suggest modeling strategies</li>
+<li>To &quot;debug&quot; analyses</li>
+<li>To communicate results</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Exploratory graphs</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><redtext>To understand data properties</redtext></li>
+<li><redtext>To find patterns in data</redtext></li>
+<li><redtext>To suggest modeling strategies</redtext></li>
+<li><redtext>To &quot;debug&quot; analyses</redtext></li>
+<li>To communicate results</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Characteristics of exploratory graphs</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>They are made quickly</li>
+<li>A large number are made</li>
+<li>The goal is for personal understanding</li>
+<li>Axes/legends are generally cleaned up</li>
+<li>Color/size are primarily used for information</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Background - perceptual tasks</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/perceptual.png height=450></p>
+
+<p><a href="http://www.jstor.org/discover/10.2307/2288400?uid=3739704&amp;uid=2&amp;uid=4&amp;uid=3739256&amp;sid=21101742782357">Graphical perception: Theory, Experimentation, and Applications to the Development of Graphical Models</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Position versus length</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/barcharts.png height=250></p>
+
+<p><a href="http://www.jstor.org/discover/10.2307/2288400?uid=3739704&amp;uid=2&amp;uid=4&amp;uid=3739256&amp;sid=21101742782357">Graphical perception: Theory, Experimentation, and Applications to the Development of Graphical Models</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Position versus length - results</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/poslength.png height=250></p>
+
+<p><a href="http://www.jstor.org/discover/10.2307/2288400?uid=3739704&amp;uid=2&amp;uid=4&amp;uid=3739256&amp;sid=21101742782357">Graphical perception: Theory, Experimentation, and Applications to the Development of Graphical Models</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Position versus angle</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/piechart.png height=300></p>
+
+<p><a href="http://www.jstor.org/discover/10.2307/2288400?uid=3739704&amp;uid=2&amp;uid=4&amp;uid=3739256&amp;sid=21101742782357">Graphical perception: Theory, Experimentation, and Applications to the Development of Graphical Models</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Position versus angle - results</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/posangle.png height=200></p>
+
+<p><br><br>
+<a href="http://www.jstor.org/discover/10.2307/2288400?uid=3739704&amp;uid=2&amp;uid=4&amp;uid=3739256&amp;sid=21101742782357">Graphical perception: Theory, Experimentation, and Applications to the Development of Graphical Models</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>More experimental results</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/bigexp.png height=450></p>
+
+<p><a href="http://www.sciencemag.org/content/229/4716/828.refs">Graphical Perception and Graphical Methods for Analyzing Scientific Data</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Use common scales when possible</li>
+<li>When possible use position comparisons</li>
+<li>Angle comparisons are frequently hard to interpret (no piecharts!)</li>
+<li>No 3-D barcharts. Please.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Housing data</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/acs.png height=350></p>
+
+<p><br></p>
+
+<pre><code class="r">pData &lt;- read.csv(&quot;./data/ss06pid.csv&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Boxplots</h2>
+  </hgroup>
+  <article>
+    <p>Important parameters: <em>col</em>,<em>varwidth</em>,<em>names</em>,<em>horizontal</em></p>
+
+<pre><code class="r">boxplot(pData$AGEP, col=&quot;blue&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Boxplots</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">pData &lt;- transform(pData, DDRS = factor(DDRS))
+boxplot(AGEP ~ DDRS, data = pData, col = &quot;blue&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Boxplots</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">boxplot(AGEP ~ DDRS, data = pData, col = c(&quot;blue&quot;, &quot;orange&quot;), 
+        names = c(&quot;yes&quot;, &quot;no&quot;), varwidth = TRUE)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Barplots</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">barplot(table(pData$CIT), col = &quot;blue&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Histograms</h2>
+  </hgroup>
+  <article>
+    <p>Important parameters: <em>breaks</em>,<em>freq</em>,<em>col</em>,<em>xlab</em>,<em>ylab</em>, <em>xlim, _ylim</em> ,<em>main</em></p>
+
+<pre><code class="r">hist(pData$AGEP, col = &quot;blue&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Histograms</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">hist(pData$AGEP, col = &quot;blue&quot;, breaks = 100, main = &quot;Age&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Density plots</h2>
+  </hgroup>
+  <article>
+    <p>Important parameters (to plot): <em>col</em>,<em>lwd</em>,<em>xlab</em>,<em>ylab</em>,<em>xlim</em>,<em>ylim</em></p>
+
+<pre><code class="r">dens &lt;- density(pData$AGEP)
+plot(dens, lwd = 3, col = &quot;blue&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Density plots - multiple distributions</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">dens &lt;- density(pData$AGEP)
+densMales &lt;- density(pData$AGEP[which(pData$SEX == 1)])
+plot(dens, lwd = 3, col = &quot;blue&quot;)
+lines(densMales, lwd = 3, col = &quot;orange&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-8.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

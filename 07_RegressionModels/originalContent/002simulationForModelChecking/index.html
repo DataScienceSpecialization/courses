@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simulation for model checking</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Simulation for model checking">
+  <meta name="author" content="Jeffrey Leek, Assistant Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Simulation for model checking</h1>
+        <h2></h2>
+        <p>Jeffrey Leek, Assistant Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Basic ideas</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Way back in the first week we talked about simulating data from distributions in R using the <em>rfoo</em> functions. </li>
+<li>In general simulations are way more flexible/useful
+
+<ul>
+<li>For bootstrapping as we saw in week 7</li>
+<li>For evaluating models</li>
+<li>For testing different hypotheses</li>
+<li>For sensitivity analysis</li>
+</ul></li>
+<li>At minimum it is useful to simulate
+
+<ul>
+<li>A best case scenario</li>
+<li>A few examples where you know your approach won&#39;t work</li>
+<li><a href="http://simplystatistics.org/2013/03/06/the-importance-of-simulating-the-extremes/">The importance of simulating the extremes</a></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Simulating data from a model</h2>
+  </hgroup>
+  <article>
+    <p>Suppose that you have a regression model</p>
+
+<p>\[ Y_i = b_0 + b_1 X_i  + e_i\]</p>
+
+<p>Here is an example of generating data from this model where \(X_i\) and \(e_i\) are normal:</p>
+
+<pre><code class="r">set.seed(44333)
+x &lt;- rnorm(50)
+e &lt;- rnorm(50)
+b0 &lt;- 1; b1 &lt;- 2
+y &lt;- b0 + b1*x + e
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Violating assumptions</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(44333)
+x &lt;- rnorm(50)
+e &lt;- rnorm(50); e2 &lt;- rcauchy(50)
+b0 &lt;- 1; b1 &lt;- 2
+y &lt;- b0 + b1*x + e; y2 &lt;-  b0 + b1*x + e2
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Violating assumptions</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mfrow=c(1,2))
+plot(lm(y ~ x)$fitted,lm(y~x)$residuals,pch=19,xlab=&quot;fitted&quot;,ylab=&quot;residuals&quot;)
+plot(lm(y2 ~ x)$fitted,lm(y2~x)$residuals,pch=19,xlab=&quot;fitted&quot;,ylab=&quot;residuals&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Repeated simulations</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(44333)
+betaNorm &lt;- betaCauch &lt;- rep(NA,1000)
+for(i in 1:1000){
+  x &lt;- rnorm(50); e &lt;- rnorm(50); e2 &lt;- rcauchy(50); b0 &lt;- 1; b1 &lt;- 2
+  y &lt;-  b0 + b1*x + e; y2 &lt;- b0 + b1*x + e2
+  betaNorm[i] &lt;- lm(y ~ x)$coeff[2]; betaCauch[i] &lt;- lm(y2 ~ x)$coeff[2]
+}
+quantile(betaNorm)
+</code></pre>
+
+<pre><code>   0%   25%   50%   75%  100% 
+1.500 1.906 2.013 2.100 2.596 
+</code></pre>
+
+<pre><code class="r">quantile(betaCauch)
+</code></pre>
+
+<pre><code>      0%      25%      50%      75%     100% 
+-278.352    1.130    1.965    2.804  272.391 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Monte Carlo Error</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">boxplot(betaNorm,betaCauch,col=&quot;blue&quot;,ylim=c(-5,5))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Simulation based on a data set</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(UsingR); data(galton); nobs &lt;- dim(galton)[1]
+par(mfrow=c(1,2))
+hist(galton$child,col=&quot;blue&quot;,breaks=100)
+hist(galton$parent,col=&quot;blue&quot;,breaks=100)
+</code></pre>
+
+<div class="rimage center"><img src="fig/galton.png" title="plot of chunk galton" alt="plot of chunk galton" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Calculating means,variances</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">lm1 &lt;- lm(galton$child ~ galton$parent)
+parent0 &lt;- rnorm(nobs,sd=sd(galton$parent),mean=mean(galton$parent))
+child0 &lt;- lm1$coeff[1] + lm1$coeff[2]*parent0 + rnorm(nobs,sd=summary(lm1)$sigma)
+par(mfrow=c(1,2))
+plot(galton$parent,galton$child,pch=19)
+plot(parent0,child0,pch=19,col=&quot;blue&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Simulating more complicated scenarios</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(bootstrap); data(stamp); nobs &lt;- dim(stamp)[1]
+hist(stamp$Thickness,col=&quot;grey&quot;,breaks=100,freq=F)
+dens &lt;- density(stamp$Thickness)
+lines(dens,col=&quot;blue&quot;,lwd=3)
+</code></pre>
+
+<div class="rimage center"><img src="fig/stamps.png" title="plot of chunk stamps" alt="plot of chunk stamps" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>A simulation that is too simple</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(density(stamp$Thickness),col=&quot;black&quot;,lwd=3)
+for(i in 1:10){
+  newThick &lt;- rnorm(nobs,mean=mean(stamp$Thickness),sd=sd(stamp$Thickness))
+  lines(density(newThick),col=&quot;grey&quot;,lwd=3)
+}
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>How density estimation works</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/kde.png height=450></p>
+
+<p><a href="http://en.wikipedia.org/wiki/File:Comparison_of_1D_histogram_and_KDE.png">http://en.wikipedia.org/wiki/File:Comparison_of_1D_histogram_and_KDE.png</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Simulating from the density estimate</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(density(stamp$Thickness),col=&quot;black&quot;,lwd=3)
+for(i in 1:10){
+  newThick &lt;- rnorm(nobs,mean=stamp$Thickness,sd=dens$bw)
+  lines(density(newThick),col=&quot;grey&quot;,lwd=3)
+}
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Increasing variability</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(density(stamp$Thickness),col=&quot;black&quot;,lwd=3)
+for(i in 1:10){
+  newThick &lt;- rnorm(nobs,mean=stamp$Thickness,sd=dens$bw*1.5)
+  lines(density(newThick,bw=dens$bw),col=&quot;grey&quot;,lwd=3)
+}
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Notes and further resources</h2>
+  </hgroup>
+  <article>
+    <p><strong>Notes</strong></p>
+
+<ul>
+<li>Simulation can be applied to missing data problems - simulate what missing data might be</li>
+<li>Simulation values are often drawn from standard distributions, but this may not be appropriate</li>
+<li>Sensitivity analysis means trying different simulations with different assumptions and seeing how estimates change</li>
+</ul>
+
+<p><strong>Further resources</strong></p>
+
+<ul>
+<li><a href="http://www.stat.cmu.edu/%7Ecshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Advanced Data Analysis From An Elementary Point of View</a></li>
+<li><a href="http://www.soph.uab.edu/ssg/files/Club_ssg/MPadilla_07.pdf">The design of simulation studies in medical statistics</a></li>
+<li><a href="http://www4.stat.ncsu.edu/%7Edavidian/st810a/simulation_handout.pdf">Simulation studies in statistics</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

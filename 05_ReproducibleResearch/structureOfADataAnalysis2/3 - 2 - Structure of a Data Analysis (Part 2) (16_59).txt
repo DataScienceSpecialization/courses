@@ -1,0 +1,506 @@
+
+This is the second of the two videos 
+about the structure of a data analysis. 
+Remember from the first video, that the 
+steps in a data analysis start with the 
+finding a question that we care about, 
+and end with synthesizing and writing up 
+results and creating a reproducible 
+curve. 
+The first few steps are covered in part 
+one of the two videos. 
+And in this video we'll cover the steps 
+from exploratory data analysis to 
+building a statistical model or 
+prediction model, interpreting the 
+results so that they can be communicated 
+to other people, then challenging them to 
+be able to evaluate whether those 
+statistical modeling choices that we made 
+were good ones. 
+Synthesizing and writing them up so that 
+they can be easily communicated to other 
+people. 
+And, then we'll talk a little bit about 
+creating reproducible code. 
+So, remember that the question we were 
+starting with was can we automatically 
+detect emails that are spam from those 
+that aren't? 
+We made it a little bit more concrete by 
+asking, can we use quantitative 
+characteristics of the text of the emails 
+themselves, to classify those emails as 
+spam or ham, which are the emails we want 
+to be able read. 
+Unfortunately, we don't have access to 
+all of Google's email servers, so we 
+settled on this data set that's available 
+in the kernel lab package in R. 
+This data set consists of about 4600 
+emails, and 58 quantitative 
+characteristics of those emails. 
+One of the variables that's measured is 
+whether the email are spam or ham as 
+labeled by individuals who collect the 
+data. 
+Remember, that since we're trying to 
+perform a prediction in this particular 
+case, we need to generate a training set 
+and a test set. 
+We did this by generating a random 
+training set indicator that consisted of 
+a set of coin flips, one for each of the 
+46,000 emails with equal probability 
+being for the training set or the test 
+set. 
+At the end of the day this produced a set 
+with 2287 e-mails in the training set and 
+2300 in the test set. 
+Then we sub-setted our original data set 
+to create a training set and a test set. 
+So the first thing that we're going to do 
+is go over exploratory data analysis. 
+We're going to go over all these steps in 
+much more detail during the course of the 
+class but I'm just going to show you a 
+little bit of a flavor of how this will 
+work on our specific example. 
+In exploratory data analysis we might 
+look at summaries of the data, check for 
+missing date, create some exploratory 
+plots And maybe perform some sort of 
+exploratory statistical analyses like 
+clustering. 
+So the first thing that we can do is look 
+at the training set. 
+We're going to focus on the training set 
+because we want to leave the test set 
+aside so that we can see how our 
+predictions work on that test set later 
+on at the end. 
+The first thing that we could use is the 
+names command. 
+The names command shown here Just tells 
+us the names of the columns or the 
+variables that are included in the data 
+frame. 
+Here, we have quantitative variables from 
+make, address, all etc and these are just 
+the percentage of times that these 
+particular words appear in the data set. 
+We also see some cases where it says num 
+and then a number, and that the fraction 
+of times that that number appears. 
+Finally, we see the fraction of time that 
+particular characters like square 
+brackets, hash tags, or dollar signs 
+appear in the dataset. 
+The last variable is type. 
+This is whether the variable is spam or 
+not spam, and that's what we're trying to 
+predict in our analysis. 
+So the next thing that we can do is use 
+head command to see what these variables 
+look like. 
+So each of these variables is a 
+percentage, at least for the word 
+variables like make and address. 
+So here we're able to see what the first 
+few variables look like. 
+In the first email there's 0% of the 
+words that's called make. 
+In the second email 0% again. 
+And then the third email, its about 15% 
+of words are called make. 
+So we can use these commands, like head, 
+to get an idea of what the data set looks 
+like by looking at just the very top of 
+the file. 
+We can also start to look at some 
+summaries of some of the variables. 
+For example, we can use the Table command 
+like this table of the type variable. 
+By accessing it from the data frame with 
+the dollar sign, and we see that about 
+1,300 of the e-mails in the training 
+center are not spam and 906 are spam. 
+We can also start to make some basic 
+plots. 
+Again, don't worry too much about knowing 
+the exact commands and how they make 
+certain kinds of plots right now. 
+We'll cover that later in the class. 
+But this gives you and idea of some of 
+the things that you can do with 
+exploratory analysis. 
+So here, we're plotting the number of, 
+the percentage of times that we see 
+capital letter in the data set versus the 
+type. 
+Here's something that might jump out at 
+you right away when you look at this 
+plot. 
+There are values here that are above 1. 
+So that's something we might have explore 
+further in our analysis. 
+If you can't see the values too easily 
+using the previous example, what you can 
+do is, you can actually calculate the log 
+of the values and then make the same 
+plot. 
+This kind of transformation is commonly 
+done in exploratory analysis. 
+And it makes it a little bit easier to 
+see the difference in the distribution 
+between a spam and the non spam values. 
+We'll talk a lot more during the class 
+about different transformations. 
+But again this is just to show you an 
+idea of how it works. 
+We can also make plots that show the 
+relationship between predictors. 
+Here we're plotting the first four 
+columns of the training set by accessing 
+those columns here with this sub-setting 
+command. 
+We're taking the log of those values and 
+adding And again, plotting them verse 
+each other. 
+The way this plot works is you see here 
+the percentage of the time that make 
+appears in the e-mail versus the 
+percentage of time that address appears 
+in the e-mail in this plot right here. 
+It's the same plot right here but with 
+the axis reversed. 
+You can see these plots appear for all of 
+the different examples in the data set. 
+Next, you might perform some exploratory 
+analysis, like clustering, here I 
+performed a hierarchical clustering of 
+the first 57 columns of the training set, 
+for all of the variables. 
+Again, don't worry too much about what 
+higherchial clustering is at the moment. 
+You can just think of it as, this is an 
+analysis that tries to put variables that 
+have similar patterns in, to, close 
+together, and then we can plot this 
+cluster dendrogram as you see down here. 
+So variables that are very close to each 
+other, in this dendrogram, are variables 
+that have very similar patterns of 
+observations across all of the different 
+emails in the study. 
+This is a little bit hard to see. 
+So you might again perform some soft of 
+transformation to make it a little bit 
+easier to see. 
+In this case you might take the log of 
+the values just like we were doing 
+before. 
+I would like to focus first 55 values 
+because values 56 and 57 correspond to 
+not percentages, but actual numbers. 
+Calculated. 
+Here in this dendrogram, it makes it a 
+little bit easier to see the clusters of 
+variables that go together. 
+For example, you might see that email and 
+address are very close to each other in 
+this clustering. 
+Don't worry about the details. 
+But this is how the typical exploratory 
+analysis works. 
+You make plots, perform transformations, 
+and identify potential problems with your 
+data analysis. 
+Once you've performed a fair exploratory 
+analysis, it's time to move on to 
+statistical predication, or modeling. 
+It should be informed by the results of 
+your exploratory analysis, but you should 
+have thought in advance what type of 
+methods or models you might think to 
+apply in the ideal case. 
+The exact methods that you'll be using 
+depend on the question of interest, and 
+we'll talk about a variety of different 
+statistical methods you can use for 
+different questions. 
+Transformations and processing you might 
+have done to the data during your 
+exploratory or pre-processing of the data 
+should be accounted for, when necessary 
+in the downstream analysis. 
+For example, If you fit a model on the 
+log transform values, you should pay 
+attention to how this might change the 
+modeling assumption that you are using in 
+your data analysis. 
+Recall that measurements of uncertainty 
+should always be reported for statistical 
+models And predictions. 
+Next we're going to consider a 
+statistical prediction and modelling for 
+our particular data set. 
+You don't have to understand all the 
+details of the R code that I'm going to 
+be describing here. 
+I've just included it so you can see how 
+the process might work for reciprocal 
+data analysis. 
+I will go over the general idea of what 
+we're doing here. 
+Basically what were doing is we're taking 
+in the 55 variables that correspond to a 
+fraction of times. 
+A word, character Or number up here in an 
+email, and we're going to write a loop 
+that goes over all of those 55 variables, 
+and fix a predictive model that relates 
+whether is an email is spam or ham to the 
+faction of times that that character or 
+word appears in the email. 
+Then we are going to calcualte the error 
+rate for those predictive models, and 
+pick the model that has the minimum error 
+rate. 
+In this case, it's variable 53. 
+We can then go back to the data set names 
+of the training set and identify what is 
+the name of the variable that gives you 
+the minimum error rate. 
+In this case, it's character dollar. 
+This makes sense, because if there are a 
+lot of dollar signs in a particular 
+email, it prob, it probably is spam. 
+We next need to get a measure of 
+uncertainty. 
+The way that we do that is first 
+calculate our predicted values for our 
+model that relates the type of the email, 
+spam or ham, to the fraction of time that 
+a dollar appears in that email. 
+And then we apply that particular model 
+to the test set. 
+This is the test set that we left out 
+when we were building our training set so 
+we will be able to evaluate how well our 
+prediction works in a new data set. 
+We can then make a table plotting our 
+prediction, predicted results versus the 
+results that occur in the actual test set 
+where type is the type of variable that 
+occur. 
+Whether it's spam or ham. 
+So now we can look at this table and we 
+can calculate how often we make an error. 
+So in some cases, it was a non-spam email 
+that we called it spam. 
+That happened 61 % of the time. 
+So most of the time, we're pretty good at 
+detecting non-spam. 
+On the other hand Sometimes an email is 
+spam and we call it non-spam. 
+We're not very good at detecting spam 
+because it's about 50/50 whether we 
+detect a spam email. 
+Overall we can calculate the error rate 
+by adding up the number of mistakes we 
+make and dividing it by the total number 
+of emails that exist. 
+It turns out that we have about an error 
+rate of about 22%, which for this 
+specific data set isn't necessarily that 
+great, but that's because we only use 1 
+particular variable in our model. 
+We next need to interpret the results. 
+Here it's critical that we use the 
+appropriate language. 
+if you've done a descriptive analysis you 
+should use the words like describe rather 
+than variables that predict, include some 
+description of a prediction or inference. 
+When you're doing an inference, you might 
+want to use words like infers, correlates 
+with or is associated with. 
+These are all words that suggest that you 
+performed an inference. 
+If you've performed a causal analysis you 
+might use words like, leads to or causes. 
+Use these words with caution because if 
+you've performed an exploratory analysis, 
+a descriptive analysis or an inferential 
+analysis it's very unlikely that you can 
+ascribe a causal change in the 
+relationship. 
+If you've done a predictive analysis you 
+might use the word predicts. 
+It's important to try to explain the 
+associations, causes, or descriptions 
+that you've observed in your data set. 
+You want to do this in plain English, and 
+the goal is to use units and descriptions 
+that can be easily understood by 
+non-technical audiences. 
+You should also interpret coefficients or 
+predictive models, so that people can 
+understand exactly how the Those models 
+work. 
+You also need to report and interpret 
+measures of uncertainty. 
+So in our example we might say something 
+like, the fraction of characters that are 
+dollar signs can be used to predict if an 
+email is Spam. 
+You might also say something like, 
+anything with more than 6.6% dollar signs 
+is classified as Spam, using our 
+predictive model. 
+More dollar signs always mean more Spam 
+under our prediction. 
+In other words, as the number of dollar 
+signs increases, as a fraction of the 
+total characters, we will be more likely 
+to call it spam. 
+We should also report measures of 
+uncertainty that say things like our test 
+set error rate was 22.4%. 
+And we applied, we calculated this error 
+rate on an independent data set from the 
+data set used to build the predictive 
+model. 
+All of these are interpretations that 
+explain the quantitative tools that you 
+used. 
+Next you should challenge your results. 
+You should challenge all steps, from the 
+question that you asked, was it the right 
+question. 
+Could you have made it more specific, 
+could you have made it more general to 
+the data source? Was it the right data, 
+did you get the right sample, is it 
+sampling from the right population? To 
+processing, whether you did the 
+transformations correctly or identified 
+variables that might be problematic 
+correctly. 
+To the analysis, did we pick the right 
+predictors, and so forth. 
+And finally, to the conclusions and the 
+interpretation. 
+Did, are you interpreting too much into 
+your models, and trying to say something 
+that you weren't able to say? You should 
+also challenge measures of uncertainty, 
+and point out other possible areas of 
+uncertainty that you didn't consider, and 
+challenge sources of terms to be included 
+in the model, and think of potential 
+alternative analyses. 
+By doing these step yourself you'll be 
+able to explain to others why you think 
+your analysis is either strong or weak 
+and be able to help people be able to 
+make decisions on the basis of your 
+analysis. 
+Next, you will need to synthesize and 
+write up your results. 
+A critical component of this is leading 
+with the question. 
+Don't start with the statistical model 
+that you used or the data set that you 
+have. Start by stating the question 
+you're trying to answer and how you're 
+going to go about answering it. 
+You should summarize the analyses that 
+you performed into a story that starts 
+with a beginning, and then explains how 
+you performed all the analyses and ends 
+with a conclusion. 
+Don't include every analyses that you 
+performed. 
+You should only include it if it is 
+needed for the story or if it's needed to 
+address a challenge. 
+In particular it's a common mistake in 
+data analysis to order the analyses in 
+your write up by the order you did them 
+chronologically. 
+Instead, you should order them according 
+to how they contribute to the story, so 
+it makes it easy for the person to follow 
+along with what you did. 
+Since you may have tried multiple things 
+and gone down multiple wrong paths in 
+doing your data analysis, ordering them 
+chronologically can often lead people to 
+be confused about what you've done. 
+Make sure you include pretty figures. 
+Pretty, and by pretty I mean figures that 
+have big enough axis labels, captions, 
+and so forth, 
+so that people can follow along with the 
+story as well. 
+Your figures should be just, include just 
+enough information to carry the story, 
+but not so much that they are confusing 
+or hard to read. 
+In our example, you might want to lead 
+with the question, can I use quantitative 
+characters of the e-mails to classify 
+them as spam or ham, 
+then describe the approach. 
+We collected data from a repository at 
+UCI and created training and test sets 
+that were independent. 
+We then explored relationships between 
+variables and chose a logistic model on 
+the training set Based on cross 
+validation. 
+We applied it to the test set and got 78% 
+test set accuracy. 
+You should also include an interpretation 
+of your results such that the number of 
+dollar signs seems reasonable because if 
+you have any emails that say things like 
+make money with Viagra dollar sign dollar 
+sign dollar sign they're likely to be 
+ha-, spam. 
+Just to challenge results, 78% of this 
+data set is in that grade. 
+You can detect email a lot better than 
+that, and most email companies do. 
+You can use, then you can expand ways 
+that you can improve your analysis. 
+Like, I could use more variables, or I 
+can try other potential analyses like, 
+why did I use the logistic regression I 
+could of used a different type of 
+analysis to build our predictive model. 
+The last step in the data analysis is to 
+take a reproducible curve. 
+So this is an example from, that we've 
+used today, in creating this predictive 
+model. 
+This what's called R markdown file which 
+we'll talk about more later, 
+which includes information about the 
+analysis that we've performed in the form 
+of R code, as well as the descriptions of 
+what we've done in terms of the slides 
+that we've used to produce this analysis. 
+By creating reproducible code, you'll be 
+able to communicate both the analyses you 
+performed and the exact way in which you 
+performed them, 
+so that other people can try other things 
+and see if they work better. 
+Once you've completed your reproducible 
+code, you're ready to communicate your 
+analysis and share your findings with the 
+world. 
+

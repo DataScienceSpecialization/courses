@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Introduction to the Command Line Interface</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Introduction to the Command Line Interface">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Introduction to the Command Line Interface</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>What is the Command Line Interface?</h2>
+  </hgroup>
+  <article>
+    <p>Nearly ever computer comes with a CLI</p>
+
+<ul>
+<li>Windows: Git Bash (See &quot;Introduction to Git&quot;)</li>
+<li>Mac/Linux: Terminal</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>What can the CLI do?</h2>
+  </hgroup>
+  <article>
+    <p>The CLI can help you:</p>
+
+<ul>
+<li>Navigate folders</li>
+<li>Create files, folders, and programs</li>
+<li>Edit files, folders, and programs</li>
+<li>Run computer programs</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Basics of Directories</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>&quot;Directory&quot; is just another name for folder</li>
+<li>Directories on your computer are organized like a tree</li>
+<li>Directories can be inside other directories</li>
+<li>We can navigate directories using the CLI</li>
+</ul>
+
+<p><img class=center src=../../assets/img/IntroToCLI/musictree1.png height='350'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Basics of Directories</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>My &quot;Debussy&quot; directory is contained inside of my &quot;Music&quot; directory</li>
+</ul>
+
+<p><img class=center src=../../assets/img/IntroToCLI/musictree2.png height='350'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Basics of Directories</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>One directory &quot;up&quot; from my Debussy directory is my Music directory</li>
+</ul>
+
+<p><img class=center src=../../assets/img/IntroToCLI/musictree3.png height='350'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Your computer&#39;s directory structure</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The directory structure on your computer looks something like this</li>
+</ul>
+
+<p><img class=center src=../../assets/img/IntroToCLI/bigtree1.png height='350'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Special directories: root</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The directory at the top of the tree is called the root directory</li>
+<li>The root directory contains all other directories</li>
+<li>The name of this directory is represented by a slash: <code>/</code></li>
+</ul>
+
+<p><img class=center src=../../assets/img/IntroToCLI/bigtree2.png height='350'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Special directories: home</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Your home directory is represented by a tilde: <code>~</code></li>
+<li>Your home directory usually contains most of your personal files, pictures, music, etc.</li>
+<li>The name of your home directory is usually the name you use to log into your computer</li>
+</ul>
+
+<p><img class=center src=../../assets/img/IntroToCLI/bigtree3.png height='350'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Navigating directories with the CLI</h2>
+  </hgroup>
+  <article>
+    <p>Windows users:</p>
+
+<ul>
+<li>Open the start menu</li>
+<li>Search for Git Bash</li>
+<li>Open Git Bash</li>
+</ul>
+
+<p><img class=center src=../../assets/img/IntroToCLI/startmenu.png height='250'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Navigating directories with the CLI</h2>
+  </hgroup>
+  <article>
+    <p>Mac users:</p>
+
+<ul>
+<li>Open Spotlight</li>
+<li>Search Terminal</li>
+<li>Open Terminal</li>
+</ul>
+
+<p><img class=center src=../../assets/img/IntroToCLI/spotlight.png height='250'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>CLI Basics</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>When you open your CLI you will see your prompt, which will looks something like the name of your computer, followed by your username, followed by a <code>$</code></li>
+<li>When you open your CLI you start in your home directory.</li>
+<li>Whatever directory directory you&#39;re currently working with in your CLI is called the &quot;working directory&quot;</li>
+</ul>
+
+<p><img class=center src=../../assets/img/IntroToCLI/bash1.png height=100%/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>CLI Basics</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>You can imagine tracing all of the directories from your root directory to the directory you&#39;re currently in. </li>
+<li>This is called the &quot;path&quot; to your working directory. </li>
+</ul>
+
+<p><img class=center src=../../assets/img/IntroToCLI/redtree.png height='350'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>CLI Basics</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>In your CLI prompt, type <code>pwd</code> and press enter.</li>
+<li>This will display the path to you&#39;re working directory.</li>
+<li>As you can see we get the prompt back after entering a command.</li>
+</ul>
+
+<p><img class=center src=../../assets/img/IntroToCLI/pwd.png height=100%/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>CLI Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>You use the CLI prompt by typing in a command and pressing enter.</li>
+<li><code>pwd</code> can be used at any time to display the path to your working directory (<code>pwd</code> is an abbreviation for &quot;print working directory&quot;)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>CLI Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>CLI commands follow this recipe: <strong><em>command flags arguments</em></strong></li>
+<li><strong><em>command</em></strong> is the CLI command which does a specific task</li>
+<li><strong><em>flags</em></strong> are options we give to the <strong><em>command</em></strong> to trigger certain behaviors, preceded by a <code>-</code></li>
+<li><strong><em>arguments</em></strong> can be what the <strong><em>command</em></strong> is going to modify, or other options for the <strong><em>command</em></strong></li>
+<li>Depending on the <strong><em>command</em></strong>, there can be zero or more <strong><em>flags</em></strong> and <strong><em>arguments</em></strong></li>
+<li>For example <code>pwd</code> is a <strong><em>command</em></strong> that requires no <strong><em>flags</em></strong> or <strong><em>arguments</em></strong></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>CLI Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><code>pwd</code> displays the path to the current working directory</li>
+</ul>
+
+<pre><code class="bash">jeff$ pwd
+/Users/jeff
+jeff$ 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>CLI Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><code>clear</code> will clear out the commands in your current CLI window</li>
+</ul>
+
+<pre><code class="bash">jeff$ pwd
+/Users/jeff
+jeff$ clear
+</code></pre>
+
+<pre><code class="bash">jeff$
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>CLI Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><code>ls</code> lists files and folders in the current directory</li>
+<li><code>ls -a</code> lists hidden and unhidden files and folders</li>
+<li><code>ls -al</code> lists details for hidden and unhidden files and folders</li>
+<li>Notice that <code>-a</code> and <code>-l</code> are flags (they&#39;re preceded by a <code>-</code>)</li>
+<li>They can be combined into the flag: <code>-al</code></li>
+</ul>
+
+<pre><code class="bash">jeff$ ls
+Desktop   Photos   Music    
+jeff$ ls -a
+Desktop   Photos   Music  .Trash  .DS_Store
+jeff$
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>CLI Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><code>cd</code> stands for &quot;change directory&quot;</li>
+<li><code>cd</code> takes as an argument the directory you want to visit</li>
+<li><code>cd</code> with no argument takes you to your home directory</li>
+<li><code>cd ..</code> allows you to chnage directory to one level above your current directory</li>
+</ul>
+
+<pre><code class="bash">jeff$ cd Music/Debussy
+jeff$ pwd
+/Users/jeff/Music/Debussy
+jeff$ cd ..
+jeff$ pwd
+/Users/jeff/Music
+jeff$ cd
+jeff$ pwd
+/Users/jeff
+jeff$
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>CLI Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><code>mkdir</code> stands for &quot;make directory&quot;</li>
+<li>Just like: right click -&gt; create new folder</li>
+<li><code>mkdir</code> takes as an argument the name of the directory you&#39;re creating </li>
+</ul>
+
+<pre><code class="bash">jeff$ mkdir Documents
+jeff$ ls
+Desktop   Photos  Music   Documents
+jeff$ cd Documents
+jeff$ pwd
+/Users/jeff/Documents
+jeff$ cd
+jeff$
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>CLI Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><code>touch</code> creates an empty file</li>
+</ul>
+
+<pre><code class="bash">jeff$ touch test_file
+jeff$ ls
+Desktop   Photos  Music   Documents   test_file
+jeff$
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>CLI Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><code>cp</code> stands for &quot;copy&quot;</li>
+<li><code>cp</code> takes as its first argument a file, and as its second argument the path to where you want the file to be copied</li>
+</ul>
+
+<pre><code class="bash">jeff$ cp test_file Documents
+jeff$ cd Documents
+jeff$ ls 
+test_file
+jeff$ cd ..
+jeff$
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>CLI Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><code>cp</code> can also be used for copying the contents of directories, but you must use the <code>-r</code> flag</li>
+<li>The line: <code>cp -r Documents More_docs</code> copies the contents of <code>Documents</code> into <code>More_docs</code></li>
+</ul>
+
+<pre><code class="bash">jeff$ mkdir More_docs
+jeff$ cp -r Documents More_docs
+jeff$ cd More_docs
+jeff$ ls 
+test_file
+jeff$ cd ..
+jeff$
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>CLI Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><code>rm</code> stands for &quot;remove&quot;</li>
+<li><code>rm</code> takes the name of a file you wish to remove as its argument</li>
+</ul>
+
+<pre><code class="bash">jeff$ ls
+Desktop   Photos  Music   Documents   More_docs   test_file
+jeff$ rm test_file
+jeff$ ls
+Desktop   Photos  Music   Documents   More_docs
+jeff$
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>CLI Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>You can also use <code>rm</code> to delete entire directories and their contents by using the <code>-r</code> flag</li>
+<li><strong>Be very careful when you do this, there is no was to undo an <code>rm</code></strong></li>
+</ul>
+
+<pre><code class="bash">jeff$ ls
+Desktop   Photos  Music   Documents   More_docs
+jeff$ rm -r More_docs
+jeff$ ls
+Desktop   Photos  Music   Documents
+jeff$
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>CLI Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><code>mv</code> stands for &quot;move&quot;</li>
+<li>With <code>mv</code> you can move files between directories</li>
+</ul>
+
+<pre><code class="bash">jeff$ touch new_file
+jeff$ mv new_file Documents
+jeff$ ls
+Desktop   Photos  Music   Documents
+jeff$ cd Documents
+jeff$ ls
+test_file   new_file
+jeff$
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-27" style="background:;">
+  <hgroup>
+    <h2>CLI Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>You can also use <code>mv</code> to rename files</li>
+</ul>
+
+<pre><code class="bash">jeff$ ls
+test_file   new_file
+jeff$ mv new_file renamed_file
+jeff$ ls
+test_file renamed_file
+jeff$
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-28" style="background:;">
+  <hgroup>
+    <h2>CLI Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><code>echo</code> will print whatever arguments you provide</li>
+</ul>
+
+<pre><code class="bash">jeff$ echo Hello World!
+Hello World!
+jeff$
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-29" style="background:;">
+  <hgroup>
+    <h2>CLI Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><code>date</code> will print today&#39;s date</li>
+</ul>
+
+<pre><code class="bash">jeff$ date
+Mon Nov  4 20:48:03 EST 2013
+jeff$
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-30" style="background:;">
+  <hgroup>
+    <h2>Summary of Commands</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><code>pwd</code></li>
+<li><code>clear</code></li>
+<li><code>ls</code></li>
+<li><code>cd</code></li>
+<li><code>mkdir</code></li>
+<li><code>touch</code></li>
+<li><code>cp</code></li>
+<li><code>rm</code></li>
+<li><code>mv</code></li>
+<li><code>date</code></li>
+<li><code>echo</code></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

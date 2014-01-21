@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reading JSON</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Reading JSON">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Reading JSON</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>JSON</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Javascript Object Notation</li>
+<li>Lightweight data storage</li>
+<li>Common format for data from application programming interfaces (APIs)</li>
+<li>Similar structure to XML but different syntax/format</li>
+<li>Data stored as
+
+<ul>
+<li>Numbers (double)</li>
+<li>Strings (double quoted)</li>
+<li>Boolean (<em>true</em> or <em>false</em>)</li>
+<li>Array (ordered, comma separated enclosed in square brackets <em>[]</em>)</li>
+<li>Object (unorderd, comma separated collection of key:value pairs in curley brackets <em>{}</em>)</li>
+</ul></li>
+</ul>
+
+<p><a href="http://en.wikipedia.org/wiki/JSON">http://en.wikipedia.org/wiki/JSON</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Example JSON file</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/03_ObtainingData/githubjson.png height=450></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Reading data from JSON {jsonlite package}</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(jsonlite)
+jsonData &lt;- fromJSON(&quot;https://api.github.com/users/jtleek/repos&quot;)
+names(jsonData)
+</code></pre>
+
+<pre><code> [1] &quot;id&quot;                &quot;name&quot;              &quot;full_name&quot;         &quot;owner&quot;            
+ [5] &quot;private&quot;           &quot;html_url&quot;          &quot;description&quot;       &quot;fork&quot;             
+ [9] &quot;url&quot;               &quot;forks_url&quot;         &quot;keys_url&quot;          &quot;collaborators_url&quot;
+[13] &quot;teams_url&quot;         &quot;hooks_url&quot;         &quot;issue_events_url&quot;  &quot;events_url&quot;       
+[17] &quot;assignees_url&quot;     &quot;branches_url&quot;      &quot;tags_url&quot;          &quot;blobs_url&quot;        
+[21] &quot;git_tags_url&quot;      &quot;git_refs_url&quot;      &quot;trees_url&quot;         &quot;statuses_url&quot;     
+[25] &quot;languages_url&quot;     &quot;stargazers_url&quot;    &quot;contributors_url&quot;  &quot;subscribers_url&quot;  
+[29] &quot;subscription_url&quot;  &quot;commits_url&quot;       &quot;git_commits_url&quot;   &quot;comments_url&quot;     
+[33] &quot;issue_comment_url&quot; &quot;contents_url&quot;      &quot;compare_url&quot;       &quot;merges_url&quot;       
+[37] &quot;archive_url&quot;       &quot;downloads_url&quot;     &quot;issues_url&quot;        &quot;pulls_url&quot;        
+[41] &quot;milestones_url&quot;    &quot;notifications_url&quot; &quot;labels_url&quot;        &quot;releases_url&quot;     
+[45] &quot;created_at&quot;        &quot;updated_at&quot;        &quot;pushed_at&quot;         &quot;git_url&quot;          
+[49] &quot;ssh_url&quot;           &quot;clone_url&quot;         &quot;svn_url&quot;           &quot;homepage&quot;         
+[53] &quot;size&quot;              &quot;stargazers_count&quot;  &quot;watchers_count&quot;    &quot;language&quot;         
+[57] &quot;has_issues&quot;        &quot;has_downloads&quot;     &quot;has_wiki&quot;          &quot;forks_count&quot;      
+[61] &quot;mirror_url&quot;        &quot;open_issues_count&quot; &quot;forks&quot;             &quot;open_issues&quot;      
+[65] &quot;watchers&quot;          &quot;default_branch&quot;    &quot;master_branch&quot;    
+</code></pre>
+
+<pre><code class="r">jsonData$name
+</code></pre>
+
+<pre><code> [1] &quot;ballgown&quot;       &quot;dataanalysis&quot;   &quot;datascientist&quot;  &quot;datasharing&quot;    &quot;derfinder&quot;     
+ [6] &quot;derfinder-1&quot;    &quot;DSM&quot;            &quot;EDA-Project&quot;    &quot;futureofstats&quot;  &quot;googleCite&quot;    
+[11] &quot;graduate&quot;       &quot;healthvis&quot;      &quot;jhsph753&quot;       &quot;jhsph753and4&quot;   &quot;leekasso&quot;      
+[16] &quot;modules&quot;        &quot;rdsmGeneSig&quot;    &quot;reviews&quot;        &quot;rfitbit&quot;        &quot;rpackages&quot;     
+[21] &quot;sva&quot;            &quot;swfdr&quot;          &quot;talks&quot;          &quot;testrepository&quot; &quot;tornado&quot;       
+[26] &quot;tsp-devel&quot;      &quot;tspreg&quot;        
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Nested objects in JSON</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">names(jsonData$owner)
+</code></pre>
+
+<pre><code> [1] &quot;login&quot;               &quot;id&quot;                  &quot;avatar_url&quot;          &quot;gravatar_id&quot;        
+ [5] &quot;url&quot;                 &quot;html_url&quot;            &quot;followers_url&quot;       &quot;following_url&quot;      
+ [9] &quot;gists_url&quot;           &quot;starred_url&quot;         &quot;subscriptions_url&quot;   &quot;organizations_url&quot;  
+[13] &quot;repos_url&quot;           &quot;events_url&quot;          &quot;received_events_url&quot; &quot;type&quot;               
+[17] &quot;site_admin&quot;         
+</code></pre>
+
+<pre><code class="r">jsonData$owner$login
+</code></pre>
+
+<pre><code> [1] &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot;
+[11] &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot;
+[21] &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot; &quot;jtleek&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Writing data frames to JSON</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">myjson &lt;- toJSON(iris, pretty=TRUE)
+cat(myjson)
+</code></pre>
+
+<pre><code>[
+    {
+        &quot;Sepal.Length&quot; : 5.1,
+        &quot;Sepal.Width&quot; : 3.5,
+        &quot;Petal.Length&quot; : 1.4,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.9,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 1.4,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.7,
+        &quot;Sepal.Width&quot; : 3.2,
+        &quot;Petal.Length&quot; : 1.3,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.6,
+        &quot;Sepal.Width&quot; : 3.1,
+        &quot;Petal.Length&quot; : 1.5,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5,
+        &quot;Sepal.Width&quot; : 3.6,
+        &quot;Petal.Length&quot; : 1.4,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.4,
+        &quot;Sepal.Width&quot; : 3.9,
+        &quot;Petal.Length&quot; : 1.7,
+        &quot;Petal.Width&quot; : 0.4,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.6,
+        &quot;Sepal.Width&quot; : 3.4,
+        &quot;Petal.Length&quot; : 1.4,
+        &quot;Petal.Width&quot; : 0.3,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5,
+        &quot;Sepal.Width&quot; : 3.4,
+        &quot;Petal.Length&quot; : 1.5,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.4,
+        &quot;Sepal.Width&quot; : 2.9,
+        &quot;Petal.Length&quot; : 1.4,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.9,
+        &quot;Sepal.Width&quot; : 3.1,
+        &quot;Petal.Length&quot; : 1.5,
+        &quot;Petal.Width&quot; : 0.1,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.4,
+        &quot;Sepal.Width&quot; : 3.7,
+        &quot;Petal.Length&quot; : 1.5,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.8,
+        &quot;Sepal.Width&quot; : 3.4,
+        &quot;Petal.Length&quot; : 1.6,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.8,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 1.4,
+        &quot;Petal.Width&quot; : 0.1,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.3,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 1.1,
+        &quot;Petal.Width&quot; : 0.1,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.8,
+        &quot;Sepal.Width&quot; : 4,
+        &quot;Petal.Length&quot; : 1.2,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.7,
+        &quot;Sepal.Width&quot; : 4.4,
+        &quot;Petal.Length&quot; : 1.5,
+        &quot;Petal.Width&quot; : 0.4,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.4,
+        &quot;Sepal.Width&quot; : 3.9,
+        &quot;Petal.Length&quot; : 1.3,
+        &quot;Petal.Width&quot; : 0.4,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.1,
+        &quot;Sepal.Width&quot; : 3.5,
+        &quot;Petal.Length&quot; : 1.4,
+        &quot;Petal.Width&quot; : 0.3,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.7,
+        &quot;Sepal.Width&quot; : 3.8,
+        &quot;Petal.Length&quot; : 1.7,
+        &quot;Petal.Width&quot; : 0.3,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.1,
+        &quot;Sepal.Width&quot; : 3.8,
+        &quot;Petal.Length&quot; : 1.5,
+        &quot;Petal.Width&quot; : 0.3,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.4,
+        &quot;Sepal.Width&quot; : 3.4,
+        &quot;Petal.Length&quot; : 1.7,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.1,
+        &quot;Sepal.Width&quot; : 3.7,
+        &quot;Petal.Length&quot; : 1.5,
+        &quot;Petal.Width&quot; : 0.4,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.6,
+        &quot;Sepal.Width&quot; : 3.6,
+        &quot;Petal.Length&quot; : 1,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.1,
+        &quot;Sepal.Width&quot; : 3.3,
+        &quot;Petal.Length&quot; : 1.7,
+        &quot;Petal.Width&quot; : 0.5,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.8,
+        &quot;Sepal.Width&quot; : 3.4,
+        &quot;Petal.Length&quot; : 1.9,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 1.6,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5,
+        &quot;Sepal.Width&quot; : 3.4,
+        &quot;Petal.Length&quot; : 1.6,
+        &quot;Petal.Width&quot; : 0.4,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.2,
+        &quot;Sepal.Width&quot; : 3.5,
+        &quot;Petal.Length&quot; : 1.5,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.2,
+        &quot;Sepal.Width&quot; : 3.4,
+        &quot;Petal.Length&quot; : 1.4,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.7,
+        &quot;Sepal.Width&quot; : 3.2,
+        &quot;Petal.Length&quot; : 1.6,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.8,
+        &quot;Sepal.Width&quot; : 3.1,
+        &quot;Petal.Length&quot; : 1.6,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.4,
+        &quot;Sepal.Width&quot; : 3.4,
+        &quot;Petal.Length&quot; : 1.5,
+        &quot;Petal.Width&quot; : 0.4,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.2,
+        &quot;Sepal.Width&quot; : 4.1,
+        &quot;Petal.Length&quot; : 1.5,
+        &quot;Petal.Width&quot; : 0.1,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.5,
+        &quot;Sepal.Width&quot; : 4.2,
+        &quot;Petal.Length&quot; : 1.4,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.9,
+        &quot;Sepal.Width&quot; : 3.1,
+        &quot;Petal.Length&quot; : 1.5,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5,
+        &quot;Sepal.Width&quot; : 3.2,
+        &quot;Petal.Length&quot; : 1.2,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.5,
+        &quot;Sepal.Width&quot; : 3.5,
+        &quot;Petal.Length&quot; : 1.3,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.9,
+        &quot;Sepal.Width&quot; : 3.6,
+        &quot;Petal.Length&quot; : 1.4,
+        &quot;Petal.Width&quot; : 0.1,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.4,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 1.3,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.1,
+        &quot;Sepal.Width&quot; : 3.4,
+        &quot;Petal.Length&quot; : 1.5,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5,
+        &quot;Sepal.Width&quot; : 3.5,
+        &quot;Petal.Length&quot; : 1.3,
+        &quot;Petal.Width&quot; : 0.3,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.5,
+        &quot;Sepal.Width&quot; : 2.3,
+        &quot;Petal.Length&quot; : 1.3,
+        &quot;Petal.Width&quot; : 0.3,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.4,
+        &quot;Sepal.Width&quot; : 3.2,
+        &quot;Petal.Length&quot; : 1.3,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5,
+        &quot;Sepal.Width&quot; : 3.5,
+        &quot;Petal.Length&quot; : 1.6,
+        &quot;Petal.Width&quot; : 0.6,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.1,
+        &quot;Sepal.Width&quot; : 3.8,
+        &quot;Petal.Length&quot; : 1.9,
+        &quot;Petal.Width&quot; : 0.4,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.8,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 1.4,
+        &quot;Petal.Width&quot; : 0.3,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.1,
+        &quot;Sepal.Width&quot; : 3.8,
+        &quot;Petal.Length&quot; : 1.6,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.6,
+        &quot;Sepal.Width&quot; : 3.2,
+        &quot;Petal.Length&quot; : 1.4,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.3,
+        &quot;Sepal.Width&quot; : 3.7,
+        &quot;Petal.Length&quot; : 1.5,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5,
+        &quot;Sepal.Width&quot; : 3.3,
+        &quot;Petal.Length&quot; : 1.4,
+        &quot;Petal.Width&quot; : 0.2,
+        &quot;Species&quot; : &quot;setosa&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 7,
+        &quot;Sepal.Width&quot; : 3.2,
+        &quot;Petal.Length&quot; : 4.7,
+        &quot;Petal.Width&quot; : 1.4,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.4,
+        &quot;Sepal.Width&quot; : 3.2,
+        &quot;Petal.Length&quot; : 4.5,
+        &quot;Petal.Width&quot; : 1.5,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.9,
+        &quot;Sepal.Width&quot; : 3.1,
+        &quot;Petal.Length&quot; : 4.9,
+        &quot;Petal.Width&quot; : 1.5,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.5,
+        &quot;Sepal.Width&quot; : 2.3,
+        &quot;Petal.Length&quot; : 4,
+        &quot;Petal.Width&quot; : 1.3,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.5,
+        &quot;Sepal.Width&quot; : 2.8,
+        &quot;Petal.Length&quot; : 4.6,
+        &quot;Petal.Width&quot; : 1.5,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.7,
+        &quot;Sepal.Width&quot; : 2.8,
+        &quot;Petal.Length&quot; : 4.5,
+        &quot;Petal.Width&quot; : 1.3,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.3,
+        &quot;Sepal.Width&quot; : 3.3,
+        &quot;Petal.Length&quot; : 4.7,
+        &quot;Petal.Width&quot; : 1.6,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.9,
+        &quot;Sepal.Width&quot; : 2.4,
+        &quot;Petal.Length&quot; : 3.3,
+        &quot;Petal.Width&quot; : 1,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.6,
+        &quot;Sepal.Width&quot; : 2.9,
+        &quot;Petal.Length&quot; : 4.6,
+        &quot;Petal.Width&quot; : 1.3,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.2,
+        &quot;Sepal.Width&quot; : 2.7,
+        &quot;Petal.Length&quot; : 3.9,
+        &quot;Petal.Width&quot; : 1.4,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5,
+        &quot;Sepal.Width&quot; : 2,
+        &quot;Petal.Length&quot; : 3.5,
+        &quot;Petal.Width&quot; : 1,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.9,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 4.2,
+        &quot;Petal.Width&quot; : 1.5,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6,
+        &quot;Sepal.Width&quot; : 2.2,
+        &quot;Petal.Length&quot; : 4,
+        &quot;Petal.Width&quot; : 1,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.1,
+        &quot;Sepal.Width&quot; : 2.9,
+        &quot;Petal.Length&quot; : 4.7,
+        &quot;Petal.Width&quot; : 1.4,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.6,
+        &quot;Sepal.Width&quot; : 2.9,
+        &quot;Petal.Length&quot; : 3.6,
+        &quot;Petal.Width&quot; : 1.3,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.7,
+        &quot;Sepal.Width&quot; : 3.1,
+        &quot;Petal.Length&quot; : 4.4,
+        &quot;Petal.Width&quot; : 1.4,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.6,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 4.5,
+        &quot;Petal.Width&quot; : 1.5,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.8,
+        &quot;Sepal.Width&quot; : 2.7,
+        &quot;Petal.Length&quot; : 4.1,
+        &quot;Petal.Width&quot; : 1,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.2,
+        &quot;Sepal.Width&quot; : 2.2,
+        &quot;Petal.Length&quot; : 4.5,
+        &quot;Petal.Width&quot; : 1.5,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.6,
+        &quot;Sepal.Width&quot; : 2.5,
+        &quot;Petal.Length&quot; : 3.9,
+        &quot;Petal.Width&quot; : 1.1,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.9,
+        &quot;Sepal.Width&quot; : 3.2,
+        &quot;Petal.Length&quot; : 4.8,
+        &quot;Petal.Width&quot; : 1.8,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.1,
+        &quot;Sepal.Width&quot; : 2.8,
+        &quot;Petal.Length&quot; : 4,
+        &quot;Petal.Width&quot; : 1.3,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.3,
+        &quot;Sepal.Width&quot; : 2.5,
+        &quot;Petal.Length&quot; : 4.9,
+        &quot;Petal.Width&quot; : 1.5,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.1,
+        &quot;Sepal.Width&quot; : 2.8,
+        &quot;Petal.Length&quot; : 4.7,
+        &quot;Petal.Width&quot; : 1.2,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.4,
+        &quot;Sepal.Width&quot; : 2.9,
+        &quot;Petal.Length&quot; : 4.3,
+        &quot;Petal.Width&quot; : 1.3,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.6,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 4.4,
+        &quot;Petal.Width&quot; : 1.4,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.8,
+        &quot;Sepal.Width&quot; : 2.8,
+        &quot;Petal.Length&quot; : 4.8,
+        &quot;Petal.Width&quot; : 1.4,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.7,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 5,
+        &quot;Petal.Width&quot; : 1.7,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6,
+        &quot;Sepal.Width&quot; : 2.9,
+        &quot;Petal.Length&quot; : 4.5,
+        &quot;Petal.Width&quot; : 1.5,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.7,
+        &quot;Sepal.Width&quot; : 2.6,
+        &quot;Petal.Length&quot; : 3.5,
+        &quot;Petal.Width&quot; : 1,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.5,
+        &quot;Sepal.Width&quot; : 2.4,
+        &quot;Petal.Length&quot; : 3.8,
+        &quot;Petal.Width&quot; : 1.1,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.5,
+        &quot;Sepal.Width&quot; : 2.4,
+        &quot;Petal.Length&quot; : 3.7,
+        &quot;Petal.Width&quot; : 1,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.8,
+        &quot;Sepal.Width&quot; : 2.7,
+        &quot;Petal.Length&quot; : 3.9,
+        &quot;Petal.Width&quot; : 1.2,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6,
+        &quot;Sepal.Width&quot; : 2.7,
+        &quot;Petal.Length&quot; : 5.1,
+        &quot;Petal.Width&quot; : 1.6,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.4,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 4.5,
+        &quot;Petal.Width&quot; : 1.5,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6,
+        &quot;Sepal.Width&quot; : 3.4,
+        &quot;Petal.Length&quot; : 4.5,
+        &quot;Petal.Width&quot; : 1.6,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.7,
+        &quot;Sepal.Width&quot; : 3.1,
+        &quot;Petal.Length&quot; : 4.7,
+        &quot;Petal.Width&quot; : 1.5,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.3,
+        &quot;Sepal.Width&quot; : 2.3,
+        &quot;Petal.Length&quot; : 4.4,
+        &quot;Petal.Width&quot; : 1.3,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.6,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 4.1,
+        &quot;Petal.Width&quot; : 1.3,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.5,
+        &quot;Sepal.Width&quot; : 2.5,
+        &quot;Petal.Length&quot; : 4,
+        &quot;Petal.Width&quot; : 1.3,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.5,
+        &quot;Sepal.Width&quot; : 2.6,
+        &quot;Petal.Length&quot; : 4.4,
+        &quot;Petal.Width&quot; : 1.2,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.1,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 4.6,
+        &quot;Petal.Width&quot; : 1.4,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.8,
+        &quot;Sepal.Width&quot; : 2.6,
+        &quot;Petal.Length&quot; : 4,
+        &quot;Petal.Width&quot; : 1.2,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5,
+        &quot;Sepal.Width&quot; : 2.3,
+        &quot;Petal.Length&quot; : 3.3,
+        &quot;Petal.Width&quot; : 1,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.6,
+        &quot;Sepal.Width&quot; : 2.7,
+        &quot;Petal.Length&quot; : 4.2,
+        &quot;Petal.Width&quot; : 1.3,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.7,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 4.2,
+        &quot;Petal.Width&quot; : 1.2,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.7,
+        &quot;Sepal.Width&quot; : 2.9,
+        &quot;Petal.Length&quot; : 4.2,
+        &quot;Petal.Width&quot; : 1.3,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.2,
+        &quot;Sepal.Width&quot; : 2.9,
+        &quot;Petal.Length&quot; : 4.3,
+        &quot;Petal.Width&quot; : 1.3,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.1,
+        &quot;Sepal.Width&quot; : 2.5,
+        &quot;Petal.Length&quot; : 3,
+        &quot;Petal.Width&quot; : 1.1,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.7,
+        &quot;Sepal.Width&quot; : 2.8,
+        &quot;Petal.Length&quot; : 4.1,
+        &quot;Petal.Width&quot; : 1.3,
+        &quot;Species&quot; : &quot;versicolor&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.3,
+        &quot;Sepal.Width&quot; : 3.3,
+        &quot;Petal.Length&quot; : 6,
+        &quot;Petal.Width&quot; : 2.5,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.8,
+        &quot;Sepal.Width&quot; : 2.7,
+        &quot;Petal.Length&quot; : 5.1,
+        &quot;Petal.Width&quot; : 1.9,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 7.1,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 5.9,
+        &quot;Petal.Width&quot; : 2.1,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.3,
+        &quot;Sepal.Width&quot; : 2.9,
+        &quot;Petal.Length&quot; : 5.6,
+        &quot;Petal.Width&quot; : 1.8,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.5,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 5.8,
+        &quot;Petal.Width&quot; : 2.2,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 7.6,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 6.6,
+        &quot;Petal.Width&quot; : 2.1,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 4.9,
+        &quot;Sepal.Width&quot; : 2.5,
+        &quot;Petal.Length&quot; : 4.5,
+        &quot;Petal.Width&quot; : 1.7,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 7.3,
+        &quot;Sepal.Width&quot; : 2.9,
+        &quot;Petal.Length&quot; : 6.3,
+        &quot;Petal.Width&quot; : 1.8,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.7,
+        &quot;Sepal.Width&quot; : 2.5,
+        &quot;Petal.Length&quot; : 5.8,
+        &quot;Petal.Width&quot; : 1.8,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 7.2,
+        &quot;Sepal.Width&quot; : 3.6,
+        &quot;Petal.Length&quot; : 6.1,
+        &quot;Petal.Width&quot; : 2.5,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.5,
+        &quot;Sepal.Width&quot; : 3.2,
+        &quot;Petal.Length&quot; : 5.1,
+        &quot;Petal.Width&quot; : 2,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.4,
+        &quot;Sepal.Width&quot; : 2.7,
+        &quot;Petal.Length&quot; : 5.3,
+        &quot;Petal.Width&quot; : 1.9,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.8,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 5.5,
+        &quot;Petal.Width&quot; : 2.1,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.7,
+        &quot;Sepal.Width&quot; : 2.5,
+        &quot;Petal.Length&quot; : 5,
+        &quot;Petal.Width&quot; : 2,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.8,
+        &quot;Sepal.Width&quot; : 2.8,
+        &quot;Petal.Length&quot; : 5.1,
+        &quot;Petal.Width&quot; : 2.4,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.4,
+        &quot;Sepal.Width&quot; : 3.2,
+        &quot;Petal.Length&quot; : 5.3,
+        &quot;Petal.Width&quot; : 2.3,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.5,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 5.5,
+        &quot;Petal.Width&quot; : 1.8,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 7.7,
+        &quot;Sepal.Width&quot; : 3.8,
+        &quot;Petal.Length&quot; : 6.7,
+        &quot;Petal.Width&quot; : 2.2,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 7.7,
+        &quot;Sepal.Width&quot; : 2.6,
+        &quot;Petal.Length&quot; : 6.9,
+        &quot;Petal.Width&quot; : 2.3,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6,
+        &quot;Sepal.Width&quot; : 2.2,
+        &quot;Petal.Length&quot; : 5,
+        &quot;Petal.Width&quot; : 1.5,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.9,
+        &quot;Sepal.Width&quot; : 3.2,
+        &quot;Petal.Length&quot; : 5.7,
+        &quot;Petal.Width&quot; : 2.3,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.6,
+        &quot;Sepal.Width&quot; : 2.8,
+        &quot;Petal.Length&quot; : 4.9,
+        &quot;Petal.Width&quot; : 2,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 7.7,
+        &quot;Sepal.Width&quot; : 2.8,
+        &quot;Petal.Length&quot; : 6.7,
+        &quot;Petal.Width&quot; : 2,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.3,
+        &quot;Sepal.Width&quot; : 2.7,
+        &quot;Petal.Length&quot; : 4.9,
+        &quot;Petal.Width&quot; : 1.8,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.7,
+        &quot;Sepal.Width&quot; : 3.3,
+        &quot;Petal.Length&quot; : 5.7,
+        &quot;Petal.Width&quot; : 2.1,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 7.2,
+        &quot;Sepal.Width&quot; : 3.2,
+        &quot;Petal.Length&quot; : 6,
+        &quot;Petal.Width&quot; : 1.8,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.2,
+        &quot;Sepal.Width&quot; : 2.8,
+        &quot;Petal.Length&quot; : 4.8,
+        &quot;Petal.Width&quot; : 1.8,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.1,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 4.9,
+        &quot;Petal.Width&quot; : 1.8,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.4,
+        &quot;Sepal.Width&quot; : 2.8,
+        &quot;Petal.Length&quot; : 5.6,
+        &quot;Petal.Width&quot; : 2.1,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 7.2,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 5.8,
+        &quot;Petal.Width&quot; : 1.6,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 7.4,
+        &quot;Sepal.Width&quot; : 2.8,
+        &quot;Petal.Length&quot; : 6.1,
+        &quot;Petal.Width&quot; : 1.9,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 7.9,
+        &quot;Sepal.Width&quot; : 3.8,
+        &quot;Petal.Length&quot; : 6.4,
+        &quot;Petal.Width&quot; : 2,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.4,
+        &quot;Sepal.Width&quot; : 2.8,
+        &quot;Petal.Length&quot; : 5.6,
+        &quot;Petal.Width&quot; : 2.2,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.3,
+        &quot;Sepal.Width&quot; : 2.8,
+        &quot;Petal.Length&quot; : 5.1,
+        &quot;Petal.Width&quot; : 1.5,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.1,
+        &quot;Sepal.Width&quot; : 2.6,
+        &quot;Petal.Length&quot; : 5.6,
+        &quot;Petal.Width&quot; : 1.4,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 7.7,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 6.1,
+        &quot;Petal.Width&quot; : 2.3,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.3,
+        &quot;Sepal.Width&quot; : 3.4,
+        &quot;Petal.Length&quot; : 5.6,
+        &quot;Petal.Width&quot; : 2.4,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.4,
+        &quot;Sepal.Width&quot; : 3.1,
+        &quot;Petal.Length&quot; : 5.5,
+        &quot;Petal.Width&quot; : 1.8,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 4.8,
+        &quot;Petal.Width&quot; : 1.8,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.9,
+        &quot;Sepal.Width&quot; : 3.1,
+        &quot;Petal.Length&quot; : 5.4,
+        &quot;Petal.Width&quot; : 2.1,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.7,
+        &quot;Sepal.Width&quot; : 3.1,
+        &quot;Petal.Length&quot; : 5.6,
+        &quot;Petal.Width&quot; : 2.4,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.9,
+        &quot;Sepal.Width&quot; : 3.1,
+        &quot;Petal.Length&quot; : 5.1,
+        &quot;Petal.Width&quot; : 2.3,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.8,
+        &quot;Sepal.Width&quot; : 2.7,
+        &quot;Petal.Length&quot; : 5.1,
+        &quot;Petal.Width&quot; : 1.9,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.8,
+        &quot;Sepal.Width&quot; : 3.2,
+        &quot;Petal.Length&quot; : 5.9,
+        &quot;Petal.Width&quot; : 2.3,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.7,
+        &quot;Sepal.Width&quot; : 3.3,
+        &quot;Petal.Length&quot; : 5.7,
+        &quot;Petal.Width&quot; : 2.5,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.7,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 5.2,
+        &quot;Petal.Width&quot; : 2.3,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.3,
+        &quot;Sepal.Width&quot; : 2.5,
+        &quot;Petal.Length&quot; : 5,
+        &quot;Petal.Width&quot; : 1.9,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.5,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 5.2,
+        &quot;Petal.Width&quot; : 2,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 6.2,
+        &quot;Sepal.Width&quot; : 3.4,
+        &quot;Petal.Length&quot; : 5.4,
+        &quot;Petal.Width&quot; : 2.3,
+        &quot;Species&quot; : &quot;virginica&quot;
+    },
+    {
+        &quot;Sepal.Length&quot; : 5.9,
+        &quot;Sepal.Width&quot; : 3,
+        &quot;Petal.Length&quot; : 5.1,
+        &quot;Petal.Width&quot; : 1.8,
+        &quot;Species&quot; : &quot;virginica&quot;
+    }
+]
+</code></pre>
+
+<p><a href="http://www.r-bloggers.com/new-package-jsonlite-a-smarter-json-encoderdecoder/">http://www.r-bloggers.com/new-package-jsonlite-a-smarter-json-encoderdecoder/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Convert back to JSON</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">iris2 &lt;- fromJSON(myjson)
+head(iris2)
+</code></pre>
+
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa
+</code></pre>
+
+<p><a href="http://www.r-bloggers.com/new-package-jsonlite-a-smarter-json-encoderdecoder/">http://www.r-bloggers.com/new-package-jsonlite-a-smarter-json-encoderdecoder/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Further resources</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><a href="http://www.json.org/">http://www.json.org/</a></li>
+<li>A good tutorial on jsonlite - <a href="http://www.r-bloggers.com/new-package-jsonlite-a-smarter-json-encoderdecoder/">http://www.r-bloggers.com/new-package-jsonlite-a-smarter-json-encoderdecoder/</a></li>
+<li><a href="http://cran.r-project.org/web/packages/jsonlite/vignettes/json-mapping.pdf">jsonlite vignette</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

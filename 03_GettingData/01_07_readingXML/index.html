@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reading XML</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Reading XML">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Reading XML</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>XML</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Extensible markup language</li>
+<li>Frequently used to store structured data</li>
+<li>Particularly widely used in internet applications</li>
+<li>Extracting XML is the basis for most web scraping</li>
+<li>Components
+
+<ul>
+<li>Markup - labels that give the text structure</li>
+<li>Content - the actual text of the document</li>
+</ul></li>
+</ul>
+
+<p><a href="http://en.wikipedia.org/wiki/XML">http://en.wikipedia.org/wiki/XML</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Tags, elements and attributes</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Tags correspond to general labels
+
+<ul>
+<li>Start tags <code>&lt;section&gt;</code></li>
+<li>End tags <code>&lt;/section&gt;</code></li>
+<li>Empty tags <code>&lt;line-break /&gt;</code></li>
+</ul></li>
+<li>Elements are specific examples of tags
+
+<ul>
+<li><code>&lt;Greeting&gt; Hello, world &lt;/Greeting&gt;</code></li>
+</ul></li>
+<li>Attributes are components of the label
+
+<ul>
+<li><code>&lt;img src=&quot;jeff.jpg&quot; alt=&quot;instructor&quot;/&gt;</code></li>
+<li><code>&lt;step number=&quot;3&quot;&gt; Connect A to B. &lt;/step&gt;</code></li>
+</ul></li>
+</ul>
+
+<p><a href="http://en.wikipedia.org/wiki/XML">http://en.wikipedia.org/wiki/XML</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Example XML file</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/03_ObtainingData/xmlexample.png height=450></p>
+
+<p><a href="http://www.w3schools.com/xml/simple.xml">http://www.w3schools.com/xml/simple.xml</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Read the file into R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(XML)
+fileUrl &lt;- &quot;http://www.w3schools.com/xml/simple.xml&quot;
+doc &lt;- xmlTreeParse(fileUrl,useInternal=TRUE)
+rootNode &lt;- xmlRoot(doc)
+xmlName(rootNode)
+</code></pre>
+
+<pre><code>[1] &quot;breakfast_menu&quot;
+</code></pre>
+
+<pre><code class="r">names(rootNode)
+</code></pre>
+
+<pre><code>  food   food   food   food   food 
+&quot;food&quot; &quot;food&quot; &quot;food&quot; &quot;food&quot; &quot;food&quot; 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Directly access parts of the XML document</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">rootNode[[1]]
+</code></pre>
+
+<pre><code>&lt;food&gt;
+  &lt;name&gt;Belgian Waffles&lt;/name&gt;
+  &lt;price&gt;$5.95&lt;/price&gt;
+  &lt;description&gt;Two of our famous Belgian Waffles with plenty of real maple syrup&lt;/description&gt;
+  &lt;calories&gt;650&lt;/calories&gt;
+&lt;/food&gt; 
+</code></pre>
+
+<pre><code class="r">rootNode[[1]][[1]]
+</code></pre>
+
+<pre><code>&lt;name&gt;Belgian Waffles&lt;/name&gt; 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Programatically extract parts of the file</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">xmlSApply(rootNode,xmlValue)
+</code></pre>
+
+<pre><code>                                                                                                                    food 
+                              &quot;Belgian Waffles$5.95Two of our famous Belgian Waffles with plenty of real maple syrup650&quot; 
+                                                                                                                    food 
+                   &quot;Strawberry Belgian Waffles$7.95Light Belgian waffles covered with strawberries and whipped cream900&quot; 
+                                                                                                                    food 
+&quot;Berry-Berry Belgian Waffles$8.95Light Belgian waffles covered with an assortment of fresh berries and whipped cream900&quot; 
+                                                                                                                    food 
+                                               &quot;French Toast$4.50Thick slices made from our homemade sourdough bread600&quot; 
+                                                                                                                    food 
+                        &quot;Homestyle Breakfast$6.95Two eggs, bacon or sausage, toast, and our ever-popular hash browns950&quot; 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Programatically extract parts of the file</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">xmlSApply(rootNode,xmlValue)
+</code></pre>
+
+<pre><code>                                                                                                                    food 
+                              &quot;Belgian Waffles$5.95Two of our famous Belgian Waffles with plenty of real maple syrup650&quot; 
+                                                                                                                    food 
+                   &quot;Strawberry Belgian Waffles$7.95Light Belgian waffles covered with strawberries and whipped cream900&quot; 
+                                                                                                                    food 
+&quot;Berry-Berry Belgian Waffles$8.95Light Belgian waffles covered with an assortment of fresh berries and whipped cream900&quot; 
+                                                                                                                    food 
+                                               &quot;French Toast$4.50Thick slices made from our homemade sourdough bread600&quot; 
+                                                                                                                    food 
+                        &quot;Homestyle Breakfast$6.95Two eggs, bacon or sausage, toast, and our ever-popular hash browns950&quot; 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>XPath</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><em>/node</em> Top level node</li>
+<li><em>//node</em> Node at any level</li>
+<li><em>node[@attr-name]</em> Node with an attribute name</li>
+<li><em>node[@attr-name=&#39;bob&#39;]</em> Node with attribute name attr-name=&#39;bob&#39;</li>
+</ul>
+
+<p>Information from: <a href="http://www.stat.berkeley.edu/%7Estatcur/Workshop2/Presentations/XML.pdf">http://www.stat.berkeley.edu/~statcur/Workshop2/Presentations/XML.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Get the items on the menu and prices</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">xpathSApply(rootNode,&quot;//name&quot;,xmlValue)
+</code></pre>
+
+<pre><code>[1] &quot;Belgian Waffles&quot;             &quot;Strawberry Belgian Waffles&quot;  &quot;Berry-Berry Belgian Waffles&quot;
+[4] &quot;French Toast&quot;                &quot;Homestyle Breakfast&quot;        
+</code></pre>
+
+<pre><code class="r">xpathSApply(rootNode,&quot;//price&quot;,xmlValue)
+</code></pre>
+
+<pre><code>[1] &quot;$5.95&quot; &quot;$7.95&quot; &quot;$8.95&quot; &quot;$4.50&quot; &quot;$6.95&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Another example</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/03_ObtainingData/ravens.png height=450></p>
+
+<p><a href="http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens">http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Viewing the source</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/03_ObtainingData/ravenssource.png height=450></p>
+
+<p><a href="http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens">http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Extract content by attributes</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">fileUrl &lt;- &quot;http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens&quot;
+doc &lt;- htmlTreeParse(fileUrl,useInternal=TRUE)
+scores &lt;- xpathSApply(doc,&quot;//li[@class=&#39;score&#39;]&quot;,xmlValue)
+teams &lt;- xpathSApply(doc,&quot;//li[@class=&#39;team-name&#39;]&quot;,xmlValue)
+scores
+</code></pre>
+
+<pre><code> [1] &quot;49-27&quot;    &quot;14-6&quot;     &quot;30-9&quot;     &quot;23-20&quot;    &quot;26-23&quot;    &quot;19-17&quot;    &quot;19-16&quot;    &quot;24-18&quot;   
+ [9] &quot;20-17 OT&quot; &quot;23-20 OT&quot; &quot;19-3&quot;     &quot;22-20&quot;    &quot;29-26&quot;    &quot;18-16&quot;    &quot;41-7&quot;     &quot;34-17&quot;   
+</code></pre>
+
+<pre><code class="r">teams
+</code></pre>
+
+<pre><code> [1] &quot;Denver&quot;      &quot;Cleveland&quot;   &quot;Houston&quot;     &quot;Buffalo&quot;     &quot;Miami&quot;       &quot;Green Bay&quot;  
+ [7] &quot;Pittsburgh&quot;  &quot;Cleveland&quot;   &quot;Cincinnati&quot;  &quot;Chicago&quot;     &quot;New York&quot;    &quot;Pittsburgh&quot; 
+[13] &quot;Minnesota&quot;   &quot;Detroit&quot;     &quot;New England&quot; &quot;Cincinnati&quot; 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Notes and further resources</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Official XML tutorials <a href="http://www.omegahat.org/RSXML/shortIntro.pdf">short</a>, <a href="http://www.omegahat.org/RSXML/Tour.pdf">long</a></li>
+<li><a href="http://www.stat.berkeley.edu/%7Estatcur/Workshop2/Presentations/XML.pdf">An outstanding guide to the XML package</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

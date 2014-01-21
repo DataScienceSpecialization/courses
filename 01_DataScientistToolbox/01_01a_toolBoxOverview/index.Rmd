@@ -1,0 +1,107 @@
+---
+title       : The Data Scientist's Toolbox
+subtitle    : 
+author      :  
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : zenburn   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 70)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache = T, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## What do data scientists do? 
+
+* Define the question
+* Define the ideal data set
+* Determine what data you can access
+* Obtain the data
+* Clean the data
+* Exploratory data analysis
+* Statistical prediction/modeling
+* Interpret results
+* Challenge results
+* Synthesize/write up results
+* Create reproducible code
+* Distribute results to other people
+
+
+---
+
+## The main workhorse of data science
+
+<img class=center src=../../assets/img/toolBox/rproject.png height='500px'/>
+
+http://www.r-project.org/
+
+---
+
+## Where we will work on coding
+
+<img class=center src=../../assets/img/toolBox/rstudio.png height='500px'/>
+
+http://www.rstudio.com/
+
+---
+
+## Rstudio's interface
+
+<img class=center src=../../assets/img/toolBox/ide.png height='500px'/>
+
+http://www.rstudio.com/
+
+---
+
+## Primary file types - R script
+
+<img class=center src=../../assets/img/toolBox/rscript.png height='400px'/>
+
+http://www.rstudio.com/ide/docs/using/source
+
+
+---
+
+## Primary file types - R markdown document
+
+
+<img class=center src=../../assets/img/toolBox/rmarkdown.png height='500px'/>
+
+http://www.rstudio.com/ide/docs/authoring/using_markdown
+
+---
+
+## Sharing your results - Github & Git
+
+
+<img class=center src=../../assets/img/toolBox/github.png height='500px'/>
+
+---
+
+## Where to run Github commands - the shell
+
+<img class=center src=../../assets/img/toolBox/shell.png height='500px'/>
+
+
+
+

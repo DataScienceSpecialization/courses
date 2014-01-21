@@ -1,0 +1,478 @@
+
+This lecture is about a very popular
+explore to a data analysis technique
+called the hierarchical clustering. So I'm
+going to talk, sort of talking a little
+about clustering in general and then I'll
+talk a lot more about hierarchical
+clustering in this lecture. Clustering
+organizes things that are close into
+groups. So we'll talk a little bit about
+what we mean by that in terms of how do we
+define close when we're talking about data
+measurements and then how do we group
+things together once we've defined close.
+And how do you visualize the grouping so
+that you can show it to other people, or
+interpret that grouping so that you can
+see if there are groups that you believe
+or there are groups that have been created
+using the statistical process that maybe
+are a little bit hard to believe or might
+be just due to noise. It's an incredibly
+important idea. So this is actually just a
+search that I did in Google Scholar for
+cluster analysis and you can see there is
+a bunch of papers here but they've been
+cited by thousands and thousands of
+people. So this is a, indication that
+thousands and thousand of people have used
+cluster analysis for doing different types
+of analyses and it's widely used both in
+academics and in the business and
+scientific communities, So, now I'm going
+to talk a little bit about hierarchical
+clustering. It's what's called an
+agglomerative approach to, clustering. And
+the reason why it's called agglomerative
+is because it's sort of bottom-up. So,
+what you do is you start by finding the
+two, observations or two variables that
+are closest to each other, and then you
+merge them together into one new, sort of
+super observation. Then, using all the
+observations you have and the two merge
+observations that were closest together,
+then you go on to find the next two that
+are closest together and so forth.
+successively putting together the next two
+closest things until you merge all the
+things together into one big object. To
+perform heirarchical clustering, it
+requires a defined distance me asurer, so
+how do you determine that two things are
+close to each other? And then it also
+requires a merging approach. because at
+the end of the day we need to merge things
+together. And so how do we do merging in
+such a way that we can then merge the next
+2 things? What this produces is a tree
+showing how things, how close things are
+to each other that's called a dendrogram,
+and we'll be talking a lot more about that
+at the lecture. So, first of all how do we
+define close? This is actually the most
+important step in a clustering algorithm.
+So, if you produce a garbage, closeness
+That parameter.
+It's going to produce a garbage
+clustering. And what do I mean by garbage?
+I mean, if the clustering algorithm uses a
+distance metric that isn't appropriate for
+the kind of data that you have. Well, if
+it's susceptible to different kind of
+quirks of the data that you know that your
+particular data set have that other data
+sets don't. You'll definitely see
+clusterings that are less easy to
+interpret in a, that, that are, less
+clearly represent the patterns that you've
+observed in the data set. So some examples
+of, distances or similarities, for
+continuous variables, you could use
+Euclidean distance. We'll talk about that
+in a minute. You could also represent
+distance instead by the opposite, which is
+similarities. You can actually, instead of
+looking at the smallest distance, you can
+look at the greatest similarity. So for
+example you can look at the correlation
+between observations. You can also look at
+binary measures of distance. So, we'll be
+talking about the Manhattan distance as a
+as a measurement of binary distance. you
+need to think really hard about this step,
+because you need to pick a distance or
+similarity that makes sense for the
+problem that you're analyzing, to be able
+to get a good clustering out at the end.
+So, I'm going to off by describing a
+couple of example distances. The first is,
+Euclidean distance. So, imagine that you
+want to know the distance between DC and
+Baltimore. So, you have, a latitude and
+longitude variable for DC and a latitude
+and longitude for Baltimore. And 2
+different, sort of measures that you could
+get. You could get the distance between
+the 2 y-measurements, between, or the
+distance between the 2 latitude
+measurements between Baltimore and DC. You
+could also get the distance between the 2
+longitude measurements, or the difference
+between the 2 x-values, and some
+combination of these 2 distances adds up
+to give you what you're looking for, which
+is the distance between DC and Baltimore
+and if you recall from geometry class, you
+may have taken a long time ago, the, the
+way that you actually calculate the
+distance between Baltimore and DC in this
+case, is you take the squared distance
+between the x values and the square
+distance between the y values And you take
+the square root of that, and what you end
+up with is the distance between DC and
+Baltimore. and so in general, what we're
+going to be doing, this is in two
+dimensions but in general what you're
+going to be doing is having more
+dimensions than that. You might have each
+person has, you know, 25 variables
+measured on them, and we want to be able
+to determine how close two people are. So
+what you would do then is, you would take
+every single variable between the two
+people, and you would take the measurement
+for person 1 and subtract the measurement
+for person 2 for variable 1. Square it,
+and then add it to the difference between
+the two values for variable 2, between
+person 1 and person 2, and square it, and
+so forth, and then take the square root.
+This is called the Euclidean distance, and
+is often used for quantitative variables
+or continuous variables when performing
+clustering. Another option is the
+Manhattan distance. So the Manhattan
+distance is used often for binary
+variables. And what it does is, so suppose
+you're trying to look at the distance
+between this point and this point on this
+graph. any of these lines actually travels
+the same distance by the Manhattan
+distance, which is just t he, you can
+think of it as if this is a, one building,
+and this is another block, building, in
+Manhattan, New York, the number of blocks
+that you cover by taking the red line, the
+yellow path, or the blue path, are all the
+same. the Euclidean distance of course is
+this green line here, but you can't take
+that, because you'd be going through
+buildings. So, what you do instead is take
+one of these other paths, and the shortest
+one will be sort of the Manhattan distance
+between the two points. And so the
+Manhattan distance is actually just the
+same thing as the Euclidean distance.
+Instead of taking the square of the
+difference between the two coordinates,
+you actually take just the difference
+between the two coordinates, and you take
+the absolute value of that difference. And
+so that it turns out, that for this sort
+of problem, by taking the absolute value
+of the difference between the y
+coordinates and the absolute value of the
+x coordinates, you actually get the
+distance along either the yellow, blue, or
+red path here, for the Manhattan distance.
+So now I'm going to show you an example of
+hierarchical clustering. And so to do
+that, I'm going to generate just a really
+simple simulated data set. And so, what I
+do is I, I set the seed so I always get
+the same data set out. And then, I
+generate x variables and y variables. such
+that there are three clusters. There's
+sort of a cluster down here on the left,
+that's the first four observations. Then
+there's a cluster up here in the middle,
+that's the second four observations. And
+then the third four observations over here
+on the right. And then I've actually used
+the text command to actually label them
+with their numbers so it's a little bit
+easier to see. So, how hierarchical
+clustering works is, first it is going to
+calculate a distance between all of the
+different points. So, in this case, there
+are 12 different points that we've
+observed, and we are going to calculate
+the distance based on their x and y
+values. So, to do that, I create a data
+fra me that has the x values and the y
+values for the. Point and then I use dist,
+which actually calculates the distance
+between the points. the parameters to dist
+are x that is the data frame on matrix
+that you are calculating the distances on.
+So in the case of a data frame, what it's
+going to do is it's going to calculate the
+distances between all of the different
+variables that you've observed for each
+observation, and in, in the case of a
+matrix, it's going to calculate sort of
+the distance between columns, and then you
+have to tell it a method. So in this case,
+you tell it that when you don't give it a,
+the default method is Euclidean distance,
+but you can also tell it to take the
+Manhattan distance, and binary distance,
+and other distance metrics.
+So this is now the matrix of distances
+that comes out so its missing the top half
+because its the same for the top and the
+bottom, its also missing the diagonal
+because the distance between any point in
+itself is just 0 ans so you can say, say
+the distance between point 1 and point 2
+is .34. The distance between point three
+and point one is point five seven and so
+forth. So you can find the column and the
+row of this matrix to find the distance
+between points. So here's how Hierarchical
+clustering works. It takes that distance
+that it's been calculating and it says, OK
+what are the closest points on this plot?
+So in this case, the two closest plots are
+five and six. And so what it does is it
+says OK now. Now I going to just put those
+2 points together. So, I have point 5 and
+point 6 are now together and have been
+linked. So, then the next step it does is
+it merges those 2 points together. So the
+way it merges them together in this
+particular algorithm is, what it will do,
+it will take those two points, and we'll
+get their average x value and their
+average y value, and now it creates a new
+point here. It ignores point 5 and 6
+because they've already been merged, and
+it now performs the exact same operation
+using the merged value for 5 and 6. So as
+one of the now two closest values
+together. In this case, values 10 and 11
+are the next two closest values together.
+And so they get merged together and we see
+actually that another sort of link between
+values of 10 and 11. And then it keeps
+going like this where it keeps identifying
+the two closest and merging them until You
+get a Dendrogram or a tree that looks
+something like this. So, again I've taken
+the x values and y values and put them
+into a data frame. I calculated the
+distance between those values and then to
+perform hierarchical clustering I used the
+hclusterman and I had to apply that to a
+distance objects that I calculated to get
+the distance between variables. Then when
+I plot that, I actually see this
+dendrogram. So you can see the 2 closest
+together points when I was doing the
+analysis, started of as 5 and 6, then the
+next 2 closest together were 10 and 11,
+and so forth. And so at some point, the 10
+and 11 point that got merged together
+ended up being merged with the 9 and 12
+point that was merged together, and so
+that's why you see the dendrogram here.
+And eventually all of the points were
+merged together up at the top. So to see
+the distance between points, you actually
+have to traverse the whole length. From 5
+to 6, that's the distance between the
+points 5 and 6. And similarly to go from 7
+to 6, you have to traverse from 7 down
+here to 6. So what you can see now is that
+the, The hierarchical clustering has sort
+of grouped things into groups that are
+close together. You can see 5, 6, 7, 8 are
+close together. 10, 9, 10, 11, 12 are
+close together, And 1, 2, 3, 4 are close
+together. So just like we expected to see
+when we generated the points, an important
+point here is that it just gives you the
+entire clustering dendrogram. It doesn't
+tell you which clusters things are broken
+into. So, to decide what clusters things
+are in, you have to cut this tree at some
+point. So for example if I cut the tree at
+1 here, I see that they end up with three
+groups, the three groups that I originally
+started with, but if I cut say further
+down here, say at point 5, then I end with
+more clusters. So I end up with 5, 6, 7 in
+a cluster, but it didn't cut 8 off
+seperately, so it ends up in a, a
+different cluster. Similarly, when I cut
+off here at 5, I get 2 3 and 1 4 in
+different clusters as well. So basically
+choosing where to cut this tree determines
+what the different clusters that you
+actually observe in the data set are. So
+you can actually make these dendograms a
+little bit prettier. So, I've actually
+included here a function. I think this is
+the best way to communicate it, although
+I'll also put it up on the class website.
+If you, source this function into R, so
+you can actually just run this code in R,
+you get a new function called myplclust.
+And you can, instead of typing plot of
+your hclust object, you can type myplclust
+of your hclust object. And, the reason why
+you would use this is because you can make
+dendograms where you can color the leaves
+by a particular variable. So, in this
+case, what I've done is I have this
+dataframe. I again performed a
+hierarchical clustering. And now, instead
+of using plot, I use my pl clust of this h
+clustering object, and I've labeled the
+leaves using the lab, parameter with, the
+variables 1, 2 and 3. The first 4 values
+are 1. The next 4 values are 2. The next 4
+values are 3. So this corresponds to the
+original values that we generated in the
+four clusters, or the three clusters, and
+then I can also make the colors be equal,
+so I can use the parameter lab.color to be
+equal to the same clustering values and so
+what I can see is now all the values of
+one are in black, all the values of These
+three are in green, all the values of two
+are in red, and it makes it easier for me
+to visualize, sort of the clarity of the
+different clusters, and whether they
+actually cluster all of the variables
+together like they should be. You can
+actually make them even prettier. So
+again, I refer to the R Graph Gallery in
+previous lectures, but here's a lin k to a
+specific example from the R Graph Gallery,
+where you can make, sort of very pretty
+dendrograms that, make it even easier to
+sort of communicate and to see information
+broken down by clusters. So the way that
+you can merge point together can be based
+on different, different distance metrics.
+So suppose that you're going to merge the
+points together in a clustering algorithm,
+and suppose we wanted to merge these 4
+points in this top cluster with these 4
+points in the bottom cluster. One way that
+you could do it is based on comparing
+their average distance, but another way
+that you could do it is based on comparing
+the points that are the farthest apart.
+This is called complete linkage, and is
+one way of defining the hierarchical
+clustering algorithm.
+So, when you tell it the method, to use in
+hierarchical clustering. If you say
+complete, it will find the farthest point
+distance between two points before
+performing the clustering. Alternatively,
+we talked a little bit about using the
+average distance. So, in this case, if
+you're going to merge these 4 points with
+these 4 points, You can actually take the
+average of their x values, and the average
+of their y values and set it to be this
+point. I do the same thing for this
+cluster. And then compare those 2 values
+to get the distance between these 2
+clusters. So, it actually is quite
+dependent, depending on whether you use
+average or complete language clustering.
+You'll get very, very different clustering
+diagrams. And I encourage you to try out
+the different kinds of methods, and see if
+They produce clusters that make sense. So
+another component of creating a
+hierarchical clustering is visualizing
+that clustering. one thing that you can do
+is actually visualize the quantitative
+data themselves, after it's been
+clustered, and you can do that using the
+heat map command. So, again, I've created
+this data frame with the x and y values.
+And then what I'm going to do is, I'm
+actually just going to take a small,
+subsample of the columns here, or sorry,
+the rows here, so that it's a little bit
+easier to see what this plot looks like.
+And then if I run heat map on the, sort
+of, subsampled data matrix. What it does
+is, it actually clusters together. We're
+using that hierarchical clustering
+algorithm. It clusters together the rows,
+and it also clusters together the columns.
+And so, in this case, the clustering of
+the columns is not very interesting.
+There's only 2 values, x and y, 2
+variables, x and y. But here you the sort
+of, the observations of those variables,
+you can see that it clusters together the
+observations of those variables, and so
+for these sort of 12 sub-samples, you can
+see what those clusters are. And it sort
+of visualizes the data themselves too, so
+you actually can see patterns in the
+quantitative data. And we'll talk more
+about using key maps when we get to sort
+of analysis of specific data sets,
+particularly large dimensional data sets.
+So a few notes on hierarchical clustering.
+First of all, it gives an idea of the
+relationships between variables and
+observations, but the picture can be
+unstable. In particular, if you change a
+few of the data points or leave a few of
+the data points out, or if some of the
+data points have missing values, you'll
+get potentially dramatically different
+clusterings. And that's because, by
+removing a point, you can actually change
+the which points are close to each other
+and how close they are to each other,
+relative to all the other points in the
+picture. If you pick a different distance
+metric or a different merging strategy, as
+I mentioned, you'll get very, very
+different clustering algorithms out, and
+so it's very important to pick distance
+metrics and emerging strategy that
+correspond to the scientific problem that
+you're working on And then if you change
+the scales of points for one variable, but
+not for the other. So, if you say
+standardize a particular set of variables,
+but you don't standardize them for others,
+then you'll get very different results
+out. It is a deterministi c algorithm, in
+the sense that if I give the exact same
+data points to hierarchical clustering, it
+will always produce, and I use the same
+distance metric and the same merging
+strategy. It will always produce the same
+dendagram at the same merging structure.
+that won't be true, we'll see in a minute,
+for k-means clustering. Choosing where to
+cut the tree isn't always obvious. In our
+case, there was pretty, three pretty clear
+clusters, but in general, it won' be that
+easy, and so hierarchical clustering is
+often much more useful for visual
+exploration, rather than for a more
+confirmatory analysis. I've linked here to
+a YouTube video where Rafa goes into some
+more details, and an example about
+hierarchical clustering, as well as the
+elements of statistical learning which has
+a lot more detail on both sort of
+applications and the mathematics of
+hierarchical clustering.

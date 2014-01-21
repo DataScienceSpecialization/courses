@@ -1,0 +1,539 @@
+
+This week, we're going to be talking about
+exploratory analysis, and we're going to
+start off with graphing. So, why do we use
+graphs in data analysis? There's actually
+a bunch of different reasons that you
+might use graphs for communicating
+information about data. You might want to
+understand the data properties and it
+might be too hard to actually look at the
+whole data matrix of numbers itself. You
+might want to be able to discover new
+patterns or associations between variables
+that might have been surprising, and you
+not been able to look at the data. It can
+also be used to suggest modelling
+strategies. We'll be talking about
+statistical modelling starting next week,
+and one thing that's very useful is to use
+graphs to try to inform what kind of
+modelling strategy that you'll use. And to
+debug analyses, we'll also be talking
+about how you can use graphs and plots to
+determine that where your statistical
+modeling might have gone wrong. And
+finally, to communicate results to other
+people. So, exploratory data analysis and
+exploratory graphs start by focusing on
+these first four steps, and not on
+communicating results to other people. So,
+we are going to first talk about the types
+of graphs that you might use just to
+communicate to yourself, to try to
+understand the data set, not to try to
+pretty them up and to show them to other
+people. Before we actually dive in to
+these specific type of graphs, I thought I
+tell you a little bit about the
+characteristics of exploratory graphs.
+They are made quickly. the, the goal is to
+actually explore the data as fast as you
+can without having to spend time prettying
+up the graphs and making them perfect. You
+can think of it as a rough draft graph for
+your later final analysis. A large number
+of the graphs are made. So, most of these
+will get discarded before you actually
+perform your final analysis. But you have
+to make a large number then to explore all
+the potential avenues that the data might
+take you in. And then, the goal is for
+personal understandin g, not necessarily
+for communicating to other people. So, if
+you don't need color or different sized
+points to be able to communicate to
+yourself, you don't necessarily have to do
+that in your exploratory graph. Color and
+size are primarily used for information
+communication to yourself rather than to
+make things aesthetically pleasing so that
+they'll be easy on the eye when people
+look at your data analysis. I'm going to
+start off with a little bit of background
+before we dive in very specific types of
+graphs. And so, I'm going to talk about a
+little bit of theory and experimentation
+that has been done in the graphical
+display of data. So, the first thing that
+I'd thought I'd talk about is the ways
+that you can display a comparison between
+two quantitative measurements. So, here
+are nine different ways that you could
+actually display them. so, for example,
+you could, if you had 2 measurements, you
+could, say, there were 8 and 4, you could
+put them on a common scale like this, and
+then it's very, relatively easy to be able
+to tell which one is bigger than the
+other. You could also plot them but on
+different scales or on scales that aren't
+aligned to each other. You could make 2
+different lines of different links and
+compare them. Or you can create, say, 2
+different angles that were proportional to
+the 2 data points, or 2 circles of
+different areas. You can also do things
+more complicated like volume of shapes,
+curvature, or shading. Depending on the
+type of task that you're doing for your
+analysis, some of these ways of encoding
+information might be easier or harder for
+people to understand. And, in fact, people
+have done experiments to try to determine
+what are the easiest ways to communicate
+information and what are the most
+effective ways to communicate information
+in graphical displays. So, I'm going to
+tell you about a couple of those
+experiments and then summarize some of the
+key ideas you should think about when
+creating your graphs. So first of all, if
+you're going to be making compariso ns
+between quantiative measurements, here's
+an experiment that tells you a little bit
+about how those measurements and how those
+quantiative displays should be arranged.
+So, these are five times of graphs, and
+they were shown to 55 people in this
+experiment in the paper that I've linked
+to here. And they were asked to compare
+the measurements for each of the two dots
+in each plots. So, compare the value for
+this bar to this bar, then value, compare
+the value of this, the length of this bar
+to the length of this bar. The same thing
+here, these two dots represent the two
+values being compared. These two dots
+represent the two values being compared,
+this, this box versus that box, and so
+forth. So, in each case, the goal is to
+try to compare which value is larger. And
+in some cases, the values are easier to
+distinguish that in others. So, we're
+going to be talking about this in just a
+minute. But if to, the two values are
+right next to each other and encoded as
+links, they're very easy to distinguish.
+On the other hand, if the two values are
+encoded on different scales and for and
+not right next to each other, they might
+be harder distinguish. So, here are the
+results of the analysis that they
+performed when they did the experiment.
+So, what you see here are the different
+types of graphs, so type 1 through type 5,
+and in each case, the goal was, again, to
+compare the values that were indicated by
+the dots. On the x-axis, is actually the
+value of the error that they achieved and
+the dot is the actual mean error, and then
+the, the two bars are the confidence
+intervals for that error. We'll be talking
+about confidence intervals a lot next
+week. But what you can see is that the
+easiest, the one with the smallest amount
+of error was when the two bars were
+displayed right next to each other and
+they were compared on a common scale. And
+it got more difficult as the tasks move
+from left to right. So, it actually shows
+you a little bit about what are the kinds
+of ways that you should display data in
+order to most accurately communicate the
+differences that your trying to identify
+between measurements in a quantitative
+fashion. Another experiment that they
+performed, and this is the experiment that
+caused, I think, a lot of people to not
+like pie charts. So, you'll often hear
+that statisticians don't like to use pie
+charts, or they'll rail against pie charts
+in their discussions. And the reason was
+largely because of this experiment. So
+they, in this experiment, there were 5
+different data points, and they were
+quantified either as an angle, so the goal
+here is to compare the angle of B to the
+angle of A, to see which one is larger,
+versus just comparing the lengths, A
+versus B versus C and so forth. And so
+again, they performed a similar experiment
+where they showed these graphs to people
+and they asked them to make different
+comparisons and then they showed the error
+rate for the, the two different kinds of
+comparisons. And so, in the case of
+position, using the position of one of
+those bar charts, the error rate was very
+low, whereas, when you were using an
+angle, the error rate was much higher. And
+so, that's because there's actually
+psychological and neurological reasons why
+it's easier for people to make comparisons
+on links rather than areas or angles. They
+actually did further experiments. I'm not
+going to talk too deeply about this, but
+you should, you can take a look at this
+paper if you want to learn a lot more. And
+they basically showed that using a
+positions on common axes or not aligned
+axes are still much better than using
+measurements of length, angle, slope, or
+the area of circles, or the area of blobs.
+And so, basically, what this is suggesting
+is that when possible, when your trying to
+perform a graphical displays of data, you
+should try to use position as opposed to
+length and then definitely not the circle
+area or blob area or angle of the graphs
+as a way of comparing quantitative
+information.
+So to summarize some ideas, this is, of
+course, a really brief summary of what is
+an incredibly large area of research into
+the graphical display of data and the
+summary would be use common scales when
+possible, so try to make things, try to
+make your plots of it if you're comparing
+lengths, or if you're comparing, comparing
+positions, they should be on a common
+scale. and when possible, use position
+comparisons. Again as I've said before,
+pie charts aren't neccesarily the
+statisticians best friend because angle
+comparisons are frequently hard to
+interpret so they should only be used
+sparingly. We didn't discuss to much about
+this in the experimental results I just
+showed you but 3D bar charts and
+comparisons of volume are actually much
+harder to perform then some of the other
+tasks and so should also be avoided
+whenever possible. So, I'm going to do,
+give you a couple of examples of the
+different kinds of plots that you might
+make and what they might be useful for.
+And I'm going to use this American
+community survey data that we've actually
+used in a previous quiz for making these
+plots and for being, showing you the
+different kinds of comparisons that we can
+do. So first, I'm going to just read the
+data into R using this command here. you,
+alternatively, if you had the ss06pid.csv
+somewhere else, you would have to change
+the path to be able to load the file in.
+So, the first type of plot that we're
+going to be talking about is called a box
+plot. And so, a box plot is a type of plot
+that you would use for a quantitative
+variable and its goal is to try to give
+you an idea of what the distribution of
+the data looks like. So, what you see here
+is the command that you'd use to create
+this plot. You would type boxplot, and
+then pass it a quantitative variable. I've
+also changed the color to be blue so that
+the plot is a little bit easier to see,
+but this isn't necessary to make the plot.
+So, what you see here is the box plot of
+the ages for this study that we're looking
+at. And so, what you can see is that there
+are several different values that are
+encoded in this box plot. The t hick line
+in the middle of the box plot is the
+median, so that is the measure of the
+center of the distribution. And, in this
+case, it's just under 40. You also see the
+75th percentile and the 25th percentile of
+the data, as the upper and lower bounds of
+the box. And then, what you see here are
+some whiskers, these are called whiskers.
+And then up in the top, it's the value
+that is 1.5 times the 75th percentile. And
+here it's the 25th percentile, 1.5 times
+lower. And so, if there were actually
+values that were either larger or smaller
+than that, you would actually see those
+values sort of as dots, represented above
+and below the whiskers. So, what is this
+plot good for? It gives you an idea of the
+distribution of the data. You can see,
+first of all, if the data have a really
+large number of values spread out, or you
+can see if it's very compact distribution.
+You also can see that if the distribution
+is symmetric or not by where this black
+line falls in the box. If the black line
+is sort of close to the center of the box,
+the distribution is a little bit more
+symmetric. Whereas, if you see the black
+line sort of pulled toward the, either the
+top or the bottom of the box, you actually
+see that the distribution would be a
+little bit asymmetric and that you would
+see more of the values being low or more
+of the values being high. So, this gives
+you some information about the quantiative
+distribution of a single variable. And so,
+you can actually use boxplots to make
+comparisons. Again the goal is to make
+them on the common scale. So, you can
+actually use the boxplot command to make
+comparisons of quantiative variables on a
+common scale. In this case, what I've done
+is, again, I've used the boxplot command.
+But now, I take this quantitative
+variable, and I apply a formula. We'll be
+talking a lot more about formulas when we
+talk about statistical modeling in R. But
+basically, what I do is I say I include
+this little tilde which says, show me the
+distribution of age broken down by the
+difficulty dr essing variable.
+And so, the difficulty dressing variable
+has two different values and so I've
+created a factor here, one level of the
+factor for each level of the difficulty
+dressing. So difficult DDRS equal to 1
+means that they have difficulty dressing,
+and DDRS equals 2 means they don't have
+dificulty dressing. And so, what you can
+see here is that the individuals that have
+difficulty dressing actually have a much
+higher age on average, than the indivudals
+that don't have difficulty dressing which
+is sort of not surprising. but it's a,
+you, by putting this answer of a common
+scale, it makes it possible for you to
+compare sort of the senders of the
+distribution but also the variability of
+these two distributions. Now, something
+that isn't encoded in this plot so far is
+any indication as to how many individuals
+we have that come from that have
+difficulty dressing versus how many
+individuals we have that don't have
+difficulty dressing. And so, we can
+actually encode that information in with
+the variable or with a parameter called
+varwidth. So again, this is the same
+boxplot, boxplot of age and we use the
+tilde to say I would like it broken down
+by whether it's, you know, have difficulty
+dressing or not. Then I've also passed it
+2 colors, blue and orange, and these
+colors correspond to the 2 different
+groups of the difficulty dressing factor.
+And I've also passed it names, yes and no,
+so that I can actually see whether, which
+individuals do have difficulty dressing
+and which don't. And then, I pass it, this
+parameter varwidth equals true. So, by
+passing it varwidth equals true, the width
+of the box is proportional to number of
+observations that we have in that group.
+And so, you can see here, for example,
+that the group that has difficulty
+dressing, we have very much smaller number
+of those individuals than we do in the
+group that doesn't have difficulty
+dressing. So, ideally, if you're making
+comparisons like this, you'd like to see
+about an equal number of observations in
+the two groups. Yo u'd like the two boxes
+to be about the same width. And this gives
+you some idea. If this is much, much
+smaller than that, the difference in say,
+centers between the two distributions
+might not be quite as meaningful because
+this might not be very many data points at
+all that are contributing to this estimate
+of the center here. So, another type of
+plot that you can make is called a
+barplot. So, we talked, saw an example of
+those barplots earlier when we were
+discussing the different kinds of plots,
+and how comparisons on length are maybe
+not as useful as comparisons on position.
+So, this is an example where you would
+make a comparison on position. In this
+case, what I've done is I've, I've made a
+table of the different values here of this
+variable CIT in the data set and what I've
+been able to do here is then make a count
+of each level of this variable CITS 5
+levels. And so I made a barplot of these
+levels and what it does is it now makes a
+bar that's, the height of the bar is equal
+to the data value that you're seeing. So,
+the first level of CIT has about 14,000
+values and the second level has much
+smaller number of values and that it's
+sort of increasing up to 5. So, what this
+allows you to do at a glance is to see
+sort of the number of varia observations
+that you have in any particular class.
+It's very useful for breaking down sort of
+tables of qualitative variables, but it
+can also be used to compare the, sort of
+the means of quantitative variables, and
+so forth, using the barplot command.
+Next are histograms. So, histograms are
+sort of like box plots and the goal is to
+quantify or sort of look at a univariate
+distribution of data or single variable
+distribution of data. And so, what I've
+done here is I've made a histogram with
+the hist command. Again, I passed it the
+age variable and I colored it blue to make
+it easier to see. So, this is what a
+histogram looks like. so what a histogram
+is, it's a little bit different than a
+barplot. What it does is, it says, okay, I
+am going to look at all the, how many
+values in the data set of age do I see
+between 0 and, say, this looks like about
+4. So, in the data set, I see about 1,200
+values, a little over 1,200 values that
+are between 0 and 4. Then, it goes and it
+looks between 4 and 8 and so for, and it
+looks and sees how many values that are
+there, and you can see sort of that
+there's not quite 1,200 values between 4
+and 8. And it goes on and on like this.
+And so, for example, in the way out here,
+you can see that between, say, 88 and 90,
+there actually aren't very many values at
+all and so, this bar is much, much lower.
+So, the nice thing here is it gives you a
+little bit of information about the
+distribution and maybe a little more
+information in the boxplot in the sense
+that you can actually see the shape of the
+distribution here, so you can see that
+there is sort of relatively large amount
+of small ages and there's also a
+relatively large amount sort of in middle
+age. But sort of, in this place in
+between, there are fewer values and also
+sort of out at the tail, there are fewer
+values, which is a little bit more
+information than you got from the boxplot.
+So, another thing that you can do with
+histograms is you can actually set the
+number of breaks. So, this is the number
+of break points there are. You can tell it
+instead of breaking it down between you
+know, 0 and 4, you can say, I would like,
+you know, there'd be a lot more bars. So,
+for example, this bar might be now just
+the values between, say, 0 and 1, and so
+you can see that there's quite a large
+number of those values in the data set and
+you can actually sort of see the full
+distribution broken down much more fine
+grain by setting the breaks to be larger
+as a parameter in this data set. I've
+also, in this case, changed the title of
+the plot using the main parameter to age
+which makes it a little bit easier to
+communicate what's going on here. So
+again, this is on the frequency scale and
+you're able to see that the frequencies
+and the observations of a particular size.
+Ano ther way you can this is you can
+actually create what's called a density
+plot. So, a density plot is like a
+histogram but it's been smoothed out. So
+to do that, I actually first use this
+density command and so I pass it at the
+age, the quantitative variable age to the
+density command. And then, I make a plot
+of that object that gets created with the
+density command. And I tell it, in this
+case how thick I want the line to be. This
+is lwd, is how thick you want the line to
+be. So, by setting, it's, by default equal
+to 1, by setting equal to 3, I get a
+slightly thicker line here. And again, I
+make the color blue so it's a little bit
+easier to see. Again, what you see here is
+the age distribution. And so now, you see
+density, which is a little bit different
+than frequency. So the difference between
+density and frequency that you saw in the
+previous histogram, is the shape is sort
+of similar as you saw in the histogram.
+But what's going on here is, instead of
+calculating the exact number that appear
+between zero and one, it's looking at
+something like the percentage of the
+observations that we see that are between
+zero and one. So, it's something like a
+little under 1% are this value here, and
+whereas, for sort of people that are above
+80, the percent is even much smaller. The
+other thing to note here is that because
+it's been smoothed, you see that this,
+this shows the same sort of shape that the
+histogram showed, but you now, by
+smoothing, have also induced a little bit
+of air at the boundaries. And so, for
+example, we actually haven't observed
+anybody with age smaller than zero or age
+greater than a 100. But the smoother
+actually kind of extends a little bit
+farther out, so you have to be a little
+careful about interpreting near the
+boundaries. The reason why you'd want to
+use density instead of, say, a histogram
+is that you can actually overlay the
+distributions for different say, genders
+of the age variable. So, what I've done
+here is I first created a, a density based
+on all of the age mea surements that we
+have for all of the individuals in this
+study. And then, I also subset that data
+set to only the individual whose sets
+variables are equal to 1, those are all
+the males. And so now, I actually make a
+density of the ages of just the males in
+the study. And so, what I can do is I can,
+again, plot the density function that I
+calculated for the age variable. And so,
+that appears in blue. And so, you can see
+that, that distribution looks like this.
+You can see the blue line there. And then,
+I can use something that's called lines to
+add another line to this plot. And so,
+when I use lines, I pass it the other
+density, the one I calculated for males
+and I color that one in orange. And so,
+you can see actually the distribution for
+males is very, very similar to the overall
+distribution. But there are some slight
+differences in the frequency of ages for
+males versus the ages of everyone,
+overall. And so, the, the nice thing about
+this is that you can compare multiple
+distributions, even though there might be
+some slight sort of error in terms of
+displaying information, it makes it easy
+to compare multiple distributions whereas,
+with histograms, that's not that, not as
+easy. So, those are some very basic
+univariant plots that we'll be talking
+about. And in the next lecture, we'll
+cover some more complicated plots.

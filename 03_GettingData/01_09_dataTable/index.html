@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Using data.table</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Using data.table">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Using data.table</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>data.table</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Inherets from data.frame
+
+<ul>
+<li>All functions that accept data.frame work on data.table</li>
+</ul></li>
+<li>Written in C so it is much faster</li>
+<li>Much, much faster at subsetting, group, and updating</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Create data tables just like data frames</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(data.table)
+DF = data.frame(x=rnorm(9),y=rep(c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;),each=3),z=rnorm(9))
+head(DF,3)
+</code></pre>
+
+<pre><code>       x y        z
+1 0.4159 a -0.05855
+2 0.8433 a  0.13732
+3 1.0585 a  2.16448
+</code></pre>
+
+<pre><code class="r">DT = data.table(x=rnorm(9),y=rep(c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;),each=3),z=rnorm(9))
+head(DT,3)
+</code></pre>
+
+<pre><code>          x y      z
+1: -0.27721 a 0.2530
+2:  1.00158 a 1.5093
+3: -0.03382 a 0.4844
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>See all the data tables in memory</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">tables()
+</code></pre>
+
+<pre><code>     NAME NROW MB COLS  KEY
+[1,] DT      9 1  x,y,z    
+Total: 1MB
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Subsetting rows</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">DT[2,]
+</code></pre>
+
+<pre><code>       x y     z
+1: 1.002 a 1.509
+</code></pre>
+
+<pre><code class="r">DT[DT$y==&quot;a&quot;,]
+</code></pre>
+
+<pre><code>          x y      z
+1: -0.27721 a 0.2530
+2:  1.00158 a 1.5093
+3: -0.03382 a 0.4844
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Subsetting rows</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">DT[c(2,3)]
+</code></pre>
+
+<pre><code>          x y      z
+1:  1.00158 a 1.5093
+2: -0.03382 a 0.4844
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Subsetting columns!?</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">DT[,c(2,3)]
+</code></pre>
+
+<pre><code>[1] 2 3
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Column subsetting in data.table</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The subsetting function is modified for data.table</li>
+<li>The argument you pass after the comma is called an &quot;expression&quot;</li>
+<li>In R an expression is a collection of statements enclosed in curley brackets </li>
+</ul>
+
+<pre><code class="r">{
+  x = 1
+  y = 2
+}
+k = {print(10); 5}
+</code></pre>
+
+<pre><code>[1] 10
+</code></pre>
+
+<pre><code class="r">print(k)
+</code></pre>
+
+<pre><code>[1] 5
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Calculating values for variables with expressions</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">DT[,list(mean(x),sum(z))]
+</code></pre>
+
+<pre><code>        V1     V2
+1: 0.05637 0.5815
+</code></pre>
+
+<pre><code class="r">DT[,table(y)]
+</code></pre>
+
+<pre><code>y
+a b c 
+3 3 3 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Adding new columns</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">DT[,w:=z^2]
+</code></pre>
+
+<pre><code>          x y        z        w
+1: -0.27721 a  0.25300 0.064009
+2:  1.00158 a  1.50933 2.278091
+3: -0.03382 a  0.48437 0.234619
+4: -0.70493 b -1.22755 1.506885
+5: -1.36402 b -0.64624 0.417631
+6: -0.26224 b -0.51427 0.264475
+7: -0.10929 c  1.21445 1.474901
+8:  1.40234 c  0.07493 0.005614
+9:  0.85494 c -0.56652 0.320948
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Adding new columns</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">DT2 &lt;- DT
+DT[, y:= 2]
+</code></pre>
+
+<pre><code>          x y        z        w
+1: -0.27721 2  0.25300 0.064009
+2:  1.00158 2  1.50933 2.278091
+3: -0.03382 2  0.48437 0.234619
+4: -0.70493 2 -1.22755 1.506885
+5: -1.36402 2 -0.64624 0.417631
+6: -0.26224 2 -0.51427 0.264475
+7: -0.10929 2  1.21445 1.474901
+8:  1.40234 2  0.07493 0.005614
+9:  0.85494 2 -0.56652 0.320948
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Careful</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">head(DT,n=3)
+</code></pre>
+
+<pre><code>          x y      z       w
+1: -0.27721 2 0.2530 0.06401
+2:  1.00158 2 1.5093 2.27809
+3: -0.03382 2 0.4844 0.23462
+</code></pre>
+
+<pre><code class="r">head(DT2,n=3)
+</code></pre>
+
+<pre><code>          x y      z       w
+1: -0.27721 2 0.2530 0.06401
+2:  1.00158 2 1.5093 2.27809
+3: -0.03382 2 0.4844 0.23462
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Multiple operations</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">DT[,m:= {tmp &lt;- (x+z); log2(tmp+5)}]
+</code></pre>
+
+<pre><code>          x y        z        w     m
+1: -0.27721 2  0.25300 0.064009 2.315
+2:  1.00158 2  1.50933 2.278091 2.909
+3: -0.03382 2  0.48437 0.234619 2.446
+4: -0.70493 2 -1.22755 1.506885 1.617
+5: -1.36402 2 -0.64624 0.417631 1.580
+6: -0.26224 2 -0.51427 0.264475 2.078
+7: -0.10929 2  1.21445 1.474901 2.610
+8:  1.40234 2  0.07493 0.005614 2.695
+9:  0.85494 2 -0.56652 0.320948 2.403
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>plyr like operations</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">DT[,a:=x&gt;0]
+</code></pre>
+
+<pre><code>          x y        z        w     m     a
+1: -0.27721 2  0.25300 0.064009 2.315 FALSE
+2:  1.00158 2  1.50933 2.278091 2.909  TRUE
+3: -0.03382 2  0.48437 0.234619 2.446 FALSE
+4: -0.70493 2 -1.22755 1.506885 1.617 FALSE
+5: -1.36402 2 -0.64624 0.417631 1.580 FALSE
+6: -0.26224 2 -0.51427 0.264475 2.078 FALSE
+7: -0.10929 2  1.21445 1.474901 2.610 FALSE
+8:  1.40234 2  0.07493 0.005614 2.695  TRUE
+9:  0.85494 2 -0.56652 0.320948 2.403  TRUE
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>plyr like operations</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">DT[,b:= mean(x+w),by=a]
+</code></pre>
+
+<pre><code>          x y        z        w     m     a      b
+1: -0.27721 2  0.25300 0.064009 2.315 FALSE 0.2018
+2:  1.00158 2  1.50933 2.278091 2.909  TRUE 1.9545
+3: -0.03382 2  0.48437 0.234619 2.446 FALSE 0.2018
+4: -0.70493 2 -1.22755 1.506885 1.617 FALSE 0.2018
+5: -1.36402 2 -0.64624 0.417631 1.580 FALSE 0.2018
+6: -0.26224 2 -0.51427 0.264475 2.078 FALSE 0.2018
+7: -0.10929 2  1.21445 1.474901 2.610 FALSE 0.2018
+8:  1.40234 2  0.07493 0.005614 2.695  TRUE 1.9545
+9:  0.85494 2 -0.56652 0.320948 2.403  TRUE 1.9545
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Special variables</h2>
+  </hgroup>
+  <article>
+    <p><code>.N</code> An integer, length 1, containing the numbe r</p>
+
+<pre><code class="r">set.seed(123);
+DT &lt;- data.table(x=sample(letters[1:3], 1E5, TRUE))
+DT[, .N, by=x]
+</code></pre>
+
+<pre><code>   x     N
+1: a 33387
+2: c 33201
+3: b 33412
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Keys</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">DT &lt;- data.table(x=rep(c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;),each=100), y=rnorm(300))
+setkey(DT, x)
+DT[&#39;a&#39;]
+</code></pre>
+
+<pre><code>     x        y
+  1: a  0.25959
+  2: a  0.91751
+  3: a -0.72232
+  4: a -0.80828
+  5: a -0.14135
+  6: a  2.25701
+  7: a -2.37955
+  8: a -0.45425
+  9: a -0.06007
+ 10: a  0.86090
+ 11: a -1.78466
+ 12: a -0.13074
+ 13: a -0.36984
+ 14: a -0.18066
+ 15: a -1.04973
+ 16: a  0.37832
+ 17: a -1.37079
+ 18: a -0.31612
+ 19: a  0.39435
+ 20: a -1.68988
+ 21: a -1.46234
+ 22: a  2.55838
+ 23: a  0.08789
+ 24: a  1.73141
+ 25: a  1.21513
+ 26: a  0.29954
+ 27: a -0.17246
+ 28: a  1.13250
+ 29: a  0.02320
+ 30: a  1.33587
+ 31: a -1.09879
+ 32: a -0.58176
+ 33: a  0.03892
+ 34: a  1.07315
+ 35: a  1.34970
+ 36: a  1.19528
+ 37: a -0.02218
+ 38: a  0.69849
+ 39: a  0.67241
+ 40: a -0.79165
+ 41: a -0.21791
+ 42: a  0.02307
+ 43: a  0.11539
+ 44: a -0.27708
+ 45: a  0.03688
+ 46: a  0.47520
+ 47: a  1.70749
+ 48: a  1.07601
+ 49: a -1.34571
+ 50: a -1.44025
+ 51: a -0.39393
+ 52: a  0.58106
+ 53: a -0.17079
+ 54: a -0.90585
+ 55: a  0.15621
+ 56: a -0.37323
+ 57: a -0.34587
+ 58: a -0.35829
+ 59: a -0.13307
+ 60: a -0.08960
+ 61: a  0.62793
+ 62: a -1.42883
+ 63: a  0.17255
+ 64: a -0.79115
+ 65: a  1.26204
+ 66: a -0.26941
+ 67: a  0.15698
+ 68: a -0.76060
+ 69: a  1.37060
+ 70: a  0.03758
+ 71: a  0.44949
+ 72: a  2.78869
+ 73: a -0.46849
+ 74: a  1.01261
+ 75: a -0.04374
+ 76: a  1.40670
+ 77: a  0.41993
+ 78: a  0.31009
+ 79: a  1.11905
+ 80: a -1.29814
+ 81: a -1.28248
+ 82: a  1.65943
+ 83: a  0.78375
+ 84: a  0.57771
+ 85: a -0.26725
+ 86: a -0.64569
+ 87: a -0.44953
+ 88: a -0.82620
+ 89: a  1.05504
+ 90: a -0.87927
+ 91: a -1.27713
+ 92: a -0.63412
+ 93: a  0.66470
+ 94: a -0.50958
+ 95: a  0.40736
+ 96: a  1.67775
+ 97: a -1.05206
+ 98: a -0.63691
+ 99: a  0.56539
+100: a  0.38016
+     x        y
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Joins</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">DT1 &lt;- data.table(x=c(&#39;a&#39;, &#39;a&#39;, &#39;b&#39;, &#39;dt1&#39;), y=1:4)
+DT2 &lt;- data.table(x=c(&#39;a&#39;, &#39;b&#39;, &#39;dt2&#39;), z=5:7)
+setkey(DT1, x); setkey(DT2, x)
+merge(DT1, DT2)
+</code></pre>
+
+<pre><code>   x y z
+1: a 1 5
+2: a 2 5
+3: b 3 6
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Fast reading</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">big_df &lt;- data.frame(x=rnorm(1E6), y=rnorm(1E6))
+file &lt;- tempfile()
+write.table(big_df, file=file, row.names=FALSE, col.names=TRUE, sep=&quot;\t&quot;, quote=FALSE)
+system.time(fread(file))
+</code></pre>
+
+<pre><code>   user  system elapsed 
+  0.312   0.015   0.326 
+</code></pre>
+
+<pre><code class="r">system.time(read.table(file, header=TRUE, sep=&quot;\t&quot;))
+</code></pre>
+
+<pre><code>   user  system elapsed 
+  5.702   0.048   5.755 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Summary and further reading</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The latest development version contains new functions like <code>melt</code> and <code>dcast</code> for data.tables 
+
+<ul>
+<li><a href="https://r-forge.r-project.org/scm/viewvc.php/pkg/NEWS?view=markup&amp;root=datatable">https://r-forge.r-project.org/scm/viewvc.php/pkg/NEWS?view=markup&amp;root=datatable</a></li>
+</ul></li>
+<li>Here is a list of differences between data.table and data.frame
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/13618488/what-you-can-do-with-data-frame-that-you-cant-in-data-table">http://stackoverflow.com/questions/13618488/what-you-can-do-with-data-frame-that-you-cant-in-data-table</a></li>
+</ul></li>
+<li>Notes based on Raphael Gottardo&#39;s notes <a href="https://github.com/raphg/Biostat-578/blob/master/Advanced_data_manipulation.Rpres">https://github.com/raphg/Biostat-578/blob/master/Advanced_data_manipulation.Rpres</a>, who got them from Kevin Ushey.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

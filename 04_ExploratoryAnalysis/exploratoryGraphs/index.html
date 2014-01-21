@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Exploratory Graphs</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Exploratory Graphs">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Exploratory Graphs</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Why do we use graphs in data analysis?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>To understand data properties</li>
+<li>To find patterns in data</li>
+<li>To suggest modeling strategies</li>
+<li>To &quot;debug&quot; analyses</li>
+<li>To communicate results</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Exploratory graphs</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><redtext>To understand data properties</redtext></li>
+<li><redtext>To find patterns in data</redtext></li>
+<li><redtext>To suggest modeling strategies</redtext></li>
+<li><redtext>To &quot;debug&quot; analyses</redtext></li>
+<li>To communicate results</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Characteristics of exploratory graphs</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>They are made quickly</li>
+<li>A large number are made</li>
+<li>The goal is for personal understanding</li>
+<li>Axes/legends are generally cleaned up (later)</li>
+<li>Color/size are primarily used for information</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Air Pollution in the United States</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>The U.S. Environmental Protection Agency (EPA) sets national ambient
+air quality standards for outdoor air pollution</p>
+
+<ul>
+<li><a href="http://www.epa.gov/air/criteria.html">U.S. National Ambient Air Quality Standards</a></li>
+</ul></li>
+<li><p>For fine particle pollution (PM2.5), the &quot;annual mean, averaged over
+3 years&quot; cannot exceed \(12~\mu g/m^3\).</p></li>
+<li><p>Data on daily PM2.5 are available from the U.S. EPA web site</p>
+
+<ul>
+<li><a href="http://www.epa.gov/ttn/airs/airsaqs/detaildata/downloadaqsdata.htm">EPA Air Quality System</a></li>
+</ul></li>
+<li><p><strong>Question</strong>: Are there any counties in the U.S. that exceed that
+national standard for fine particle pollution?</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Data</h2>
+  </hgroup>
+  <article>
+    <p>Annual average PM2.5 averaged over the period 2008 through 2010</p>
+
+<pre><code class="r">pollution &lt;- read.csv(&quot;data/avgpm25.csv&quot;, colClasses = c(&quot;numeric&quot;, &quot;character&quot;, 
+    &quot;factor&quot;, &quot;numeric&quot;, &quot;numeric&quot;))
+head(pollution)
+</code></pre>
+
+<pre><code>##     pm25  fips region longitude latitude
+## 1  9.771 01003   east    -87.75    30.59
+## 2  9.994 01027   east    -85.84    33.27
+## 3 10.689 01033   east    -87.73    34.73
+## 4 11.337 01049   east    -85.80    34.46
+## 5 12.120 01055   east    -86.03    34.02
+## 6 10.828 01069   east    -85.35    31.19
+</code></pre>
+
+<p>Do any counties exceed the standard of \(12~\mu g/m^3\)?</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Simple Summaries of Data</h2>
+  </hgroup>
+  <article>
+    <p>One dimension</p>
+
+<ul>
+<li>Five-number summary</li>
+<li>Boxplots</li>
+<li>Histograms</li>
+<li>Density plot</li>
+<li>Barplot</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Five Number Summary</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">summary(pollution$pm25)
+</code></pre>
+
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    3.38    8.55   10.00    9.84   11.40   18.40
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Boxplot</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">boxplot(pollution$pm25, col = &quot;blue&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Histogram</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">hist(pollution$pm25, col = &quot;green&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Histogram</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">hist(pollution$pm25, col = &quot;green&quot;)
+rug(pollution$pm25)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-4.png" alt="plot of chunk unnamed-chunk-4"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Histogram</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">hist(pollution$pm25, col = &quot;green&quot;, breaks = 100)
+rug(pollution$pm25)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-5.png" alt="plot of chunk unnamed-chunk-5"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Overlaying Features</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">boxplot(pollution$pm25, col = &quot;blue&quot;)
+abline(h = 12)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-6.png" alt="plot of chunk unnamed-chunk-6"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Overlaying Features</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">hist(pollution$pm25, col = &quot;green&quot;)
+abline(v = 12, lwd = 2)
+abline(v = median(pollution$pm25), col = &quot;magenta&quot;, lwd = 4)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-7.png" alt="plot of chunk unnamed-chunk-7"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Barplot</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">barplot(table(pollution$region), col = &quot;wheat&quot;, main = &quot;Number of Counties in Each Region&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-8.png" alt="plot of chunk unnamed-chunk-8"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Simple Summaries of Data</h2>
+  </hgroup>
+  <article>
+    <p>Two dimensions</p>
+
+<ul>
+<li>Multiple/overlayed 1-D plots (Lattice/ggplot2)</li>
+<li>Scatterplots</li>
+<li>Smooth scatterplots</li>
+</ul>
+
+<p>\(> 2\) dimensions</p>
+
+<ul>
+<li>Overlayed/multiple 2-D plots; coplots</li>
+<li>Use color, size, shape to add dimensions</li>
+<li>Spinning plots</li>
+<li>Actual 3-D plots (not that useful)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Multiple Boxplots</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">boxplot(pm25 ~ region, data = pollution, col = &quot;red&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-9.png" alt="plot of chunk unnamed-chunk-9"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Multiple Histograms</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mfrow = c(2, 1), mar = c(4, 4, 2, 1))
+hist(subset(pollution, region == &quot;east&quot;)$pm25, col = &quot;green&quot;)
+hist(subset(pollution, region == &quot;west&quot;)$pm25, col = &quot;green&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-10.png" alt="plot of chunk unnamed-chunk-10"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Scatterplot</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">with(pollution, plot(latitude, pm25))
+abline(h = 12, lwd = 2, lty = 2)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-11.png" alt="plot of chunk unnamed-chunk-11"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Scatterplot - Using Color</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">with(pollution, plot(latitude, pm25, col = region))
+abline(h = 12, lwd = 2, lty = 2)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-12.png" alt="plot of chunk unnamed-chunk-12"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Multiple Scatterplots</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mfrow = c(1, 2), mar = c(5, 4, 2, 1))
+with(subset(pollution, region == &quot;west&quot;), plot(latitude, pm25, main = &quot;West&quot;))
+with(subset(pollution, region == &quot;east&quot;), plot(latitude, pm25, main = &quot;East&quot;))
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-13.png" alt="plot of chunk unnamed-chunk-13"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Exploratory plots are &quot;quick and dirty&quot;</p></li>
+<li><p>Let you summarize the data (usually graphically) and highlight any broad features</p></li>
+<li><p>Explore basic questions and hypotheses (and perhaps rule them out)</p></li>
+<li><p>Suggest modeling strategies for the &quot;next step&quot;</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Further resources</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><a href="http://gallery.r-enthusiasts.com/">R Graph Gallery</a></li>
+<li><a href="http://www.r-bloggers.com/">R Bloggers</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

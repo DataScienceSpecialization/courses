@@ -1,0 +1,300 @@
+---
+title       : Structure of a Data Analysis 
+subtitle    : Part 2
+author      : Roger D. Peng, Associate Professor of Biostatistics 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : zenburn   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = TRUE, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, fig.align = 'center', dpi = 100, tidy = T, cache = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## Steps in a data analysis
+
+* Define the question
+* Define the ideal data set
+* Determine what data you can access
+* Obtain the data
+* Clean the data
+* Exploratory data analysis
+* Statistical prediction/modeling
+* Interpret results
+* Challenge results
+* Synthesize/write up results
+* Create reproducible code
+
+---
+
+## Steps in a data analysis
+
+* Define the question
+* Define the ideal data set
+* Determine what data you can access
+* Obtain the data
+* Clean the data
+* <redtext>Exploratory data analysis</redtext>
+* <redtext>Statistical prediction/modeling</redtext>
+* <redtext>Interpret results</redtext>
+* <redtext>Challenge results</redtext>
+* <redtext>Synthesize/write up results</redtext>
+* <redtext>Create reproducible code</redtext>
+
+
+
+---
+
+## An example
+
+__Start with a general question__
+
+Can I automatically detect emails that are SPAM or not?
+
+__Make it concrete__
+
+Can I use quantitative characteristics of the emails to classify them as SPAM/HAM?
+
+
+--- 
+
+## Our data set
+
+<img class=center src=../../assets/img/spamR.png height='400' />
+
+[http://search.r-project.org/library/kernlab/html/spam.html](http://search.r-project.org/library/kernlab/html/spam.html)
+
+--- 
+
+## Subsampling our data set
+We need to generate a test and training set (prediction)
+```{r,message=FALSE}
+# If it isn't installed, install the kernlab package
+library(kernlab)
+data(spam)
+# Perform the subsampling
+set.seed(3435)
+trainIndicator = rbinom(4601,size=1,prob=0.5)
+table(trainIndicator)
+trainSpam = spam[trainIndicator==1,]
+testSpam = spam[trainIndicator==0,]
+```
+
+---
+
+## Exploratory data analysis
+
+* Look at summaries of the data
+* Check for missing data
+* Create exploratory plots
+* Perform exploratory analyses (e.g. clustering)
+
+---
+
+## Names
+```{r}
+names(trainSpam)
+```
+
+
+---
+
+## Head
+```{r}
+head(trainSpam)
+```
+
+---
+
+## Summaries
+```{r}
+table(trainSpam$type)
+```
+
+---
+
+## Plots
+```{r,fig.height=5,fig.width=5}
+plot(trainSpam$capitalAve ~ trainSpam$type)
+```
+
+---
+
+## Plots 
+```{r, fig.height=5,fig.width=5}
+plot(log10(trainSpam$capitalAve + 1) ~ trainSpam$type)
+```
+
+---
+
+## Relationships between predictors
+```{r, fig.height=5,fig.width=5}
+plot(log10(trainSpam[,1:4]+1))
+```
+
+---
+
+## Clustering
+```{r,echo=FALSE}
+par(mar=c(0,0,0,0))
+
+```
+
+```{r, fig.height=6,fig.width=7}
+hCluster = hclust(dist(t(trainSpam[,1:57])))
+plot(hCluster)
+```
+
+---
+## New clustering
+```{r, fig.height=6,fig.width=7}
+hClusterUpdated = hclust(dist(t(log10(trainSpam[,1:55]+1))))
+plot(hClusterUpdated)
+```
+
+---
+## Statistical prediction/modeling
+
+* Should be informed by the results of your exploratory analysis
+* Exact methods depend on the question of interest
+* Transformations/processing should be accounted for when necessary
+* Measures of uncertainty should be reported
+
+---
+## Statistical prediction/modeling
+```{r,warning=FALSE,cache=TRUE}
+trainSpam$numType = as.numeric(trainSpam$type)-1
+costFunction = function(x,y) sum(x!=(y > 0.5)) 
+cvError = rep(NA,55)
+library(boot)
+for(i in 1:55){
+  lmFormula = reformulate(names(trainSpam)[i], response = "numType")
+  glmFit = glm(lmFormula,family="binomial",data=trainSpam)
+  cvError[i] = cv.glm(trainSpam,glmFit,costFunction,2)$delta[2]
+}
+
+## Which predictor has minimum cross-validated error?
+names(trainSpam)[which.min(cvError)]
+```
+
+---
+
+## Get a measure of uncertainty
+```{r,warning=FALSE}
+## Use the best model from the group
+predictionModel = glm(numType ~ charDollar,family="binomial",data=trainSpam)
+
+## Get predictions on the test set
+predictionTest = predict(predictionModel,testSpam)
+predictedSpam = rep("nonspam",dim(testSpam)[1])
+
+## Classify as `spam' for those with prob > 0.5
+predictedSpam[predictionModel$fitted > 0.5] = "spam"
+```
+
+---
+
+## Get a measure of uncertainty
+
+```{r}
+## Classification table
+table(predictedSpam,testSpam$type)
+
+## Error rate
+(61+458)/(1346+458 + 61 + 449)
+```
+
+---
+
+## Interpret results
+
+* Use the appropriate language
+  * describes 
+  * correlates with/associated with
+  * leads to/causes
+  * predicts
+* Give an explanation
+* Interpret coefficients
+* Interpret measures of uncertainty
+
+---
+
+## Our example
+
+* The fraction of charcters that are dollar signs can be used to predict if an email is Spam
+* Anything with more than 6.6% dollar signs is classified as Spam
+* More dollar signs always means more Spam under our prediction
+* Our test set error rate was 22.4% 
+
+---
+
+## Challenge results
+
+* Challenge all steps:
+  * Question
+  * Data source
+  * Processing 
+  * Analysis 
+  * Conclusions
+* Challenge measures of uncertainty
+* Challenge choices of terms to include in models
+* Think of potential alternative analyses 
+
+---
+
+## Synthesize/write-up results
+
+* Lead with the question
+* Summarize the analyses into the story 
+* Don't include every analysis, include it
+  * If it is needed for the story
+  * If it is needed to address a challenge
+* Order analyses according to the story, rather than chronologically
+* Include "pretty" figures that contribute to the story 
+
+---
+
+## In our example
+
+* Lead with the question
+  * Can I use quantitative characteristics of the emails to classify them as SPAM/HAM?
+* Describe the approach
+  * Collected data from UCI -> created training/test sets
+  * Explored relationships
+  * Choose logistic model on training set by cross validation
+  * Applied to test, 78% test set accuracy
+* Interpret results
+  * Number of dollar signs seems reasonable, e.g. "Make money with Viagra \\$ \\$ \\$ \\$!"
+* Challenge results
+  * 78% isn't that great
+  * I could use more variables
+  * Why logistic regression?
+
+
+---
+
+## Create reproducible code
+
+<img class=center src=../../assets/img/rmarkdown.png height='400' />
+
+

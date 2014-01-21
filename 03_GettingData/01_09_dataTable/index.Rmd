@@ -1,0 +1,225 @@
+---
+title       : Using data.table
+subtitle    : 
+author      : Jeffrey Leek 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/', cache=FALSE)
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## data.table
+
+* Inherets from data.frame
+  * All functions that accept data.frame work on data.table
+* Written in C so it is much faster
+* Much, much faster at subsetting, group, and updating
+ 
+
+---
+
+## Create data tables just like data frames
+
+```{r init}
+library(data.table)
+DF = data.frame(x=rnorm(9),y=rep(c("a","b","c"),each=3),z=rnorm(9))
+head(DF,3)
+DT = data.table(x=rnorm(9),y=rep(c("a","b","c"),each=3),z=rnorm(9))
+head(DT,3)
+```
+
+---
+
+## See all the data tables in memory
+
+```{r,dependson="init"}
+tables()
+```
+
+---
+
+## Subsetting rows
+
+```{r,dependson="init"}
+DT[2,]
+DT[DT$y=="a",]
+```
+
+---
+
+## Subsetting rows
+
+```{r,dependson="init"}
+DT[c(2,3)]
+```
+
+
+---
+
+## Subsetting columns!?
+
+```{r,dependson="init"}
+DT[,c(2,3)]
+```
+
+---
+
+## Column subsetting in data.table
+
+* The subsetting function is modified for data.table
+* The argument you pass after the comma is called an "expression"
+* In R an expression is a collection of statements enclosed in curley brackets 
+```{r }
+{
+  x = 1
+  y = 2
+}
+k = {print(10); 5}
+print(k)
+```
+
+---
+
+## Calculating values for variables with expressions
+
+```{r,dependson="init"}
+DT[,list(mean(x),sum(z))]
+DT[,table(y)]
+```
+
+---
+
+## Adding new columns
+
+```{r,dependson="init"}
+DT[,w:=z^2]
+```
+
+
+---
+
+## Adding new columns
+
+```{r dt2,dependson="init"}
+DT2 <- DT
+DT[, y:= 2]
+```
+
+---
+
+## Careful
+
+```{r ,dependson="dt2"}
+head(DT,n=3)
+head(DT2,n=3)
+```
+
+
+---
+
+## Multiple operations
+
+```{r,dependson="init"}
+DT[,m:= {tmp <- (x+z); log2(tmp+5)}]
+```
+
+---
+
+## plyr like operations
+
+```{r,dependson="init"}
+DT[,a:=x>0]
+```
+
+
+---
+
+## plyr like operations
+
+```{r,dependson="init"}
+DT[,b:= mean(x+w),by=a]
+```
+
+
+---
+
+## Special variables
+
+`.N` An integer, length 1, containing the numbe r
+
+```{r}
+set.seed(123);
+DT <- data.table(x=sample(letters[1:3], 1E5, TRUE))
+DT[, .N, by=x]
+```
+
+---
+
+## Keys
+
+```{r}
+DT <- data.table(x=rep(c("a","b","c"),each=100), y=rnorm(300))
+setkey(DT, x)
+DT['a']
+```
+
+---
+
+## Joins
+
+```{r}
+DT1 <- data.table(x=c('a', 'a', 'b', 'dt1'), y=1:4)
+DT2 <- data.table(x=c('a', 'b', 'dt2'), z=5:7)
+setkey(DT1, x); setkey(DT2, x)
+merge(DT1, DT2)
+```
+
+
+
+---
+
+## Fast reading
+
+```{r,cache=TRUE}
+big_df <- data.frame(x=rnorm(1E6), y=rnorm(1E6))
+file <- tempfile()
+write.table(big_df, file=file, row.names=FALSE, col.names=TRUE, sep="\t", quote=FALSE)
+system.time(fread(file))
+system.time(read.table(file, header=TRUE, sep="\t"))
+```
+
+
+
+
+---
+
+## Summary and further reading
+
+* The latest development version contains new functions like `melt` and `dcast` for data.tables 
+  * [https://r-forge.r-project.org/scm/viewvc.php/pkg/NEWS?view=markup&root=datatable](https://r-forge.r-project.org/scm/viewvc.php/pkg/NEWS?view=markup&root=datatable)
+* Here is a list of differences between data.table and data.frame
+  * [http://stackoverflow.com/questions/13618488/what-you-can-do-with-data-frame-that-you-cant-in-data-table](http://stackoverflow.com/questions/13618488/what-you-can-do-with-data-frame-that-you-cant-in-data-table)
+* Notes based on Raphael Gottardo's notes [https://github.com/raphg/Biostat-578/blob/master/Advanced_data_manipulation.Rpres](https://github.com/raphg/Biostat-578/blob/master/Advanced_data_manipulation.Rpres), who got them from Kevin Ushey.

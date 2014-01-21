@@ -1,0 +1,106 @@
+---
+title       : Introduction to the R Language
+subtitle    : Loop Functions - mapply
+author      : Roger Peng, Associate Professor
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## mapply
+
+`mapply` is a multivariate apply of sorts which applies a function in parallel over a set of arguments.
+
+```r
+> str(mapply)
+function (FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE,
+          USE.NAMES = TRUE)
+```
+
+- `FUN` is a function to apply
+- ... contains arguments to apply over
+- `MoreArgs` is a list of other arguments to `FUN`.
+- `SIMPLIFY` indicates whether the result should be simplified
+
+---
+
+## mapply
+
+The following is tedious to type
+
+`list(rep(1, 4), rep(2, 3), rep(3, 2), rep(4, 1))`
+
+Instead we can do
+
+```r
+> mapply(rep, 1:4, 4:1)
+[[1]]
+[1] 1 1 1 1
+
+[[2]]
+[1] 2 2 2
+
+[[3]] 
+[1] 3 3
+
+[[4]] 
+[1] 4
+```
+
+---
+
+## Vectorizing a Function
+
+```r
+> noise <- function(n, mean, sd) {
++ rnorm(n, mean, sd)
++ }
+> noise(5, 1, 2)
+[1]  2.4831198  2.4790100  0.4855190 -1.2117759
+[5] -0.2743532
+
+> noise(1:5, 1:5, 2)
+[1] -4.2128648 -0.3989266  4.2507057  1.1572738
+[5]  3.7413584
+```
+
+---
+
+## Instant Vectorization
+
+```r
+> mapply(noise, 1:5, 1:5, 2)
+[[1]]
+[1] 1.037658
+
+[[2]]
+[1] 0.7113482 2.7555797
+
+[[3]]
+[1] 2.769527 1.643568 4.597882
+
+[[4]]
+[1] 4.476741 5.658653 3.962813 1.204284
+
+[[5]]
+[1] 4.797123 6.314616 4.969892 6.530432 6.723254
+```
+
+---
+
+## Instant Vectorization
+
+Which is the same as
+
+```r
+list(noise(1, 1, 2), noise(2, 2, 2),
+     noise(3, 3, 2), noise(4, 4, 2),
+     noise(5, 5, 2))
+```

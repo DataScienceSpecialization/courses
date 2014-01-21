@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The ggplot2 Plotting System - Part 1</title>
+  <meta charset="utf-8">
+  <meta name="description" content="The ggplot2 Plotting System - Part 1">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>The ggplot2 Plotting System - Part 1</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>What is ggplot2?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>An implementation of <em>The Grammar of Graphics</em> by Leland Wilkinson</li>
+<li>Written by Hadley Wickham (while he was a graduate student at Iowa State)</li>
+<li>A “third” graphics system for R (along with <strong>base</strong> and <strong>lattice</strong>)</li>
+<li>Available from CRAN via <code>install.packages()</code></li>
+<li>Web site: <a href="http://ggplot2.org">http://ggplot2.org</a> (better documentation)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>What is ggplot2?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Grammar of graphics represents an abstraction of graphics ideas/objects</li>
+<li>Think “verb”, “noun”, “adjective” for graphics</li>
+<li>Allows for a “theory” of graphics on which to build new graphics and graphics objects</li>
+<li>“Shorten the distance from mind to page”</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Grammer of Graphics</h2>
+  </hgroup>
+  <article>
+    <h3>“In brief, the grammar tells us that a statistical graphic is a <strong>mapping</strong> from data to <strong>aesthetic</strong> attributes (colour, shape, size) of <strong>geometric</strong> objects (points, lines, bars). The plot may also contain statistical transformations of the data and is drawn on a specific coordinate system”</h3>
+
+<ul>
+<li>from <em>ggplot2</em> book</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Plotting Systems in R: Base</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>“Artist’s palette” model</li>
+<li>Start with blank canvas and build up from there</li>
+<li>Start with <code>plot</code> function (or similar)</li>
+<li>Use annotation functions to add/modify (<code>text</code>, <code>lines</code>, <code>points</code>, <code>axis</code>)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Plotting Systems in R: Base</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Convenient, mirrors how we think of building plots and analyzing data</li>
+<li>Can’t go back once plot has started (i.e. to adjust margins); need to plan in advance</li>
+<li>Difficult to “translate” to others once a new plot has been created (no graphical “language”)
+
+<ul>
+<li>Plot is just a series of R commands</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Plotting Systems in R: Lattice</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Plots are created with a single function call (<code>xyplot</code>, <code>bwplot</code>, etc.)</li>
+<li>Most useful for conditioning types of plots: Looking at how \(y\) changes with \(x\) across levels of \(z\)</li>
+<li>Things like margins/spacing set automatically because entire plot is specified at once</li>
+<li>Good for putting many many plots on a screen</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Plotting Systems in R: Lattice</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Sometimes awkward to specify an entire plot in a single function call</li>
+<li>Annotation in plot is not intuitive</li>
+<li>Use of panel functions and subscripts difficult to wield and requires intense preparation</li>
+<li>Cannot “add” to the plot once it’s created</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Plotting Systems in R: ggplot2</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Split the difference between base and lattice</li>
+<li>Automatically deals with spacings, text, titles but also allows you to annotate by “adding”</li>
+<li>Superficial similarity to lattice but generally easier/more intuitive to use</li>
+<li>Default mode makes many choices for you (but you <em>can</em> customize!)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>The Basics: <code>qplot()</code></h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Works much like the <code>plot</code> function in base graphics system</li>
+<li>Looks for data in a data frame, similar to lattice, or in the parent environment</li>
+<li>Plots are made up of <em>aesthetics</em> (size, shape, color) and <em>geoms</em> (points, lines)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>The Basics: <code>qplot()</code></h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Factors are important for indicating subsets of the data (if they are to have different properties); they should be <strong>labeled</strong></li>
+<li>The <code>qplot()</code> hides what goes on underneath, which is okay for most operations</li>
+<li><code>ggplot()</code> is the core function and very flexible for doing things <code>qplot()</code> cannot do</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Example Dataset</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(ggplot2)
+str(mpg)
+</code></pre>
+
+<pre><code>&#39;data.frame&#39;:   234 obs. of  11 variables:
+ $ manufacturer: Factor w/ 15 levels &quot;audi&quot;,&quot;chevrolet&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ model       : Factor w/ 38 levels &quot;4runner 4wd&quot;,..: 2 2 2 2 2 2 2 3 3 3 ...
+ $ displ       : num  1.8 1.8 2 2 2.8 2.8 3.1 1.8 1.8 2 ...
+ $ year        : int  1999 1999 2008 2008 1999 1999 2008 1999 1999 2008 ...
+ $ cyl         : int  4 4 4 4 6 6 6 4 4 4 ...
+ $ trans       : Factor w/ 10 levels &quot;auto(av)&quot;,&quot;auto(l3)&quot;,..: 4 9 10 1 4 9 1 9 4 10 ...
+ $ drv         : Factor w/ 3 levels &quot;4&quot;,&quot;f&quot;,&quot;r&quot;: 2 2 2 2 2 2 2 1 1 1 ...
+ $ cty         : int  18 21 20 21 16 18 18 18 16 20 ...
+ $ hwy         : int  29 29 31 30 26 26 27 26 25 28 ...
+ $ fl          : Factor w/ 5 levels &quot;c&quot;,&quot;d&quot;,&quot;e&quot;,&quot;p&quot;,..: 4 4 4 4 4 4 4 4 4 4 ...
+ $ class       : Factor w/ 7 levels &quot;2seater&quot;,&quot;compact&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>ggplot2 “Hello, world!”</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">qplot(displ, hwy, data = mpg)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Modifying aesthetics</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">qplot(displ, hwy, data = mpg, color = drv)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Adding a geom</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">qplot(displ, hwy, data = mpg, geom = c(&quot;point&quot;, &quot;smooth&quot;))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Histograms</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">qplot(hwy, data = mpg, fill = drv)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Facets</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">qplot(displ, hwy, data = mpg, facets = . ~ drv)
+qplot(hwy, data = mpg, facets = drv ~ ., binwidth = 2)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-61.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" />
+<img src="fig/unnamed-chunk-62.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>MAACS Cohort</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Mouse Allergen and Asthma Cohort Study</li>
+<li>Baltimore children (aged 5—17)</li>
+<li>Persistent asthma, exacerbation in past year</li>
+<li>Study indoor environment and its relationship with asthma morbidity</li>
+<li>Recent publication: <a href="http://goo.gl/WqE9j8">http://goo.gl/WqE9j8</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Example: MAACS</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">str(maacs)
+</code></pre>
+
+<pre><code>&#39;data.frame&#39;:   750 obs. of  5 variables:
+ $ id       : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ eno      : num  141 124 126 164 99 68 41 50 12 30 ...
+ $ duBedMusM: num  2423 2793 3055 775 1634 ...
+ $ pm25     : num  15.6 34.4 39 33.2 27.1 ...
+ $ mopos    : Factor w/ 2 levels &quot;no&quot;,&quot;yes&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Histogram of eNO</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">qplot(log(eno), data = maacs)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Histogram by Group</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">qplot(log(eno), data = maacs, fill = mopos)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-10.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Density Smooth</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">qplot(log(eno), data = maacs, geom = &quot;density&quot;)
+qplot(log(eno), data = maacs, geom = &quot;density&quot;, color = mopos)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-111.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" class="plot" />
+<img src="fig/unnamed-chunk-112.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Scatterplots: eNO vs. PM\(_{2.5}\)</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">qplot(log(pm25), log(eno), data = maacs)
+qplot(log(pm25), log(eno), data = maacs, shape = mopos)
+qplot(log(pm25), log(eno), data = maacs, color = mopos)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-121.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" class="plot" />
+<img src="fig/unnamed-chunk-122.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" class="plot" />
+<img src="fig/unnamed-chunk-123.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Scatterplots: eNO vs. PM\(_{2.5}\)</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">qplot(log(pm25), log(eno), data = maacs, color = mopos, 
+      geom = c(&quot;point&quot;, &quot;smooth&quot;), method = &quot;lm&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-13.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>Scatterplots: eNO vs. PM\(_{2.5}\)</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">qplot(log(pm25), log(eno), data = maacs, geom = c(&quot;point&quot;, &quot;smooth&quot;), 
+      method = &quot;lm&quot;, facets = . ~ mopos)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-14.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>Summary of qplot()</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The <code>qplot()</code> function is the analog to <code>plot()</code> but with many built-in features</li>
+<li>Syntax somewhere in between base/lattice</li>
+<li>Produces very nice graphics, essentially publication ready (if you like the design)</li>
+<li>Difficult to go against the grain/customize (don’t bother; use full ggplot2 power in that case)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>Resources</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The <em>ggplot2</em> book by Hadley Wickham</li>
+<li>The <em>R Graphics Cookbook</em> by Winston Chang (examples in base plots and in ggplot2)</li>
+<li>ggplot2 web site (<a href="http://ggplot2.org">http://ggplot2.org</a>)</li>
+<li>ggplot2 mailing list (<a href="http://goo.gl/OdW3uB">http://goo.gl/OdW3uB</a>), primarily for developers</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

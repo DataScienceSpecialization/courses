@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Introduction to the R Language</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Introduction to the R Language">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Introduction to the R Language</h1>
+        <h2>Scoping Rules</h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>A Diversion on Binding Values to Symbol</h2>
+  </hgroup>
+  <article>
+    <p>How does R know which value to assign to which symbol? When I type</p>
+
+<pre><code class="r">&gt; lm &lt;- function(x) { x * x }
+&gt; lm
+function(x) { x * x }
+</code></pre>
+
+<p>how does R know what value to assign to the symbol <code>lm</code>? Why doesn’t it give it the value of <code>lm</code> that is in the <em>stats</em> package?</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>A Diversion on Binding Values to Symbol</h2>
+  </hgroup>
+  <article>
+    <p>When R tries to bind a value to a symbol, it searches through a series of <code>environments</code> to find the appropriate value. When you are working on the command line and need to retrieve the value of an R object, the order is roughly</p>
+
+<ol>
+<li>Search the global environment for a symbol name matching the one requested.</li>
+<li>Search the namespaces of each of the packages on the search list</li>
+</ol>
+
+<p>The search list can be found by using the <code>search</code> function.</p>
+
+<pre><code class="r">&gt; search()
+[1] &quot;.GlobalEnv&quot;        &quot;package:stats&quot;     &quot;package:graphics&quot;
+[4] &quot;package:grDevices&quot; &quot;package:utils&quot;     &quot;package:datasets&quot;
+[7] &quot;package:methods&quot;   &quot;Autoloads&quot;         &quot;package:base&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Binding Values to Symbol</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The <em>global environment</em> or the user’s workspace is always the first element of the search list and the <em>base</em> package is always the last.</li>
+<li>The order of the packages on the search list matters!</li>
+<li>User’s can configure which packages get loaded on startup so you cannot assume that there will be a set list of packages available.</li>
+<li>When a user loads a package with <code>library</code> the namespace of that package gets put in position 2 of the search list (by default) and everything else gets shifted down the list.</li>
+<li>Note that R has separate namespaces for functions and non-functions so it’s possible to have an object named c and a function named c.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Scoping Rules</h2>
+  </hgroup>
+  <article>
+    <p>The scoping rules for R are the main feature that make it different from the original S language.</p>
+
+<ul>
+<li>The scoping rules determine how a value is associated with a free variable in a function</li>
+<li>R uses <em>lexical scoping</em> or <em>static scoping</em>. A common alternative is <em>dynamic scoping</em>. </li>
+<li>Related to the scoping rules is how R uses the search <em>list</em> to bind a value to a
+symbol</li>
+<li>Lexical scoping turns out to be particularly useful for simplifying statistical computations</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Lexical Scoping</h2>
+  </hgroup>
+  <article>
+    <p>Consider the following function.</p>
+
+<pre><code class="r">f &lt;- function(x, y) {
+        x^2 + y / z
+}
+</code></pre>
+
+<p>This function has 2 formal arguments <code>x</code> and <code>y</code>. In the body of the function there is another symbol <code>z</code>. In this case <code>z</code> is called a <em>free variable</em>.
+The scoping rules of a language determine how values are assigned to free variables. Free variables are not formal arguments and are not local variables (assigned insided the function body).</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Lexical Scoping</h2>
+  </hgroup>
+  <article>
+    <p>Lexical scoping in R means that</p>
+
+<p><em>the values of free variables are searched for in the environment in which the function was defined</em>.</p>
+
+<p>What is an environment?</p>
+
+<ul>
+<li>An <em>environment</em> is a collection of (symbol, value) pairs, i.e. <code>x</code> is a symbol and <code>3.14</code> might be its value.</li>
+<li>Every environment has a parent environment; it is possible for an environment to have multiple “children”</li>
+<li>the only environment without a parent is the empty environment </li>
+<li>A function + an environment = a <em>closure</em> or <em>function closure</em>.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Lexical Scoping</h2>
+  </hgroup>
+  <article>
+    <p>Searching for the value for a free variable:</p>
+
+<ul>
+<li>If the value of a symbol is not found in the environment in which a function was defined, then the search is continued in the <em>parent environment</em>.</li>
+<li>The search continues down the sequence of parent environments until we hit the <em>top-level environment</em>; this usually the global environment (workspace) or the namespace of a package.</li>
+<li>After the top-level environment, the search continues down the search list until we hit the <em>empty environment</em>.
+If a value for a given symbol cannot be found once the empty environment is arrived at, then an error is thrown.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Lexical Scoping</h2>
+  </hgroup>
+  <article>
+    <p>Why does all this matter?</p>
+
+<ul>
+<li>Typically, a function is defined in the global environment, so that the values of free variables are just found in the user’s workspace</li>
+<li>This behavior is logical for most people and is usually the “right thing” to do </li>
+<li>However, in R you can have functions defined <em>inside other functions</em>
+
+<ul>
+<li>Languages like C don’t let you do this</li>
+</ul></li>
+<li>Now things get interesting — In this case the environment in which a function is defined is the body of another function!</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Lexical Scoping</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">make.power &lt;- function(n) {
+        pow &lt;- function(x) {
+                x^n 
+        }
+        pow 
+}
+</code></pre>
+
+<p>This function returns another function as its value.</p>
+
+<pre><code class="r">&gt; cube &lt;- make.power(3)
+&gt; square &lt;- make.power(2)
+&gt; cube(3)
+[1] 27
+&gt; square(3)
+[1] 9
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Exploring a Function Closure</h2>
+  </hgroup>
+  <article>
+    <p>What’s in a function’s environment?</p>
+
+<pre><code class="r">&gt; ls(environment(cube))
+[1] &quot;n&quot;   &quot;pow&quot;
+&gt; get(&quot;n&quot;, environment(cube))
+[1] 3
+
+&gt; ls(environment(square))
+[1] &quot;n&quot;   &quot;pow&quot;
+&gt; get(&quot;n&quot;, environment(square))
+[1] 2
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Lexical vs. Dynamic Scoping</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">y &lt;- 10
+
+f &lt;- function(x) {
+        y &lt;- 2
+        y^2 + g(x)
+}
+
+g &lt;- function(x) { 
+        x*y
+}
+</code></pre>
+
+<p>What is the value of</p>
+
+<pre><code class="r">f(3)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Lexical vs. Dynamic Scoping</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>With lexical scoping the value of <code>y</code> in the function <code>g</code> is looked up in the environment in which the function was defined, in this case the global environment, so the value of <code>y</code> is 10.</li>
+<li>With dynamic scoping, the value of <code>y</code> is looked up in the environment from which the function was <em>called</em> (sometimes referred to as the <em>calling environment</em>).
+
+<ul>
+<li>In R the calling environment is known as the <em>parent frame</em> </li>
+</ul></li>
+<li>So the value of <code>y</code> would be 2.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Lexical vs. Dynamic Scoping</h2>
+  </hgroup>
+  <article>
+    <p>When a function is <em>defined</em> in the global environment and is subsequently <em>called</em> from the global environment, then the defining environment and the calling environment are the same. This can sometimes give the appearance of dynamic scoping.</p>
+
+<pre><code class="r">&gt; g &lt;- function(x) { 
++ a &lt;- 3
++ x+a+y 
++ }
+&gt; g(2)
+Error in g(2) : object &quot;y&quot; not found
+&gt; y &lt;- 3
+&gt; g(2)
+[1] 8
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Other Languages</h2>
+  </hgroup>
+  <article>
+    <p>Other languages that support lexical scoping </p>
+
+<ul>
+<li>Scheme</li>
+<li>Perl</li>
+<li>Python</li>
+<li>Common Lisp (all languages converge to Lisp)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Consequences of Lexical Scoping</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>In R, all objects must be stored in memory</li>
+<li>All functions must carry a pointer to their respective defining environments, which could be anywhere</li>
+<li>In S-PLUS, free variables are always looked up in the global workspace, so everything can be stored on the disk because the “defining environment” of all functions is the same.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Application: Optimization</h2>
+  </hgroup>
+  <article>
+    <p>Why is any of this information useful?</p>
+
+<ul>
+<li>Optimization routines in R like <code>optim</code>, <code>nlm</code>, and <code>optimize</code> require you to pass a function whose argument is a vector of parameters (e.g. a log-likelihood)</li>
+<li>However, an object function might depend on a host of other things besides its parameters (like <em>data</em>)</li>
+<li>When writing software which does optimization, it may be desirable to allow the user to hold certain parameters fixed</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Maximizing a Normal Likelihood</h2>
+  </hgroup>
+  <article>
+    <p>Write a “constructor” function</p>
+
+<pre><code class="r">make.NegLogLik &lt;- function(data, fixed=c(FALSE,FALSE)) {
+        params &lt;- fixed
+        function(p) {
+                params[!fixed] &lt;- p
+                mu &lt;- params[1]
+                sigma &lt;- params[2]
+                a &lt;- -0.5*length(data)*log(2*pi*sigma^2)
+                b &lt;- -0.5*sum((data-mu)^2) / (sigma^2)
+                -(a + b)
+        } 
+}
+</code></pre>
+
+<p><em>Note</em>: Optimization functions in R <em>minimize</em> functions, so you need to use the negative log-likelihood.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Maximizing a Normal Likelihood</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">&gt; set.seed(1); normals &lt;- rnorm(100, 1, 2)
+&gt; nLL &lt;- make.NegLogLik(normals)
+&gt; nLL
+function(p) {
+                params[!fixed] &lt;- p
+                mu &lt;- params[1]
+                sigma &lt;- params[2]
+                a &lt;- -0.5*length(data)*log(2*pi*sigma^2)
+                b &lt;- -0.5*sum((data-mu)^2) / (sigma^2)
+                -(a + b)
+        }
+&lt;environment: 0x165b1a4&gt;
+&gt; ls(environment(nLL))
+[1] &quot;data&quot;   &quot;fixed&quot;  &quot;params&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Estimating Parameters</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">&gt; optim(c(mu = 0, sigma = 1), nLL)$par
+      mu    sigma
+1.218239 1.787343
+</code></pre>
+
+<p>Fixing σ = 2</p>
+
+<pre><code class="r">&gt; nLL &lt;- make.NegLogLik(normals, c(FALSE, 2))
+&gt; optimize(nLL, c(-1, 3))$minimum
+[1] 1.217775
+</code></pre>
+
+<p>Fixing μ = 1</p>
+
+<pre><code class="r">&gt; nLL &lt;- make.NegLogLik(normals, c(1, FALSE))
+&gt; optimize(nLL, c(1e-6, 10))$minimum
+[1] 1.800596
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Plotting the Likelihood</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">nLL &lt;- make.NegLogLik(normals, c(1, FALSE))
+x &lt;- seq(1.7, 1.9, len = 100)
+y &lt;- sapply(x, nLL)
+plot(x, exp(-(y - min(y))), type = &quot;l&quot;)
+
+nLL &lt;- make.NegLogLik(normals, c(FALSE, 2))
+x &lt;- seq(0.5, 1.5, len = 100)
+y &lt;- sapply(x, nLL)
+plot(x, exp(-(y - min(y))), type = &quot;l&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Plotting the Likelihood</h2>
+  </hgroup>
+  <article>
+    <p><img src="../assets/img/like1.png" height=500></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Plotting the Likelihood</h2>
+  </hgroup>
+  <article>
+    <p><img src="../assets/img/like2.png" height=500></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Lexical Scoping Summary</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Objective functions can be “built” which contain all of the necessary data for evaluating the function</li>
+<li>No need to carry around long argument lists — useful for interactive and exploratory work.</li>
+<li>Code can be simplified and cleand up</li>
+<li>Reference: Robert Gentleman and Ross Ihaka (2000). “Lexical Scope and Statistical Computing,” <em>JCGS</em>, 9, 491–508.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

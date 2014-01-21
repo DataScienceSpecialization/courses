@@ -1,0 +1,216 @@
+---
+title       : Basic least squares
+subtitle    : 
+author      : Jeffrey Leek, Assistant Professor of Biostatistics 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## Goals of statistical modeling
+
+* Describe the distribution of variables
+* Describe the relationship between variables
+* Make inferences about distributions or relationships
+
+
+---
+
+## Example: Average parent and child heights
+
+
+
+<img class=center src=../../assets/img/galton.jpg height=450>
+
+[http://www.nature.com/ejhg/journal/v17/n8/full/ejhg20095a.html](http://www.nature.com/ejhg/journal/v17/n8/full/ejhg20095a.html)
+
+
+---
+
+
+## Still relevant
+
+
+<img class=center src=../../assets/img/height.png height=350>
+
+[http://www.nature.com/ejhg/journal/v17/n8/full/ejhg20095a.html](http://www.nature.com/ejhg/journal/v17/n8/full/ejhg20095a.html)
+
+[Predicting height: the Victorian approach beats modern genomics](http://www.wired.com/wiredscience/2009/03/predicting-height-the-victorian-approach-beats-modern-genomics/)
+
+
+---
+
+## Load Galton Data
+
+You may need to run `install.packages("UsingR")` if the `UsingR` library is not installed
+
+```{r galton,fig.height=3.5,fig.width=8}
+library(UsingR); data(galton)
+par(mfrow=c(1,2))
+hist(galton$child,col="blue",breaks=100)
+hist(galton$parent,col="blue",breaks=100)
+```
+
+---
+
+## The distribution of child heights
+
+```{r, dependson="galton",fig.height=4,fig.width=4}
+hist(galton$child,col="blue",breaks=100)
+```
+
+
+---
+
+## Only know the child  - average height
+
+```{r, dependson="galton",fig.height=4,fig.width=4}
+hist(galton$child,col="blue",breaks=100)
+meanChild <- mean(galton$child)
+lines(rep(meanChild,100),seq(0,150,length=100),col="red",lwd=5)
+```
+
+---
+
+## Only know the child  - why average?
+
+If $C_i$ is the height of child $i$ then the average is the value of $\mu$ that minimizes:
+
+$$ \sum_{i=1}^{928}(C_i - \mu)^2 $$
+
+---
+
+## What if we plot child versus average parent
+
+```{r, dependson="galton",fig.height=4,fig.width=4}
+plot(galton$parent,galton$child,pch=19,col="blue")
+```
+
+---
+
+## Jittered plot
+
+```{r, dependson="galton",fig.height=4,fig.width=4}
+set.seed(1234)
+plot(jitter(galton$parent,factor=2),jitter(galton$child,factor=2),pch=19,col="blue")
+```
+
+---
+
+## Average parent = 65 inches tall
+
+```{r, dependson="galton",fig.height=4,fig.width=4}
+plot(galton$parent,galton$child,pch=19,col="blue")
+near65 <- galton[abs(galton$parent - 65)<1, ]
+points(near65$parent,near65$child,pch=19,col="red")
+lines(seq(64,66,length=100),rep(mean(near65$child),100),col="red",lwd=4)
+```
+
+---
+
+## Average parent = 71 inches tall
+
+```{r, dependson="galton",fig.height=4,fig.width=4}
+plot(galton$parent,galton$child,pch=19,col="blue")
+near71 <- galton[abs(galton$parent - 71)<1, ]
+points(near71$parent,near71$child,pch=19,col="red")
+lines(seq(70,72,length=100),rep(mean(near71$child),100),col="red",lwd=4)
+```
+
+
+---
+
+## Fitting a line
+
+
+
+```{r, dependson="lm1",fig.height=4,fig.width=4}
+plot(galton$parent,galton$child,pch=19,col="blue")
+lm1 <- lm(galton$child ~ galton$parent)
+lines(galton$parent,lm1$fitted,col="red",lwd=3)
+```
+
+---
+
+## Why not this line?
+
+
+```{r, dependson="galton",fig.height=4,fig.width=4}
+plot(galton$parent,galton$child,pch=19,col="blue")
+lines(galton$parent, 26 + 0.646*galton$parent)
+```
+
+---
+
+## The equation for a line
+
+If $C_i$ is the height of child $i$ and $P_i$ is the height of the average parent, then we can imagine writing the equation for a line
+
+$$C_i = b_0 + b_1 P_i$$
+
+
+---
+
+## Not all points are on the line
+
+```{r, dependson="lm1",fig.height=4,fig.width=4}
+plot(galton$parent,galton$child,pch=19,col="blue")
+lines(galton$parent,lm1$fitted,col="red",lwd=3)
+```
+
+
+---
+
+## Allowing for variation
+
+If $C_i$ is the height of child $i$ and $P_i$ is the height of the average parent, then we can imagine writing the equation for a line
+
+$$C_i = b_0 + b_1 P_i + e_i$$
+
+$e_i$ is everything we didn't measure (how much they eat, where they live, do they stretch in the morning...)
+
+---
+
+## How do we pick best?
+
+If $C_i$ is the height of child $i$ and $P_i$ is the height of the average parent, pick the line that makes the child values $C_i$ and our guesses
+
+$$ \sum_{i=1}^{928}(C_i - \{b_0 + b_1 P_i\})^2 $$
+
+
+---
+
+## Plot what is leftover
+
+```{r, dependson="lm1",fig.height=4,fig.width=8}
+par(mfrow=c(1,2))
+plot(galton$parent,galton$child,pch=19,col="blue")
+lines(galton$parent,lm1$fitted,col="red",lwd=3)
+plot(galton$parent,lm1$residuals,col="blue",pch=19)
+abline(c(0,0),col="red",lwd=3)
+```
+

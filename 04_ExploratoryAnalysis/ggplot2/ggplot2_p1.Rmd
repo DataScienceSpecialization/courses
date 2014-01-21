@@ -1,0 +1,275 @@
+---
+title       : The ggplot2 Plotting System - Part 1
+subtitle    : 
+author      : Roger D. Peng, Associate Professor of Biostatistics
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 80)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/', fig.height = 4, cache = TRUE, fig.show = 'hold')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## What is ggplot2?
+
+- An implementation of _The Grammar of Graphics_ by Leland Wilkinson
+- Written by Hadley Wickham (while he was a graduate student at Iowa State)
+- A “third” graphics system for R (along with __base__ and __lattice__)
+- Available from CRAN via `install.packages()`
+- Web site: http://ggplot2.org (better documentation)
+
+---
+
+## What is ggplot2?
+
+- Grammar of graphics represents an abstraction of graphics ideas/objects
+- Think “verb”, “noun”, “adjective” for graphics
+- Allows for a “theory” of graphics on which to build new graphics and graphics objects
+- “Shorten the distance from mind to page”
+
+---
+
+## Grammer of Graphics
+
+### “In brief, the grammar tells us that a statistical graphic is a __mapping__ from data to __aesthetic__ attributes (colour, shape, size) of __geometric__ objects (points, lines, bars). The plot may also contain statistical transformations of the data and is drawn on a specific coordinate system”
+
+- from _ggplot2_ book
+
+---
+
+## Plotting Systems in R: Base
+
+- “Artist’s palette” model
+- Start with blank canvas and build up from there
+- Start with `plot` function (or similar)
+- Use annotation functions to add/modify (`text`, `lines`, `points`, `axis`)
+
+---
+
+## Plotting Systems in R: Base
+
+- Convenient, mirrors how we think of building plots and analyzing data
+- Can’t go back once plot has started (i.e. to adjust margins); need to plan in advance
+- Difficult to “translate” to others once a new plot has been created (no graphical “language”)
+  - Plot is just a series of R commands
+
+---
+
+## Plotting Systems in R: Lattice
+
+- Plots are created with a single function call (`xyplot`, `bwplot`, etc.)
+- Most useful for conditioning types of plots: Looking at how $y$ changes with $x$ across levels of $z$
+- Things like margins/spacing set automatically because entire plot is specified at once
+- Good for putting many many plots on a screen
+
+---
+
+## Plotting Systems in R: Lattice
+
+- Sometimes awkward to specify an entire plot in a single function call
+- Annotation in plot is not intuitive
+- Use of panel functions and subscripts difficult to wield and requires intense preparation
+- Cannot “add” to the plot once it’s created
+
+---
+
+## Plotting Systems in R: ggplot2
+
+- Split the difference between base and lattice
+- Automatically deals with spacings, text, titles but also allows you to annotate by “adding”
+- Superficial similarity to lattice but generally easier/more intuitive to use
+- Default mode makes many choices for you (but you _can_ customize!)
+
+---
+
+## The Basics: `qplot()`
+
+- Works much like the `plot` function in base graphics system
+- Looks for data in a data frame, similar to lattice, or in the parent environment
+- Plots are made up of _aesthetics_ (size, shape, color) and _geoms_ (points, lines)
+
+---
+
+## The Basics: `qplot()`
+
+- Factors are important for indicating subsets of the data (if they are to have different properties); they should be __labeled__
+- The `qplot()` hides what goes on underneath, which is okay for most operations
+- `ggplot()` is the core function and very flexible for doing things `qplot()` cannot do
+
+---
+
+## Example Dataset
+
+```{r}
+library(ggplot2)
+str(mpg)
+```
+
+
+---
+
+## ggplot2 “Hello, world!”
+
+```{r}
+qplot(displ, hwy, data = mpg)
+```
+
+---
+
+## Modifying aesthetics
+
+```{r}
+qplot(displ, hwy, data = mpg, color = drv)
+
+```
+
+
+---
+
+## Adding a geom
+
+```{r}
+qplot(displ, hwy, data = mpg, geom = c("point", "smooth"))
+
+```
+
+---
+
+## Histograms
+
+```{r}
+qplot(hwy, data = mpg, fill = drv)
+
+```
+
+
+
+---
+
+## Facets
+
+```{r, fig.width=4.5}
+qplot(displ, hwy, data = mpg, facets = . ~ drv)
+qplot(hwy, data = mpg, facets = drv ~ ., binwidth = 2)
+```
+
+---
+
+## MAACS Cohort
+
+- Mouse Allergen and Asthma Cohort Study
+- Baltimore children (aged 5—17)
+- Persistent asthma, exacerbation in past year
+- Study indoor environment and its relationship with asthma morbidity
+- Recent publication: http://goo.gl/WqE9j8
+
+```{r,echo=FALSE}
+eno <- read.csv("eno.csv")
+skin <- read.csv("skin.csv")
+env <- read.csv("environmental.csv")
+m <- merge(eno, env, by = "id")
+maacs <- merge(m, skin, by = "id")
+```
+
+---
+
+## Example: MAACS
+
+```{r}
+str(maacs)
+```
+
+
+---
+
+## Histogram of eNO
+
+```{r}
+qplot(log(eno), data = maacs)
+```
+
+---
+
+## Histogram by Group
+
+```{r}
+qplot(log(eno), data = maacs, fill = mopos)
+```
+
+---
+
+## Density Smooth
+
+```{r, fig.width=4.5}
+qplot(log(eno), data = maacs, geom = "density")
+qplot(log(eno), data = maacs, geom = "density", color = mopos)
+```
+
+---
+
+## Scatterplots: eNO vs. PM$_{2.5}$
+
+```{r, fig.width=2.7}
+qplot(log(pm25), log(eno), data = maacs)
+qplot(log(pm25), log(eno), data = maacs, shape = mopos)
+qplot(log(pm25), log(eno), data = maacs, color = mopos)
+```
+
+
+---
+
+## Scatterplots: eNO vs. PM$_{2.5}$
+
+```{r}
+qplot(log(pm25), log(eno), data = maacs, color = mopos, 
+      geom = c("point", "smooth"), method = "lm")
+```
+
+
+---
+
+## Scatterplots: eNO vs. PM$_{2.5}$
+
+```{r, fig.width=9}
+qplot(log(pm25), log(eno), data = maacs, geom = c("point", "smooth"), 
+      method = "lm", facets = . ~ mopos)
+```
+
+
+---
+
+## Summary of qplot()
+
+- The `qplot()` function is the analog to `plot()` but with many built-in features
+- Syntax somewhere in between base/lattice
+- Produces very nice graphics, essentially publication ready (if you like the design)
+- Difficult to go against the grain/customize (don’t bother; use full ggplot2 power in that case)
+
+---
+
+## Resources
+
+- The _ggplot2_ book by Hadley Wickham
+- The _R Graphics Cookbook_ by Winston Chang (examples in base plots and in ggplot2)
+- ggplot2 web site (http://ggplot2.org)
+- ggplot2 mailing list (http://goo.gl/OdW3uB), primarily for developers

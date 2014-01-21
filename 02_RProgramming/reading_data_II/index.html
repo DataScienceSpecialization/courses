@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reading and Writing Data Part II</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Reading and Writing Data Part II">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Reading and Writing Data Part II</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Textual Formats</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><code>dumping</code> and dputing are useful because the resulting textual format is edit-able, and in the case of corruption, potentially recoverable.</li>
+<li><code>Unlike</code> writing out a table or csv file, <code>dump</code> and <code>dput</code> preserve the <em>metadata</em> (sacrificing some readability), so that another user doesn’t have to specify it all over again.</li>
+<li><code>Textual</code> formats can work much better with version control programs like subversion or git which can only track changes meaningfully in text files</li>
+<li>Textual formats can be longer-lived; if there is corruption somewhere in the file, it can be easier to fix the problem</li>
+<li>Textual formats adhere to the “Unix philosophy” </li>
+<li>Downside: The format is not very space-efficient</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>dput-ting R Objects</h2>
+  </hgroup>
+  <article>
+    <p>Another way to pass data around is by deparsing the R object with dput and reading it back in using <code>dget</code>.</p>
+
+<pre><code class="r">&gt; y &lt;- data.frame(a = 1, b = &quot;a&quot;)
+&gt; dput(y)
+structure(list(a = 1,
+               b = structure(1L, .Label = &quot;a&quot;,
+                             class = &quot;factor&quot;)),
+          .Names = c(&quot;a&quot;, &quot;b&quot;), row.names = c(NA, -1L),
+          class = &quot;data.frame&quot;)
+&gt; dput(y, file = &quot;y.R&quot;)
+&gt; new.y &lt;- dget(&quot;y.R&quot;)
+&gt; new.y
+   a  b 
+1  1  a
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Dumping R Objects</h2>
+  </hgroup>
+  <article>
+    <p>Multiple objects can be deparsed using the dump function and read back in using <code>source</code>.</p>
+
+<pre><code class="r">&gt; x &lt;- &quot;foo&quot;
+&gt; y &lt;- data.frame(a = 1, b = &quot;a&quot;)
+&gt; dump(c(&quot;x&quot;, &quot;y&quot;), file = &quot;data.R&quot;) 
+&gt; rm(x, y)
+&gt; source(&quot;data.R&quot;)
+&gt; y
+  a  b 
+1 1  a
+&gt; x
+[1] &quot;foo&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Interfaces to the Outside World</h2>
+  </hgroup>
+  <article>
+    <p>Data are read in using <em>connection</em> interfaces. Connections can be made to files (most common) or to other more exotic things.</p>
+
+<ul>
+<li><code>file</code>, opens a connection to a file</li>
+<li><code>gzfile</code>, opens a connection to a file compressed with gzip</li>
+<li><code>bzfile</code>, opens a connection to a file compressed with bzip2 </li>
+<li><code>url</code>, opens a connection to a webpage</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>File Connections</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">&gt; str(file)
+function (description = &quot;&quot;, open = &quot;&quot;, blocking = TRUE,
+          encoding = getOption(&quot;encoding&quot;))
+</code></pre>
+
+<ul>
+<li><code>description</code> is the name of the file </li>
+<li><code>open</code> is a code indicating
+
+<ul>
+<li>“r” read only</li>
+<li>“w” writing (and initializing a new file)</li>
+<li>“a” appending</li>
+<li>“rb”, “wb”, “ab” reading, writing, or appending in binary mode (Windows)</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Connections</h2>
+  </hgroup>
+  <article>
+    <p>In general, connections are powerful tools that let you navigate files or other external objects. In practice, we often don’t need to deal with the connection interface directly.</p>
+
+<pre><code class="r">con &lt;- file(&quot;foo.txt&quot;, &quot;r&quot;)
+data &lt;- read.csv(con)
+close(con)
+</code></pre>
+
+<p>is the same as</p>
+
+<pre><code class="r">data &lt;- read.csv(&quot;foo.txt&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Reading Lines of a Text File</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">&gt; con &lt;- gzfile(&quot;words.gz&quot;) 
+&gt; x &lt;- readLines(con, 10) 
+&gt; x
+ [1] &quot;1080&quot;     &quot;10-point&quot; &quot;10th&quot;     &quot;11-point&quot;
+ [5] &quot;12-point&quot; &quot;16-point&quot; &quot;18-point&quot; &quot;1st&quot;
+ [9] &quot;2&quot;        &quot;20-point&quot;
+</code></pre>
+
+<p><code>writeLines</code> takes a character vector and writes each element one line at a time to a text file.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Reading Lines of a Text File</h2>
+  </hgroup>
+  <article>
+    <p><code>readLines</code> can be useful for reading in lines of webpages</p>
+
+<pre><code class="r">## This might take time
+con &lt;- url(&quot;http://www.jhsph.edu&quot;, &quot;r&quot;)
+x &lt;- readLines(con)
+&gt; head(x)
+[1] &quot;&lt;!DOCTYPE HTML PUBLIC \&quot;-//W3C//DTD HTML 4.0 Transitional//EN\&quot;&gt;&quot;
+[2] &quot;&quot;
+[3] &quot;&lt;html&gt;&quot;
+[4] &quot;&lt;head&gt;&quot;
+[5] &quot;\t&lt;meta http-equiv=\&quot;Content-Type\&quot; content=\&quot;text/html;charset=utf-8
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

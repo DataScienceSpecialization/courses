@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Residuals and residual variation</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Residuals and residual variation">
+  <meta name="author" content="Brian Caffo, Jeff Leek and Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Residuals and residual variation</h1>
+        <h2></h2>
+        <p>Brian Caffo, Jeff Leek and Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Residuals</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Model \(Y_i = \beta_0 + \beta_1 X_i + \epsilon_i\) where \(\epsilon_i \sim N(0, \sigma^2)\).</li>
+<li>Observed outcome \(i\) is \(Y_i\) at predictor value \(X_i\)</li>
+<li>Predicted outcome \(i\) is \(\hat Y_i\) at predictor valuve \(X_i\) is
+\[
+\hat Y_i = \hat \beta_0 + \hat \beta_1 X_i
+\]</li>
+<li>Residual, the between the observed and predicted outcome
+\[
+e_i = Y_i - \hat Y_i
+\]
+
+<ul>
+<li>The vertical distance between the observed data point and the regression line</li>
+</ul></li>
+<li>Least squares minimizes \(\sum_{i=1}^n e_i^2\)</li>
+<li>The \(e_i\) can be thought of as estimates of the \(\epsilon_i\).</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Properties of the residuals</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>\(E[e_i] = 0\).</li>
+<li>If an intercept is included, \(\sum_{i=1}^n e_i = 0\)</li>
+<li>If a regressor variable, \(X_i\), is included in the model \(\sum_{i=1}^n e_i X_i = 0\). </li>
+<li>Residuals are useful for investigating poor model fit.</li>
+<li>Positive residuals are above the line, negative residuals are below.</li>
+<li>Residuals can be thought of as the outcome (\(Y\)) with the
+linear association of the predictor (\(X\)) removed.</li>
+<li>One differentiates residual variation (variation after removing
+the predictor) from systematic variation (variation explained by the regression model).</li>
+<li>Residual plots highlight poor model fit.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Code</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">data(diamond)
+y &lt;- diamond$price; x &lt;- diamond$carat; n &lt;- length(y)
+fit &lt;- lm(y ~ x)
+e &lt;- resid(fit)
+yhat &lt;- predict(fit)
+max(abs(e -(y - yhat)))
+</code></pre>
+
+<pre><code>[1] 9.486e-13
+</code></pre>
+
+<pre><code class="r">max(abs(e - (y - coef(fit)[1] - coef(fit)[2] * x)))
+</code></pre>
+
+<pre><code>[1] 9.486e-13
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Residuals are the signed length of the red lines</h2>
+  </hgroup>
+  <article>
+    <div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Residuals versus X</h2>
+  </hgroup>
+  <article>
+    <div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Non-linear data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">x &lt;- runif(100, -3, 3); y &lt;- x + sin(x) + rnorm(100, sd = .2); 
+plot(x, y); abline(lm(y ~ x))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(x, resid(lm(y ~ x))); 
+abline(h = 0)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Heteroskedasticity</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">x &lt;- runif(100, 0, 6); y &lt;- x + rnorm(100,  mean = 0, sd = .001 * x); 
+plot(x, y); abline(lm(y ~ x))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Getting rid of the blank space can be helpful</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(x, resid(lm(y ~ x))); 
+abline(h = 0)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Estimating residual variation</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Model \(Y_i = \beta_0 + \beta_1 X_i + \epsilon_i\) where \(\epsilon_i \sim N(0, \sigma^2)\).</li>
+<li>The ML estimate of \(\sigma^2\) is \(\frac{1}{n}\sum_{i=1}^n e_i^2\),
+the average squared residual. </li>
+<li>Most people use
+\[
+\hat \sigma^2 = \frac{1}{n-2}\sum_{i=1}^n e_i^2.
+\]</li>
+<li>The \(n-2\) instead of \(n\) is so that \(E[\hat \sigma^2] = \sigma^2\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Diamond example</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">y &lt;- diamond$price; x &lt;- diamond$carat; n &lt;- length(y)
+fit &lt;- lm(y ~ x)
+summary(fit)$sigma
+</code></pre>
+
+<pre><code>[1] 31.84
+</code></pre>
+
+<pre><code class="r">sqrt(sum(resid(fit)^2) / (n - 2))
+</code></pre>
+
+<pre><code>[1] 31.84
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Summarizing variation</h2>
+  </hgroup>
+  <article>
+    <p>\[
+\begin{align}
+\sum_{i=1}^n (Y_i - \bar Y)^2 
+& = \sum_{i=1}^n (Y_i - \hat Y_i + \hat Y_i - \bar Y)^2 \\
+& = \sum_{i=1}^n (Y_i - \hat Y_i)^2 + 
+2 \sum_{i=1}^n  (Y_i - \hat Y_i)(\hat Y_i - \bar Y) + 
+\sum_{i=1}^n  (\hat Y_i - \bar Y)^2 \\
+\end{align}
+\]</p>
+
+<hr>
+
+<h3>Scratch work</h3>
+
+<p>\((Y_i - \hat Y_i) = \{Y_i - (\bar Y - \hat \beta_1 \bar X) - \hat \beta_1 X_i\} = (Y_i - \bar Y) - \hat \beta_1 (X_i - \bar X)\)</p>
+
+<p>\((\hat Y_i - \bar Y) = (\bar Y - \hat \beta_1 \bar X - \hat \beta_1 X_i - \bar Y )
+= \hat \beta_1  (X_i - \bar X)\)</p>
+
+<p>\(\sum_{i=1}^n  (Y_i - \hat Y_i)(\hat Y_i - \bar Y) 
+= \sum_{i=1}^n  \{(Y_i - \bar Y) - \hat \beta_1 (X_i - \bar X))\}\{\hat \beta_1  (X_i - \bar X)\}\)</p>
+
+<p>\(=\hat \beta_1 \sum_{i=1}^n (Y_i - \bar Y)(X_i - \bar X) -\hat\beta_1^2\sum_{i=1}^n (X_i - \bar X)^2\)</p>
+
+<p>\(= \hat \beta_1^2 \sum_{i=1}^n (X_i - \bar X)^2-\hat\beta_1^2\sum_{i=1}^n (X_i - \bar X)^2 = 0\)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Summarizing variation</h2>
+  </hgroup>
+  <article>
+    <p>\[
+\sum_{i=1}^n (Y_i - \bar Y)^2 
+= \sum_{i=1}^n (Y_i - \hat Y_i)^2 + \sum_{i=1}^n  (\hat Y_i - \bar Y)^2 
+\]</p>
+
+<p>Or </p>
+
+<p>Total Variation = Residual Variation + Regression Variation</p>
+
+<p>Define the percent of total varation described by the model as
+\[
+R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
+= 1 - \frac{\sum_{i=1}^n  (Y_i - \hat Y_i)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
+\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Relation between \(R^2\) and \(r\) (the corrrelation)</h2>
+  </hgroup>
+  <article>
+    <p>Recall that \((\hat Y_i - \bar Y) = \hat \beta_1  (X_i - \bar X)\)
+so that
+\[
+R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
+= \hat \beta_1^2  \frac{\sum_{i=1}^n(X_i - \bar X)}{\sum_{i=1}^n (Y_i - \bar Y)^2}
+= Cor(Y, X)^2
+\]
+Since, recall, 
+\[
+\hat \beta_1 = Cor(Y, X)\frac{Sd(Y)}{Sd(X)}
+\]
+So, \(R^2\) is literally \(r\) squared.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Some facts about \(R^2\)</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>\(R^2\) is the percentage of variation explained by the regression model.</li>
+<li>\(0 \leq R^2 \leq 1\)</li>
+<li>\(R^2\) is the sample correlation squared.</li>
+<li>\(R^2\) can be a misleading summary of model fit. 
+
+<ul>
+<li>Deleting data can inflate \(R^2\).</li>
+<li>(For later.) Adding terms to a regression model always increases \(R^2\).</li>
+</ul></li>
+<li>Do <code>example(anscombe)</code> to see the following data.
+
+<ul>
+<li>Basically same mean and variance of X and Y.</li>
+<li>Identical correlations (hence same \(R^2\) ).</li>
+<li>Same linear regression relationship.</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2><code>data(anscombe);example(anscombe)</code></h2>
+  </hgroup>
+  <article>
+    <div class="rimage center"><img src="fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

@@ -1,0 +1,281 @@
+---
+title       : Regular Expressions II 
+subtitle    : 
+author      : Jeffrey Leek
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## More Metacharacters
+
+“.” is used to refer to any character. So
+
+```markdown
+9.11
+```
+
+will match the lines
+
+```markdown
+its stupid the post 9-11 rules
+if any 1 of us did 9/11 we would have been caught in days.
+NetBios: scanning ip 203.169.114.66
+Front Door 9:11:46 AM
+Sings: 0118999881999119725...3 !
+```
+
+---
+
+## More Metacharacters: |
+
+This does not mean “pipe” in the context of regular expressions; instead it translates to “or”; we can use it to combine two expressions, the subexpressions being called alternatives
+
+```markdown
+flood|fire
+```
+
+will match the lines
+
+```markdown
+is firewire like usb on none macs?
+the global flood makes sense within the context of the bible
+yeah ive had the fire on tonight
+... and the floods, hurricanes, killer heatwaves, rednecks, gun nuts, etc.
+￼
+```
+
+---
+
+## More Metacharacters: |
+
+We can include any number of alternatives...
+
+```markdown
+flood|earthquake|hurricane|coldfire
+```
+
+will match the lines
+
+```markdown
+Not a whole lot of hurricanes in the Arctic.
+We do have earthquakes nearly every day somewhere in our State
+hurricanes swirl in the other direction
+coldfire is STRAIGHT!
+’cause we keep getting earthquakes
+```
+
+---
+
+## More Metacharacters: |
+
+The alternatives can be real expressions and not just literals
+
+```markdown
+^[Gg]ood|[Bb]ad
+```
+
+will match the lines
+
+```markdown
+good to hear some good knews from someone here
+Good afternoon fellow american infidels!
+good on you-what do you drive?
+Katie... guess they had bad experiences...
+my middle name is trouble, Miss Bad News
+```
+
+---
+
+## More Metacharacters: ( and )
+
+Subexpressions are often contained in parentheses to constrain the alternatives
+
+```markdown
+^([Gg]ood|[Bb]ad)
+```
+
+will match the lines
+
+```markdown
+bad habbit
+bad coordination today
+good, becuase there is nothing worse than a man in kinky underwear
+Badcop, its because people want to use drugs
+Good Monday Holiday
+Good riddance to Limey
+```
+
+---
+
+## More Metacharacters: ?
+
+The question mark indicates that the indicated expression is optional
+
+```markdown
+[Gg]eorge( [Ww]\.)? [Bb]ush
+```
+
+will match the lines
+
+```markdown
+i bet i can spell better than you and george bush combined
+BBC reported that President George W. Bush claimed God told him to invade I
+a bird in the hand is worth two george bushes
+```
+
+---
+
+## One thing to note...
+
+In the following
+
+```markdown
+[Gg]eorge( [Ww]\.)? [Bb]ush
+```
+
+we wanted to match a “.” as a literal period; to do that, we had to “escape” the metacharacter, preceding it with a backslash In general, we have to do this for any metacharacter we want to include in our match
+
+---
+
+## More metacharacters: * and +
+
+The * and + signs are metacharacters used to indicate repetition; * means “any number, including none, of the item” and + means “at least one of the item”
+
+```markdown
+(.*)
+```
+
+will match the lines
+
+```markdown
+anyone wanna chat? (24, m, germany)
+hello, 20.m here... ( east area + drives + webcam )
+(he means older men)
+()
+```
+
+---
+
+## More metacharacters: * and +
+
+The * and + signs are metacharacters used to indicate repetition; * means “any number, including none, of the item” and + means “at least one of the item”
+
+```markdown
+[0-9]+ (.*)[0-9]+
+```
+
+will match the lines
+
+```markdown
+working as MP here 720 MP battallion, 42nd birgade
+so say 2 or 3 years at colleage and 4 at uni makes us 23 when and if we fin
+it went down on several occasions for like, 3 or 4 *days*
+Mmmm its time 4 me 2 go 2 bed
+```
+
+---
+
+## More metacharacters: { and }
+
+{ and } are referred to as interval quantifiers; the let us specify the minimum and maximum number of matches of an expression
+
+```markdown
+[Bb]ush( +[^ ]+ +){1,5} debate
+```
+
+will match the lines
+
+```markdown
+Bush has historically won all major debates he’s done.
+in my view, Bush doesn’t need these debates..
+bush doesn’t need the debates? maybe you are right
+That’s what Bush supporters are doing about the debate.
+Felix, I don’t disagree that Bush was poorly prepared for the debate.
+indeed, but still, Bush should have taken the debate more seriously.
+Keep repeating that Bush smirked and scowled during the debate
+```
+
+---
+
+## More metacharacters: and
+
+- m,n means at least m but not more than n matches 
+- m means exactly m matches
+- m, means at least m matches
+
+---
+
+## More metacharacters: ( and ) revisited
+
+- In most implementations of regular expressions, the parentheses not only limit the scope of alternatives divided by a “|”, but also can be used to “remember” text matched by the subexpression enclosed
+- We refer to the matched text with \1, \2, etc.
+
+---
+
+## More metacharacters: ( and ) revisited
+
+So the expression
+
+```markdown
++([a-zA-Z]+) +\1 +
+```
+
+will match the lines
+
+```markdown
+time for bed, night night twitter!
+blah blah blah blah
+my tattoo is so so itchy today
+i was standing all all alone against the world outside...
+hi anybody anybody at home
+estudiando css css css css.... que desastritooooo
+```
+
+---
+
+## More metacharacters: ( and ) revisited
+
+The * is “greedy” so it always matches the _longest_ possible string that satisfies the regular expression. So
+
+```markdown
+^s(.*)s
+```
+
+matches
+
+```markdown
+sitting at starbucks
+setting up mysql and rails
+studying stuff for the exams
+spaghetti with marshmallows
+stop fighting with crackers
+sore shoulders, stupid ergonomics
+```
+
+---
+
+## More metacharacters: ( and ) revisited
+
+The greediness of * can be turned off with the ?, as in
+
+```markdown
+^s(.*?)s$
+```
+
+---
+
+## Summary
+
+- Regular expressions are used in many different languages; not unique to R.
+- Regular expressions are composed of literals and metacharacters that represent sets or classes of characters/words
+- Text processing via regular expressions is a very powerful way to extract data from “unfriendly” sources (not all data comes as a CSV file)
+- Used with the functions `grep`,`grepl`,`sub`,`gsub` and others that involve searching for text strings
+(Thanks to Mark Hansen for some material in this lecture.)

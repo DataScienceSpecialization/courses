@@ -1,0 +1,129 @@
+address,direction,street,crossStreet,intersection,Location 1
+S CATON AVE & BENSON AVE,N/B,Caton Ave,Benson Ave,Caton Ave & Benson Ave,"(39.2693779962, -76.6688185297)"
+S CATON AVE & BENSON AVE,S/B,Caton Ave,Benson Ave,Caton Ave & Benson Ave,"(39.2693157898, -76.6689698176)"
+WILKENS AVE & PINE HEIGHTS AVE,E/B,Wilkens Ave,Pine Heights,Wilkens Ave & Pine Heights,"(39.2720252302, -76.676960806)"
+THE ALAMEDA & E 33RD ST,S/B,The Alameda,33rd St,The Alameda  & 33rd St,"(39.3285013141, -76.5953545714)"
+E 33RD ST & THE ALAMEDA,E/B,E 33rd,The Alameda,E 33rd  & The Alameda,"(39.3283410623, -76.5953594625)"
+ERDMAN AVE & N MACON ST,E/B,Erdman,Macon St,Erdman  & Macon St,"(39.3068045671, -76.5593167803)"
+ERDMAN AVE & N MACON ST,W/B,Erdman,Macon St,Erdman  & Macon St,"(39.306966535, -76.5593122365)"
+N CHARLES ST & E LAKE AVE,S/B,Charles,Lake Ave,Charles & Lake Ave,"(39.3690535299, -76.625826716)"
+E MADISON ST & N CAROLINE ST,W/B,Madison,Caroline St,Madison  & Caroline St,"(39.2993257666, -76.5976760827)"
+ORLEANS ST & N LINWOOD AVE,E/B,Orleans,Linwood Ave,Orleans   & Linwood Ave,"(39.2958661981, -76.5764270078)"
+EASTERN AVE & KANE ST,E/B,Eastern,Kane St,Eastern  & Kane St,"(39.2877626582, -76.5371017795)"
+EDMONDSON AVE & COOKS LN,E/B,Edmonson,Cooks Lane,Edmonson  & Cooks Lane,"(39.2923680595, -76.7017056326)"
+W FRANKLIN ST & N PULASKI ST,W/B,Franklin,Pulaski St,Franklin  & Pulaski St,"(39.2937082594, -76.6503837515)"
+ORLEANS ST & N GAY ST,E/B,Orleans,Gay St,Orleans  & Gay St,"(39.2947203114, -76.606128007)"
+S MARTIN LUTHER KING JR BLVD & WASHINGTON BLVD,N/B,MLK Jr. Blvd.,Washington Blvd,MLK Jr. Blvd.  & Washington Blvd,"(39.2834598231, -76.6261138807)"
+HILLEN RD & ARGONNE DR,S/B,Hillen Rd,Argonne Drive,Hillen Rd  & Argonne Drive,"(39.3399907644, -76.588021025)"
+W NORTH AVE & N HOWARD ST,W/B,North Ave,Howard St,North Ave  & Howard St,"(39.3110873669, -76.6193071428)"
+E PATAPSCO AVE & 4TH ST,W/B,Patapsco  ,4th St,"Patapsco  
+ & 4th St","(39.2372692804, -76.6054039252)"
+REISTERSTOWN RD & FALLSTAFF RD,S/B,Reisterstown,Fallstaff Road,Reisterstown   & Fallstaff Road,"(39.3621351031, -76.7102427408)"
+PARK HEIGHTS AVE & HAYWARD AVE,N/B,Park Heights,Hayward Ave,Park Heights   & Hayward Ave,"(39.3499204055, -76.6788706721)"
+PARK HEIGHTS AVE & HAYWARD AVE,S/B,Park Heights,Hayward Ave,Park Heights   & Hayward Ave,"(39.3499204055, -76.6788706721)"
+S MARTIN LUTHER KING JR BLVD & W PRATT ST,S/B,MLK Jr. Blvd ,Pratt St,"MLK Jr. Blvd 
+ & Pratt St","(39.2860268994, -76.6278460704)"
+W NORTHERN PKWY & GREENSPRING AVE,E/B,Northern Pkwy,Greenspring Ave,Northern Pkwy   & Greenspring Ave,"(39.3550243172, -76.6604587972)"
+W NORTHERN PKWY & GREENSPRING AVE,W/B,Northern Pkwy,Greenspring Ave,Northern Pkwy  & Greenspring Ave,"(39.3551612114, -76.6605058823)"
+EDMONDSON AVE & N ATHOL AVE,E/B,Edmonson,Woodbridge Ave,"Edmonson
+  & Woodbridge Ave","(39.2934525382, -76.6893905792)"
+EDMONDSON AVE & N ATHOL AVE,W/B,Edmonson ,Woodbridge Ave,"Edmonson 
+ & Woodbridge Ave","(39.2935925831, -76.689399241)"
+FREDERICK AVE & S CATHERINE ST,E/B,Fredrick Ave,Catherine Ave,"Fredrick Ave
+ & Catherine Ave","(39.2833935865, -76.6559289926)"
+PARK HEIGHTS AVE & VIOLET AVE,N/B,Park Heights,Voilet Ave,Park Heights  & Voilet Ave,"(39.3307133383, -76.6597502076)"
+SINCLAIR LN & MORAVIA RD,W/B,Sinclair,Moravia Road,Sinclair  & Moravia Road,"(39.3220360862, -76.5484525966)"
+WILKENS AVE & DESOTO RD,E/B,Wilkens,DeSoto,Wilkens  & DeSoto,"(39.2749037576, -76.6681630903)"
+E NORTHERN PKWY & WAVERLY WAY,W/B,Northern Pkwy,Waverly St,Northern Pkwy  & Waverly St,"(39.367051509, -76.5810739873)"
+E COLD SPRING LN & HILLEN RD,W/B,Cold Spring,Hillen Road,Cold Spring  & Hillen Road,"(39.3459074717, -76.5859273904)"
+W COLD SPRING LN & ROLAND AVE,E/B,Cold Spring,Roland Ave,"Cold Spring
+  & Roland Ave","(39.34390606, -76.6354262185)"
+E COLD SPRING LN & LOCH RAVEN BLVD,W/B,Cold Spring,Loch Raven Blvd,"Cold Spring
+  & Loch Raven Blvd","(39.3460452397, -76.5920075335)"
+TAMARIND RD & W COLD SPRING LN,E/B,Tamarind,Coldspring Lane,"Tamarind
+  & Coldspring Lane","(39.343899313, -76.6519407916)"
+HARFORD RD & THE ALAMEDA,N/B,Harford ,The Alameda,"Harford 
+ & The Alameda","(39.3212074758, -76.5907705888)"
+HARFORD RD & ROSALIE AVE,N/B,Harford,Rosalie Ave,"Harford
+  & Rosalie Ave","(39.3680654859, -76.5478183886)"
+HARFORD RD & CHRISTOPHER AVE,N/B,Harford ,Christopher Ave,"Harford 
+ & Christopher Ave","(39.3583326463, -76.5562471252)"
+SINCLAIR LN & SHANNON DR,E/B,Sinclair,Shannon Drive,"Sinclair
+  & Shannon Drive","(39.3175028074, -76.5556737923)"
+SINCLAIR LN & SHANNON DR,W/B,Sinclair ,Shannon Drive,"Sinclair 
+ & Shannon Drive","(39.3175028074, -76.5556737923)"
+LIBERTY HTS & HILLSDALE RD,E/B,Liberty Hghts,Hillsdale Ave,"Liberty Hghts
+  & Hillsdale Ave","(39.3304453818, -76.6945100293)"
+LIBERTY HTS & HILLSDALE RD,W/B,Liberty Hghts,Hillsdale Ave,"Liberty Hghts
+  & Hillsdale Ave","(39.3304453818, -76.6945100293)"
+E NORTHERN PKWY & SPRINGLAKE WAY,W/B,Northern Pkwy,Springlake Way,"Northern Pkwy
+  & Springlake Way","(39.3643110382, -76.6176988692)"
+HARFORD RD & WALTHER AVE,S/B,Harford,Walther Ave,Harford  & Walther Ave,"(39.3353084656, -76.5751846354)"
+W NORTHERN PKWY & FALLS RD,W/B,Northern Pkwy,Falls Road,Northern Pkwy  & Falls Road,"(39.3614127238, -76.6462199216)"
+EDMONDSON AVE & N HILTON ST,E/B,Edmonson,Hilton St,Edmonson  & Hilton St,"(39.294061339, -76.6727600072)"
+N PRESIDENT ST & E FAYETTE ST,S/B,President,Fayette St,President  & Fayette St,"(39.2906240776, -76.6066648277)"
+RUSSELL ST & W HAMBURG ST,N/B,Russell ,Hamburg St,"Russell 
+ & Hamburg St","(39.2797863216, -76.6237544477)"
+RUSSELL ST & W HAMBURG ST,S/B,Russell,Hamburg St,"Russell
+  & Hamburg St","(39.2798187398, -76.6239105956)"
+LIGHT ST & E PRATT ST,S/B,Light SB ,Pratt St,"Light SB 
+ & Pratt St","(39.2865415105, -76.6135493898)"
+E LOMBARD ST & S GAY ST,W/B,Lombard ,Gay St,"Lombard 
+ & Gay St","(39.2877660778, -76.6087475019)"
+HARFORD RD & E NORTH AVE,N/B,Harford Rd,North Ave,"Harford Rd
+  & North Ave","(39.3119363297, -76.5993579666)"
+FORT SMALLWOOD RD & FORT ARMISTEAD RD,S/B,Ft Smallwood,Fort Armstead,"Ft Smallwood
+  & Fort Armstead","(39.1999130165, -76.5559766825)"
+GARRISON BLVD & WABASH AVE,E/B,Garrison ,Wabash Ave,"Garrison 
+ & Wabash Ave","(39.3412090597, -76.6831167251)"
+WALTHER AVE & GLENMORE AVE,N/B,Walther ,Glenmore,"Walther 
+ & Glenmore","(39.3535402213, -76.5424942905)"
+W FRANKLIN ST & CATHEDRAL ST,W/B,Franklin ,Cathedral,"Franklin 
+ & Cathedral","(39.2950659131, -76.616872047)"
+PERRING PKWY & E BELVEDERE AVE,S/B,Perring Pkwy,Belvedere Ave,"Perring Pkwy
+  & Belvedere Ave","(39.3549627467, -76.575725921)"
+GWYNNS FLS & GARRISON BLVD,W/B,Gwynns Falls ,Garrison Blvd,"Gwynns Falls 
+  & Garrison Blvd","(39.3135792902, -76.6762250182)"
+REISTERSTOWN RD & DRUID PARK DR,S/B,Reistertown Rd,Druid Lake Drive,"Reistertown Rd
+  & Druid Lake Drive","(39.3252867997, -76.6577109834)"
+POTEE ST & TALBOTT ST,S/B,Potee,Talbot,"Potee
+  & Talbot","(39.2364856246, -76.6122106478)"
+YORK RD & GITTINGS AVE,S/B,York Rd ,Gitting Ave,"York Rd 
+ & Gitting Ave","(39.3704929583, -76.6098121277)"
+WABASH AVE & W BELVEDERE AVE,E/B,Wabash ,Belvedere Ave,"Wabash 
+ & Belvedere Ave","(39.3416713553, -76.685042508)"
+E NORTHERN PKWY & YORK RD,W/B,Northern Pkwy,York Road,"Northern Pkwy
+  & York Road","(39.3651462024, -76.6099220341)"
+REISTERSTOWN RD & PATTERSON AVE,E/B,Reistertown ,Patterson Ave,"Reistertown 
+  & Patterson Ave","(39.3561820401, -76.7025209585)"
+PULASKI HWY & E MONUMENT ST,E/B,Pulaski Hwy ,Monument St,"Pulaski Hwy 
+  & Monument St","(39.2997984532, -76.5542506552)"
+W FRANKLIN ST & N FRANKLINTOWN RD,E/B,Franklin ,Franklintown Road,"Franklin 
+  & Franklintown Road","(39.2930857459, -76.6623624871)"
+S HANOVER ST & E CROMWELL ST,S/B,Hanover ,Cromwell St, &,"(39.2620595495, -76.6145872791)"
+REISTERSTOWN RD & MENLO DR,N/B,Reisterstown ,Menlo Drive,"Reisterstown 
+ & Menlo Drive","(39.3519849983, -76.6963758159)"
+RUSSELL ST & BAYARD ST,S/B,Russell ,Bayard St,"Russell 
+ & Bayard St","(39.2734675536, -76.6287385068)"
+LIBERTY HEIGHTS AVE & N DUKELAND ST,E/B,Liberty Hghts,Dukeland St,"Liberty Hghts
+  & Dukeland St","(39.3226393684, -76.6666335903)"
+S HANOVER & REEDBIRD AVE,N/B,Hanover ,Reedbird Ave,"Hanover 
+ & Reedbird Ave","(39.2498797679, -76.6137494417)"
+W FAYETTE ST & N LIBERTY ST,W/B,Fayette,Liberty Heights Ave,"Fayette
+  & Liberty Heights Ave","(39.2905038859, -76.617661176)"
+GWYNNS FLS & GARRISON BLVD,E/B,Gwynns Falls ,Garrison Blvd,"Gwynns Falls 
+  & Garrison Blvd","(39.3135792902, -76.6762250182)"
+LOCH RAVEN BLVD & WALKER AVE,N/B,Loch Raven,Walker Ave,"Loch Raven
+  & Walker Ave","(39.3700602939, -76.5831798122)"
+PULASKI HWY & MORAVIA PARK DR,W/B,Pulaski Hwy ,Moravia Park Drive,"Pulaski Hwy 
+ & Moravia Park Drive","(39.3086437141, -76.5323658645)"
+HILLEN ST & FORREST ST,W/B,Hillen ,Forrest St,"Hillen 
+ & Forrest St","(39.2968601609, -76.6055317698)"
+PULASKI HWY & NORTH POINT RD,E/B,Pulaski ,North Point Blvd,"Pulaski 
+ & North Point Blvd","(39.3043275894, -76.5395800163)"
+N MONROE ST & W LAFAYETTE AVE,S/B,Monroe,Lafayette,"Monroe
+ & Lafayette","(39.2987426878, -76.647517496)"
+W MOUNT ROYAL AVE & W NORTH AVE,N/B,Mt Royal,North,"Mt Royal
+ & North","(39.3107672842, -76.6247302963)"
+MOUNT ROYAL TER & W NORTH AVE,S/B,Mt Royal,North,"Mt Royal
+ & North","(39.3108706445, -76.6251255783)"

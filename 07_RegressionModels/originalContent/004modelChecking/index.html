@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Model checking and model selection</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Model checking and model selection">
+  <meta name="author" content="Jeffrey Leek, Assistant Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Model checking and model selection</h1>
+        <h2></h2>
+        <p>Jeffrey Leek, Assistant Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Model checking and model selection</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Sometimes model checking/selection not allowed</li>
+<li>Often it can lead to problems
+
+<ul>
+<li>Overfitting</li>
+<li>Overtesting</li>
+<li>Biased inference</li>
+</ul></li>
+<li><em>But</em> you don&#39;t want to miss something obvious</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Linear regression - basic assumptions</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Variance is constant</li>
+<li>You are summarizing a linear trend</li>
+<li>You have all the right terms in the model</li>
+<li>There are no big outliers</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Model checking - constant variance</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(3433); par(mfrow=c(1,2)) 
+data &lt;- rnorm(100,mean=seq(0,3,length=100),sd=seq(0.1,3,length=100))
+lm1 &lt;- lm(data ~ seq(0,3,length=100))
+plot(seq(0,3,length=100),data,pch=19,col=&quot;grey&quot;); abline(lm1,col=&quot;red&quot;,lwd=3)
+plot(seq(0,3,length=100),lm1$residuals,,pch=19,col=&quot;grey&quot;); abline(c(0,0),col=&quot;red&quot;,lwd=3)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>What to do</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>See if another variable explains the increased variance</li>
+<li>Use the  <em>vcovHC</em> {sandwich} variance estimators (if n is big)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Using the sandwich estimate</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(3433); par(mfrow=c(1,2)); data &lt;- rnorm(100,mean=seq(0,3,length=100),sd=seq(0.1,3,length=100))
+lm1 &lt;- lm(data ~ seq(0,3,length=100))
+vcovHC(lm1)
+summary(lm1)$cov.unscaled
+</code></pre>
+
+<pre><code>                        (Intercept) seq(0, 3, length = 100)
+(Intercept)                 0.03941                -0.01960
+seq(0, 3, length = 100)    -0.01960                 0.01307
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Model checking - linear trend</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(3433); par(mfrow=c(1,2)) 
+data &lt;- rnorm(100,mean=seq(0,3,length=100)^3,sd=2)
+lm1 &lt;- lm(data ~ seq(0,3,length=100))
+plot(seq(0,3,length=100),data,pch=19,col=&quot;grey&quot;); abline(lm1,col=&quot;red&quot;,lwd=3)
+plot(seq(0,3,length=100),lm1$residuals,,pch=19,col=&quot;grey&quot;); abline(c(0,0),col=&quot;red&quot;,lwd=3)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>What to do</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Use Poisson regression (if it looks exponential/multiplicative)</li>
+<li>Use a data transformation (e.g. take the log)</li>
+<li>Smooth the data/fit a nonlinear trend (next week&#39;s lectures)</li>
+<li>Use linear regression anyway
+
+<ul>
+<li>Interpret as the linear trend between the variables</li>
+<li>Use the  <em>vcovHC</em> {sandwich} variance estimators (if n is big)</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Model checking - missing covariate</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(3433); par(mfrow=c(1,3)); z &lt;- rep(c(-0.5,0.5),50)
+data &lt;- rnorm(100,mean=(seq(0,3,length=100) + z),sd=seq(0.1,3,length=100))
+lm1 &lt;- lm(data ~ seq(0,3,length=100))
+plot(seq(0,3,length=100),data,pch=19,col=((z&gt;0)+3)); abline(lm1,col=&quot;red&quot;,lwd=3)
+plot(seq(0,3,length=100),lm1$residuals,pch=19,col=((z&gt;0)+3)); abline(c(0,0),col=&quot;red&quot;,lwd=3)
+boxplot(lm1$residuals ~ z,col = ((z&gt;0)+3) )
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>What to do</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Use exploratory analysis to identify other variables to include</li>
+<li>Use the  <em>vcovHC</em> {sandwich} variance estimators (if n is big)</li>
+<li>Report unexplained patterns in the data</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Model checking - outliers</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(343); par(mfrow=c(1,2)); betahat &lt;- rep(NA,100)
+x &lt;- seq(0,3,length=100); y &lt;- rcauchy(100); lm1 &lt;- lm(y ~ x)
+plot(x,y,pch=19,col=&quot;blue&quot;); abline(lm1,col=&quot;red&quot;,lwd=3)
+for(i in 1:length(data)){betahat[i] &lt;- lm(y[-i] ~ x[-i])$coeff[2]}
+plot(betahat - lm1$coeff[2],col=&quot;blue&quot;,pch=19); abline(c(0,0),col=&quot;red&quot;,lwd=3)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>What to do</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>If outliers are experimental mistakes -remove and document them</li>
+<li>If they are real - consider reporting how sensitive your estimate is to the outliers</li>
+<li>Consider using a robust linear model fit like <em>rlm</em> {MASS}</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Robust linear modeling</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(343); x &lt;- seq(0,3,length=100); y &lt;- rcauchy(100); 
+lm1 &lt;- lm(y ~ x); rlm1 &lt;- rlm(y ~ x)
+lm1$coeff
+</code></pre>
+
+<pre><code>(Intercept)           x 
+     0.3523     -0.4011 
+</code></pre>
+
+<pre><code class="r">rlm1$coeff
+</code></pre>
+
+<pre><code>(Intercept)           x 
+   0.008527   -0.017892 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Robust linear modeling</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mfrow=c(1,2))
+plot(x,y,pch=19,col=&quot;grey&quot;)
+lines(x,lm1$fitted,col=&quot;blue&quot;,lwd=3); lines(x,rlm1$fitted,col=&quot;green&quot;,lwd=3)
+plot(x,y,pch=19,col=&quot;grey&quot;,ylim=c(-5,5),main=&quot;Zoomed In&quot;)
+lines(x,lm1$fitted,col=&quot;blue&quot;,lwd=3); lines(x,rlm1$fitted,col=&quot;green&quot;,lwd=3)
+</code></pre>
+
+<div class="rimage center"><img src="fig/robustReg.png" title="plot of chunk robustReg" alt="plot of chunk robustReg" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Model checking - default plots</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(343); par(mfrow=c(1,2))
+x &lt;- seq(0,3,length=100); y &lt;- rnorm(100); lm1 &lt;- lm(y ~ x)
+plot(lm1)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-61.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-62.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Model checking - deviance</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Commonly reported for GLM&#39;s</li>
+<li>Usually compares the model where every point gets its own parameter to the model you are using</li>
+<li>On it&#39;s own it doesn&#39;t tell you what is wrong</li>
+<li>In large samples the deviance may be big even for &quot;conservative&quot; models</li>
+<li>You can not compare deviances for models with different sample sizes</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>\(R^2\) may be a bad summary</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/anscombe.png height=450></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Model selection</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Many times you have multiple variables to evaluate</li>
+<li>Options for choosing variables
+
+<ul>
+<li>Domain-specific knowledge</li>
+<li>Exploratory analysis</li>
+<li>Statistical selection</li>
+</ul></li>
+<li>There are many statistical selection options
+
+<ul>
+<li>Step-wise</li>
+<li>AIC</li>
+<li>BIC </li>
+<li>Modern approaches: Lasso, Ridge-Regression, etc.</li>
+</ul></li>
+<li>Statistical selection may bias your inference
+
+<ul>
+<li>If possible, do selection on a held out sample</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Error measures</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>\(R^2\) alone isn&#39;t enough - more variables = bigger \(R^2\)</li>
+<li><a href="http://en.wikipedia.org/wiki/Coefficient_of_determination#Adjusted_R2">Adjusted \(R^2\)</a> is \(R^2\) taking into account the number of estimated parameters</li>
+<li><a href="http://en.wikipedia.org/wiki/Akaike_information_criterion">AIC</a> also penalizes models with more parameters</li>
+<li><a href="http://en.wikipedia.org/wiki/Bayesian_information_criterion">BIC</a> does the same, but with a bigger penalty</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Movie Data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">download.file(&quot;http://www.rossmanchance.com/iscam2/data/movies03RT.txt&quot;,destfile=&quot;./data/movies.txt&quot;)
+movies &lt;- read.table(&quot;./data/movies.txt&quot;,sep=&quot;\t&quot;,header=T,quote=&quot;&quot;)
+head(movies)
+</code></pre>
+
+<pre><code>                 X score rating            genre box.office running.time
+1 2 Fast 2 Furious  48.9  PG-13 action/adventure     127.15          107
+2    28 Days Later  78.2      R           horror      45.06          113
+3      A Guy Thing  39.5  PG-13       rom comedy      15.54          101
+4      A Man Apart  42.9      R action/adventure      26.25          110
+5    A Mighty Wind  79.9  PG-13           comedy      17.78           91
+6 Agent Cody Banks  57.9     PG action/adventure      47.81          102
+</code></pre>
+
+<p><a href="http://www.rossmanchance.com/">http://www.rossmanchance.com/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Model selection  - step</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">movies &lt;- movies[,-1]
+lm1 &lt;- lm(score ~ .,data=movies)
+aicFormula &lt;- step(lm1)
+</code></pre>
+
+<pre><code>Start:  AIC=727.5
+score ~ rating + genre + box.office + running.time
+
+               Df Sum of Sq   RSS AIC
+- genre        12      2575 22132 721
+- rating        3        40 19596 722
+- running.time  1       237 19793 727
+&lt;none&gt;                      19556 728
+- box.office    1      3007 22563 746
+
+Step:  AIC=720.8
+score ~ rating + box.office + running.time
+
+               Df Sum of Sq   RSS AIC
+- rating        3       491 22623 718
+&lt;none&gt;                      22132 721
+- running.time  1      1192 23324 726
+- box.office    1      2456 24588 734
+
+Step:  AIC=717.9
+score ~ box.office + running.time
+
+               Df Sum of Sq   RSS AIC
+&lt;none&gt;                      22623 718
+- running.time  1       935 23557 722
+- box.office    1      3337 25959 735
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Model selection  - step</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">aicFormula
+</code></pre>
+
+<pre><code>
+Call:
+lm(formula = score ~ box.office + running.time, data = movies)
+
+Coefficients:
+ (Intercept)    box.office  running.time  
+     37.2364        0.0824        0.1275  
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Model selection  - regsubsets</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(leaps);
+regSub &lt;- regsubsets(score ~ .,data=movies)
+plot(regSub)
+</code></pre>
+
+<div class="rimage center"><img src="fig/regsub.png" title="plot of chunk regsub" alt="plot of chunk regsub" class="plot" /></div>
+
+<p><a href="http://cran.r-project.org/web/packages/leaps/leaps.pdf">http://cran.r-project.org/web/packages/leaps/leaps.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Model selection  - bic.glm</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(BMA)
+bicglm1 &lt;- bic.glm(score ~.,data=movies,glm.family=&quot;gaussian&quot;)
+print(bicglm1)
+</code></pre>
+
+<pre><code>
+Call:
+bic.glm.formula(f = score ~ ., data = movies, glm.family = &quot;gaussian&quot;)
+
+
+ Posterior probabilities(%): 
+ &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
+  0.0 100.0 100.0  18.2 
+
+ Coefficient posterior expected values: 
+          (Intercept)               ratingPG            ratingPG-13                ratingR  
+               45.263                  0.000                  0.000                  0.000  
+genreaction/adventure          genreanimated            genrecomedy       genredocumentary  
+               -0.120                  7.628                  2.077                  8.642  
+           genredrama           genrefantasy            genrehorror           genremusical  
+               13.041                  1.504                 -3.458                -12.255  
+      genrerom comedy            genresci-fi          genresuspense           genrewestern  
+                1.244                 -3.324                  3.815                 17.563  
+           box.office           running.time  
+                0.100                  0.016  
+</code></pre>
+
+<p><a href="http://cran.r-project.org/web/packages/BMA/BMA.pdf">http://cran.r-project.org/web/packages/BMA/BMA.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>Notes and further resources</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Exploratory/visual analysis is key</li>
+<li>Automatic selection produces an answer - but may bias inference</li>
+<li>You may think about separating the sample into two groups</li>
+<li><p>The goal is not to get the &quot;causal&quot; model</p></li>
+<li><p><a href="http://cran.r-project.org/web/packages/lars/lars.pdf">Lars package</a> </p></li>
+<li><p><a href="http://www-stat.stanford.edu/%7Etibs/ElemStatLearn/">Elements of machine learning</a></p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

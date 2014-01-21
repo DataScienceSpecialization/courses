@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Structure of a Data Analysis</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Structure of a Data Analysis">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/zenburn.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Structure of a Data Analysis</h1>
+        <h2>Part 2</h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Steps in a data analysis</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Define the question</li>
+<li>Define the ideal data set</li>
+<li>Determine what data you can access</li>
+<li>Obtain the data</li>
+<li>Clean the data</li>
+<li>Exploratory data analysis</li>
+<li>Statistical prediction/modeling</li>
+<li>Interpret results</li>
+<li>Challenge results</li>
+<li>Synthesize/write up results</li>
+<li>Create reproducible code</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Steps in a data analysis</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Define the question</li>
+<li>Define the ideal data set</li>
+<li>Determine what data you can access</li>
+<li>Obtain the data</li>
+<li>Clean the data</li>
+<li><redtext>Exploratory data analysis</redtext></li>
+<li><redtext>Statistical prediction/modeling</redtext></li>
+<li><redtext>Interpret results</redtext></li>
+<li><redtext>Challenge results</redtext></li>
+<li><redtext>Synthesize/write up results</redtext></li>
+<li><redtext>Create reproducible code</redtext></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>An example</h2>
+  </hgroup>
+  <article>
+    <p><strong>Start with a general question</strong></p>
+
+<p>Can I automatically detect emails that are SPAM or not?</p>
+
+<p><strong>Make it concrete</strong></p>
+
+<p>Can I use quantitative characteristics of the emails to classify them as SPAM/HAM?</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Our data set</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/spamR.png height='400' /></p>
+
+<p><a href="http://search.r-project.org/library/kernlab/html/spam.html">http://search.r-project.org/library/kernlab/html/spam.html</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Subsampling our data set</h2>
+  </hgroup>
+  <article>
+    <p>We need to generate a test and training set (prediction)</p>
+
+<pre><code class="r"># If it isn&#39;t installed, install the kernlab package
+library(kernlab)
+data(spam)
+# Perform the subsampling
+set.seed(3435)
+trainIndicator = rbinom(4601, size = 1, prob = 0.5)
+table(trainIndicator)
+</code></pre>
+
+<pre><code>## trainIndicator
+##    0    1 
+## 2314 2287
+</code></pre>
+
+<pre><code class="r">trainSpam = spam[trainIndicator == 1, ]
+testSpam = spam[trainIndicator == 0, ]
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Exploratory data analysis</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Look at summaries of the data</li>
+<li>Check for missing data</li>
+<li>Create exploratory plots</li>
+<li>Perform exploratory analyses (e.g. clustering)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Names</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">names(trainSpam)
+</code></pre>
+
+<pre><code>##  [1] &quot;make&quot;              &quot;address&quot;           &quot;all&quot;              
+##  [4] &quot;num3d&quot;             &quot;our&quot;               &quot;over&quot;             
+##  [7] &quot;remove&quot;            &quot;internet&quot;          &quot;order&quot;            
+## [10] &quot;mail&quot;              &quot;receive&quot;           &quot;will&quot;             
+## [13] &quot;people&quot;            &quot;report&quot;            &quot;addresses&quot;        
+## [16] &quot;free&quot;              &quot;business&quot;          &quot;email&quot;            
+## [19] &quot;you&quot;               &quot;credit&quot;            &quot;your&quot;             
+## [22] &quot;font&quot;              &quot;num000&quot;            &quot;money&quot;            
+## [25] &quot;hp&quot;                &quot;hpl&quot;               &quot;george&quot;           
+## [28] &quot;num650&quot;            &quot;lab&quot;               &quot;labs&quot;             
+## [31] &quot;telnet&quot;            &quot;num857&quot;            &quot;data&quot;             
+## [34] &quot;num415&quot;            &quot;num85&quot;             &quot;technology&quot;       
+## [37] &quot;num1999&quot;           &quot;parts&quot;             &quot;pm&quot;               
+## [40] &quot;direct&quot;            &quot;cs&quot;                &quot;meeting&quot;          
+## [43] &quot;original&quot;          &quot;project&quot;           &quot;re&quot;               
+## [46] &quot;edu&quot;               &quot;table&quot;             &quot;conference&quot;       
+## [49] &quot;charSemicolon&quot;     &quot;charRoundbracket&quot;  &quot;charSquarebracket&quot;
+## [52] &quot;charExclamation&quot;   &quot;charDollar&quot;        &quot;charHash&quot;         
+## [55] &quot;capitalAve&quot;        &quot;capitalLong&quot;       &quot;capitalTotal&quot;     
+## [58] &quot;type&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Head</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">head(trainSpam)
+</code></pre>
+
+<pre><code>##    make address  all num3d  our over remove internet order mail receive
+## 1  0.00    0.64 0.64     0 0.32 0.00   0.00        0  0.00 0.00    0.00
+## 7  0.00    0.00 0.00     0 1.92 0.00   0.00        0  0.00 0.64    0.96
+## 9  0.15    0.00 0.46     0 0.61 0.00   0.30        0  0.92 0.76    0.76
+## 12 0.00    0.00 0.25     0 0.38 0.25   0.25        0  0.00 0.00    0.12
+## 14 0.00    0.00 0.00     0 0.90 0.00   0.90        0  0.00 0.90    0.90
+## 16 0.00    0.42 0.42     0 1.27 0.00   0.42        0  0.00 1.27    0.00
+##    will people report addresses free business email  you credit your font
+## 1  0.64   0.00      0         0 0.32        0  1.29 1.93   0.00 0.96    0
+## 7  1.28   0.00      0         0 0.96        0  0.32 3.85   0.00 0.64    0
+## 9  0.92   0.00      0         0 0.00        0  0.15 1.23   3.53 2.00    0
+## 12 0.12   0.12      0         0 0.00        0  0.00 1.16   0.00 0.77    0
+## 14 0.00   0.90      0         0 0.00        0  0.00 2.72   0.00 0.90    0
+## 16 0.00   0.00      0         0 1.27        0  0.00 1.70   0.42 1.27    0
+##    num000 money hp hpl george num650 lab labs telnet num857 data num415
+## 1       0  0.00  0   0      0      0   0    0      0      0 0.00      0
+## 7       0  0.00  0   0      0      0   0    0      0      0 0.00      0
+## 9       0  0.15  0   0      0      0   0    0      0      0 0.15      0
+## 12      0  0.00  0   0      0      0   0    0      0      0 0.00      0
+## 14      0  0.00  0   0      0      0   0    0      0      0 0.00      0
+## 16      0  0.42  0   0      0      0   0    0      0      0 0.00      0
+##    num85 technology num1999 parts pm direct cs meeting original project re
+## 1      0          0    0.00     0  0   0.00  0       0      0.0       0  0
+## 7      0          0    0.00     0  0   0.00  0       0      0.0       0  0
+## 9      0          0    0.00     0  0   0.00  0       0      0.3       0  0
+## 12     0          0    0.00     0  0   0.00  0       0      0.0       0  0
+## 14     0          0    0.00     0  0   0.00  0       0      0.0       0  0
+## 16     0          0    1.27     0  0   0.42  0       0      0.0       0  0
+##    edu table conference charSemicolon charRoundbracket charSquarebracket
+## 1    0     0          0         0.000            0.000                 0
+## 7    0     0          0         0.000            0.054                 0
+## 9    0     0          0         0.000            0.271                 0
+## 12   0     0          0         0.022            0.044                 0
+## 14   0     0          0         0.000            0.000                 0
+## 16   0     0          0         0.000            0.063                 0
+##    charExclamation charDollar charHash capitalAve capitalLong capitalTotal
+## 1            0.778      0.000    0.000      3.756          61          278
+## 7            0.164      0.054    0.000      1.671           4          112
+## 9            0.181      0.203    0.022      9.744         445         1257
+## 12           0.663      0.000    0.000      1.243          11          184
+## 14           0.000      0.000    0.000      2.083           7           25
+## 16           0.572      0.063    0.000      5.659          55          249
+##    type
+## 1  spam
+## 7  spam
+## 9  spam
+## 12 spam
+## 14 spam
+## 16 spam
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Summaries</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">table(trainSpam$type)
+</code></pre>
+
+<pre><code>## 
+## nonspam    spam 
+##    1381     906
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Plots</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(trainSpam$capitalAve ~ trainSpam$type)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-5.png" alt="plot of chunk unnamed-chunk-5"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Plots</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(log10(trainSpam$capitalAve + 1) ~ trainSpam$type)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-6.png" alt="plot of chunk unnamed-chunk-6"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Relationships between predictors</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(log10(trainSpam[, 1:4] + 1))
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-7.png" alt="plot of chunk unnamed-chunk-7"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Clustering</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">hCluster = hclust(dist(t(trainSpam[, 1:57])))
+plot(hCluster)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-9.png" alt="plot of chunk unnamed-chunk-9"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>New clustering</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">hClusterUpdated = hclust(dist(t(log10(trainSpam[, 1:55] + 1))))
+plot(hClusterUpdated)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-10.png" alt="plot of chunk unnamed-chunk-10"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Statistical prediction/modeling</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Should be informed by the results of your exploratory analysis</li>
+<li>Exact methods depend on the question of interest</li>
+<li>Transformations/processing should be accounted for when necessary</li>
+<li>Measures of uncertainty should be reported</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Statistical prediction/modeling</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">trainSpam$numType = as.numeric(trainSpam$type) - 1
+costFunction = function(x, y) sum(x != (y &gt; 0.5))
+cvError = rep(NA, 55)
+library(boot)
+for (i in 1:55) {
+    lmFormula = reformulate(names(trainSpam)[i], response = &quot;numType&quot;)
+    glmFit = glm(lmFormula, family = &quot;binomial&quot;, data = trainSpam)
+    cvError[i] = cv.glm(trainSpam, glmFit, costFunction, 2)$delta[2]
+}
+
+## Which predictor has minimum cross-validated error?
+names(trainSpam)[which.min(cvError)]
+</code></pre>
+
+<pre><code>## [1] &quot;charDollar&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Get a measure of uncertainty</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">## Use the best model from the group
+predictionModel = glm(numType ~ charDollar, family = &quot;binomial&quot;, data = trainSpam)
+
+## Get predictions on the test set
+predictionTest = predict(predictionModel, testSpam)
+predictedSpam = rep(&quot;nonspam&quot;, dim(testSpam)[1])
+
+## Classify as `spam&#39; for those with prob &gt; 0.5
+predictedSpam[predictionModel$fitted &gt; 0.5] = &quot;spam&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Get a measure of uncertainty</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">## Classification table
+table(predictedSpam, testSpam$type)
+</code></pre>
+
+<pre><code>##              
+## predictedSpam nonspam spam
+##       nonspam    1346  458
+##       spam         61  449
+</code></pre>
+
+<pre><code class="r">
+## Error rate
+(61 + 458)/(1346 + 458 + 61 + 449)
+</code></pre>
+
+<pre><code>## [1] 0.2243
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Interpret results</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Use the appropriate language
+
+<ul>
+<li>describes </li>
+<li>correlates with/associated with</li>
+<li>leads to/causes</li>
+<li>predicts</li>
+</ul></li>
+<li>Give an explanation</li>
+<li>Interpret coefficients</li>
+<li>Interpret measures of uncertainty</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Our example</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The fraction of charcters that are dollar signs can be used to predict if an email is Spam</li>
+<li>Anything with more than 6.6% dollar signs is classified as Spam</li>
+<li>More dollar signs always means more Spam under our prediction</li>
+<li>Our test set error rate was 22.4% </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Challenge results</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Challenge all steps:
+
+<ul>
+<li>Question</li>
+<li>Data source</li>
+<li>Processing </li>
+<li>Analysis </li>
+<li>Conclusions</li>
+</ul></li>
+<li>Challenge measures of uncertainty</li>
+<li>Challenge choices of terms to include in models</li>
+<li>Think of potential alternative analyses </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Synthesize/write-up results</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Lead with the question</li>
+<li>Summarize the analyses into the story </li>
+<li>Don&#39;t include every analysis, include it
+
+<ul>
+<li>If it is needed for the story</li>
+<li>If it is needed to address a challenge</li>
+</ul></li>
+<li>Order analyses according to the story, rather than chronologically</li>
+<li>Include &quot;pretty&quot; figures that contribute to the story </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>In our example</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Lead with the question
+
+<ul>
+<li>Can I use quantitative characteristics of the emails to classify them as SPAM/HAM?</li>
+</ul></li>
+<li>Describe the approach
+
+<ul>
+<li>Collected data from UCI -&gt; created training/test sets</li>
+<li>Explored relationships</li>
+<li>Choose logistic model on training set by cross validation</li>
+<li>Applied to test, 78% test set accuracy</li>
+</ul></li>
+<li>Interpret results
+
+<ul>
+<li>Number of dollar signs seems reasonable, e.g. &quot;Make money with Viagra \$ \$ \$ \$!&quot;</li>
+</ul></li>
+<li>Challenge results
+
+<ul>
+<li>78% isn&#39;t that great</li>
+<li>I could use more variables</li>
+<li>Why logistic regression?</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>Create reproducible code</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/rmarkdown.png height='400' /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

@@ -1,0 +1,16 @@
+base
+caret
+cluster
+Defaults
+expsmooth
+foreach
+forecast
+lattice
+plyr
+quantmod
+reshape2
+slidify
+tseries
+TTR
+xts
+zoo

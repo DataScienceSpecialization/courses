@@ -1,0 +1,112 @@
+---
+title       : Reading JSON
+subtitle    : 
+author      : Jeffrey Leek 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/', cache=TRUE)
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+
+
+## JSON
+
+* Javascript Object Notation
+* Lightweight data storage
+* Common format for data from application programming interfaces (APIs)
+* Similar structure to XML but different syntax/format
+* Data stored as
+  * Numbers (double)
+  * Strings (double quoted)
+  * Boolean (_true_ or _false_)
+  * Array (ordered, comma separated enclosed in square brackets _[]_)
+  * Object (unorderd, comma separated collection of key:value pairs in curley brackets _{}_)
+
+
+[http://en.wikipedia.org/wiki/JSON](http://en.wikipedia.org/wiki/JSON)
+
+
+---
+
+## Example JSON file
+
+<img class=center src=../../assets/img/03_ObtainingData/githubjson.png height=450>
+
+
+---
+
+## Reading data from JSON {jsonlite package}
+
+```{r readJSON}
+library(jsonlite)
+jsonData <- fromJSON("https://api.github.com/users/jtleek/repos")
+names(jsonData)
+jsonData$name
+```
+
+
+---
+
+## Nested objects in JSON
+
+```{r,dependson="readJSON"}
+names(jsonData$owner)
+jsonData$owner$login
+```
+
+
+---
+
+## Writing data frames to JSON
+
+```{r writeJSON}
+myjson <- toJSON(iris, pretty=TRUE)
+cat(myjson)
+```
+
+[http://www.r-bloggers.com/new-package-jsonlite-a-smarter-json-encoderdecoder/](http://www.r-bloggers.com/new-package-jsonlite-a-smarter-json-encoderdecoder/)
+
+
+---
+
+## Convert back to JSON
+
+```{r,dependson="writeJSON"}
+iris2 <- fromJSON(myjson)
+head(iris2)
+```
+
+
+[http://www.r-bloggers.com/new-package-jsonlite-a-smarter-json-encoderdecoder/](http://www.r-bloggers.com/new-package-jsonlite-a-smarter-json-encoderdecoder/)
+
+---
+
+## Further resources
+
+* [http://www.json.org/](http://www.json.org/)
+* A good tutorial on jsonlite - [http://www.r-bloggers.com/new-package-jsonlite-a-smarter-json-encoderdecoder/](http://www.r-bloggers.com/new-package-jsonlite-a-smarter-json-encoderdecoder/)
+* [jsonlite vignette](http://cran.r-project.org/web/packages/jsonlite/vignettes/json-mapping.pdf)

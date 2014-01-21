@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reshaping data</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Reshaping data">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Reshaping data</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>The goal is tidy data</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src="../../assets/img/01_DataScientistToolbox/excel.png" height=300 /></p>
+
+<ol>
+<li>Each variable forms a column</li>
+<li>Each observation forms a row</li>
+<li>Each table/file stores data about one kind of observation (e.g. people/hospitals).</li>
+</ol>
+
+<p><a href="http://vita.had.co.nz/papers/tidy-data.pdf">http://vita.had.co.nz/papers/tidy-data.pdf</a></p>
+
+<p><a href="http://www.plosone.org/article/info%3Adoi%2F10.1371%2Fjournal.pone.0026895">Leek, Taub, and Pineda 2011 PLoS One</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Start with reshaping</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(reshape2)
+head(mtcars)
+</code></pre>
+
+<pre><code>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Melting data frames</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">mtcars$carname &lt;- rownames(mtcars)
+carMelt &lt;- melt(mtcars,id=c(&quot;carname&quot;,&quot;gear&quot;,&quot;cyl&quot;),measure.vars=c(&quot;mpg&quot;,&quot;hp&quot;))
+head(carMelt,n=3)
+</code></pre>
+
+<pre><code>        carname gear cyl variable value
+1     Mazda RX4    4   6      mpg  21.0
+2 Mazda RX4 Wag    4   6      mpg  21.0
+3    Datsun 710    4   4      mpg  22.8
+</code></pre>
+
+<pre><code class="r">tail(carMelt,n=3)
+</code></pre>
+
+<pre><code>         carname gear cyl variable value
+62  Ferrari Dino    5   6       hp   175
+63 Maserati Bora    5   8       hp   335
+64    Volvo 142E    4   4       hp   109
+</code></pre>
+
+<p><a href="http://www.statmethods.net/management/reshape.html">http://www.statmethods.net/management/reshape.html</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Casting data frames</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">cylData &lt;- dcast(carMelt, cyl ~ variable)
+cylData
+</code></pre>
+
+<pre><code>  cyl mpg hp
+1   4  11 11
+2   6   7  7
+3   8  14 14
+</code></pre>
+
+<pre><code class="r">cylData &lt;- dcast(carMelt, cyl ~ variable,mean)
+cylData
+</code></pre>
+
+<pre><code>  cyl   mpg     hp
+1   4 26.66  82.64
+2   6 19.74 122.29
+3   8 15.10 209.21
+</code></pre>
+
+<p><a href="http://www.statmethods.net/management/reshape.html">http://www.statmethods.net/management/reshape.html</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Averaging values</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">head(InsectSprays)
+</code></pre>
+
+<pre><code>  count spray
+1    10     A
+2     7     A
+3    20     A
+4    14     A
+5    14     A
+6    12     A
+</code></pre>
+
+<pre><code class="r">tapply(InsectSprays$count,InsectSprays$spray,sum)
+</code></pre>
+
+<pre><code>  A   B   C   D   E   F 
+174 184  25  59  42 200 
+</code></pre>
+
+<p><a href="http://www.r-bloggers.com/a-quick-primer-on-split-apply-combine-problems/">http://www.r-bloggers.com/a-quick-primer-on-split-apply-combine-problems/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Another way - split</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">spIns =  split(InsectSprays$count,InsectSprays$spray)
+spIns
+</code></pre>
+
+<pre><code>$A
+ [1] 10  7 20 14 14 12 10 23 17 20 14 13
+
+$B
+ [1] 11 17 21 11 16 14 17 17 19 21  7 13
+
+$C
+ [1] 0 1 7 2 3 1 2 1 3 0 1 4
+
+$D
+ [1]  3  5 12  6  4  3  5  5  5  5  2  4
+
+$E
+ [1] 3 5 3 5 3 6 1 1 3 2 6 4
+
+$F
+ [1] 11  9 15 22 15 16 13 10 26 26 24 13
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Another way - apply</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">sprCount = lapply(spIns,sum)
+sprCount
+</code></pre>
+
+<pre><code>$A
+[1] 174
+
+$B
+[1] 184
+
+$C
+[1] 25
+
+$D
+[1] 59
+
+$E
+[1] 42
+
+$F
+[1] 200
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Another way - combine</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">unlist(sprCount)
+</code></pre>
+
+<pre><code>  A   B   C   D   E   F 
+174 184  25  59  42 200 
+</code></pre>
+
+<pre><code class="r">sapply(spIns,sum)
+</code></pre>
+
+<pre><code>  A   B   C   D   E   F 
+174 184  25  59  42 200 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Another way - plyr package</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">ddply(InsectSprays,.(spray),summarize,sum=sum(count))
+</code></pre>
+
+<pre><code>  spray sum
+1     A 174
+2     B 184
+3     C  25
+4     D  59
+5     E  42
+6     F 200
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Creating a new variable</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">spraySums &lt;- ddply(InsectSprays,.(spray),summarize,sum=ave(count,FUN=sum))
+dim(spraySums)
+</code></pre>
+
+<pre><code>[1] 72  2
+</code></pre>
+
+<pre><code class="r">head(spraySums)
+</code></pre>
+
+<pre><code>  spray sum
+1     A 174
+2     A 174
+3     A 174
+4     A 174
+5     A 174
+6     A 174
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>More information</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>A tutorial from the developer of plyr - <a href="http://plyr.had.co.nz/09-user/">http://plyr.had.co.nz/09-user/</a></li>
+<li>A nice reshape tutorial <a href="http://www.slideshare.net/jeffreybreen/reshaping-data-in-r">http://www.slideshare.net/jeffreybreen/reshaping-data-in-r</a></li>
+<li>A good plyr primer - <a href="http://www.r-bloggers.com/a-quick-primer-on-split-apply-combine-problems/">http://www.r-bloggers.com/a-quick-primer-on-split-apply-combine-problems/</a></li>
+<li>See also the functions
+
+<ul>
+<li>acast - for casting as multi-dimensional arrays</li>
+<li>arrange - for faster reordering without using order() commands</li>
+<li>mutate - adding new variables</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

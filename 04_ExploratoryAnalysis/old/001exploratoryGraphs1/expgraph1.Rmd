@@ -1,0 +1,232 @@
+---
+title       : Exploratory graphs
+subtitle    : 
+author      : Roger D. Peng, Associate Professor of Biostatistics 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache = T, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## Why do we use graphs in data analysis? 
+
+* To understand data properties
+* To find patterns in data
+* To suggest modeling strategies
+* To "debug" analyses
+* To communicate results
+
+---
+
+## Exploratory graphs
+
+* <redtext>To understand data properties</redtext>
+* <redtext>To find patterns in data</redtext>
+* <redtext>To suggest modeling strategies</redtext>
+* <redtext>To "debug" analyses</redtext>
+* To communicate results
+
+---
+
+## Characteristics of exploratory graphs
+
+* They are made quickly
+* A large number are made
+* The goal is for personal understanding
+* Axes/legends are generally cleaned up
+* Color/size are primarily used for information
+
+---
+
+## Background - perceptual tasks
+
+<img class=center src=../../assets/img/perceptual.png height=450>
+
+[Graphical perception: Theory, Experimentation, and Applications to the Development of Graphical Models](http://www.jstor.org/discover/10.2307/2288400?uid=3739704&uid=2&uid=4&uid=3739256&sid=21101742782357)
+
+---
+
+## Position versus length
+
+<img class=center src=../../assets/img/barcharts.png height=250>
+
+[Graphical perception: Theory, Experimentation, and Applications to the Development of Graphical Models](http://www.jstor.org/discover/10.2307/2288400?uid=3739704&uid=2&uid=4&uid=3739256&sid=21101742782357)
+
+
+---
+
+## Position versus length - results
+
+<img class=center src=../../assets/img/poslength.png height=250>
+
+
+[Graphical perception: Theory, Experimentation, and Applications to the Development of Graphical Models](http://www.jstor.org/discover/10.2307/2288400?uid=3739704&uid=2&uid=4&uid=3739256&sid=21101742782357)
+
+---
+
+## Position versus angle
+
+<img class=center src=../../assets/img/piechart.png height=300>
+
+
+[Graphical perception: Theory, Experimentation, and Applications to the Development of Graphical Models](http://www.jstor.org/discover/10.2307/2288400?uid=3739704&uid=2&uid=4&uid=3739256&sid=21101742782357)
+
+
+---
+
+## Position versus angle - results
+
+
+<img class=center src=../../assets/img/posangle.png height=200>
+
+<br><br>
+[Graphical perception: Theory, Experimentation, and Applications to the Development of Graphical Models](http://www.jstor.org/discover/10.2307/2288400?uid=3739704&uid=2&uid=4&uid=3739256&sid=21101742782357)
+
+
+---
+
+## More experimental results
+
+<img class=center src=../../assets/img/bigexp.png height=450>
+
+[Graphical Perception and Graphical Methods for Analyzing Scientific Data](http://www.sciencemag.org/content/229/4716/828.refs)
+
+---
+
+## Summary
+
+* Use common scales when possible
+* When possible use position comparisons
+* Angle comparisons are frequently hard to interpret (no piecharts!)
+* No 3-D barcharts. Please.
+
+
+---
+
+## Housing data
+
+
+<img class=center src=../../assets/img/acs.png height=350>
+
+<br>
+
+```{r downloadData, echo=FALSE, cache=TRUE}
+if(!file.exists("data/ss06pid.csv")) {
+        download.file("https://dl.dropboxusercontent.com/u/7710864/data/csv_hid/ss06pid.csv",destfile="./data/ss06pid.csv",method="curl")
+}
+```
+
+
+```{r loadData,dependson="downloadData"}
+pData <- read.csv("./data/ss06pid.csv")
+```
+
+
+--- 
+
+## Boxplots
+
+Important parameters: _col_,_varwidth_,_names_,_horizontal_
+
+```{r , dependson="loadData",fig.height=4,fig.width=4}
+boxplot(pData$AGEP, col="blue")
+```
+
+--- 
+
+## Boxplots
+
+```{r , dependson="loadData",fig.height=5,fig.width=5}
+pData <- transform(pData, DDRS = factor(DDRS))
+boxplot(AGEP ~ DDRS, data = pData, col = "blue")
+```
+
+
+--- 
+
+## Boxplots
+
+```{r , dependson="loadData",fig.height=5,fig.width=5}
+boxplot(AGEP ~ DDRS, data = pData, col = c("blue", "orange"), 
+        names = c("yes", "no"), varwidth = TRUE)
+```
+
+
+
+--- 
+
+## Barplots
+
+```{r , dependson="loadData",fig.height=5,fig.width=5}
+barplot(table(pData$CIT), col = "blue")
+```
+
+
+
+--- 
+
+## Histograms
+
+Important parameters: _breaks_,_freq_,_col_,_xlab_,_ylab_, _xlim, _ylim_ ,_main_
+
+```{r , dependson="loadData",fig.height=4,fig.width=4}
+hist(pData$AGEP, col = "blue")
+```
+
+--- 
+
+## Histograms
+
+```{r , dependson="loadData",fig.height=5,fig.width=5}
+hist(pData$AGEP, col = "blue", breaks = 100, main = "Age")
+```
+
+
+--- 
+
+## Density plots
+
+Important parameters (to plot): _col_,_lwd_,_xlab_,_ylab_,_xlim_,_ylim_
+
+```{r , dependson="loadData",fig.height=4,fig.width=4}
+dens <- density(pData$AGEP)
+plot(dens, lwd = 3, col = "blue")
+```
+
+
+--- 
+
+## Density plots - multiple distributions
+
+```{r , dependson="loadData",fig.height=4,fig.width=4}
+dens <- density(pData$AGEP)
+densMales <- density(pData$AGEP[which(pData$SEX == 1)])
+plot(dens, lwd = 3, col = "blue")
+lines(densMales, lwd = 3, col = "orange")
+```
+
+
+

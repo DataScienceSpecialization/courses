@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simulation</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Simulation">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Simulation</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Generating Random Numbers</h2>
+  </hgroup>
+  <article>
+    <p>Functions for probability distributions in R</p>
+
+<ul>
+<li><code>rnorm</code>: generate random Normal variates with a given mean and standard deviation</li>
+<li><code>dnorm</code>: evaluate the Normal probability density (with a given mean/SD) at a point (or vector of points)</li>
+<li><code>pnorm</code>: evaluate the cumulative distribution function for a Normal distribution </li>
+<li><code>rpois</code>: generate random Poisson variates with a given rate</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Generating Random Numbers</h2>
+  </hgroup>
+  <article>
+    <p>Probability distribution functions usually have four functions associated with them. The functions are prefixed with a</p>
+
+<ul>
+<li><code>d</code> for density</li>
+<li><code>r</code> for random number generation </li>
+<li><code>p</code> for cumulative distribution</li>
+<li><code>q</code> for quantile function</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Generating Random Numbers</h2>
+  </hgroup>
+  <article>
+    <p>Working with the Normal distributions requires using these four functions</p>
+
+<pre><code class="r">dnorm(x, mean = 0, sd = 1, log = FALSE)
+pnorm(q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+qnorm(p, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+rnorm(n, mean = 0, sd = 1)
+</code></pre>
+
+<p>If \(\Phi\) is the cumulative distribution function for a standard
+Normal distribution, then <code>pnorm(q)</code> = \(\Phi(q)\) and <code>qnorm(p)</code> =
+\(Φ^{−1}(p)\).</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Generating Random Numbers</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">&gt; x &lt;- rnorm(10) 
+&gt; x
+ [1] 1.38380206 0.48772671 0.53403109 0.66721944
+ [5] 0.01585029 0.37945986 1.31096736 0.55330472
+ [9] 1.22090852 0.45236742
+&gt; x &lt;- rnorm(10, 20, 2) 
+&gt; x
+ [1] 23.38812 20.16846 21.87999 20.73813 19.59020
+ [6] 18.73439 18.31721 22.51748 20.36966 21.04371
+&gt; summary(x)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+  18.32   19.73   20.55   20.67   21.67   23.39
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Generating Random Numbers</h2>
+  </hgroup>
+  <article>
+    <p>Setting the random number seed with <code>set.seed</code> ensures reproducibility</p>
+
+<pre><code class="r">&gt; set.seed(1)
+&gt; rnorm(5)
+[1] -0.6264538  0.1836433 -0.8356286  1.5952808
+[5]  0.3295078
+&gt; rnorm(5)
+[1] -0.8204684  0.4874291  0.7383247  0.5757814
+[5] -0.3053884
+&gt; set.seed(1)
+&gt; rnorm(5)
+[1] -0.6264538  0.1836433 -0.8356286  1.5952808
+[5]  0.3295078
+</code></pre>
+
+<p>Always set the random number seed when conducting a simulation!</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Generating Random Numbers</h2>
+  </hgroup>
+  <article>
+    <p>Generating Poisson data</p>
+
+<pre><code class="r">&gt; rpois(10, 1)
+ [1] 3 1 0 1 0 0 1 0 1 1
+&gt; rpois(10, 2)
+ [1] 6 2 2 1 3 2 2 1 1 2
+&gt; rpois(10, 20)
+ [1] 20 11 21 20 20 21 17 15 24 20
+
+&gt; ppois(2, 2)  ## Cumulative distribution
+[1] 0.6766764  ## Pr(x &lt;= 2)
+&gt; ppois(4, 2)
+[1] 0.947347   ## Pr(x &lt;= 4)
+&gt; ppois(6, 2)
+[1] 0.9954662  ## Pr(x &lt;= 6)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Generating Random Numbers From a Linear Model</h2>
+  </hgroup>
+  <article>
+    <p>Suppose we want to simulate from the following linear model
+\[
+y = \beta_0 + \beta_1 x + \varepsilon
+\]
+where \(\varepsilon\sim\mathcal{N}(0, 2^2)\). Assume
+\(x\sim\mathcal{N}(0,1^2)\), \(\beta_0 = 0.5\) and \(\beta_1 = 2\).</p>
+
+<pre><code class="r">&gt; set.seed(20)
+&gt; x &lt;- rnorm(100)
+&gt; e &lt;- rnorm(100, 0, 2)
+&gt; y &lt;- 0.5 + 2 * x + e
+&gt; summary(y)
+   Min. 1st Qu.  Median
+-6.4080 -1.5400  0.6789  0.6893  2.9300  6.5050
+&gt; plot(x, y)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Generating Random Numbers From a Linear Model</h2>
+  </hgroup>
+  <article>
+    <p><img src="../assets/img/plot4.png" height=500></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Generating Random Numbers From a Linear Model</h2>
+  </hgroup>
+  <article>
+    <p>What if <code>x</code> is binary?</p>
+
+<pre><code class="r">&gt; set.seed(10)
+&gt; x &lt;- rbinom(100, 1, 0.5)
+&gt; e &lt;- rnorm(100, 0, 2)
+&gt; y &lt;- 0.5 + 2 * x + e
+&gt; summary(y)
+   Min. 1st Qu.  Median
+-3.4940 -0.1409  1.5770  1.4320  2.8400  6.9410
+&gt; plot(x, y)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Generating Random Numbers From a Linear Model</h2>
+  </hgroup>
+  <article>
+    <p><img src="../assets/img/plot5.png" height=500></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Generating Random Numbers From a Generalized Linear Model</h2>
+  </hgroup>
+  <article>
+    <p>Suppose we want to simulate from a Poisson model where</p>
+
+<p>Y ~ Poisson(μ)</p>
+
+<p>log μ = \(\beta_0 + \beta_1x\)</p>
+
+<p>and \(\beta_0 = 0.5\) and \(\beta_1 = 0.3\). We need to use the <code>rpois</code> function for this</p>
+
+<pre><code class="r">&gt; set.seed(1)
+&gt; x &lt;- rnorm(100)
+&gt; log.mu &lt;- 0.5 + 0.3 * x
+&gt; y &lt;- rpois(100, exp(log.mu))
+&gt; summary(y)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+   0.00    1.00    1.00    1.55    2.00    6.00
+&gt; plot(x, y)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Generating Random Numbers From a Generalized Linear Model</h2>
+  </hgroup>
+  <article>
+    <p><img src="../assets/img/plot6.png" height=500></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Random Sampling</h2>
+  </hgroup>
+  <article>
+    <p>The <code>sample</code> function draws randomly from a specified set of (scalar) objects allowing you to sample from arbitrary distributions.</p>
+
+<pre><code class="r">&gt; set.seed(1)
+&gt; sample(1:10, 4)
+[1] 3 4 5 7
+&gt; sample(1:10, 4)
+[1] 3 9 8 5
+&gt; sample(letters, 5)
+[1] &quot;q&quot; &quot;b&quot; &quot;e&quot; &quot;x&quot; &quot;p&quot;
+&gt; sample(1:10)  ## permutation
+ [1] 4 710 6 9 2 8 3 1 5 
+&gt; sample(1:10)
+ [1]  2  3  4  1  9  5 10  8  6  7
+&gt; sample(1:10, replace = TRUE)  ## Sample w/replacement
+ [1] 2 9 7 8 2 8 5 9 7 8
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Simulation</h2>
+  </hgroup>
+  <article>
+    <p>Summary</p>
+
+<ul>
+<li>Drawing samples from specific probability distributions can be done with <code>r*</code> functions</li>
+<li>Standard distributions are built in: Normal, Poisson, Binomial, Exponential, Gamma, etc.</li>
+<li>The <code>sample</code> function can be used to draw random samples from arbitrary vectors</li>
+<li>Setting the random number generator seed via set.seed is critical for reproducibility</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

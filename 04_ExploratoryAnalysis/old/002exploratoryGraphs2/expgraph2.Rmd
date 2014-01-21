@@ -1,0 +1,294 @@
+---
+title       : Exploratory graphs
+subtitle    : 
+author      : Roger D. Peng, Associate Professor of Biostatistics 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache = T, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## Why do we use graphs in data analysis? 
+
+* To understand data properties
+* To find patterns in data
+* To suggest modeling strategies
+* To "debug" analyses
+* To communicate results
+
+---
+
+## Exploratory graphs
+
+* <redtext>To understand data properties</redtext>
+* <redtext>To find patterns in data</redtext>
+* <redtext>To suggest modeling strategies</redtext>
+* <redtext>To "debug" analyses</redtext>
+* To communicate results
+
+---
+
+## Characteristics of exploratory graphs
+
+* They are made quickly
+* A large number are made
+* The goal is for personal understanding
+* Axes/legends are generally not cleaned up
+* Color/size are primarily used for information
+
+---
+
+## Housing data
+
+
+<img class=center src=../../assets/img/acs.png height=350>
+
+<br>
+
+```{r downloadData, echo=FALSE, cache=TRUE}
+if(!file.exists("data/ss06pid.csv")) {
+        download.file("https://dl.dropboxusercontent.com/u/7710864/data/csv_hid/ss06pid.csv",destfile="./data/ss06pid.csv",method="curl")
+}
+```
+
+
+```{r loadData,dependson="downloadData"}
+pData <- read.csv("./data/ss06pid.csv")
+```
+
+
+--- 
+
+## Scatterplots
+
+* Important paramters: _x_,_y_,_type_,_xlab_,_ylab_,_xlim_,_ylim_,_cex_,_col_,_bg_
+* See ?par for more
+
+```{r , dependson="loadData",fig.height=4,fig.width=4}
+plot(pData$JWMNP,pData$WAGP,pch=19,col="blue")
+```
+
+
+--- 
+
+## Scatterplots - size matters
+
+
+```{r , dependson="loadData",fig.height=5,fig.width=5}
+plot(pData$JWMNP,pData$WAGP,pch=19,col="blue",cex=0.5)
+```
+
+
+--- 
+
+## Scatterplots - using color
+
+```{r , dependson="loadData",fig.height=5,fig.width=5}
+plot(pData$JWMNP,pData$WAGP,pch=19,col=pData$SEX,cex=0.5)
+```
+
+--- 
+
+## Scatterplots - using size
+
+```{r , dependson="loadData",fig.height=4,fig.width=4}
+percentMaxAge <- pData$AGEP/max(pData$AGEP)
+plot(pData$JWMNP,pData$WAGP,pch=19,col="blue",cex=percentMaxAge*0.5)
+```
+
+
+--- 
+
+## Scatterplots - overlaying lines/points
+
+```{r , dependson="loadData",fig.height=4,fig.width=4}
+plot(pData$JWMNP,pData$WAGP,pch=19,col="blue",cex=0.5)
+lines(rep(100,dim(pData)[1]),pData$WAGP,col="grey",lwd=5)
+points(seq(0,200,length=100),seq(0,20e5,length=100),col="red",pch=19)
+```
+
+
+
+--- 
+
+## Scatterplots - numeric variables as factors
+
+```{r , dependson="loadData",fig.height=4,fig.width=5}
+library(Hmisc)
+ageGroups <- cut2(pData$AGEP,g=5)
+plot(pData$JWMNP,pData$WAGP,pch=19,col=ageGroups,cex=0.5)
+```
+
+---
+
+## If you have a lot of points
+
+```{r,fig.height=4,fig.width=4}
+x <- rnorm(1e5)
+y <- rnorm(1e5)
+plot(x,y,pch=19)
+```
+
+
+---
+
+## If you have a lot of points - sampling
+
+```{r,fig.height=4,fig.width=4}
+x <- rnorm(1e5)
+y <- rnorm(1e5)
+sampledValues <- sample(1:1e5,size=1000,replace=FALSE)
+plot(x[sampledValues],y[sampledValues],pch=19)
+```
+
+
+---
+
+## If you have a lot of points - smoothScatter
+
+```{r,fig.height=4,fig.width=4}
+x <- rnorm(1e5)
+y <- rnorm(1e5)
+smoothScatter(x,y)
+```
+
+
+
+---
+
+## If you have a lot of points - hexbin {hexbin}
+
+```{r,fig.height=4,fig.width=4}
+library(hexbin)
+x <- rnorm(1e5)
+y <- rnorm(1e5)
+hbo <- hexbin(x,y)
+plot(hbo)
+```
+
+
+
+
+---
+
+## QQ-plots
+
+* Important parameters: _x_,_y_
+
+```{r ,fig.height=4,fig.width=4}
+x <- rnorm(20); y <- rnorm(20)
+qqplot(x,y)
+abline(c(0,1))
+```
+
+
+--- 
+
+## Matplot and spaghetti
+
+* Important paramters: _x_, _y_, _lty_,_lwd_,_pch_,_col_
+
+```{r ,fig.height=4,fig.width=4}
+X <- matrix(rnorm(20*5),nrow=20)
+matplot(X,type="b")
+```
+
+
+--- 
+
+## Heatmaps
+
+* Important paramters: _x_,_y_,_z_,_col_
+```{r , dependson="loadData",fig.height=4,fig.width=4}
+image(1:10,161:236,as.matrix(pData[1:10,161:236]))
+```
+
+---
+
+## Heatmaps - matching intuition
+
+```{r , dependson="loadData", fig.height=4, fig.width=4}
+newMatrix <- as.matrix(pData[1:10,161:236])
+newMatrix <- t(newMatrix)[,nrow(newMatrix):1]
+image(161:236, 1:10, newMatrix)
+```
+
+
+---
+
+## Maps - very basics 
+
+You make need to run `install.packages("maps")` if you don't have the `maps` package installed. 
+
+```{r,dependson="loadData", fig.height=5,fig.width=5}
+library(maps)
+map("world")
+lat <- runif(40,-180,180); lon <- runif(40,-90,90)
+points(lat,lon,col="blue",pch=19)
+```
+
+
+---
+
+## Missing values and plots
+
+```{r,fig.height=4,fig.width=4}
+x <- c(NA,NA,NA,4,5,6,7,8,9,10)
+y <- 1:10
+plot(x,y,pch=19,xlim=c(0,11),ylim=c(0,11))
+```
+
+
+---
+
+## Missing values and plots
+
+```{r,fig.height=4,fig.width=4}
+x <- rnorm(100)
+y <- rnorm(100)
+y[x < 0] <- NA
+boxplot(x ~ is.na(y))
+```
+
+
+---
+
+## Further resources
+
+* [R Graph Gallery](http://gallery.r-enthusiasts.com/)
+* [ggplot2](http://cran.r-project.org/web/packages/ggplot2/index.html),[ggplot2 basic introduction](http://www.r-bloggers.com/basic-introduction-to-ggplot2/)
+* [lattice package](http://cran.r-project.org/web/packages/lattice/index.html),[lattice introduction](http://lmdvr.r-forge.r-project.org/figures/figures.html)
+* [R bloggers](http://www.r-bloggers.com/)
+
+
+
+
+
+
+
+
+
+

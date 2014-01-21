@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Some basic notation and background</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Some basic notation and background">
+  <meta name="author" content="Brian Caffo, PhD">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Some basic notation and background</h1>
+        <h2>Regression</h2>
+        <p>Brian Caffo, PhD<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Some basic definitions</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>In this module, we&#39;ll cover some basic definitions and notation used throughout the class.</li>
+<li>We will try to minimize the amount of mathematics required for this class.</li>
+<li>No caclculus is required. </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Notation for data</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>We write \(X_1, X_2, \ldots, X_n\) to describe \(n\) data points.</li>
+<li>As an example, consider the data set \(\{1, 2, 5\}\) then 
+
+<ul>
+<li>\(X_1 = 1\), \(X_2 = 2\), \(X_3 = 5\) and \(n = 3\).</li>
+</ul></li>
+<li>We often use a different letter than \(X\), such as \(Y_1, \ldots , Y_n\).</li>
+<li>We will typically use Greek letters for things we don&#39;t know. 
+Such as, \(\mu\) is a mean that we&#39;d like to estimate.</li>
+<li>We will use capital letters for conceptual values of the variables and lowercase letters for realized values.
+
+<ul>
+<li>So this way we can write \(P(X_i > x)\). </li>
+<li>\(X_i\) is a conceptual random variable.</li>
+<li>\(x\) is a number that we plug into.</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>The empirical mean</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Define the empirical mean as
+\[
+\bar X = \frac{1}{n}\sum_{i=1}^n X_i. 
+\]</li>
+<li>Notice if we subtract the mean from data points, we get data that has mean 0. That is, if we define
+\[
+\tilde X_i = X_i - \bar X.
+\]
+The the mean of the \(\tilde X_i\) is 0.</li>
+<li>This process is called &quot;centering&quot; the random variables.</li>
+<li>The mean is a measure of central tendancy of the data.</li>
+<li>Recall from the previous lecture that the mean is 
+the least squares solution for minimizing
+\[
+\sum_{i=1}^n (X_i - \mu)^2
+\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>The emprical standard deviation and variance</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Define the empirical variance as 
+\[
+S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar X)^2 
+= \frac{1}{n-1} \left( \sum_{i=1}^n X_i^2 - n \bar X ^ 2 \right)
+\]</li>
+<li>The empirical standard deviation is defined as
+\(S = \sqrt{S^2}\). Notice that the standard deviation has the same units as the data.</li>
+<li>The data defined by \(X_i / s\) have empirical standard deviation 1. This is called &quot;scaling&quot; the data.</li>
+<li>The empirical standard deviation is a measure of spread.</li>
+<li>Sometimes people divide by \(n\) rather than \(n-1\) (the latter
+produces an unbiased estimate.)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Normalization</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The the data defined by
+\[
+Z_i = \frac{X_i - \bar X}{s}
+\]
+have empirical mean zero and empirical standard deviation 1. </li>
+<li>The process of centering then scaling the data is called &quot;normalizing&quot; the data. </li>
+<li>Normalized data are centered at 0 and have units equal to standard deviations of the original data. </li>
+<li>Example, a value of 2 form normalized data means that data point
+was two standard deviations larger than the mean.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>The empirical covariance</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Consider now when we have pairs of data, \((X_i, Y_i)\).</li>
+<li>Their empirical covariance is 
+\[
+Cov(X, Y) = 
+\frac{1}{n-1}\sum_{i=1}^n (X_i - \bar X) (Y_i - \bar Y)
+= \frac{1}{n-1}\left( \sum_{i=1}^n X_i Y_i - n \bar X \bar Y\right)
+\]</li>
+<li>Some people prefer to divide by \(n\) rather than \(n-1\) (the latter
+produces an unbiased estimate.)</li>
+<li>The correlation is defined is
+\[
+Cor(X, Y) = \frac{Cov(X, Y)}{S_x S_y}
+\]
+where \(S_x\) and \(S_y\) are the estimates of standard deviations 
+for the \(X\) observations and \(Y\) observations, respectively.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Some facts about correlation</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>\(Cor(X, Y) = Cor(Y, X)\)</li>
+<li>\(-1 \leq Cor(X, Y) \leq 1\)</li>
+<li>\(Cor(X,Y) = 1\) and \(Cor(X, Y) = -1\) only when the \(X\) or \(Y\) observations fall perfectly on a positive or negative sloped line, respectively.</li>
+<li>\(Cor(X, Y)\) measures the strength of the linear relationship between the \(X\) and \(Y\) data, with stronger relationships as \(Cor(X,Y)\) heads towards -1 or 1.</li>
+<li>\(Cor(X, Y) = 0\) implies no linear relationship. </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

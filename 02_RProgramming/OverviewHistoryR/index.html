@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Overview and History of R</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Overview and History of R">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Overview and History of R</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>What is R?</h2>
+  </hgroup>
+  <article>
+    <p>What is R?</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>What is R?</h2>
+  </hgroup>
+  <article>
+    <p>R is a dialect of the S language.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>What is S?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>S is a language that was developed by John Chambers and others at Bell
+Labs.</p></li>
+<li><p>S was initiated in 1976 as an internal statistical analysis
+environment—originally implemented as Fortran libraries.</p></li>
+<li><p>Early versions of the language did not contain functions for statistical
+modeling.</p></li>
+<li><p>In 1988 the system was rewritten in C and began to resemble the system
+that we have today (this was Version 3 of the language). The book
+<em>Statistical Models in S</em> by Chambers and Hastie (the white book)
+documents the statistical analysis functionality.</p></li>
+<li><p>Version 4 of the S language was released in 1998 and is the version we
+use today. The book <em>Programming with Data</em> by John Chambers (the green
+book) documents this version of the language.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Historical Notes</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>In 1993 Bell Labs gave StatSci (now Insightful Corp.) an exclusive
+license to develop and sell the S language.</p></li>
+<li><p>In 2004 Insightful purchased the S language from Lucent for $2 million
+and is the current owner.</p></li>
+<li><p>In 2006, Alcatel purchased Lucent Technologies and is now called
+Alcatel-Lucent.</p></li>
+<li><p>Insightful sells its implementation of the S language under the product
+name S-PLUS and has built a number of fancy features (GUIs, mostly) on
+top of it—hence the “PLUS”.</p></li>
+<li><p>In 2008 Insightful is acquired by TIBCO for $25 million</p></li>
+<li><p>The fundamentals of the S language itself has not changed dramatically
+since 1998.</p></li>
+<li><p>In 1998, S won the Association for Computing Machinery’s Software System
+Award.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>S Philosophy</h2>
+  </hgroup>
+  <article>
+    <p>In “Stages in the Evolution of S”, John Chambers writes:</p>
+
+<blockquote>
+<p>“[W]e wanted users to be able to begin in an interactive environment,
+where they did not consciously think of themselves as programming.
+Then as their needs became clearer and their sophistication increased,
+they should be able to slide gradually into programming, when the
+language and system aspects would become more important.”</p>
+</blockquote>
+
+<p><a href="http://www.stat.bell-labs.com/S/history.html">http://www.stat.bell-labs.com/S/history.html</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Back to R</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>1991: Created in New Zealand by Ross Ihaka and Robert Gentleman. Their
+experience developing R is documented in a 1996 <em>JCGS</em> paper.</p></li>
+<li><p>1993: First announcement of R to the public.</p></li>
+<li><p>1995: Martin Mächler convinces Ross and Robert to use the GNU General
+Public License to make R free software.</p></li>
+<li><p>1996: A public mailing list is created (R-help and R-devel)</p></li>
+<li><p>1997: The R Core Group is formed (containing some people associated with
+S-PLUS). The core group controls the source code for R.</p></li>
+<li><p>2000: R version 1.0.0 is released.</p></li>
+<li><p>2013: R version 3.0.2 is released on December 2013.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Features of R</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Syntax is very similar to S, making it easy for S-PLUS users to switch
+over.</p></li>
+<li><p>Semantics are superficially similar to S, but in reality are quite
+different (more on that later).</p></li>
+<li><p>Runs on almost any standard computing platform/OS (even on the
+PlayStation 3)</p></li>
+<li><p>Frequent releases (annual + bugfix releases); active development.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Features of R (cont&#39;d)</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Quite lean, as far as software goes; functionality is divided into
+modular packages</p></li>
+<li><p>Graphics capabilities very sophisticated and better than most stat
+packages.</p></li>
+<li><p>Useful for interactive work, but contains a powerful programming
+language for developing new tools (user -&gt; programmer)</p></li>
+<li><p>Very active and vibrant user community; R-help and R-devel mailing lists
+and Stack Overflow</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Features of R (cont&#39;d)</h2>
+  </hgroup>
+  <article>
+    <p>It&#39;s free!
+(Both in the sense of beer and in the sense of speech.)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Free Software</h2>
+  </hgroup>
+  <article>
+    <p>With <em>free software</em>, you are granted</p>
+
+<ul>
+<li><p>The freedom to run the program, for any purpose (freedom 0).</p></li>
+<li><p>The freedom to study how the program works, and adapt it to your
+needs (freedom 1). Access to the source code is a precondition for
+this.</p></li>
+<li><p>The freedom to redistribute copies so you can help your neighbor
+(freedom 2).</p></li>
+<li><p>The freedom to improve the program, and release your improvements to
+the public, so that the whole community benefits (freedom 3). Access
+to the source code is a precondition for this.</p></li>
+</ul>
+
+<p><a href="http://www.fsf.org">http://www.fsf.org</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Drawbacks of R</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Essentially based on 40 year old technology.</p></li>
+<li><p>Little built in support for dynamic or 3-D graphics (but things have
+improved greatly since the “old days”).</p></li>
+<li><p>Functionality is based on consumer demand and user contributions. If
+no one feels like implementing your favorite method, then it’s
+<em>your</em> job!</p>
+
+<ul>
+<li>  (Or you need to pay someone to do it)</li>
+</ul></li>
+<li><p>Objects must generally be stored in physical memory; but there have
+been advancements to deal with this too</p></li>
+<li><p>Not ideal for all possible situations (but this is a drawback of all
+software packages).</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Design of the R System</h2>
+  </hgroup>
+  <article>
+    <p>The R system is divided into 2 conceptual parts:</p>
+
+<ol>
+<li><p>The “base” R system that you download from CRAN</p></li>
+<li><p>Everything else.</p></li>
+</ol>
+
+<p>R functionality is divided into a number of <em>packages</em>.</p>
+
+<ul>
+<li><p>The “base” R system contains, among other things, the <strong>base</strong>
+package which is required to run R and contains the most fundamental
+functions.</p></li>
+<li><p>The other packages contained in the “base” system include
+<strong>utils</strong>, <strong>stats</strong>, <strong>datasets</strong>, <strong>graphics</strong>,
+<strong>grDevices</strong>, <strong>grid</strong>, <strong>methods</strong>, <strong>tools</strong>,
+<strong>parallel</strong>, <strong>compiler</strong>, <strong>splines</strong>, <strong>tcltk</strong>,
+<strong>stats4</strong>.</p></li>
+<li><p>There are also “Recommend” packages: <strong>boot</strong>, <strong>class</strong>,
+<strong>cluster</strong>, <strong>codetools</strong>, <strong>foreign</strong>, <strong>KernSmooth</strong>,
+<strong>lattice</strong>, <strong>mgcv</strong>, <strong>nlme</strong>, <strong>rpart</strong>, <strong>survival</strong>,
+<strong>MASS</strong>, <strong>spatial</strong>, <strong>nnet</strong>, <strong>Matrix</strong>.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Design of the R System</h2>
+  </hgroup>
+  <article>
+    <p>And there are many other packages available:</p>
+
+<ul>
+<li><p>There are about 4000 packages on CRAN that have been developed by
+users and programmers around the world.</p></li>
+<li><p>There are also many packages associated with the Bioconductor
+project (<a href="http://bioconductor.org">http://bioconductor.org</a>).</p></li>
+<li><p>People often make packages available on their personal websites;
+there is no reliable way to keep track of how many packages are
+available in this fashion.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Some R Resources</h2>
+  </hgroup>
+  <article>
+    <p>Available from CRAN (<a href="http://cran.r-project.org">http://cran.r-project.org</a>)</p>
+
+<ul>
+<li><p>An Introduction to R</p></li>
+<li><p>Writing R Extensions</p></li>
+<li><p>R Data Import/Export</p></li>
+<li><p>R Installation and Administration (mostly for building R from
+sources)</p></li>
+<li><p>R Internals (not for the faint of heart)</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Some Useful Books on S/R</h2>
+  </hgroup>
+  <article>
+    <p>Standard texts</p>
+
+<ul>
+<li><p>Chambers (2008). <em>Software for Data Analysis</em>, Springer. (your
+textbook)</p></li>
+<li><p>Chambers (1998). <em>Programming with Data</em>, Springer.</p></li>
+<li><p>Venables &amp; Ripley (2002). <em>Modern Applied Statistics with S</em>,
+Springer.</p></li>
+<li><p>Venables &amp; Ripley (2000). <em>S Programming</em>, Springer.</p></li>
+<li><p>Pinheiro &amp; Bates (2000). <em>Mixed-Effects Models in S and S-PLUS</em>,
+Springer.</p></li>
+<li><p>Murrell (2005). <em>R Graphics</em>, Chapman &amp; Hall/CRC Press.</p></li>
+</ul>
+
+<p>Other resources</p>
+
+<ul>
+<li><p>Springer has a series of books called <em>Use R!</em>.</p></li>
+<li><p>A longer list of books is at
+<a href="http://www.r-project.org/doc/bib/R-books.html">http://www.r-project.org/doc/bib/R-books.html</a></p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

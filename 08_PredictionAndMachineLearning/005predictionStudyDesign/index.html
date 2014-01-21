@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Prediction study design</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Prediction study design">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Prediction study design</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Prediction study design</h2>
+  </hgroup>
+  <article>
+    <ol>
+<li>Define your error rate</li>
+<li>Split data into:
+
+<ul>
+<li>Training </li>
+<li>Testing</li>
+<li>Validation (optional)</li>
+</ul></li>
+<li>On the training set pick features
+
+<ul>
+<li>Use cross-validation</li>
+</ul></li>
+<li>On the training set pick prediction function
+
+<ul>
+<li>Use cross-validation</li>
+</ul></li>
+<li>If no validation 
+
+<ul>
+<li>Apply 1x to test set</li>
+</ul></li>
+<li>If validation
+
+<ul>
+<li>Apply to test set and refine</li>
+<li>Apply 1x to validation </li>
+</ul></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Know the benchmarks</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/benchmark.png height=400></p>
+
+<p><a href="http://www.heritagehealthprize.com/c/hhp/leaderboard">http://www.heritagehealthprize.com/c/hhp/leaderboard</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Study design</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/studyDesign.png height=400></p>
+
+<p><a href="http://www2.research.att.com/%7Evolinsky/papers/ASAStatComp.pdf">http://www2.research.att.com/~volinsky/papers/ASAStatComp.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Used by the professionals</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/kagglefront.png height=400></p>
+
+<p><a href="http://www.kaggle.com/">http://www.kaggle.com/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Avoid small sample sizes</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Suppose you are predicting a binary outcome 
+
+<ul>
+<li>Diseased/healthy</li>
+<li>Click on add/not click on add </li>
+</ul></li>
+<li>One classifier is flipping a coin</li>
+<li>Probability of perfect classification is approximately:
+
+<ul>
+<li>\(\left(\frac{1}{2}\right)^{sample \; size}\)</li>
+<li>\(n = 1\) flipping coin 50% chance of 100% accuracy</li>
+<li>\(n = 2\) flipping coin 25% chance of 100% accuracy</li>
+<li>\(n = 10\) flipping coin 0.10% chance of 100% accuracy</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Rules of thumb for prediction study design</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>If you have a large sample size
+
+<ul>
+<li>60% training</li>
+<li>20% test</li>
+<li>20% validation</li>
+</ul></li>
+<li>If you have a medium sample size
+
+<ul>
+<li>60% training</li>
+<li>40% testing</li>
+</ul></li>
+<li>If you have a small sample size
+
+<ul>
+<li>Do cross validation</li>
+<li>Report caveat of small sample size</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Some principles to remember</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Set the test/validation set aside and <em>don&#39;t look at it</em></li>
+<li>In general <em>Randomly</em> sample training and test</li>
+<li>Your data sets must reflect structure of the problem
+
+<ul>
+<li>If predictions evolve with time split train/test in time chunks (called<a href="http://en.wikipedia.org/wiki/Backtesting">backtesting</a> in finance)</li>
+</ul></li>
+<li>All subsets should reflect as much diversity as possible
+
+<ul>
+<li>Random assignment does this</li>
+<li>You can also try to balance by features - but this is tricky</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

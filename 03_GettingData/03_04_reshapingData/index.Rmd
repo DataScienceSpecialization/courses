@@ -1,0 +1,155 @@
+---
+title       : Reshaping data
+subtitle    : 
+author      : Jeffrey Leek 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/', cache=TRUE)
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+
+## The goal is tidy data
+
+<img class=center src="../../assets/img/01_DataScientistToolbox/excel.png" height=300 />
+
+
+1. Each variable forms a column
+2. Each observation forms a row
+3. Each table/file stores data about one kind of observation (e.g. people/hospitals).
+
+
+[http://vita.had.co.nz/papers/tidy-data.pdf](http://vita.had.co.nz/papers/tidy-data.pdf)
+
+[Leek, Taub, and Pineda 2011 PLoS One](http://www.plosone.org/article/info%3Adoi%2F10.1371%2Fjournal.pone.0026895)
+
+---
+
+## Start with reshaping
+
+```{r reshape2}
+library(reshape2)
+head(mtcars)
+```
+
+
+---
+
+## Melting data frames
+
+```{r mtcars,dependson="reshape2"}
+mtcars$carname <- rownames(mtcars)
+carMelt <- melt(mtcars,id=c("carname","gear","cyl"),measure.vars=c("mpg","hp"))
+head(carMelt,n=3)
+tail(carMelt,n=3)
+```
+
+
+[http://www.statmethods.net/management/reshape.html](http://www.statmethods.net/management/reshape.html)
+
+---
+
+## Casting data frames
+
+```{r ,dependson="mtcars"}
+cylData <- dcast(carMelt, cyl ~ variable)
+cylData
+cylData <- dcast(carMelt, cyl ~ variable,mean)
+cylData
+```
+
+[http://www.statmethods.net/management/reshape.html](http://www.statmethods.net/management/reshape.html)
+
+
+---
+
+## Averaging values
+
+```{r}
+head(InsectSprays)
+tapply(InsectSprays$count,InsectSprays$spray,sum)
+```
+
+[http://www.r-bloggers.com/a-quick-primer-on-split-apply-combine-problems/](http://www.r-bloggers.com/a-quick-primer-on-split-apply-combine-problems/)
+
+---
+
+## Another way - split
+
+```{r spIns}
+spIns =  split(InsectSprays$count,InsectSprays$spray)
+spIns
+```
+
+---
+
+## Another way - apply
+
+```{r sprCount,dependson="spIns"}
+sprCount = lapply(spIns,sum)
+sprCount
+```
+
+---
+
+## Another way - combine
+
+```{r ,dependson="sprCount"}
+unlist(sprCount)
+sapply(spIns,sum)
+```
+
+---
+
+## Another way - plyr package
+
+```{r,dependson="sprCount"}
+ddply(InsectSprays,.(spray),summarize,sum=sum(count))
+```
+
+
+---
+
+## Creating a new variable
+
+```{r,dependson="sprCount"}
+spraySums <- ddply(InsectSprays,.(spray),summarize,sum=ave(count,FUN=sum))
+dim(spraySums)
+head(spraySums)
+```
+
+---
+
+## More information
+
+* A tutorial from the developer of plyr - [http://plyr.had.co.nz/09-user/](http://plyr.had.co.nz/09-user/)
+* A nice reshape tutorial [http://www.slideshare.net/jeffreybreen/reshaping-data-in-r](http://www.slideshare.net/jeffreybreen/reshaping-data-in-r)
+* A good plyr primer - [http://www.r-bloggers.com/a-quick-primer-on-split-apply-combine-problems/](http://www.r-bloggers.com/a-quick-primer-on-split-apply-combine-problems/)
+* See also the functions
+  * acast - for casting as multi-dimensional arrays
+  * arrange - for faster reordering without using order() commands
+  * mutate - adding new variables
+

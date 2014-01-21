@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reading from other sources</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Reading from other sources">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Reading from other sources</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>There is a package for that</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Roger has a nice video on how there are R packages for
+most things that you will want to access.</li>
+<li>Here I&#39;m going to briefly review a few useful packages</li>
+<li>In general the best way to find out if the R package
+exists is to Google &quot;data storage mechanism R package&quot;
+
+<ul>
+<li>For example: &quot;MySQL R package&quot;</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Interacting more directly with files</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>file - open a connection to a text file</li>
+<li>url - open a connection to a url</li>
+<li>gzfile - open a connection to a .gz file</li>
+<li>bzfile - open a connection to a .bz2 file</li>
+<li><em>?connections</em> for more information</li>
+<li><redtext>Remember to close connections </redtext></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>foreign package</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Loads data from Minitab, S, SAS, SPSS, Stata,Systat</li>
+<li>Basic functions <em>read.foo</em>
+
+<ul>
+<li>read.arff (Weka)</li>
+<li>read.dta (Stata)</li>
+<li>read.mtp (Minitab)</li>
+<li>read.octave (Octave)</li>
+<li>read.spss (SPSS)</li>
+<li>read.xport (SAS)</li>
+</ul></li>
+<li>See the help page for more details <a href="http://cran.r-project.org/web/packages/foreign/foreign.pdf">http://cran.r-project.org/web/packages/foreign/foreign.pdf</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Examples of other database packages</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>RPostresSQL provides a DBI-compliant database connection from R. Tutorial-<a href="https://code.google.com/p/rpostgresql/">https://code.google.com/p/rpostgresql/</a>, help file-<a href="http://cran.r-project.org/web/packages/RPostgreSQL/RPostgreSQL.pdf">http://cran.r-project.org/web/packages/RPostgreSQL/RPostgreSQL.pdf</a></li>
+<li>RODBC provides interfaces to multiple databases including PostgreQL, MySQL, Microsoft Access and SQLite. Tutorial - <a href="http://cran.r-project.org/web/packages/RODBC/vignettes/RODBC.pdf">http://cran.r-project.org/web/packages/RODBC/vignettes/RODBC.pdf</a>, help file - <a href="http://cran.r-project.org/web/packages/RODBC/RODBC.pdf">http://cran.r-project.org/web/packages/RODBC/RODBC.pdf</a></li>
+<li>RMongo <a href="http://cran.r-project.org/web/packages/RMongo/RMongo.pdf">http://cran.r-project.org/web/packages/RMongo/RMongo.pdf</a> (example of Rmongo <a href="http://www.r-bloggers.com/r-and-mongodb/">http://www.r-bloggers.com/r-and-mongodb/</a>) and <a href="http://cran.r-project.org/web/packages/rmongodb/rmongodb.pdf">rmongodb</a> provide interfaces to MongoDb. </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Reading images</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>jpeg - <a href="http://cran.r-project.org/web/packages/jpeg/index.html">http://cran.r-project.org/web/packages/jpeg/index.html</a></li>
+<li>readbitmap - <a href="http://cran.r-project.org/web/packages/readbitmap/index.html">http://cran.r-project.org/web/packages/readbitmap/index.html</a></li>
+<li>png - <a href="http://cran.r-project.org/web/packages/png/index.html">http://cran.r-project.org/web/packages/png/index.html</a></li>
+<li>EBImage (Bioconductor) - <a href="http://www.bioconductor.org/packages/2.13/bioc/html/EBImage.html">http://www.bioconductor.org/packages/2.13/bioc/html/EBImage.html</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Reading GIS data</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>rdgal - <a href="http://cran.r-project.org/web/packages/rgdal/index.html">http://cran.r-project.org/web/packages/rgdal/index.html</a></li>
+<li>rgeos - <a href="http://cran.r-project.org/web/packages/rgeos/index.html">http://cran.r-project.org/web/packages/rgeos/index.html</a></li>
+<li>raster - <a href="http://cran.r-project.org/web/packages/raster/index.html">http://cran.r-project.org/web/packages/raster/index.html</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Reading music data</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>tuneR - <a href="http://cran.r-project.org/web/packages/tuneR/">http://cran.r-project.org/web/packages/tuneR/</a></li>
+<li>seewave - <a href="http://rug.mnhn.fr/seewave/">http://rug.mnhn.fr/seewave/</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

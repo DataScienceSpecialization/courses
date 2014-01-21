@@ -1,0 +1,219 @@
+---
+title       : Generalized linear models, binary data
+subtitle    : Regression models
+author      : Brian Caffo, Jeff Leek and Roger Peng
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+url:
+  lib: ../../librariesNew
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## Key ideas
+
+* Frequently we care about outcomes that have two values
+  * Alive/dead
+  * Win/loss
+  * Success/Failure
+  * etc
+* Called binary, Bernoulli or 0/1 outcomes 
+* Collection of exchangeable binary outcomes for the same covariate data are called binomial outcomes.
+
+---
+
+## Example Baltimore Ravens win/loss
+### Ravens Data
+
+```{r loadRavens,cache=TRUE}
+download.file("https://dl.dropboxusercontent.com/u/7710864/data/ravensData.rda"
+              , destfile="./data/ravensData.rda",method="curl")
+load("./data/ravensData.rda")
+head(ravensData)
+```
+
+---
+
+## Linear regression
+
+$$ RW_i = b_0 + b_1 RS_i + e_i $$
+
+$RW_i$ - 1 if a Ravens win, 0 if not
+
+$RS_i$ - Number of points Ravens scored
+
+$b_0$ - probability of a Ravens win if they score 0 points
+
+$b_1$ - increase in probability of a Ravens win for each additional point
+
+$e_i$ - residual variation due 
+
+---
+
+## Linear regression in R
+
+```{r linearReg, dependson = "loadRavens", cache=TRUE}
+lmRavens <- lm(ravensData$ravenWinNum ~ ravensData$ravenScore)
+summary(lmRavens)$coef
+```
+---
+
+## Odds
+
+__Binary Outcome 0/1__
+
+$$RW_i$$  
+
+__Probability (0,1)__
+
+$$\rm{Pr}(RW_i | RS_i, b_0, b_1 )$$
+
+
+__Odds $(0,\infty)$__
+$$\frac{\rm{Pr}(RW_i | RS_i, b_0, b_1 )}{1-\rm{Pr}(RW_i | RS_i, b_0, b_1)}$$ 
+
+__Log odds $(-\infty,\infty)$__
+
+$$\log\left(\frac{\rm{Pr}(RW_i | RS_i, b_0, b_1 )}{1-\rm{Pr}(RW_i | RS_i, b_0, b_1)}\right)$$ 
+
+
+---
+
+## Linear vs. logistic regression
+
+__Linear__
+
+$$ RW_i = b_0 + b_1 RS_i + e_i $$
+
+or
+
+$$ E[RW_i | RS_i, b_0, b_1] = b_0 + b_1 RS_i$$
+
+__Logistic__
+
+$$ \rm{Pr}(RW_i | RS_i, b_0, b_1) = \frac{\exp(b_0 + b_1 RS_i)}{1 + \exp(b_0 + b_1 RS_i)}$$
+
+or
+
+$$ \log\left(\frac{\rm{Pr}(RW_i | RS_i, b_0, b_1 )}{1-\rm{Pr}(RW_i | RS_i, b_0, b_1)}\right) = b_0 + b_1 RS_i $$
+
+---
+
+## Interpreting Logistic Regression
+
+$$ \log\left(\frac{\rm{Pr}(RW_i | RS_i, b_0, b_1 )}{1-\rm{Pr}(RW_i | RS_i, b_0, b_1)}\right) = b_0 + b_1 RS_i $$
+
+
+$b_0$ - Log odds of a Ravens win if they score zero points
+
+$b_1$ - Log odds ratio of win probability for each point scored (compared to zero points)
+
+$\exp(b_1)$ - Odds ratio of win probability for each point scored (compared to zero points)
+
+---
+## Odds
+- Imagine that you are playing a game where you flip a coin with success probability $p$.
+- If it comes up heads, you win $X$. If it comes up tails, you lose $Y$.
+- What should we set $X$ and $Y$ for the game to be fair?
+
+    $$E[earnings]= X p - Y (1 - p) = 0$$
+- Implies
+    $$\frac{Y}{X} = \frac{p}{1 - p}$$    
+- The odds can be said as "How much should you be willing to pay for a $p$ probability of winning a dollar?"
+    - (If $p > 0.5$ you have to pay more if you lose than you get if you win.)
+    - (If $p < 0.5$ you have to pay less if you lose than you get if you win.)
+
+---
+
+---
+```{r, echo = TRUE, fig.height=5, fig.width=5}
+x <- seq(-10, 10, length = 1000); p <- exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x))
+manipulate(
+    plot(x, exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)), 
+         type = "l", lwd = 3, frame = FALSE),
+    beta1 = slider(-2, 2, step = .1, initial = 2),
+    beta0 = slider(-2, 2, step = .1, initial = 0)
+    )
+---
+
+## Ravens logistic regression
+
+```{r logReg, dependson = "loadRavens"}
+logRegRavens <- glm(ravensData$ravenWinNum ~ ravensData$ravenScore,family="binomial")
+summary(logRegRavens)
+```
+
+
+---
+
+## Ravens fitted values
+
+```{r dependson = "logReg",fig.height=4,fig.width=4}
+plot(ravensData$ravenScore,logRegRavens$fitted,pch=19,col="blue",xlab="Score",ylab="Prob Ravens Win")
+```
+
+
+---
+
+## Odds ratios and confidence intervals
+
+```{r dependson = "logReg",fig.height=4,fig.width=4}
+exp(logRegRavens$coeff)
+exp(confint(logRegRavens))
+```
+
+
+---
+
+## ANOVA for logistic regression
+
+```{r dependson = "logReg",fig.height=4,fig.width=4}
+anova(logRegRavens,test="Chisq")
+```
+
+
+
+---
+
+## Interpreting Odds Ratios
+
+* Not probabilities 
+* Odds ratio of 1 = no difference in odds
+* Log odds ratio of 0 = no difference in odds
+* Odds ratio < 0.5 or > 2 commonly a "moderate effect"
+* Relative risk $\frac{\rm{Pr}(RW_i | RS_i = 10)}{\rm{Pr}(RW_i | RS_i = 0)}$ often easier to interpret, harder to estimate
+* For small probabilities RR $\approx$ OR but __they are not the same__!
+
+[Wikipedia on Odds Ratio](http://en.wikipedia.org/wiki/Odds_ratio)
+
+
+---
+
+## Further resources
+
+* [Wikipedia on Logistic Regression](http://en.wikipedia.org/wiki/Logistic_regression)
+* [Logistic regression and glms in R](http://data.princeton.edu/R/glms.html)
+* Brian Caffo's lecture notes on: [Simpson's paradox](http://ocw.jhsph.edu/courses/MethodsInBiostatisticsII/PDFs/lecture23.pdf), [Case-control studies](http://ocw.jhsph.edu/courses/MethodsInBiostatisticsII/PDFs/lecture24.pdf)
+* [Open Intro Chapter on Logistic Regression](http://www.openintro.org/stat/down/oiStat2_08.pdf)
+
+
+

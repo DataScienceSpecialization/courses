@@ -1,0 +1,399 @@
+
+This lecture is about expository graphs or
+graphs you're likely to share with other
+people or include in final data analyses.
+So, remember that we use graphs and data
+analysis both to communicate with
+ourselves, for when we're doing
+exploratory analysis but also to
+communicate with others when we've
+completed our analysis and we want to
+describe to other people what we observed.
+So, expository graphs deal with this fifth
+case. The case where we're communicating
+results to other people. So the expository
+graphs have a few characteristics. So,
+again the goal here is to communicate
+information and just like we saw in the
+exploratory graphs lectures, that
+information should be communicated as
+often as possible with position, and on
+common scales. And using the principles of
+graphical data analysis. Another thing to
+keep in mind is that information density
+is generally good so, you don't want to
+make plots that show just one point.
+Because, otherwise it's not necessary to
+make a graph. You could just report the
+data value itself. So the goal is to
+report graphs that explain information
+that's too hard to explain in words or in
+text. Here color and size may both used,
+be used for communication, but also be
+used for aesthetics to make the graphs
+visually pleasing and arresting, or for
+people to want to be able to look at them.
+And a key point here is that these figures
+should have understandable and large axes,
+titles, and legends. So that it's easy to
+communicate the information without people
+having to sort of look very closely at
+your plots and try to understand what the
+variables mean and so forth. So again,
+we're going to go back to this housing
+data for this plotting example. And so,
+I've read in the housing data here, with
+this command below. You may need to change
+the path. And so the first thing that I'm
+going to talk about is how to change the
+axis and the axis labels. So, if I made
+this plot, here again I made a plot of
+commuting time versus wage and I've set
+some of the graphical par ameters.
+If you recall what this plot looked like
+in the previous lecture There is actually
+an, an r expression that appeared here on
+the axes labels for both x and y. When
+your creating an explausatory plot, your
+should never have an r, an r output as the
+labels of the axes. You should label them
+with the actual words. In this case,
+travel time, and last 12 month wages. And,
+it's also very important to include the
+units of measurement. One of the most
+common sources of difficulty in data
+analyses or problems with data analysis is
+when people forget to put the units and
+there's some kind of plot that makes it
+very clear that the units are not being
+considered correctly. Another thing that
+you can do is you can actually change the
+size of both the axis and the and the
+labels. So here I've again made that exact
+same plot but I've set the label the CEX
+of the labels to be 2. As you can see
+there's very large labels of the axis. And
+then I've set the CEX of the axis to be
+equal to 1.5, so you see that these values
+are also larger. So, this takes a little
+fiddling to get just the right size axis
+labels and the right size axes. In
+particular, you can see here how in this
+plot The, extra parenthesis has been cut
+off and so forth, so it takes a little bit
+of fiddling, but it's important to get the
+axis legends to be the right size so that
+people can actually see your plot and read
+it carefully. Another thing that you can
+do is you can actually add a legend to the
+plot itself. So again, I made this, sort
+of same plot that I did before with, with,
+now with x and y labels. And so, the other
+thing that I did is I used the legend
+command to add a legend. So, the legend
+command takes x and y values. That's going
+to be the upper left hand corner of
+wherever the legend's going to occur. So
+you can move that around by giving it
+different x and y values. Then you can
+give it the values that you're actually
+going to describe, in, sort of, the text
+here. And so, in this case, there's only 1
+kind of dot. So I 've, made the legend
+just be 1 character, value, which is all
+surveyed. But I tell it what color I'm
+going to label that, the size and the sort
+of the shape of the dot that I'm showing.
+And so you can see that it gives you the
+same blue dot here in the legend that you
+see in the graph and you get the text that
+says all server. If you have more than one
+color, this is particularly useful when
+you're producing graphs that you're going
+to share with other people. So it's good
+to have the graph be stand alone, so that
+people don't have to read the figure
+legend to understand what's going on. In
+this case, I made a plot again of
+commuting time versus wage.
+And then, I colored it by the sex of the
+individual that a is commuting and has a
+wage. And so, in this particular case I've
+again put the legend at the x value of 100
+and the y value of 200,000. And now, the
+legend variable or the legend parameter
+takes a vector that has two character
+variables, men and women. So, those are
+going to be the labels of the two points.
+And then I tell the legend function what
+are the colors of the two points. In this
+case black then red. And then what is the
+shape C, PCH equals 19, and what is the
+size 0.5 and so I see that the men get
+labeled with the black dot and the women
+get label, labeled with a red dot. Again,
+there's a lot here to do with this legend
+command that I've sort of skipped over but
+this is the basics of how you add a legend
+to a plot. You also might want to add a
+title to a block. This isn't strictly
+necessary when you're turning in plots for
+a data analysis. But if you're going to be
+including plots and say a presentation
+that you're going to be giving to someone,
+it's always a good idea to have a title
+for the plot. The title should usually
+communicate either the type of plot that
+you're making or the conclusion of the
+plot. In this case, wages earned versus
+commute time just describes what the plot
+is, but you might also say something like
+no difference in distribution between men
+or women o f wages versus commuting time
+and so all I've done to add this title is
+just set the main parameter in the plot
+command to be wages earned versus
+commuting time. You can also create plots
+with multiple panels in R. So this is
+usually done because you want to be able
+to communicate several components of one
+analysis all at once. And so, it's a good
+idea to usually make multiple panel plots
+that are related to each other in some
+way. So that people can take a look at
+different aspect, aspects of the
+information all in one story. So, to do
+that what I've done is I've used this par
+command. The par command allows you to set
+a lot of different graphical parameters
+but the NF road command actually tell you
+how you can orient a set of graphs all on
+the same figure so in this case I've said
+create a, a graphical device where there's
+one row and two columns. And so, what it's
+going to do is it's going to fill in the
+plots as I go into each of these slots. So
+first I make a histogram and it falls into
+the first row, first column plot. And
+then, I make a second plot that's a
+scatter plot and it falls into the second
+column of this two panel figure. So what
+you can do is, you can actually create
+figures that are even more panels than
+this. You can make this say par(mfrow=c
+(3, 5)) and that would make a 3 row by 5
+column set of plots. So, you can make
+these sort of bigger and bigger and
+bigger. But ideally you wont make multiple
+panel plots much above for 2 by 2 because
+they try to be sort of hard to see. You
+can also add text either to the margins or
+to the plots themselves. So, in this case
+again I've created a two panel plot and
+now I want to label it with the, a letter
+for each panels. So in this case its a for
+this panel and b for this panel and I do
+that with the mtext command to be mtext
+puts text in the margins of a figure. And
+so what I've done here, is I say mtext and
+then I give it the actual text I want it
+to print out, and I tell it the side in
+this. If you look at the help file, for
+ntext, it tells you which number
+corresponds to which side. 3 corresponds
+to the top of the plot. And then I tell it
+how far I want it to be away from the top
+edge of the plot by giving it a different
+line. So in this case I say I want it to
+be 1 line above the top of the plot. And
+then I do a similar thing for the scatter
+plot and b here below. So now I have a
+figure where I can refer to the first
+panel as panel a. And the second panel as
+panel b. Another important component of
+expository graphics is including figure
+captions. So, this seems a little bit
+pedantic but it's pretty critical for
+communicating data well. So, when you're
+creating a figure you create say, in this
+case, this two panel figure that I did
+before. You are going to label your figure
+with the number but you are also going to
+usually add a bolded text which describes
+what the whole purpose of the entire plot
+is. So, in this case, distribution of
+commute time and relationship to wage
+earned by sex. It sort of communicates
+what this entire plot is all about. And
+then for each sub-component of the graph,
+A and B, you actually describe what you
+see in the graph. Figure captions should
+be, self-contained enough that persons
+shouldn't have to look through the text of
+your data analysis to understand what the
+Point of this particular figure is and
+what you're trying to communicate. This is
+a key and often overlooked component of
+creating figures for data analysis. So
+another important component of creating
+figures is paying attention to your
+audience, and so one thing that is very
+useful is to be able to determine if your
+plots are visible to people with
+colorblindness. So sometimes when you pick
+your colors, in particular if you choose
+say red and green. for the colors of
+different values in your graph it will be
+very hard for people with colorblindness
+to see. I've linked here to a website,
+vischeck, that allows you to upload your
+graphs and it, will, sh, kind of show you
+what it will look like to somebody with
+color blindness so you can evaluate
+whether your graphs will be hard to see by
+somebody of colorblindness. So the
+graphical workflow starts with a rough
+plot. We saw that in exploratory of
+graphics and then we tweak it to make it
+expository that we've sort of talked about
+tweaking figures, legends and axis and so
+forth. Then the next step is to save the
+file so you can include it in
+presentations or data analyses. So saving
+file in R is done with graphics devices.
+To see all of the devices you have access
+to you can type question mark Capital D
+Devices. And so we're going to cover a few
+of the most popular ones here. So the
+first is how to create a PDF. So if I want
+to save that two panel plot I've been
+making in previous slides as a PDF file, I
+used a PDF device. So what I do is I type
+that command PDF. And then I tell it
+where, which file, what's the PDF file I
+want the graph to be saved to. Then I tell
+it the height and width of the PDF. So in
+the case of a two-panel plot, I need the
+height to be half the size of the width.
+So in this case, I make the height to be
+4, and the width to be 8. These numbers
+are given in inches, so if you want to
+make the figure bigger or smaller When you
+change the numbers you're changing them in
+inches. Then I just run all the commands
+that I would have run anyway to create the
+plot and then I tell R that I'm done using
+that device and it should close it off and
+save the file and I do that by typing
+dev.off open parenthesis closed
+parenthesis and I'll get something like
+this where it tells me that its closed a
+pdf device and it's the second device I
+have. Add open.
+So, you can look, and see that the, what
+you've done then if you've run these
+commands is created a pdf called two panel
+dot pdf. And, well, if all these commands
+were run correctly, it will have created a
+figure that looks like that two panel plot
+we shown. And then it will go. You can
+also do the same thing and create a png
+file instead of a PDF file. It's a similar
+sort of, behavior in that you, type png
+and tel l it which file you want to save
+to. The height now is in pixels, so it's
+in, so here I'm using 480, which is the
+default. And I have doubled the width so
+that, because it's a two-panel plot. Then
+I run the exact same commands, and I turn
+off the device, again, so that I get a,
+PNG file now that has the same plot.
+Another thing that you can do, is, so, so
+when you do either of the PNG, or PDF, or
+really any of the other devices, it's
+going to save the graph, with a very
+specific set of characteristics. And
+sometimes when you make that, plot you'll
+see that it didn't turn out quite how you
+liked, because you set the height or the
+width of the graft just slightly to wrong.
+incorrectly.
+So one thing that you can do is, you can
+actually tweak the graph interactively. So
+you can sort of make, just use the
+commands Things that you would normally
+use to make any kind of graphic that you
+would want to be able to make, and then
+once you have the graph just
+where...right, and you want the exact
+graph you see on the screen to be saved as
+a pdf file, you can type dev.copy2pdf And
+give it a file name, and what it'll do
+then is it'll take the exact picture that
+you have on the screen and save it to a
+PDF. And that way you don't have to sort
+of have troubles with the size of the
+figure being sort of difficult to manage.
+Once you've created enough PDF and PNG
+files in R, you'll start to think
+dev.copy2pdf because it makes it a lot of
+sort of figure creation a little bit
+easier. So, that's a little bit more about
+creating graphs. Now a couple of
+interesting side notes to end with. So,
+first of all is there is this sort of
+interesting list of graphs, the top 10
+worst graphs and it's available from this
+website here, one of your goals should be
+when creating the expository graph not to
+end up on this site. couple of things that
+will surely put you at risk for landing on
+the worst graph site are Communicating way
+too much information in a plot,
+communicating way too little information
+in a plot, like only one poin t. Using 3D
+graphics when it's unnecessary, cause it
+can be confusing. So for example 3D box
+plots and so forth. Or not explaining your
+graphs well. So all of those things.
+Things should you, you know now after
+having seen these videos, not to do, and
+hopefully you'll never end up on this list
+of top 10 worst graphs. and then there's,
+here's something on the other hand, a
+positive thing to aspire to. This is a
+graph that shows connections between
+Facebook users, and this is the blog post
+describing how it was actually Created.
+It turns out this graph was entirely
+created entirely using R. So, it's pretty
+spectacular how beautiful the graphics
+that you can make with R if you sort of
+take the time to learn all of the
+different parameters, and how they work.
+So that's something that you can aspire to
+as you're creating R graphics. So, here
+are some further resources that might be
+useful to you so, this is a, how to
+display data badly is a paper on some,
+some of the no-no's when your creating
+graphics. The visual display of
+quantitative information, and creating
+more effective graphs are both sort of.
+Books that might be useful for you, as is
+the R Graphics Cookbook, which is actually
+a very recent book that came out that
+shows you how to make a whole bunch of
+different kinds of graphs. Then there's a,
+a book on ggplot2, ggplot and ggplots2 are
+an entirely different graphics frameworks
+then we covered here. But are incredibly
+useful for making very slick looking
+graphs. and this book explains a lot about
+that. And then flowing data which shows a
+lot of examples like that Facebook example
+of very cool graphics that are made both
+in our and with other software that can
+inspire you on different ways that you
+might think about displaying data in your
+next data analysis report.

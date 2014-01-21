@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Predicting with regression, multiple covariates</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Predicting with regression, multiple covariates">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Predicting with regression, multiple covariates</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Example: predicting wages</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/wages.jpg height=350></p>
+
+<p>Image Credit <a href="http://www.cahs-media.org/the-high-cost-of-low-wages">http://www.cahs-media.org/the-high-cost-of-low-wages</a></p>
+
+<p>Data from: <a href="http://cran.r-project.org/web/packages/ISLR">ISLR package</a> from the book: <a href="http://www-bcf.usc.edu/%7Egareth/ISL/">Introduction to statistical learning</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Example: Wage data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(ISLR); library(ggplot2); library(caret);
+data(Wage); Wage &lt;- subset(Wage,select=-c(logwage))
+summary(Wage)
+</code></pre>
+
+<pre><code>      year           age              sex                    maritl           race     
+ Min.   :2003   Min.   :18.0   1. Male  :3000   1. Never Married: 648   1. White:2480  
+ 1st Qu.:2004   1st Qu.:33.8   2. Female:   0   2. Married      :2074   2. Black: 293  
+ Median :2006   Median :42.0                    3. Widowed      :  19   3. Asian: 190  
+ Mean   :2006   Mean   :42.4                    4. Divorced     : 204   4. Other:  37  
+ 3rd Qu.:2008   3rd Qu.:51.0                    5. Separated    :  55                  
+ Max.   :2009   Max.   :80.0                                                           
+
+              education                     region               jobclass               health    
+ 1. &lt; HS Grad      :268   2. Middle Atlantic   :3000   1. Industrial :1544   1. &lt;=Good     : 858  
+ 2. HS Grad        :971   1. New England       :   0   2. Information:1456   2. &gt;=Very Good:2142  
+ 3. Some College   :650   3. East North Central:   0                                              
+ 4. College Grad   :685   4. West North Central:   0                                              
+ 5. Advanced Degree:426   5. South Atlantic    :   0                                              
+                          6. East South Central:   0                                              
+                          (Other)              :   0                                              
+  health_ins        wage      
+ 1. Yes:2083   Min.   : 20.1  
+ 2. No : 917   1st Qu.: 85.4  
+               Median :104.9  
+               Mean   :111.7  
+               3rd Qu.:128.7  
+               Max.   :318.3  
+
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h3>Get training/test sets</h3>
+  </hgroup>
+  <article>
+    <pre><code class="r">inTrain &lt;- createDataPartition(y=Wage$wage,
+                              p=0.7, list=FALSE)
+training &lt;- Wage[inTrain,]; testing &lt;- Wage[-inTrain,]
+dim(training); dim(testing)
+</code></pre>
+
+<pre><code>[1] 898  11
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h3>Feature plot</h3>
+  </hgroup>
+  <article>
+    <pre><code class="r">featurePlot(x=training[,c(&quot;age&quot;,&quot;education&quot;,&quot;jobclass&quot;)],
+            y = training$wage,
+            plot=&quot;pairs&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h3>Plot age versus wage</h3>
+  </hgroup>
+  <article>
+    <pre><code class="r">qplot(age,wage,data=training)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h3>Plot age versus wage colour by jobclass</h3>
+  </hgroup>
+  <article>
+    <pre><code class="r">qplot(age,wage,colour=jobclass,data=training)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h3>Plot age versus wage colour by education</h3>
+  </hgroup>
+  <article>
+    <pre><code class="r">qplot(age,wage,colour=education,data=training)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Fit a linear model</h2>
+  </hgroup>
+  <article>
+    <p>\[ ED_i = b_0 + b_1 age + b_2 I(Jobclass_i="Information") + \sum_{k=1}^4 \gamma_k I(education_i= level k) \]</p>
+
+<pre><code class="r">modFit&lt;- train(wage ~ age + jobclass + education,
+               method = &quot;lm&quot;,data=training)
+finMod &lt;- modFit$finalModel
+print(modFit)
+</code></pre>
+
+<pre><code>2102 samples
+  10 predictors
+
+No pre-processing
+Resampling: Bootstrap (25 reps) 
+
+Summary of sample sizes: 2102, 2102, 2102, 2102, 2102, 2102, ... 
+
+Resampling results
+
+  RMSE  Rsquared  RMSE SD  Rsquared SD
+  40    0.3       1        0.02       
+
+
+</code></pre>
+
+<p>Education levels: 1 = HS Grad, 2 = Some College, 3 = College Grad, 4 = Advanced Degree</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Diagnostics</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(finMod,1,pch=19,cex=0.5,col=&quot;#00000010&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Color by variables not used in the model</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">qplot(finMod$fitted,finMod$residuals,colour=race,data=training)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Plot by index</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(finMod$residuals,pch=19)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Predicted versus truth in test set</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">pred &lt;- predict(modFit, testing)
+qplot(wage,pred,colour=year,data=testing)
+</code></pre>
+
+<div class="rimage center"><img src="fig/predictions.png" title="plot of chunk predictions" alt="plot of chunk predictions" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>If you want to use all covariates</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">modFitAll&lt;- train(wage ~ .,data=training,method=&quot;lm&quot;)
+pred &lt;- predict(modFitAll, testing)
+qplot(wage,pred,data=testing)
+</code></pre>
+
+<div class="rimage center"><img src="fig/allCov.png" title="plot of chunk allCov" alt="plot of chunk allCov" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Notes and further reading</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Often useful in combination with other models </li>
+<li><a href="http://www-stat.stanford.edu/%7Etibs/ElemStatLearn/">Elements of statistical learning</a></li>
+<li><a href="http://www.amazon.com/Modern-Applied-Statistics-W-N-Venables/dp/0387954570">Modern applied statistics with S</a></li>
+<li><a href="http://www-bcf.usc.edu/%7Egareth/ISL/">Introduction to statistical learning</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

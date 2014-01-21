@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Structure of a Data Analysis</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Structure of a Data Analysis">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/zenburn.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Structure of a Data Analysis</h1>
+        <h2>Part 1</h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Steps in a data analysis</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Define the question</li>
+<li>Define the ideal data set</li>
+<li>Determine what data you can access</li>
+<li>Obtain the data</li>
+<li>Clean the data</li>
+<li>Exploratory data analysis</li>
+<li>Statistical prediction/modeling</li>
+<li>Interpret results</li>
+<li>Challenge results</li>
+<li>Synthesize/write up results</li>
+<li>Create reproducible code</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Steps in a data analysis</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><redtext>Define the question</redtext></li>
+<li><redtext>Define the ideal data set</redtext></li>
+<li><redtext>Determine what data you can access</redtext></li>
+<li><redtext>Obtain the data</redtext></li>
+<li><redtext>Clean the data </redtext></li>
+<li>Exploratory data analysis</li>
+<li>Statistical prediction/modeling</li>
+<li>Interpret results</li>
+<li>Challenge results</li>
+<li>Synthesize/write up results</li>
+<li>Create reproducible code</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>The key challenge in data analysis</h2>
+  </hgroup>
+  <article>
+    <p>&quot;Ask yourselves, what problem have you solved, ever, that was worth solving, where you knew all of the given information in advance? Where you didn’t have a surplus of information and have to filter it out, or you had insufficient information and have to go find some?&quot;</p>
+
+<p><img src=../../assets/img/meyer.jpg height='350' /> <a href="http://www.ted.com/talks/dan_meyer_math_curriculum_makeover.html">Dan Myer, Mathematics Educator</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Defining a question</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/stat-projects.jpg height='400' /></p>
+
+<ol>
+<li>Statistical methods development</li>
+<li><a href="http://www.drewconway.com/zia/?p=2378">Danger zone!!!</a></li>
+<li>Proper data analysis </li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>An example</h2>
+  </hgroup>
+  <article>
+    <p><strong>Start with a general question</strong></p>
+
+<p>Can I automatically detect emails that are SPAM that are not?</p>
+
+<p><strong>Make it concrete</strong></p>
+
+<p>Can I use quantitative characteristics of the emails to classify them as SPAM/HAM?</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Define the ideal data set</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The data set may depend on your goal
+
+<ul>
+<li>Descriptive - a whole population</li>
+<li>Exploratory - a random sample with many variables measured</li>
+<li>Inferential - the right population, randomly sampled</li>
+<li>Predictive - a training and test data set from the same population</li>
+<li>Causal - data from a randomized study</li>
+<li>Mechanistic - data about all components of the system</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Our example</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/datacenter.png height='400' />
+<a href="http://www.google.com/about/datacenters/inside/">http://www.google.com/about/datacenters/inside/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Determine what data you can access</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Sometimes you can find data free on the web</li>
+<li>Other times you may need to buy the data</li>
+<li>Be sure to respect the terms of use</li>
+<li>If the data don&#39;t exist, you may need to generate it yourself</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Back to our example</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/security.png height='400' /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>A possible solution</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/uci.png height='400' /></p>
+
+<p><a href="http://archive.ics.uci.edu/ml/datasets/Spambase">http://archive.ics.uci.edu/ml/datasets/Spambase</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Obtain the data</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Try to obtain the raw data</li>
+<li>Be sure to reference the source</li>
+<li>Polite emails go a long way</li>
+<li>If you will load the data from an internet source, record the url and time accessed</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Our data set</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/spamR.png height='400' /></p>
+
+<p><a href="http://search.r-project.org/library/kernlab/html/spam.html">http://search.r-project.org/library/kernlab/html/spam.html</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Clean the data</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Raw data often needs to be processed</li>
+<li>If it is pre-processed, make sure you understand how</li>
+<li>Understand the source of the data (census, sample, convenience sample, etc.)</li>
+<li>May need reformating, subsampling - record these steps</li>
+<li><strong>Determine if the data are good enough</strong> - if not, quit or change data</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Our cleaned data set</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r"># If it isn&#39;t installed, install the kernlab package with install.packages()
+library(kernlab)
+data(spam)
+str(spam[, 1:5])
+</code></pre>
+
+<pre><code>&#39;data.frame&#39;:   4601 obs. of  5 variables:
+ $ make   : num  0 0.21 0.06 0 0 0 0 0 0.15 0.06 ...
+ $ address: num  0.64 0.28 0 0 0 0 0 0 0 0.12 ...
+ $ all    : num  0.64 0.5 0.71 0 0 0 0 0 0.46 0.77 ...
+ $ num3d  : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ our    : num  0.32 0.14 1.23 0.63 0.63 1.85 1.92 1.88 0.61 0.19 ...
+</code></pre>
+
+<p><a href="http://search.r-project.org/library/kernlab/html/spam.html">http://search.r-project.org/library/kernlab/html/spam.html</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

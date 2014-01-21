@@ -1,0 +1,260 @@
+---
+title       : The ggplot2 Plotting System - Part 2
+subtitle    : 
+author      : Roger D. Peng, Associate Professor of Biostatistics
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 80)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/', fig.height = 4, cache = TRUE, fig.show = 'hold')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## What is ggplot2?
+
+- An implementation of the __Grammar of Graphics__ by Leland Wilkinson
+- Grammar of graphics represents and abstraction of graphics ideas/objects
+- Think “verb”, “noun”, “adjective” for graphics
+- Allows for a “theory” of graphics on which to build new graphics and graphics objects
+
+---
+
+## Basic Components of a ggplot2 Plot
+- A _data frame_
+- _aesthetic mappings_: how data are mapped to color, size 
+- _geoms_: geometric objects like points, lines, shapes. 
+- _facets_: for conditional plots. 
+- _stats_: statistical transformations like binning, quantiles, smoothing. 
+- _scales_: what scale an aesthetic map uses (example: male = red, female = blue). 
+- _coordinate system_ 
+
+---
+
+## Building Plots with ggplot2
+- When building plots in ggplot2 (rather than using qplot) the “artist’s palette” model may be the closest analogy
+- Plots are built up in layers
+  - Plot the data
+  - Overlay a summary
+  - Metadata and annotation
+
+---
+
+## Example: BMI, PM$_{2.5}$, Asthma
+- Mouse Allergen and Asthma Cohort Study
+- Baltimore children (age 5-17)
+- Persistent asthma, exacerbation in past year
+- Does BMI (normal vs. overweight) modify the relationship between PM$_{2.5}$ and asthma symptoms?
+
+```{r,echo=FALSE}
+maacs <- read.csv("ggplot2_lecture2_data.csv")
+```
+
+---
+
+## Basic Plot
+
+```{r, fig.width=9}
+library(ggplot2)
+qplot(logpm25, NocturnalSympt, data = maacs, facets = . ~ bmicat, 
+      geom = c("point", "smooth"), method = "lm")
+```
+
+---
+
+## Building Up in Layers
+
+```{r}
+head(maacs)
+g <- ggplot(maacs, aes(logpm25, NocturnalSympt))
+summary(g)
+```
+
+
+---
+
+## No Plot Yet!
+
+```{r, error=TRUE}
+g <- ggplot(maacs, aes(logpm25, NocturnalSympt))
+print(g)
+```
+
+---
+
+## First Plot with Point Layer
+
+```{r}
+g <- ggplot(maacs, aes(logpm25, NocturnalSympt))
+g + geom_point()
+```
+
+---
+
+## Adding More Layers: Smooth
+
+```{r, fig.width=4.5}
+g + geom_point() + geom_smooth()
+g + geom_point() + geom_smooth(method = "lm")
+```
+
+---
+
+## Adding More Layers: Facets
+
+```{r, fig.width=9}
+g + geom_point() + facet_grid(. ~ bmicat) + geom_smooth(method = "lm")
+```
+
+---
+
+## Annotation
+- Labels: `xlab()`, `ylab()`, `labs()`, `ggtitle()`
+- Each of the “geom” functions has options to modify 
+- For things that only make sense globally, use `theme()` 
+  - Example: `theme(legend.position = "none")` 
+- Two standard appearance themes are included
+  - `theme_gray()`: The default theme (gray background)
+  - `theme_bw()`: More stark/plain 
+
+---
+
+## Modifying Aesthetics
+
+```{r, fig.width=4.5}
+g + geom_point(color = "steelblue", size = 4, alpha = 1/2)
+g + geom_point(aes(color = bmicat), size = 4, alpha = 1/2)
+```
+
+---
+
+## Modifying Labels
+
+```{r}
+g + geom_point(aes(color = bmicat)) + labs(title = "MAACS Cohort") + 
+  labs(x = expression("log " * PM[2.5]), y = "Nocturnal Symptoms")
+```
+
+---
+
+## Customizing the Smooth
+
+```{r}
+g + geom_point(aes(color = bmicat), size = 2, alpha = 1/2) + 
+  geom_smooth(size = 4, linetype = 3, method = "lm", se = FALSE)
+```
+
+---
+
+## Changing the Theme
+
+```{r}
+g + geom_point(aes(color = bmicat)) + theme_bw(base_family = "Times")
+```
+
+---
+
+## A Note about Axis Limits
+
+```{r, fig.width=4.5, fig.height=3}
+testdat <- data.frame(x = 1:100, y = rnorm(100))
+testdat[50,2] <- 100  ## Outlier!
+plot(testdat$x, testdat$y, type = "l", ylim = c(-3,3))
+
+g <- ggplot(testdat, aes(x = x, y = y))
+g + geom_line()
+```
+
+---
+
+## Axis Limits
+
+```{r, fig.width=4.5}
+g + geom_line() + ylim(-3, 3)
+g + geom_line() + coord_cartesian(ylim = c(-3, 3))
+```
+
+
+---
+
+## More Complex Example
+- How does the relationship between PM$_{2.5}$ and nocturnal symptoms vary by BMI and NO$_2$?
+- Unlike our previous BMI variable, NO$_2$ is continuous
+- We need to make NO$_2$ categorical so we can condition on it in the plotting
+- Use the `cut()` function for this
+
+---
+
+## Making NO$_2$ Tertiles
+
+```{r}
+## Calculate the tertiles of the data
+cutpoints <- quantile(maacs$logno2_new, seq(0, 1, length = 4), na.rm = TRUE)
+
+## Cut the data at the tertiles and create a new factor variable
+maacs$no2tert <- cut(maacs$logno2_new, cutpoints)
+
+## See the levels of the newly created factor variable
+levels(maacs$no2tert)
+```
+
+---
+
+## Final Plot
+
+```{r, echo=FALSE, fig.width=9, fig.height=5}
+## Setup ggplot with data frame
+g <- ggplot(maacs, aes(logpm25, NocturnalSympt))
+
+## Add layers
+g + geom_point(alpha = 1/3) + 
+  facet_wrap(bmicat ~ no2tert, nrow = 2, ncol = 4) + 
+  geom_smooth(method="lm", se=FALSE, col="steelblue") + 
+  theme_bw(base_family = "Avenir", base_size = 10) + 
+  labs(x = expression("log " * PM[2.5])) + 
+  labs(y = "Nocturnal Symptoms") + 
+  labs(title = "MAACS Cohort")
+```
+
+---
+
+## Code for Final Plot
+
+```{r, eval=FALSE}
+## Setup ggplot with data frame
+g <- ggplot(maacs, aes(logpm25, NocturnalSympt))
+
+## Add layers
+g + geom_point(alpha = 1/3) + 
+  facet_wrap(bmicat ~ no2tert, nrow = 2, ncol = 4) + 
+  geom_smooth(method="lm", se=FALSE, col="steelblue") + 
+  theme_bw(base_family = "Avenir", base_size = 10) + 
+  labs(x = expression("log " * PM[2.5])) + 
+  labs(y = "Nocturnal Symptoms") + 
+  labs(title = "MAACS Cohort")
+```
+
+---
+
+## Summary
+- ggplot2 is very powerful and flexible if you learn the “grammar” and the various elements that can be tuned/modified
+- Many more types of plots can be made; explore and mess around with the package (references mentioned in Part 1 are useful)

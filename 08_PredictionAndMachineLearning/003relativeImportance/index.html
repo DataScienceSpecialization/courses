@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Relative importance of steps</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Relative importance of steps">
+  <meta name="author" content="Jeffrey Leek, Assistant Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Relative importance of steps</h1>
+        <h2></h2>
+        <p>Jeffrey Leek, Assistant Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Relative order of importance</h2>
+  </hgroup>
+  <article>
+    <p></br>
+</br>
+</br></p>
+
+<p><center> question &gt; data &gt; features &gt; algorithms </center></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>An important point</h2>
+  </hgroup>
+  <article>
+    <p><q>The combination of some data and an aching desire for an answer does not ensure that a reasonable answer can be extracted from a given body of data.</q></p>
+
+<p><center> John Tukey </center></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Garbage in = Garbage out</h2>
+  </hgroup>
+  <article>
+    <p><center> question -&gt; <rt>input data</rt> -&gt; features -&gt; algorithm -&gt; parameters -&gt; evaluation  </center></p>
+
+<ol>
+<li>May be easy (movie ratings -&gt; new movie ratings)</li>
+<li>May be harder (gene expression data -&gt; disease)</li>
+<li>Depends on what is a &quot;good prediction&quot;.</li>
+<li>Often <a href="http://www.youtube.com/watch?v=yvDCzhbjYWs">more data &gt; better models</a></li>
+<li>The most important step!</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Features matter!</h2>
+  </hgroup>
+  <article>
+    <p><center> question -&gt; input data -&gt; <rt>features</rt> -&gt; algorithm -&gt; parameters -&gt; evaluation  </center></p>
+
+<p><strong>Properties of good features</strong></p>
+
+<ul>
+<li>Lead to data compression</li>
+<li>Retain relevant information</li>
+<li>Are created based on expert application knowledge</li>
+</ul>
+
+<p><strong>Common mistakes</strong></p>
+
+<ul>
+<li>Trying to automate feature selection</li>
+<li>Not paying attention to data-specific quirks</li>
+<li>Throwing away information unnecessarily</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>May be automated with care</h2>
+  </hgroup>
+  <article>
+    <p><center> question -&gt; input data -&gt; <rt>features</rt> -&gt; algorithm -&gt; parameters -&gt; evaluation  </center></p>
+
+<p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/autofeatures.jpeg height=300></p>
+
+<p><a href="http://arxiv.org/pdf/1112.6209v5.pdf">http://arxiv.org/pdf/1112.6209v5.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Algorithms matter less than you&#39;d think</h2>
+  </hgroup>
+  <article>
+    <p><center> question -&gt; input data -&gt; features -&gt; <rt>algorithm</rt> -&gt; parameters -&gt; evaluation  </center></p>
+
+<p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/illusiontable.png height=400></p>
+
+<p><a href="http://arxiv.org/pdf/math/0606441.pdf">http://arxiv.org/pdf/math/0606441.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Issues to consider</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/mlconsiderations.jpg height=400></p>
+
+<p><a href="http://strata.oreilly.com/2013/09/gaining-access-to-the-best-machine-learning-methods.html">http://strata.oreilly.com/2013/09/gaining-access-to-the-best-machine-learning-methods.html</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Prediction is about accuracy tradeoffs</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Interpretability versus accuracy</li>
+<li>Speed versus accuracy</li>
+<li>Simplicity versus accuracy</li>
+<li>Scalability versus accuracy</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Interpretability matters</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/interpretable.png height=150></p>
+
+<p></br></br></br></p>
+
+<p><a href="http://www.cs.cornell.edu/%7Echenhao/pub/mldg-0815.pdf">http://www.cs.cornell.edu/~chenhao/pub/mldg-0815.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Scalability matters</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/netflixno.png height=250>
+</br></br></br></p>
+
+<p><a href="http://www.techdirt.com/blog/innovation/articles/20120409/03412518422/">http://www.techdirt.com/blog/innovation/articles/20120409/03412518422/</a></p>
+
+<p><a href="http://techblog.netflix.com/2012/04/netflix-recommendations-beyond-5-stars.html">http://techblog.netflix.com/2012/04/netflix-recommendations-beyond-5-stars.html</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

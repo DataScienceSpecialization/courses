@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Graphics Devices in R</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Graphics Devices in R">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Graphics Devices in R</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>What is a Graphics Device?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>A graphics device is something where you can make a plot appear</p>
+
+<ul>
+<li>A window on your computer (screen device)</li>
+<li>A PDF file (file device)</li>
+<li>A PNG or JPEG file (file device)</li>
+<li>A scalable vector graphics (SVG) file (file device)</li>
+</ul></li>
+<li><p>When you make a plot in R, it has to be &quot;sent&quot; to a specific
+graphics device</p></li>
+<li><p>The most common place for a plot to be &quot;sent&quot; is the <em>screen device</em></p>
+
+<ul>
+<li>On a Mac the screen device is launched with the <code>quartz()</code></li>
+<li>On Windows the screen device is launched with <code>windows()</code></li>
+<li>On Unix/Linux the screen device is launched with <code>x11()</code></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>What is a Graphic Device?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>When making a plot, you need to consider how the plot will be used
+to determine what device the plot should be sent to.</p>
+
+<ul>
+<li>The list of devices is found in <code>?Devices</code>; there are also devices
+created by users on CRAN</li>
+</ul></li>
+<li><p>For quick visualizations and exploratory analysis, usually you want
+to use the screen device</p>
+
+<ul>
+<li>Functions like <code>plot</code> in base, <code>xyplot</code> in lattice, or <code>qplot</code> in
+ggplot2 will default to sending a plot to the screen device</li>
+<li>On a given platform (Mac, Windows, Unix/Linux) there is only one
+screen device</li>
+</ul></li>
+<li><p>For plots that may be printed out or be incorporated into a document
+(e.g. papers/reports, slide presentations), usually a <em>file device</em>
+is more appropriate</p>
+
+<ul>
+<li>There are many different file devices to choose from</li>
+</ul></li>
+<li><p>NOTE: Not all graphics devices are available on all platforms
+(i.e. you cannot launch the <code>windows()</code> on a Mac)</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>How Does a Plot Get Created?</h2>
+  </hgroup>
+  <article>
+    <p>There are two basic approaches to plotting. The first is most common:</p>
+
+<ol>
+<li><p>Call a plotting function like <code>plot</code>, <code>xyplot</code>, or <code>qplot</code></p></li>
+<li><p>The plot appears on the screen device</p></li>
+<li><p>Annotate plot if necessary</p></li>
+<li><p>Enjoy</p></li>
+</ol>
+
+<pre><code class="r">library(datasets)
+with(faithful, plot(eruptions, waiting))  ## Make plot appear on screen device
+title(main = &quot;Old Faithful Geyser data&quot;)  ## Annotate with a title
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>How Does a Plot Get Created?</h2>
+  </hgroup>
+  <article>
+    <p>The second approach to plotting is most commonly used for file devices:</p>
+
+<ol>
+<li><p>Explicitly launch a graphics device</p></li>
+<li><p>Call a plotting function to make a plot (Note: if you are using a file
+device, no plot will appear on the screen)</p></li>
+<li><p>Annotate plot if necessary</p></li>
+<li><p>Explicitly close graphics device with <code>dev.off()</code> (this is very important!)</p></li>
+</ol>
+
+<pre><code class="r">pdf(file = &quot;myplot.pdf&quot;)  ## Open PDF device; create &#39;myplot.pdf&#39; in my working directory
+## Create plot and send to a file (no plot appears on screen)
+with(faithful, plot(eruptions, waiting))
+title(main = &quot;Old Faithful Geyser data&quot;)  ## Annotate plot; still nothing on screen
+dev.off()  ## Close the PDF file device
+## Now you can view the file &#39;myplot.pdf&#39; on your computer
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Graphics File Devices</h2>
+  </hgroup>
+  <article>
+    <p>There are two basic types of file devices: <em>vector</em> and <em>bitmap</em>
+devices</p>
+
+<p>Vector formats:</p>
+
+<ul>
+<li><p><code>pdf</code>: useful for line-type graphics, resizes well, usually
+portable, not efficient if a plot has many objects/points</p></li>
+<li><p><code>svg</code>: XML-based scalable vector graphics; supports animation and
+interactivity, potentially useful for web-based plots</p></li>
+<li><p><code>win.metafile</code>: Windows metafile format (only on Windows)</p></li>
+<li><p><code>postscript</code>: older format, also resizes well, usually portable, can
+be used to create encapsulated postscript files; Windows systems
+often don’t have a postscript viewer</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Graphics File Devices</h2>
+  </hgroup>
+  <article>
+    <p>Bitmap formats</p>
+
+<ul>
+<li><p><code>png</code>: bitmapped format, good for line drawings or images with solid
+colors, uses lossless compression (like the old GIF format), most
+web browsers can read this format natively, good for plotting many
+many many points, does not resize well</p></li>
+<li><p><code>jpeg</code>: good for photographs or natural scenes, uses lossy
+compression, good for plotting many many many points, does not
+resize well, can be read by almost any computer and any web browser,
+not great for line drawings</p></li>
+<li><p><code>tiff</code>: Creates bitmap files in the TIFF format; supports lossless
+compression</p></li>
+<li><p><code>bmp</code>: a native Windows bitmapped format</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Multiple Open Graphics Devices</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>It is possible to open multiple graphics devices (screen, file, or
+both), for example when viewing multiple plots at once</p></li>
+<li><p>Plotting can only occur on one graphics device at a time</p></li>
+<li><p>The <strong>currently active</strong> graphics device can be found by calling
+<code>dev.cur()</code></p></li>
+<li><p>Every open graphics device is assigned an integer \(\geq 2\).</p></li>
+<li><p>You can change the active graphics device with <code>dev.set(&lt;integer&gt;)</code>
+where <code>&lt;integer&gt;</code> is the number associated with the graphics device
+you want to switch to</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Copying Plots</h2>
+  </hgroup>
+  <article>
+    <p>Copying a plot to another device can be useful because some plots
+require a lot of code and it can be a pain to type all that in again
+for a different device.</p>
+
+<ul>
+<li><p><code>dev.copy</code>: copy a plot from one device to another</p></li>
+<li><p><code>dev.copy2pdf</code>: specifically copy a plot to a PDF file </p></li>
+</ul>
+
+<p>NOTE: Copying a plot is not an exact operation, so the result may not
+be identical to the original.</p>
+
+<pre><code class="r">library(datasets)
+with(faithful, plot(eruptions, waiting))  ## Create plot on screen device
+title(main = &quot;Old Faithful Geyser data&quot;)  ## Add a main title
+dev.copy(png, file = &quot;geyserplot.png&quot;)  ## Copy my plot to a PNG file
+dev.off()  ## Don&#39;t forget to close the PNG device!
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Plots must be created on a graphics device</p></li>
+<li><p>The default graphics device is almost always the screen device,
+which is most useful for exploratory analysis</p></li>
+<li><p>File devices are useful for creating plots that can be included in
+other documents or sent to other people</p></li>
+<li><p>For file devices, there are vector and bitmap formats</p>
+
+<ul>
+<li>Vector formats are good for line drawings and plots with solid
+colors using a modest number of points</li>
+<li>Bitmap formats are good for plots with a large number of points,
+natural scenes or web-based plots</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

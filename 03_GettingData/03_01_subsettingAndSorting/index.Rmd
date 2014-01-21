@@ -1,0 +1,139 @@
+---
+title       : Subsetting and sorting
+subtitle    : 
+author      : Jeffrey Leek 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+#hook1 <- function(x){ gsub("```\n*```r*\n*", "", x) }
+#knit_hooks$set(document = hook1)
+```
+
+
+
+## Subsetting - quick review
+
+```{r subsetting}
+set.seed(13435)
+X <- data.frame("var1"=sample(1:5),"var2"=sample(6:10),"var3"=sample(11:15))
+X <- X[sample(1:5),]; X$var2[c(1,3)] = NA
+X
+```
+
+
+---
+
+## Subsetting - quick review
+
+```{r ,dependson="subsetting"}
+X[,1]
+X[,"var1"]
+X[1:2,"var2"]
+```
+
+
+---
+
+## Logicals ands and ors
+
+```{r ,dependson="subsetting"}
+X[(X$var1 <= 3 & X$var3 > 11),]
+X[(X$var1 <= 3 | X$var3 > 15),]
+```
+
+---
+
+## Dealing with missing values
+
+```{r ,dependson="subsetting"}
+X[which(X$var2 > 8),]
+```
+
+---
+
+## Sorting
+
+```{r ,dependson="subsetting"}
+sort(X$var1)
+sort(X$var1,decreasing=TRUE)
+sort(X$var2,na.last=TRUE)
+```
+
+
+---
+
+## Ordering
+
+```{r ,dependson="subsetting"}
+X[order(X$var1),]
+```
+
+---
+
+## Ordering
+
+```{r ,dependson="subsetting"}
+X[order(X$var1,X$var3),]
+```
+
+---
+
+## Ordering with plyr
+
+```{r ,dependson="subsetting"}
+library(plyr)
+arrange(X,var1)
+arrange(X,desc(var1))
+```
+
+
+---
+
+## Adding rows and columns
+
+```{r,dependson="subsetting"}
+X$var4 <- rnorm(5)
+X
+```
+
+
+---
+
+## Adding rows and columns
+
+```{r,dependson="subsetting"}
+Y <- cbind(X,rnorm(5))
+Y
+```
+
+
+---
+
+## Notes and further resources
+
+* R programming in the Data Science Track
+* Andrew Jaffe's lecture notes [http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%202.pdf](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%202.pdf)

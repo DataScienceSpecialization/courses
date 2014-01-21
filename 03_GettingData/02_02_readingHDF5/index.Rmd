@@ -1,0 +1,137 @@
+---
+title       : Reading HDF5
+subtitle    : 
+author      : Jeffrey Leek 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/', cache=FALSE)
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+
+## HDF5
+
+* Used for storing large data sets
+* Supports storing a range of data types
+* Heirarchical data format
+* _groups_ containing zero or more data sets and metadata
+  * Have a _group header_ with group name and list of attributes
+  * Have a _group symbol table_ with a list of objects in group
+* _datasets_ multidmensional array of data elements with metadata
+  * Have a _header_ with name, datatype, dataspace, and storage layout
+  * Have a _data array_ with the data
+
+[http://www.hdfgroup.org/](http://www.hdfgroup.org/)
+
+---
+
+
+## R HDF5 package
+
+```{r removeExample,echo=FALSE,message=FALSE}
+invisible(if(file.exists("example.h5")){file.remove("example.h5")})
+```
+
+```{r loadPackage,eval=FALSE}
+source("http://bioconductor.org/biocLite.R")
+biocLite("rhdf5")
+```
+
+```{r rhdf5,message=FALSE}
+library(rhdf5)
+created = h5createFile("example.h5")
+created
+```
+
+* This will install packages from Bioconductor [http://bioconductor.org/](http://bioconductor.org/), primarily used for genomics but also has good "big data" packages
+* Can be used to interface with hdf5 data sets. 
+* This lecture is modeled very closely on the rhdf5 tutorial that
+can be found here [http://www.bioconductor.org/packages/release/bioc/vignettes/rhdf5/inst/doc/rhdf5.pdf](http://www.bioconductor.org/packages/release/bioc/vignettes/rhdf5/inst/doc/rhdf5.pdf)
+
+--- 
+
+## Create groups
+
+```{r groups,dependson="rhdf5"}
+created = h5createGroup("example.h5","foo")
+created = h5createGroup("example.h5","baa")
+created = h5createGroup("example.h5","foo/foobaa")
+h5ls("example.h5")
+```
+
+---
+
+## Write to groups
+
+```{r wgroups,dependson="groups"}
+A = matrix(1:10,nr=5,nc=2)
+h5write(A, "example.h5","foo/A")
+B = array(seq(0.1,2.0,by=0.1),dim=c(5,2,2))
+attr(B, "scale") <- "liter"
+h5write(B, "example.h5","foo/foobaa/B")
+h5ls("example.h5")
+```
+
+---
+
+## Write a data set 
+
+```{r dataset,dependson="wgroups"}
+df = data.frame(1L:5L,seq(0,1,length.out=5),
+  c("ab","cde","fghi","a","s"), stringsAsFactors=FALSE)
+h5write(df, "example.h5","df")
+h5ls("example.h5")
+```
+
+---
+
+## Reading data
+
+```{r read,dependson="dataset"}
+readA = h5read("example.h5","foo/A")
+readB = h5read("example.h5","foo/foobaa/B")
+readdf= h5read("example.h5","df")
+readA
+```
+
+
+---
+
+## Writing and reading chunks
+
+```{r ,dependson="read"}
+h5write(c(12,13,14),"example.h5","foo/A",index=list(1:3,1))
+h5read("example.h5","foo/A")
+```
+
+---
+
+## Notes and further resources
+
+* hdf5 can be used to optimize reading/writing from disc in R
+* The rhdf5 tutorial: 
+  * [http://www.bioconductor.org/packages/release/bioc/vignettes/rhdf5/inst/doc/rhdf5.pdf](http://www.bioconductor.org/packages/release/bioc/vignettes/rhdf5/inst/doc/rhdf5.pdf)
+* The HDF group has informaton on HDF5 in general [http://www.hdfgroup.org/HDF5/](http://www.hdfgroup.org/HDF5/)

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Binary outcomes</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Binary outcomes">
+  <meta name="author" content="Jeffrey Leek, Assistant Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Binary outcomes</h1>
+        <h2></h2>
+        <p>Jeffrey Leek, Assistant Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Key ideas</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Frequently we care about outcomes that have two values
+
+<ul>
+<li>Alive/dead</li>
+<li>Win/loss</li>
+<li>Success/Failure</li>
+<li>etc</li>
+</ul></li>
+<li>Called binary outcomes or 0/1 outcomes </li>
+<li>Linear regression (like we&#39;ve seen) may not be the best</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Example: Baltimore Ravens</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/ravens.png height=450></p>
+
+<p><a href="http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens">http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Ravens Data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">download.file(&quot;https://dl.dropboxusercontent.com/u/7710864/data/ravensData.rda&quot;,
+              destfile=&quot;./data/ravensData.rda&quot;,method=&quot;curl&quot;)
+load(&quot;./data/ravensData.rda&quot;)
+head(ravensData)
+</code></pre>
+
+<pre><code>  ravenWinNum ravenWin ravenScore opponentScore
+1           1        W         24             9
+2           1        W         38            35
+3           1        W         28            13
+4           1        W         34            31
+5           1        W         44            13
+6           0        L         23            24
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Linear regression</h2>
+  </hgroup>
+  <article>
+    <p>\[ RW_i = b_0 + b_1 RS_i + e_i \]</p>
+
+<p>\(RW_i\) - 1 if a Ravens win, 0 if not</p>
+
+<p>\(RS_i\) - Number of points Ravens scored</p>
+
+<p>\(b_0\) - probability of a Ravens win if they score 0 points</p>
+
+<p>\(b_1\) - increase in probability of a Ravens win for each additional point</p>
+
+<p>\(e_i\) - variation due to everything we didn&#39;t measure</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Linear regression in R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">lmRavens &lt;- lm(ravensData$ravenWinNum ~ ravensData$ravenScore)
+summary(lmRavens)
+</code></pre>
+
+<pre><code>
+Call:
+lm(formula = ravensData$ravenWinNum ~ ravensData$ravenScore)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-0.730 -0.508  0.182  0.322  0.572 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(&gt;|t|)  
+(Intercept)            0.28503    0.25664    1.11    0.281  
+ravensData$ravenScore  0.01590    0.00906    1.76    0.096 .
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.446 on 18 degrees of freedom
+Multiple R-squared:  0.146, Adjusted R-squared:  0.0987 
+F-statistic: 3.08 on 1 and 18 DF,  p-value: 0.0963
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Linear regression</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(ravensData$ravenScore,lmRavens$fitted,pch=19,col=&quot;blue&quot;,ylab=&quot;Prob Win&quot;,xlab=&quot;Raven Score&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Odds</h2>
+  </hgroup>
+  <article>
+    <p><strong>Binary Outcome 0/1</strong></p>
+
+<p>\[RW_i\]  </p>
+
+<p><strong>Probability (0,1)</strong></p>
+
+<p>\[\rm{Pr}(RW_i | RS_i, b_0, b_1 )\]</p>
+
+<p><strong>Odds \((0,\infty)\)</strong>
+\[\frac{\rm{Pr}(RW_i | RS_i, b_0, b_1 )}{1-\rm{Pr}(RW_i | RS_i, b_0, b_1)}\] </p>
+
+<p><strong>Log odds \((-\infty,\infty)\)</strong></p>
+
+<p>\[\log\left(\frac{\rm{Pr}(RW_i | RS_i, b_0, b_1 )}{1-\rm{Pr}(RW_i | RS_i, b_0, b_1)}\right)\] </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Linear vs. logistic regression</h2>
+  </hgroup>
+  <article>
+    <p><strong>Linear</strong></p>
+
+<p>\[ RW_i = b_0 + b_1 RS_i + e_i \]</p>
+
+<p>or</p>
+
+<p>\[ E[RW_i | RS_i, b_0, b_1] = b_0 + b_1 RS_i\]</p>
+
+<p><strong>Logistic</strong></p>
+
+<p>\[ \rm{Pr}(RW_i | RS_i, b_0, b_1) = \frac{\exp(b_0 + b_1 RS_i)}{1 + \exp(b_0 + b_1 RS_i)}\]</p>
+
+<p>or</p>
+
+<p>\[ \log\left(\frac{\rm{Pr}(RW_i | RS_i, b_0, b_1 )}{1-\rm{Pr}(RW_i | RS_i, b_0, b_1)}\right) = b_0 + b_1 RS_i \]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Interpreting Logistic Regression</h2>
+  </hgroup>
+  <article>
+    <p>\[ \log\left(\frac{\rm{Pr}(RW_i | RS_i, b_0, b_1 )}{1-\rm{Pr}(RW_i | RS_i, b_0, b_1)}\right) = b_0 + b_1 RS_i \]</p>
+
+<p>\(b_0\) - Log odds of a Ravens win if they score zero points</p>
+
+<p>\(b_1\) - Log odds ratio of win probability for each point scored (compared to zero points)</p>
+
+<p>\(\exp(b_1)\) - Odds ratio of win probability for each point scored (compared to zero points)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Explaining Odds</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/odds1.png height=450></p>
+
+<p><a href="http://faculty.washington.edu/kenrice/teaching.html">via Ken Rice</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Probability of Death</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/odds2.png height=450></p>
+
+<p><a href="http://faculty.washington.edu/kenrice/teaching.html">via Ken Rice</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Odds of Death</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/odds3.png height=450></p>
+
+<p><a href="http://faculty.washington.edu/kenrice/teaching.html">via Ken Rice</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Odds Ratio = 1, Continuous Covariate</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/odds4.png height=450></p>
+
+<p><a href="http://faculty.washington.edu/kenrice/teaching.html">via Ken Rice</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Different odds ratios</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/odds5.png height=350></p>
+
+<p><a href="http://faculty.washington.edu/kenrice/teaching.html">via Ken Rice</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Ravens logistic regression</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">logRegRavens &lt;- glm(ravensData$ravenWinNum ~ ravensData$ravenScore,family=&quot;binomial&quot;)
+summary(logRegRavens)
+</code></pre>
+
+<pre><code>
+Call:
+glm(formula = ravensData$ravenWinNum ~ ravensData$ravenScore, 
+    family = &quot;binomial&quot;)
+
+Deviance Residuals: 
+   Min      1Q  Median      3Q     Max  
+-1.758  -1.100   0.530   0.806   1.495  
+
+Coefficients:
+                      Estimate Std. Error z value Pr(&gt;|z|)
+(Intercept)            -1.6800     1.5541   -1.08     0.28
+ravensData$ravenScore   0.1066     0.0667    1.60     0.11
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 24.435  on 19  degrees of freedom
+Residual deviance: 20.895  on 18  degrees of freedom
+AIC: 24.89
+
+Number of Fisher Scoring iterations: 5
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Ravens fitted values</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(ravensData$ravenScore,logRegRavens$fitted,pch=19,col=&quot;blue&quot;,xlab=&quot;Score&quot;,ylab=&quot;Prob Ravens Win&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Odds ratios and confidence intervals</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">exp(logRegRavens$coeff)
+</code></pre>
+
+<pre><code>          (Intercept) ravensData$ravenScore 
+               0.1864                1.1125 
+</code></pre>
+
+<pre><code class="r">exp(confint(logRegRavens))
+</code></pre>
+
+<pre><code>                         2.5 % 97.5 %
+(Intercept)           0.005675  3.106
+ravensData$ravenScore 0.996230  1.303
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>ANOVA for logistic regression</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">anova(logRegRavens,test=&quot;Chisq&quot;)
+</code></pre>
+
+<pre><code>Analysis of Deviance Table
+
+Model: binomial, link: logit
+
+Response: ravensData$ravenWinNum
+
+Terms added sequentially (first to last)
+
+                      Df Deviance Resid. Df Resid. Dev Pr(&gt;Chi)  
+NULL                                     19       24.4           
+ravensData$ravenScore  1     3.54        18       20.9     0.06 .
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Simpson&#39;s paradox</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/simpsons.png height=300></p>
+
+<p><a href="http://en.wikipedia.org/wiki/Simpson&#x27;s_paradox">http://en.wikipedia.org/wiki/Simpson&#39;s_paradox</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Interpreting Odds Ratios</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Not probabilities </li>
+<li>Odds ratio of 1 = no difference in odds</li>
+<li>Log odds ratio of 0 = no difference in odds</li>
+<li>Odds ratio &lt; 0.5 or &gt; 2 commonly a &quot;moderate effect&quot;</li>
+<li>Relative risk \(\frac{\rm{Pr}(RW_i | RS_i = 10)}{\rm{Pr}(RW_i | RS_i = 0)}\) often easier to interpret, harder to estimate</li>
+<li>For small probabilities RR \(\approx\) OR but <strong>they are not the same</strong>!</li>
+</ul>
+
+<p><a href="http://en.wikipedia.org/wiki/Odds_ratio">Wikipedia on Odds Ratio</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Further resources</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><a href="http://en.wikipedia.org/wiki/Logistic_regression">Wikipedia on Logistic Regression</a></li>
+<li><a href="http://data.princeton.edu/R/glms.html">Logistic regression and glms in R</a></li>
+<li>Brian Caffo&#39;s lecture notes on: <a href="http://ocw.jhsph.edu/courses/MethodsInBiostatisticsII/PDFs/lecture23.pdf">Simpson&#39;s paradox</a>, <a href="http://ocw.jhsph.edu/courses/MethodsInBiostatisticsII/PDFs/lecture24.pdf">Case-control studies</a></li>
+<li><a href="http://www.openintro.org/stat/down/oiStat2_08.pdf">Open Intro Chapter on Logistic Regression</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

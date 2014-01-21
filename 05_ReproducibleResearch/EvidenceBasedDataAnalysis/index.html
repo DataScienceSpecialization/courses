@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reproducible Research with Evidence-based Data Analysis</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Reproducible Research with Evidence-based Data Analysis">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Reproducible Research with Evidence-based Data Analysis</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Replication and Reproducibility</h2>
+  </hgroup>
+  <article>
+    <p>Replication</p>
+
+<ul>
+<li><p>Focuses on the validity of the scientific claim</p></li>
+<li><p>&quot;Is this claim true?&quot;</p></li>
+<li><p>The ultimate standard for strengthening scientific evidence</p></li>
+<li><p>New investigators, data, analytical methods, laboratories, instruments, etc.</p></li>
+<li><p>Particularly important in studies that can impact broad policy or
+regulatory decisions</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Replication and Reproducibility</h2>
+  </hgroup>
+  <article>
+    <p>Reproducibility</p>
+
+<ul>
+<li><p>Focuses on the validity of the data analysis</p></li>
+<li><p>&quot;Can we trust this analysis?&quot;</p></li>
+<li><p>Arguably a minimum standard for any scientific study</p></li>
+<li><p>New investigators, same data, same methods</p></li>
+<li><p>Important when replication is impossible</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Background and Underlying Trends</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Some studies cannot be replicated: No time, No money,
+Unique/opportunistic</p></li>
+<li><p>Technology is increasing data collection throughput; data are more
+complex and high-dimensional</p></li>
+<li><p>Existing databases can be merged to become bigger databases (but
+data are used off-label)</p></li>
+<li><p>Computing power allows more sophisticated analyses, even on &quot;small&quot;
+data</p></li>
+<li><p>For every field &quot;X&quot; there is a &quot;Computational X&quot;</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>The Result?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Even basic analyses are difficult to describe</p></li>
+<li><p>Heavy computational requirements are thrust upon people without adequate training in statistics and computing</p></li>
+<li><p>Errors are more easily introduced into long analysis pipelines</p></li>
+<li><p>Knowledge transfer is inhibited</p></li>
+<li><p>Results are difficult to replicate or reproduce</p></li>
+<li><p>Complicated analyses cannot be trusted</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>What is Reproducible Research?</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/RRpipeline1.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>What is Reproducible Research?</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/RRpipeline2.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>What is Reproducible Research?</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/RRpipeline3.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>What is Reproducible Research?</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/RRpipeline4.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>What is Reproducible Research?</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/RRpipeline5.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>What Problem Does Reproducibility Solve?</h2>
+  </hgroup>
+  <article>
+    <p>What we get</p>
+
+<ul>
+<li>Transparency</li>
+<li>Data Availability</li>
+<li>Software / Methods Availability</li>
+<li>Improved Transfer of Knowledge</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>What Problem Does Reproducibility Solve?</h2>
+  </hgroup>
+  <article>
+    <p>What we get</p>
+
+<ul>
+<li>Transparency</li>
+<li>Data Availability</li>
+<li>Software / Methods Availability</li>
+<li>Improved Transfer of Knowledge</li>
+</ul>
+
+<p>What we do NOT get</p>
+
+<ul>
+<li>Validity / Correctness of the analysis</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>What Problem Does Reproducibility Solve?</h2>
+  </hgroup>
+  <article>
+    <p>What we get</p>
+
+<ul>
+<li>Transparency</li>
+<li>Data Availability</li>
+<li>Software / Methods Availability</li>
+<li>Improved Transfer of Knowledge</li>
+</ul>
+
+<p>What we do NOT get</p>
+
+<ul>
+<li>Validity / Correctness of the analysis</li>
+</ul>
+
+<p>An analysis can be reproducible and still be wrong</p>
+
+<p>We want to know “can we trust this analysis?”</p>
+
+<p>Does requiring reproducibility deter bad analysis?</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Problems with Reproducibility</h2>
+  </hgroup>
+  <article>
+    <p>The premise of reproducible research is that with data/code available,
+people can check each other and the whole system is self-correcting</p>
+
+<ul>
+<li><p>Addresses the most “downstream” aspect of the research process –
+post-publication</p></li>
+<li><p>Assumes everyone plays by the same rules and wants to achieve the
+same goals (i.e. scientific discovery)</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>An Analogy from Asthma</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/asthma1.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>An Analogy from Asthma</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/asthma2.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>An Analogy from Asthma</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/asthma3.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Scientific Dissemination Process</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/publication1.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Scientific Dissemination Process</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/publication2.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Scientific Dissemination Process</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/publication3.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Scientific Dissemination Process</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/publication4.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Scientific Dissemination Process</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/publication5.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>At Biostatistics</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/biostatistics1.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>At Biostatistics</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/biostatistics2.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>Who Reproduces Research?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>For reproducibility to be effective as a means to check validity, someone needs to do something</p>
+
+<ul>
+<li>Re-run the analysis; check results match</li>
+<li>Check the code for bugs/errors</li>
+<li>Try alternate approaches; check sensitivity</li>
+</ul></li>
+<li><p>The need for someone to do something is inherited from traditional
+notion of replication</p></li>
+<li><p>Who is &quot;someone&quot; and what are their goals?</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>Who Reproduces Research?</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/reproduce1.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>Who Reproduces Research?</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/reproduce2.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-27" style="background:;">
+  <hgroup>
+    <h2>Who Reproduces Research?</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/reproduce3.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-28" style="background:;">
+  <hgroup>
+    <h2>Who Reproduces Research?</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/reproduce4.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-29" style="background:;">
+  <hgroup>
+    <h2>The Story So Far</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Reproducibility brings transparency (wrt code+data) and increased transfer of knowledge</li>
+<li>A lot of discussion about how to get people to share data</li>
+<li>Key question of &quot;can we trust this analysis?&quot; is not addressed by reproducibility</li>
+<li>Reproducibility addresses potential problems long after they’ve occurred (&quot;downstream&quot;)</li>
+<li>Secondary analyses are inevitably coloured by the interests/motivations of others</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-30" style="background:;">
+  <hgroup>
+    <h2>Evidence-based Data Analysis</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Most data analyses involve stringing together many different tools and methods</li>
+<li>Some methods may be standard for a given field, but others are often applied ad hoc</li>
+<li>We should apply thoroughly studied (via statistical research), mutually agreed upon methods to analyze data whenever possible</li>
+<li>There should be evidence to justify the application of a given method</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-31" style="background:;">
+  <hgroup>
+    <h2>Evidence-based Data Analysis</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/histogram1.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-32" style="background:;">
+  <hgroup>
+    <h2>Evidence-based Data Analysis</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/histogram2.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-33" style="background:;">
+  <hgroup>
+    <h2>Evidence-based Data Analysis</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Create analytic pipelines from evidence-based components – standardize it</li>
+<li><p>A Deterministic Statistical Machine <a href="http://goo.gl/Qvlhuv">http://goo.gl/Qvlhuv</a></p></li>
+<li><p>Once an evidence-based analytic pipeline is established, we shouldn’t mess with it</p></li>
+<li><p>Analysis with a “transparent box”</p></li>
+<li><p>Reduce the &quot;researcher degrees of freedom&quot;</p></li>
+<li><p>Analogous to a pre-specified clinical trial protocol</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-34" style="background:;">
+  <hgroup>
+    <h2>Deterministic Statistical Machine</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/DSM.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-35" style="background:;">
+  <hgroup>
+    <h2>Case Study: Estimating Acute Effects of Ambient Air Pollution Exposure</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Acute/short-term effects typically estimated via panel studies or time series studies</li>
+<li>Work originated in late 1970s early 1980s</li>
+<li>Key question: &quot;Are short-term changes in pollution associated with short-term changes in a population health outcome?&quot;</li>
+<li>Studies usually conducted at community level</li>
+<li>Long history of statistical research investigating proper methods of analysis</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-36" style="background:;">
+  <hgroup>
+    <h2>Data from New York City</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/NewYorkData.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-37" style="background:;">
+  <hgroup>
+    <h2>Case Study: Estimating Acute Effects of Ambient Air Pollution Exposure</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Can we encode everything that we have found in statistical/epidemiological research into a single package?</li>
+<li>Time series studies do not have a huge range of variation; typically involves similar types of data and similar questions</li>
+<li>We can create a deterministic statistical machine for this area?<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-38" style="background:;">
+  <hgroup>
+    <h2>DSM Modules for Time Series Studies of Air Pollution and Health</h2>
+  </hgroup>
+  <article>
+    <ol>
+<li><p>Check for outliers, high leverage, overdispersion</p></li>
+<li><p>Fill in missing data? NO!</p></li>
+<li><p>Model selection: Estimate degrees of freedom to adjust for unmeasured confounders</p>
+
+<ul>
+<li>Other aspects of model not as critical</li>
+</ul></li>
+<li><p>Multiple lag analysis</p></li>
+<li><p>Sensitivity analysis wrt</p>
+
+<ul>
+<li>Unmeasured confounder adjustment</li>
+<li>Influential points</li>
+</ul></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-39" style="background:;">
+  <hgroup>
+    <h2>Where to Go From Here?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>One DSM is not enough, we need many!</li>
+<li>Different problems warrant different approaches and expertise</li>
+<li>A curated library of machines providing state-of-the art analysis pipelines</li>
+<li>A CRAN/CPAN/CTAN/… for data analysis</li>
+<li>Or a “Cochrane Collaboration” for data analysis</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-40" style="background:;">
+  <hgroup>
+    <h2>A Model: Cochrane Collaboration</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/Cochrane1.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-41" style="background:;">
+  <hgroup>
+    <h2>A Model: Cochrane Collaboration</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/Cochrane2.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-42" style="background:;">
+  <hgroup>
+    <h2>A Model: Cochrane Collaboration</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/Cochrane3.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-43" style="background:;">
+  <hgroup>
+    <h2>A Model: Cochrane Collaboration</h2>
+  </hgroup>
+  <article>
+    <p><img src="img/Cochrane4.png" class="center" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-44" style="background:;">
+  <hgroup>
+    <h2>A Curated Library of Data Analysis</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Provide packages that encode data analysis pipelines for given problems, technologies, questions</li>
+<li>Curated by experts knowledgeable in the field</li>
+<li>Documentation/references given supporting each module in the pipeline</li>
+<li>Changes introduced after passing relevant benchmarks/unit tests</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-45" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Reproducible research is important, but does not necessarily solve the critical question of whether a data analysis is trustworthy</li>
+<li>Reproducible research focuses on the most &quot;downstream&quot; aspect of research dissemination</li>
+<li>Evidence-based data analysis would provide standardized, best practices for given scientific areas and questions</li>
+<li>Gives reviewers an important tool without dramatically increasing the burden on them</li>
+<li>More effort should be put into improving the quality of &quot;upstream&quot; aspects of scientific research</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Experimental design</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Experimental design">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Experimental design</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Why you should care - an exciting result!</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/potti1.png height=450></p>
+
+<p><a href="http://www.nature.com/nm/journal/v12/n11/full/nm1491.html">http://www.nature.com/nm/journal/v12/n11/full/nm1491.html</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Why you should care - uh oh!</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/baggerly1.png height=450></p>
+
+<p><a href="http://arxiv.org/pdf/1010.1092.pdf">http://arxiv.org/pdf/1010.1092.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Why you should care - serious trouble</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/potti2.png height=450></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Know and care about the analysis plan!</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/know.png height=450></p>
+
+<p><a href="http://nsaunders.wordpress.com/2012/07/23/we-really-dont-care-what-statistical-method-you-used/">http://nsaunders.wordpress.com/2012/07/23/we-really-dont-care-what-statistical-method-you-used/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Have a plan for data and code sharing</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/github.png height=200></p>
+
+<p><a href="https://github.com/">https://github.com/</a></p>
+
+<p><img class=center src=../../assets/img/01_DataScientistToolbox/figshare.png height=200></p>
+
+<p><a href="http://figshare.com/">http://figshare.com/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>May I recommend?</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/share.png height=500></p>
+
+<p><a href="https://github.com/jtleek/datasharing">https://github.com/jtleek/datasharing</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Formulate your question in advance</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/abtest.png height=250></p>
+
+<p><strong>Question</strong>: Does changing the text on your website improve donations?</p>
+
+<p><strong>Experiment</strong>:</p>
+
+<ol>
+<li>Randomly show visitors one version or the other</li>
+<li>Measure how much they donate</li>
+<li>Determine which is better</li>
+</ol>
+
+<p><a href="http://www.wired.com/business/2012/04/ff_abtesting">http://www.wired.com/business/2012/04/ff_abtesting</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Statistical inference</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/infcentraldogma.png height=450></p>
+
+<p><a href="http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf">http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture2.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Variability - Scenario 1</h2>
+  </hgroup>
+  <article>
+    <div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Variability - Scenario 2</h2>
+  </hgroup>
+  <article>
+    <div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Variability - Scenario 3</h2>
+  </hgroup>
+  <article>
+    <div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Confounding</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/shoelit.png height=500></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Correlation is not causation*</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/nejm.jpg height=500></p>
+
+<p><a href="http://www.nejm.org/doi/full/10.1056/NEJMon1211064">http://www.nejm.org/doi/full/10.1056/NEJMon1211064</a></p>
+
+<p><em>Sometimes called spurious correlation*</em></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Randomization and blocking</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>If you can (and want to) fix a variable
+
+<ul>
+<li>Website always says Obama 2014 on it</li>
+</ul></li>
+<li>If you don&#39;t fix a variable, stratify it
+
+<ul>
+<li>If you are testing sign up phrases and have two website colors, use both phrases equally on both. </li>
+</ul></li>
+<li>If you can&#39;t fix a variable, randomize it</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Why does randomization help?</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/whyrandomize.png height=450></p>
+
+<p><a href="http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture1.pdf">http://www.gs.washington.edu/academics/courses/akey/56008/lecture/lecture1.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Prediction</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/centraldogma.png height=450></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Prediction versus inference</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/predvinf.png height=500></p>
+
+<p><a href="http://www.biostat.jhsph.edu/%7Eiruczins/teaching/140.615/">http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Prediction key quantities</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/predquant.png height=500></p>
+
+<p><a href="http://www.biostat.jhsph.edu/%7Eiruczins/teaching/140.615/">http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Beware data dredging</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/mt1.png height=450></p>
+
+<p><a href="http://xkcd.com/882/">http://xkcd.com/882/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Beware data dredging</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/mt2.png height=450></p>
+
+<p><a href="http://xkcd.com/882/">http://xkcd.com/882/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Beware data dredging</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/01_DataScientistToolbox/mt3.png height=450></p>
+
+<p><a href="http://xkcd.com/882/">http://xkcd.com/882/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Good experiments
+
+<ul>
+<li>Have replication</li>
+<li>Meaure variability</li>
+<li>Generalize to the problem you care about</li>
+<li>Are transparent</li>
+</ul></li>
+<li>Prediction is not inference
+
+<ul>
+<li>Both can be important</li>
+</ul></li>
+<li>Beware data dredging</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

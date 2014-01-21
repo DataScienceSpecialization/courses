@@ -1,0 +1,111 @@
+---
+title       : Cross validation
+subtitle    : 
+author      : Jeffrey Leek
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## Study design
+
+<img class=center src=../../assets/img/08_PredictionAndMachineLearning/studyDesign.png height=400>
+
+
+[http://www2.research.att.com/~volinsky/papers/ASAStatComp.pdf](http://www2.research.att.com/~volinsky/papers/ASAStatComp.pdf)
+
+---
+
+## Key idea
+
+1. Accuracy on the training set (resubstitution accuracy) is optimistic
+2. A better estimate comes from an independent set (test set accuracy)
+3. But we can't use the test set when building the model or it becomes part of the training set
+4. So we estimate the test set accuracy with the training set. 
+
+
+---
+
+## Cross-validation
+
+_Approach_:
+
+1. Use the training set
+
+2. Split it into training/test sets 
+
+3. Build a model on the training set
+
+4. Evaluate on the test set
+
+5. Repeat and average the estimated errors
+
+_Used for_:
+
+1. Picking variables to include in a model
+
+2. Picking the type of prediction function to use
+
+3. Picking the parameters in the prediction function
+
+4. Comparing different predictors
+
+---
+
+## Random subsampling
+
+
+<img class=center src=../../assets/img/08_PredictionAndMachineLearning/random.png height=400>
+
+
+---
+
+## K-fold
+
+
+<img class=center src=../../assets/img/08_PredictionAndMachineLearning/kfold.png height=400>
+
+---
+
+## Leave one out
+
+<img class=center src=../../assets/img/08_PredictionAndMachineLearning/loocv.png height=400>
+
+---
+
+## Considerations
+
+* For time series data data must be used in "chunks"
+* For k-fold cross validation
+  * Larger k = less bias, more variance
+  * Smaller k = more bias, less variance
+* Random sampling must be done _without replacement_
+* Random sampling with replacement is the _bootstrap_
+  * Underestimates of the error
+  * Can be corrected, but it is complicated ([0.632 Bootstrap](http://www.jstor.org/discover/10.2307/2965703?uid=2&uid=4&sid=21103054448997))
+* If you cross-validate to pick predictors estimate you must estimate errors on independent data. 
+

@@ -1,0 +1,15 @@
+base
+caret
+cluster
+datasets
+foreach
+graphics
+grDevices
+kernlab
+lattice
+methods
+plyr
+reshape2
+slidify
+stats
+utils

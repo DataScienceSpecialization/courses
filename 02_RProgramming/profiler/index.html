@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profiling R Code</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Profiling R Code">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Profiling R Code</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Why is My Code So Slow?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Profiling is a systematic way to examine how much time is spend in
+different parts of a program</p></li>
+<li><p>Useful when trying to optimize your code</p></li>
+<li><p>Often code runs fine once, but what if you have to put it in a loop
+for 1,000 iterations? Is it still fast enough?</p></li>
+<li><p>Profiling is better than guessing</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>On Optimizing Your Code</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Getting biggest impact on speeding up code depends on knowing where
+the code spends most of its time</p></li>
+<li><p>This cannot be done without performance analysis or profiling</p></li>
+</ul>
+
+<blockquote>
+We should forget about small efficiencies, say about 97% of the
+  time: premature optimization is the root of all evil
+</blockquote>
+
+<p>--Donald Knuth</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>General Principles of Optimization</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Design first, then optimize</p></li>
+<li><p>Remember: Premature optimization is the root of all evil</p></li>
+<li><p>Measure (collect data), don’t guess. </p></li>
+<li><p>If you&#39;re going to be scientist, you need to apply the same
+principles here!</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Using <code>system.time()</code></h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Takes an arbitrary R expression as input (can be wrapped in curly
+braces) and returns the amount of time taken to evaluate the
+expression</p></li>
+<li><p>Computes the time (in seconds) needed to execute an expression</p>
+
+<ul>
+<li>If there’s an error, gives time until the error occurred</li>
+</ul></li>
+<li><p>Returns an object of class <code>proc_time</code></p>
+
+<ul>
+<li><strong>user time</strong>: time charged to the CPU(s) for this expression</li>
+<li><strong>elapsed time</strong>: &quot;wall clock&quot; time</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Using <code>system.time()</code></h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Usually, the user time and elapsed time are relatively close, for straight computing tasks</p></li>
+<li><p>Elapsed time may be <em>greater than</em> user time if the CPU spends a lot of time waiting around</p></li>
+<li><p>Elapsted time may be <em>smaller than</em> the user time if your machine
+has multiple cores/processors (and is capable of using them)</p>
+
+<ul>
+<li>Multi-threaded BLAS libraries (vecLib/Accelerate, ATLAS, ACML, MKL)</li>
+<li>Parallel processing via the <strong>parallel</strong> package</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Using <code>system.time()</code></h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">## Elapsed time &gt; user time
+system.time(readLines(&quot;http://www.jhsph.edu&quot;))
+   user  system elapsed 
+  0.004   0.002   0.431 
+
+## Elapsed time &lt; user time
+hilbert &lt;- function(n) { 
+        i &lt;- 1:n
+        1 / outer(i - 1, i, &quot;+”)
+}
+x &lt;- hilbert(1000)
+system.time(svd(x))
+   user  system elapsed 
+  1.605   0.094   0.742  
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Timing Longer Expressions</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">system.time({
+    n &lt;- 1000
+    r &lt;- numeric(n)
+    for (i in 1:n) {
+        x &lt;- rnorm(n)
+        r[i] &lt;- mean(x)
+    }
+})
+</code></pre>
+
+<pre><code>##    user  system elapsed 
+##   0.097   0.002   0.099
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Beyond <code>system.time()</code></h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Using <code>system.time()</code> allows you to test certain functions or code
+blocks to see if they are taking excessive amounts of time</p></li>
+<li><p>Assumes you already know where the problem is and can call
+<code>system.time()</code> on it</p></li>
+<li><p>What if you don’t know where to start? </p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>The R Profiler</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>The <code>Rprof()</code> function starts the profiler in R</p>
+
+<ul>
+<li>R must be compiled with profiler support (but this is usually the case)</li>
+</ul></li>
+<li><p>The <code>summaryRprof()</code> function summarizes the output from <code>Rprof()</code>
+(otherwise it’s not readable)</p></li>
+<li><p>DO NOT use <code>system.time()</code> and <code>Rprof()</code> together or you will be sad</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>The R Profiler</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Rprof() keeps track of the function call stack at regularly sampled
+intervals and tabulates how much time is spend in each function</p></li>
+<li><p>Default sampling interval is 0.02 seconds</p></li>
+<li><p>NOTE: If your code runs very quickly, the profiler is not useful,
+but then you probably don&#39;t need it in that case</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>R Profiler Raw Output</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">## lm(y ~ x)
+
+sample.interval=10000
+&quot;list&quot; &quot;eval&quot; &quot;eval&quot; &quot;model.frame.default&quot; &quot;model.frame&quot; &quot;eval&quot; &quot;eval&quot; &quot;lm&quot; 
+&quot;list&quot; &quot;eval&quot; &quot;eval&quot; &quot;model.frame.default&quot; &quot;model.frame&quot; &quot;eval&quot; &quot;eval&quot; &quot;lm&quot; 
+&quot;list&quot; &quot;eval&quot; &quot;eval&quot; &quot;model.frame.default&quot; &quot;model.frame&quot; &quot;eval&quot; &quot;eval&quot; &quot;lm&quot; 
+&quot;list&quot; &quot;eval&quot; &quot;eval&quot; &quot;model.frame.default&quot; &quot;model.frame&quot; &quot;eval&quot; &quot;eval&quot; &quot;lm&quot; 
+&quot;na.omit&quot; &quot;model.frame.default&quot; &quot;model.frame&quot; &quot;eval&quot; &quot;eval&quot; &quot;lm&quot; 
+&quot;na.omit&quot; &quot;model.frame.default&quot; &quot;model.frame&quot; &quot;eval&quot; &quot;eval&quot; &quot;lm&quot; 
+&quot;na.omit&quot; &quot;model.frame.default&quot; &quot;model.frame&quot; &quot;eval&quot; &quot;eval&quot; &quot;lm&quot; 
+&quot;na.omit&quot; &quot;model.frame.default&quot; &quot;model.frame&quot; &quot;eval&quot; &quot;eval&quot; &quot;lm&quot; 
+&quot;na.omit&quot; &quot;model.frame.default&quot; &quot;model.frame&quot; &quot;eval&quot; &quot;eval&quot; &quot;lm&quot; 
+&quot;na.omit&quot; &quot;model.frame.default&quot; &quot;model.frame&quot; &quot;eval&quot; &quot;eval&quot; &quot;lm&quot; 
+&quot;na.omit&quot; &quot;model.frame.default&quot; &quot;model.frame&quot; &quot;eval&quot; &quot;eval&quot; &quot;lm&quot; 
+&quot;lm.fit&quot; &quot;lm&quot; 
+&quot;lm.fit&quot; &quot;lm&quot; 
+&quot;lm.fit&quot; &quot;lm&quot; 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Using <code>summaryRprof()</code></h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>The <code>summaryRprof()</code> function tabulates the R profiler output and
+calculates how much time is spend in which function</p></li>
+<li><p>There are two methods for normalizing the data</p></li>
+<li><p>&quot;by.total&quot; divides the time spend in each function by the total run time</p></li>
+<li><p>&quot;by.self&quot; does the same but first subtracts out time spent in
+functions above in the call stack</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>By Total</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">$by.total
+                        total.time total.pct self.time self.pct
+&quot;lm&quot;                          7.41    100.00      0.30     4.05
+&quot;lm.fit&quot;                      3.50     47.23      2.99    40.35
+&quot;model.frame.default&quot;         2.24     30.23      0.12     1.62
+&quot;eval&quot;                        2.24     30.23      0.00     0.00
+&quot;model.frame&quot;                 2.24     30.23      0.00     0.00
+&quot;na.omit&quot;                     1.54     20.78      0.24     3.24
+&quot;na.omit.data.frame&quot;          1.30     17.54      0.49     6.61
+&quot;lapply&quot;                      1.04     14.04      0.00     0.00
+&quot;[.data.frame&quot;                1.03     13.90      0.79    10.66
+&quot;[&quot;                           1.03     13.90      0.00     0.00
+&quot;as.list.data.frame&quot;          0.82     11.07      0.82    11.07
+&quot;as.list&quot;                     0.82     11.07      0.00     0.00
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>By Self</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">$by.self
+                        self.time self.pct total.time total.pct
+&quot;lm.fit&quot;                     2.99    40.35       3.50     47.23
+&quot;as.list.data.frame&quot;         0.82    11.07       0.82     11.07
+&quot;[.data.frame&quot;               0.79    10.66       1.03     13.90
+&quot;structure&quot;                  0.73     9.85       0.73      9.85
+&quot;na.omit.data.frame&quot;         0.49     6.61       1.30     17.54
+&quot;list&quot;                       0.46     6.21       0.46      6.21
+&quot;lm&quot;                         0.30     4.05       7.41    100.00
+&quot;model.matrix.default&quot;       0.27     3.64       0.79     10.66
+&quot;na.omit&quot;                    0.24     3.24       1.54     20.78
+&quot;as.character&quot;               0.18     2.43       0.18      2.43
+&quot;model.frame.default&quot;        0.12     1.62       2.24     30.23
+&quot;anyDuplicated.default&quot;      0.02     0.27       0.02      0.27
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2><code>summaryRprof()</code> Output</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">$sample.interval
+[1] 0.02
+
+$sampling.time
+[1] 7.41
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p><code>Rprof()</code> runs the profiler for performance of analysis of R code</p></li>
+<li><p><code>summaryRprof()</code> summarizes the output of <code>Rprof()</code> and gives
+percent of time spent in each function (with two types of
+normalization)</p></li>
+<li><p>Good to break your code into functions so that the profiler can give
+useful information about where time is being spent</p></li>
+<li><p>C or Fortran code is not profiled</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

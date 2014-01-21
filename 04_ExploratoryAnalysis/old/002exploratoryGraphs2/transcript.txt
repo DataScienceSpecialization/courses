@@ -1,0 +1,592 @@
+
+This is the second video about exploratory
+graphs. So remember from the first video
+that the reasons that we used graphs and
+data analysis are both for our own
+personal understanding as well as to
+communicate results to other people And so
+exploratory graphs, as you'll recall, are
+mostly focused on creating graphs that are
+useful for you as the data analyst and the
+goal is not necessarily to communicate
+them to other people. We'll talk about
+that, communicating with graphs, in the
+next lecture. So remember that the
+characteristics of exploratory graphs are
+primarily that they're made quickly, you
+make a large number, and that the, you
+don't necessarily take time to clean those
+graphs up. So we're going to go back to
+the housing data that we've been using as
+an example. So this is again reading in
+the housing data as a csv file if the file
+is ss06pid.csv is in a different directory
+you're going to need to change the path
+before reading the data in. So the next
+type of plot that we're going to be
+looking at is what's called a scatter
+plot. So this is the, the type of plot
+that you're starting to make, to be able
+to make, visualize relationships between
+variables. we're going to be talking a lot
+about scatterplots, because scatterplots
+are probably the most widely used,
+graphical tool for exploratory data
+analysis. So the components or the
+parameters that are important for a
+scatterplot are x and y. Those are the two
+variables you'll be plotting. Also the
+type, we'll talk about what that means in
+a minute. Xlab and Ylab are commands, are
+parameters that let you set the variable
+names that appear for the axis here. Xlim
+and Ylim let you set the width and length
+of the axis. CEX is the. Sort of the size
+of the points that you see. Color is the
+color of the points, and bg is sort of the
+background of the points for specific
+kinds of points. So if you want to see a
+lot more about the different kind of
+parameters, and there are a ton that you
+can set for scatter plots. You can see,
+you can type ?pa r and that will tell you
+a lot about all the different kind of
+parameters that you might set. That.
+So first we're going to talk about a
+scatter plot, and in r, since it's sort of
+the most important plot for performing
+data analysis. It gets the plot command.
+So we just type plot and then we give it
+two variables that are quantitative. in
+this case. We're going to plot commuting
+time. JWNP is commuting time, versus wage,
+so this is the actual wages that you
+earned in the last year. I'm going to tell
+it use pch equals 19, so this is actually
+the character type that it's going to use
+for the plot. If you leave it as default,
+it'll use open circles for the plot, but
+here I like closed circles better. And
+then I'm going to set the color to be
+equal to blue. And so what you see here is
+a scattered plot where you got, on the x
+axis is the first variable that you have
+to plot and on the y axis is the second
+variable. And each point represents one of
+the observations of that you passed at
+these variables. So you get. A point here
+means that, for this data value in the
+vector of commuting times and wages, it
+had a commuting time, in minutes, of
+something like 70 minutes, and it, this
+person had a wage of something like
+$150,000. And so the plot actually has to
+be made with two variables that are of the
+same length, so the commuting time and the
+wages have to be of the same length if
+you're going to make a scatter plot,
+because each of these points corresponds
+to one of the points in the two vectors.
+So one of the things that you can see
+right away is you can see strange patterns
+in the data set like, for example, here
+you got this straight line, which are a
+bunch of people with the same reported
+wage, but different actual values of
+commuting time and so you might think this
+seems sort of strange. It might be because
+of the way that the data are coding and
+indeed if you go look at the way that the
+data are coded you'll see that these
+values, up here, all in a line because of
+the way that the data are cod ed.
+So in addition to sort of visualizing the
+relationship between the 2 variables, if
+there is one, you can actually sort of
+pick out particular problems with the data
+or sort of weird patterns in the data that
+you don't think are necessarily due just
+to chance. They might be due to the way
+the data were collected. So, another thing
+that you can do on that previous plot, you
+could see that some of the points were
+sort of hard to see the difference between
+them. So, you could change the cex
+parameters, cex equals zero point 5 here.
+And, so, now I actually see that the dots
+are a little bit smaller. And, so, you can
+see the separation between dots a little
+bit better. You could actually make it
+even smaller than that. And, you would
+sort of. Sort of break up some of these
+chunk down here in the lower left hand
+corner which is a little bit hard to see.
+So the size of the points matters. Also
+the size of the axes matters, if you set
+the x lim or y lim, it might be easier or
+harder to see these points. You can also
+use color similar to the way that we use
+color in the box plots in the previous
+lecture. And so what you can do is again,
+you're going to send two continuous
+variables to the plot command, so we're
+going to use again the commuting time and
+the wage. And again I'm going to set the
+pch equal to 19, cause I like the filled
+in circles. But now I let the color of the
+points be equal to this variable sex. So
+you, if you look at this variable sex, in
+it takes on values 1 or 2. To be able to
+do this trick that I'm doing right now,
+you have to pass the col perameter, the
+color perameter, a, a vector that has
+actually integer value so In this case its
+1 and 2. You shouldn't try to do this if
+your variable, say, is if sex was equal to
+either male or female then it would
+necessarily work. Then again I said the
+cex equal to 0.5, so its easier to see,
+and so now what does this plot show. It's
+again commuting time on the x axis and
+wage on the y axis. But you see that all
+the values where sex is eq ual to 1 are in
+black. So those are the males, and all the
+values that, where sex is equal to 2.
+Those are the females, are in red. So you
+can actually see, but there's slightly
+different distribution for the men versus
+the women. In particular, you'll see that
+there's one red dot appears and there's
+numbers of black dots and so it gives you
+some idea about not only the relationship
+between these two variables but how it's
+different, based on the third variable. So
+it allows you to physically expand it
+beyond two dimensions when you're making
+this type of plot. This is a very common
+thing to do. You'll see it in my example
+data analysis that I've used color
+frequently to illustrate a third variable
+when I'm showing the relationship between
+2 other variables. You can also use size
+to illustrate the third variable. This can
+be, really useful in some cases and kind
+of hard to see in the other cases. So,
+here what I've done is, I've actually
+calculated variable. this is a new
+variable that is the percentage of the max
+age that each value is. So, I take the
+ages of the individuals observed in the
+study and I divide it by the maximum age.
+So, what I get is the percentage of the
+max age left. And so what I can do is
+actually make a plot again these two
+variables, the commuting time versus the
+wage and I can make it in blue with filled
+in circles but now what I can do is I can
+make the size of the points proportional,
+well in this case it's half of the
+percentage max of the age and so what you
+can see is again, you see All of this,
+sort of the data points by wage and
+commuting time, and you can see that the
+points that are really, really small
+correspond to individuals that are
+actually sort of younger, and the points
+that are much larger correspond to
+individuals that are older. So like I
+said, sometimes this can be really useful
+to be able to use size because you can
+also use size and coloring Combinations
+and try to visualize the relationship
+between four variables. But in this case
+it's a little bit hard to see the
+difference between these dots unless you
+have a very eagle eye it's pretty hard to
+tell. And so using size is useful but it
+should be reserved probably for if you're
+already using color for something else. So
+the other thing that you can do is when
+you're creating these plots you can start
+overlaying lines or plots lines or points
+on these graphs so that you can sort of
+visualize relationships. So again, I make
+the plot of wages versus commuting time
+here, and then I can use the LINES command
+Just like I did before with the density
+plots. And what I can do is I can actually
+plot, In this case, what I'm doing is I'm
+just repeating the value 100, a bunch of
+times for the x values. And then I'm
+actually plotting the, wages on the y
+values. And so, what that does is. Since
+the X value, there's only one X value and
+a bunch of Y values. It makes a vertical
+line. And I can make that a gray with, you
+know, and set the width of the line that
+I'm going to make. I can also add, sort of
+points to a plot. In this case, I going to
+add points where the X values are a
+sequence from 0 to 200 in equal intervals.
+And then the y-values are a sequence from
+0 to 20,000. or 2, sorry 200,000, in equal
+intervals as well. And so what you can see
+here is that I, I have a set of dots that
+line out along those values. And so.
+In this particular case this set of dots
+and this line aren't necessarily useful.
+Although, this line might tell you, you
+know, these are only the individuals that
+have, on the right hand side, that have a
+commuting time of greater than 100, and on
+the left hand side less than 100 minutes.
+, But you can use these sort of lines and
+dots to give yourself breakpoints in the
+picture and to communicate the specific
+results. We'll also use these commands,
+lines and points to actually add the
+fitted values for models when we get
+statistical modeling. The other thing that
+you can do is, you might want to able to
+visualize numeric variables as factors so
+sometimes what want to be able t o do is
+make a plot here; again, of a relationship
+between commuting time and wage. And you
+might want to able to break it down by
+age, and as I showed you previously,
+Breaking it down by age was actually kind
+of hard to see if we use the size of the
+points to represent age as a continuous
+variable. So what you can do is you can
+break age up into a factor. And so
+remember, the cut2 command take this
+continuous variable and breaks it up into
+five equal intervals. And then assigns
+each point as a factor to one of those
+different intervals. And so what we can do
+then is, when we make this plot, we can
+actually color the plot by the age groups
+that I've created. And so now this, the
+plot will have five different colors, one
+corresponding to each of the different age
+groups. And so this makes it easier to
+sort of see if there's a difference in
+distribution across the ages. It doesn't
+appear that For this plot there's a big
+difference in the age distribution.
+comparing wages and commuting time, but in
+other plots it might be really useful to
+be able to see if there's a sort of
+relationship that's been modified by a
+third variable. And one way that's very
+common to do that is with this factor. A
+really common occurrence is, when you're
+making a scatterplot, is that you'll have
+a large number of points. So in this case
+I've created two vectors, X and Y, and
+each of them has about a 100,000 points
+and I plot them against each other again
+with filled in circles as the, The
+character that I am using to make the
+plot. And you can see that it actually
+ends up just looking like a big lump of
+black. And the reason why is because all
+of these points overlay each other, and so
+you actually can't see the distinctions
+between those points. So this is a very
+common occurrence, and it's sort of not
+informative. What's going on here in the
+middle, you might not know it, there's a
+ton of points right here in the center and
+there's also a large number here, but not
+quite as many. So, it's a good idea to be
+able to tr y different things to see
+what's going on when you have a large
+number of points. One idea is to sample
+the values. So we talked about sampling in
+the earlier lectures, and so what I could
+do is again generate that x and y value,
+and what I can do is sample observations
+say 1000 observations between the x and y
+values. You want to actually sample the
+same values for both x and y, because you
+actually want to plot the values of x
+versus the values of y that you've
+observed. And so what I can do is then
+subset x by the sampled values, and subset
+y by the same sampled values, and I get a
+plot that looks a little bit less like a
+black ball here in the middle, and looks a
+little bit more like a set of points. I
+could actually subsample even further. If
+I wanted to be able to see the plot-,
+plots more neatly, since I've taken a
+random sample. I still get an idea of the
+relationship between these 2 variables,
+particularly, for exploratory analysis.
+You don't necessarily need to see all of
+the points. A random subsample of the
+points can give you a l-, a big idea about
+the relationship between the variables.
+Another option is to use what's called a
+smoothScatter. So, again I have the x
+variable and the y variable, and if I,
+instead of saying plot, I use
+smoothScatter and x and y. What it does is
+it creates what's called a smooth density
+plot. So what this does is, it shows
+places where there are lots of points in
+darker colors, so the darker here in the
+center means that there's a lot of points
+there. Then, there get to be slightly
+fewer points in this ring here. And then,
+slightly fewer points as you go farther
+away. And then it shows individual
+outlying points as hard dots like this. So
+what this allows you to do is to visualize
+the relationship between these two
+variables without actually having to see
+all of the points themselves. Another way
+that you can do this is with the hexbin
+package, and so what you can do is you can
+take x and y and create a hexbin object
+using x and y, and so what that does is it
+breaks the, the set of y values and the
+set of x values up into these hexagonal
+bins, and then what it does is it counts
+the number of points in each x, hexagonal
+bin, and so again you see darker colors
+mean that there are more points. So there
+are points here in the centre. than in the
+bins that are sort of farther and farther
+out here on the outside. So this is
+another way that you can sort of look,
+visualize when you have a lot of different
+points. Sorry, a lot of points you can
+visualize the relationship between x and
+y. So another type of plot is called a
+QQ-plot and this is sort of like a
+scatterplot, but has a very particular
+purpose. And so what it does is it takes
+two variables, again you're going to be
+looking usually at quantitative variables
+with QQ-plots. So I've generated x and y
+are our quantitative variables. And I pass
+it to this command qqplot(x,y), and what
+that does is it plots the quantiles of x
+versus the quantiles of y. So you can
+think of it as this is the, sort of the
+smallest quantile or percentile of x,
+versus the smallest percentile of y. Say
+this is the, well you know, the first
+percentile, all the way up to say, the
+hundredth percentile of x and y. So if the
+2 distributions are exactly the same,
+you'd expect these quantiles to land
+perfectly on. The 45 degree line which
+I've shown here using the abline command.
+So the abline command takes 2 parameters
+this is equal to the intercept and then
+this is equal to slope. So if you give it
+the parameters 0 and 1, it actually just
+makes the 45 degree line. And so we can
+see is that the quantiles down here for y
+are slightly larger than the quantiles for
+x, and so this gives you a little bit of
+information about the distributions. This
+will particularly useful if you're looking
+at normal distributions and you want to
+see if your data are normally distributed.
+You can make a Q, Q plot with normal data
+versus the observed data, and you can see
+if there's large deviations from this line
+that the data are likely not normally
+distributed. I'll show plots like this as
+we go on in the modeling section of the
+course. The other thing that you can do,
+and this often comes up, is that you have
+data that where you want to plot, actually
+observations over time or observations
+that are observed longitudinally. So, what
+we've got here is a matrix x, and so I'm
+generating again a random matrix. So it's
+a matrix that has 20 rows and five
+columns. And so I just generate 100 normal
+random variables and put them into that
+matrix. And then what I'm going to do is,
+I'm going to use matplot to actually be
+able to plot the different columns of that
+matrix, and what matplot does is, it takes
+each column and will plot it. As one
+specific line. So, the black line with the
+1's is in the first column of
+observations, the red line with the 2's is
+the second column of observations, and so
+forth. And so what this allows you to do,
+is if you observe data over the time You
+can actually compare the trends or
+trajectories over time by looking at the
+trajectories across columns. So this is a
+commonly used when you're doing either
+longitudinal or time series data analysis.
+And they're also called spaghetti plots,
+because this plot kind of looks like
+spaghetti I guess. Another kind of plot
+that you'll be seeing a lot of in this
+class are heat maps and so what a heat map
+is, it's sort of like a 2 D histogram. So,
+what I've done here is, I made an image, I
+used the image command to make the heat
+map, and what it is, is it's, so I have a
+matrix of values. So this, in this case I
+took the values from our data set that are
+in the first ten rows and in columns 161
+to 236. And so I made an image of those
+where the brighter the color in this case,
+the larger the value. So the white here is
+the largest value, and the red are the
+lowest values. And so what you can see is
+you can actually visualize the whole
+matrix of observations that you've got,
+all in one plot. And, so, and color
+represents the sort of intensity or the
+size of the observati on that you have. So
+this, if you have sort of a good eye,
+you'll see that this is a little bit, when
+you make an image plot using the image
+command, it's a little bit confusing.
+Because the first thing that it does is,
+it sort of makes a transpose of the data.
+So remember, we're looking at columns 161
+to 236 of the data set. But in the image
+the columns are actually placed in the
+rows of this image. So, to, to sort of
+make it match your intuition of what
+should be in rows and what should be in
+columns, you actually have to do this kind
+of funky transformation. So, what you do
+is you create your new matrix it's just a
+matrix of the data set so this is a data
+frame before and I'm just changing it to
+have class matrix. This is Only done
+because I need to use a matrix to be able
+to perform the operation that I'm going to
+perform here and pass to the image
+command. And so what I do is I take the
+transpose of the matrix and then I reorder
+it so that the sort of the columns or the
+transposed, or flipped order. So this
+seems like a crazy command, and there's no
+intuition or rhyme or reason behind it,
+other than the fact that, when you do this
+particular flipping and reordering of the
+data set, and then make the image, you now
+get in the rows, the rows of your data
+set, and in the columns, the columns of
+your data set. So that the image maps a
+little bit more to your intuition about
+what this matrix should look like. So
+you'll be seeing this transposed and then
+flipping the rows come up over and over
+again when I make a heat map. And again,
+remember the only reason why I'm doing
+that is so that the, the image maps,
+matches your intuition of the matrix. So
+I'm going to give you, this is another
+area where, there's a huge amount of
+information that you could learn about
+plotting on geographic maps, but I'm just
+going to show you the very basics in r, so
+if you use these maps package, if you load
+the maps library And you type Map of the
+World. You'll get actually this map here
+with all the black lines rep resenting the
+actual geographic outline of the world and
+the countries in the world. You can then
+generate some latitude and longitude
+values. In this case I've just generated
+them randomly. And if you add points to
+this map, you can actually add points in
+latitude and longitude values and they'll
+appear on the map according to the
+latitudes and longitudes that you've
+developed. Or that you generated. So you
+can also use different maps. There's a map
+of United States. There's map of Europe
+and so forth. If you look in the map
+package, you can find a lot more about
+creating different kinds of maps and then
+overlaying points on those maps that
+represent your data. A quick note on
+missing values. So one of the things you
+can use plots for is understanding
+patterns in your data and one of the
+patterns that you'll very commonly run
+into is missing values. And so here I've
+generated a vector X that has three
+missing values at the beginning. Then I've
+generated a vector Y that has values one
+to ten. And so if I plot X versus Y, I can
+see that the first. 3 values just don't
+appear on the plot. So what r does is
+anytime it sees a missing value in a
+scatter plot, its just not going to plot
+that point. That's an important thing to
+keep in mind because if you have missing
+values and they're contributing to
+changing with the patterns between the 2
+variables are, the relationship between
+the 2 variables. If you don't deal with
+the fact that r just sort of skips those
+over you might get sort of inappropriate
+or incorrect conclusions from the graph
+that you're making. Making.
+Another thing that you can do, though, is
+use the box plot command that we saw
+earlier, and actually see the distribution
+of n-a's comparing, different groups. So,
+here I've generated two vectors, x and y,
+each of a, a hundred normal random
+variables. And then I, Create all of the
+values where x is less than zero, I make
+to be n/a values in the y vector. And so,
+then what I can do is, I can actually say
+okay, is there a relationship between the
+missing values and y and the values of x?
+X. And, the way that I do that is I make a
+box plot of x, and again, I use this til,
+tilde, to say, okay, I'm going to compare
+values where, y is equal to n-a, or y is
+not equal to n-a. And so, if you do that,
+you can actually see very clearly that
+when y is equal to n-a, the x values are
+small. And when y is not equal to n-a, you
+see the x values are big. So this type of
+plot can actually be used to explore the
+data. And see if there's relationships
+between missing values and the other
+variables in your data set, which might
+lead to incor, incorrect statistical
+conclusions from your data. So I have just
+barely scraped the surface of graphing in
+R, even for exploratory graphics. And so
+I'm going to give you some resources here.
+the R Graph Gallery has a bunch of
+different graphs, along with corresponding
+R codes when making those graphs. ggplot2
+and the documentation for ggplot2 are
+here. ggplot2 is an entirely different
+graphing mechanism apart from the base r
+graphing mechanism. It allows you to make
+very pretty plots, but also allows
+flexibility in a lot of different ways for
+exploring data. Similarly the lattice
+package is another add-on package that
+allows you to do a lot more flexible sort
+of plotting, than you can in the base R
+package. Finally I've linked here to a
+blog, R bloggers, where people frequently
+post interesting R code for performing
+different kinds of graphs that might be
+useful for more sort of exotic data sets
+than we've been talking about here.

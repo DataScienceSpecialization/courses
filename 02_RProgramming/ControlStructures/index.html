@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Introduction to the R Language</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Introduction to the R Language">
+  <meta name="author" content="Roger Peng, Associate Professor">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Introduction to the R Language</h1>
+        <h2>Control Structures</h2>
+        <p>Roger Peng, Associate Professor<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Control Structures</h2>
+  </hgroup>
+  <article>
+    <p>Control structures in R allow you to control the flow of execution of the program, depending on runtime conditions. Common structures are</p>
+
+<ul>
+<li><p><code>if</code>, <code>else</code>: testing a condition</p></li>
+<li><p><code>for</code>: execute a loop a fixed number of times </p></li>
+<li><p><code>while</code>: execute a loop <em>while</em> a condition is true </p></li>
+<li><p><code>repeat</code>: execute an infinite loop</p></li>
+<li><p><code>break</code>: break the execution of a loop</p></li>
+<li><p><code>next</code>: skip an interation of a loop</p></li>
+<li><p><code>return</code>: exit a function</p></li>
+</ul>
+
+<p>Most control structures are not used in interactive sessions, but rather when writing functions or longer expresisons.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Control Structures: if</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">if(&lt;condition&gt;) {
+        ## do something
+} else {
+        ## do something else
+}
+if(&lt;condition1&gt;) {
+        ## do something
+} else if(&lt;condition2&gt;)  {
+        ## do something different
+} else {
+        ## do something different
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>if</h2>
+  </hgroup>
+  <article>
+    <p>This is a valid if/else structure.</p>
+
+<pre><code class="r">if(x &gt; 3) {
+        y &lt;- 10
+} else {
+        y &lt;- 0
+}
+</code></pre>
+
+<p>So is this one.</p>
+
+<pre><code class="r">y &lt;- if(x &gt; 3) {
+        10
+} else { 
+        0
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>if</h2>
+  </hgroup>
+  <article>
+    <p>Of course, the else clause is not necessary. </p>
+
+<pre><code class="r">if(&lt;condition1&gt;) {
+
+}
+
+if(&lt;condition2&gt;) {
+
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>for</h2>
+  </hgroup>
+  <article>
+    <p><code>for</code> loops take an interator variable and assign it successive values from a sequence or vector. For loops are most commonly used for iterating over the elements of an object (list, vector, etc.)</p>
+
+<pre><code class="r">for(i in 1:10) {
+        print(i)
+}
+</code></pre>
+
+<p>This loop takes the <code>i</code> variable and in each iteration of the loop gives it values 1, 2, 3, ..., 10, and then exits.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>for</h2>
+  </hgroup>
+  <article>
+    <p>These three loops have the same behavior.</p>
+
+<pre><code class="r">x &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;)
+
+for(i in 1:4) {
+        print(x[i])
+}
+
+for(i in seq_along(x)) {
+        print(x[i])
+}
+
+for(letter in x) {
+        print(letter)
+}
+
+for(i in 1:4) print(x[i])
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Nested for loops</h2>
+  </hgroup>
+  <article>
+    <p><code>for</code> loops can be nested.</p>
+
+<pre><code class="r">x &lt;- matrix(1:6, 2, 3)
+
+for(i in seq_len(nrow(x))) {
+        for(j in seq_len(ncol(x))) {
+                print(x[i, j])
+        }   
+}
+</code></pre>
+
+<p>Be careful with nesting though. Nesting beyond 2–3 levels is often very difficult to read/understand.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>while</h2>
+  </hgroup>
+  <article>
+    <p>While loops begin by testing a condition. If it is true, then they execute the loop body. Once the loop body is executed, the condition is tested again, and so forth.</p>
+
+<pre><code class="r">count &lt;- 0
+while(count &lt; 10) {
+        print(count)
+        count &lt;- count + 1
+}
+</code></pre>
+
+<p>While loops can potentially result in infinite loops if not written properly. Use with care!</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>while</h2>
+  </hgroup>
+  <article>
+    <p>Sometimes there will be more than one condition in the test.</p>
+
+<pre><code class="r">z &lt;- 5
+
+while(z &gt;= 3 &amp;&amp; z &lt;= 10) {
+        print(z)
+        coin &lt;- rbinom(1, 1, 0.5)
+
+        if(coin == 1) {  ## random walk
+                z &lt;- z + 1
+        } else {
+                z &lt;- z - 1
+        } 
+}
+</code></pre>
+
+<p>Conditions are always evaluated from left to right.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>repeat</h2>
+  </hgroup>
+  <article>
+    <p>Repeat initiates an infinite loop; these are not commonly used in statistical applications but they do have their uses. The only way to exit a <code>repeat</code> loop is to call <code>break</code>.</p>
+
+<pre><code class="r">x0 &lt;- 1
+tol &lt;- 1e-8
+
+repeat {
+        x1 &lt;- computeEstimate()
+
+        if(abs(x1 - x0) &lt; tol) {
+                break
+        } else {
+                x0 &lt;- x1
+        } 
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>repeat</h2>
+  </hgroup>
+  <article>
+    <p>The loop in the previous slide is a bit dangerous because there’s no guarantee it will stop. Better to set a hard limit on the number of iterations (e.g. using a for loop) and then report whether convergence was achieved or not.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>next, return</h2>
+  </hgroup>
+  <article>
+    <p><code>next</code> is used to skip an iteration of a loop</p>
+
+<pre><code class="r">for(i in 1:100) {
+        if(i &lt;= 20) {
+                ## Skip the first 20 iterations
+                next 
+        }
+        ## Do something here
+}
+</code></pre>
+
+<p><code>return</code> signals that a function should exit and return a given value</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Control Structures</h2>
+  </hgroup>
+  <article>
+    <p>Summary</p>
+
+<ul>
+<li><p>Control structures like <code>if</code>, <code>while</code>, and <code>for</code> allow you to control the flow of an R program</p></li>
+<li><p>Infinite loops should generally be avoided, even if they are theoretically correct.</p></li>
+<li><p>Control structures mentiond here are primarily useful for writing programs; for command-line interactive work, the *apply functions are more useful.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Introduction to the R Language</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Introduction to the R Language">
+  <meta name="author" content="Roger Peng, Associate Professor">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Introduction to the R Language</h1>
+        <h2>Loop Functions - tapply</h2>
+        <p>Roger Peng, Associate Professor<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>tapply</h2>
+  </hgroup>
+  <article>
+    <p><code>tapply</code> is used to apply a function over subsets of a vector. I don’t know why it’s called <code>tapply</code>.</p>
+
+<pre><code class="r">&gt; str(tapply)
+function (X, INDEX, FUN = NULL, ..., simplify = TRUE)
+</code></pre>
+
+<ul>
+<li><code>X</code> is a vector</li>
+<li><code>INDEX</code> is a factor or a list of factors (or else they are coerced to factors) </li>
+<li><code>FUN</code> is a function to be applied</li>
+<li>... contains other arguments to be passed <code>FUN</code></li>
+<li><code>simplify</code>, should we simplify the result?</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>tapply</h2>
+  </hgroup>
+  <article>
+    <p>Take group means.</p>
+
+<pre><code class="r">&gt; x &lt;- c(rnorm(10), runif(10), rnorm(10, 1))
+&gt; f &lt;- gl(3, 10)
+&gt; f
+ [1] 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3 3
+[24] 3 3 3 3 3 3 3
+Levels: 1 2 3
+&gt; tapply(x, f, mean)
+        1         2         3 
+0.1144464 0.5163468 1.2463678
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>tapply</h2>
+  </hgroup>
+  <article>
+    <p>Take group means without simplification.</p>
+
+<pre><code class="r">&gt; tapply(x, f, mean, simplify = FALSE)
+$‘1‘
+[1] 0.1144464
+
+$‘2‘
+[1] 0.5163468
+
+$‘3‘
+[1] 1.246368
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>tapply</h2>
+  </hgroup>
+  <article>
+    <p>Find group ranges.</p>
+
+<pre><code class="r">&gt; tapply(x, f, range)
+$‘1‘
+[1] -1.097309  2.694970
+
+$‘2‘
+[1] 0.09479023 0.79107293
+
+$‘3‘
+[1] 0.4717443 2.5887025
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>split</h2>
+  </hgroup>
+  <article>
+    <p><code>split</code> takes a vector or other objects and splits it into groups determined by a factor or list of factors.</p>
+
+<pre><code class="r">&gt; str(split)
+function (x, f, drop = FALSE, ...)
+</code></pre>
+
+<ul>
+<li><code>x</code> is a vector (or list) or data frame</li>
+<li><code>f</code> is a factor (or coerced to one) or a list of factors</li>
+<li><code>drop</code> indicates whether empty factors levels should be dropped</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>split</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">&gt; x &lt;- c(rnorm(10), runif(10), rnorm(10, 1))
+&gt; f &lt;- gl(3, 10)
+&gt; split(x, f)
+$‘1‘
+ [1] -0.8493038 -0.5699717 -0.8385255 -0.8842019
+ [5]  0.2849881  0.9383361 -1.0973089  2.6949703
+ [9]  1.5976789 -0.1321970
+
+$‘2‘
+ [1] 0.09479023 0.79107293 0.45857419 0.74849293
+ [5] 0.34936491 0.35842084 0.78541705 0.57732081
+ [9] 0.46817559 0.53183823
+
+$‘3‘
+ [1] 0.6795651 0.9293171 1.0318103 0.4717443
+ [5] 2.5887025 1.5975774 1.3246333 1.4372701
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>split</h2>
+  </hgroup>
+  <article>
+    <p>A common idiom is <code>split</code> followed by an <code>lapply</code>.</p>
+
+<pre><code class="r">&gt; lapply(split(x, f), mean)
+$‘1‘
+[1] 0.1144464
+
+$‘2‘
+[1] 0.5163468
+
+$‘3‘
+[1] 1.246368
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Splitting a Data Frame</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">&gt; library(datasets)
+&gt; head(airquality)
+  Ozone Solar.R Wind Temp Month Day 
+1    41     190  7.4   67     5   1 
+2    36     118  8.0   72     5   2 
+3    12     149 12.6   74     5   3 
+4    18     313 11.5   62     5   4 
+5    NA      NA 14.3   56     5   5 
+6    28      NA 14.9   66     5   6
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Splitting a Data Frame</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">&gt; s &lt;- split(airquality, airquality$Month)
+&gt; lapply(s, function(x) colMeans(x[, c(&quot;Ozone&quot;, &quot;Solar.R&quot;, &quot;Wind&quot;)]))
+$‘5‘
+   Ozone  Solar.R     Wind
+      NA       NA 11.62258
+$‘6‘
+    Ozone   Solar.R      Wind
+       NA 190.16667  10.26667
+$‘7‘
+     Ozone    Solar.R       Wind
+        NA 216.483871   8.941935
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Splitting a Data Frame</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">&gt; sapply(s, function(x) colMeans(x[, c(&quot;Ozone&quot;, &quot;Solar.R&quot;, &quot;Wind&quot;)])) 
+               5         6          7        8        9
+Ozone         NA        NA         NA       NA       NA
+Solar.R       NA 190.16667 216.483871       NA 167.4333
+Wind    11.62258  10.26667   8.941935 8.793548  10.1800
+
+&gt; sapply(s, function(x) colMeans(x[, c(&quot;Ozone&quot;, &quot;Solar.R&quot;, &quot;Wind&quot;)],
+                                 na.rm = TRUE))
+                  5            6             7            8           9 
+Ozone      23.61538     29.44444     59.115385    59.961538   31.44828 
+Solar.R   181.29630    190.16667    216.483871   171.857143  167.43333 
+Wind       11.62258     10.26667      8.941935     8.793548   10.18000
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Splitting on More than One Level</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">&gt; x &lt;- rnorm(10)
+&gt; f1 &lt;- gl(2, 5)
+&gt; f2 &lt;- gl(5, 2)
+&gt; f1
+ [1] 1 1 1 1 1 2 2 2 2 2
+Levels: 1 2
+&gt; f2
+ [1] 1 1 2 2 3 3 4 4 5 5
+Levels: 1 2 3 4 5
+&gt; interaction(f1, f2)
+ [1] 1.1 1.1 1.2 1.2 1.3 2.3 2.4 2.4 2.5 2.5
+10 Levels: 1.1 2.1 1.2 2.2 1.3 2.3 1.4 ... 2.5
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Splitting on More than One Level</h2>
+  </hgroup>
+  <article>
+    <p>Interactions can create empty levels.</p>
+
+<pre><code class="r">&gt; str(split(x, list(f1, f2)))
+List of 10
+ $ 1.1: num [1:2] -0.378  0.445
+ $ 2.1: num(0)
+ $ 1.2: num [1:2] 1.4066 0.0166
+ $ 2.2: num(0)
+ $ 1.3: num -0.355
+ $ 2.3: num 0.315
+ $ 1.4: num(0)
+ $ 2.4: num [1:2] -0.907  0.723
+ $ 1.5: num(0)
+ $ 2.5: num [1:2] 0.732 0.360
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>split</h2>
+  </hgroup>
+  <article>
+    <p>Empty levels can be dropped.</p>
+
+<pre><code class="r">&gt; str(split(x, list(f1, f2), drop = TRUE))
+List of 6
+ $ 1.1: num [1:2] -0.378  0.445
+ $ 1.2: num [1:2] 1.4066 0.0166
+ $ 1.3: num -0.355
+ $ 2.3: num 0.315
+ $ 2.4: num [1:2] -0.907  0.723
+ $ 2.5: num [1:2] 0.732 0.360
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

@@ -1,0 +1,230 @@
+---
+title       : Expository graphs
+subtitle    : 
+author      : Roger D. Peng, Associate Professor of Biostatistics 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache = T, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## Why do we use graphs in data analysis? 
+
+* To understand data properties
+* To find patterns in data
+* To suggest modeling strategies
+* To "debug" analyses
+* To communicate results
+
+---
+
+## Expository graphs
+
+* To understand data properties
+* To find patterns in data
+* To suggest modeling strategies
+* To "debug" analyses
+* <redtext> To communicate results </redtex>
+
+
+---
+
+## Characteristics of expository graphs
+
+* The goal is to communicate information
+* Information density is generally good
+* Color/size are used both for aesthetics and communication
+* Expository figures have understandable axes, titles, and legends
+
+
+---
+
+## Housing data
+
+<img class=center src=../../assets/img/acs.png height=400>
+
+<br>
+
+```{r downloadData, echo=FALSE}
+if(!file.exists("data/ss06pid.csv")) {
+        download.file("https://dl.dropboxusercontent.com/u/7710864/data/csv_hid/ss06pid.csv",destfile="./data/ss06pid.csv",method="curl")
+}
+```
+
+
+```{r loadData,dependson="downloadData"}
+pData <- read.csv("./data/ss06pid.csv")
+```
+
+
+---
+
+## Axes
+
+Important parameters: _xlab_,_ylab_,_cex.lab_,_cex.axis_
+```{r , dependson="loadData",fig.height=4,fig.width=4}
+plot(pData$JWMNP,pData$WAGP,pch=19,col="blue",cex=0.5,
+     xlab="Travel time (min)",ylab="Last 12 month wages (dollars)")
+```
+
+
+---
+
+## Axes
+
+```{r , dependson="loadData",fig.height=4.5,fig.width=4.5}
+plot(pData$JWMNP,pData$WAGP,pch=19,col="blue",cex=0.5,
+     xlab="Travel time (min)",ylab="Last 12 month wages (dollars)",cex.lab=2,cex.axis=1.5)
+```
+
+
+---
+
+## Legends
+
+* Important paramters: _x_,_y_,_legend_, _other plotting parameters_
+```{r , dependson="loadData",fig.height=4,fig.width=4}
+plot(pData$JWMNP,pData$WAGP,pch=19,col="blue",cex=0.5,xlab="TT (min)",ylab="Wages (dollars)")
+legend(100,200000,legend="All surveyed",col="blue",pch=19,cex=0.5)
+```
+
+---
+
+## Legends
+
+
+```{r , dependson="loadData",fig.height=4.5,fig.width=4.5}
+plot(pData$JWMNP,pData$WAGP,pch=19,cex=0.5,xlab="TT (min)",ylab="Wages (dollars)",col=pData$SEX)
+legend(100,200000,legend=c("men","women"),col=c("black","red"),pch=c(19,19),cex=c(0.5,0.5))
+```
+
+
+---
+
+## Titles
+
+```{r , dependson="loadData",fig.height=4.5,fig.width=4.5}
+plot(pData$JWMNP,pData$WAGP,pch=19,cex=0.5,xlab="CT (min)",
+     ylab="Wages (dollars)",col=pData$SEX,main="Wages earned versus commute time")
+legend(100,200000,legend=c("men","women"),col=c("black","red"),pch=c(19,19),cex=c(0.5,0.5))
+```
+
+
+---
+
+## Multiple panels
+
+
+```{r , dependson="loadData",fig.height=4,fig.width=8}
+par(mfrow=c(1,2))
+hist(pData$JWMNP,xlab="CT (min)",col="blue",breaks=100,main="")
+plot(pData$JWMNP,pData$WAGP,pch=19,cex=0.5,xlab="CT (min)",ylab="Wages (dollars)",col=pData$SEX)
+legend(100,200000,legend=c("men","women"),col=c("black","red"),pch=c(19,19),cex=c(0.5,0.5))
+```
+
+
+
+---
+
+## Adding text
+
+```{r , dependson="loadData",fig.height=3,fig.width=8}
+par(mfrow=c(1,2))
+hist(pData$JWMNP,xlab="CT (min)",col="blue",breaks=100,main="")
+mtext(text="(a)",side=3,line=1)
+plot(pData$JWMNP,pData$WAGP,pch=19,cex=0.5,xlab="CT (min)",ylab="Wages (dollars)",col=pData$SEX)
+legend(100,200000,legend=c("men","women"),col=c("black","red"),pch=c(19,19),cex=c(0.5,0.5))
+mtext(text="(b)",side=3,line=1)
+```
+
+
+---
+
+## Figure captions
+
+```{r , echo=FALSE, dependson="loadData",fig.height=4,fig.width=8}
+par(mfrow=c(1,2))
+hist(pData$JWMNP,xlab="CT (min)",col="blue",breaks=100,main="")
+mtext(text="(a)",side=3,line=1)
+plot(pData$JWMNP,pData$WAGP,pch=19,cex=0.5,xlab="CT (min)",ylab="Wages (dollars)",col=pData$SEX)
+legend(100,200000,legend=c("men","women"),col=c("black","red"),pch=c(19,19),cex=c(0.5,0.5))
+mtext(text="(b)",side=3,line=1)
+```
+
+__Figure 1. Distribution of commute time and relationship to wage earned by sex__ __(a)__ Commute times in the American Community Survey (ACS) are right skewed. __(b)__ Commute times do not appear to be strongly correlated with wage for either sex. 
+
+---
+
+## Colorblindness
+
+
+<img class=center src=../../assets/img/vischeck.png height=450>
+
+
+[http://www.vischeck.com/](http://www.vischeck.com/vischeck/vischeckImage.php)
+
+
+---
+
+## Graphical workflow
+
+* Start with a rough plot
+* Tweak it to make it expository
+* <redtext> Save the file </redtext>
+* Include it in presentations
+
+Saving files in R is done with graphics _devices_. Use the command ?Devices to see a list. Here we will go over the most popular devices. 
+
+---
+
+## Something to avoid
+
+<img class=center src=../../assets/img/broman.png height=450>
+
+[http://www.biostat.wisc.edu/~kbroman/topten_worstgraphs/](http://www.biostat.wisc.edu/~kbroman/topten_worstgraphs/)
+
+
+---
+
+## Something to aspire to
+
+<img class=center src=../../assets/img/facebook.png height=450>
+
+[http://www.facebook.com/notes/facebook-engineering/visualizing-friendships/469716398919](http://www.facebook.com/notes/facebook-engineering/visualizing-friendships/469716398919)
+
+
+
+---
+
+## Further resources
+
+* [How to display data badly](http://www.jstor.org/discover/10.2307/2683253?uid=3739704&uid=2&uid=4&uid=3739256&sid=21101619120151)
+* [The visual display of quantitative information](http://www.amazon.com/exec/obidos/ASIN/0961392142/7210-20)
+* [Creating more effective graphs](http://www.amazon.com/exec/obidos/ASIN/047127402X/7210-20)
+* [R Graphics Cookbook](http://www.amazon.com/R-Graphics-Cookbook-Winston-Chang/dp/1449316956)
+* [ggplot2: Elegant Graphics for Data Analysis](http://www.amazon.com/ggplot2-Elegant-Graphics-Data-Analysis/dp/0387981403)
+* [Flowing Data](http://flowingdata.com/)
+

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Plotting Systems in R</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Plotting Systems in R">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Plotting Systems in R</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>The Base Plotting System</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>&quot;Artist&#39;s palette&quot; model</li>
+<li>Start with blank canvas and build up from there</li>
+<li><p>Start with plot function (or similar)</p></li>
+<li><p>Use annotation functions to add/modify (<code>text</code>, <code>lines</code>, <code>points</code>,
+<code>axis</code>)</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>The Base Plotting System</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Convenient, mirrors how we think of building plots and analyzing data</p></li>
+<li><p>Can’t go back once plot has started (i.e. to adjust margins); need
+to plan in advance</p></li>
+<li><p>Difficult to &quot;translate&quot; to others once a new plot has been created
+(no graphical &quot;language&quot;)</p></li>
+<li><p>Plot is just a series of R commands</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Base Plot</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(datasets)
+data(cars)
+with(cars, plot(speed, dist))
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>The Lattice System</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Plots are created with a single function call (<code>xyplot</code>, <code>bwplot</code>,
+etc.)</p></li>
+<li><p>Most useful for conditioning types of plots: Looking at how y changes with x across levels of z</p></li>
+<li><p>Things like margins/spacing set automatically because entire plot is
+specified at once</p></li>
+<li><p>Good for puttng many many plots on a screen</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>The Lattice System</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Sometimes awkward to specify an entire plot in a single function call</p></li>
+<li><p>Annotation in plot is not especially intuitive</p></li>
+<li><p>Use of panel functions and subscripts difficult to wield and
+requires intense preparation</p></li>
+<li><p>Cannot &quot;add&quot; to the plot once it is created</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Lattice Plot</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(lattice)
+state &lt;- data.frame(state.x77, region = state.region)
+xyplot(Life.Exp ~ Income | region, data = state, layout = c(4, 1))
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>The ggplot2 System</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Splits the difference between base and lattice in a number of ways</p></li>
+<li><p>Automatically deals with spacings, text, titles but also allows you
+to annotate by &quot;adding&quot; to a plot</p></li>
+<li><p>Superficial similarity to lattice but generally easier/more
+intuitive to use</p></li>
+<li><p>Default mode makes many choices for you (but you can still customize
+to your heart&#39;s desire)</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>ggplot2 Plot</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(ggplot2)
+data(mpg)
+qplot(displ, hwy, data = mpg)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Base: &quot;artist&#39;s palette&quot; model</p></li>
+<li><p>Lattice: Entire plot specified by one function; conditioning</p></li>
+<li><p>ggplot2: Mixes elements of Base and Lattice</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>References</h2>
+  </hgroup>
+  <article>
+    <p>Paul Murrell (2011). <em>R Graphics</em>, CRC Press.</p>
+
+<p>Hadley Wickham (2009). <em>ggplot2</em>, Springer.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

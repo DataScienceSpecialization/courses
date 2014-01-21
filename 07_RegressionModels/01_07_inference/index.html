@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Inference in regression</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Inference in regression">
+  <meta name="author" content="Brian Caffo, Jeff Leek and Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Inference in regression</h1>
+        <h2></h2>
+        <p>Brian Caffo, Jeff Leek and Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Recall our model and fitted values</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Consider the model
+\[
+Y_i = \beta_0 + \beta_1 X_i + \epsilon_i
+\]</li>
+<li>\(\epsilon \sim N(0, \sigma^2)\). </li>
+<li>We assume that the true model is known.</li>
+<li>We assume that you&#39;ve seen confidence intervals and hypothesis tests before.</li>
+<li>\(\hat \beta_0 = \bar Y - \hat \beta_1 \bar X\)</li>
+<li>\(\hat \beta_1 = Cor(Y, X) \frac{Sd(Y)}{Sd(X)}\).</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Review</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Statistics like \(\frac{\hat \theta - \theta}{\hat \sigma_{\hat \theta}}\) often have the following properties.
+
+<ol>
+<li>Is normally distributed and has a finite sample Student&#39;s T distribution if the estimated variance is replaced with a sample estimate (under normality assumptions).</li>
+<li>Can be used to test \(H_0 : \theta = \theta_0\) versus \(H_a : \theta >, <, \neq \theta_0\).</li>
+<li>Can be used to create a confidence interval for \(\theta\) via \(\hat \theta \pm Q_{1-\alpha/2} \hat \sigma_{\hat \theta}\)
+where \(Q_{1-\alpha/2}\) is the relevant quantile from either a normal or T distribution.</li>
+</ol></li>
+<li>In the case of regression with iid sampling assumptions and normal errors, our inferences will follow
+very similarily to what you saw in your inference class.</li>
+<li>We won&#39;t cover asymptotics for regression analysis, but suffice it to say that under assumptions 
+on the ways in which the \(X\) values are collected, the iid sampling model, and mean model, 
+the normal results hold to create intervals and confidence intervals</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Standard errors (conditioned on X)</h2>
+  </hgroup>
+  <article>
+    <p>\[
+\begin{align}
+Var(\hat \beta_1) & =
+Var\left(\frac{\sum_{i=1}^n (Y_i - \bar Y) (X_i - \bar X)}{\sum_{i=1}^n (X_i - \bar X)^2}\right) \\
+& = \frac{Var\left(\sum_{i=1}^n Y_i (X_i - \bar X) \right) }{\left(\sum_{i=1}^n (X_i - \bar X)^2 \right)^2} \\
+& = \frac{\sum_{i=1}^n \sigma^2(X_i - \bar X)^2}{\left(\sum_{i=1}^n (X_i - \bar X)^2 \right)^2} \\
+& = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar X)^2} \\
+\end{align}
+\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Results</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>\(\sigma_{\hat \beta_1}^2 = Var(\hat \beta_1) = \sigma^2 / \sum_{i=1}^n (X_i - \bar X)^2\)</li>
+<li>\(\sigma_{\hat \beta_0}^2 = Var(\hat \beta_0)  = \left(\frac{1}{n} + \frac{\bar X^2}{\sum_{i=1}^n (X_i - \bar X)^2 }\right)\sigma^2\)</li>
+<li>In practice, \(\sigma\) is replaced by its estimate.</li>
+<li>It&#39;s probably not surprising that under iid Gaussian errors
+\[
+\frac{\hat \beta_j - \beta_j}{\hat \sigma_{\hat \beta_j}}
+\]
+follows a \(t\) distribution with \(n-2\) degrees of freedom and a normal distribution for large \(n\).</li>
+<li>This can be used to create confidence intervals and perform
+hypothesis tests.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Example diamond data set</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(UsingR); data(diamond)
+y &lt;- diamond$price; x &lt;- diamond$carat; n &lt;- length(y)
+beta1 &lt;- cor(y, x) * sd(y) / sd(x)
+beta0 &lt;- mean(y) - beta1 * mean(x)
+e &lt;- y - beta0 - beta1 * x
+sigma &lt;- sqrt(sum(e^2) / (n-2)) 
+ssx &lt;- sum((x - mean(x))^2)
+seBeta0 &lt;- (1 / n + mean(x) ^ 2 / ssx) ^ .5 * sigma 
+seBeta1 &lt;- sigma / sqrt(ssx)
+tBeta0 &lt;- beta0 / seBeta0; tBeta1 &lt;- beta1 / seBeta1
+pBeta0 &lt;- 2 * pt(abs(tBeta0), df = n - 2, lower.tail = FALSE)
+pBeta1 &lt;- 2 * pt(abs(tBeta1), df = n - 2, lower.tail = FALSE)
+coefTable &lt;- rbind(c(beta0, seBeta0, tBeta0, pBeta0), c(beta1, seBeta1, tBeta1, pBeta1))
+colnames(coefTable) &lt;- c(&quot;Estimate&quot;, &quot;Std. Error&quot;, &quot;t value&quot;, &quot;P(&gt;|t|)&quot;)
+rownames(coefTable) &lt;- c(&quot;(Intercept)&quot;, &quot;x&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Example continued</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">coefTable
+</code></pre>
+
+<pre><code>            Estimate Std. Error t value   P(&gt;|t|)
+(Intercept)   -259.6      17.32  -14.99 2.523e-19
+x             3721.0      81.79   45.50 6.751e-40
+</code></pre>
+
+<pre><code class="r">fit &lt;- lm(y ~ x); 
+summary(fit)$coefficients
+</code></pre>
+
+<pre><code>            Estimate Std. Error t value  Pr(&gt;|t|)
+(Intercept)   -259.6      17.32  -14.99 2.523e-19
+x             3721.0      81.79   45.50 6.751e-40
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Getting a confidence interval</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">sumCoef &lt;- summary(fit)$coefficients
+sumCoef[1,1] + c(-1, 1) * qt(.975, df = fit$df) * sumCoef[1, 2]
+</code></pre>
+
+<pre><code>[1] -294.5 -224.8
+</code></pre>
+
+<pre><code class="r">sumCoef[2,1] + c(-1, 1) * qt(.975, df = fit$df) * sumCoef[2, 2]
+</code></pre>
+
+<pre><code>[1] 3556 3886
+</code></pre>
+
+<p>With 95% confidence, we estimate that a 0.1 carat increase in
+diamond size results in a 355.6 to 388.6 increase in price in (Singapore) dollars.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Prediction of outcomes</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Consider predicting \(Y\) at a value of \(X\)
+
+<ul>
+<li>Predicting the price of a diamond given the carat</li>
+<li>Predicting the height of a child given the height of the parents</li>
+</ul></li>
+<li>The obvious estimate for prediction at point \(x_0\) is 
+\[
+\hat \beta_0 + \hat \beta_1 x_0
+\]</li>
+<li>A standard error is needed to create a prediction interval.</li>
+<li>There&#39;s a distinction between intervals for the regression
+line at point \(x_0\) and the prediction of what a \(y\) would be
+at point \(x_0\). </li>
+<li>Line at \(x_0\) se, \(\hat \sigma\sqrt{\frac{1}{n} +  \frac{(x_0 - \bar X)^2}{\sum_{i=1}^n (X_i - \bar X)^2}}\)</li>
+<li>Prediction interval se at \(x_0\), \(\hat \sigma\sqrt{1 + \frac{1}{n} + \frac{(x_0 - \bar X)^2}{\sum_{i=1}^n (X_i - \bar X)^2}}\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Plotting the prediction intervals</h2>
+  </hgroup>
+  <article>
+    <pre><code>plot(x, y, frame=FALSE,xlab=&quot;Carat&quot;,ylab=&quot;Dollars&quot;,pch=21,col=&quot;black&quot;, bg=&quot;lightblue&quot;, cex=2)
+abline(fit, lwd = 2)
+xVals &lt;- seq(min(x), max(x), by = .01)
+yVals &lt;- beta0 + beta1 * xVals
+se1 &lt;- sigma * sqrt(1 / n + (xVals - mean(x))^2/ssx)
+se2 &lt;- sigma * sqrt(1 + 1 / n + (xVals - mean(x))^2/ssx)
+lines(xVals, yVals + 2 * se1)
+lines(xVals, yVals - 2 * se1)
+lines(xVals, yVals + 2 * se2)
+lines(xVals, yVals - 2 * se2)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Plotting the prediction intervals</h2>
+  </hgroup>
+  <article>
+    <div class="rimage center"><img src="fig/fig.width==5.png" title="plot of chunk fig.width==5" alt="plot of chunk fig.width==5" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Discussion</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Both intervals have varying widths.
+
+<ul>
+<li>Least width at the mean of the Xs.</li>
+</ul></li>
+<li>We are quite confident in the regression line, so that 
+interval is very narrow.
+
+<ul>
+<li>If we knew \(\beta_0\) and \(\beta_1\) this interval would have zero width.</li>
+</ul></li>
+<li>The prediction interval must incorporate the variabilibity
+in the data around the line.
+
+<ul>
+<li>Even if we knew \(\beta_0\) and \(\beta_1\) this interval would still have width.</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>In R</h2>
+  </hgroup>
+  <article>
+    <pre><code>newdata &lt;- data.frame(x = xVals)
+p1 &lt;- predict(fit, newdata, interval = (&quot;confidence&quot;))
+p2 &lt;- predict(fit, newdata, interval = (&quot;prediction&quot;))
+plot(x, y, frame=FALSE,xlab=&quot;Carat&quot;,ylab=&quot;Dollars&quot;,pch=21,col=&quot;black&quot;, bg=&quot;lightblue&quot;, cex=2)
+abline(fit, lwd = 2)
+lines(xVals, p1[,2]); lines(xVals, p1[,3])
+lines(xVals, p2[,2]); lines(xVals, p2[,3])
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    
+  </hgroup>
+  <article>
+    <hr>
+
+<h2>In R</h2>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

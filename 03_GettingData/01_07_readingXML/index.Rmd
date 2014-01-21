@@ -1,0 +1,177 @@
+---
+title       : Reading XML 
+subtitle    : 
+author      : Jeffrey Leek 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## XML
+
+* Extensible markup language
+* Frequently used to store structured data
+* Particularly widely used in internet applications
+* Extracting XML is the basis for most web scraping
+* Components
+  * Markup - labels that give the text structure
+  * Content - the actual text of the document
+
+[http://en.wikipedia.org/wiki/XML](http://en.wikipedia.org/wiki/XML)
+
+
+---
+
+## Tags, elements and attributes
+
+* Tags correspond to general labels
+  * Start tags `<section>`
+  * End tags `</section>`
+  * Empty tags `<line-break />`
+* Elements are specific examples of tags
+  * `<Greeting> Hello, world </Greeting>`
+* Attributes are components of the label
+  * `<img src="jeff.jpg" alt="instructor"/>`
+  * `<step number="3"> Connect A to B. </step>`
+  
+
+[http://en.wikipedia.org/wiki/XML](http://en.wikipedia.org/wiki/XML)
+
+---
+
+## Example XML file
+
+<img class=center src=../../assets/img/03_ObtainingData/xmlexample.png height=450>
+
+
+[http://www.w3schools.com/xml/simple.xml](http://www.w3schools.com/xml/simple.xml)
+
+---
+
+## Read the file into R
+
+```{r xmldata}
+library(XML)
+fileUrl <- "http://www.w3schools.com/xml/simple.xml"
+doc <- xmlTreeParse(fileUrl,useInternal=TRUE)
+rootNode <- xmlRoot(doc)
+xmlName(rootNode)
+names(rootNode)
+```
+
+
+---
+
+## Directly access parts of the XML document
+
+```{r explore, dependson="xmldata"}
+rootNode[[1]]
+rootNode[[1]][[1]]
+```
+
+
+
+---
+
+## Programatically extract parts of the file
+
+```{r explore2, dependson="xmldata"}
+xmlSApply(rootNode,xmlValue)
+```
+
+---
+
+## Programatically extract parts of the file
+
+```{r explore3, dependson="xmldata"}
+xmlSApply(rootNode,xmlValue)
+```
+
+
+---
+
+## XPath
+
+* _/node_ Top level node
+* _//node_ Node at any level
+* _node[@attr-name]_ Node with an attribute name
+* _node[@attr-name='bob']_ Node with attribute name attr-name='bob'
+
+Information from: [http://www.stat.berkeley.edu/~statcur/Workshop2/Presentations/XML.pdf](http://www.stat.berkeley.edu/~statcur/Workshop2/Presentations/XML.pdf)
+
+
+---
+
+## Get the items on the menu and prices
+
+```{r explore4, dependson="xmldata"}
+xpathSApply(rootNode,"//name",xmlValue)
+xpathSApply(rootNode,"//price",xmlValue)
+```
+
+
+
+---
+
+## Another example
+
+
+<img class=center src=../../assets/img/03_ObtainingData/ravens.png height=450>
+
+[http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens](http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens)
+
+
+---
+
+## Viewing the source
+
+<img class=center src=../../assets/img/03_ObtainingData/ravenssource.png height=450>
+
+[http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens](http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens)
+
+
+---
+
+## Extract content by attributes
+
+```{r htmldata}
+fileUrl <- "http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens"
+doc <- htmlTreeParse(fileUrl,useInternal=TRUE)
+scores <- xpathSApply(doc,"//li[@class='score']",xmlValue)
+teams <- xpathSApply(doc,"//li[@class='team-name']",xmlValue)
+scores
+teams
+```
+
+---
+
+## Notes and further resources
+
+* Official XML tutorials [short](http://www.omegahat.org/RSXML/shortIntro.pdf), [long](http://www.omegahat.org/RSXML/Tour.pdf)
+* [An outstanding guide to the XML package](http://www.stat.berkeley.edu/~statcur/Workshop2/Presentations/XML.pdf)
+

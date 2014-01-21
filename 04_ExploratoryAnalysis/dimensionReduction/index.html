@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Principal Components Analysis and Singular Value Decomposition</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Principal Components Analysis and Singular Value Decomposition">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Principal Components Analysis and Singular Value Decomposition</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Matrix data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(12345)
+par(mar = rep(0.2, 4))
+dataMatrix &lt;- matrix(rnorm(400), nrow = 40)
+image(1:10, 1:40, t(dataMatrix)[, nrow(dataMatrix):1])
+</code></pre>
+
+<p><img src="figure/randomData.png" alt="plot of chunk randomData"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Cluster the data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mar = rep(0.2, 4))
+heatmap(dataMatrix)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>What if we add a pattern?</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(678910)
+for (i in 1:40) {
+    # flip a coin
+    coinFlip &lt;- rbinom(1, size = 1, prob = 0.5)
+    # if coin is heads add a common pattern to that row
+    if (coinFlip) {
+        dataMatrix[i, ] &lt;- dataMatrix[i, ] + rep(c(0, 3), each = 5)
+    }
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>What if we add a pattern? - the data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mar = rep(0.2, 4))
+image(1:10, 1:40, t(dataMatrix)[, nrow(dataMatrix):1])
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>What if we add a pattern? - the clustered data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mar = rep(0.2, 4))
+heatmap(dataMatrix)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Patterns in rows and columns</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">hh &lt;- hclust(dist(dataMatrix))
+dataMatrixOrdered &lt;- dataMatrix[hh$order, ]
+par(mfrow = c(1, 3))
+image(t(dataMatrixOrdered)[, nrow(dataMatrixOrdered):1])
+plot(rowMeans(dataMatrixOrdered), 40:1, , xlab = &quot;Row Mean&quot;, ylab = &quot;Row&quot;, pch = 19)
+plot(colMeans(dataMatrixOrdered), xlab = &quot;Column&quot;, ylab = &quot;Column Mean&quot;, pch = 19)
+</code></pre>
+
+<p><img src="figure/oChunk.png" alt="plot of chunk oChunk"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Related problems</h2>
+  </hgroup>
+  <article>
+    <p>You have multivariate variables \(X_1,\ldots,X_n\) so \(X_1 = (X_{11},\ldots,X_{1m})\)</p>
+
+<ul>
+<li>Find a new set of multivariate variables that are uncorrelated and explain as much variance as possible.</li>
+<li>If you put all the variables together in one matrix, find the best matrix created with fewer variables (lower rank) that explains the original data.</li>
+</ul>
+
+<p>The first goal is <font color="#330066">statistical</font> and the second goal is <font color="#993300">data compression</font>.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Related solutions - PCA/SVD</h2>
+  </hgroup>
+  <article>
+    <p><strong>SVD</strong></p>
+
+<p>If \(X\) is a matrix with each variable in a column and each observation in a row then the SVD is a &quot;matrix decomposition&quot;</p>
+
+<p>\[ X = UDV^T\]</p>
+
+<p>where the columns of \(U\) are orthogonal (left singular vectors), the columns of \(V\) are orthogonal (right singular vectors) and \(D\) is a diagonal matrix (singular values). </p>
+
+<p><strong>PCA</strong></p>
+
+<p>The principal components are equal to the right singular values if you first scale (subtract the mean, divide by the standard deviation) the variables.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Components of the SVD - \(u\) and \(v\)</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">svd1 &lt;- svd(scale(dataMatrixOrdered))
+par(mfrow = c(1, 3))
+image(t(dataMatrixOrdered)[, nrow(dataMatrixOrdered):1])
+plot(svd1$u[, 1], 40:1, , xlab = &quot;Row&quot;, ylab = &quot;First left singular vector&quot;, 
+    pch = 19)
+plot(svd1$v[, 1], xlab = &quot;Column&quot;, ylab = &quot;First right singular vector&quot;, pch = 19)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-4.png" alt="plot of chunk unnamed-chunk-4"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Components of the SVD - Variance explained</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mfrow = c(1, 2))
+plot(svd1$d, xlab = &quot;Column&quot;, ylab = &quot;Singular value&quot;, pch = 19)
+plot(svd1$d^2/sum(svd1$d^2), xlab = &quot;Column&quot;, ylab = &quot;Prop. of variance explained&quot;, 
+    pch = 19)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-5.png" alt="plot of chunk unnamed-chunk-5"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Relationship to principal components</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">svd1 &lt;- svd(scale(dataMatrixOrdered))
+pca1 &lt;- prcomp(dataMatrixOrdered, scale = TRUE)
+plot(pca1$rotation[, 1], svd1$v[, 1], pch = 19, xlab = &quot;Principal Component 1&quot;, 
+    ylab = &quot;Right Singular Vector 1&quot;)
+abline(c(0, 1))
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-6.png" alt="plot of chunk unnamed-chunk-6"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Components of the SVD - variance explained</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">constantMatrix &lt;- dataMatrixOrdered*0
+for(i in 1:dim(dataMatrixOrdered)[1]){constantMatrix[i,] &lt;- rep(c(0,1),each=5)}
+svd1 &lt;- svd(constantMatrix)
+par(mfrow=c(1,3))
+image(t(constantMatrix)[,nrow(constantMatrix):1])
+plot(svd1$d,xlab=&quot;Column&quot;,ylab=&quot;Singular value&quot;,pch=19)
+plot(svd1$d^2/sum(svd1$d^2),xlab=&quot;Column&quot;,ylab=&quot;Prop. of variance explained&quot;,pch=19)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-7.png" alt="plot of chunk unnamed-chunk-7"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>What if we add a second pattern?</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(678910)
+for (i in 1:40) {
+    # flip a coin
+    coinFlip1 &lt;- rbinom(1, size = 1, prob = 0.5)
+    coinFlip2 &lt;- rbinom(1, size = 1, prob = 0.5)
+    # if coin is heads add a common pattern to that row
+    if (coinFlip1) {
+        dataMatrix[i, ] &lt;- dataMatrix[i, ] + rep(c(0, 5), each = 5)
+    }
+    if (coinFlip2) {
+        dataMatrix[i, ] &lt;- dataMatrix[i, ] + rep(c(0, 5), 5)
+    }
+}
+hh &lt;- hclust(dist(dataMatrix))
+dataMatrixOrdered &lt;- dataMatrix[hh$order, ]
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Singular value decomposition - true patterns</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">svd2 &lt;- svd(scale(dataMatrixOrdered))
+par(mfrow = c(1, 3))
+image(t(dataMatrixOrdered)[, nrow(dataMatrixOrdered):1])
+plot(rep(c(0, 1), each = 5), pch = 19, xlab = &quot;Column&quot;, ylab = &quot;Pattern 1&quot;)
+plot(rep(c(0, 1), 5), pch = 19, xlab = &quot;Column&quot;, ylab = &quot;Pattern 2&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-8.png" alt="plot of chunk unnamed-chunk-8"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>\(v\) and patterns of variance in rows</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">svd2 &lt;- svd(scale(dataMatrixOrdered))
+par(mfrow = c(1, 3))
+image(t(dataMatrixOrdered)[, nrow(dataMatrixOrdered):1])
+plot(svd2$v[, 1], pch = 19, xlab = &quot;Column&quot;, ylab = &quot;First right singular vector&quot;)
+plot(svd2$v[, 2], pch = 19, xlab = &quot;Column&quot;, ylab = &quot;Second right singular vector&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-9.png" alt="plot of chunk unnamed-chunk-9"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>\(d\) and variance explained</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">svd1 &lt;- svd(scale(dataMatrixOrdered))
+par(mfrow = c(1, 2))
+plot(svd1$d, xlab = &quot;Column&quot;, ylab = &quot;Singular value&quot;, pch = 19)
+plot(svd1$d^2/sum(svd1$d^2), xlab = &quot;Column&quot;, ylab = &quot;Percent of variance explained&quot;, 
+    pch = 19)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-10.png" alt="plot of chunk unnamed-chunk-10"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Missing values</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">dataMatrix2 &lt;- dataMatrixOrdered
+## Randomly insert some missing data
+dataMatrix2[sample(1:100, size = 40, replace = FALSE)] &lt;- NA
+svd1 &lt;- svd(scale(dataMatrix2))  ## Doesn&#39;t work!
+</code></pre>
+
+<pre><code>## Error: infinite or missing values in &#39;x&#39;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Imputing {impute}</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(impute)  ## Available from http://bioconductor.org
+dataMatrix2 &lt;- dataMatrixOrdered
+dataMatrix2[sample(1:100,size=40,replace=FALSE)] &lt;- NA
+dataMatrix2 &lt;- impute.knn(dataMatrix2)$data
+svd1 &lt;- svd(scale(dataMatrixOrdered)); svd2 &lt;- svd(scale(dataMatrix2))
+par(mfrow=c(1,2)); plot(svd1$v[,1],pch=19); plot(svd2$v[,1],pch=19)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-12.png" alt="plot of chunk unnamed-chunk-12"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Face example</h2>
+  </hgroup>
+  <article>
+    <!-- ## source("http://dl.dropbox.com/u/7710864/courseraPublic/myplclust.R") -->
+
+<pre><code class="r">load(&quot;data/face.rda&quot;)
+image(t(faceData)[, nrow(faceData):1])
+</code></pre>
+
+<p><img src="figure/loadFaceData_.png" alt="plot of chunk loadFaceData "> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Face example - variance explained</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">svd1 &lt;- svd(scale(faceData))
+plot(svd1$d^2/sum(svd1$d^2), pch = 19, xlab = &quot;Singular vector&quot;, ylab = &quot;Variance explained&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-13.png" alt="plot of chunk unnamed-chunk-13"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Face example - create approximations</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">
+svd1 &lt;- svd(scale(faceData))
+## Note that %*% is matrix multiplication
+
+# Here svd1$d[1] is a constant
+approx1 &lt;- svd1$u[, 1] %*% t(svd1$v[, 1]) * svd1$d[1]
+
+# In these examples we need to make the diagonal matrix out of d
+approx5 &lt;- svd1$u[, 1:5] %*% diag(svd1$d[1:5]) %*% t(svd1$v[, 1:5])
+approx10 &lt;- svd1$u[, 1:10] %*% diag(svd1$d[1:10]) %*% t(svd1$v[, 1:10])
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Face example - plot approximations</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mfrow = c(1, 4))
+image(t(approx1)[, nrow(approx1):1], main = &quot;(a)&quot;)
+image(t(approx5)[, nrow(approx5):1], main = &quot;(b)&quot;)
+image(t(approx10)[, nrow(approx10):1], main = &quot;(c)&quot;)
+image(t(faceData)[, nrow(faceData):1], main = &quot;(d)&quot;)  ## Original data
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-14.png" alt="plot of chunk unnamed-chunk-14"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Notes and further resources</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Scale matters</li>
+<li>PC&#39;s/SV&#39;s may mix real patterns</li>
+<li>Can be computationally intensive</li>
+<li><a href="http://www.stat.cmu.edu/%7Ecshalizi/ADAfaEPoV/ADAfaEPoV.pdf">Advanced data analysis from an elementary point of view</a></li>
+<li><a href="http://www-stat.stanford.edu/%7Etibs/ElemStatLearn/">Elements of statistical learning</a></li>
+<li>Alternatives
+
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Factor_analysis">Factor analysis</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Independent_component_analysis">Independent components analysis</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Latent_semantic_analysis">Latent semantic analysis</a></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

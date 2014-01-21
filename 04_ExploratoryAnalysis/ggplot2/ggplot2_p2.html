@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The ggplot2 Plotting System - Part 2</title>
+  <meta charset="utf-8">
+  <meta name="description" content="The ggplot2 Plotting System - Part 2">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>The ggplot2 Plotting System - Part 2</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>What is ggplot2?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>An implementation of the <strong>Grammar of Graphics</strong> by Leland Wilkinson</li>
+<li>Grammar of graphics represents and abstraction of graphics ideas/objects</li>
+<li>Think “verb”, “noun”, “adjective” for graphics</li>
+<li>Allows for a “theory” of graphics on which to build new graphics and graphics objects</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Basic Components of a ggplot2 Plot</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>A <em>data frame</em></li>
+<li><em>aesthetic mappings</em>: how data are mapped to color, size </li>
+<li><em>geoms</em>: geometric objects like points, lines, shapes. </li>
+<li><em>facets</em>: for conditional plots. </li>
+<li><em>stats</em>: statistical transformations like binning, quantiles, smoothing. </li>
+<li><em>scales</em>: what scale an aesthetic map uses (example: male = red, female = blue). </li>
+<li><em>coordinate system</em> </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Building Plots with ggplot2</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>When building plots in ggplot2 (rather than using qplot) the “artist’s palette” model may be the closest analogy</li>
+<li>Plots are built up in layers
+
+<ul>
+<li>Plot the data</li>
+<li>Overlay a summary</li>
+<li>Metadata and annotation</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Example: BMI, PM\(_{2.5}\), Asthma</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Mouse Allergen and Asthma Cohort Study</li>
+<li>Baltimore children (age 5-17)</li>
+<li>Persistent asthma, exacerbation in past year</li>
+<li>Does BMI (normal vs. overweight) modify the relationship between PM\(_{2.5}\) and asthma symptoms?</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Basic Plot</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(ggplot2)
+qplot(logpm25, NocturnalSympt, data = maacs, facets = . ~ bmicat, 
+      geom = c(&quot;point&quot;, &quot;smooth&quot;), method = &quot;lm&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Building Up in Layers</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">head(maacs)
+</code></pre>
+
+<pre><code>  logpm25        bmicat NocturnalSympt logno2_new
+1  1.5362 normal weight              1      1.299
+2  1.5905 normal weight              0      1.295
+3  1.5218 normal weight              0      1.304
+4  1.4323 normal weight              0         NA
+5  1.2762    overweight              8      1.108
+6  0.7139    overweight              0      0.837
+</code></pre>
+
+<pre><code class="r">g &lt;- ggplot(maacs, aes(logpm25, NocturnalSympt))
+summary(g)
+</code></pre>
+
+<pre><code>data: logpm25, bmicat, NocturnalSympt, logno2_new [554x4]
+mapping:  x = logpm25, y = NocturnalSympt
+faceting: facet_null() 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>No Plot Yet!</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">g &lt;- ggplot(maacs, aes(logpm25, NocturnalSympt))
+print(g)
+</code></pre>
+
+<pre><code>Error: No layers in plot
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>First Plot with Point Layer</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">g &lt;- ggplot(maacs, aes(logpm25, NocturnalSympt))
+g + geom_point()
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Adding More Layers: Smooth</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">g + geom_point() + geom_smooth()
+g + geom_point() + geom_smooth(method = &quot;lm&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-61.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" />
+<img src="fig/unnamed-chunk-62.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Adding More Layers: Facets</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">g + geom_point() + facet_grid(. ~ bmicat) + geom_smooth(method = &quot;lm&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Annotation</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Labels: <code>xlab()</code>, <code>ylab()</code>, <code>labs()</code>, <code>ggtitle()</code></li>
+<li>Each of the “geom” functions has options to modify </li>
+<li>For things that only make sense globally, use <code>theme()</code> 
+
+<ul>
+<li>Example: <code>theme(legend.position = &quot;none&quot;)</code> </li>
+</ul></li>
+<li>Two standard appearance themes are included
+
+<ul>
+<li><code>theme_gray()</code>: The default theme (gray background)</li>
+<li><code>theme_bw()</code>: More stark/plain </li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Modifying Aesthetics</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">g + geom_point(color = &quot;steelblue&quot;, size = 4, alpha = 1/2)
+g + geom_point(aes(color = bmicat), size = 4, alpha = 1/2)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-81.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" class="plot" />
+<img src="fig/unnamed-chunk-82.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Modifying Labels</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">g + geom_point(aes(color = bmicat)) + labs(title = &quot;MAACS Cohort&quot;) + 
+  labs(x = expression(&quot;log &quot; * PM[2.5]), y = &quot;Nocturnal Symptoms&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Customizing the Smooth</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">g + geom_point(aes(color = bmicat), size = 2, alpha = 1/2) + 
+  geom_smooth(size = 4, linetype = 3, method = &quot;lm&quot;, se = FALSE)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-10.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Changing the Theme</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">g + geom_point(aes(color = bmicat)) + theme_bw(base_family = &quot;Times&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-11.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>A Note about Axis Limits</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">testdat &lt;- data.frame(x = 1:100, y = rnorm(100))
+testdat[50,2] &lt;- 100  ## Outlier!
+plot(testdat$x, testdat$y, type = &quot;l&quot;, ylim = c(-3,3))
+
+g &lt;- ggplot(testdat, aes(x = x, y = y))
+g + geom_line()
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-121.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" class="plot" />
+<img src="fig/unnamed-chunk-122.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Axis Limits</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">g + geom_line() + ylim(-3, 3)
+g + geom_line() + coord_cartesian(ylim = c(-3, 3))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-131.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" class="plot" />
+<img src="fig/unnamed-chunk-132.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>More Complex Example</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>How does the relationship between PM\(_{2.5}\) and nocturnal symptoms vary by BMI and NO\(_2\)?</li>
+<li>Unlike our previous BMI variable, NO\(_2\) is continuous</li>
+<li>We need to make NO\(_2\) categorical so we can condition on it in the plotting</li>
+<li>Use the <code>cut()</code> function for this</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Making NO\(_2\) Tertiles</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">## Calculate the tertiles of the data
+cutpoints &lt;- quantile(maacs$logno2_new, seq(0, 1, length = 4), na.rm = TRUE)
+
+## Cut the data at the tertiles and create a new factor variable
+maacs$no2tert &lt;- cut(maacs$logno2_new, cutpoints)
+
+## See the levels of the newly created factor variable
+levels(maacs$no2tert)
+</code></pre>
+
+<pre><code>[1] &quot;(0.378,1.2]&quot; &quot;(1.2,1.42]&quot;  &quot;(1.42,2.55]&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Final Plot</h2>
+  </hgroup>
+  <article>
+    <div class="rimage center"><img src="fig/unnamed-chunk-15.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Code for Final Plot</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">## Setup ggplot with data frame
+g &lt;- ggplot(maacs, aes(logpm25, NocturnalSympt))
+
+## Add layers
+g + geom_point(alpha = 1/3) + 
+  facet_wrap(bmicat ~ no2tert, nrow = 2, ncol = 4) + 
+  geom_smooth(method=&quot;lm&quot;, se=FALSE, col=&quot;steelblue&quot;) + 
+  theme_bw(base_family = &quot;Avenir&quot;, base_size = 10) + 
+  labs(x = expression(&quot;log &quot; * PM[2.5])) + 
+  labs(y = &quot;Nocturnal Symptoms&quot;) + 
+  labs(title = &quot;MAACS Cohort&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>ggplot2 is very powerful and flexible if you learn the “grammar” and the various elements that can be tuned/modified</li>
+<li>Many more types of plots can be made; explore and mess around with the package (references mentioned in Part 1 are useful)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

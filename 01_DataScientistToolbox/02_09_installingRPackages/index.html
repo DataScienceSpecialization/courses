@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Installing R Packages</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Installing R Packages">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Installing R Packages</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>R Packages</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>When you download R from the Comprehensive R Archive Network (CRAN),
+you get that ``base&quot; R system</p></li>
+<li><p>The base R system comes with basic functionality; implements the R language</p></li>
+<li><p>One reason R is so useful is the large collection of packages that
+extend the basic functionality of R</p></li>
+<li><p>R packages are developed and published by the larger R community</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Obtaining R Packages</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>The primary location for obtaining R packages is
+<a href="http://cran.r-project.org">CRAN</a></p></li>
+<li><p>For biological applications, many packages are available from the
+<a href="http://bioconductor.org">Bioconductor Project</a></p></li>
+<li><p>You can obtain information about the available packages on CRAN with
+the <code>available.packages()</code> function</p></li>
+</ul>
+
+<pre><code class="r">a &lt;- available.packages()
+head(rownames(a), 3)  ## Show the names of the first few packages
+</code></pre>
+
+<pre><code>## [1] &quot;A3&quot;       &quot;abc&quot;      &quot;abcdeFBA&quot;
+</code></pre>
+
+<ul>
+<li><p>There are approximately 5200 packages on CRAN covering a wide range of topics</p></li>
+<li><p>A list of some topics is available through the <a href="http://cran.r-project.org/web/views/">Task
+Views</a> link, which groups
+together many R packages related to a given topic</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Installing an R Package</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Packages can be installed with the <code>install.packages()</code>
+function in R</p></li>
+<li><p>To install a single package, pass the name of the lecture to the
+<code>install.packages()</code> function as the first argument</p></li>
+<li><p>The following the code installs the <strong>slidify</strong> package from CRAN</p></li>
+</ul>
+
+<pre><code class="r">install.packages(&quot;slidify&quot;)
+</code></pre>
+
+<ul>
+<li><p>This command downloads the <strong>slidify</strong> package from CRAN and
+installs it on your computer</p></li>
+<li><p>Any packages on which this package depends will also be downloaded
+and installed</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Installing an R Package</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>You can install multiple R packages at once with a single call to
+<code>install.packages()</code></p></li>
+<li><p>Place the names of the R packages in a character vector</p></li>
+</ul>
+
+<pre><code class="r">install.packages(c(&quot;slidify&quot;, &quot;ggplot2&quot;, &quot;devtools&quot;))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Installing an R Package in RStudio</h2>
+  </hgroup>
+  <article>
+    <p><img src="../../assets/img/01_DataScientistToolbox/InstallPackageRStudio1crop.png" height=500></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Installing an R Package in RStudio</h2>
+  </hgroup>
+  <article>
+    <p><img src="../../assets/img/01_DataScientistToolbox/InstallPackageRStudio2.png" height=500></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Installing an R Package from Bioconductor</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>To get the basic installer and basic set of R packages (warning, will install multiple packages)</li>
+</ul>
+
+<pre><code class="r">source(&quot;http://bioconductor.org/biocLite.R&quot;)
+biocLite()
+</code></pre>
+
+<ul>
+<li>Place the names of the R packages in a character vector</li>
+</ul>
+
+<pre><code class="r">biocLite(c(&quot;GenomicFeatures&quot;, &quot;AnnotationDbi&quot;))
+</code></pre>
+
+<p><a href="http://www.bioconductor.org/install/">http://www.bioconductor.org/install/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Loading R Packages</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Installing a package does not make it immediately available to you
+in R; you must load the package</p></li>
+<li><p>The <code>library()</code> function is used to <strong>load</strong> packages into R</p></li>
+<li><p>The following code is used to load the <strong>ggplot2</strong> package into R</p></li>
+</ul>
+
+<pre><code class="r">library(ggplot2)
+</code></pre>
+
+<ul>
+<li><p>Any packages that need to be loaded as dependencies will be loaded
+first, before the named package is loaded</p></li>
+<li><p>NOTE: Do not put the package name in quotes!</p></li>
+<li><p>Some packages produce messages when they are loaded (but some don&#39;t)</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Loading R Packages</h2>
+  </hgroup>
+  <article>
+    <p>After loading a package, the functions exported by that package will
+be attached to the top of the <code>search()</code> list (after the workspace)</p>
+
+<pre><code class="r">library(ggplot2)
+search()
+</code></pre>
+
+<pre><code>##  [1] &quot;.GlobalEnv&quot;         &quot;package:kernlab&quot;    &quot;package:caret&quot;     
+##  [4] &quot;package:lattice&quot;    &quot;package:ggplot2&quot;    &quot;package:makeslides&quot;
+##  [7] &quot;package:knitr&quot;      &quot;package:slidify&quot;    &quot;tools:rstudio&quot;     
+## [10] &quot;package:stats&quot;      &quot;package:graphics&quot;   &quot;package:grDevices&quot; 
+## [13] &quot;package:utils&quot;      &quot;package:datasets&quot;   &quot;package:methods&quot;   
+## [16] &quot;Autoloads&quot;          &quot;package:base&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>R packages provide a powerful mechanism for extending the
+functionality of R</p></li>
+<li><p>R packages can be obtained from CRAN or other repositories</p></li>
+<li><p>The <code>install.packages()</code> can be used to install packages at the R
+console</p></li>
+<li><p>The <code>library()</code> function loads packages that have been installed so
+that you may access the functionality in the package</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

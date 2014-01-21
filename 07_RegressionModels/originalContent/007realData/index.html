@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Regression in the real world</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Regression in the real world">
+  <meta name="author" content="Jeffrey Leek, Assistant Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Regression in the real world</h1>
+        <h2></h2>
+        <p>Jeffrey Leek, Assistant Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Things to pay attention to</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Confounders</li>
+<li>Complicated interactions</li>
+<li>Skewness</li>
+<li>Outliers</li>
+<li>Non-linear patterns</li>
+<li>Variance changes</li>
+<li>Units/scale issues</li>
+<li>Overloading regression</li>
+<li>Correlation and causation</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>The ideal data for regression</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(UsingR); data(galton)
+plot(galton$parent,galton$child,col=&quot;blue&quot;,pch=19)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Confounders</h2>
+  </hgroup>
+  <article>
+    <p><strong>Confounder</strong>: A variable that is correlated with both the outcome and the covariates</p>
+
+<ul>
+<li>Confounders can change the regression line</li>
+<li>They can even change the sign of the line</li>
+<li>They can sometimes be detected by careful exploration</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Example - Millenium Development Goal 1</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/mdg1.png height=450></p>
+
+<p><a href="http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf">http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>WHO childhood hunger data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">download.file(&quot;http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&amp;filt
+              er=COUNTRY:*;SEX:*&quot;,&quot;./data/hunger.csv&quot;,method=&quot;curl&quot;)
+hunger &lt;- read.csv(&quot;./data/hunger.csv&quot;)
+hunger &lt;- hunger[hunger$Sex!=&quot;Both sexes&quot;,]
+head(hunger)
+</code></pre>
+
+<pre><code>                                Indicator Data.Source PUBLISH.STATES Year            WHO.region
+2  Children aged &lt;5 years underweight (%) NLIS_312819      Published 2004 Eastern Mediterranean
+3  Children aged &lt;5 years underweight (%) NLIS_312819      Published 2004 Eastern Mediterranean
+6  Children aged &lt;5 years underweight (%) NLIS_312361      Published 2000                Europe
+7  Children aged &lt;5 years underweight (%) NLIS_312361      Published 2000                Europe
+9  Children aged &lt;5 years underweight (%) NLIS_312879      Published 2005                Europe
+10 Children aged &lt;5 years underweight (%) NLIS_312879      Published 2005                Europe
+       Country    Sex Display.Value Numeric Low High Comments
+2  Afghanistan Female          33.0    33.0  NA   NA       NA
+3  Afghanistan   Male          32.7    32.7  NA   NA       NA
+6      Albania   Male          19.6    19.6  NA   NA       NA
+7      Albania Female          14.2    14.2  NA   NA       NA
+9      Albania   Male           7.3     7.3  NA   NA       NA
+10     Albania Female           5.8     5.8  NA   NA       NA
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Hunger over time by region</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mfrow=c(1,2))
+plot(hunger$Year,hunger$Numeric,col=as.numeric(hunger$WHO.region),pch=19)
+plot(1:10,type=&quot;n&quot;,xaxt=&quot;n&quot;,yaxt=&quot;n&quot;,xlab=&quot;&quot;,ylab=&quot;&quot;)
+legend(1,10,col=unique(as.numeric(hunger$WHO.region)),legend=unique(hunger$WHO.region),pch=19)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Region correlated with year</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">anova(lm(hunger$Year ~ hunger$WHO.region))
+</code></pre>
+
+<pre><code>Analysis of Variance Table
+
+Response: hunger$Year
+                   Df Sum Sq Mean Sq F value Pr(&gt;F)  
+hunger$WHO.region   5    538   107.5    2.33  0.041 *
+Residuals         852  39316    46.1                 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Region correlated with hunger</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">anova(lm(hunger$Numeric ~ hunger$WHO.region))
+</code></pre>
+
+<pre><code>Analysis of Variance Table
+
+Response: hunger$Numeric
+                   Df Sum Sq Mean Sq F value Pr(&gt;F)    
+hunger$WHO.region   5  76032   15206     154 &lt;2e-16 ***
+Residuals         852  84211      99                   
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Including region - a complicated interaction</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(hunger$Year,hunger$Numeric,pch=19,col=as.numeric(hunger$WHO.region))
+lmRegion &lt;- lm(hunger$Numeric ~ hunger$Year + hunger$WHO.region + hunger$Year*hunger$WHO.region )
+abline(c(lmRegion$coeff[1] + lmRegion$coeff[6],lmRegion$coeff[2]+ lmRegion$coeff[12]),col=5,lwd=3)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Income data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">download.file(&quot;http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data&quot;,&quot;./data/income.csv&quot;,method=&quot;curl&quot;)
+incomeData &lt;- read.csv(&quot;./data/income.csv&quot;,header=FALSE)
+income &lt;- incomeData[,3]
+age &lt;- incomeData[,1]
+</code></pre>
+
+<p><a href="http://archive.ics.uci.edu/ml/datasets/Census+Income">http://archive.ics.uci.edu/ml/datasets/Census+Income</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Logs to address right-skew</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mfrow=c(1,4))
+smoothScatter(age,income)
+hist(income,col=&quot;blue&quot;,breaks=100)
+hist(log(income+1),col=&quot;blue&quot;,breaks=100)
+smoothScatter(age,log(income+1))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
+
+<p>(<a href="http://en.wikipedia.org/wiki/Data_transformation_(statistics">Data transforms</a>)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Outliers</h2>
+  </hgroup>
+  <article>
+    <p><br><br><br><br></p>
+
+<p><center> &quot;outliers&quot; ... are data points that do not appear to follow the pattern of the other data  points.</center></p>
+
+<p><br><br><br><br></p>
+
+<p><a href="http://www.amstat.org/publications/jse/v13n1/datasets.hayden.html">A dataset that is 44% outliers</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Example - extreme points</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(1235)
+xVals &lt;- rcauchy(50)
+hist(xVals,col=&quot;blue&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Example - Outliers may be real</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r"># Add Tim Cook, CEO of Apple 2011 income
+age &lt;- c(age,52)
+income &lt;- c(income,378e6)
+smoothScatter(age,income)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-8.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" class="plot" /></div>
+
+<p><a href="http://www.macworld.com/article/2023491/apple-gives-tim-cook-51-percent-salary-increase.html">http://www.macworld.com/article/2023491/apple-gives-tim-cook-51-percent-salary-increase.html</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Example - Does not fit the trend</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/hayden.png height=450></p>
+
+<p><a href="http://www.amstat.org/publications/jse/v13n1/datasets.hayden.html">A dataset that is 44% outliers</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Outliers - what you can do</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>If you know they aren&#39;t real/of interest, remove them (but changes question!)</li>
+<li>Alternatively
+
+<ul>
+<li>Sensitivity analysis - is it a big difference if you leave it in/take it out?</li>
+<li>Logs - if the data are right skewed (lots of outliers)</li>
+<li>Robust methods - we&#39;ve been doing averages, but there are more robust approaches (<a href="http://cran.r-project.org/web/views/Robust.html">Robust</a>,<a href="http://stat.ethz.ch/R-manual/R-patched/library/MASS/html/rlm.html">rlm</a>)</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>A line isn&#39;t always the best summary</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/anscombe.png height=450></p>
+
+<p><a href="http://en.wikipedia.org/wiki/Linear_regression">http://en.wikipedia.org/wiki/Linear_regression</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>You can end up saying some pretty silly stuff</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/sprint.png height=200></p>
+
+<p><a href="http://www.nature.com/nature/journal/v431/n7008/fig_tab/431525a_F1.html">http://www.nature.com/nature/journal/v431/n7008/fig_tab/431525a_F1.html</a></p>
+
+<p>&quot;We are students aged 16–18 in a Texas high school. Our biology teacher Vidya Rajan asked us to comment on the paper by A. J. Tatem and colleagues (Nature 431, 525; 2004); we believe the projection on which it is based is riddled with flaws...&quot;
+<a href="http://www.nature.com/nature/journal/v432/n7014/full/432147c.html">http://www.nature.com/nature/journal/v432/n7014/full/432147c.html</a></p>
+
+<p>&quot;They omit to mention, however, that (according to their analysis) a far more interesting race should occur in about 2636, when times of less than zero seconds will be recorded&quot;
+<a href="http://www.nature.com/nature/journal/v432/n7014/full/432147b.html">http://www.nature.com/nature/journal/v432/n7014/full/432147b.html</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Variance changes</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">bupaData &lt;- read.csv(&quot;ftp://ftp.ics.uci.edu/pub/machine-learning-databases/liver-disorders/bupa.data&quot;,header=F)
+ggt &lt;- bupaData[,5]; aat &lt;- bupaData[,3]
+plot(log(ggt),aat,col=&quot;blue&quot;,pch=19)
+</code></pre>
+
+<div class="rimage center"><img src="fig/bupaDataChunk.png" title="plot of chunk bupaDataChunk" alt="plot of chunk bupaDataChunk" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Plot the residuals</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">lm1 &lt;- lm(aat ~ log(ggt))
+plot(log(ggt),lm1$residuals,col=&quot;blue&quot;,pch=19)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" class="plot" /></div>
+
+<p><a href="http://en.wikipedia.org/wiki/Power_transform#cite_note-2">Power (a.k.a. Box-Cox) transform</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Changing variance - what you can do</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>There is a long literature on this problem (heteroskedasticity)</li>
+<li>A few examples
+
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Power_transform#cite_note-2">Box-Cox Transform</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Variance-stabilizing_transformation">Variance stabilizing transform</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Weighted_least_squares#Weighted_least_squares">Weighted least squares</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Heteroscedasticity-consistent_standard_errors">Huber-white standard errors</a></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Variation in units</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/alldeaths.png height=450></p>
+
+<p><a href="http://www.gapminder.org/world/#$majorMode=chart$is;shi=t;ly=2003;lb=f;il=t;fs=11;al=30;stl=t;st=t;nsl=t;se=t$wst;tts=C$ts;sp=5.59290322580644;ti=2008$zpv;v=0$inc_x;mmid=XCOORDS;iid=phAwcNAVuyj1jiMAkmq1iMg;by=ind$inc_y;mmid=YCOORDS;iid=taYeez4Mkk8OvdH-q4QAxxQ;by=ind$inc_s;uniValue=8.21;iid=phAwcNAVuyj0XOoBL_n5tAQ;by=ind$inc_c;uniValue=255;gid=CATID0;by=grp$map_x;scale=log;dataMin=194;dataMax=96846$map_y;scale=lin;dataMin=4;dataMax=826060$map_s;sma=50;smi=2$cd;bd=0$inds=">All Deaths</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Relative units</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/relativedeaths.png height=450></p>
+
+<p><a href="http://www.gapminder.org/world/#$majorMode=chart$is;shi=t;ly=2003;lb=f;il=t;fs=11;al=30;stl=t;st=t;nsl=t;se=t$wst;tts=C$ts;sp=5.59290322580644;ti=2008$zpv;v=0$inc_x;mmid=XCOORDS;iid=phAwcNAVuyj1jiMAkmq1iMg;by=ind$inc_y;mmid=YCOORDS;iid=t9FP3_OPrE2ug_I_iNsbePg;by=ind$inc_s;uniValue=8.21;iid=phAwcNAVuyj0XOoBL_n5tAQ;by=ind$inc_c;uniValue=255;gid=CATID0;by=grp$map_x;scale=log;dataMin=194;dataMax=96846$map_y;scale=lin;dataMin=1.027;dataMax=195$map_s;sma=50;smi=2$cd;bd=0$inds=">Per 1000 Deaths</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>When there is variation in units</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Standardize, but keep track
+
+<ul>
+<li>Affects model fits</li>
+<li>Affects interpretation</li>
+<li>Affects inference</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>Overloading regression</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/overload.png height=200></p>
+
+<p><a href="http://bit.ly/YiB5Um">http://bit.ly/YiB5Um</a>
+<a href="http://wmbriggs.com/blog/?p=7026">http://wmbriggs.com/blog/?p=7026</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>Correlation and Causation</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/correlation.png height=300></p>
+
+<p><a href="http://xkcd.com/552/">http://xkcd.com/552/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-27" style="background:;">
+  <hgroup>
+    <h2>Even when looking for associations</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/chocolate.png height=450></p>
+
+<p><a href="ttp://www.nejm.org/doi/full/10.1056/NEJMon1211064">http://www.nejm.org/doi/full/10.1056/NEJMon1211064</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-28" style="background:;">
+  <hgroup>
+    <h2>Again, it can get silly</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/lumley.png height=450></p>
+
+<p><a href="http://www.statschat.org.nz/2012/10/12/even-better-than-chocolate/">http://www.statschat.org.nz/2012/10/12/even-better-than-chocolate/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-29" style="background:;">
+  <hgroup>
+    <h2>Correlation vs. Causation</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Use caution when interpreting regression results</li>
+<li>Be critical of surprising associations</li>
+<li>Consider alternative explanations</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

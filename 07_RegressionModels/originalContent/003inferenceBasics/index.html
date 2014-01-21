@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Inference basics</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Inference basics">
+  <meta name="author" content="Jeffrey Leek, Assistant Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Inference basics</h1>
+        <h2></h2>
+        <p>Jeffrey Leek, Assistant Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Fit a line to the Galton Data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(UsingR); data(galton);
+plot(galton$parent,galton$child,pch=19,col=&quot;blue&quot;)
+lm1 &lt;- lm(galton$child ~ galton$parent)
+lines(galton$parent,lm1$fitted,col=&quot;red&quot;,lwd=3)
+</code></pre>
+
+<div class="rimage center"><img src="fig/galton.png" title="plot of chunk galton" alt="plot of chunk galton" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Fit a line to the Galton Data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">lm1
+</code></pre>
+
+<pre><code>
+Call:
+lm(formula = galton$child ~ galton$parent)
+
+Coefficients:
+  (Intercept)  galton$parent  
+       23.942          0.646  
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Create a &quot;population&quot; of 1 million families</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">newGalton &lt;- data.frame(parent=rep(NA,1e6),child=rep(NA,1e6))
+newGalton$parent &lt;- rnorm(1e6,mean=mean(galton$parent),sd=sd(galton$parent))
+newGalton$child &lt;- lm1$coeff[1] + lm1$coeff[2]*newGalton$parent + rnorm(1e6,sd=sd(lm1$residuals))
+smoothScatter(newGalton$parent,newGalton$child)
+abline(lm1,col=&quot;red&quot;,lwd=3)
+</code></pre>
+
+<div class="rimage center"><img src="fig/newGalton.png" title="plot of chunk newGalton" alt="plot of chunk newGalton" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Let&#39;s take a sample</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(134325); sampleGalton1 &lt;- newGalton[sample(1:1e6,size=50,replace=F),]
+sampleLm1 &lt;- lm(sampleGalton1$child ~ sampleGalton1$parent)
+plot(sampleGalton1$parent,sampleGalton1$child,pch=19,col=&quot;blue&quot;)
+lines(sampleGalton1$parent,sampleLm1$fitted,lwd=3,lty=2)
+abline(lm1,col=&quot;red&quot;,lwd=3)
+</code></pre>
+
+<div class="rimage center"><img src="fig/sampleGalton1_.png" title="plot of chunk sampleGalton1 " alt="plot of chunk sampleGalton1 " class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Let&#39;s take another sample</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">sampleGalton2 &lt;- newGalton[sample(1:1e6,size=50,replace=F),]
+sampleLm2 &lt;- lm(sampleGalton2$child ~ sampleGalton2$parent)
+plot(sampleGalton2$parent,sampleGalton2$child,pch=19,col=&quot;blue&quot;)
+lines(sampleGalton2$parent,sampleLm2$fitted,lwd=3,lty=2)
+abline(lm1,col=&quot;red&quot;,lwd=3)
+</code></pre>
+
+<div class="rimage center"><img src="fig/sampleGalton2_.png" title="plot of chunk sampleGalton2 " alt="plot of chunk sampleGalton2 " class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Let&#39;s take another sample</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">sampleGalton3 &lt;- newGalton[sample(1:1e6,size=50,replace=F),]
+sampleLm3 &lt;- lm(sampleGalton3$child ~ sampleGalton3$parent)
+plot(sampleGalton3$parent,sampleGalton3$child,pch=19,col=&quot;blue&quot;)
+lines(sampleGalton3$parent,sampleLm3$fitted,lwd=3,lty=2)
+abline(lm1,col=&quot;red&quot;,lwd=3)
+</code></pre>
+
+<div class="rimage center"><img src="fig/sampleGalton3_.png" title="plot of chunk sampleGalton3 " alt="plot of chunk sampleGalton3 " class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Many samples</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">sampleLm &lt;- vector(100,mode=&quot;list&quot;)
+for(i in 1:100){
+  sampleGalton &lt;- newGalton[sample(1:1e6,size=50,replace=F),]
+  sampleLm[[i]] &lt;- lm(sampleGalton$child ~ sampleGalton$parent)
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Many samples</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">smoothScatter(newGalton$parent,newGalton$child)
+for(i in 1:100){abline(sampleLm[[i]],lwd=3,lty=2)}
+abline(lm1,col=&quot;red&quot;,lwd=3)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Histogram of estimates</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mfrow=c(1,2))
+hist(sapply(sampleLm,function(x){coef(x)[1]}),col=&quot;blue&quot;,xlab=&quot;Intercept&quot;,main=&quot;&quot;)
+hist(sapply(sampleLm,function(x){coef(x)[2]}),col=&quot;blue&quot;,xlab=&quot;Slope&quot;,main=&quot;&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Distribution of coefficients</h2>
+  </hgroup>
+  <article>
+    <p>From the <a href="https://www.khanacademy.org/math/probability/statistics-inferential/sampling_distribution/v/central-limit-theorem">central limit theorem</a> it turns out that in many cases:</p>
+
+<p>\[\hat{b}_0 \sim N(b_0, Var(\hat{b}_0))\]
+\[\hat{b}_1 \sim N(b_0, Var(\hat{b}_1))\]</p>
+
+<p>which we can estimate with:</p>
+
+<p>\[\hat{b}_0 \approx N(b_0, \hat{Var}(\hat{b}_0))\]
+\[\hat{b}_1 \approx N(b_0, \hat{Var}(\hat{b}_1))\]</p>
+
+<p>\(\sqrt{\hat{Var}(\hat{b}_0)}\) is the &quot;standard error&quot; of the estimate \(\hat{b}_0\) and is abbreviated \(S.E.(\hat{b}_0)\)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Estimating the values in R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">sampleGalton4 &lt;- newGalton[sample(1:1e6,size=50,replace=F),]
+sampleLm4 &lt;- lm(sampleGalton4$child ~ sampleGalton4$parent)
+summary(sampleLm4)
+</code></pre>
+
+<pre><code>
+Call:
+lm(formula = sampleGalton4$child ~ sampleGalton4$parent)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-4.360 -1.610 -0.289  2.020  4.387 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)            15.863     11.773    1.35     0.18    
+sampleGalton4$parent    0.770      0.174    4.43  5.4e-05 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 2.29 on 48 degrees of freedom
+Multiple R-squared:  0.291, Adjusted R-squared:  0.276 
+F-statistic: 19.7 on 1 and 48 DF,  p-value: 5.36e-05
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Estimating the values in R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">hist(sapply(sampleLm,function(x){coef(x)[2]}),col=&quot;blue&quot;,xlab=&quot;Slope&quot;,main=&quot;&quot;,freq=F)
+lines(seq(0,5,length=100),dnorm(seq(0,5,length=100),mean=coef(sampleLm4)[2],
+      sd=summary(sampleLm4)$coeff[2,2]),lwd=3,col=&quot;red&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Why do we standardize?</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/therm.jpg height=350></p>
+
+<p>\[K^{\circ} = C^{\circ} + 273.15 \]
+\[K^{\circ} = \frac{F^{\circ} + 459.67}{1.8}\]</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Kelvin">http://en.wikipedia.org/wiki/Kelvin</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Why do we standardize?</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mfrow=c(1,2))
+hist(sapply(sampleLm,function(x){coef(x)[1]}),col=&quot;blue&quot;,xlab=&quot;Intercept&quot;,main=&quot;&quot;)
+hist(sapply(sampleLm,function(x){coef(x)[2]}),col=&quot;blue&quot;,xlab=&quot;Slope&quot;,main=&quot;&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Standardized coefficients</h2>
+  </hgroup>
+  <article>
+    <p>\[\hat{b}_0 \approx N(b_0, \hat{Var}(\hat{b}_0))\]
+\[\hat{b}_1 \approx N(b_0, \hat{Var}(\hat{b}_1))\]</p>
+
+<p>and</p>
+
+<p>\[\frac{\hat{b}_0 - b_0}{S.E.(\hat{b}_0)} \sim t_{n-2} \]
+\[\frac{\hat{b}_1 - b_1}{S.E.(\hat{b}_1)} \sim t_{n-2}\]</p>
+
+<p>Degrees of Freedom \(\approx\) number of samples - number of things you estimated. </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>\(t_{n-2}\) versus \(N(0,1)\)</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">x &lt;- seq(-5,5,length=100)
+plot(x,dnorm(x),type=&quot;l&quot;,lwd=3)
+lines(x,dt(x,df=3),lwd=3,col=&quot;red&quot;)
+lines(x,dt(x,df=10),lwd=3,col=&quot;blue&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Confidence intervals</h2>
+  </hgroup>
+  <article>
+    <p>We have an estimate \(\hat{b}_1\) and we want to know something about how good our estimate is. </p>
+
+<p>One way is to create a &quot;level \(\alpha\) confidence interval&quot;.</p>
+
+<p>A confidence interval will include the real parameter \(\alpha\) percent of the time in repeated studies. </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Confidence intervals</h2>
+  </hgroup>
+  <article>
+    <p>\[(\hat{b}_1 + T_{\alpha/2}\times S.E.(\hat{b}_1),\hat{b}_1 - T_{\alpha/2} \times S.E.(\hat{b}_1))\]</p>
+
+<pre><code class="r">summary(sampleLm4)$coeff
+</code></pre>
+
+<pre><code>                     Estimate Std. Error t value  Pr(&gt;|t|)
+(Intercept)           15.8632    11.7726   1.347 1.842e-01
+sampleGalton4$parent   0.7698     0.1736   4.434 5.364e-05
+</code></pre>
+
+<pre><code class="r">confint(sampleLm4,level=0.95)
+</code></pre>
+
+<pre><code>                       2.5 % 97.5 %
+(Intercept)          -7.8072 39.534
+sampleGalton4$parent  0.4208  1.119
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Confidence intervals</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mar=c(4,4,0,2));plot(1:10,type=&quot;n&quot;,xlim=c(0,1.5),ylim=c(0,100),
+                         xlab=&quot;Coefficient Values&quot;,ylab=&quot;Replication&quot;)
+for(i in 1:100){
+    ci &lt;- confint(sampleLm[[i]]); color=&quot;red&quot;;
+    if((ci[2,1] &lt; lm1$coeff[2]) &amp; (lm1$coeff[2] &lt; ci[2,2])){color = &quot;grey&quot;}
+    segments(ci[2,1],i,ci[2,2],i,col=color,lwd=3)
+}
+lines(rep(lm1$coeff[2],100),seq(0,100,length=100),lwd=3)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-8.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>How you report the inference</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">sampleLm4$coeff
+</code></pre>
+
+<pre><code>         (Intercept) sampleGalton4$parent 
+             15.8632               0.7698 
+</code></pre>
+
+<pre><code class="r">confint(sampleLm4,level=0.95)
+</code></pre>
+
+<pre><code>                       2.5 % 97.5 %
+(Intercept)          -7.8072 39.534
+sampleGalton4$parent  0.4208  1.119
+</code></pre>
+
+<p>A one inch increase in parental height is associated with a 0.77 inch increase in child&#39;s height (95% CI: 0.42-1.12 inches).</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

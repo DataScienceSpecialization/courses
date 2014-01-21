@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dates and Times in R</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Dates and Times in R">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Dates and Times in R</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Dates and Times in R</h2>
+  </hgroup>
+  <article>
+    <p>R has developed a special representation of dates and times</p>
+
+<ul>
+<li>Dates are represented by the <code>Date</code> class</li>
+<li>Times are represented by the <code>POSIXct</code> or the <code>POSIXlt</code> class</li>
+<li>Dates are stored internally as the number of days since 1970-01-01</li>
+<li>Tmes are stored internally as the number of seconds since 1970-01-01</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Dates in R</h2>
+  </hgroup>
+  <article>
+    <p>Dates are represented by the Date class and can be coerced from a character string using the <code>as.Date()</code> function.</p>
+
+<pre><code class="r">x &lt;- as.Date(&quot;1970-01-01&quot;)
+x
+## [1] &quot;1970-01-01&quot;
+unclass(x)
+## [1] 0
+unclass(as.Date(&quot;1970-01-02&quot;))
+## [1] 1
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Times in R</h2>
+  </hgroup>
+  <article>
+    <p>Times are represented using the <code>POSIXct</code> or the <code>POSIXlt</code> class</p>
+
+<ul>
+<li><code>POSIXct</code> is just a very large integer under the hood; it use a useful class when you want to store times in something like a data frame</li>
+<li><code>POSIXlt</code> is a list underneath and it stores a bunch of other useful information like the day of the week, day of the year, month, day of the month</li>
+</ul>
+
+<p>There are a number of generic functions that work on dates and times</p>
+
+<ul>
+<li><code>weekdays</code>: give the day of the week</li>
+<li><code>months</code>: give the month name</li>
+<li><code>quarters</code>: give the quarter number (“Q1”, “Q2”, “Q3”, or “Q4”)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Times in R</h2>
+  </hgroup>
+  <article>
+    <p>Times can be coerced from a character string using the <code>as.POSIXlt</code> or <code>as.POSIXct</code> function.</p>
+
+<pre><code class="r">x &lt;- Sys.time()
+x
+## [1] &quot;2013-01-24 22:04:14 EST&quot;
+p &lt;- as.POSIXlt(x)
+names(unclass(p))
+## [1] &quot;sec&quot;   &quot;min&quot;   &quot;hour&quot;  &quot;mday&quot;  &quot;mon&quot;
+## [6] &quot;year&quot;  &quot;wday&quot;  &quot;yday&quot;  &quot;isdst&quot;
+p$sec
+## [1] 14.34
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Times in R</h2>
+  </hgroup>
+  <article>
+    <p>You can also use the <code>POSIXct</code> format.</p>
+
+<pre><code class="r">x &lt;- Sys.time()
+x  ## Already in ‘POSIXct’ format
+## [1] &quot;2013-01-24 22:04:14 EST&quot;
+unclass(x)
+## [1] 1359083054
+x$sec
+## Error: $ operator is invalid for atomic vectors
+p &lt;- as.POSIXlt(x)
+p$sec
+## [1] 14.37
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Times in R</h2>
+  </hgroup>
+  <article>
+    <p>Finally, there is the <code>strptime</code> function in case your dates are written in a different format</p>
+
+<pre><code class="r">datestring &lt;- c(&quot;January 10, 2012 10:40&quot;, &quot;December 9, 2011
+x &lt;- strptime(datestring, &quot;%B %d, %Y %H:%M&quot;)
+x
+## [1] &quot;2012-01-10 10:40:00&quot; &quot;2011-12-09 09:10:00&quot;
+class(x)
+## [1] &quot;POSIXlt&quot; &quot;POSIXt&quot;
+</code></pre>
+
+<p>I can <em>never</em> remember the formatting strings. Check <code>?strptime</code> for details.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Operations on Dates and Times</h2>
+  </hgroup>
+  <article>
+    <p>You can use mathematical operations on dates and times. Well, really just + and -. You can do comparisons too (i.e. ==, &lt;=)</p>
+
+<pre><code class="r">x &lt;- as.Date(&quot;2012-01-01&quot;)
+y &lt;- strptime(&quot;9 Jan 2011 11:34:21&quot;, &quot;%d %b %Y %H:%M:%S&quot;) 
+x-y
+## Warning: Incompatible methods (&quot;-.Date&quot;,
+## &quot;-.POSIXt&quot;) for &quot;-&quot;
+## Error: non-numeric argument to binary operator
+x &lt;- as.POSIXlt(x) 
+x-y
+## Time difference of 356.3 days
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Operations on Dates and Times</h2>
+  </hgroup>
+  <article>
+    <p>Even keeps track of leap years, leap seconds, daylight savings, and time zones.</p>
+
+<pre><code class="r">x &lt;- as.Date(&quot;2012-03-01&quot;) y &lt;- as.Date(&quot;2012-02-28&quot;) 
+x-y
+## Time difference of 2 days
+x &lt;- as.POSIXct(&quot;2012-10-25 01:00:00&quot;)
+y &lt;- as.POSIXct(&quot;2012-10-25 06:00:00&quot;, tz = &quot;GMT&quot;) 
+y-x
+## Time difference of 1 hours
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Dates and times have special classes in R that allow for numerical and statistical calculations</li>
+<li>Dates use the <code>Date</code> class</li>
+<li>Times use the <code>POSIXct</code> and <code>POSIXlt</code> class</li>
+<li>Character strings can be coerced to Date/Time classes using the <code>strptime</code> function or the <code>as.Date</code>, <code>as.POSIXlt</code>, or <code>as.POSIXct</code></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

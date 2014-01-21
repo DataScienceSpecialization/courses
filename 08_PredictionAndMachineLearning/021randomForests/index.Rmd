@@ -1,0 +1,136 @@
+---
+title       : Random forests
+subtitle    : 
+author      : Jeffrey Leek, Assistant Professor of Biostatistics 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', cache=TRUE, dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+
+## Random forests
+
+1. Bootstrap samples
+2. At each split, bootstrap variables
+3. Grow multiple trees and vote
+
+__Pros__:
+
+1. Accuracy
+
+__Cons__:
+
+1. Speed
+2. Interpretability
+3. Overfitting
+
+
+---
+
+## Random forests
+
+<img class=center src=../../assets/img/08_PredictionAndMachineLearning/forests.png height=400>
+
+[http://www.robots.ox.ac.uk/~az/lectures/ml/lect5.pdf](http://www.robots.ox.ac.uk/~az/lectures/ml/lect5.pdf)
+
+
+---
+
+## Iris data
+
+```{r iris, cache=TRUE}
+data(iris); library(ggplot2)
+inTrain <- createDataPartition(y=iris$Species,
+                              p=0.7, list=FALSE)
+training <- iris[inTrain,]
+testing <- iris[-inTrain,]
+```
+
+
+---
+
+## Random forests
+
+```{r forestIris, dependson="irisData",fig.height=4,fig.width=4,cache=TRUE}
+library(caret)
+modFit <- train(Species~ .,data=training,method="rf",prox=TRUE)
+modFit
+```
+
+---
+
+## Getting a single tree
+
+```{r , dependson="forestIris",fig.height=4,fig.width=4}
+getTree(modFit$finalModel,k=2)
+```
+
+---
+
+## Class "centers"
+
+```{r centers, dependson="forestIris",fig.height=4,fig.width=4}
+irisP <- classCenter(training[,c(3,4)], training$Species, modFit$finalModel$prox)
+irisP <- as.data.frame(irisP); irisP$Species <- rownames(irisP)
+p <- qplot(Petal.Width, Petal.Length, col=Species,data=training)
+p + geom_point(aes(x=Petal.Width,y=Petal.Length,col=Species),size=5,shape=4,data=irisP)
+```
+
+---
+
+## Predicting new values
+
+```{r predForest, dependson="centers",fig.height=4,fig.width=4,cache=TRUE}
+pred <- predict(modFit,testing); testing$predRight <- pred==testing$Species
+table(pred,testing$Species)
+```
+
+---
+
+## Predicting new values
+
+```{r, dependson="predForest",fig.height=4,fig.width=4}
+qplot(Petal.Width,Petal.Length,colour=predRight,data=testing,main="newdata Predictions")
+```
+
+---
+
+## Notes and further resources
+
+__Notes__:
+
+* Random forests are usually one of the two top
+performing algorithms along with boosting in prediction contests.
+* Random forests are difficult to interpret but often very accurate. 
+* Care should be taken to avoid overfitting (see [rfcv](http://cran.r-project.org/web/packages/randomForest/randomForest.pdf) funtion)
+
+
+__Further resources__:
+
+* [Random forests](http://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm)
+* [Random forest Wikipedia](http://en.wikipedia.org/wiki/Random_forest)
+* [Elements of Statistical Learning](http://www-stat.stanford.edu/~tibs/ElemStatLearn/)

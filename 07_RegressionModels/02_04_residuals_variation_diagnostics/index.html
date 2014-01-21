@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Residuals, diagnostics, variation</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Residuals, diagnostics, variation">
+  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Residuals, diagnostics, variation</h1>
+    <h2>Regression</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>The linear model</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Specified as \(Y_i =  \sum_{k=1}^p X_{ik} \beta_j + \epsilon_{i}\)</li>
+<li>We&#39;ll also assume here that \(\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)\)</li>
+<li>Define the residuals as
+\(e_i = Y_i -  \hat Y_i =  Y_i - \sum_{k=1}^p X_{ik} \hat \beta_j\)</li>
+<li>Our estimate of residual variation is \(\hat \sigma^2 = \frac{\sum_{i=1}^n e_i^2}{n-p}\), the \(n-p\) so that \(E[\hat \sigma^2] = \sigma^2\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">data(swiss); par(mfrow = c(2, 2))
+fit &lt;- lm(Fertility ~ . , data = swiss); plot(fit)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Influential, high leverage and outlying points</h2>
+  </hgroup>
+  <article data-timings="">
+    <div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Summary of the plot</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Calling a point an outlier is vague. </p>
+
+<ul>
+<li>Outliers can be the result of spurious or real processes.</li>
+<li>Outliers can have varying degrees of influence.</li>
+<li>Outliers can conform to the regression relationship (i.e being marginally outlying in X or Y, but not outlying given the regression relationship).
+
+<ul>
+<li>Upper left hand point has low leverage, low influence, outlies in a way not conforming to the regression relationship.</li>
+<li>Lower left hand point has low leverage, low influence and is not to be an outlier in any sense.</li>
+<li>Upper right hand point has high leverage, but chooses not to extert it and thus would have low actual influence by conforming to the regresison relationship of the other points.</li>
+<li>Lower right hand point has high leverage and would exert it if it were included in the fit.</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Influence measures</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Do <code>?influence.measures</code> to see the full suite of influence measures in stats. The measures include
+
+<ul>
+<li><code>rstandard</code> - standardized residuals, residuals divided by their standard deviations)</li>
+<li><code>rstudent</code> - standardized residuals, residuals divided by their standard deviations, where the ith data point was deleted in the calculation of the standard deviation for the residual to follow a t distribution</li>
+<li><code>hatvalues</code> - measures of leverage</li>
+<li><code>dffits</code> - change in the predicted response when the \(i^{th}\) point is deleted in fitting the model.</li>
+<li><code>dfbetas</code> - change in individual coefficients when the \(i^{th}\) point is deleted in fitting the model.</li>
+<li><code>cooks.distance</code> - overall change in teh coefficients when the \(i^{th}\) point is deleted.</li>
+<li><code>resid</code> - returns the ordinary residuals</li>
+<li><code>resid(fit) / (1 - hatvalues(fit))</code> where <code>fit</code> is the linear model fit returns the PRESS residuals, i.e. the leave one out cross validation residuals - the difference in the response and the predicted response at data point \(i\), where it was not included in the model fitting.</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>How do I use all of these things?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Be wary of simplistic rules for diagnostic plots and measures. The use of these tools is context specific. It&#39;s better to understand what they are trying to accomplish and use them judiciously.</li>
+<li>Not all of the measures have meaningful absolute scales. You can look at them relative to the values across the data.</li>
+<li>They probe your data in different ways to diagnose different problems. </li>
+<li>Patterns in your residual plots generally indicate some poor aspect of model fit. These can include:
+
+<ul>
+<li>Heteroskedasticity (non constant variance).</li>
+<li>Missing model terms.</li>
+<li>Temporal patterns (plot residuals versus collection order).</li>
+</ul></li>
+<li>Residual QQ plots investigate normality of the errors.</li>
+<li>Leverage measures (hat values) can be useful for diagnosing data entry errors.</li>
+<li>Influence measures get to the bottom line, &#39;how does deleting or including this point impact a particular aspect of the model&#39;.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Case 1</h2>
+  </hgroup>
+  <article data-timings="">
+    <div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>The code</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>n &lt;- 100; x &lt;- c(10, rnorm(n)); y &lt;- c(10, c(rnorm(n)))
+plot(x, y, frame = FALSE, cex = 2, pch = 21, bg = &quot;lightblue&quot;, col = &quot;black&quot;)
+abline(lm(y ~ x))            
+</code></pre>
+
+<ul>
+<li>The point <code>c(10, 10)</code> has created a strong regression relationship where there shouldn&#39;t be one.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Showing a couple of the diagnostic values</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">fit &lt;- lm(y ~ x)
+round(dfbetas(fit)[1 : 10, 2], 3)
+</code></pre>
+
+<pre><code>     1      2      3      4      5      6      7      8      9     10 
+ 6.007 -0.019 -0.007  0.014 -0.002 -0.083 -0.034 -0.045 -0.112 -0.008 
+</code></pre>
+
+<pre><code class="r">round(hatvalues(fit)[1 : 10], 3)
+</code></pre>
+
+<pre><code>    1     2     3     4     5     6     7     8     9    10 
+0.445 0.010 0.011 0.011 0.030 0.017 0.012 0.033 0.021 0.010 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Case 2</h2>
+  </hgroup>
+  <article data-timings="">
+    <div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Looking at some of the diagnostics</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">round(dfbetas(fit2)[1 : 10, 2], 3)
+</code></pre>
+
+<pre><code>     1      2      3      4      5      6      7      8      9     10 
+-0.072 -0.041 -0.007  0.012  0.008 -0.187  0.017  0.100 -0.059  0.035 
+</code></pre>
+
+<pre><code class="r">round(hatvalues(fit2)[1 : 10], 3)
+</code></pre>
+
+<pre><code>    1     2     3     4     5     6     7     8     9    10 
+0.164 0.011 0.014 0.012 0.010 0.030 0.017 0.017 0.013 0.021 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Example described by Stefanski TAS 2007 Vol 61.</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">## Don&#39;t everyone hit this server at once.  Read the paper first.
+dat &lt;- read.table(&#39;http://www4.stat.ncsu.edu/~stefanski/NSF_Supported/Hidden_Images/orly_owl_files/orly_owl_Lin_4p_5_flat.txt&#39;, header = FALSE)
+pairs(dat)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Got our P-values, should we bother to do a residual plot?</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">summary(lm(V1 ~ . -1, data = dat))$coef
+</code></pre>
+
+<pre><code>   Estimate Std. Error t value  Pr(&gt;|t|)
+V2   0.9856    0.12798   7.701 1.989e-14
+V3   0.9715    0.12664   7.671 2.500e-14
+V4   0.8606    0.11958   7.197 8.301e-13
+V5   0.9267    0.08328  11.127 4.778e-28
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Residual plot</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>P-values significant, O RLY?</h3>
+
+<pre><code class="r">fit &lt;- lm(V1 ~ . - 1, data = dat); plot(predict(fit), resid(fit), pch = &#39;.&#39;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Back to the Swiss data</h2>
+  </hgroup>
+  <article data-timings="">
+    <div class="rimage center"><img src="fig/unnamed-chunk-10.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='The linear model'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title=''>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Influential, high leverage and outlying points'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Summary of the plot'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Influence measures'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='How do I use all of these things?'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Case 1'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='The code'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Showing a couple of the diagnostic values'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Case 2'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Looking at some of the diagnostics'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Example described by Stefanski TAS 2007 Vol 61.'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Got our P-values, should we bother to do a residual plot?'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Residual plot'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Back to the Swiss data'>
+         15
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

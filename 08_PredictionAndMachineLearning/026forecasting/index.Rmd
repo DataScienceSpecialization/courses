@@ -1,0 +1,196 @@
+---
+title       : Forecasting
+subtitle    : 
+author      : Jeffrey Leek, Assistant Professor of Biostatistics 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/',cache=TRUE)
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## Time series data
+
+<img class=center src=../../assets/img/08_PredictionAndMachineLearning/GOOG.png height=450>
+
+[https://www.google.com/finance](https://www.google.com/finance)
+
+---
+
+## What is different?
+
+* Data are dependent over time
+* Specific pattern types
+  * Trends - long term increase or decrease
+  * Seasonal patterns - patterns related to time of week, month, year, etc.
+  * Cycles - patterns that rise and fall periodically
+* Subsampling into training/test is more complicated
+* Similar issues arise in spatial data 
+  * Dependency between nearby observations
+  * Location specific effects
+* Typically goal is to predict one or more observations into the future. 
+* All standard predictions can be used (with caution!)
+
+---
+
+## Beware spurious correlations!
+
+
+<img class=center src=../../assets/img/08_PredictionAndMachineLearning/spurious.jpg height=450>
+
+[http://www.google.com/trends/correlate](http://www.google.com/trends/correlate)
+
+[http://www.newscientist.com/blogs/onepercent/2011/05/google-correlate-passes-our-we.html](http://www.newscientist.com/blogs/onepercent/2011/05/google-correlate-passes-our-we.html)
+
+---
+
+## Also common in geographic analyses
+
+<img class=center src=../../assets/img/08_PredictionAndMachineLearning/heatmap.png height=450>
+
+[http://xkcd.com/1138/](http://xkcd.com/1138/)
+
+
+---
+
+## Beware extrapolation!
+
+<img class=center src=../../assets/img/08_PredictionAndMachineLearning/extrapolation.jpg height=450>
+
+[http://www.nature.com/nature/journal/v431/n7008/full/431525a.html](http://www.nature.com/nature/journal/v431/n7008/full/431525a.html)
+
+---
+
+## Google data
+
+
+```{r loadGOOG}
+library(quantmod)
+from.dat <- as.Date("01/01/08", format="%m/%d/%y")
+to.dat <- as.Date("12/31/13", format="%m/%d/%y")
+getSymbols("GOOG", src="google", from = from.dat, to = to.dat)
+head(GOOG)
+```
+
+---
+
+## Summarize monthly and store as time series
+
+```{r tseries,dependson="loadGOOG",fig.height=4,fig.width=4}
+mGoog <- to.monthly(GOOG)
+googOpen <- Op(mGoog)
+ts1 <- ts(googOpen,frequency=12)
+plot(ts1,xlab="Years+1", ylab="GOOG")
+```
+
+
+---
+
+## Example time series decomposition
+
+* __Trend__  - Consistently increasing pattern over time 
+* __Seasonal__ -  When there is a pattern over a fixed period of time that recurs.
+* __Cyclic__ -  When data rises and falls over non fixed periods
+
+[https://www.otexts.org/fpp/6/1](https://www.otexts.org/fpp/6/1)
+
+
+---
+
+## Decompose a time series into parts
+
+```{r ,dependson="tseries",fig.height=4.5,fig.width=4.5}
+plot(decompose(ts1),xlab="Years+1")
+```
+
+---
+
+## Training and test sets
+
+```{r trainingTest,dependson="tseries",fig.height=4.5,fig.width=4.5}
+ts1Train <- window(ts1,start=1,end=5)
+ts1Test <- window(ts1,start=5,end=(7-0.01))
+ts1Train
+```
+
+---
+
+## Simple moving average
+
+$$ Y_{t}=\frac{1}{2*k+1}\sum_{j=-k}^k {y_{t+j}}$$
+
+```{r ,dependson="trainingTest",fig.height=4.5,fig.width=4.5}
+plot(ts1Train)
+lines(ma(ts1Train,order=3),col="red")
+```
+
+
+
+---
+
+## Exponential smoothing
+
+__Example - simple exponential smoothing__
+$$\hat{y}_{t+1} = \alpha y_t + (1-\alpha)\hat{y}_{t-1}$$
+
+<img class=center src=../../assets/img/08_PredictionAndMachineLearning/expsmooth.png height=300>
+
+[https://www.otexts.org/fpp/7/6](https://www.otexts.org/fpp/7/6)
+
+---
+
+## Exponential smoothing
+
+```{r ets,dependson="trainingTest",fig.height=4.5,fig.width=4.5}
+ets1 <- ets(ts1Train,model="MMM")
+fcast <- forecast(ets1)
+plot(fcast); lines(ts1Test,col="red")
+```
+
+
+---
+
+## Get the accuracy
+
+```{r ,dependson="ets",fig.height=4.5,fig.width=4.5}
+accuracy(fcast,ts1Test)
+```
+
+---
+
+## Notes and further resources
+
+* [Forecasting and timeseries prediction](http://en.wikipedia.org/wiki/Forecasting) is an entire field
+* Rob Hyndman's [Forecasting: principles and practice](https://www.otexts.org/fpp/) is a good place to start
+* Cautions
+  * Be wary of spurious correlations
+  * Be careful how far you predict (extrapolation)
+  * Be wary of dependencies over time
+* See [quantmod](http://cran.r-project.org/web/packages/quantmod/quantmod.pdf) or [quandl](http://www.quandl.com/help/packages/r) packages for finance-related problems.
+
+
+
+
+

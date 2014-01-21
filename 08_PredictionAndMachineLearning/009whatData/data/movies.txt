@@ -1,0 +1,141 @@
+	score	rating	genre	box office	running time
+2 Fast 2 Furious	48.9	PG-13	action/adventure	127.146	107
+28 Days Later	78.2	R	horror	45.065	113
+A Guy Thing	39.5	PG-13	rom comedy	15.545	101
+A Man Apart	42.9	R	action/adventure	26.248	110
+A Mighty Wind	79.9	PG-13	comedy	17.781	91
+Agent Cody Banks	57.9	PG	action/adventure	47.811	102
+Alex & Emma	35.1	PG-13	rom comedy	14.219	96
+American Wedding	50.7	R	comedy	104.441	96
+Anger Management	62.6	PG-13	comedy	134.404	106
+Anything Else	63.3	R	rom comedy	3.212	108
+Bad Boys II	38.1	R	action/adventure	138.397	147
+Bad Santa	75.8	R	comedy	59.523	91
+Basic	43.6	R	suspense	26.536	98
+Beyond Borders	48.8	R	drama	4.430	127
+big fish	78.0	PG-13	drama	65.151	125
+Biker Boyz	44.8	PG-13	action/adventure	21.731	110
+Boat Trip	29.2	R	comedy	8.600	94
+Bringing Down the House	57.7	PG-13	comedy	132.582	105
+Brother Bear	60.6	G	animated	84.874	84
+Bruce Almighty	63.3	PG-13	comedy	242.705	101
+Bulletproof Monk	47.3	PG-13	action/adventure	23.359	104
+Cabin Fever	54.3	R	horror	21.158	93
+Calendar Girls	67.3	PG-13	comedy	29.591	108
+Charlie's Angles: Full Throttle	54.8	PG-13	action/adventure	100.785	106
+Cheaper by the Dozen	52.9	PG	comedy	135.445	98
+Cold Creek Manor	50.6	R	suspense	21.386	118
+Cold Mountain	78.0	R	drama	90.712	152
+Confidence	62.2	R	drama	12.218	97
+Cradle 2 the Grave	45.8	R	action/adventure	34.613	101
+Daddy Day Care	40.5	PG	comedy	104.297	92
+Daredevil	52.1	PG-13	action/adventure	102.544	103
+Dark Blue	58.7	R	drama	9.250	118
+Darkness Falls	31.1	PG-13	horror	32.131	86
+Deliver Us From Eva	61.8	R	rom comedy	17.366	105
+Dickie Roberts, Former Child Star	52.6	PG-13	comedy	22.739	98
+Down With Love	63.7	PG-13	rom comedy	20.305	101
+Dr. Seuss' The Cat in the Hat	37.8	PG	fantasy	99.880	82
+Dreamcatcher	42.5	R	sci-fi	33.700	136
+Dumb and Dumberer	29.5	PG-13	comedy	26.166	85
+Duplex	51.3	PG-13	comedy	9.671	89
+Dysfunktional Family	57.2	R	documentary	2.235	89
+Elf	70.3	PG	comedy	173.306	95
+Final Destination 2	46.1	R	horror	46.492	90
+Finding Nemo	91.2	G	animated	339.715	100
+Freaky Friday	74.9	PG	comedy	110.222	97
+Freddy vs. Jason	47.3	R	horror	82.217	97
+From Justin to Kelly	34.8	PG	musical	4.929	81
+Gigli	29.3	R	rom comedy	6.088	121
+Gods and Generals	42.0	PG-13	drama	12.875	231
+Good Boy!	57.9	PG	comedy	37.655	87
+Gothika	48.1	R	horror	59.454	98
+Grind	35.0	PG-13	comedy	5.124	105
+Head of State	56.7	PG-13	comedy	37.845	95
+Holes	71.9	PG	drama	67.365	117
+Hollywood Homicide	47.9	PG-13	action/adventure	30.941	116
+Honey	49.9	PG-13	drama	30.223	94
+House of 1000 Corpses	36.3	R	horror	12.599	105
+How to Deal	53.6	PG-13	drama	14.144	101
+How to Lose a Guy in 10 Days	50.3	PG-13	rom comedy	106.094	116
+Identity	60.0	R	suspense	52.131	90
+In the Cut	53.6	R	suspense	4.717	119
+Intolerable Cruelty	67.1	PG-13	rom comedy	35.189	100
+It Runs in the Family	55.6	PG-13	comedy	7.492	109
+Jeepers Creepers 2	44.2	R	horror	35.667	104
+Johnny English	56.4	PG	comedy	28.082	87
+Just Married	41.5	PG-13	rom comedy	56.127	95
+Kangaroo Jack	30.4	PG	comedy	66.746	89
+Kill Bill - Vol 1	84.1	R	action/adventure	69.869	111
+Lara Croft, Tomb Raider	48.8	PG-13	action/adventure	65.660	117
+Le Divorce	59.6	PG-13	comedy	9.081	117
+Legally Blonde 2	50.8	PG-13	comedy	89.921	95
+Looney Tunes: Back in Action	59.3	PG	comedy	20.808	90
+Lost in Translation	94.6	R	drama	43.217	102
+Love Actually	70.5	R	rom comedy	59.365	135
+Love Don't Cost a Thing	45.4	PG-13	rom comedy	21.803	100
+Malibu's Most Wanted	44.8	PG-13	comedy	34.340	86
+Marci X	36.2	R	comedy	1.649	84
+Master and Commander	87.6	PG-13	action/adventure	92.076	138
+Matchstick Men	68.9	PG-13	comedy	36.886	116
+Mona Lisa Smile	55.8	PG-13	drama	63.696	117
+Monster	64.9	R	drama	23.802	109
+My Boss's Daughter	33.2	PG-13	rom comedy	15.551	90
+Mystic River	89.9	R	drama	79.207	137
+National Security	37.9	PG-13	action/adventure	35.765	88
+Old School	54.7	R	comedy	74.663	92
+Once Upon A Time in Mexico	64.6	R	action/adventure	55.846	102
+Open Range	71.6	R	western	58.331	139
+Out of Time	65.8	PG-13	suspense	41.077	105
+Paycheck	48.3	PG-13	sci-fi	53.428	119
+Peter Pan	67.5	PG	fantasy	47.581	113
+Phone Booth	62.1	R	suspense	46.566	81
+Piglet's Big Movie	63.6	G	animated	23.103	75
+Pirates of the Caribbean	67.8	PG-13	action/adventure	305.414	143
+Radio	54.2	PG	drama	51.987	109
+Rugrats Go Wild	55.6	PG	animated	39.403	84
+Runaway Jury	65.4	PG-13	suspense	49.441	127
+S.W.A.T.	55.4	PG-13	action/adventure	116.643	117
+Scary Movie 3	50.2	PG-13	comedy	110.000	84
+Seabiscuit	81.3	PG-13	drama	120.171	141
+Secondhand Lions	57.9	PG	drama	41.521	111
+Shanghai Knights	62.1	PG-13	action/adventure	60.477	114
+Sinbad: Legend of the Seven Seas	55.3	PG	animated	26.309	86
+Something's Gotta Give	75.5	PG-13	rom comedy	121.418	128
+Spy Kids 3-D: Game Over	65.0	PG	action/adventure	111.761	84
+Stuck on You	65.6	PG-13	comedy	33.762	118
+Tears of the Sun	53.1	R	action/adventure	43.427	121
+Terminator 3:Rise of the Machines	71.3	R	action/adventure	150.358	109
+The Core	53.1	PG-13	sci-fi	31.187	135
+The Fighting Temptations	63.3	PG-13	comedy	30.251	123
+The Haunted Mansion	45.3	PG	comedy	74.320	99
+The Hulk	61.0	PG-13	action/adventure	132.176	138
+The Hunted	54.0	R	action/adventure	34.316	94
+The In-Laws	44.8	PG-13	comedy	20.453	95
+The Italian Job	66.5	PG-13	action/adventure	106.129	111
+The Jungle Book 2	55.2	G	animated	47.902	72
+The Last Samurai	67.8	R	drama	110.069	154
+The League of Extraordinary Gentlemen	43.2	PG-13	action/adventure	66.465	110
+The Life of David Gale	46.9	R	suspense	19.956	130
+The Lizze McGuire Movie	57.1	PG	comedy	42.718	94
+The Lord of the Rings III	92.2	PG-13	fantasy	361.119	201
+The Matrix Reloaded	70.1	R	action/adventure	281.519	138
+The Matrix Revolutions	49.7	R	action/adventure	139.260	129
+The Medallion	46.2	PG-13	action/adventure	22.219	88
+The Missing	67.0	R	western	26.900	137
+The Order	29.8	R	suspense	7.661	102
+The Real Cancun	40.8	R	documentary	3.779	96
+The Recruit	62.6	PG-13	suspense	52.802	115
+The Rundown	60.4	PG-13	action	47.611	104
+The School of Rock	86.4	PG-13	comedy	81.239	108
+The Texas Chainsaw Massacre	42.2	PG-13	horror	80.168	98
+Timeline	42.9	R	action	19.481	116
+Tupac: Resurrection	69.5	R	documentary	7.719	90
+Under the Tuscan Sun	63.1	PG-13	comedy	43.502	113
+Underworld	46.2	R	action	51.484	121
+Uptown Girls	38.5	PG-13	comedy	37.182	92
+View from the Top	43.7	PG-13	comedy	15.597	87
+What a Girl Wants	53.3	PG	comedy	36.017	105
+Willard	60.3	PG-13	horror	6.852	100
+Wrong Turn	32.6	R	horror	15.419	84
+X2: X-Men United	72.5	PG-13	action	214.950	133

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data slicing</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Data slicing">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Data slicing</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>SPAM Example: Data splitting</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(caret); library(kernlab); data(spam)
+inTrain &lt;- createDataPartition(y=spam$type,
+                              p=0.75, list=FALSE)
+training &lt;- spam[inTrain,]
+testing &lt;- spam[-inTrain,]
+dim(training)
+</code></pre>
+
+<pre><code>[1] 3451   58
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>SPAM Example: K-fold</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(32323)
+folds &lt;- createFolds(y=spam$type,k=10,
+                             list=TRUE,returnTrain=TRUE)
+sapply(folds,length)
+</code></pre>
+
+<pre><code>Fold01 Fold02 Fold03 Fold04 Fold05 Fold06 Fold07 Fold08 Fold09 Fold10 
+  4141   4140   4141   4142   4140   4142   4141   4141   4140   4141 
+</code></pre>
+
+<pre><code class="r">folds[[1]][1:10]
+</code></pre>
+
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>SPAM Example: Return test</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(32323)
+folds &lt;- createFolds(y=spam$type,k=10,
+                             list=TRUE,returnTrain=FALSE)
+sapply(folds,length)
+</code></pre>
+
+<pre><code>Fold01 Fold02 Fold03 Fold04 Fold05 Fold06 Fold07 Fold08 Fold09 Fold10 
+   460    461    460    459    461    459    460    460    461    460 
+</code></pre>
+
+<pre><code class="r">folds[[1]][1:10]
+</code></pre>
+
+<pre><code> [1] 24 27 32 40 41 43 55 58 63 68
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>SPAM Example: Resampling</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(32323)
+folds &lt;- createResample(y=spam$type,times=10,
+                             list=TRUE)
+sapply(folds,length)
+</code></pre>
+
+<pre><code>Resample01 Resample02 Resample03 Resample04 Resample05 Resample06 Resample07 Resample08 Resample09 
+      4601       4601       4601       4601       4601       4601       4601       4601       4601 
+Resample10 
+      4601 
+</code></pre>
+
+<pre><code class="r">folds[[1]][1:10]
+</code></pre>
+
+<pre><code> [1]  1  2  3  3  3  5  5  7  8 12
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>SPAM Example: Time Slices</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(32323)
+tme &lt;- 1:1000
+folds &lt;- createTimeSlices(y=tme,initialWindow=20,
+                          horizon=10)
+names(folds)
+</code></pre>
+
+<pre><code>[1] &quot;train&quot; &quot;test&quot; 
+</code></pre>
+
+<pre><code class="r">folds$train[[1]]
+</code></pre>
+
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+</code></pre>
+
+<pre><code class="r">folds$test[[1]]
+</code></pre>
+
+<pre><code> [1] 21 22 23 24 25 26 27 28 29 30
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Further information</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Caret tutorials:
+
+<ul>
+<li><a href="http://www.edii.uclm.es/%7EuseR-2013/Tutorials/kuhn/user_caret_2up.pdf">http://www.edii.uclm.es/~useR-2013/Tutorials/kuhn/user_caret_2up.pdf</a></li>
+<li><a href="http://cran.r-project.org/web/packages/caret/vignettes/caret.pdf">http://cran.r-project.org/web/packages/caret/vignettes/caret.pdf</a></li>
+</ul></li>
+<li>A paper introducing the caret package
+
+<ul>
+<li><a href="http://www.jstatsoft.org/v28/i05/paper">http://www.jstatsoft.org/v28/i05/paper</a></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

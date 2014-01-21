@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Types of Data Science Questions</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Types of Data Science Questions">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Types of Data Science Questions</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Types of Data Science Questions</h2>
+  </hgroup>
+  <article>
+    <p><strong>In approximate order of difficulty</strong></p>
+
+<ul>
+<li>Descriptive</li>
+<li>Exploratory</li>
+<li>Inferential</li>
+<li>Predictive</li>
+<li>Causal</li>
+<li>Mechanistic</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>About descriptive analyses</h2>
+  </hgroup>
+  <article>
+    <p><strong>Goal</strong>: Describe a set of data</p>
+
+<ul>
+<li>The first kind of data analysis performed</li>
+<li>Commonly applied to census data</li>
+<li>The description and interpretation are different steps</li>
+<li>Descriptions can usually not be generalized without additional statistical modeling</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Descriptive analysis</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src="../../assets/img/01_DataScientistToolbox/census2010.png" height=400 /></p>
+
+<p><a href="http://www.census.gov/2010census/">http://www.census.gov/2010census/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Descriptive analysis</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src="../../assets/img/01_DataScientistToolbox/ngrams.png" height=400 /></p>
+
+<p><a href="http://books.google.com/ngrams">http://books.google.com/ngrams</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>About exploratory analysis</h2>
+  </hgroup>
+  <article>
+    <p><strong>Goal</strong>: Find relationships you didn&#39;t know about</p>
+
+<ul>
+<li>Exploratory models are good for discovering new connections</li>
+<li>They are also useful for defining future studies</li>
+<li>Exploratory analyses are usually not the final say</li>
+<li>Exploratory analyses alone should not be used for generalizing/predicting</li>
+<li><a href="http://en.wikipedia.org/wiki/Correlation_does_not_imply_causation">Correlation does not imply causation</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Exploratory analysis</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src="../../assets/img/01_DataScientistToolbox/brain.jpg" height=400 /></p>
+
+<p><a href="http://www.nature.com/srep/2012/121115/srep00834/full/srep00834.html">Liu et al. (2012) Scientific Reports</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Exploratory analysis</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src="../../assets/img/01_DataScientistToolbox/sloan.png" height=400 /></p>
+
+<p><a href="http://www.sdss.org/">http://www.sdss.org/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>About inferential analysis</h2>
+  </hgroup>
+  <article>
+    <p><strong>Goal</strong>: Use a relatively small sample of data to say something about a bigger population</p>
+
+<ul>
+<li>Inference is commonly the goal of statistical models</li>
+<li>Inference involves estimating both the quantity you care about and your uncertainty about your estimate</li>
+<li>Inference depends heavily on both the population and the sampling scheme</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Inferential analysis</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src="../../assets/img/01_DataScientistToolbox/pollution.png" height=400 /></p>
+
+<p><a href="http://journals.lww.com/epidem/Fulltext/2013/01000/Effect_of_Air_Pollution_Control_on_Life_Expectancy.4.aspx">Correia et al. (2013) Epidemiology</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>About predictive analysis</h2>
+  </hgroup>
+  <article>
+    <p><strong>Goal</strong>: To use the data on some objects to predict values for another object</p>
+
+<ul>
+<li>If \(X\) predicts \(Y\) it does not mean that \(X\) causes \(Y\)</li>
+<li>Accurate prediction depends heavily on measuring the right variables</li>
+<li>Although there are better and worse prediction models, more data and a simple model <a href="http://www.youtube.com/watch?v=yvDCzhbjYWs">works really well</a></li>
+<li>Prediction is very hard, especially about the future <a href="http://www.larry.denenberg.com/predictions.html">references</a> </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Predictive analysis</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src="../../assets/img/01_DataScientistToolbox/fivethirtyeight.png" height=400 /></p>
+
+<p><a href="http://fivethirtyeight.blogs.nytimes.com/">http://fivethirtyeight.blogs.nytimes.com/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Predictive analysis</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src="../../assets/img/01_DataScientistToolbox/target.png" height=400 /></p>
+
+<p><a href="http://www.forbes.com/sites/kashmirhill/2012/02/16/how-target-figured-out-a-teen-girl-was-pregnant-before-her-father-did/">http://www.forbes.com/sites/kashmirhill/2012/02/16/how-target-figured-out-a-teen-girl-was-pregnant-before-her-father-did/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>About causal analysis</h2>
+  </hgroup>
+  <article>
+    <p><strong>Goal</strong>: To find out what happens to one variable when you make another variable change. </p>
+
+<ul>
+<li>Usually randomized studies are required to identify causation</li>
+<li>There are approaches to inferring causation in non-randomized studies, but they are complicated and sensitive to assumptions</li>
+<li>Causal relationships are usually identified as average effects, but may not apply to every individual</li>
+<li>Causal models are usually the &quot;gold standard&quot; for data analysis</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Causal analysis</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src="../../assets/img/01_DataScientistToolbox/feces.png" height=400 /></p>
+
+<p><a href="http://www.nejm.org/doi/full/10.1056/NEJMoa1205037?query=featured_home">van Nood et al. (2013) NEJM</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>About mechanistic analysis</h2>
+  </hgroup>
+  <article>
+    <p><strong>Goal</strong>: Understand the exact changes in variables that lead to changes in other variables for individual objects.</p>
+
+<ul>
+<li>Incredibly hard to infer, except in simple situations</li>
+<li>Usually modeled by a deterministic set of equations (physical/engineering science)</li>
+<li>Generally the random component of the data is measurement error</li>
+<li>If the equations are known but the parameters are not, they may be inferred with data analysis</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Mechanistic analysis</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src="../../assets/img/01_DataScientistToolbox/mechanistic.png" height=400 /></p>
+
+<p><a href="http://www.fhwa.dot.gov/resourcecenter/teams/pavement/pave_3pdg.pdf">http://www.fhwa.dot.gov/resourcecenter/teams/pavement/pave_3pdg.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

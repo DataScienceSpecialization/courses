@@ -1,0 +1,90 @@
+---
+title       : Downloading files
+subtitle    : 
+author      : Jeffrey Leek 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Get/set your working directory
+
+* A basic component of working with data is knowing your working directory
+* The two main commands are ```getwd()``` and ```setwd()```. 
+* Be aware of relative versus absolute paths
+  * __Relative__ - ```setwd("./data")```, ```setwd("../")```
+  * __Absolute__ - ```setwd("/Users/jtleek/data/")```
+* Important difference in Windows ```setwd("C:\\Users\\Andrew\\Downloads")```
+
+---
+
+## Checking for and creating directories
+
+* ```file.exists("directoryName")``` will check to see if the directory exists
+* ```dir.create("directoryName")``` will create a directory if it doesn't exist
+* Here is an example checking for a "data" directory and creating it if it doesn't exist
+
+```{r data}
+if(!file.exists("data")){
+  dir.create("data")
+}
+```
+
+
+---
+
+## Getting data from the internet - download.file()
+
+* Downloads a file from the internet
+* Even if you could do this by hand, helps with reproducibility
+* Important parameters are _url_, _destfile_, _method_
+* Useful for downloading tab-delimited, csv, and other files
+
+
+---
+
+## Example - Baltimore camera data
+
+
+<img class=center src=../../assets/img/03_ObtainingData/cameras.png height=500>
+
+[https://data.baltimorecity.gov/Transportation/Baltimore-Fixed-Speed-Cameras/dz54-2aru](https://data.baltimorecity.gov/Transportation/Baltimore-Fixed-Speed-Cameras/dz54-2aru)
+
+
+---
+
+## Example - Baltimore camera data
+
+<img class=center src=../../assets/img/03_ObtainingData/cameraslink.png height=500>
+
+[https://data.baltimorecity.gov/Transportation/Baltimore-Fixed-Speed-Cameras/dz54-2aru](https://data.baltimorecity.gov/Transportation/Baltimore-Fixed-Speed-Cameras/dz54-2aru)
+
+
+---
+
+## Download a file from the web
+
+```{r,dependson="data"}
+fileUrl <- "https://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD"
+download.file(fileUrl,destfile="./data/cameras.csv",method="curl")
+list.files("./data")
+dateDownloaded <- date()
+dateDownloaded
+```
+
+---
+
+## Some notes about download.file()
+
+* If the url starts with _http_ you can use download.file()
+* If the url starts with _https_ on Windows you may be ok
+* If the url starts with _https_ on Mac you may need to set _method="curl"_
+* If the file is big, this might take a while
+* Be sure to record when you downloaded. 

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Two group intervals</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Two group intervals">
+  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Two group intervals</h1>
+        <h2>Statistical Inference</h2>
+        <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Independent group \(t\) confidence intervals</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Suppose that we want to compare the mean blood pressure between two groups in a randomized trial; those who received the treatment to those who received a placebo</li>
+<li>We cannot use the paired t test because the groups are independent and may have different sample sizes</li>
+<li>We now present methods for comparing independent groups</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Notation</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Let \(X_1,\ldots,X_{n_x}\) be iid \(N(\mu_x,\sigma^2)\)</li>
+<li>Let \(Y_1,\ldots,Y_{n_y}\) be iid \(N(\mu_y, \sigma^2)\)</li>
+<li>Let \(\bar X\), \(\bar Y\), \(S_x\), \(S_y\) be the means and standard deviations</li>
+<li>Using the fact that linear combinations of normals are again normal, we know that \(\bar Y - \bar X\) is also normal with mean \(\mu_y - \mu_x\) and variance \(\sigma^2 (\frac{1}{n_x} + \frac{1}{n_y})\)</li>
+<li>The pooled variance estimator \[S_p^2 = \{(n_x - 1) S_x^2 + (n_y - 1) S_y^2\}/(n_x + n_y - 2)\] is a good estimator of \(\sigma^2\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Note</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The pooled estimator is a mixture of the group variances, placing greater weight on whichever has a larger sample size</li>
+<li>If the sample sizes are the same the pooled variance estimate is the average of the group variances</li>
+<li>The pooled estimator is unbiased
+\[
+\begin{eqnarray*}
+E[S_p^2] & = & \frac{(n_x - 1) E[S_x^2] + (n_y - 1) E[S_y^2]}{n_x + n_y - 2}\\
+        & = & \frac{(n_x - 1)\sigma^2 + (n_y - 1)\sigma^2}{n_x + n_y - 2}
+\end{eqnarray*}
+\]</li>
+<li>The pooled variance  estimate is independent of \(\bar Y - \bar X\) since \(S_x\) is independent of \(\bar X\) and \(S_y\) is independent of \(\bar Y\) and the groups are independent</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Result</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The sum of two independent Chi-squared random variables is Chi-squared with degrees of freedom equal to the sum of the degrees of freedom of the summands</li>
+<li>Therefore
+\[
+\begin{eqnarray*}
+  (n_x + n_y - 2) S_p^2 / \sigma^2 & = & (n_x - 1)S_x^2 /\sigma^2 + (n_y - 1)S_y^2/\sigma^2 \\ \\
+  & = & \chi^2_{n_x - 1} + \chi^2_{n_y-1} \\ \\
+  & = & \chi^2_{n_x + n_y - 2}
+\end{eqnarray*}
+\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Putting this all together</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The statistic
+\[
+\frac{\frac{\bar Y - \bar X - (\mu_y - \mu_x)}{\sigma \left(\frac{1}{n_x} + \frac{1}{n_y}\right)^{1/2}}}%
+{\sqrt{\frac{(n_x + n_y - 2) S_p^2}{(n_x + n_y - 2)\sigma^2}}}
+= \frac{\bar Y - \bar X - (\mu_y - \mu_x)}{S_p \left(\frac{1}{n_x} + \frac{1}{n_y}\right)^{1/2}}
+\]
+is a standard normal divided by the square root of an independent Chi-squared divided by its degrees of freedom </li>
+<li>Therefore this statistic follows Gosset&#39;s \(t\) distribution with \(n_x + n_y - 2\) degrees of freedom</li>
+<li>Notice the form is (estimator - true value) / SE</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Confidence interval</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Therefore a \((1 - \alpha)\times 100\%\) confidence interval for \(\mu_y - \mu_x\) is 
+\[
+\bar Y - \bar X \pm t_{n_x + n_y - 2, 1 - \alpha/2}S_p\left(\frac{1}{n_x} + \frac{1}{n_y}\right)^{1/2}
+\]</li>
+<li>Remember this interval is assuming a constant variance across the two groups</li>
+<li>If there is some doubt, assume a different variance per group, which we will discuss later</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article>
+    <h3>Based on Rosner, Fundamentals of Biostatistics</h3>
+
+<ul>
+<li>Comparing SBP for 8 oral contraceptive users versus 21 controls</li>
+<li>\(\bar X_{OC} = 132.86\) mmHg with \(s_{OC} = 15.34\) mmHg</li>
+<li>\(\bar X_{C} = 127.44\) mmHg with \(s_{C} = 18.23\) mmHg</li>
+<li>Pooled variance estimate</li>
+</ul>
+
+<pre><code class="r">sp &lt;- sqrt((7 * 15.34^2 + 20 * 18.23^2) / (8 + 21 - 2))
+132.86 - 127.44 + c(-1, 1) * qt(.975, 27) * sp * (1 / 8 + 1 / 21)^.5
+</code></pre>
+
+<pre><code>[1] -9.521 20.361
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    
+  </hgroup>
+  <article>
+    <pre><code class="r">data(sleep)
+x1 &lt;- sleep$extra[sleep$group == 1]
+x2 &lt;- sleep$extra[sleep$group == 2]
+n1 &lt;- length(x1)
+n2 &lt;- length(x2)
+sp &lt;- sqrt( ((n1 - 1) * sd(x1)^2 + (n2-1) * sd(x2)^2) / (n1 + n2-2))
+md &lt;- mean(x1) - mean(x2)
+semd &lt;- sp * sqrt(1 / n1 + 1/n2)
+md + c(-1, 1) * qt(.975, n1 + n2 - 2) * semd
+</code></pre>
+
+<pre><code>[1] -3.3639  0.2039
+</code></pre>
+
+<pre><code class="r">t.test(x1, x2, paired = FALSE, var.equal = TRUE)$conf
+</code></pre>
+
+<pre><code>[1] -3.3639  0.2039
+attr(,&quot;conf.level&quot;)
+[1] 0.95
+</code></pre>
+
+<pre><code class="r">t.test(x1, x2, paired = TRUE)$conf
+</code></pre>
+
+<pre><code>[1] -2.4599 -0.7001
+attr(,&quot;conf.level&quot;)
+[1] 0.95
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Ignoring pairing</h2>
+  </hgroup>
+  <article>
+    <div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Unequal variances</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Under unequal variances
+\[
+\bar Y - \bar X \sim N\left(\mu_y - \mu_x, \frac{\sigma_x^2}{n_x} + \frac{\sigma_y^2}{n_y}\right)
+\]</li>
+<li>The statistic 
+\[
+\frac{\bar Y - \bar X - (\mu_y - \mu_x)}{\left(\frac{\sigma_x^2}{n_x} + \frac{\sigma_y^2}{n_y}\right)^{1/2}}
+\]
+approximately follows Gosset&#39;s \(t\) distribution with degrees of freedom equal to
+\[
+\frac{\left(S_x^2 / n_x + S_y^2/n_y\right)^2}
+{\left(\frac{S_x^2}{n_x}\right)^2 / (n_x - 1) +
+  \left(\frac{S_y^2}{n_y}\right)^2 / (n_y - 1)}
+\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Comparing SBP for 8 oral contraceptive users versus 21 controls</li>
+<li>\(\bar X_{OC} = 132.86\) mmHg with \(s_{OC} = 15.34\) mmHg</li>
+<li>\(\bar X_{C} = 127.44\) mmHg with \(s_{C} = 18.23\) mmHg</li>
+<li>\(df=15.04\), \(t_{15.04, .975} = 2.13\)</li>
+<li>Interval
+\[
+132.86 - 127.44 \pm 2.13 \left(\frac{15.34^2}{8} + \frac{18.23^2}{21} \right)^{1/2}
+= [-8.91, 19.75]
+\]</li>
+<li>In R, <code>t.test(..., var.equal = FALSE)</code></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Comparing other kinds of data</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>For binomial data, there&#39;s lots of ways to compare two groups
+
+<ul>
+<li>Relative risk, risk difference, odds ratio.</li>
+<li>Chi-squared tests, normal approximations, exact tests.</li>
+</ul></li>
+<li>For count data, there&#39;s also Chi-squared tests and exact tests.</li>
+<li>We&#39;ll leave the discussions for comparing groups of data for binary
+and count data until covering glms in the regression class.</li>
+<li>In addition, Mathematical Biostatistics Boot Camp 2 covers many special
+cases relevant to biostatistics.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

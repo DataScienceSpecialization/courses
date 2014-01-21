@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Probability</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Probability">
+  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Probability</h1>
+        <h2>Statistical Inference</h2>
+        <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Notation</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The <strong>sample space</strong>, \(\Omega\), is the collection of possible outcomes of an experiment
+
+<ul>
+<li>Example: die roll \(\Omega = \{1,2,3,4,5,6\}\)</li>
+</ul></li>
+<li>An <strong>event</strong>, say \(E\), is a subset of \(\Omega\) 
+
+<ul>
+<li>Example: die roll is even \(E = \{2,4,6\}\)</li>
+</ul></li>
+<li>An <strong>elementary</strong> or <strong>simple</strong> event is a particular result
+of an experiment
+
+<ul>
+<li>Example: die roll is a four, \(\omega = 4\)</li>
+</ul></li>
+<li>\(\emptyset\) is called the <strong>null event</strong> or the <strong>empty set</strong></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Interpretation of set operations</h2>
+  </hgroup>
+  <article>
+    <p>Normal set operations have particular interpretations in this setting</p>
+
+<ol>
+<li>\(\omega \in E\) implies that \(E\) occurs when \(\omega\) occurs</li>
+<li>\(\omega \not\in E\) implies that \(E\) does not occur when \(\omega\) occurs</li>
+<li>\(E \subset F\) implies that the occurrence of \(E\) implies the occurrence of \(F\)</li>
+<li>\(E \cap F\)  implies the event that both \(E\) and \(F\) occur</li>
+<li>\(E \cup F\) implies the event that at least one of \(E\) or \(F\) occur</li>
+<li>\(E \cap F=\emptyset\) means that \(E\) and \(F\) are <strong>mutually exclusive</strong>, or cannot both occur</li>
+<li>\(E^c\) or \(\bar E\) is the event that \(E\) does not occur</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Probability</h2>
+  </hgroup>
+  <article>
+    <p>A <strong>probability measure</strong>, \(P\), is a function from the collection of possible events so that the following hold</p>
+
+<ol>
+<li>For an event \(E\subset \Omega\), \(0 \leq P(E) \leq 1\)</li>
+<li>\(P(\Omega) = 1\)</li>
+<li>If \(E_1\) and \(E_2\) are mutually exclusive events
+\(P(E_1 \cup E_2) = P(E_1) + P(E_2)\).</li>
+</ol>
+
+<p>Part 3 of the definition implies <strong>finite additivity</strong></p>
+
+<p>\[
+P(\cup_{i=1}^n A_i) = \sum_{i=1}^n P(A_i)
+\]
+where the \(\{A_i\}\) are mutually exclusive. (Note a more general version of
+additivity is used in advanced classes.)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Example consequences</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>\(P(\emptyset) = 0\)</li>
+<li>\(P(E) = 1 - P(E^c)\)</li>
+<li>\(P(A \cup B) = P(A) + P(B) - P(A \cap B)\)</li>
+<li>if \(A \subset B\) then \(P(A) \leq P(B)\)</li>
+<li>\(P\left(A \cup B\right) = 1 - P(A^c \cap B^c)\)</li>
+<li>\(P(A \cap B^c) = P(A) - P(A \cap B)\)</li>
+<li>\(P(\cup_{i=1}^n E_i) \leq \sum_{i=1}^n P(E_i)\)</li>
+<li>\(P(\cup_{i=1}^n E_i) \geq \max_i P(E_i)\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article>
+    <p>The National Sleep Foundation (<a href="http://www.sleepfoundation.org/">www.sleepfoundation.org</a>) reports that around 3% of the American population has sleep apnea. They also report that around 10% of the North American and European population has restless leg syndrome. Does this imply that 13% of people will have at least one sleep problems of these sorts?</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Example continued</h2>
+  </hgroup>
+  <article>
+    <p>Answer: No, the events are not mutually exclusive. To elaborate let:</p>
+
+<p>\[
+\begin{eqnarray*}
+    A_1 & = & \{\mbox{Person has sleep apnea}\} \\
+    A_2 & = & \{\mbox{Person has RLS}\} 
+  \end{eqnarray*}
+\]</p>
+
+<p>Then </p>
+
+<p>\[
+\begin{eqnarray*}
+    P(A_1 \cup A_2 ) & = & P(A_1) + P(A_2) - P(A_1 \cap A_2) \\
+   & = & 0.13 - \mbox{Probability of having both}
+  \end{eqnarray*}
+\]
+Likely, some fraction of the population has both.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Random variables</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>A <strong>random variable</strong> is a numerical outcome of an experiment.</li>
+<li>The random variables that we study will come in two varieties,
+<strong>discrete</strong> or <strong>continuous</strong>.</li>
+<li>Discrete random variable are random variables that take on only a
+countable number of possibilities.
+
+<ul>
+<li>\(P(X = k)\)</li>
+</ul></li>
+<li>Continuous random variable can take any value on the real line or some subset of the real line.
+
+<ul>
+<li>\(P(X \in A)\)</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Examples of variables that can be thought of as random variables</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The \((0-1)\) outcome of the flip of a coin</li>
+<li>The outcome from the roll of a die</li>
+<li>The BMI of a subject four years after a baseline measurement</li>
+<li>The hypertension status of a subject randomly drawn from a population</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>PMF</h2>
+  </hgroup>
+  <article>
+    <p>A probability mass function evaluated at a value corresponds to the
+probability that a random variable takes that value. To be a valid
+pmf a function, \(p\), must satisfy</p>
+
+<ol>
+<li>\(p(x) \geq 0\) for all \(x\)</li>
+<li>\(\sum_{x} p(x) = 1\)</li>
+</ol>
+
+<p>The sum is taken over all of the possible values for \(x\).</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article>
+    <p>Let \(X\) be the result of a coin flip where \(X=0\) represents
+tails and \(X = 1\) represents heads.
+\[
+p(x) = (1/2)^{x} (1/2)^{1-x} ~~\mbox{ for }~~x = 0,1
+\]
+Suppose that we do not know whether or not the coin is fair; Let
+\(\theta\) be the probability of a head expressed as a proportion
+(between 0 and 1).
+\[
+p(x) = \theta^{x} (1 - \theta)^{1-x} ~~\mbox{ for }~~x = 0,1
+\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>PDF</h2>
+  </hgroup>
+  <article>
+    <p>A probability density function (pdf), is a function associated with
+a continuous random variable </p>
+
+<p><em>Areas under pdfs correspond to probabilities for that random variable</em></p>
+
+<p>To be a valid pdf, a function \(f\) must satisfy</p>
+
+<ol>
+<li><p>\(f(x) \geq 0\) for all \(x\)</p></li>
+<li><p>The area under \(f(x)\) is one.</p></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article>
+    <p>Suppose that the proportion of help calls that get addressed in
+a random day by a help line is given by
+\[
+f(x) = \left\{\begin{array}{ll}
+    2 x & \mbox{ for } 1 > x > 0 \\
+    0                 & \mbox{ otherwise} 
+\end{array} \right. 
+\]</p>
+
+<p>Is this a mathematically valid density?</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    
+  </hgroup>
+  <article>
+    <pre><code class="r">x &lt;- c(-0.5, 0, 1, 1, 1.5)
+y &lt;- c(0, 0, 2, 0, 0)
+plot(x, y, lwd = 3, frame = FALSE, type = &quot;l&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Example continued</h2>
+  </hgroup>
+  <article>
+    <p>What is the probability that 75% or less of calls get addressed?</p>
+
+<p><img src="figure/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    
+  </hgroup>
+  <article>
+    <pre><code class="r">1.5 * 0.75/2
+</code></pre>
+
+<pre><code>## [1] 0.5625
+</code></pre>
+
+<pre><code class="r">pbeta(0.75, 2, 1)
+</code></pre>
+
+<pre><code>## [1] 0.5625
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>CDF and survival function</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The <strong>cumulative distribution function</strong> (CDF) of a random variable \(X\) is defined as the function 
+\[
+F(x) = P(X \leq x)
+\]</li>
+<li>This definition applies regardless of whether \(X\) is discrete or continuous.</li>
+<li>The <strong>survival function</strong> of a random variable \(X\) is defined as
+\[
+S(x) = P(X > x)
+\]</li>
+<li>Notice that \(S(x) = 1 - F(x)\)</li>
+<li>For continuous random variables, the PDF is the derivative of the CDF</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article>
+    <p>What are the survival function and CDF from the exponential density considered before?</p>
+
+<p>For \(1 \geq x \geq 0\)
+\[
+F(x) = P(X \leq x) = \frac{1}{2} Base \times Height = \frac{1}{2} (x) \times (2 x) = x^2
+\]</p>
+
+<p>\[
+S(x) = 1 - x^2
+\]</p>
+
+<pre><code class="r">pbeta(c(0.4, 0.5, 0.6), 2, 1)
+</code></pre>
+
+<pre><code>## [1] 0.16 0.25 0.36
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Quantiles</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The  \(\alpha^{th}\) <strong>quantile</strong> of a distribution with distribution function \(F\) is the point \(x_\alpha\) so that
+\[
+F(x_\alpha) = \alpha
+\]</li>
+<li>A <strong>percentile</strong> is simply a quantile with \(\alpha\) expressed as a percent</li>
+<li>The <strong>median</strong> is the \(50^{th}\) percentile</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>We want to solve \(0.5 = F(x) = x^2\)</li>
+<li>Resulting in the solution </li>
+</ul>
+
+<pre><code class="r">sqrt(0.5)
+</code></pre>
+
+<pre><code>## [1] 0.7071
+</code></pre>
+
+<ul>
+<li>Therefore, about 0.7071 of calls being answered on a random day is the median.</li>
+<li>R can approximate quantiles for you for common distributions</li>
+</ul>
+
+<pre><code class="r">qbeta(0.5, 2, 1)
+</code></pre>
+
+<pre><code>## [1] 0.7071
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>You might be wondering at this point &quot;I&#39;ve heard of a median before, it didn&#39;t require integration. Where&#39;s the data?&quot;</li>
+<li>We&#39;re referring to are <strong>population quantities</strong>. Therefore, the median being
+discussed is the <strong>population median</strong>.</li>
+<li>A probability model connects the data to the population using assumptions.</li>
+<li>Therefore the median we&#39;re discussing is the <strong>estimand</strong>, the sample median will be the <strong>estimator</strong></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

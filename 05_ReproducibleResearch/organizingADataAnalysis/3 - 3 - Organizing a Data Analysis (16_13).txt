@@ -1,0 +1,501 @@
+
+This video is about organizing a data 
+analysis. 
+In the previous videos, we saw the 
+structure or the components that go into 
+building a data analysis from the ground 
+up. 
+This video explain a little bit about 
+which files you need to use and where to 
+put those files, so that you don't get 
+confused when you're handling all the 
+different data types and files types that 
+go into creating a data analysis. 
+So, this is an example of a directory 
+structure sort of an abstracted directory 
+structure that you might use when 
+performing a data analysis. 
+So, the different folders that you might 
+have in your data analysis file for a 
+specific analysis are data folder and 
+this data folder would have two 
+subfolders, a raw data and a process data 
+folder. 
+Depending on the analysis that you're 
+doing, some of the raw data might be 
+housed elsewhere, and so, that folder 
+might be missing the, in that particular 
+analysis. 
+Then, you might have another folder that 
+has figures in it and the figures will be 
+broken down into two types as well, the 
+exploratory figures as well as the final 
+figures. 
+The exploratory figures are figures that 
+you will be creating for yourself during 
+the course of performing the data 
+analysis, but not, might not actually 
+make it into the final write up of your 
+data analysis when you, you've 
+synthesized it and are showing it to 
+someone else. 
+The final figures are sort of prettied up 
+versions of the exploratory figures and 
+are the figures that would make the final 
+cut for the analysis that you would show 
+to other people. 
+The next part of the data analysis file 
+structure would be the R code. 
+And so, of course, I say R code here, but 
+if you're using a different programming 
+language, it would be a different folder 
+for the different types of code that 
+you're including. 
+And again, there are different components 
+to this, 
+there are the raw scripts. 
+The raw scripts are the code that you 
+make as you're going along. 
+we'll talk a little bit about how to make 
+a raw scripts in a minute. 
+These aren't necessarily tidied up and 
+they don't necessarily have all the 
+comments that you would like to have in 
+production level R code that you would 
+share with someone else. 
+Then there are the final scripts, 
+these final scrips should reproduce all 
+of the analysis that you've performed 
+that they should be commented well enough 
+that people can share them and see them 
+and use them easily without having to do 
+too much additional work. 
+Finally an optional component the R code 
+is R Markdown files or another type of 
+reproducible research file, like a sweave 
+file or something like that. 
+So, R Markdown files are integrated bits 
+of code and writing that allow you to 
+comment directly into the file and 
+integrate both your code and your writing 
+so that it's very easy for people to 
+reproduce your results. 
+We'll talk a little bit more about those 
+later and how to make them as well. 
+and then, the, the last component of the 
+last folder in your data analysis 
+structure will be the text, and so, there 
+are ReadMe files that you should 
+generate. 
+you won't necessarily need them if you've 
+created R Markdown files for full 
+reproducibility. 
+But if you haven't done that, you'll need 
+ReadMe files that tell people how to read 
+your R scripts, and where the data are, 
+and when you downloaded them, and so 
+forth. 
+And then you also need the text of the 
+analysis that you've done, 
+and so, we'll talk a little about how the 
+text of the analysis differs from the R 
+Markdown files or the R scripts commented 
+that you will have in your data analysis. 
+So the first thing is the raw data and we 
+talked a little bit about raw data when 
+we explained what data was, 
+and so, this is an example of an 
+electronic medical records again. 
+You should, as often as possible, try to 
+store the data in your analysis folder if 
+you can. 
+this is important, because if you have 
+raw data that is only in a database or 
+available on the web, you don't 
+necessarily have control over that data, 
+and so, if it changes, it might alter 
+your data analysis, so it's good to have 
+a copy of the data. 
+Of course, 
+that's not always possible and certainly 
+with huge data sets, you won't be able to 
+keep all the raw data yourself. 
+so if you access it from the web or from 
+a database, you'll want to include 
+information like the URL, the description 
+and maybe the date that you process 
+collected the data in the Readme file, so 
+that if it changes, people will know what 
+version of the data that you used and 
+will be able to go back and hopefully 
+will be able to access that data that you 
+use to perform your analysis. 
+Next is the processed data and we'll talk 
+a lot more about processing data in a 
+lecture coming up. 
+And so the processed data of course is 
+tidy and organized in a way that makes it 
+easy to do analysis. 
+The processed data should be named so it 
+is easy to see which script generated the 
+data, because at some point, you're 
+going to want to go back and see, well, 
+how did I produce this processed data 
+from the raw data and someone might 
+want to check on those steps. 
+And if the naming, the naming of the 
+files is convoluted, if you just name all 
+your files temporary file number one, 
+temporary file number two and so forth, 
+it'll be pretty hard to understand where 
+the processed data came from. 
+And so, an important component of this is 
+naming files for processing with similar 
+names to the names of the processed data 
+that you have. 
+and then, the processing script data 
+mapping should occur in the ReadMe file. 
+In other words, you should report both 
+the location of the processed data that 
+was created and the R scripts that were 
+used to create that data in a table and 
+the ReadMe file, and this is because, if 
+something changes or if you haven't used 
+a very convenient naming scheme, it'll be 
+easier for people to find out how your 
+analysis was, was put together. 
+Again, the data should be tidy and we'll 
+be talking a lot about that in a future 
+lecture. 
+Next is the figure folder and the 
+subdirectories. 
+first is the subdirectory called the 
+exploratory figure subdirectory. 
+So, these are figures that you make 
+during the course of your analysis. 
+We'll talk a lot about exploratory 
+figures next week, 
+and they're not necessarily all going to 
+be part of your final report. 
+So, when you're performing your data 
+analysis, one major component of this is 
+just exploring the data and seeing what 
+kind of relationships you can visually 
+observe in the data and you make a lot of 
+figures, many of them you won't include 
+in the analysis because they weren't 
+important or because they don't look 
+right or because you noticed a problem 
+and then fixed it and didn't update that 
+figure for your downstream analysis. 
+So the, these don't need to be pretty 
+pictures. 
+You will often make them really fast and 
+you'll just be trying a bunch of 
+different things out. 
+And so, it's good to separate these 
+figures from the final figures that will 
+appear in your paper. 
+So this is a final version of a figure 
+that you saw, the original version of on 
+the previous page, 
+where now, we've taken more panes to make 
+sure that the access labels are much 
+larger and that the components of the 
+figure have been labeled, 
+but it's colored in such a way that it's 
+convenient for people to see and so 
+forth. 
+And so, the final figures will include a 
+lot more work and effort in order to 
+pretty them up and make them very clear 
+and understandable. 
+And so you want to keep those in a 
+separate file where, you know, that these 
+are only the figures that are going to 
+be, appear in a paper or a data analysis 
+write up. 
+And so, usually, that's a very small 
+subset of the original figures that 
+you've made. 
+And also, this is the case where it's 
+common that multiple panels will appear 
+in these sorts of figures and we'll talk 
+about that when we talk about final 
+figures in a future lecture. 
+The next component of the, organizing a 
+data analysis is the raw scripts. 
+So, there are two subfolders for the 
+scripts and the first is the raw scripts. 
+Again, these are the scripts that you're 
+going to make as you're performing the 
+data analysis without actually taking the 
+time to tidy everything up because you're 
+trying a bunch of different things out. 
+And so, you can afford to comment these a 
+little bit less, although, I have 
+definitely had the problem where I didn't 
+comment and I code enough, and then it 
+took me a long time to figure out what I 
+was doing in a previous iteration of a 
+file. 
+So, it is good to have as many comments 
+you can stand to put in in these files, 
+but it's not going to be something you 
+distribute, so they don't have to be 
+quite as liberal. 
+There may be multiple versions of raw 
+scripts, and there are different naming 
+conventions that you can choose for that. 
+I suggest not calling any raw script a 
+final script. 
+You know, if it's analysis final.r, 
+you'll probably end up with analysis 
+final 2 and analysis final3.r. 
+dates are a good way to define R scripts 
+followed by some kind of identifier if 
+you were changing the script multiple 
+time within the day. 
+You can also use version control systems 
+like, get and get hub or svn if you want 
+to be able to modify your scripts and 
+have sort of the record kept of 
+everything that you've done. 
+And in fact, that would be an encouraged 
+way to manage your raw scripts. 
+Many of the analysis that are included in 
+these raw scripts will end up being 
+discarded in the final analysis or if not 
+discarded, at least summarized very, very 
+briefly. 
+And so, even if you have a ton of R 
+scripts, you may end up with a much 
+shorter version of the process scripts. 
+And so, the process scripts are different 
+in that they are clearly commented, so 
+here, you're going to be sharing these, 
+these scripts with people that aren't 
+yourself, so you're collaborators or the 
+world in general, you'll be putting them 
+up and having other people run them. 
+And so, you want to include small 
+comments liberally and the things to 
+comment on are what functions that you 
+used when you downloaded data, why you 
+did a particular analysis, or how you did 
+a particular analysis? 
+If you made a change in a parameter for a 
+specific reason it's good to document 
+that reason in your comments. 
+You might also include bigger commented 
+blocks for whole sections. 
+So if you're going to be describing, say 
+the workings of an entire function but 
+you don't want to include all of the 
+specific details, you might have a larger 
+comment block near the top of the 
+function that explains everything about, 
+you know, the general workings of the 
+function that doesn't handle the nitty 
+gritty details. 
+You should include processing details in 
+your final script, so, just like there's 
+a final script for your analysis, there's 
+also a final script for the eventual 
+process data that you've used in your 
+analysis. 
+You might have done several different 
+kinds of processing, but whichever one is 
+the final one, you need to report that 
+script as well. 
+And, again, you should only report the 
+analysis in your final scripts that 
+appear in the final write up or those 
+analysis that are supporting of 
+particular questions that people might 
+have of your analysis that might go in 
+something like a supplementary or 
+additional materials page. 
+Optionally, you can create something 
+called R Markdown. 
+these can be either in addition to or a 
+substitute for your final R scripts that 
+you're going to be distributing. 
+So R Markdown files are specific types of 
+markdown files, 
+you can look up markdown on the web. 
+It's a very 
+easy way to create structured documents 
+in such a way that you can see what's 
+happening. 
+So, for example, here's an R Markdown 
+file and these consecutive = signs here 
+represent the underlining of the title, 
+and then, here is the title, 
+it, it will be in a particular font once 
+you process this file. 
+And then, you can include, like you see 
+here, chunks of R code that you can then 
+perform actual analysis in this file and 
+then you can run R on this whole file. 
+So, it'll include a textual description 
+of what you've done, as well as 
+performing all of the analysis and 
+producing output so you can share a 
+completed and documented version of your 
+analysis. 
+If you do this in RStudio, which is the 
+recommended IDE for this class, it makes 
+it pretty easy to do these to turn these 
+documents into web pages that you can 
+share with other people. 
+You can, after you've created a R 
+Markdown file, you can click on Knit HTML 
+and it'll create an HTML page, 
+which then you can very easily publish 
+things like RPubs and other places to 
+share with your collaborators. 
+both the text and the R are integrated in 
+these folders, in these files, 
+so if you have processing steps that take 
+a large amount of time, you should think 
+about caching those arguments, and 
+there'll be an, an additional video when 
+we're getting ready to turn in our data 
+analysis on how to create R Markdown 
+files and Caching and all that. So the, 
+the final component that you would have 
+there is the textual component of your 
+analysis, so these are the texts that you 
+will share, not just the figures and the 
+code. 
+So in the text 
+the first thing you might have is a 
+ReadMe file. 
+Now, 
+if you're using R Markdown and you have a 
+complete R Markdown documentation of 
+everything that you've done, you don't 
+actually need a ReadMe file, because the 
+ReadMe file will be the R Markdown 
+document itself. 
+but in general, if you just have a set of 
+R scripts, so this is a project that I 
+did where I didn't actually create an R 
+Markdown file for the project, but I did 
+have a set of R scripts and so I've 
+created this ReadMeme file. 
+And so, for each script that I have, I 
+have a little description of what that 
+script does, and then at the end, I 
+described how those scripts work 
+together. 
+It should include step-by-step 
+instructions for the analysis, and 
+remember, these are now things that 
+you're probably going to be sharing with 
+the outside. 
+So it's good to have an idea, it's good 
+to have someone else take a look at your 
+ReadMe file and make sure that they can 
+understand it and think that they can 
+reproduce it. 
+So I've linked here, like I said, to an 
+example of a ReadMe file for a project 
+that I'm working on right now. 
+The last component here is the text of 
+the document itself, so, the text of the 
+document is actually the data analysis 
+report that you'll be sharing with the 
+outside world. 
+And so a really important component of 
+doing a data analysis is telling a story, 
+is synthesizing the data analysis into a 
+description of what happened and how 
+that's important. 
+And so a really key component of this 
+that often gets overlooked by people who 
+are new to data analysis is, it should 
+not include every analysis that you 
+performed. 
+So, even if you've done many, many 
+different kinds of processing and fit 
+many different kinds of models, 
+at the end of the day, the data analysis 
+document should only include those that 
+are relevant to the story that you're 
+telling. 
+It should include an introduction, a 
+methods, results and conclusion section, 
+and it contain the different parts of the 
+analysis that you've done, you've done. 
+The methods are the statistics you used, 
+the results are sort of the results that 
+you've obtained using those methods 
+including some measures of uncertainty, 
+and then conclusions, which tells you 
+about the potential caveats but also 
+discusses the results that you have. 
+You should also include references for 
+statistical methods. 
+So, it, just like if you're writing any 
+sort of document, when you use material 
+that somebody else has created in the 
+form of a statistical method or an R 
+package, you should refer that and give 
+them credit for what they're doing. 
+And the last component of this is that 
+when you're writing the text up, as I 
+show here, you should sort of have a 
+title, introduction, methods, results, 
+and conclusions and it should tell a 
+story. 
+But something to keep in mind, is that a 
+common mistake is to actually just report 
+all of the analyses that you've done in 
+chronologic order instead of reordering 
+the analyses to make sense in the flow of 
+the story. 
+So that's a key component in writing up 
+the text of a data analysis. 
+So if you further resources for you to 
+take a look at with respect to organizing 
+a data analysis. 
+So first is, this is a link to on our 
+blog that, simply statistics blog, The 
+Duke Saga Starter Set. 
+So The Duke Saga was a situation where 
+non-reproducibility of a data analysis 
+led to some pretty serious consequenses, 
+and so, you can kind of check this out to 
+see why you need to have a reproducible 
+analysis and share it with the world in a 
+way that it's easy to follow up on what 
+you've done. 
+You can also read this paper on 
+reproducible research and biostatistics, 
+which tells a little bit about the theory 
+of reproducible research. 
+And then here's an, a nice post about 
+managing a statistical analysis project, 
+including some information about 
+guidelines. 
+And finally, so I've described sort of 
+what I would consider to be a very 
+abstract and general file structure that 
+you could use on organizing your data 
+analysis. 
+But there's actually sort of already been 
+people that have thought about this in 
+terms of automating the data analysis 
+structure. And so, this is one example 
+that I really liked, the Project template 
+which allows you to sort of create 
+projects with file structures already 
+sort of pre-defined and made that are, 
+sort of loosely related to what we've 
+talked about today, but include all the 
+potential file structure that you might 
+need for the most flexible data analysis 
+you might perform. 
+

@@ -1,0 +1,81 @@
+---
+title       : Exploratory Graphs: Theory of Graphical Perception
+subtitle    : 
+author      : Roger D. Peng, Associate Professor of Biostatistics 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+## Background - perceptual tasks
+
+<img class=center src=../../assets/img/perceptual.png height=450>
+
+[Graphical perception: Theory, Experimentation, and Applications to the Development of Graphical Models](http://www.jstor.org/discover/10.2307/2288400?uid=3739704&uid=2&uid=4&uid=3739256&sid=21101742782357)
+
+---
+
+## Position versus length
+
+<img class=center src=../../assets/img/barcharts.png height=250>
+
+[Graphical perception: Theory, Experimentation, and Applications to the Development of Graphical Models](http://www.jstor.org/discover/10.2307/2288400?uid=3739704&uid=2&uid=4&uid=3739256&sid=21101742782357)
+
+
+---
+
+## Position versus length - results
+
+<img class=center src=../../assets/img/poslength.png height=250>
+
+
+[Graphical perception: Theory, Experimentation, and Applications to the Development of Graphical Models](http://www.jstor.org/discover/10.2307/2288400?uid=3739704&uid=2&uid=4&uid=3739256&sid=21101742782357)
+
+---
+
+## Position versus angle
+
+<img class=center src=../../assets/img/piechart.png height=300>
+
+
+[Graphical perception: Theory, Experimentation, and Applications to the Development of Graphical Models](http://www.jstor.org/discover/10.2307/2288400?uid=3739704&uid=2&uid=4&uid=3739256&sid=21101742782357)
+
+
+---
+
+## Position versus angle - results
+
+
+<img class=center src=../../assets/img/posangle.png height=200>
+
+<br><br>
+[Graphical perception: Theory, Experimentation, and Applications to the Development of Graphical Models](http://www.jstor.org/discover/10.2307/2288400?uid=3739704&uid=2&uid=4&uid=3739256&sid=21101742782357)
+
+
+---
+
+## More experimental results
+
+<img class=center src=../../assets/img/bigexp.png height=450>
+
+[Graphical Perception and Graphical Methods for Analyzing Scientific Data](http://www.sciencemag.org/content/229/4716/828.refs)
+
+---
+
+## Summary
+
+* Use common scales when possible
+* When possible use position comparisons
+* Angle comparisons are frequently hard to interpret (no piecharts!)
+* No 3-D barcharts. Please.
+
+
+---

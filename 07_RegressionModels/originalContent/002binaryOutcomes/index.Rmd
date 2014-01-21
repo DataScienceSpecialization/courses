@@ -1,0 +1,264 @@
+---
+title       : Binary outcomes
+subtitle    : 
+author      : Jeffrey Leek, Assistant Professor of Biostatistics 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## Key ideas
+
+* Frequently we care about outcomes that have two values
+  * Alive/dead
+  * Win/loss
+  * Success/Failure
+  * etc
+* Called binary outcomes or 0/1 outcomes 
+* Linear regression (like we've seen) may not be the best
+
+---
+
+## Example: Baltimore Ravens
+
+<img class=center src=../../assets/img/ravens.png height=450>
+
+[http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens](http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens)
+
+---
+
+## Ravens Data
+
+```{r loadRavens,cache=TRUE}
+download.file("https://dl.dropboxusercontent.com/u/7710864/data/ravensData.rda",
+              destfile="./data/ravensData.rda",method="curl")
+load("./data/ravensData.rda")
+head(ravensData)
+```
+
+---
+
+## Linear regression
+
+$$ RW_i = b_0 + b_1 RS_i + e_i $$
+
+$RW_i$ - 1 if a Ravens win, 0 if not
+
+$RS_i$ - Number of points Ravens scored
+
+$b_0$ - probability of a Ravens win if they score 0 points
+
+$b_1$ - increase in probability of a Ravens win for each additional point
+
+$e_i$ - variation due to everything we didn't measure
+
+
+---
+
+## Linear regression in R
+
+```{r linearReg, dependson = "loadRavens"}
+lmRavens <- lm(ravensData$ravenWinNum ~ ravensData$ravenScore)
+summary(lmRavens)
+```
+
+
+---
+
+## Linear regression
+
+```{r dependson = "linearReg", fig.height=4.5,fig.width=4.5}
+plot(ravensData$ravenScore,lmRavens$fitted,pch=19,col="blue",ylab="Prob Win",xlab="Raven Score")
+```
+
+---
+
+## Odds
+
+__Binary Outcome 0/1__
+
+$$RW_i$$  
+
+__Probability (0,1)__
+
+$$\rm{Pr}(RW_i | RS_i, b_0, b_1 )$$
+
+
+__Odds $(0,\infty)$__
+$$\frac{\rm{Pr}(RW_i | RS_i, b_0, b_1 )}{1-\rm{Pr}(RW_i | RS_i, b_0, b_1)}$$ 
+
+__Log odds $(-\infty,\infty)$__
+
+$$\log\left(\frac{\rm{Pr}(RW_i | RS_i, b_0, b_1 )}{1-\rm{Pr}(RW_i | RS_i, b_0, b_1)}\right)$$ 
+
+---
+
+## Linear vs. logistic regression
+
+__Linear__
+
+$$ RW_i = b_0 + b_1 RS_i + e_i $$
+
+or
+
+$$ E[RW_i | RS_i, b_0, b_1] = b_0 + b_1 RS_i$$
+
+__Logistic__
+
+$$ \rm{Pr}(RW_i | RS_i, b_0, b_1) = \frac{\exp(b_0 + b_1 RS_i)}{1 + \exp(b_0 + b_1 RS_i)}$$
+
+or
+
+$$ \log\left(\frac{\rm{Pr}(RW_i | RS_i, b_0, b_1 )}{1-\rm{Pr}(RW_i | RS_i, b_0, b_1)}\right) = b_0 + b_1 RS_i $$
+
+
+---
+
+## Interpreting Logistic Regression
+
+$$ \log\left(\frac{\rm{Pr}(RW_i | RS_i, b_0, b_1 )}{1-\rm{Pr}(RW_i | RS_i, b_0, b_1)}\right) = b_0 + b_1 RS_i $$
+
+
+$b_0$ - Log odds of a Ravens win if they score zero points
+
+$b_1$ - Log odds ratio of win probability for each point scored (compared to zero points)
+
+$\exp(b_1)$ - Odds ratio of win probability for each point scored (compared to zero points)
+
+---
+
+## Explaining Odds
+
+<img class=center src=../../assets/img/odds1.png height=450>
+
+[via Ken Rice](http://faculty.washington.edu/kenrice/teaching.html)
+
+---
+
+## Probability of Death
+
+<img class=center src=../../assets/img/odds2.png height=450>
+
+[via Ken Rice](http://faculty.washington.edu/kenrice/teaching.html)
+
+---
+
+## Odds of Death
+
+<img class=center src=../../assets/img/odds3.png height=450>
+
+[via Ken Rice](http://faculty.washington.edu/kenrice/teaching.html)
+
+---
+
+## Odds Ratio = 1, Continuous Covariate
+
+<img class=center src=../../assets/img/odds4.png height=450>
+
+[via Ken Rice](http://faculty.washington.edu/kenrice/teaching.html)
+
+---
+
+## Different odds ratios
+
+<img class=center src=../../assets/img/odds5.png height=350>
+
+[via Ken Rice](http://faculty.washington.edu/kenrice/teaching.html)
+
+---
+
+## Ravens logistic regression
+
+```{r logReg, dependson = "loadRavens"}
+logRegRavens <- glm(ravensData$ravenWinNum ~ ravensData$ravenScore,family="binomial")
+summary(logRegRavens)
+```
+
+
+---
+
+## Ravens fitted values
+
+```{r dependson = "logReg",fig.height=4,fig.width=4}
+plot(ravensData$ravenScore,logRegRavens$fitted,pch=19,col="blue",xlab="Score",ylab="Prob Ravens Win")
+```
+
+
+---
+
+## Odds ratios and confidence intervals
+
+```{r dependson = "logReg",fig.height=4,fig.width=4}
+exp(logRegRavens$coeff)
+exp(confint(logRegRavens))
+```
+
+
+---
+
+## ANOVA for logistic regression
+
+```{r dependson = "logReg",fig.height=4,fig.width=4}
+anova(logRegRavens,test="Chisq")
+```
+
+
+
+---
+
+## Simpson's paradox
+
+<img class=center src=../../assets/img/simpsons.png height=300>
+
+[http://en.wikipedia.org/wiki/Simpson's_paradox](http://en.wikipedia.org/wiki/Simpson's_paradox)
+
+---
+
+## Interpreting Odds Ratios
+
+* Not probabilities 
+* Odds ratio of 1 = no difference in odds
+* Log odds ratio of 0 = no difference in odds
+* Odds ratio < 0.5 or > 2 commonly a "moderate effect"
+* Relative risk $\frac{\rm{Pr}(RW_i | RS_i = 10)}{\rm{Pr}(RW_i | RS_i = 0)}$ often easier to interpret, harder to estimate
+* For small probabilities RR $\approx$ OR but __they are not the same__!
+
+[Wikipedia on Odds Ratio](http://en.wikipedia.org/wiki/Odds_ratio)
+
+
+---
+
+## Further resources
+
+* [Wikipedia on Logistic Regression](http://en.wikipedia.org/wiki/Logistic_regression)
+* [Logistic regression and glms in R](http://data.princeton.edu/R/glms.html)
+* Brian Caffo's lecture notes on: [Simpson's paradox](http://ocw.jhsph.edu/courses/MethodsInBiostatisticsII/PDFs/lecture23.pdf), [Case-control studies](http://ocw.jhsph.edu/courses/MethodsInBiostatisticsII/PDFs/lecture24.pdf)
+* [Open Intro Chapter on Logistic Regression](http://www.openintro.org/stat/down/oiStat2_08.pdf)
+
+
+
+

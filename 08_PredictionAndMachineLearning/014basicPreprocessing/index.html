@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Preprocessing</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Preprocessing">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Preprocessing</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Why preprocess?</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(caret); library(kernlab); data(spam)
+inTrain &lt;- createDataPartition(y=spam$type,
+                              p=0.75, list=FALSE)
+training &lt;- spam[inTrain,]
+testing &lt;- spam[-inTrain,]
+hist(training$capitalAve,main=&quot;&quot;,xlab=&quot;ave. capital run length&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/loadPackage.png" title="plot of chunk loadPackage" alt="plot of chunk loadPackage" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Why preprocess?</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">mean(training$capitalAve)
+</code></pre>
+
+<pre><code>[1] 4.709
+</code></pre>
+
+<pre><code class="r">sd(training$capitalAve)
+</code></pre>
+
+<pre><code>[1] 25.48
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Standardizing</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">trainCapAve &lt;- training$capitalAve
+trainCapAveS &lt;- (trainCapAve  - mean(trainCapAve))/sd(trainCapAve) 
+mean(trainCapAveS)
+</code></pre>
+
+<pre><code>[1] 5.862e-18
+</code></pre>
+
+<pre><code class="r">sd(trainCapAveS)
+</code></pre>
+
+<pre><code>[1] 1
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Standardizing - test set</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">testCapAve &lt;- testing$capitalAve
+testCapAveS &lt;- (testCapAve  - mean(trainCapAve))/sd(trainCapAve) 
+mean(testCapAveS)
+</code></pre>
+
+<pre><code>[1] 0.07579
+</code></pre>
+
+<pre><code class="r">sd(testCapAveS)
+</code></pre>
+
+<pre><code>[1] 1.79
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Standardizing - <em>preProcess</em> function</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">preObj &lt;- preProcess(training[,-58],method=c(&quot;center&quot;,&quot;scale&quot;))
+trainCapAveS &lt;- predict(preObj,training[,-58])$capitalAve
+mean(trainCapAveS)
+</code></pre>
+
+<pre><code>[1] 5.862e-18
+</code></pre>
+
+<pre><code class="r">sd(trainCapAveS)
+</code></pre>
+
+<pre><code>[1] 1
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Standardizing - <em>preProcess</em> function</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">testCapAveS &lt;- predict(preObj,testing[,-58])$capitalAve
+mean(testCapAveS)
+</code></pre>
+
+<pre><code>[1] 0.07579
+</code></pre>
+
+<pre><code class="r">sd(testCapAveS)
+</code></pre>
+
+<pre><code>[1] 1.79
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Standardizing - <em>preProcess</em> argument</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(32343)
+modelFit &lt;- train(type ~.,data=training,
+                  preProcess=c(&quot;center&quot;,&quot;scale&quot;),method=&quot;glm&quot;)
+modelFit
+</code></pre>
+
+<pre><code>3451 samples
+  57 predictors
+   2 classes: &#39;nonspam&#39;, &#39;spam&#39; 
+
+Pre-processing: centered, scaled 
+Resampling: Bootstrap (25 reps) 
+
+Summary of sample sizes: 3451, 3451, 3451, 3451, 3451, 3451, ... 
+
+Resampling results
+
+  Accuracy  Kappa  Accuracy SD  Kappa SD
+  0.9       0.8    0.007        0.01    
+
+
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Standardizing - Box-Cox transforms</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">preObj &lt;- preProcess(training[,-58],method=c(&quot;BoxCox&quot;))
+trainCapAveS &lt;- predict(preObj,training[,-58])$capitalAve
+par(mfrow=c(1,2)); hist(trainCapAveS); qqnorm(trainCapAveS)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Standardizing - Imputing data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(13343)
+
+# Make some values NA
+training$capAve &lt;- training$capitalAve
+selectNA &lt;- rbinom(dim(training)[1],size=1,prob=0.05)==1
+training$capAve[selectNA] &lt;- NA
+
+# Impute and standardize
+preObj &lt;- preProcess(training[,-58],method=&quot;knnImpute&quot;)
+capAve &lt;- predict(preObj,training[,-58])$capAve
+
+# Standardize true values
+capAveTruth &lt;- training$capitalAve
+capAveTruth &lt;- (capAveTruth-mean(capAveTruth))/sd(capAveTruth)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Standardizing - Imputing data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">quantile(capAve - capAveTruth)
+</code></pre>
+
+<pre><code>        0%        25%        50%        75%       100% 
+-1.1324388 -0.0030842 -0.0015074 -0.0007467  0.2155789 
+</code></pre>
+
+<pre><code class="r">quantile((capAve - capAveTruth)[selectNA])
+</code></pre>
+
+<pre><code>        0%        25%        50%        75%       100% 
+-0.9243043 -0.0125489 -0.0001968  0.0194524  0.2155789 
+</code></pre>
+
+<pre><code class="r">quantile((capAve - capAveTruth)[!selectNA])
+</code></pre>
+
+<pre><code>        0%        25%        50%        75%       100% 
+-1.1324388 -0.0030033 -0.0015115 -0.0007938 -0.0001968 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Notes and further reading</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Training and test must be processed in the same way</li>
+<li>Test transformations will likely be imperfect
+
+<ul>
+<li>Especially if the test/training sets collected at different times</li>
+</ul></li>
+<li>Careful when transforming factor variables!</li>
+<li><a href="http://caret.r-forge.r-project.org/preprocess.html">preprocessing with caret</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

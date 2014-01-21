@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Functions</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Functions">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Functions</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Functions</h2>
+  </hgroup>
+  <article>
+    <p>Functions are created using the <code>function()</code> directive and are stored as R objects just like anything else. In particular, they are R objects of class “function”.</p>
+
+<pre><code class="r">f &lt;- function(&lt;arguments&gt;) {
+        ## Do something interesting
+}
+</code></pre>
+
+<p>Functions in R are “first class objects”, which means that they can be treated much like any other R object. Importantly,</p>
+
+<ul>
+<li>Functions can be passed as arguments to other functions</li>
+<li>Functions can be nested, so that you can define a function inside of another function</li>
+<li>The return value of a function is the last expression in the function body to be evaluated.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Function Arguments</h2>
+  </hgroup>
+  <article>
+    <p>Functions have <em>named arguments</em> which potentially have <em>default values</em>.</p>
+
+<ul>
+<li>The <em>formal arguments</em> are the arguments included in the function definition </li>
+<li>The <code>formals</code> function returns a list of all the formal arguments of a function </li>
+<li>Not every function call in R makes use of all the formal arguments</li>
+<li>Function arguments can be <em>missing</em> or might have default values</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Argument Matching</h2>
+  </hgroup>
+  <article>
+    <p>R functions arguments can be matched positionally or by name. So the
+following calls to <code>sd</code> are all equivalent</p>
+
+<pre><code class="r">&gt; mydata &lt;- rnorm(100)
+&gt; sd(mydata)
+&gt; sd(x = mydata)
+&gt; sd(x = mydata, na.rm = FALSE)
+&gt; sd(na.rm = FALSE, x = mydata)
+&gt; sd(na.rm = FALSE, mydata)
+</code></pre>
+
+<p>Even though it’s legal, I don’t recommend messing around with the
+order of the arguments too much, since it can lead to some confusion.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Argument Matching</h2>
+  </hgroup>
+  <article>
+    <p>You can mix positional matching with matching by name. When an argument is matched by name, it is “taken out” of the argument list and the remaining unnamed arguments are matched in the order that they are listed in the function definition.</p>
+
+<pre><code class="r">&gt; args(lm)
+function (formula, data, subset, weights, na.action,
+          method = &quot;qr&quot;, model = TRUE, x = FALSE,
+          y = FALSE, qr = TRUE, singular.ok = TRUE,
+          contrasts = NULL, offset, ...)
+</code></pre>
+
+<p>The following two calls are equivalent.</p>
+
+<pre><code class="r">lm(data = mydata, y ~ x, model = FALSE, 1:100)
+lm(y ~ x, mydata, 1:100, model = FALSE)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Argument Matching</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Most of the time, named arguments are useful on the command line when you have a long argument list and you want to use the defaults for everything except for an argument near the end of the list</li>
+<li>Named arguments also help if you can remember the name of the argument and not its position on the argument list (plotting is a good example).</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Argument Matching</h2>
+  </hgroup>
+  <article>
+    <p>Function arguments can also be <em>partially</em> matched, which is useful for interactive work. The order of operations when given an argument is</p>
+
+<ol>
+<li>Check for exact match for a named argument</li>
+<li>Check for a partial match</li>
+<li>Check for a positional match</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Defining a Function</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">f &lt;- function(a, b = 1, c = 2, d = NULL) {
+
+}
+</code></pre>
+
+<p>In addition to not specifying a default value, you can also set an argument value to <code>NULL</code>.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Lazy Evaluation</h2>
+  </hgroup>
+  <article>
+    <p>Arguments to functions are evaluated <em>lazily</em>, so they are evaluated only as needed.</p>
+
+<pre><code class="r">f &lt;- function(a, b) {
+    a^2
+}
+f(2)
+</code></pre>
+
+<pre><code>## [1] 4
+</code></pre>
+
+<p>This function never actually uses the argument <code>b</code>, so calling <code>f(2)</code> will not produce an error because the 2 gets positionally matched to <code>a</code>.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Lazy Evaluation</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">f &lt;- function(a, b) {
+    print(a)
+    print(b)
+}
+f(45)
+</code></pre>
+
+<pre><code>## [1] 45
+</code></pre>
+
+<pre><code>## Error: argument &quot;b&quot; is missing, with no default
+</code></pre>
+
+<p>Notice that “45” got printed first before the error was triggered. This is because <code>b</code> did not have to be evaluated until after <code>print(a)</code>. Once the function tried to evaluate <code>print(b)</code> it had to throw an error.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>The “...” Argument</h2>
+  </hgroup>
+  <article>
+    <p>The ... argument indicate a variable number of arguments that are usually passed on to other functions.</p>
+
+<ul>
+<li>... is often used when extending another function and you don’t want to copy the entire argument list of the original function</li>
+</ul>
+
+<pre><code class="r">myplot &lt;- function(x, y, type = &quot;l&quot;, ...) {
+        plot(x, y, type = type, ...)
+}
+</code></pre>
+
+<ul>
+<li>Generic functions use ... so that extra arguments can be passed to methods
+(more on this later).</li>
+</ul>
+
+<pre><code class="r">&gt; mean
+function (x, ...)
+UseMethod(&quot;mean&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>The “...” Argument</h2>
+  </hgroup>
+  <article>
+    <p>The ... argument is also necessary when the number of arguments passed to the function cannot be known in advance.</p>
+
+<pre><code class="r">&gt; args(paste)
+function (..., sep = &quot; &quot;, collapse = NULL)
+
+&gt; args(cat)
+function (..., file = &quot;&quot;, sep = &quot; &quot;, fill = FALSE,
+    labels = NULL, append = FALSE)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Arguments Coming After the “...” Argument</h2>
+  </hgroup>
+  <article>
+    <p>One catch with ... is that any arguments that appear <em>after</em> ... on the argument list must be named explicitly and cannot be partially matched.</p>
+
+<pre><code class="r">&gt; args(paste)
+function (..., sep = &quot; &quot;, collapse = NULL)
+
+&gt; paste(&quot;a&quot;, &quot;b&quot;, sep = &quot;:&quot;)
+[1] &quot;a:b&quot;
+
+&gt; paste(&quot;a&quot;, &quot;b&quot;, se = &quot;:&quot;)
+[1] &quot;a b :&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

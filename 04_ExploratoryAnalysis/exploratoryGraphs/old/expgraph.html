@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Exploratory Graphs</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Exploratory Graphs">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Exploratory Graphs</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Why do we use graphs in data analysis?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>To understand data properties</li>
+<li>To find patterns in data</li>
+<li>To suggest modeling strategies</li>
+<li>To &quot;debug&quot; analyses</li>
+<li>To communicate results</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Exploratory graphs</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><redtext>To understand data properties</redtext></li>
+<li><redtext>To find patterns in data</redtext></li>
+<li><redtext>To suggest modeling strategies</redtext></li>
+<li><redtext>To &quot;debug&quot; analyses</redtext></li>
+<li>To communicate results</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Characteristics of exploratory graphs</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>They are made quickly</li>
+<li>A large number are made</li>
+<li>The goal is for personal understanding</li>
+<li>Axes/legends are generally cleaned up (later)</li>
+<li>Color/size are primarily used for information</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>ACS data</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/acs.png height=350></p>
+
+<p><a href="http://www.census.gov/acs/www/data_documentation/pums_documentation/">Census ACS Data</a></p>
+
+<pre><code class="r">pData &lt;- read.csv(gzfile(&quot;data/ss06pid.csv.gz&quot;))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Before We Start: Summarizing Data</h2>
+  </hgroup>
+  <article>
+    <p>One dimension</p>
+
+<ul>
+<li>Boxplots</li>
+<li>Histograms</li>
+<li>Barplot</li>
+<li>Density plot</li>
+<li>Five-number summary</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Before We Start: Summarizing Data</h2>
+  </hgroup>
+  <article>
+    <p>Two dimensions</p>
+
+<ul>
+<li>Multiple/overlayed 1-D plots (Lattice/ggplot2)</li>
+<li>Scatterplots</li>
+<li>Smooth scatterplots</li>
+</ul>
+
+<p>\(> 2\) dimensions</p>
+
+<ul>
+<li>Overlayed/multiple 2-D plots; coplots</li>
+<li>Use color, size, shape to add dimensions</li>
+<li>Spinning plots</li>
+<li>Actual 3-D plots (not that useful)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Boxplots</h2>
+  </hgroup>
+  <article>
+    <p>Important parameters: <em>col</em>, <em>varwidth</em>, <em>names</em>, <em>horizontal</em></p>
+
+<pre><code class="r">boxplot(pData$AGEP, col=&quot;blue&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Boxplots</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">pData &lt;- transform(pData, DDRS = factor(DDRS))
+boxplot(AGEP ~ DDRS, data = pData, col = &quot;blue&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Boxplots</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">boxplot(AGEP ~ DDRS, data = pData, col = c(&quot;blue&quot;, &quot;orange&quot;), 
+        names = c(&quot;yes&quot;, &quot;no&quot;), varwidth = TRUE)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Barplots</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">barplot(table(pData$CIT), col = &quot;blue&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Histograms</h2>
+  </hgroup>
+  <article>
+    <p>Important parameters: <em>breaks</em>,<em>freq</em>,<em>col</em>,<em>xlab</em>,<em>ylab</em>, <em>xlim, _ylim</em> ,<em>main</em></p>
+
+<pre><code class="r">hist(pData$AGEP, col = &quot;blue&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Histograms</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">hist(pData$AGEP, col = &quot;blue&quot;, breaks = 100, main = &quot;Age&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Density plots</h2>
+  </hgroup>
+  <article>
+    <p>Important parameters (to plot): <em>col</em>,<em>lwd</em>,<em>xlab</em>,<em>ylab</em>,<em>xlim</em>,<em>ylim</em></p>
+
+<pre><code class="r">dens &lt;- density(pData$AGEP)
+plot(dens, lwd = 3, col = &quot;blue&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Density plots - multiple distributions</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">dens &lt;- density(pData$AGEP)
+densMales &lt;- density(pData$AGEP[which(pData$SEX == 1)])
+plot(dens, lwd = 3, col = &quot;blue&quot;)
+lines(densMales, lwd = 3, col = &quot;orange&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-8.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Scatterplots</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Important paramters: <em>x</em>, <em>y</em>, <em>type</em>, <em>xlab</em>, <em>ylab</em>, <em>xlim</em>, <em>ylim</em>, <em>cex</em>, <em>col</em>, <em>bg</em></li>
+</ul>
+
+<pre><code class="r">plot(pData$JWMNP, pData$WAGP, pch = 19, col = &quot;blue&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Scatterplots - plotting symbol size</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(pData$JWMNP, pData$WAGP, pch = 19, col = &quot;blue&quot;, cex = 0.5)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-10.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Scatterplots - using color</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(pData$JWMNP, pData$WAGP, pch = 19, col = pData$SEX, cex = 0.5)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-11.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Scatterplots - using size</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">percentMaxAge &lt;- pData$AGEP/max(pData$AGEP)
+plot(pData$JWMNP, pData$WAGP, pch = 19, col = &quot;blue&quot;, cex = percentMaxAge * 0.5)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-12.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Scatterplots - overlaying lines/points</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(pData$JWMNP, pData$WAGP, pch = 19, col = &quot;blue&quot;, cex = 0.5)
+lines(rep(100, dim(pData)[1]), pData$WAGP, col = &quot;grey&quot;, lwd = 5)
+points(seq(0, 200, length = 100), seq(0, 2000000, length = 100), col = &quot;red&quot;, pch = 19)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-13.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Scatterplots - numeric variables as factors</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(Hmisc)
+ageGroups &lt;- cut2(pData$AGEP,g=5)
+plot(pData$JWMNP,pData$WAGP,pch=19,col=ageGroups,cex=0.5)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-14.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>If you have a lot of points</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">x &lt;- rnorm(1e5)
+y &lt;- rnorm(1e5)
+plot(x,y,pch=19)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-15.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>If you have a lot of points - sampling</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">x &lt;- rnorm(1e5)
+y &lt;- rnorm(1e5)
+sampledValues &lt;- sample(1:1e5,size=1000,replace=FALSE)
+plot(x[sampledValues],y[sampledValues],pch=19)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-16.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>If you have a lot of points - smoothScatter</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">x &lt;- rnorm(1e5)
+y &lt;- rnorm(1e5)
+smoothScatter(x,y)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-17.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>If you have a lot of points - hexbin {hexbin}</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(hexbin)
+x &lt;- rnorm(1e5)
+y &lt;- rnorm(1e5)
+hbo &lt;- hexbin(x,y)
+plot(hbo)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-18.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>QQ-plots</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Important parameters: <em>x</em>,<em>y</em></li>
+</ul>
+
+<pre><code class="r">x &lt;- rnorm(20); y &lt;- rnorm(20)
+qqplot(x,y)
+abline(c(0,1))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-19.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>Matplot and spaghetti</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Important paramters: <em>x</em>, <em>y</em>, <em>lty</em>,<em>lwd</em>,<em>pch</em>,<em>col</em></li>
+</ul>
+
+<pre><code class="r">X &lt;- matrix(rnorm(20*5),nrow=20)
+matplot(X,type=&quot;b&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-20.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-27" style="background:;">
+  <hgroup>
+    <h2>Heatmaps</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Important paramters: <em>x</em>,<em>y</em>,<em>z</em>,<em>col</em></li>
+</ul>
+
+<pre><code class="r">image(1:10,161:236,as.matrix(pData[1:10,161:236]))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-21.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-28" style="background:;">
+  <hgroup>
+    <h2>Heatmaps - matching intuition</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">newMatrix &lt;- as.matrix(pData[1:10,161:236])
+newMatrix &lt;- t(newMatrix)[,nrow(newMatrix):1]
+image(161:236, 1:10, newMatrix)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-22.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-29" style="background:;">
+  <hgroup>
+    <h2>Maps - very basics</h2>
+  </hgroup>
+  <article>
+    <p>You make need to run <code>install.packages(&quot;maps&quot;)</code> if you don&#39;t have the <code>maps</code> package installed. </p>
+
+<pre><code class="r">library(maps)
+map(&quot;world&quot;)
+lat &lt;- runif(40,-180,180); lon &lt;- runif(40,-90,90)
+points(lat,lon,col=&quot;blue&quot;,pch=19)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-23.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-30" style="background:;">
+  <hgroup>
+    <h2>Missing values and plots</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">x &lt;- c(NA,NA,NA,4,5,6,7,8,9,10)
+y &lt;- 1:10
+plot(x,y,pch=19,xlim=c(0,11),ylim=c(0,11))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-24.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-31" style="background:;">
+  <hgroup>
+    <h2>Missing values and plots</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">x &lt;- rnorm(100)
+y &lt;- rnorm(100)
+y[x &lt; 0] &lt;- NA
+boxplot(x ~ is.na(y))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-25.png" title="plot of chunk unnamed-chunk-25" alt="plot of chunk unnamed-chunk-25" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-32" style="background:;">
+  <hgroup>
+    <h2>Further resources</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><a href="http://gallery.r-enthusiasts.com/">R Graph Gallery</a></li>
+<li><a href="http://cran.r-project.org/web/packages/ggplot2/index.html">ggplot2</a>,<a href="http://www.r-bloggers.com/basic-introduction-to-ggplot2/">ggplot2 basic introduction</a></li>
+<li><a href="http://cran.r-project.org/web/packages/lattice/index.html">lattice package</a>,<a href="http://lmdvr.r-forge.r-project.org/figures/figures.html">lattice introduction</a></li>
+<li><a href="http://www.r-bloggers.com/">R bloggers</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

@@ -1,0 +1,542 @@
+
+>> This video is going to give you a
+concrete example of how clustering and
+principal component analysis that we
+covered in last week's lectures can be
+applied to understand data that comes from
+a particular example, where we want to be
+able to classify actions based on some
+observations that we've taken.
+So, this is going to be an example why
+we're using the data from, that's
+collected using a Samsung Galaxy S3.
+So, this is a smartphone and inside the
+smartphone, there's an accelerometer.
+The accelerometer is used so that when you
+turn the camera on each side, it can
+change the orientation of the video.
+That's a pretty cool feature.
+But we're actually going to be using a
+data for something else when we do this
+analysis.
+So, that acelerometer actually measures
+how much activity is going on in, on three
+different axes.
+And so a study was performed where that
+data was collected for a number of
+individuals and each individual
+participated in several different types of
+activities.
+And during those activities, they had the
+smartphone in their pocket, and the
+accelerometer measured the types of
+activity that were going on.
+So, this data is available from the UCI
+Machine Learning Repository and I've given
+you the URL here for the data.
+It actually comes in several different
+files and I've done just some light
+processing to create a slightly more
+processed version of the dataset, which is
+easier to distribute.
+So, that dataset is available from this
+URL, which you can see here.
+And I've also made the dataset available
+from the course website.
+So, the first thing that I do is I
+download the file, and I load it into R.
+And so, if I look at the names in the
+variables in this dataset, you can see
+that they are all measures of
+acceleration.
+And these measures of acceleration are
+actually summarized over a, a period of
+time.
+And so, you see that summary statistic is
+given for each measurement.
+Either it's a mean over a period of time
+or a standard deviation or a median
+absolute deviation.
+And then, you can see which axis the
+measurement has been taken on whether its
+the x-axis, or the y-axis, or the z-axis.
+In the dataset, we also have a variable
+called activity and that variable tells
+you what that the subject was doing while
+they were participating in the study.
+So, they could be laying, sitting,
+standing, walking, or walking up and down
+stairs.
+And so, you could see that the activities
+are sort of equally-distributed across
+these different types of activities.
+And so, what we're going to be trying to
+do in this analysis is use these
+measurements that were collected with the
+Samsung Galaxy S3.
+And predict what sort of activity the
+person is participating in.
+This is the kind of thing that is becoming
+really widely-used now in a lot of medical
+studies, but is also being used in other
+places as well, to try to be able to
+determine what sort of things are, people
+are doing with their smartphones.
+So, the first thing that we can do is we
+can start taking a look at some of the
+variables them, themselves.
+And so, what we've done here is we've
+first created a vector that is a numeric
+value for the different activities.
+So in this case, 1 is for standing, 2 is
+for sitting, 3 is for laying, 4 is for
+walking, 5 is for walking down, and 6 is
+for walking up.
+And then, what I can do is I can take the
+data just for the first subject.
+So, this dataset actually contains data on
+multiple subject but we'll only be looking
+at the first subject here and I can plot
+the first variables.
+The first variable is the mean
+acceleration on the x-coordinate axis and
+so then I can color it by the activity
+that the person was participating in.
+So, you can see, for example, that when a
+person was laying or standing still, there
+wasn't as much activity that was going on
+whereas when they were walking down or
+walking up, their mean activity varied a
+lot more.
+You can also plot that same variable for
+the y-axis and you actually have x, y, and
+z for each of these different
+measurements, but here's just a couple of
+them.
+So, the next thing that we could do is we
+could actually just try to cluster the
+data based on the average acceleration in
+the x, y, and z-coordinates.
+So, what I've done here is I've created a,
+a distance matrix where I calculate for
+the first subject, I'm going to say, okay,
+I'm going to look at all of their
+activities and look at the first three
+variables.
+The first three variables being the core,
+the measurements in thex, y, and z-axis of
+the average acceleration.
+And what I'm going to do is say, you know,
+can we calculate the distance between
+those measurements, those acceleration
+measurements between all of the different
+activities that were performed by subject
+one.
+And then, perform a hierarchical
+clustering like we performed in the
+previous week's lecture.
+And if I plot that clustering, I can see,
+when I've colored it by activity that it
+actually doesn't cluster the activities
+very nicely.
+You can see that all the sort of the
+different colors are mixed together so
+that they're not actually, not very well
+distinguished.
+And you can actually kind of see why that,
+that would be true, you can see that
+despite there being some differences, say,
+between standing and walking, many of the
+activities have sort of similar patterns
+of variation across this, their activities
+that they're performing.
+So, since clustering based on the mean
+acceleration in each of the access
+directions didn't seem to bear too much
+fruit, we can actually take a look at some
+of the other variables in our data set.
+So, the next set of variables that we
+might look at are the max acceleration in
+each of the access directions.
+And so, what we've plotted here now are
+for the first subject.
+This is again, all of the different
+measurements that we take for that first
+subject, and they're color coated by
+activity.
+And so, you can see say, for example, that
+the dark blue are the walking activities
+and the light blue are the walking up, or
+sorry, walking down and the Pink are
+walking up.
+And so, what you can see is that the max
+acceleration now distinguishes there
+activities substantially better then the
+acceleration, the mean acceleration did.
+You can see, for example, that standing
+and laying have very low max acceleration
+which isn't very surprising and that
+walking up and down and just any kind of
+walking actually has a much higher max
+acceleration.
+So, based on these variables, you'd expect
+to see a little bit better clustering.
+And so, we can actually perform a
+clustering again on just the activities of
+the very first subject.
+We can take the variables ten through 12,
+those are the max acceleration variables
+for those subjects, and see how close
+those measurements are for different
+activities and perform a hierarchical
+clustering on them.
+And so, what you actually end up seeing is
+that walking and walking up are still not
+very well-distinguished but walking down
+now gets kind of its own cluster over here
+on the left the light blue points.
+So, we've actually improved our clustering
+a little bit over using just the mean
+acceleration.
+And we might want to ask ourselves, is
+there a way that we could actually start
+to distinguish out these other activities
+that weren't distinguished by the max
+acceleration on its own?
+So, one way we could do that is we could
+look at the singular value decomposition,
+which is something we also talked about
+last week.
+So, what we could do is calculate the
+singular value decomposition on the
+Samsung data.
+So, again, this is the Samsung data, where
+the activities for the first subject are
+in rows.
+And in the columns, we have all of the
+variables that have been collected with
+the accelerometer.
+And I've left out just the last two
+columns.
+And the reason why I've left those out is
+because one is the subject variable, and
+one is the activity variable.
+So, we're actually not interested in
+those.
+We want to just look at the Samsung data
+and see if the patterns in those data can
+actually distinguish the activities.
+So, when I calculate the singular value
+decomposition, I get, remember, three
+matrices.
+I get u, v, and d.
+And so, u is the left singular vector and
+that's what I've plotted here, so I've
+plotted the, the first left singular
+vector, that's the first column of u.
+And the second left singular vector,
+that's the second column of u, so these
+vectors show across, again, all of the
+different activities, what the most
+prevalent or the most common patterns that
+explain the most variation in the data set
+are.
+So, we can see that the first singular
+vector sort of not surprisingly,
+distinguishes all the activities where
+you're sedentary, laying down, or sitting
+or standing, from activities where you're
+doing something like walking, walking up,
+or walking down.
+And so, this is a singular vector looks
+actually quite a bit like the max
+acceleration vector.
+And so, it's maybe not necessarily helpful
+for us in improving our analysis and our
+ability to cluster the, the differences
+between these categories here, the active
+categories.
+So, if we look at the second singular
+vector, this is going to be left singular
+vector, it's going to be orthogonal to the
+first left singular vector with our and
+only the sense that these two things are
+uncorrelated with each other.
+And so, what we can see here now is
+actually they are walking down and walking
+up, the light blue and the purple points
+are actually pretty well-distinguished in
+the second left singular vector.
+So, what we are seeing here is a pattern
+in the day that it explains a lot of
+variation that actually separates out
+categories that weren't separated out by
+the max.
+So, the next thing that we want to know
+is, well, as you'll remember from the
+singular value decomposition lecture, this
+left singular vector actually represents
+the average of potentially multiple
+patterns that are observed in the dataset.
+So, we want to actually go back and see if
+we can discover, what are the variables
+that contribute to this pattern that we're
+observing here.
+So, the way that we do that is that we
+look at the right singular vector that
+corresponds to the left singular vector
+that gives that pattern.
+So again, we, we are looking at the second
+left singular vector.
+So now, we look at the second right
+singular vector.
+So, this is the v component of the svd and
+it's the second column of v and we plot
+that.
+And so now, this is actually in the
+previous case, we were looking at the one
+subject across all their activities.
+Now, what we're looking at is all the
+different variables so this is the
+variables 1 through 561 that were
+collected with the Samsung device and what
+we're seeing here are the weights that
+each of these variables contribute to that
+pattern that is the second left singular
+vector.
+And so, for example, what we might want to
+do is pick out some of these variables
+that have a very high level of the weight,
+so that means they're contributing a lot
+of, of, of the variation to that pattern
+that we've observed in the left singular
+vector.
+So, we might pick out, say, the one that's
+the maximum and include that variable when
+we do our clustering.
+So, what I did is just that.
+I calculated what the max variable the max
+weight was for the second right singular
+vector.
+So, this is the variable that contributed
+the most to the second left singular
+vector's pattern.
+The one that distinguished walking up from
+walking down.
+And then I can actually re-calculate the
+distance matrix.
+Now, I'm using again the variables 10
+through 12.
+These are the max acceleration variables,
+and then I'm also taking this max
+contributor variables.
+So, the one that contributes the most to
+that pattern of variation.
+And I re-performed my clustering analysis
+and so what I can see now is if you'll
+remember from the previous slide, the, the
+first clustering with the max
+accelerationing had the dark blue points
+and the pink points basically entirely
+intermixed.
+And now, you see that they've kind of been
+separated, and the reason why is that we
+picked out a variable using sort of a
+multivariate technique.
+We identified a variable that was
+contributing to a major pattern in the
+dataset that separated these activities
+out.
+So, we're able to sort of start to
+identify the activities that distinguish
+the patterns of variation in activity
+monitoring from these Samsung devices.
+The cool thing about these discovery
+techniques is that we can actually go back
+and see what variable that we've picked to
+include in our model and include in our
+clustering.
+And, in this case, we're looking here at
+the mean frequency of, of the changes and
+acceleration for the z-variable.
+And it makes sense because what we've done
+is we've identified a variable that
+separates out walking from walking up a
+set of stairs and so you can imagine that
+there would be differences in the
+frequency of, of changes in the z -axis if
+you would use that variable.
+And it's cool because we discovered that
+without having to know in advance what
+that variable is, we actually just it in
+the patterns in the data that best
+explained differences between the
+activities.
+So, we can also apply K-means clustering
+to these data.
+And so, I'm going to do this to sort of
+illustrate how K-means gives you a little
+bit different information and also behaves
+a little bit differently than the other
+clustering approaches.
+So, what I've done here is I've applied
+the K-means clustering algorithm,
+algorithm to the Samsung data only again
+from the first subject.
+And again, I've eliminated the subject
+indicator and the activity indicator, so
+this K-means clustering is being performed
+not on the activity data itself, only on
+the Samsung data that was collected about
+acceleration and I told k-means that I
+would like 6 different clusters by telling
+it that there are 6 centers.
+And so then, what I can do is I can
+actually make a table that says what
+cluster you were assigned to versus what
+activity that person was actually
+performing.
+So, for example, for this first subject,
+we see that we cluster their activities
+into six different clusters.
+And the first cluster contains some of the
+time when the subject was laying, some of
+the time when it was, when that subject
+was sitting and some of the time when they
+were standing.
+We can see that cluster 2 and cluster 5
+actually split up the walk down activities
+into two separate clusters.
+Similarly, cluster 3 and cluster 4
+actually separate out the walking
+activities.
+So, this is important to note first of
+all, that even though we told K-means that
+there were six clusters, and there
+actually are six clusters, it doesn't
+necessarily identify the clusters that we
+were thinking about in advance.
+It doesn't necessarily identify laying,
+sitting, and standing separately, because
+it's not clear that the variables that
+we've passed it will, will perfectly
+cluster in that way.
+But also, as I mentioned in my earlier
+lectures, the K-means clustering algorithm
+is actually stochastic.
+It depends, it gives it a random start and
+then the random start is updated and
+updated until you get the final centroids.
+And so, I actually only started it one
+time because that is the default for
+K-means clustering here so I can actually
+see what happens if I run it the exact
+same algorithm again.
+And so, I ran the exact same command
+again, I gave it exactly one start, I get
+told that 6 centers that passed at the
+exact same data and I get a different set
+of clusters out.
+So, you can see now cluster 1 has mostly
+the walking variables but also one walk
+down.
+You can see that walk is separated out
+across clusters 1 through 3.
+You can see, for example, that walk up is
+primarily cluster 4 with a little bit of
+laying and sitting included.
+So again, you have a really hard time
+distinguishing laying, sitting, and
+standing.
+So, those variables get spread out.
+Or those activities get spread out here in
+cluster 6.
+But the important thing to note is if you
+look at where these clusters land, they
+are very different than the first time I
+ran K-means clustering with only one
+start.
+So, as I mentioned, there's one way that
+we could try to address that and that is,
+instead of giving K-means one opportunity
+to fit the algorithm, we actually give it
+100 random starts, and then do sort of
+averaging to identify what cluster that
+you end up in.
+So, if I do that, now I get yet another
+clustering from the K-means clustering
+algorithm, so in this clustering cluster 1
+has mostly sitting and standing.
+Cluster 2 has mostly laying and sitting.
+Cluster 3 is now almost exclusively is a,
+just exclusively walking.
+Cluster 4 is mostly walk down.
+And cluster 6 here is mostly walkup, so it
+looks like at least for these activities,
+we're doing a somewhat better job of
+separating those activities out, once
+we've told K-means to try to do this
+multiple times with random restarts, and
+average over those restarts.
+If I run it again with a 100 starts, I do
+get something very slightly different and
+in particular, I might get the ordering of
+these labels differently, but you can see
+it's pretty stable, all 49 individual or
+49 activity points got classified into
+cluster 2 and that's for walk down.
+And if you go to the previous slide, you
+see it was cluster 4 in the previous slide
+but again it was the 49 activity points
+for walk down.
+So, the cluster names aren't necessarily
+stable.
+But the points gets assigned much more
+stably to a specific cluster if I do more
+random restarts.
+So, the cool thing about K-means
+clustering is that, the, then you can go
+back and actually look at what each of
+these clusters means.
+Or in other words, what are the variables
+contributing to these clusters.
+What are the patterns that they look like?
+So, we can actually look at the cluster 1
+variable centers.
+And so, this is the, actually the, first
+cluster.
+This is the one that corresponds to mostly
+laying down activity.
+And these are the first ten variables.
+So, these three variables represent mean
+acceleration x, y, and z.
+And then these variables here, the tenth
+variable say, for example represents the
+max acceleration in the x-direction.
+So, you can see, for example, that for
+laying a lot of the values are, sort of,
+very low.
+The acceleration values aren't changing
+very much.
+The second cluster is actually
+corresponding to the, mostly to walking.
+And for this cluster, you actually see
+that a lot of the acceleration values are
+actually quite a bit higher.
+So, we can actually even look at which
+variables are higher for the walking
+center and so we're able to actually kind
+of distinguish between difference clusters
+based on what their cluster centers look
+like.
+So, that was a quick tour of the different
+clustering algorithms applied to the
+Samsung data.
+I've actually only looked at subject 1 for
+all of these analyses.
+But an interesting thing to do is see if
+you can say, cluster subjects together
+using hierarchical clustering or K-means
+clustering.
+And I'ld encourage you to take a try at
+that.

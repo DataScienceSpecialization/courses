@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reading Excel files</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Reading Excel files">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Reading Excel files</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Excel files</h2>
+  </hgroup>
+  <article>
+    <p><em>Still probably the most widely used format for sharing data</em></p>
+
+<p><img class=center src=../../assets/img/03_ObtainingData/excel2.png height=450></p>
+
+<p><a href="http://office.microsoft.com/en-us/excel/">http://office.microsoft.com/en-us/excel/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Example - Baltimore camera data</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/03_ObtainingData/cameras.png height=500></p>
+
+<p><a href="https://data.baltimorecity.gov/Transportation/Baltimore-Fixed-Speed-Cameras/dz54-2aru">https://data.baltimorecity.gov/Transportation/Baltimore-Fixed-Speed-Cameras/dz54-2aru</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Download the file to load</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">if(!file.exists(&quot;data&quot;)){dir.create(&quot;data&quot;)}
+fileUrl &lt;- &quot;https://data.baltimorecity.gov/api/views/dz54-2aru/rows.xlsx?accessType=DOWNLOAD&quot;
+download.file(fileUrl,destfile=&quot;./data/cameras.xlsx&quot;,method=&quot;curl&quot;)
+dateDownloaded &lt;- date()
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>read.xlsx(), read.xlsx2() {xlsx package}</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(xlsx)
+cameraData &lt;- read.xlsx(&quot;./data/cameras.xlsx&quot;,sheetIndex=1,header=TRUE)
+head(cameraData)
+</code></pre>
+
+<pre><code>                         address direction      street  crossStreet               intersection
+1       S CATON AVE &amp; BENSON AVE       N/B   Caton Ave   Benson Ave     Caton Ave &amp; Benson Ave
+2       S CATON AVE &amp; BENSON AVE       S/B   Caton Ave   Benson Ave     Caton Ave &amp; Benson Ave
+3 WILKENS AVE &amp; PINE HEIGHTS AVE       E/B Wilkens Ave Pine Heights Wilkens Ave &amp; Pine Heights
+4        THE ALAMEDA &amp; E 33RD ST       S/B The Alameda      33rd St     The Alameda  &amp; 33rd St
+5        E 33RD ST &amp; THE ALAMEDA       E/B      E 33rd  The Alameda      E 33rd  &amp; The Alameda
+6        ERDMAN AVE &amp; N MACON ST       E/B      Erdman     Macon St         Erdman  &amp; Macon St
+                       Location.1
+1 (39.2693779962, -76.6688185297)
+2 (39.2693157898, -76.6689698176)
+3  (39.2720252302, -76.676960806)
+4 (39.3285013141, -76.5953545714)
+5 (39.3283410623, -76.5953594625)
+6 (39.3068045671, -76.5593167803)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Reading specific rows and columns</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">colIndex &lt;- 2:3
+rowIndex &lt;- 1:4
+cameraDataSubset &lt;- read.xlsx(&quot;./data/cameras.xlsx&quot;,sheetIndex=1,
+                              colIndex=colIndex,rowIndex=rowIndex)
+cameraDataSubset
+</code></pre>
+
+<pre><code>  direction      street
+1       N/B   Caton Ave
+2       S/B   Caton Ave
+3       E/B Wilkens Ave
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Further notes</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The <em>write.xlsx</em> function will write out an Excel file with similar arguments.</li>
+<li><em>read.xlsx2</em> is much faster than <em>read.xlsx</em> but for reading subsets of rows may be slightly unstable. </li>
+<li>The <a href="http://cran.r-project.org/web/packages/XLConnect/index.html">XLConnect</a> package has more options for writing and manipulating Excel files</li>
+<li>The <a href="http://cran.r-project.org/web/packages/XLConnect/vignettes/XLConnect.pdf">XLConnect vignette</a> is a good place to start for that package</li>
+<li>In general it is advised to store your data in either a database
+or in comma separated files (.csv) or tab separated files (.tab/.txt) as they are easier to distribute.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

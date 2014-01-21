@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The Base Plotting System in R</title>
+  <meta charset="utf-8">
+  <meta name="description" content="The Base Plotting System in R">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>The Base Plotting System in R</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Plotting System</h2>
+  </hgroup>
+  <article>
+    <p>The core plotting and graphics engine in R is encapsulated in the
+following packages:</p>
+
+<ul>
+<li><p><em>graphics</em>: contains plotting functions for the &quot;base&quot; graphing
+systems, including <code>plot</code>, <code>hist</code>, <code>boxplot</code> and many others.</p></li>
+<li><p><em>grDevices</em>: contains all the code implementing the various graphics
+devices, including X11, PDF, PostScript, PNG, etc.</p></li>
+</ul>
+
+<p>The lattice plotting system is implemented using the following packages:</p>
+
+<ul>
+<li><p><em>lattice</em>: contains code for producing Trellis graphics, which are
+independent of the “base” graphics system; includes functions like
+<code>xyplot</code>, <code>bwplot</code>, <code>levelplot</code></p></li>
+<li><p><em>grid</em>: implements a different graphing system independent of the
+“base” system; the <em>lattice</em> package builds on top of <em>grid</em>; we
+seldom call functions from the <em>grid</em> package directly</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>The Process of Making a Plot</h2>
+  </hgroup>
+  <article>
+    <p>When making a plot one must first make a few considerations (not
+necessarily in this order):</p>
+
+<ul>
+<li>Where will the plot be made? On the screen? In a file? </li>
+</ul>
+
+<!--
+  - The default in Unix is `x11`; on Windows it is `windows`; on Mac
+    OS X it is `quartz`
+-->
+
+<ul>
+<li><p>How will the plot be used?</p>
+
+<ul>
+<li>Is the plot for viewing temporarily on the screen?<br></li>
+<li>Will it be presented in a web browser?</li>
+<li>Will it eventually end up in a paper that might be printed? </li>
+<li>Are you using it in a presentation?</li>
+</ul></li>
+<li><p>Is there a large amount of data going into the plot? Or is it just a
+few points?</p></li>
+<li><p>Do you need to be able to dynamically resize the graphic?</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>The Process of Making a Plot</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>What graphics system will you use: base, lattice, or ggplot2? These
+generally cannot be mixed.</p></li>
+<li><p>Base graphics are usually constructed piecemeal, with each aspect of
+the plot handled separately through a series of function calls; this
+is often conceptually simpler and allows plotting to mirror the
+thought process</p></li>
+<li><p>Lattice graphics are usually created in a single function call, so
+all of the graphics parameters have to specified at once; specifying
+everything at once allows R to automatically calculate the necessary
+spacings and font sizes.</p></li>
+<li><p>ggplot2 combines concepts from both base and lattice graphics but
+uses an independent implementation</p></li>
+</ul>
+
+<p>We focus on using the <strong>base plotting system</strong> to create graphics on
+the <strong>screen device</strong>.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Base Graphics</h2>
+  </hgroup>
+  <article>
+    <p>Base graphics are used most commonly and are a very powerful system for creating 2-D graphics.</p>
+
+<ul>
+<li><p>There are two <em>phases</em> to creating a base plot</p>
+
+<ul>
+<li>Initializing a new plot</li>
+<li>Annotating (adding to) an existing plot</li>
+</ul></li>
+<li><p>Calling <code>plot(x, y)</code> or <code>hist(x)</code> will launch a graphics device (if
+one is not already open) and draw a new plot on the device</p></li>
+<li><p>If the arguments to <code>plot</code> are not of some special class, then the
+<em>default</em> method for <code>plot</code> is called; this function has <em>many</em>
+arguments, letting you set the title, x axis label, y axis label,
+etc.</p></li>
+<li><p>The base graphics system has <em>many</em> parameters that can set and
+tweaked; these parameters are documented in <code>?par</code>; it wouldn’t hurt
+to try to memorize this help page!</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Simple Base Graphics: Histogram</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(datasets)
+hist(airquality$Ozone)  ## Draw a new plot
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Simple Base Graphics: Scatterplot</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(datasets)
+with(airquality, plot(Wind, Ozone))
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Simple Base Graphics: Boxplot</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(datasets)
+airquality &lt;- transform(airquality, Month = factor(Month))
+boxplot(Ozone ~ Month, airquality, xlab = &quot;Month&quot;, ylab = &quot;Ozone (ppb)&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Some Important Base Graphics Parameters</h2>
+  </hgroup>
+  <article>
+    <p>Many base plotting functions share a set of parameters. Here are a few
+key ones:</p>
+
+<ul>
+<li><p><code>pch</code>: the plotting symbol (default is open circle)</p></li>
+<li><p><code>lty</code>: the line type (default is solid line), can be dashed, dotted, etc.</p></li>
+<li><p><code>lwd</code>: the line width, specified as an integer multiple</p></li>
+<li><p><code>col</code>: the plotting color, specified as a number, string, or hex
+code; the <code>colors()</code> function gives you a vector of colors by name</p></li>
+<li><p><code>xlab</code>: character string for the x-axis label</p></li>
+<li><p><code>ylab</code>: character string for the y-axis label</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Some Important Base Graphics Parameters</h2>
+  </hgroup>
+  <article>
+    <p>The <code>par()</code> function is used to specify <em>global</em> graphics parameters
+that affect all plots in an R session. These parameters can be
+overridden when specified as arguments to specific plotting functions.</p>
+
+<ul>
+<li><code>las</code>: the orientation of the axis labels on the plot</li>
+<li><code>bg</code>: the background color</li>
+<li><code>mar</code>: the margin size</li>
+<li><code>oma</code>: the outer margin size (default is 0 for all sides)</li>
+<li><code>mfrow</code>: number of plots per row, column (plots are filled row-wise) </li>
+<li><code>mfcol</code>: number of plots per row, column (plots are filled column-wise)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Some Important Base Graphics Parameters</h2>
+  </hgroup>
+  <article>
+    <p>Default values for global graphics parameters</p>
+
+<pre><code class="r">par(&quot;lty&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;solid&quot;
+</code></pre>
+
+<pre><code class="r">par(&quot;col&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;black&quot;
+</code></pre>
+
+<pre><code class="r">par(&quot;pch&quot;)
+</code></pre>
+
+<pre><code>## [1] 1
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Some Important Base Graphics Parameters</h2>
+  </hgroup>
+  <article>
+    <p>Default values for global graphics parameters</p>
+
+<pre><code class="r">par(&quot;bg&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;transparent&quot;
+</code></pre>
+
+<pre><code class="r">par(&quot;mar&quot;)
+</code></pre>
+
+<pre><code>## [1] 5.1 4.1 4.1 2.1
+</code></pre>
+
+<pre><code class="r">par(&quot;mfrow&quot;)
+</code></pre>
+
+<pre><code>## [1] 1 1
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Base Plotting Functions</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p><code>plot</code>: make a scatterplot, or other type of plot depending on the
+class of the object being plotted</p></li>
+<li><p><code>lines</code>: add lines to a plot, given a vector x values and a
+corresponding vector of y values (or a 2-column matrix); this
+function just connects the dots</p></li>
+<li><p><code>points</code>: add points to a plot</p></li>
+<li><p><code>text</code>: add text labels to a plot using specified x, y coordinates</p></li>
+<li><p><code>title</code>: add annotations to x, y axis labels, title, subtitle, outer margin </p></li>
+<li><p><code>mtext</code>: add arbitrary text to the margins (inner or outer) of the plot </p></li>
+<li><p><code>axis</code>: adding axis ticks/labels</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Base Plot with Annotation</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(datasets)
+with(airquality, plot(Wind, Ozone))
+title(main = &quot;Ozone and Wind in New York City&quot;)  ## Add a title
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-6.png" alt="plot of chunk unnamed-chunk-6"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Base Plot with Annotation</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">with(airquality, plot(Wind, Ozone, main = &quot;Ozone and Wind in New York City&quot;))
+with(subset(airquality, Month == 5), points(Wind, Ozone, col = &quot;blue&quot;))
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-7.png" alt="plot of chunk unnamed-chunk-7"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Base Plot with Annotation</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">with(airquality, plot(Wind, Ozone, main = &quot;Ozone and Wind in New York City&quot;, 
+    type = &quot;n&quot;))
+with(subset(airquality, Month == 5), points(Wind, Ozone, col = &quot;blue&quot;))
+with(subset(airquality, Month != 5), points(Wind, Ozone, col = &quot;red&quot;))
+legend(&quot;topright&quot;, pch = 1, col = c(&quot;blue&quot;, &quot;red&quot;), legend = c(&quot;May&quot;, &quot;Other Months&quot;))
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-8.png" alt="plot of chunk unnamed-chunk-8"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Base Plot with Regression Line</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">with(airquality, plot(Wind, Ozone, main = &quot;Ozone and Wind in New York City&quot;, 
+    pch = 20))
+model &lt;- lm(Ozone ~ Wind, airquality)
+abline(model, lwd = 2)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-9.png" alt="plot of chunk unnamed-chunk-9"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Multiple Base Plots</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mfrow = c(1, 2))
+with(airquality, {
+    plot(Wind, Ozone, main = &quot;Ozone and Wind&quot;)
+    plot(Solar.R, Ozone, main = &quot;Ozone and Solar Radiation&quot;)
+})
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-10.png" alt="plot of chunk unnamed-chunk-10"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Multiple Base Plots</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mfrow = c(1, 3), mar = c(4, 4, 2, 1), oma = c(0, 0, 2, 0))
+with(airquality, {
+    plot(Wind, Ozone, main = &quot;Ozone and Wind&quot;)
+    plot(Solar.R, Ozone, main = &quot;Ozone and Solar Radiation&quot;)
+    plot(Temp, Ozone, main = &quot;Ozone and Temperature&quot;)
+    mtext(&quot;Ozone and Weather in New York City&quot;, outer = TRUE)
+})
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-11.png" alt="plot of chunk unnamed-chunk-11"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Plots in the base plotting system are created by calling successive
+R functions to &quot;build up&quot; a plot</p></li>
+<li><p>Plotting occurs in two stages:</p>
+
+<ul>
+<li>Creation of a plot</li>
+<li>Annotation of a plot (adding lines, points, text, legends)</li>
+</ul></li>
+<li><p>The base plotting system is very flexible and offers a high degree
+of control over plotting</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

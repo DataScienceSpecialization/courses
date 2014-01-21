@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.0"
+   x="0.0000000"
+   y="0.0000000"
+   width="283.46457"
+   height="283.46457"
+   id="svg1629">
+  <defs
+     id="defs1631" />
+  <g
+     id="layer1">
+    <g
+       transform="matrix(8.160948e-2,0.000000,0.000000,8.160948e-2,-12.30490,-12.32124)"
+       style="fill:none;stroke:#000000;stroke-width:0.025000000in"
+       id="g4">
+      <defs
+         id="defs6">
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile1">
+          <path
+             id="path9"
+             d="M 0 -100 200 16" />
+          <path
+             id="path11"
+             d="M 0 -60 200 56" />
+          <path
+             id="path13"
+             d="M 0 -20 200 96" />
+          <path
+             id="path15"
+             d="M 0 20 200 136" />
+          <path
+             id="path17"
+             d="M 0 60 200 176" />
+          <path
+             id="path19"
+             d="M 0 100 200 216" />
+          <path
+             id="path21"
+             d="M 0 140 200 256" />
+          <path
+             id="path23"
+             d="M 0 180 200 296" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile2">
+          <path
+             id="path26"
+             d="M 200 -100 0 16" />
+          <path
+             id="path28"
+             d="M 200 -60 0 56" />
+          <path
+             id="path30"
+             d="M 200 -20 0 96" />
+          <path
+             id="path32"
+             d="M 200 20 0 136" />
+          <path
+             id="path34"
+             d="M 200 60 0 176" />
+          <path
+             id="path36"
+             d="M 200 100 0 216" />
+          <path
+             id="path38"
+             d="M 200 140 0 256" />
+          <path
+             id="path40"
+             d="M 200 180 0 296" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile3">
+          <path
+             id="path43"
+             d="M 0 -100 200 16" />
+          <path
+             id="path45"
+             d="M 200 -100 0 16" />
+          <path
+             id="path47"
+             d="M 0 -60 200 56" />
+          <path
+             id="path49"
+             d="M 200 -60 0 56" />
+          <path
+             id="path51"
+             d="M 0 -20 200 96" />
+          <path
+             id="path53"
+             d="M 200 -20 0 96" />
+          <path
+             id="path55"
+             d="M 0 20 200 136" />
+          <path
+             id="path57"
+             d="M 200 20 0 136" />
+          <path
+             id="path59"
+             d="M 0 60 200 176" />
+          <path
+             id="path61"
+             d="M 200 60 0 176" />
+          <path
+             id="path63"
+             d="M 0 100 200 216" />
+          <path
+             id="path65"
+             d="M 200 100 0 216" />
+          <path
+             id="path67"
+             d="M 0 140 200 256" />
+          <path
+             id="path69"
+             d="M 200 140 0 256" />
+          <path
+             id="path71"
+             d="M 0 180 200 296" />
+          <path
+             id="path73"
+             d="M 200 180 0 296" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile4">
+          <path
+             id="path76"
+             d="M 100 0 200 100" />
+          <path
+             id="path78"
+             d="M 0 0 200 200" />
+          <path
+             id="path80"
+             d="M 0 100 100 200" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile5">
+          <path
+             id="path83"
+             d="M 100 0 0 100" />
+          <path
+             id="path85"
+             d="M 200 0 0 200" />
+          <path
+             id="path87"
+             d="M 200 100 100 200" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile6">
+          <path
+             id="path90"
+             d="M 100 0 200 100" />
+          <path
+             id="path92"
+             d="M 0 0 200 200" />
+          <path
+             id="path94"
+             d="M 0 100 100 200" />
+          <path
+             id="path96"
+             d="M 100 0 0 100" />
+          <path
+             id="path98"
+             d="M 200 0 0 200" />
+          <path
+             id="path100"
+             d="M 200 100 100 200" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile7">
+          <path
+             id="path103"
+             d="M 0 0 0 50" />
+          <path
+             id="path105"
+             d="M 0 50 200 50" />
+          <path
+             id="path107"
+             d="M 100 50 100 150" />
+          <path
+             id="path109"
+             d="M 0 150 200 150" />
+          <path
+             id="path111"
+             d="M 0 150 0 200" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile8">
+          <path
+             id="path114"
+             d="M 0 0 50 0" />
+          <path
+             id="path116"
+             d="M 50 0 50 200" />
+          <path
+             id="path118"
+             d="M 50 100 150 100" />
+          <path
+             id="path120"
+             d="M 150 0 150 200" />
+          <path
+             id="path122"
+             d="M 150 0 200 0" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile9">
+          <path
+             id="path125"
+             d="M 0 50 200 50" />
+          <path
+             id="path127"
+             d="M 0 150 200 150" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile10">
+          <path
+             id="path130"
+             d="M 50 0 50 200" />
+          <path
+             id="path132"
+             d="M 150 0 150 200" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile11">
+          <path
+             id="path135"
+             d="M 0 50 200 50" />
+          <path
+             id="path137"
+             d="M 0 150 200 150" />
+          <path
+             id="path139"
+             d="M 50 0 50 200" />
+          <path
+             id="path141"
+             d="M 150 0 150 200" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile12">
+          <path
+             id="path144"
+             d="M 0 0 25 50" />
+          <path
+             id="path146"
+             d="M 0 50 200 50" />
+          <path
+             id="path148"
+             d="M 100 50 125 150" />
+          <path
+             id="path150"
+             d="M 0 150 200 150" />
+          <path
+             id="path152"
+             d="M 0 150 25 200" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile13">
+          <path
+             id="path155"
+             d="M 200 0 175 50" />
+          <path
+             id="path157"
+             d="M 0 50 200 50" />
+          <path
+             id="path159"
+             d="M 100 50 75 150" />
+          <path
+             id="path161"
+             d="M 0 150 200 150" />
+          <path
+             id="path163"
+             d="M 200 150 175 200" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile14">
+          <path
+             id="path166"
+             d="M 0 0 50 25" />
+          <path
+             id="path168"
+             d="M 50 0 50 200" />
+          <path
+             id="path170"
+             d="M 50 100 150 125" />
+          <path
+             id="path172"
+             d="M 150 0 150 200" />
+          <path
+             id="path174"
+             d="M 150 0 200 25" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile15">
+          <path
+             id="path177"
+             d="M 0 25 50 0" />
+          <path
+             id="path179"
+             d="M 50 0 50 200" />
+          <path
+             id="path181"
+             d="M 50 125 150 100" />
+          <path
+             id="path183"
+             d="M 150 0 150 200" />
+          <path
+             id="path185"
+             d="M 150 25 200 0" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile16">
+          <path
+             id="path188"
+             d="M 0 50 A 50 50 0 1 0 100 50" />
+          <path
+             id="path190"
+             d="M 100 50 A 50 50 0 1 0 200 50" />
+          <path
+             id="path192"
+             d="M 50 100 A 50 50 0 1 0 150 100" />
+          <path
+             id="path194"
+             d="M 0 150 A 50 50 0 0 0 50 100" />
+          <path
+             id="path196"
+             d="M 150 100 A 50 50 0 1 0 200 50" />
+          <path
+             id="path198"
+             d="M 50 0 A 50 50 0 1 0 150 0" />
+          <path
+             id="path200"
+             d="M 150 0 A 50 50 0 0 0 200 50" />
+          <path
+             id="path202"
+             d="M 0 50 A 50 50 0 0 0 50 0" />
+          <path
+             id="path204"
+             d="M 0 150 A 50 50 0 1 0 100 150" />
+          <path
+             id="path206"
+             d="M 100 150 A 50 50 0 1 0 200 150" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="100"
+           width="100"
+           y="0"
+           x="0"
+           id="tile17">
+          <g
+             id="g209"
+             transform="scale(0.5)">
+            <path
+               id="path211"
+               d="M 0 50 A 50 50 0 1 0 100 50" />
+            <path
+               id="path213"
+               d="M 100 50 A 50 50 0 1 0 200 50" />
+            <path
+               id="path215"
+               d="M 50 100 A 50 50 0 1 0 150 100" />
+            <path
+               id="path217"
+               d="M 0 150 A 50 50 0 0 0 50 100" />
+            <path
+               id="path219"
+               d="M 150 100 A 50 50 0 1 0 200 50" />
+            <path
+               id="path221"
+               d="M 50 0 A 50 50 0 1 0 150 0" />
+            <path
+               id="path223"
+               d="M 150 0 A 50 50 0 0 0 200 50" />
+            <path
+               id="path225"
+               d="M 0 50 A 50 50 0 0 0 50 0" />
+            <path
+               id="path227"
+               d="M 0 150 A 50 50 0 1 0 100 150" />
+            <path
+               id="path229"
+               d="M 100 150 A 50 50 0 1 0 200 150" />
+          </g>
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile18">
+          <circle
+             id="circle232"
+             r="100"
+             cy="100"
+             cx="100" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile19">
+          <path
+             id="path235"
+             d="M 0 50 45 0 105 0 140 50 200 50 " />
+          <path
+             id="path237"
+             d="M 0 50 45 100 105 100 140 50 200 50" />
+          <path
+             id="path239"
+             d="M 0 150 45 100 105 100 140 150 200 150" />
+          <path
+             id="path241"
+             d="M 0 150 45 200 105 200 140 150 200 150" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile20">
+          <path
+             id="path244"
+             d="M 0 70 65 0 140 0 200 70 " />
+          <path
+             id="path246"
+             d="M 0 70 0 130 65 200 140 200 200 130 200 70" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile21">
+          <path
+             id="path249"
+             d="M 50 0 75 25 100 0 M 150 0 175 25 200 0" />
+          <path
+             id="path251"
+             d="M 0 50 25 25 75 75 125 25 175 75 200 50" />
+          <path
+             id="path253"
+             d="M 0 100 25 75 75 125 125 75 175 125 200 100" />
+          <path
+             id="path255"
+             d="M 0 150 25 125 75 175 125 125 175 175 200 150" />
+          <path
+             id="path257"
+             d="M 0 200 25 175 75 225 125 175 175 225 200 200" />
+        </pattern>
+        <pattern
+           patternUnits="userSpaceOnUse"
+           height="200"
+           width="200"
+           y="0"
+           x="0"
+           id="tile22">
+          <path
+             id="path260"
+             d="M 0 50 25 75 0 100 M 0 150 25 175 0 200" />
+          <path
+             id="path262"
+             d="M 50 0 25 25 75 75 25 125 75 175 50 200" />
+          <path
+             id="path264"
+             d="M 100 0 75 25 125 75 75 125 125 175 100 200" />
+          <path
+             id="path266"
+             d="M 150 0 125 25 175 75 125 125 175 175 150 200" />
+          <path
+             id="path268"
+             d="M 200 0 175 25 225 75 175 125 225 175 200 200" />
+        </pattern>
+      </defs>
+      <path
+         d="M 472.00000,3543.0000 L 472.00000,236.00000"
+         style="fill:#000000;stroke:#b2b2b2;stroke-width:158.00000"
+         id="path270" />
+      <path
+         d="M 944.00000,3543.0000 L 944.00000,236.00000"
+         style="fill:#000000;stroke:#b2b2b2;stroke-width:158.00000"
+         id="path272" />
+      <path
+         d="M 1417.0000,3543.0000 L 1417.0000,236.00000"
+         style="fill:#000000;stroke:#b2b2b2;stroke-width:158.00000"
+         id="path274" />
+      <path
+         d="M 1889.0000,3543.0000 L 1889.0000,236.00000"
+         style="fill:#000000;stroke:#b2b2b2;stroke-width:158.00000"
+         id="path276" />
+      <path
+         d="M 2834.0000,3543.0000 L 2834.0000,236.00000"
+         style="fill:#000000;stroke:#b2b2b2;stroke-width:158.00000"
+         id="path278" />
+      <path
+         d="M 3307.0000,3543.0000 L 3307.0000,236.00000"
+         style="fill:#000000;stroke:#b2b2b2;stroke-width:158.00000"
+         id="path280" />
+      <path
+         d="M 2362.0000,3543.0000 L 2362.0000,236.00000"
+         style="fill:#000000;stroke:#b2b2b2;stroke-width:158.00000"
+         id="path282" />
+      <path
+         d="M 236.00000,472.00000 L 3543.0000,472.00000"
+         style="fill:#000000;stroke:#b2b2b2;stroke-width:158.00000"
+         id="path284" />
+      <path
+         d="M 236.00000,944.00000 L 3543.0000,944.00000"
+         style="fill:#000000;stroke:#b2b2b2;stroke-width:158.00000"
+         id="path286" />
+      <path
+         d="M 236.00000,1417.0000 L 3543.0000,1417.0000"
+         style="fill:#000000;stroke:#b2b2b2;stroke-width:158.00000"
+         id="path288" />
+      <path
+         d="M 236.00000,1889.0000 L 3543.0000,1889.0000"
+         style="fill:#000000;stroke:#b2b2b2;stroke-width:158.00000"
+         id="path290" />
+      <path
+         d="M 236.00000,2362.0000 L 3543.0000,2362.0000"
+         style="fill:#000000;stroke:#b2b2b2;stroke-width:158.00000"
+         id="path292" />
+      <path
+         d="M 236.00000,2834.0000 L 3543.0000,2834.0000"
+         style="fill:#000000;stroke:#b2b2b2;stroke-width:158.00000"
+         id="path294" />
+      <path
+         d="M 236.00000,3307.0000 L 3543.0000,3307.0000"
+         style="fill:#000000;stroke:#b2b2b2;stroke-width:158.00000"
+         id="path296" />
+      <circle
+         cx="3307.0000"
+         cy="472.00000"
+         r="94.000000"
+         style="fill:#000000;stroke:#000000;stroke-width:16.000000"
+         id="circle298" />
+      <circle
+         cx="472.00000"
+         cy="3307.0000"
+         r="94.000000"
+         style="fill:#000000;stroke:#000000;stroke-width:16.000000"
+         id="circle300" />
+      <path
+         d="M 448.00000,3307.0000 L 448.00000,448.00000 L 3307.0000,448.00000"
+         style="stroke:#ff0000;stroke-width:32.000000"
+         id="path302" />
+      <path
+         d="M 472.00000,3307.0000 L 472.00000,2834.0000 L 944.00000,2834.0000 L 944.00000,2362.0000 L 1417.0000,2362.0000 L 1417.0000,1889.0000 L 1889.0000,1889.0000 L 1889.0000,1417.0000 L 2362.0000,1417.0000 L 2362.0000,944.00000 L 2834.0000,944.00000 L 2834.0000,472.00000 L 3307.0000,472.00000"
+         style="stroke:#0000ff;stroke-width:32.000000"
+         id="path304" />
+      <path
+         d="M 472.00000,3307.0000 L 2834.0000,3307.0000 L 2834.0000,2362.0000 L 3307.0000,2362.0000 L 3307.0000,472.00000"
+         style="stroke:#ffd600;stroke-width:32.000000"
+         id="path306" />
+      <path
+         d="M 519.00000,3307.0000 L 3307.0000,519.00000"
+         style="stroke:#00d100;stroke-width:32.000000"
+         id="path308" />
+    </g>
+  </g>
+</svg>

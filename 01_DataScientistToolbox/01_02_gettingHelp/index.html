@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Getting help</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Getting help">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Getting help</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Asking questions</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><strong>In a standard class</strong>
+
+<ul>
+<li>There are 30-100 people</li>
+<li>You raise your hand and ask a question</li>
+<li>The instructor responds </li>
+</ul></li>
+<li><strong>In a MOOC</strong>
+
+<ul>
+<li>There are almost 100,000 people</li>
+<li>You post a question to the message board</li>
+<li>Others vote on your questions</li>
+<li>Your instructor responds (as often as possible)</li>
+<li>Your peers respond (as often as possible)</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Often the fastest answer is the one you find yourself</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>It&#39;s important to try to answer your own questions first</li>
+<li>If the answer to your question is in the help file or the top hit on Google, the answer to your question will be, &quot;Read the documentation&quot; or &quot;Google it&quot; (<a href="http://lmgtfy.com/">http://lmgtfy.com/</a>)</li>
+<li>If you figure out the answer and see the same questions on the forum, post the solution you found</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Some important R functions</h2>
+  </hgroup>
+  <article>
+    <p><strong>Access help file</strong></p>
+
+<pre><code class="r">
+?rnorm
+</code></pre>
+
+<p><strong>Search help files</strong></p>
+
+<pre><code class="r">help.search(&quot;rnorm&quot;)
+</code></pre>
+
+<p><strong>Get arguments</strong></p>
+
+<pre><code class="r">args(&quot;rnorm&quot;)
+</code></pre>
+
+<pre><code>function (n, mean = 0, sd = 1) 
+NULL
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Some important R functions</h2>
+  </hgroup>
+  <article>
+    <p><strong>See code</strong></p>
+
+<pre><code class="r">rnorm
+</code></pre>
+
+<pre><code>function (n, mean = 0, sd = 1) 
+.External(C_rnorm, n, mean, sd)
+&lt;bytecode: 0x7f9173a9f630&gt;
+&lt;environment: namespace:stats&gt;
+</code></pre>
+
+<p><strong>R reference card</strong></p>
+
+<p><a href="http://cran.r-project.org/doc/contrib/Short-refcard.pdf">http://cran.r-project.org/doc/contrib/Short-refcard.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>How to ask an R question</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>What steps will reproduce the problem?</li>
+<li>What is the expected output? </li>
+<li>What do you see instead?</li>
+<li>What version of the product (e.g. R, packages, etc.) 
+are you using?</li>
+<li>What operating system? </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>How to ask a data analysis question</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>What is the question you are trying to answer?</li>
+<li>What steps/tools did you use to answer it?</li>
+<li>What did you expect to see?</li>
+<li>What do you see instead?</li>
+<li>What other solutions have you thought about?</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Be specific in the title of your questions</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Bad:</p>
+
+<ul>
+<li>HELP! Can&#39;t fit linear model!</li>
+<li>HELP! Don&#39;t understand PCA!</li>
+</ul></li>
+<li><p>Better</p>
+
+<ul>
+<li>R 2.15.0 lm() function produces seg fault with large data frame, Mac OS X 
+10.6.3 </li>
+<li>Applied principal component analysis to a matrix - what are U, D, and \(V^T\)?</li>
+</ul></li>
+<li><p>Even better</p>
+
+<ul>
+<li>R 2.15.0 lm() function on Mac OS X 10.6.3 -- seg fault on large data frame</li>
+<li>Using principal components to discover common variation in rows of a matrix, should I use U, D or \(V^T\)?</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Etiquette for forums/help sites: DOs</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Describe the goal</li>
+<li>Be explicit</li>
+<li>Provide the minimum information</li>
+<li>Be courteous (never hurts)</li>
+<li>Follow up and post solutions</li>
+<li>Use the forums rather than email</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Etiquette for forums/help sites: DON&#39;Ts</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Immediately assume you found a bug</li>
+<li>Grovel as a substitute for doing your work</li>
+<li>Post homework questions on mailing lists (people don&#39;t like doing your homework)</li>
+<li>Email multiple mailing lists at once/the wrong mailing list</li>
+<li>Ask others to fix your code without explaining the problem</li>
+<li>Ask about general data analysis questions on R forums.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Credits</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Roger&#39;s <a href="http://www.youtube.com/watch?v=ZFaWxxzouCY&amp;list=PLjTlxb-wKvXNSDfcKPFH2gzHGyjpeCZmJ&amp;index=3">Getting Help Video</a></li>
+<li>Inspired by Eric Raymond&#39;s &quot;How to ask questions the smart way&quot;</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

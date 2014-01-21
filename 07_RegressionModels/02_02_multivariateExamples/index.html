@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multivariable regression examples</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Multivariable regression examples">
+  <meta name="author" content="Brian Caffo, Jeff Leek and Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Multivariable regression examples</h1>
+        <h2>Regression Models</h2>
+        <p>Brian Caffo, Jeff Leek and Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Swiss fertility data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(datasets); data(swiss); require(stats); require(graphics)
+pairs(swiss, panel = panel.smooth, main = &quot;Swiss data&quot;, col = 3 + (swiss$Catholic &gt; 50))
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2><code>?swiss</code></h2>
+  </hgroup>
+  <article>
+    <h3>Description</h3>
+
+<p>Standardized fertility measure and socio-economic indicators for each of 47 French-speaking provinces of Switzerland at about 1888.</p>
+
+<p>A data frame with 47 observations on 6 variables, each of which is in percent, i.e., in [0, 100].</p>
+
+<ul>
+<li>[,1]   Fertility  Ig, ‘ common standardized fertility measure’</li>
+<li>[,2]   Agriculture     % of males involved in agriculture as occupation</li>
+<li>[,3]   Examination     % draftees receiving highest mark on army examination</li>
+<li>[,4]   Education   % education beyond primary school for draftees.</li>
+<li>[,5]   Catholic    % ‘catholic’ (as opposed to ‘protestant’).</li>
+<li>[,6]   Infant.Mortality    live births who live less than 1 year.</li>
+</ul>
+
+<p>All variables but ‘Fertility’ give proportions of the population.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Calling <code>lm</code></h2>
+  </hgroup>
+  <article>
+    <p><code>summary(lm(Fertility ~ . , data = swiss))</code></p>
+
+<pre><code>                 Estimate Std. Error t value  Pr(&gt;|t|)
+(Intercept)       66.9152   10.70604   6.250 1.906e-07
+Agriculture       -0.1721    0.07030  -2.448 1.873e-02
+Examination       -0.2580    0.25388  -1.016 3.155e-01
+Education         -0.8709    0.18303  -4.758 2.431e-05
+Catholic           0.1041    0.03526   2.953 5.190e-03
+Infant.Mortality   1.0770    0.38172   2.822 7.336e-03
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Example interpretation</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Agriculture is expressed in percentages (0 - 100)</li>
+<li>Estimate is -0.1721.</li>
+<li>We estimate an expected 0.17 decrease in standardized fertility for every 1\% increase in percentage of males involved in agriculture in holding the remaining variables constant.</li>
+<li>The t-test for \(H_0: \beta_{Agri} = 0\) versus \(H_a: \beta_{Agri} \neq 0\) is  significant.</li>
+<li>Interestingly, the unadjusted estimate is </li>
+</ul>
+
+<pre><code class="r">summary(lm(Fertility ~ Agriculture, data = swiss))$coefficients
+</code></pre>
+
+<pre><code>            Estimate Std. Error t value  Pr(&gt;|t|)
+(Intercept)  60.3044    4.25126  14.185 3.216e-18
+Agriculture   0.1942    0.07671   2.532 1.492e-02
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    
+  </hgroup>
+  <article>
+    <p>How can adjustment reverse the sign of an effect? Let&#39;s try a simulation.</p>
+
+<pre><code class="r">n &lt;- 100; x2 &lt;- 1 : n; x1 &lt;- .01 * x2 + runif(n, -.1, .1); y = -x1 + x2 + rnorm(n, sd = .01)
+summary(lm(y ~ x1))$coef
+</code></pre>
+
+<pre><code>            Estimate Std. Error t value  Pr(&gt;|t|)
+(Intercept)    1.758      1.104   1.593 1.144e-01
+x1            95.100      1.881  50.546 5.261e-72
+</code></pre>
+
+<pre><code class="r">summary(lm(y ~ x1 + x2))$coef
+</code></pre>
+
+<pre><code>             Estimate Std. Error  t value   Pr(&gt;|t|)
+(Intercept) -0.002992  0.0021942   -1.364  1.759e-01
+x1          -0.982973  0.0194025  -50.662  1.374e-71
+x2           0.999846  0.0001982 5044.296 1.242e-264
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    
+  </hgroup>
+  <article>
+    <div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Back to this data set</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The sign reverses itself with the inclusion of Examination and Education, but of which are negatively correlated with Agriculture.</li>
+<li>The percent of males in the province working in agriculture is negatively related to educational attainment (correlation of -0.6395) and Education and Examination (correlation of 0.6984) are obviously measuring similar things. 
+
+<ul>
+<li>Is the positive marginal an artifact for not having accounted for, say, Education level? (Education does have a stronger effect, by the way.)</li>
+</ul></li>
+<li>At the minimum, anyone claiming that provinces that are more agricultural have higher fertility rates would immediately be open to criticism.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>What if we include an unnecessary variable?</h2>
+  </hgroup>
+  <article>
+    <p>z adds no new linear information, since it&#39;s a linear
+combination of variables already included. R just drops 
+terms that are linear combinations of other terms.</p>
+
+<pre><code class="r">z &lt;- swiss$Agriculture + swiss$Education
+lm(Fertility ~ . + z, data = swiss)
+</code></pre>
+
+<pre><code>
+Call:
+lm(formula = Fertility ~ . + z, data = swiss)
+
+Coefficients:
+     (Intercept)       Agriculture       Examination         Education          Catholic  
+          66.915            -0.172            -0.258            -0.871             0.104  
+Infant.Mortality                 z  
+           1.077                NA  
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Dummy variables are smart</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Consider the linear model
+\[
+Y_i = \beta_0 + X_{i1} \beta_1 + \epsilon_{i}
+\]
+where each \(X_{i1}\) is binary so that it is a 1 if measurement \(i\) is in a group and 0 otherwise. (Treated versus not in a clinical trial, for example.)</li>
+<li>Then for people in the group \(E[Y_i] = \beta_0 + \beta_1\)</li>
+<li>And for people not in the group \(E[Y_i] = \beta_0\)</li>
+<li>The LS fits work out to be \(\hat \beta_0 + \hat \beta_1\) is the mean for those in the group and \(\hat \beta_0\) is the mean for those not in the group.</li>
+<li>\(\beta_1\) is interpretted as the increase or decrease in the mean comparing those in the group to those not.</li>
+<li>Note including a binary variable that is 1 for those not in the group would be redundant. It would create three parameters to describe two means.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>More than 2 levels</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Consider a multilevel factor level. For didactic reasons, let&#39;s say a three level factor (example, US political party affiliation: Republican, Democrat, Independent)</li>
+<li>\(Y_i = \beta_0 + X_{i1} \beta_1 + X_{i2} \beta_2 + \epsilon_i\).</li>
+<li>\(X_{i1}\) is 1 for Republicans and 0 otherwise.</li>
+<li>\(X_{i2}\) is 1 for Democrats and 0 otherwise.</li>
+<li>If \(i\) is Republican \(E[Y_i] = \beta_0 +\beta_1\)</li>
+<li>If \(i\) is Democrat \(E[Y_i] = \beta_0 + \beta_2\).</li>
+<li>If \(i\) is Independent \(E[Y_i] = \beta_0\). </li>
+<li>\(\beta_1\) compares Republicans to Independents.</li>
+<li>\(\beta_2\) compares Democrats to Independents.</li>
+<li>\(\beta_1 - \beta_2\) compares Republicans to Democrats.</li>
+<li>(Choice of reference category changes the interpretation.)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Insect Sprays</h2>
+  </hgroup>
+  <article>
+    <div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Linear model fit, group A is the reference</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">summary(lm(count ~ spray, data = InsectSprays))$coef
+</code></pre>
+
+<pre><code>            Estimate Std. Error t value  Pr(&gt;|t|)
+(Intercept)  14.5000      1.132 12.8074 1.471e-19
+sprayB        0.8333      1.601  0.5205 6.045e-01
+sprayC      -12.4167      1.601 -7.7550 7.267e-11
+sprayD       -9.5833      1.601 -5.9854 9.817e-08
+sprayE      -11.0000      1.601 -6.8702 2.754e-09
+sprayF        2.1667      1.601  1.3532 1.806e-01
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Hard coding the dummy variables</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">summary(lm(count ~ 
+             I(1 * (spray == &#39;B&#39;)) + I(1 * (spray == &#39;C&#39;)) + 
+             I(1 * (spray == &#39;D&#39;)) + I(1 * (spray == &#39;E&#39;)) +
+             I(1 * (spray == &#39;F&#39;))
+           , data = InsectSprays))$coef
+</code></pre>
+
+<pre><code>                      Estimate Std. Error t value  Pr(&gt;|t|)
+(Intercept)            14.5000      1.132 12.8074 1.471e-19
+I(1 * (spray == &quot;B&quot;))   0.8333      1.601  0.5205 6.045e-01
+I(1 * (spray == &quot;C&quot;)) -12.4167      1.601 -7.7550 7.267e-11
+I(1 * (spray == &quot;D&quot;))  -9.5833      1.601 -5.9854 9.817e-08
+I(1 * (spray == &quot;E&quot;)) -11.0000      1.601 -6.8702 2.754e-09
+I(1 * (spray == &quot;F&quot;))   2.1667      1.601  1.3532 1.806e-01
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>What if we include all 6?</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">lm(count ~ 
+   I(1 * (spray == &#39;B&#39;)) + I(1 * (spray == &#39;C&#39;)) +  
+   I(1 * (spray == &#39;D&#39;)) + I(1 * (spray == &#39;E&#39;)) +
+   I(1 * (spray == &#39;F&#39;)) + I(1 * (spray == &#39;A&#39;)), data = InsectSprays)
+</code></pre>
+
+<pre><code>
+Call:
+lm(formula = count ~ I(1 * (spray == &quot;B&quot;)) + I(1 * (spray == 
+    &quot;C&quot;)) + I(1 * (spray == &quot;D&quot;)) + I(1 * (spray == &quot;E&quot;)) + I(1 * 
+    (spray == &quot;F&quot;)) + I(1 * (spray == &quot;A&quot;)), data = InsectSprays)
+
+Coefficients:
+          (Intercept)  I(1 * (spray == &quot;B&quot;))  I(1 * (spray == &quot;C&quot;))  I(1 * (spray == &quot;D&quot;))  
+               14.500                  0.833                -12.417                 -9.583  
+I(1 * (spray == &quot;E&quot;))  I(1 * (spray == &quot;F&quot;))  I(1 * (spray == &quot;A&quot;))  
+              -11.000                  2.167                     NA  
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>What if we omit the intercept?</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">summary(lm(count ~ spray - 1, data = InsectSprays))$coef
+</code></pre>
+
+<pre><code>       Estimate Std. Error t value  Pr(&gt;|t|)
+sprayA   14.500      1.132  12.807 1.471e-19
+sprayB   15.333      1.132  13.543 1.002e-20
+sprayC    2.083      1.132   1.840 7.024e-02
+sprayD    4.917      1.132   4.343 4.953e-05
+sprayE    3.500      1.132   3.091 2.917e-03
+sprayF   16.667      1.132  14.721 1.573e-22
+</code></pre>
+
+<pre><code class="r">unique(ave(InsectSprays$count, InsectSprays$spray))
+</code></pre>
+
+<pre><code>[1] 14.500 15.333  2.083  4.917  3.500 16.667
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>If we treat Spray as a factor, R includes an intercept and omits the alphabetically first level of the factor.
+
+<ul>
+<li>All t-tests are for comparisons of Sprays versus Spray A.</li>
+<li>Emprirical mean for A is the intercept.</li>
+<li>Other group means are the itc plus their coefficient. </li>
+</ul></li>
+<li>If we omit an intercept, then it includes terms for all levels of the factor. 
+
+<ul>
+<li>Group means are the coefficients. </li>
+<li>Tests are tests of whether the groups are different than zero. (Are the expected counts zero for that spray.)</li>
+</ul></li>
+<li>If we want comparisons between, Spray B and C, say we could refit the model with C (or B) as the reference level. </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Reordering the levels</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">spray2 &lt;- relevel(InsectSprays$spray, &quot;C&quot;)
+summary(lm(count ~ spray2, data = InsectSprays))$coef
+</code></pre>
+
+<pre><code>            Estimate Std. Error t value  Pr(&gt;|t|)
+(Intercept)    2.083      1.132  1.8401 7.024e-02
+spray2A       12.417      1.601  7.7550 7.267e-11
+spray2B       13.250      1.601  8.2755 8.510e-12
+spray2D        2.833      1.601  1.7696 8.141e-02
+spray2E        1.417      1.601  0.8848 3.795e-01
+spray2F       14.583      1.601  9.1083 2.794e-13
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Doing it manually</h2>
+  </hgroup>
+  <article>
+    <p>Equivalently 
+\[Var(\hat \beta_B - \hat \beta_C) = Var(\hat \beta_B) + Var(\hat \beta_C) - 2 Cov(\hat \beta_B, \hat \beta_C)\]</p>
+
+<pre><code class="r">fit &lt;- lm(count ~ spray, data = InsectSprays) #A is ref
+bbmbc &lt;- coef(fit)[2] - coef(fit)[3] #B - C
+temp &lt;- summary(fit) 
+se &lt;- temp$sigma * sqrt(temp$cov.unscaled[2, 2] + temp$cov.unscaled[3,3] - 2 *temp$cov.unscaled[2,3])
+t &lt;- (bbmbc) / se
+p &lt;- pt(-abs(t), df = fit$df)
+out &lt;- c(bbmbc, se, t, p)
+names(out) &lt;- c(&quot;B - C&quot;, &quot;SE&quot;, &quot;T&quot;, &quot;P&quot;)
+round(out, 3)
+</code></pre>
+
+<pre><code> B - C     SE      T      P 
+13.250  1.601  8.276  0.000 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Other thoughts on this data</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Counts are bounded from below by 0, violates the assumption of normality of the errors. 
+
+<ul>
+<li>Also there are counts near zero, so both the actual assumption and the intent of the assumption are violated.</li>
+</ul></li>
+<li>Variance does not appear to be constant.</li>
+<li>Perhaps taking logs of the counts would help. 
+
+<ul>
+<li>There are 0 counts, so maybe log(Count + 1)</li>
+</ul></li>
+<li>Also, we&#39;ll cover Poisson GLMs for fitting count data.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Example - Millenium Development Goal 1</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/mdg1.png height=450></p>
+
+<p><a href="http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf">http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf</a></p>
+
+<p><a href="http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&amp;filter=COUNTRY:*;SEX:*">http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&amp;filter=COUNTRY:<em>;SEX:</em></a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>WHO childhood hunger data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">download.file(&quot;http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&amp;filter=COUNTRY:*;SEX:*&quot;,&quot;./data/hunger.csv&quot;,method=&quot;curl&quot;)
+hunger &lt;- read.csv(&quot;./data/hunger.csv&quot;)
+hunger &lt;- hunger[hunger$Sex!=&quot;Both sexes&quot;,]
+head(hunger)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Plot percent hungry versus time</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">lm1 &lt;- lm(hunger$Numeric ~ hunger$Year)
+plot(hunger$Year,hunger$Numeric,pch=19,col=&quot;blue&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Remember the linear model</h2>
+  </hgroup>
+  <article>
+    <p>\[Hu_i = b_0 + b_1 Y_i + e_i\]</p>
+
+<p>\(b_0\) = percent hungry at Year 0</p>
+
+<p>\(b_1\) = decrease in percent hungry per year</p>
+
+<p>\(e_i\) = everything we didn&#39;t measure</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>Add the linear model</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">lm1 &lt;- lm(hunger$Numeric ~ hunger$Year)
+plot(hunger$Year,hunger$Numeric,pch=19,col=&quot;blue&quot;)
+lines(hunger$Year,lm1$fitted,lwd=3,col=&quot;darkgrey&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>Color by male/female</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(hunger$Year,hunger$Numeric,pch=19)
+points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex==&quot;Male&quot;)*1+1))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>Now two lines</h2>
+  </hgroup>
+  <article>
+    <p>\[HuF_i = bf_0 + bf_1 YF_i + ef_i\]</p>
+
+<p>\(bf_0\) = percent of girls hungry at Year 0</p>
+
+<p>\(bf_1\) = decrease in percent of girls hungry per year</p>
+
+<p>\(ef_i\) = everything we didn&#39;t measure </p>
+
+<p>\[HuM_i = bm_0 + bm_1 YM_i + em_i\]</p>
+
+<p>\(bm_0\) = percent of boys hungry at Year 0</p>
+
+<p>\(bm_1\) = decrease in percent of boys hungry per year</p>
+
+<p>\(em_i\) = everything we didn&#39;t measure </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-27" style="background:;">
+  <hgroup>
+    <h2>Color by male/female</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">lmM &lt;- lm(hunger$Numeric[hunger$Sex==&quot;Male&quot;] ~ hunger$Year[hunger$Sex==&quot;Male&quot;])
+lmF &lt;- lm(hunger$Numeric[hunger$Sex==&quot;Female&quot;] ~ hunger$Year[hunger$Sex==&quot;Female&quot;])
+plot(hunger$Year,hunger$Numeric,pch=19)
+points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex==&quot;Male&quot;)*1+1))
+lines(hunger$Year[hunger$Sex==&quot;Male&quot;],lmM$fitted,col=&quot;black&quot;,lwd=3)
+lines(hunger$Year[hunger$Sex==&quot;Female&quot;],lmF$fitted,col=&quot;red&quot;,lwd=3)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-28" style="background:;">
+  <hgroup>
+    <h2>Two lines, same slope</h2>
+  </hgroup>
+  <article>
+    <p>\[Hu_i = b_0 + b_1 \mathbb{1}(Sex_i="Male") + b_2 Y_i + e^*_i\]</p>
+
+<p>\(b_0\) - percent hungry at year zero for females</p>
+
+<p>\(b_0 + b_1\) - percent hungry at year zero for males</p>
+
+<p>\(b_2\) - change in percent hungry (for either males or females) in one year</p>
+
+<p>\(e^*_i\) - everything we didn&#39;t measure</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-29" style="background:;">
+  <hgroup>
+    <h2>Two lines, same slope in R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">lmBoth &lt;- lm(hunger$Numeric ~ hunger$Year + hunger$Sex)
+plot(hunger$Year,hunger$Numeric,pch=19)
+points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex==&quot;Male&quot;)*1+1))
+abline(c(lmBoth$coeff[1],lmBoth$coeff[2]),col=&quot;red&quot;,lwd=3)
+abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] ),col=&quot;black&quot;,lwd=3)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-30" style="background:;">
+  <hgroup>
+    <h2>Two lines, different slopes (interactions)</h2>
+  </hgroup>
+  <article>
+    <p>\[Hu_i = b_0 + b_1 \mathbb{1}(Sex_i="Male") + b_2 Y_i + b_3 \mathbb{1}(Sex_i="Male")\times Y_i + e^+_i\]</p>
+
+<p>\(b_0\) - percent hungry at year zero for females</p>
+
+<p>\(b_0 + b_1\) - percent hungry at year zero for males</p>
+
+<p>\(b_2\) - change in percent hungry (females) in one year</p>
+
+<p>\(b_2 + b_3\) - change in percent hungry (males) in one year</p>
+
+<p>\(e^+_i\) - everything we didn&#39;t measure</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-31" style="background:;">
+  <hgroup>
+    <h2>Two lines, different slopes in R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">lmBoth &lt;- lm(hunger$Numeric ~ hunger$Year + hunger$Sex + hunger$Sex*hunger$Year)
+plot(hunger$Year,hunger$Numeric,pch=19)
+points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex==&quot;Male&quot;)*1+1))
+abline(c(lmBoth$coeff[1],lmBoth$coeff[2]),col=&quot;red&quot;,lwd=3)
+abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] +lmBoth$coeff[4]),col=&quot;black&quot;,lwd=3)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-32" style="background:;">
+  <hgroup>
+    <h2>Two lines, different slopes in R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">summary(lmBoth)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-33" style="background:;">
+  <hgroup>
+    <h2>Interpretting a continuous interaction</h2>
+  </hgroup>
+  <article>
+    <p>\[
+E[Y_i | X_{1i}=x_1, X_{2i}=x_2] = \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \beta_3 x_{1}x_{2}
+\]
+Holding \(X_2\) constant we have
+\[
+E[Y_i | X_{1i}=x_1+1, X_{2i}=x_2]-E[Y_i | X_{1i}=x_1, X_{2i}=x_2]
+= \beta_1 + \beta_3 x_{2} 
+\]
+And thus the expected change in \(Y\) per unit change in \(X_1\) holding all else constant is not constant. \(\beta_1\) is the slope when \(x_{2} = 0\). Note further that:
+\[
+E[Y_i | X_{1i}=x_1+1, X_{2i}=x_2+1]-E[Y_i | X_{1i}=x_1, X_{2i}=x_2+1]
+\]
+\[
+-E[Y_i | X_{1i}=x_1+1, X_{2i}=x_2]-E[Y_i | X_{1i}=x_1, X_{2i}=x_2]
+\]
+\[
+=\beta_3  
+\]
+Thus, \(\beta_3\) is the change in the expected change in \(Y\) per unit change in \(X_1\), per unit change in \(X_2\).</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-34" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article>
+    <p>\[Hu_i = b_0 + b_1 In_i + b_2 Y_i + b_3 In_i \times Y_i + e^+_i\]</p>
+
+<p>\(b_0\) - percent hungry at year zero for children with whose parents have no income</p>
+
+<p>\(b_1\) - change in percent hungry for each dollar of income in year zero</p>
+
+<p>\(b_2\) - change in percent hungry in one year for children whose parents have no income</p>
+
+<p>\(b_3\) - increased change in percent hungry by year for each dollar of income  - e.g. if income is $10,000, then change in percent hungry in one year will be</p>
+
+<p>\[b_2 + 1e4 \times b_3\]</p>
+
+<p>\(e^+_i\) - everything we didn&#39;t measure</p>
+
+<p><strong>Lot&#39;s of care/caution needed!</strong></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

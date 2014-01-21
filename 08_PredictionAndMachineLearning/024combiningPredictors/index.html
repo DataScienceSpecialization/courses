@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Combining predictors</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Combining predictors">
+  <meta name="author" content="Jeffrey Leek, Assistant Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Combining predictors</h1>
+        <h2></h2>
+        <p>Jeffrey Leek, Assistant Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Key ideas</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>You can combine classifiers by averaging/voting</li>
+<li>Combining classifiers improves accuracy</li>
+<li>Combining classifiers reduces interpretability</li>
+<li>Boosting, bagging, and random forests are variants on this theme</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Netflix prize</h2>
+  </hgroup>
+  <article>
+    <p>BellKor = Combination of 107 predictors </p>
+
+<p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/netflix.png height=450></p>
+
+<p><a href="http://www.netflixprize.com//leaderboard">http://www.netflixprize.com//leaderboard</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Heritage health prize - Progress Prize 1</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/makers.png height=200>
+<a href="https://kaggle2.blob.core.windows.net/wiki-files/327/e4cd1d25-eca9-49ca-9593-b254a773fe03/Market%20Makers%20-%20Milestone%201%20Description%20V2%201.pdf">Market Makers</a></p>
+
+<p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/mestrom.png height=200></p>
+
+<p><a href="https://kaggle2.blob.core.windows.net/wiki-files/327/09ccf652-8c1c-4a3d-b979-ce2369c985e4/Willem%20Mestrom%20-%20Milestone%201%20Description%20V2%202.pdf">Mestrom</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Basic intuition - majority vote</h2>
+  </hgroup>
+  <article>
+    <p>Suppose we have 5 completely independent classifiers</p>
+
+<p>If accuracy is 70% for each:</p>
+
+<ul>
+<li>\(10\times(0.7)^3(0.3)^2 + 5\times(0.7)^4(0.3)^2 + (0.7)^5\)</li>
+<li>83.7% majority vote accuracy</li>
+</ul>
+
+<p>With 101 independent classifiers</p>
+
+<ul>
+<li>99.9% majority vote accuracy</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Approaches for combining classifiers</h2>
+  </hgroup>
+  <article>
+    <ol>
+<li>Bagging, boosting, random forests
+
+<ul>
+<li>Usually combine similar classifiers</li>
+</ul></li>
+<li>Combining different classifiers
+
+<ul>
+<li>Model stacking</li>
+<li>Model ensembling</li>
+</ul></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Example with Wage data</h2>
+  </hgroup>
+  <article>
+    <p><strong>Create training, test and validation sets</strong></p>
+
+<pre><code class="r">library(ISLR); data(Wage); library(ggplot2); library(caret);
+Wage &lt;- subset(Wage,select=-c(logwage))
+
+# Create a building data set and validation set
+inBuild &lt;- createDataPartition(y=Wage$wage,
+                              p=0.7, list=FALSE)
+validation &lt;- Wage[-inBuild,]; buildData &lt;- Wage[inBuild,]
+
+inTrain &lt;- createDataPartition(y=buildData$wage,
+                              p=0.7, list=FALSE)
+training &lt;- buildData[inTrain,]; testing &lt;- buildData[-inTrain,]
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Wage data sets</h2>
+  </hgroup>
+  <article>
+    <p><strong>Create training, test and validation sets</strong></p>
+
+<pre><code class="r">dim(training)
+</code></pre>
+
+<pre><code>[1] 1474   11
+</code></pre>
+
+<pre><code class="r">dim(testing)
+</code></pre>
+
+<pre><code>[1] 628  11
+</code></pre>
+
+<pre><code class="r">dim(validation)
+</code></pre>
+
+<pre><code>[1] 898  11
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Build two different models</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">mod1 &lt;- train(wage ~.,method=&quot;glm&quot;,data=training)
+mod2 &lt;- train(wage ~.,method=&quot;rf&quot;,
+              data=training, 
+              trControl = trainControl(method=&quot;cv&quot;),number=3)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Predict on the testing set</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">pred1 &lt;- predict(mod1,testing); pred2 &lt;- predict(mod2,testing)
+qplot(pred1,pred2,colour=wage,data=testing)
+</code></pre>
+
+<div class="rimage center"><img src="fig/predict.png" title="plot of chunk predict" alt="plot of chunk predict" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Fit a model that combines predictors</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">predDF &lt;- data.frame(pred1,pred2,wage=testing$wage)
+combModFit &lt;- train(wage ~.,method=&quot;gam&quot;,data=predDF)
+combPred &lt;- predict(combModFit,predDF)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Testing errors</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">sqrt(sum((pred1-testing$wage)^2))
+</code></pre>
+
+<pre><code>[1] 827.1
+</code></pre>
+
+<pre><code class="r">sqrt(sum((pred2-testing$wage)^2))
+</code></pre>
+
+<pre><code>[1] 866.8
+</code></pre>
+
+<pre><code class="r">sqrt(sum((combPred-testing$wage)^2))
+</code></pre>
+
+<pre><code>[1] 813.9
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Predict on validation data set</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">pred1V &lt;- predict(mod1,validation); pred2V &lt;- predict(mod2,validation)
+predVDF &lt;- data.frame(pred1=pred1V,pred2=pred2V)
+combPredV &lt;- predict(combModFit,predVDF)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Evaluate on validation</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">sqrt(sum((pred1V-validation$wage)^2))
+</code></pre>
+
+<pre><code>[1] 1003
+</code></pre>
+
+<pre><code class="r">sqrt(sum((pred2V-validation$wage)^2))
+</code></pre>
+
+<pre><code>[1] 1068
+</code></pre>
+
+<pre><code class="r">sqrt(sum((combPredV-validation$wage)^2))
+</code></pre>
+
+<pre><code>[1] 999.9
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Notes and further resources</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Even simple blending can be useful</li>
+<li>Typical model for binary/multiclass data
+
+<ul>
+<li>Build an odd number of models</li>
+<li>Predict with each model</li>
+<li>Predict the class by majority vote</li>
+</ul></li>
+<li>This can get dramatically more complicated
+
+<ul>
+<li>Simple blending in caret: <a href="https://github.com/zachmayer/caretEnsemble">caretEnsemble</a> (use at your own risk!)</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Recall - scalability matters</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/netflixno.png height=250>
+</br></br></br></p>
+
+<p><a href="http://www.techdirt.com/blog/innovation/articles/20120409/03412518422/">http://www.techdirt.com/blog/innovation/articles/20120409/03412518422/</a></p>
+
+<p><a href="http://techblog.netflix.com/2012/04/netflix-recommendations-beyond-5-stars.html">http://techblog.netflix.com/2012/04/netflix-recommendations-beyond-5-stars.html</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

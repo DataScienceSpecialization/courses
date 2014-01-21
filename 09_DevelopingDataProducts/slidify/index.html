@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Slidify</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Slidify">
+  <meta name="author" content="Jeffrey Leek, Assistant Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="../../librariesNew/widgets/quiz/css/demo.css"></link>
+<link rel=stylesheet href="../../librariesNew/widgets/bootstrap/css/bootstrap.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Slidify</h1>
+    <h2>Data meets presentation</h2>
+    <p>Jeffrey Leek, Assistant Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>What is Slidify?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>Slidify was created by <a href="https://github.com/ramnathv">Ramnath Vaidyanathan</a> in order to streamline the process of creating and publishing <code>R</code> driven presentations.</p></li>
+<li><p>Slidify is an almagamation of other technologies including knitr, Markdown, and several javascript libaries for HTML5 presentations.</p></li>
+<li><p>Slidify is infinitely extendable and customizable, yet it is easy to use!</p></li>
+<li><p>Slidify allows embedded code chunks and mathematical formulas which keeps your presentation reproducable.</p></li>
+<li><p>Slidify presentations are just HTML files, so you can view them with any web browser and share them easily on Github, Dropbox, or your own website.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Getting Slidify</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Fire up RStudio! </li>
+<li>First, make sure you have devtools installed and loaded</li>
+</ul>
+
+<pre><code class="r">install.packages(&quot;devtools&quot;)
+library(devtools)
+</code></pre>
+
+<ul>
+<li>Second, install Slidify</li>
+</ul>
+
+<pre><code class="r">install_github(&#39;slidify&#39;, &#39;ramnathv&#39;)
+install_github(&#39;slidifyLibraries&#39;, &#39;ramnathv&#39;)
+</code></pre>
+
+<ul>
+<li>Third, load Slidify</li>
+</ul>
+
+<pre><code class="r">library(slidify)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Getting started with Slidify</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Set the working directory to where you want to create your Slidify project</li>
+</ul>
+
+<pre><code class="r">setwd(&quot;~/sample/project/&quot;)
+</code></pre>
+
+<ul>
+<li>Create your project and give your project a name (My project is named &quot;first_deck&quot;)</li>
+</ul>
+
+<pre><code class="r">author(&quot;first_deck&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Getting started with Slidify</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><code>author(&quot;first_deck&quot;)</code> causes the following to happen:</li>
+</ul>
+
+<ol>
+<li>A directory with the name of your project is created inside of your current directory.</li>
+<li>Inside of this directory an assets directory and a file called &quot;index.Rmd&quot; is created.</li>
+<li>The assets directory is populated with the following empty folders: css, img, js, and layouts.</li>
+<li>The newly created <code>index.Rmd</code> R Markdown file will open up in RStudio.</li>
+</ol>
+
+<ul>
+<li>Any custom css, images, or javascript you want to use should respecively be put into the newly created css, img, and js folders.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Getting to know <code>index.Rmd</code> : <code>YAML</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><code>index.Rmd</code> is the R Markdown document which you will use to compose the conent of your presentation.</li>
+<li>The first part of an <code>index.Rmd</code> file is a bit of <code>YAML</code> code which will look like this:</li>
+</ul>
+
+<pre><code class="YAML">---
+title       : 
+subtitle    : 
+author      : 
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Getting to know <code>index.Rmd</code> : <code>YAML</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>You can edit your <code>YAML</code> to include the title, subtitle, author, and job of the author, including what slide framework you wish to use, which code highlighter you wish to use, and any widgets you want to include.</p></li>
+<li><p>Other fields you can include in your <code>YAML</code>: a logo to appear in your title slide under <code>logo</code>, the path to your assets folder and the paths to any other folders you may be using under <code>url</code>, and the specific theme for your code highlighter of choice under <code>hitheme</code>.</p></li>
+</ul>
+
+<pre><code class="YAML">logo        : my_logo.png
+url:
+  assets: ../assets
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : zenburn       # 
+</code></pre>
+
+<ul>
+<li>Remember that <code>../</code> signifies the parent directory.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Getting to know <code>index.Rmd</code> : <code>YAML</code></h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The <code>YAML</code> for the presentation you&#39;re currently viewing looks like this:</li>
+</ul>
+
+<pre><code class="YAML">---
+title       : Slidify
+subtitle    : Data meets presentation
+author      : Jeffrey Leek, Assistant Professor of Biostatistics 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Getting to know <code>index.Rmd</code> : Making Slides</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Your first two slides are made for you under the <code>YAML</code>:</p>
+
+<pre><code class="Rmd">## Read-And-Delete
+
+1. Edit YAML front matter
+2. Write using R Markdown
+3. Use an empty line followed by three dashes to separate slides!
+
+- - - .class #id 
+
+## Slide 2
+</code></pre>
+
+<ul>
+<li>Whatever you put after <code>##</code> will be the title of the slide.</li>
+<li><code>---</code> marks the end of the slide.</li>
+<li><code>.class #id</code> are <code>CSS</code> attributes you can use to customize the slide.</li>
+<li>Whatever you put between <code>##</code> and <code>---</code> is up to you! As long as it is valid R Markdown or <code>HTML</code>.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Getting to know <code>index.Rmd</code> : Making Slides</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>To compile your presentation make sure the working directory contains your <code>index.Rmd</code> file and enter the following command:</li>
+</ul>
+
+<pre><code class="r">slidify(&quot;index.Rmd&quot;)
+</code></pre>
+
+<ul>
+<li>An <code>HTML</code> flie should appear in your current directory, open it with your favorite web browser and enjoy your Slidify deck!</li>
+</ul>
+
+<pre><code class="r">browseURL(&quot;index.html&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Publishing to Github</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>First, log in to GitHub and <a href="https://help.github.com/articles/creating-a-new-repository">create</a> a new empty repository.</li>
+<li>Use the following command, but replace <code>user</code> with your username and <code>repo</code> with the name of your new repository (both arguments are strings).</li>
+</ul>
+
+<pre><code class="r">publish_github(user, repo)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2><code>HTML5</code> Deck Frameworks</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The following frameworks are compatible with Slidify for making your presentations:</p>
+
+<ul>
+<li><a href="https://code.google.com/p/io-2012-slides/">io2012</a></li>
+<li><a href="https://code.google.com/p/html5slides/">html5slides</a></li>
+<li><a href="http://imakewebthings.com/deck.js/">deck.js</a></li>
+<li><a href="http://paulrouget.com/dzslides/">dzslides</a></li>
+<li><a href="https://github.com/adamzap/landslide">landslide</a></li>
+<li><a href="http://www.w3.org/Talks/Tools/Slidy2/Overview.html#">Slidy</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Mathjax</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>You can include \(\LaTeX\) math formatting as follows</li>
+<li>Edit your YAML
+<code>YAML
+widgets     : [mathjax]
+</code></li>
+<li>Enter inline math code with  <code>$x^2$</code> \(x^2\)</li>
+<li>Enter centered code with  <code>$$\frac{-b \pm \sqrt{b^2 - 4 a c}}{2a}$$</code>
+\[\frac{-b \pm \sqrt{b^2 - 4 a c}}{2a}\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>HTML</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Just include html in the Rmd file and it will get kept as html when it&#39;s slidified</li>
+<li>Especially useful for stuff like images or tables where you need finer control of the html options</li>
+<li>Also, remember you can edit the final html slide
+
+<ul>
+<li>This isn&#39;t the best solution (since why do mostly slidify, a reproducible format if you&#39;re going to break that reproducibility at the last step?)</li>
+<li>But, sometimes useful in a pinch (like if you&#39;re frantically preparing course slides at the last minute)</li>
+</ul></li>
+<li>Similarly, you can incorporate JS, or anything else you can do in a web page</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Adding interactive elements to slidify</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>You can add interactive elements to slidify
+
+<ul>
+<li>Quiz questions</li>
+<li>interactive Rcharts plots</li>
+<li>Shiny apps</li>
+</ul></li>
+<li>Of course, you could do this directly with html/js</li>
+<li>More easily, the dev version of slidify has this built in</li>
+<li>See <a href="http://slidify.github.io/dcmeetup/demos/interactive/">http://slidify.github.io/dcmeetup/demos/interactive/</a>
+
+<ul>
+<li>The following example was taken from there</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Rmd syntax</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>## Question 1</p>
+
+<p>What is 1 + 1?</p>
+
+<ol>
+<li>1</li>
+<li>_2_</li>
+<li>3</li>
+<li>4</li>
+</ol>
+
+<p>*** .hint
+This is a hint</p>
+
+<p>*** .explanation
+This is an explanation</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Question 1</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>What is 1 + 1?</p>
+
+<ol>
+<li>1</li>
+<li><em>2</em></li>
+<li>3</li>
+<li>4</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>This is a hint</p>
+
+</div>
+<div class="quiz-explanation">
+  <p>This is an explanation</p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='What is Slidify?'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Getting Slidify'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Getting started with Slidify'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Getting started with Slidify'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Getting to know <code>index.Rmd</code> : <code>YAML</code>'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Getting to know <code>index.Rmd</code> : <code>YAML</code>'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Getting to know <code>index.Rmd</code> : <code>YAML</code>'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Getting to know <code>index.Rmd</code> : Making Slides'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Getting to know <code>index.Rmd</code> : Making Slides'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Publishing to Github'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='<code>HTML5</code> Deck Frameworks'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Mathjax'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='HTML'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Adding interactive elements to slidify'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Rmd syntax'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Question 1'>
+         16
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  <script src="../../librariesNew/widgets/quiz/js/jquery.quiz.js"></script>
+<script src="../../librariesNew/widgets/quiz/js/mustache.min.js"></script>
+<script src="../../librariesNew/widgets/quiz/js/quiz-app.js"></script>
+<script src="../../librariesNew/widgets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../librariesNew/widgets/bootstrap/js/bootbox.min.js"></script>
+
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<script>  
+  $(function (){ 
+    $("#example").popover(); 
+    $("[rel='tooltip']").tooltip(); 
+  });  
+  </script>  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

@@ -1,0 +1,231 @@
+
+This video is about a second popular type
+of clustering called K-means clustering.
+So as you will recall, clustering is about
+defining things that are close together,
+and then grouping those things into groups
+that are close as based on that distance.
+And then we might want to visualize the
+grouping or interpret it, so that other
+people can understand the clusters that
+we've observed amongst our variables or
+observations. So remember that the
+important thing is to define close in an
+appropriate way. If you have garbage in,
+you'll get garbage out. In other words if
+you pick a bad distance metric, obviously
+your clustering will also be bad. In this
+case we'll primarily focus on the distance
+continuous variable distance euclidean
+distance for clustering as that's. It's
+the primary distance that's used in kmeans
+clustering. In this case, we need to pick
+a distance that corresponds to,
+quantitative variables, so usually kmeans
+is applied to a set of quantitative
+variables. So kmeans clustering is a
+little bit different than hierarchical
+clustering, in that it's a partitioning
+approach, as opposed to an agglomerative
+approach. So partitioning approach starts
+with all of the points, and tries to
+divide it up into a fixed number of
+clusters. We have to fix the number of
+clusters in advance. And then guess as to
+what the centers of those clusters might
+be. We then assign things to the closest
+center, or centroid of the cluster, and
+then recalculate the centroids, and
+iterate through this approach. It requires
+a, a defined distance metric, a number of
+clusters, and an initial glass, guess as
+to the cluster centroids. The most,
+particularly, important thing to pay
+attention to is that the number of
+clusters must be define in advance for
+k-means clustering. So, what people
+sometimes do is start off with a large
+number of clusters apply k-means
+clustering, look at the clusters and see
+if they're sort of reasonable and then
+reduce the number of clusters. What you
+get at the end is a final estimate of the
+cl usters centroids, or the centers of the
+clusters and a hard assignment of each
+point to each of the clusters. Each point
+gets only one cluster assignment without
+any potential availability of cross
+clusters. So the k-means clustering
+example that I'm going to use is the same
+as the hierachical clustering example.
+I've generated 12 points that cluster
+approximately into these 3 different
+clusters. And so we're going to use these
+to show how the k-means clustering
+algorithm works. So the first thing you do
+is you assign some starting centroids. So
+in this case I know there are three
+clusters so I'm going to start off with
+telling k-means there are three clusters
+that I would like out. And then I say the
+starting values of the centroids of those
+clusters or the centers of these clusters
+are these. Different crosses, the purple
+cross, the orange cross and the red cross.
+So the first step in the k-means
+clustering algorithm is to assign all of
+the points to the closest centroid. In
+this case, the closest in Euclidean
+distance. So points four and eight are
+closest to the red cross, these purple
+points are all closest to the purple
+closs, cross, and these three points are
+all closest to the orange cross. The next
+step in the k-means clustering algorithm
+is to recalculate the centroids. So what I
+do now is I take the 2 red points, and I
+take their average x value and average y
+value, and I get a new center for this
+cluster. Similarly, I took all the purple
+points. I took their average x and y
+values to get a new purple centroid, and
+the same thing for the orange values. Once
+I've done that, then I can recalculate the
+distance to each of the centroids for each
+of the points and reassign points to the
+appropriate centroids. So in this case
+now, all of these orange points correspond
+to this centroid. These two red points
+correspond to the red centroid, and these
+purple points correspond to the purple
+centroid. You then iterate this procedure,
+by updating the centroids again. And so
+now you can see that this purple centroid
+is getting very close to this cluster over
+here. This red centroid is getting close
+to this cluster over here, and this orange
+centroid is getting close to this cluster
+over here. So if I then reassign the
+points, I'm going to get, all of the red
+points will appear in this cluster, all of
+the orange points will appear in this
+cluster, and all the purple points will
+appear in this cluster. And I'll have
+clustered the data according k-means
+clustering. In r you can perform k-means
+clustering with the k-means function. So
+it'll take either a data frame or an
+matrix object. So in this case, I'm going
+to pass it a data frame with the x and y
+values of the variables that we're going
+to, of the observations that we're going
+to be clustering, and then I perform
+k-means, and I give it the number of
+centers that I'd like to consider.
+Alternatively, I could tell it in advance
+what I think those cluster centers are. So
+I could pass the center's variable the
+centers of the actual clusters that I'd
+like to consider. I should also tell it
+the number of iterations it should perform
+at a maximum. So if it's not converging
+you may end up with, sort of, a long.
+Kmeans operation particular for large data
+sets. So right now the default I think is
+set to iter.max equals 10 but u can up
+that if you want to allow it iterate more
+and then you might also tell the number of
+start. So it turns out that the k-means
+algorithm is actually not deterministic.
+If you give it the exact same data, with
+different center, starting center values,
+it may actually converge to different
+setup clusters. So you might allow the
+k-means algorithm to restart multiple
+times and get sort of an average cluster
+across multiple starts. What you get out
+when you perform k-means clustering is an
+object, and it tells you that clusters.
+The centers of those clusters. And then
+some information about how variable those
+estimate of those clusters are. And so the
+cluster component of the kmeans object
+tells you which clust er each data point
+has been assigned to. So the first data
+point was assigned to cluster 3, as the
+second and the third and the fourth. And
+then the fifth through eighth points were
+assigned to cluster 1. And the ninth
+through twelfth points were clu-, assigned
+to cluster 3. This is good, because they
+were generated such that the first 3
+points, 4 points came from 1 cluster. The
+next 4 points came from the next cluster,
+and so forth. So, if you make a plot of
+the, values that you observe out from the
+kmeans algorithm, you can actually see the
+data points that we originally had. And
+the cluster centers are indicated by
+these, crosses. And the colors represent
+which cluster each point is assigned to,
+and so you can see in this particularly
+simple case, kmeans was able to assign
+each of the data points to the correct
+cluster. In general, this won't always be
+so simple or a clean as this. But it's
+nice for an illustrated example. You can
+also visualize the date itself after
+performing a cluster analysis, so again
+what I've done here is I've created this
+data matrix; but now I've scrambled the
+order of the rows. And then what I do is I
+perform kmeans clustering on the scrambled
+matrix. Matrix.
+And then I can plot the actual
+quantitative values for both the scrambled
+version and the unscrambled version of the
+data set. So in the scrambled version I
+see two columns in this heat map. Each one
+corresponding to, in this case, the X
+values and the Y values in column two. And
+then each row corresponds to one of the
+points. And you can see that they've been
+scrambled up here on the left. And then on
+the right they're slightly more ordered.
+You can see that they've been kind of
+clustered into a specific types of
+patterns that you see in the data. And so
+I've done that by reordering the data set
+according to the Kmeans clustering
+ordering. And so, that's the way that you
+can actually visualize the data
+themselves. Some further resources and
+notes, So first of all, you have to know
+the number of cluste rs in advance to run
+k-means clustering. 1 approach is to sort
+of pick by I or intuition. You should
+also, you could also pick by cross
+validation or information theory. I've
+linked here to an article about
+determining the number of clusters and
+K-means clustering. But there's actually
+huge literature on this and it's worth a
+little bit of a Google search if that's
+something that you need to learn about.
+Kmeans is actually not deterministic, as I
+mentioned. So the, you get for a different
+number of clusters, or a different number
+of iterations, you might get actually a
+different Kmeans output. In fact, if you
+use the exact same points, but you use
+different cluster centers, and you re-run
+the algorithm the same number of
+iterations. Cause you may actually get
+different clustering. So, again I've list
+here a link to Rafa's distances and
+clustering Youtube video that gives an
+example of this clustering algorithm and
+gives some more information. As well as
+the elements of statistical learning,
+which has much more mathematical detail
+about.

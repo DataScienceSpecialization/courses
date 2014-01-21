@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Install Git in Mac OS X</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Install Git in Mac OS X">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Install Git in Mac OS X</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Download Git</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Go to the following website and click on the Mac download link:</li>
+</ul>
+
+<p><a href="http://git-scm.com/downloads">http://git-scm.com/downloads</a></p>
+
+<p><img class=center src="../../assets/img/IntroToGit/installGitMac/downloadGitMac.png" height='350'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Install Git</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Once the download is complete, open it up and select the file ending with <strong>.pkg</strong> to begin the Git installation</li>
+<li>If you get a message saying that the file is from an untrusted source, just ignore it and click the <strong>Open</strong> button</li>
+<li>If there is no option to <strong>Open</strong> anyways, hold down the CTRL key, select the same <strong>.pkg</strong> file, then choose <strong>Open With</strong> -&gt; <strong>Installer.app</strong></li>
+</ul>
+
+<p><img class=center src="../../assets/img/IntroToGit/installGitMac/findGitInstallerMac.png" height='350'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Install Git</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Unless you really know what you are doing, just go with the default options at each step of the installation</p></li>
+<li><p>Once the install is complete, hit the <strong>Close</strong> button</p></li>
+</ul>
+
+<p><img class=center src="../../assets/img/IntroToGit/installGitMac/gitInstaller4.png" height='350'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Open Terminal</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Open the Terminal app on your Mac</li>
+<li>The easiest way to find it is by using Spotlight</li>
+</ul>
+
+<p><img class=center src="../../assets/img/IntroToGit/installGitMac/openTerminal.png" height='200'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Open Terminal</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Once Terminal opens, you&#39;ll see a prompt with a dollar sign at the end of it</li>
+<li>It may look a little different from the picture below depending on your setup</li>
+<li>The dollar sign means that it&#39;s your turn to type a command</li>
+</ul>
+
+<p><img class=center src="../../assets/img/IntroToGit/installGitMac/openTerminal1.png" width='750'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Configure Username and Email</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Each commit to a Git repository will be &quot;tagged&quot; with the username of the person who made the commit</li>
+<li>Enter the following commands in Terminal, one at a time, to set your username and email:</li>
+</ul>
+
+<pre><code>$ git config --global user.name &quot;Your Name Here&quot;
+$ git config --global user.email &quot;your_email@example.com&quot;
+</code></pre>
+
+<ul>
+<li>Make sure there are 2 dashes side-by-side before the word &quot;global&quot;</li>
+<li>You&#39;ll only have to do this once, but you can always change these down the road using the same commands</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Configure Username and Email</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Now type the following to confirm your changes (they may be listed toward the bottom):</li>
+</ul>
+
+<pre><code>$ git config --list
+</code></pre>
+
+<ul>
+<li>Make sure there are 2 separate dashes (side-by-side) before the word &quot;global&quot;</li>
+</ul>
+
+<p><img class=center src="../../assets/img/IntroToGit/installGitMac/gitConfigTerminal.png" height='200'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>What&#39;s Next?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>Go ahead and close Terminal (<strong>command-Q</strong> by default)</p></li>
+<li><p>Now that Git is set up on your computer, we&#39;re ready to move on to GitHub, which is a web-based platform that lets you do some pretty cool stuff</p></li>
+<li><p>Once GitHub is up and running, we&#39;ll show you how to start using these tools to your benefit</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

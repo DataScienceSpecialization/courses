@@ -1,0 +1,298 @@
+---
+title       : Model checking and model selection
+subtitle    : 
+author      : Jeffrey Leek, Assistant Professor of Biostatistics 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## Model checking and model selection
+
+* Sometimes model checking/selection not allowed
+* Often it can lead to problems
+  * Overfitting
+  * Overtesting
+  * Biased inference
+* _But_ you don't want to miss something obvious
+
+---
+
+## Linear regression - basic assumptions
+
+* Variance is constant
+* You are summarizing a linear trend
+* You have all the right terms in the model
+* There are no big outliers
+
+---
+
+## Model checking - constant variance
+
+```{r, fig.height=4,fig.width=8}
+set.seed(3433); par(mfrow=c(1,2)) 
+data <- rnorm(100,mean=seq(0,3,length=100),sd=seq(0.1,3,length=100))
+lm1 <- lm(data ~ seq(0,3,length=100))
+plot(seq(0,3,length=100),data,pch=19,col="grey"); abline(lm1,col="red",lwd=3)
+plot(seq(0,3,length=100),lm1$residuals,,pch=19,col="grey"); abline(c(0,0),col="red",lwd=3)
+```
+
+---
+
+## What to do
+
+* See if another variable explains the increased variance
+* Use the  _vcovHC_ {sandwich} variance estimators (if n is big)
+
+
+---
+
+
+## Using the sandwich estimate
+
+```{r, fig.height=4,fig.width=8}
+set.seed(3433); par(mfrow=c(1,2)); data <- rnorm(100,mean=seq(0,3,length=100),sd=seq(0.1,3,length=100))
+lm1 <- lm(data ~ seq(0,3,length=100))
+vcovHC(lm1)
+summary(lm1)$cov.unscaled
+```
+
+
+---
+
+## Model checking - linear trend
+
+```{r, fig.height=4,fig.width=8}
+set.seed(3433); par(mfrow=c(1,2)) 
+data <- rnorm(100,mean=seq(0,3,length=100)^3,sd=2)
+lm1 <- lm(data ~ seq(0,3,length=100))
+plot(seq(0,3,length=100),data,pch=19,col="grey"); abline(lm1,col="red",lwd=3)
+plot(seq(0,3,length=100),lm1$residuals,,pch=19,col="grey"); abline(c(0,0),col="red",lwd=3)
+```
+
+---
+
+## What to do
+
+* Use Poisson regression (if it looks exponential/multiplicative)
+* Use a data transformation (e.g. take the log)
+* Smooth the data/fit a nonlinear trend (next week's lectures)
+* Use linear regression anyway
+  * Interpret as the linear trend between the variables
+  * Use the  _vcovHC_ {sandwich} variance estimators (if n is big)
+
+
+---
+
+## Model checking - missing covariate
+
+```{r, fig.height=3.5,fig.width=10}
+set.seed(3433); par(mfrow=c(1,3)); z <- rep(c(-0.5,0.5),50)
+data <- rnorm(100,mean=(seq(0,3,length=100) + z),sd=seq(0.1,3,length=100))
+lm1 <- lm(data ~ seq(0,3,length=100))
+plot(seq(0,3,length=100),data,pch=19,col=((z>0)+3)); abline(lm1,col="red",lwd=3)
+plot(seq(0,3,length=100),lm1$residuals,pch=19,col=((z>0)+3)); abline(c(0,0),col="red",lwd=3)
+boxplot(lm1$residuals ~ z,col = ((z>0)+3) )
+```
+
+
+---
+
+## What to do
+
+* Use exploratory analysis to identify other variables to include
+* Use the  _vcovHC_ {sandwich} variance estimators (if n is big)
+* Report unexplained patterns in the data
+
+---
+
+## Model checking - outliers
+
+```{r, fig.height=4,fig.width=10}
+set.seed(343); par(mfrow=c(1,2)); betahat <- rep(NA,100)
+x <- seq(0,3,length=100); y <- rcauchy(100); lm1 <- lm(y ~ x)
+plot(x,y,pch=19,col="blue"); abline(lm1,col="red",lwd=3)
+for(i in 1:length(data)){betahat[i] <- lm(y[-i] ~ x[-i])$coeff[2]}
+plot(betahat - lm1$coeff[2],col="blue",pch=19); abline(c(0,0),col="red",lwd=3)
+```
+
+---
+
+## What to do
+
+* If outliers are experimental mistakes -remove and document them
+* If they are real - consider reporting how sensitive your estimate is to the outliers
+* Consider using a robust linear model fit like _rlm_ {MASS}
+
+
+---
+
+## Robust linear modeling
+
+```{r robustLm, fig.height=4,fig.width=10}
+set.seed(343); x <- seq(0,3,length=100); y <- rcauchy(100); 
+lm1 <- lm(y ~ x); rlm1 <- rlm(y ~ x)
+lm1$coeff
+rlm1$coeff
+```
+
+---
+
+## Robust linear modeling
+
+```{r robustReg, fig.height=4,fig.width=10}
+par(mfrow=c(1,2))
+plot(x,y,pch=19,col="grey")
+lines(x,lm1$fitted,col="blue",lwd=3); lines(x,rlm1$fitted,col="green",lwd=3)
+plot(x,y,pch=19,col="grey",ylim=c(-5,5),main="Zoomed In")
+lines(x,lm1$fitted,col="blue",lwd=3); lines(x,rlm1$fitted,col="green",lwd=3)
+```
+
+
+---
+
+## Model checking - default plots
+
+
+```{r, fig.height=4,fig.width=10}
+set.seed(343); par(mfrow=c(1,2))
+x <- seq(0,3,length=100); y <- rnorm(100); lm1 <- lm(y ~ x)
+plot(lm1)
+```
+
+---
+
+## Model checking - deviance
+
+* Commonly reported for GLM's
+* Usually compares the model where every point gets its own parameter to the model you are using
+* On it's own it doesn't tell you what is wrong
+* In large samples the deviance may be big even for "conservative" models
+* You can not compare deviances for models with different sample sizes
+
+
+---
+
+## $R^2$ may be a bad summary
+
+<img class=center src=../../assets/img/anscombe.png height=450>
+
+
+---
+
+## Model selection 
+
+* Many times you have multiple variables to evaluate
+* Options for choosing variables
+  * Domain-specific knowledge
+  * Exploratory analysis
+  * Statistical selection
+* There are many statistical selection options
+  * Step-wise
+  * AIC
+  * BIC 
+  * Modern approaches: Lasso, Ridge-Regression, etc.
+* Statistical selection may bias your inference
+  * If possible, do selection on a held out sample
+
+
+---
+
+## Error measures
+
+* $R^2$ alone isn't enough - more variables = bigger $R^2$
+* [Adjusted $R^2$](http://en.wikipedia.org/wiki/Coefficient_of_determination#Adjusted_R2) is $R^2$ taking into account the number of estimated parameters
+* [AIC](http://en.wikipedia.org/wiki/Akaike_information_criterion) also penalizes models with more parameters
+* [BIC](http://en.wikipedia.org/wiki/Bayesian_information_criterion) does the same, but with a bigger penalty
+
+---
+
+## Movie Data
+
+```{r loadMovies,cache=TRUE}
+download.file("http://www.rossmanchance.com/iscam2/data/movies03RT.txt",destfile="./data/movies.txt")
+movies <- read.table("./data/movies.txt",sep="\t",header=T,quote="")
+head(movies)
+```
+
+[http://www.rossmanchance.com/](http://www.rossmanchance.com/)
+
+
+---
+
+## Model selection  - step
+
+```{r aic,dependson="loadMovies",warning=TRUE}
+movies <- movies[,-1]
+lm1 <- lm(score ~ .,data=movies)
+aicFormula <- step(lm1)
+```
+
+---
+
+## Model selection  - step
+
+```{r,dependson="aic",warning=TRUE}
+aicFormula
+```
+
+---
+
+## Model selection  - regsubsets
+
+```{r regsub,dependson="aic",warning=TRUE,fig.height=4,fig.width=4}
+library(leaps);
+regSub <- regsubsets(score ~ .,data=movies)
+plot(regSub)
+```
+[http://cran.r-project.org/web/packages/leaps/leaps.pdf](http://cran.r-project.org/web/packages/leaps/leaps.pdf)
+
+---
+
+## Model selection  - bic.glm
+
+```{r,dependson="aid"}
+library(BMA)
+bicglm1 <- bic.glm(score ~.,data=movies,glm.family="gaussian")
+print(bicglm1)
+```
+
+[http://cran.r-project.org/web/packages/BMA/BMA.pdf](http://cran.r-project.org/web/packages/BMA/BMA.pdf)
+
+
+---
+
+## Notes and further resources
+
+* Exploratory/visual analysis is key
+* Automatic selection produces an answer - but may bias inference
+* You may think about separating the sample into two groups
+* The goal is not to get the "causal" model
+
+
+* [Lars package](http://cran.r-project.org/web/packages/lars/lars.pdf) 
+* [Elements of machine learning](http://www-stat.stanford.edu/~tibs/ElemStatLearn/)

@@ -1,0 +1,84 @@
+---
+title       : Reading local flat files
+subtitle    : 
+author      : Jeffrey Leek 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Example - Baltimore camera data
+
+<img class=center src=../../assets/img/03_ObtainingData/cameras.png height=500>
+
+[https://data.baltimorecity.gov/Transportation/Baltimore-Fixed-Speed-Cameras/dz54-2aru](https://data.baltimorecity.gov/Transportation/Baltimore-Fixed-Speed-Cameras/dz54-2aru)
+
+---
+
+## Download the file to load
+
+```{r data}
+if(!file.exists("data")){dir.create("data")}
+fileUrl <- "https://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD"
+download.file(fileUrl,destfile="cameras.csv",method="curl")
+dateDownloaded <- date()
+```
+
+---
+
+## Loading flat files - read.table()
+
+* This is the main function for reading data into R
+* Flexible and robust but requires more parameters
+* Reads the data into RAM - big data can cause problems
+* Important parameters _file_, _header_, _sep_, _row.names_, _nrows_
+* Related: _read.csv()_, _read.csv2()_
+
+
+---
+
+## Baltimore example
+
+
+```{r ,dependson="data"}
+cameraData <- read.table("./data/cameras.csv")
+head(cameraData)
+```
+
+---
+
+## Example: Baltimore camera data
+
+```{r}
+cameraData <- read.table("./data/cameras.csv",sep=",",header=TRUE)
+head(cameraData)
+```
+
+---
+
+## Example: Baltimore camera data
+
+read.csv sets _sep=","_ and _header=TRUE_ 
+```{r,dependson="data"}
+cameraData <- read.csv("./data/cameras.csv")
+head(cameraData)
+```
+
+
+---
+
+## Some more important parameters
+
+* _quote_ - you can tell R whether there are any quoted values quote="" means no quotes.
+* _na.strings_ - set the character that represents a missing value. 
+* _nrows_ - how many rows to read of the file (e.g. nrows=10 reads 10 lines).
+* _skip_ - number of lines to skip before starting to read
+
+_In my experience, the biggest trouble with reading flat files are quotation marks ` or " placed in data values, setting quote="" often resolves these_.

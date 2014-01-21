@@ -1,0 +1,178 @@
+---
+title       : Predicting with regression, multiple covariates
+subtitle    : 
+author      : Jeffrey Leek
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+
+## Example: predicting wages
+
+<img class=center src=../../assets/img/08_PredictionAndMachineLearning/wages.jpg height=350>
+
+Image Credit [http://www.cahs-media.org/the-high-cost-of-low-wages](http://www.cahs-media.org/the-high-cost-of-low-wages)
+
+Data from: [ISLR package](http://cran.r-project.org/web/packages/ISLR) from the book: [Introduction to statistical learning](http://www-bcf.usc.edu/~gareth/ISL/)
+
+
+
+---
+
+## Example: Wage data
+
+```{r loadData,cache=TRUE}
+library(ISLR); library(ggplot2); library(caret);
+data(Wage); Wage <- subset(Wage,select=-c(logwage))
+summary(Wage)
+```
+
+
+
+---
+
+### Get training/test sets
+
+```{r trainingTest,dependson="loadData",cache=TRUE}
+inTrain <- createDataPartition(y=Wage$wage,
+                              p=0.7, list=FALSE)
+training <- Wage[inTrain,]; testing <- Wage[-inTrain,]
+dim(training); dim(testing)
+```
+
+
+
+---
+
+### Feature plot
+
+```{r ,dependson="trainingTest",fig.height=4,fig.width=4}
+featurePlot(x=training[,c("age","education","jobclass")],
+            y = training$wage,
+            plot="pairs")
+```
+
+
+---
+
+### Plot age versus wage
+
+
+```{r ,dependson="trainingTest",fig.height=4,fig.width=6}
+qplot(age,wage,data=training)
+```
+
+
+---
+
+### Plot age versus wage colour by jobclass
+
+
+```{r ,dependson="trainingTest",fig.height=4,fig.width=6}
+qplot(age,wage,colour=jobclass,data=training)
+```
+
+
+---
+
+### Plot age versus wage colour by education
+
+
+```{r ,dependson="trainingTest",fig.height=4,fig.width=6}
+qplot(age,wage,colour=education,data=training)
+```
+
+---
+
+## Fit a linear model 
+
+$$ ED_i = b_0 + b_1 age + b_2 I(Jobclass_i="Information") + \sum_{k=1}^4 \gamma_k I(education_i= level k) $$
+
+```{r modelFit,dependson="trainingTest", cache=TRUE,fig.height=4,fig.width=4}
+modFit<- train(wage ~ age + jobclass + education,
+               method = "lm",data=training)
+finMod <- modFit$finalModel
+print(modFit)
+```
+
+Education levels: 1 = HS Grad, 2 = Some College, 3 = College Grad, 4 = Advanced Degree
+
+---
+
+## Diagnostics
+
+```{r,dependson="modelFit",fig.height=5,fig.width=5}
+plot(finMod,1,pch=19,cex=0.5,col="#00000010")
+```
+
+
+---
+
+## Color by variables not used in the model 
+
+```{r,dependson="modelFit",fig.height=4,fig.width=6}
+qplot(finMod$fitted,finMod$residuals,colour=race,data=training)
+```
+
+---
+
+## Plot by index
+
+```{r,dependson="modelFit",fig.height=5,fig.width=5}
+plot(finMod$residuals,pch=19)
+```
+
+
+---
+
+## Predicted versus truth in test set
+
+```{r predictions, dependson="modelFit",fig.height=4,fig.width=6}
+pred <- predict(modFit, testing)
+qplot(wage,pred,colour=year,data=testing)
+```
+
+---
+
+## If you want to use all covariates
+
+```{r allCov,dependson="trainingTest",fig.height=4,fig.width=4,warning=FALSE}
+modFitAll<- train(wage ~ .,data=training,method="lm")
+pred <- predict(modFitAll, testing)
+qplot(wage,pred,data=testing)
+```
+
+
+---
+
+## Notes and further reading
+
+* Often useful in combination with other models 
+* [Elements of statistical learning](http://www-stat.stanford.edu/~tibs/ElemStatLearn/)
+* [Modern applied statistics with S](http://www.amazon.com/Modern-Applied-Statistics-W-N-Venables/dp/0387954570)
+* [Introduction to statistical learning](http://www-bcf.usc.edu/~gareth/ISL/)

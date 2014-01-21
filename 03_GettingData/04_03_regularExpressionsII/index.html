@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Regular Expressions II</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Regular Expressions II">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Regular Expressions II</h1>
+        <h2></h2>
+        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>More Metacharacters</h2>
+  </hgroup>
+  <article>
+    <p>“.” is used to refer to any character. So</p>
+
+<pre><code class="markdown">9.11
+</code></pre>
+
+<p>will match the lines</p>
+
+<pre><code class="markdown">its stupid the post 9-11 rules
+if any 1 of us did 9/11 we would have been caught in days.
+NetBios: scanning ip 203.169.114.66
+Front Door 9:11:46 AM
+Sings: 0118999881999119725...3 !
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>More Metacharacters: |</h2>
+  </hgroup>
+  <article>
+    <p>This does not mean “pipe” in the context of regular expressions; instead it translates to “or”; we can use it to combine two expressions, the subexpressions being called alternatives</p>
+
+<pre><code class="markdown">flood|fire
+</code></pre>
+
+<p>will match the lines</p>
+
+<pre><code class="markdown">is firewire like usb on none macs?
+the global flood makes sense within the context of the bible
+yeah ive had the fire on tonight
+... and the floods, hurricanes, killer heatwaves, rednecks, gun nuts, etc.
+￼
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>More Metacharacters: |</h2>
+  </hgroup>
+  <article>
+    <p>We can include any number of alternatives...</p>
+
+<pre><code class="markdown">flood|earthquake|hurricane|coldfire
+</code></pre>
+
+<p>will match the lines</p>
+
+<pre><code class="markdown">Not a whole lot of hurricanes in the Arctic.
+We do have earthquakes nearly every day somewhere in our State
+hurricanes swirl in the other direction
+coldfire is STRAIGHT!
+’cause we keep getting earthquakes
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>More Metacharacters: |</h2>
+  </hgroup>
+  <article>
+    <p>The alternatives can be real expressions and not just literals</p>
+
+<pre><code class="markdown">^[Gg]ood|[Bb]ad
+</code></pre>
+
+<p>will match the lines</p>
+
+<pre><code class="markdown">good to hear some good knews from someone here
+Good afternoon fellow american infidels!
+good on you-what do you drive?
+Katie... guess they had bad experiences...
+my middle name is trouble, Miss Bad News
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>More Metacharacters: ( and )</h2>
+  </hgroup>
+  <article>
+    <p>Subexpressions are often contained in parentheses to constrain the alternatives</p>
+
+<pre><code class="markdown">^([Gg]ood|[Bb]ad)
+</code></pre>
+
+<p>will match the lines</p>
+
+<pre><code class="markdown">bad habbit
+bad coordination today
+good, becuase there is nothing worse than a man in kinky underwear
+Badcop, its because people want to use drugs
+Good Monday Holiday
+Good riddance to Limey
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>More Metacharacters: ?</h2>
+  </hgroup>
+  <article>
+    <p>The question mark indicates that the indicated expression is optional</p>
+
+<pre><code class="markdown">[Gg]eorge( [Ww]\.)? [Bb]ush
+</code></pre>
+
+<p>will match the lines</p>
+
+<pre><code class="markdown">i bet i can spell better than you and george bush combined
+BBC reported that President George W. Bush claimed God told him to invade I
+a bird in the hand is worth two george bushes
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>One thing to note...</h2>
+  </hgroup>
+  <article>
+    <p>In the following</p>
+
+<pre><code class="markdown">[Gg]eorge( [Ww]\.)? [Bb]ush
+</code></pre>
+
+<p>we wanted to match a “.” as a literal period; to do that, we had to “escape” the metacharacter, preceding it with a backslash In general, we have to do this for any metacharacter we want to include in our match</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>More metacharacters: * and +</h2>
+  </hgroup>
+  <article>
+    <p>The * and + signs are metacharacters used to indicate repetition; * means “any number, including none, of the item” and + means “at least one of the item”</p>
+
+<pre><code class="markdown">(.*)
+</code></pre>
+
+<p>will match the lines</p>
+
+<pre><code class="markdown">anyone wanna chat? (24, m, germany)
+hello, 20.m here... ( east area + drives + webcam )
+(he means older men)
+()
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>More metacharacters: * and +</h2>
+  </hgroup>
+  <article>
+    <p>The * and + signs are metacharacters used to indicate repetition; * means “any number, including none, of the item” and + means “at least one of the item”</p>
+
+<pre><code class="markdown">[0-9]+ (.*)[0-9]+
+</code></pre>
+
+<p>will match the lines</p>
+
+<pre><code class="markdown">working as MP here 720 MP battallion, 42nd birgade
+so say 2 or 3 years at colleage and 4 at uni makes us 23 when and if we fin
+it went down on several occasions for like, 3 or 4 *days*
+Mmmm its time 4 me 2 go 2 bed
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>More metacharacters: { and }</h2>
+  </hgroup>
+  <article>
+    <p>{ and } are referred to as interval quantifiers; the let us specify the minimum and maximum number of matches of an expression</p>
+
+<pre><code class="markdown">[Bb]ush( +[^ ]+ +){1,5} debate
+</code></pre>
+
+<p>will match the lines</p>
+
+<pre><code class="markdown">Bush has historically won all major debates he’s done.
+in my view, Bush doesn’t need these debates..
+bush doesn’t need the debates? maybe you are right
+That’s what Bush supporters are doing about the debate.
+Felix, I don’t disagree that Bush was poorly prepared for the debate.
+indeed, but still, Bush should have taken the debate more seriously.
+Keep repeating that Bush smirked and scowled during the debate
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>More metacharacters: and</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>m,n means at least m but not more than n matches </li>
+<li>m means exactly m matches</li>
+<li>m, means at least m matches</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>More metacharacters: ( and ) revisited</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>In most implementations of regular expressions, the parentheses not only limit the scope of alternatives divided by a “|”, but also can be used to “remember” text matched by the subexpression enclosed</li>
+<li>We refer to the matched text with \1, \2, etc.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>More metacharacters: ( and ) revisited</h2>
+  </hgroup>
+  <article>
+    <p>So the expression</p>
+
+<pre><code class="markdown">+([a-zA-Z]+) +\1 +
+</code></pre>
+
+<p>will match the lines</p>
+
+<pre><code class="markdown">time for bed, night night twitter!
+blah blah blah blah
+my tattoo is so so itchy today
+i was standing all all alone against the world outside...
+hi anybody anybody at home
+estudiando css css css css.... que desastritooooo
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>More metacharacters: ( and ) revisited</h2>
+  </hgroup>
+  <article>
+    <p>The * is “greedy” so it always matches the <em>longest</em> possible string that satisfies the regular expression. So</p>
+
+<pre><code class="markdown">^s(.*)s
+</code></pre>
+
+<p>matches</p>
+
+<pre><code class="markdown">sitting at starbucks
+setting up mysql and rails
+studying stuff for the exams
+spaghetti with marshmallows
+stop fighting with crackers
+sore shoulders, stupid ergonomics
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>More metacharacters: ( and ) revisited</h2>
+  </hgroup>
+  <article>
+    <p>The greediness of * can be turned off with the ?, as in</p>
+
+<pre><code class="markdown">^s(.*?)s$
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Regular expressions are used in many different languages; not unique to R.</li>
+<li>Regular expressions are composed of literals and metacharacters that represent sets or classes of characters/words</li>
+<li>Text processing via regular expressions is a very powerful way to extract data from “unfriendly” sources (not all data comes as a CSV file)</li>
+<li>Used with the functions <code>grep</code>,<code>grepl</code>,<code>sub</code>,<code>gsub</code> and others that involve searching for text strings
+(Thanks to Mark Hansen for some material in this lecture.)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

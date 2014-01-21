@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Forecasting</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Forecasting">
+  <meta name="author" content="Jeffrey Leek, Assistant Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Forecasting</h1>
+        <h2></h2>
+        <p>Jeffrey Leek, Assistant Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Time series data</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/GOOG.png height=450></p>
+
+<p><a href="https://www.google.com/finance">https://www.google.com/finance</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>What is different?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Data are dependent over time</li>
+<li>Specific pattern types
+
+<ul>
+<li>Trends - long term increase or decrease</li>
+<li>Seasonal patterns - patterns related to time of week, month, year, etc.</li>
+<li>Cycles - patterns that rise and fall periodically</li>
+</ul></li>
+<li>Subsampling into training/test is more complicated</li>
+<li>Similar issues arise in spatial data 
+
+<ul>
+<li>Dependency between nearby observations</li>
+<li>Location specific effects</li>
+</ul></li>
+<li>Typically goal is to predict one or more observations into the future. </li>
+<li>All standard predictions can be used (with caution!)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Beware spurious correlations!</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/spurious.jpg height=450></p>
+
+<p><a href="http://www.google.com/trends/correlate">http://www.google.com/trends/correlate</a></p>
+
+<p><a href="http://www.newscientist.com/blogs/onepercent/2011/05/google-correlate-passes-our-we.html">http://www.newscientist.com/blogs/onepercent/2011/05/google-correlate-passes-our-we.html</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Also common in geographic analyses</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/heatmap.png height=450></p>
+
+<p><a href="http://xkcd.com/1138/">http://xkcd.com/1138/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Beware extrapolation!</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/extrapolation.jpg height=450></p>
+
+<p><a href="http://www.nature.com/nature/journal/v431/n7008/full/431525a.html">http://www.nature.com/nature/journal/v431/n7008/full/431525a.html</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Google data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(quantmod)
+from.dat &lt;- as.Date(&quot;01/01/08&quot;, format=&quot;%m/%d/%y&quot;)
+to.dat &lt;- as.Date(&quot;12/31/13&quot;, format=&quot;%m/%d/%y&quot;)
+getSymbols(&quot;GOOG&quot;, src=&quot;google&quot;, from = from.dat, to = to.dat)
+</code></pre>
+
+<pre><code>[1] &quot;GOOG&quot;
+</code></pre>
+
+<pre><code class="r">head(GOOG)
+</code></pre>
+
+<pre><code>           GOOG.Open GOOG.High GOOG.Low GOOG.Close GOOG.Volume
+2008-01-02     692.9     697.4    677.7      685.2     4306848
+2008-01-03     685.3     686.9    676.5      685.3     3252846
+2008-01-04     679.7     681.0    655.0      657.0     5359834
+2008-01-07     653.9     662.3    637.4      649.2     6404945
+2008-01-08     653.0     660.0    631.0      631.7     5341949
+2008-01-09     630.0     653.3    622.5      653.2     6744242
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Summarize monthly and store as time series</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">mGoog &lt;- to.monthly(GOOG)
+googOpen &lt;- Op(mGoog)
+ts1 &lt;- ts(googOpen,frequency=12)
+plot(ts1,xlab=&quot;Years+1&quot;, ylab=&quot;GOOG&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/tseries.png" title="plot of chunk tseries" alt="plot of chunk tseries" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Example time series decomposition</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><strong>Trend</strong>  - Consistently increasing pattern over time </li>
+<li><strong>Seasonal</strong> -  When there is a pattern over a fixed period of time that recurs.</li>
+<li><strong>Cyclic</strong> -  When data rises and falls over non fixed periods</li>
+</ul>
+
+<p><a href="https://www.otexts.org/fpp/6/1">https://www.otexts.org/fpp/6/1</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Decompose a time series into parts</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(decompose(ts1),xlab=&quot;Years+1&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Training and test sets</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">ts1Train &lt;- window(ts1,start=1,end=5)
+ts1Test &lt;- window(ts1,start=5,end=(7-0.01))
+ts1Train
+</code></pre>
+
+<pre><code>    Jan   Feb   Mar   Apr   May   Jun   Jul   Aug   Sep   Oct   Nov   Dec
+1 692.9 528.7 471.5 447.7 578.3 582.5 519.6 472.5 476.8 412.1 357.6 286.7
+2 308.6 334.3 333.3 343.8 395.0 418.7 424.2 448.7 459.7 493.0 537.1 588.1
+3 627.0 534.6 529.2 571.4 526.5 480.4 445.3 489.0 455.0 530.0 615.7 563.0
+4 596.5 604.5 617.8 588.8 545.7 528.0 506.7 611.2 540.8 509.9 580.1 600.0
+5 652.9                                                                  
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Simple moving average</h2>
+  </hgroup>
+  <article>
+    <p>\[ Y_{t}=\frac{1}{2*k+1}\sum_{j=-k}^k {y_{t+j}}\]</p>
+
+<pre><code class="r">plot(ts1Train)
+lines(ma(ts1Train,order=3),col=&quot;red&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Exponential smoothing</h2>
+  </hgroup>
+  <article>
+    <p><strong>Example - simple exponential smoothing</strong>
+\[\hat{y}_{t+1} = \alpha y_t + (1-\alpha)\hat{y}_{t-1}\]</p>
+
+<p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/expsmooth.png height=300></p>
+
+<p><a href="https://www.otexts.org/fpp/7/6">https://www.otexts.org/fpp/7/6</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Exponential smoothing</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">ets1 &lt;- ets(ts1Train,model=&quot;MMM&quot;)
+fcast &lt;- forecast(ets1)
+plot(fcast); lines(ts1Test,col=&quot;red&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/ets.png" title="plot of chunk ets" alt="plot of chunk ets" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Get the accuracy</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">accuracy(fcast,ts1Test)
+</code></pre>
+
+<pre><code>                   ME   RMSE    MAE     MPE   MAPE   MASE    ACF1 Theil&#39;s U
+Training set   0.9464  48.78  39.35 -0.3297  7.932 0.3733 0.07298        NA
+Test set     156.1890 205.76 160.78 18.1819 18.971 1.5254 0.77025     3.745
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Notes and further resources</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><a href="http://en.wikipedia.org/wiki/Forecasting">Forecasting and timeseries prediction</a> is an entire field</li>
+<li>Rob Hyndman&#39;s <a href="https://www.otexts.org/fpp/">Forecasting: principles and practice</a> is a good place to start</li>
+<li>Cautions
+
+<ul>
+<li>Be wary of spurious correlations</li>
+<li>Be careful how far you predict (extrapolation)</li>
+<li>Be wary of dependencies over time</li>
+</ul></li>
+<li>See <a href="http://cran.r-project.org/web/packages/quantmod/quantmod.pdf">quantmod</a> or <a href="http://www.quandl.com/help/packages/r">quandl</a> packages for finance-related problems.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

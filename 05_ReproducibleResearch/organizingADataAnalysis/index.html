@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Organizing a Data Analysis</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Organizing a Data Analysis">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/zenburn.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Organizing a Data Analysis</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Data analysis files</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Data
+
+<ul>
+<li>Raw data</li>
+<li>Processed data</li>
+</ul></li>
+<li>Figures
+
+<ul>
+<li>Exploratory figures</li>
+<li>Final figures</li>
+</ul></li>
+<li>R code
+
+<ul>
+<li>Raw / unused scripts</li>
+<li>Final scripts</li>
+<li>R Markdown files</li>
+</ul></li>
+<li>Text
+
+<ul>
+<li>README files</li>
+<li>Text of analysis / report</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Raw Data</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/medicalrecord.png height='400'/></p>
+
+<ul>
+<li>Should be stored in your analysis folder</li>
+<li>If accessed from the web, include url, description, and date accessed in README</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Processed data</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/excel.png height='400'/></p>
+
+<ul>
+<li>Processed data should be named so it is easy to see which script generated the data. </li>
+<li>The processing script - processed data mapping should occur in the README</li>
+<li>Processed data should be <a href="http://vita.had.co.nz/papers/tidy-data.pdf">tidy</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Exploratory figures</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/example10.png height='400'/></p>
+
+<ul>
+<li>Figures made during the course of your analysis, not necessarily part of your final report.</li>
+<li>They do not need to be &quot;pretty&quot;</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Final Figures</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/figure1final.png height='400'/></p>
+
+<ul>
+<li>Usually a small subset of the original figures</li>
+<li>Axes/colors set to make the figure clear</li>
+<li>Possibly multiple panels</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Raw scripts</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/rawcode.png height='350'/></p>
+
+<ul>
+<li>May be less commented (but comments help you!)</li>
+<li>May be multiple versions</li>
+<li>May include analyses that are later discarded</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Final scripts</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/finalscript2.png height='300'/></p>
+
+<ul>
+<li>Clearly commented
+
+<ul>
+<li>Small comments liberally - what, when, why, how</li>
+<li>Bigger commented blocks for whole sections</li>
+</ul></li>
+<li>Include processing details</li>
+<li>Only analyses that appear in the final write-up</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>R markdown files</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/rmd.png height='400'/></p>
+
+<ul>
+<li><a href="http://www.rstudio.com/ide/docs/authoring/using_markdown">R markdown</a> files can be used to generate reproducible reports</li>
+<li>Text and R code are integrated</li>
+<li>Very easy to create in <a href="http://www.rstudio.com/">Rstudio</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Readme files</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/readme.png height='400'/></p>
+
+<ul>
+<li>Not necessary if you use R markdown</li>
+<li>Should contain step-by-step instructions for analysis</li>
+<li>Here is an example <a href="https://github.com/jtleek/swfdr/blob/master/README">https://github.com/jtleek/swfdr/blob/master/README</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Text of the document</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/swfdr.png height='350'/></p>
+
+<ul>
+<li>It should include a title, introduction (motivation), methods (statistics you used), results (including measures of uncertainty), and conclusions (including potential problems)</li>
+<li>It should tell a story</li>
+<li><em>It should not include every analysis you performed</em></li>
+<li>References should be included for statistical methods</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Further resources</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Information about a non-reproducible study that led to cancer patients being mistreated: <a href="http://simplystatistics.org/2012/02/27/the-duke-saga-starter-set/">The Duke Saga Starter Set</a></li>
+<li><a href="http://biostatistics.oxfordjournals.org/content/10/3/405.full">Reproducible research and Biostatistics</a></li>
+<li><a href="http://www.r-statistics.com/2010/09/managing-a-statistical-analysis-project-guidelines-and-best-practices/">Managing a statistical analysis project guidelines and best practices</a></li>
+<li><a href="http://projecttemplate.net/">Project template</a> - a pre-organized set of files for data analysis</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

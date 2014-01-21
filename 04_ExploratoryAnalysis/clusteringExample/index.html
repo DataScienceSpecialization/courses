@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EDA Case Study - Understanding Human Activity with Smart Phones</title>
+  <meta charset="utf-8">
+  <meta name="description" content="EDA Case Study - Understanding Human Activity with Smart Phones">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>EDA Case Study - Understanding Human Activity with Smart Phones</h1>
+        <h2></h2>
+        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Samsung Galaxy S3</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/samsung.png height=450></p>
+
+<p><a href="http://www.samsung.com/global/galaxys3/">http://www.samsung.com/global/galaxys3/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Samsung Data</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/ucisamsung.png height=450></p>
+
+<p><a href="http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones">http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Slightly processed data</h2>
+  </hgroup>
+  <article>
+    <p><a href="%22https://dl.dropboxusercontent.com/u/7710864/courseraPublic/samsungData.rda%22">Samsung data file</a></p>
+
+<pre><code class="r">load(&quot;data/samsungData.rda&quot;)
+names(samsungData)[1:12]
+</code></pre>
+
+<pre><code>##  [1] &quot;tBodyAcc-mean()-X&quot; &quot;tBodyAcc-mean()-Y&quot; &quot;tBodyAcc-mean()-Z&quot;
+##  [4] &quot;tBodyAcc-std()-X&quot;  &quot;tBodyAcc-std()-Y&quot;  &quot;tBodyAcc-std()-Z&quot; 
+##  [7] &quot;tBodyAcc-mad()-X&quot;  &quot;tBodyAcc-mad()-Y&quot;  &quot;tBodyAcc-mad()-Z&quot; 
+## [10] &quot;tBodyAcc-max()-X&quot;  &quot;tBodyAcc-max()-Y&quot;  &quot;tBodyAcc-max()-Z&quot;
+</code></pre>
+
+<pre><code class="r">table(samsungData$activity)
+</code></pre>
+
+<pre><code>## 
+##   laying  sitting standing     walk walkdown   walkup 
+##     1407     1286     1374     1226      986     1073
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Plotting average acceleration for first subject</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mfrow = c(1, 2), mar = c(5, 4, 1, 1))
+samsungData &lt;- transform(samsungData, activity = factor(activity))
+sub1 &lt;- subset(samsungData, subject == 1)
+plot(sub1[, 1], col = sub1$activity, ylab = names(sub1)[1])
+plot(sub1[, 2], col = sub1$activity, ylab = names(sub1)[2])
+legend(&quot;bottomright&quot;, legend = unique(sub1$activity), col = unique(sub1$activity), 
+    pch = 1)
+</code></pre>
+
+<p><img src="figure/processData.png" alt="plot of chunk processData"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Clustering based just on average acceleration</h2>
+  </hgroup>
+  <article>
+    <!-- ## source("http://dl.dropbox.com/u/7710864/courseraPublic/myplclust.R")  -->
+
+<pre><code class="r">source(&quot;myplclust.R&quot;)
+distanceMatrix &lt;- dist(sub1[, 1:3])
+hclustering &lt;- hclust(distanceMatrix)
+myplclust(hclustering, lab.col = unclass(sub1$activity))
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Plotting max acceleration for the first subject</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">par(mfrow = c(1, 2))
+plot(sub1[, 10], pch = 19, col = sub1$activity, ylab = names(sub1)[10])
+plot(sub1[, 11], pch = 19, col = sub1$activity, ylab = names(sub1)[11])
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Clustering based on maximum acceleration</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">source(&quot;myplclust.R&quot;)
+distanceMatrix &lt;- dist(sub1[, 10:12])
+hclustering &lt;- hclust(distanceMatrix)
+myplclust(hclustering, lab.col = unclass(sub1$activity))
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Singular Value Decomposition</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">svd1 = svd(scale(sub1[, -c(562, 563)]))
+par(mfrow = c(1, 2))
+plot(svd1$u[, 1], col = sub1$activity, pch = 19)
+plot(svd1$u[, 2], col = sub1$activity, pch = 19)
+</code></pre>
+
+<p><img src="figure/svdChunk.png" alt="plot of chunk svdChunk"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Find maximum contributor</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(svd1$v[, 2], pch = 19)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-4.png" alt="plot of chunk unnamed-chunk-4"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>New clustering with maximum contributer</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">maxContrib &lt;- which.max(svd1$v[, 2])
+distanceMatrix &lt;- dist(sub1[, c(10:12, maxContrib)])
+hclustering &lt;- hclust(distanceMatrix)
+myplclust(hclustering, lab.col = unclass(sub1$activity))
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-5.png" alt="plot of chunk unnamed-chunk-5"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>New clustering with maximum contributer</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">names(samsungData)[maxContrib]
+</code></pre>
+
+<pre><code>## [1] &quot;fBodyAcc.meanFreq...Z&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>K-means clustering (nstart=1, first try)</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">kClust &lt;- kmeans(sub1[, -c(562, 563)], centers = 6)
+table(kClust$cluster, sub1$activity)
+</code></pre>
+
+<pre><code>##    
+##     laying sitting standing walk walkdown walkup
+##   1      0       0        0   50        1      0
+##   2      0       0        0    0       48      0
+##   3     27      37       51    0        0      0
+##   4      3       0        0    0        0     53
+##   5      0       0        0   45        0      0
+##   6     20      10        2    0        0      0
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>K-means clustering (nstart=1, second try)</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">kClust &lt;- kmeans(sub1[, -c(562, 563)], centers = 6, nstart = 1)
+table(kClust$cluster, sub1$activity)
+</code></pre>
+
+<pre><code>##    
+##     laying sitting standing walk walkdown walkup
+##   1      0       0        0    0       49      0
+##   2     18      10        2    0        0      0
+##   3      0       0        0   95        0      0
+##   4     29       0        0    0        0      0
+##   5      0      37       51    0        0      0
+##   6      3       0        0    0        0     53
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>K-means clustering (nstart=100, first try)</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">kClust &lt;- kmeans(sub1[, -c(562, 563)], centers = 6, nstart = 100)
+table(kClust$cluster, sub1$activity)
+</code></pre>
+
+<pre><code>##    
+##     laying sitting standing walk walkdown walkup
+##   1     18      10        2    0        0      0
+##   2     29       0        0    0        0      0
+##   3      0       0        0   95        0      0
+##   4      0       0        0    0       49      0
+##   5      3       0        0    0        0     53
+##   6      0      37       51    0        0      0
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>K-means clustering (nstart=100, second try)</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">kClust &lt;- kmeans(sub1[, -c(562, 563)], centers = 6, nstart = 100)
+table(kClust$cluster, sub1$activity)
+</code></pre>
+
+<pre><code>##    
+##     laying sitting standing walk walkdown walkup
+##   1     29       0        0    0        0      0
+##   2      3       0        0    0        0     53
+##   3      0       0        0    0       49      0
+##   4      0       0        0   95        0      0
+##   5      0      37       51    0        0      0
+##   6     18      10        2    0        0      0
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Cluster 1 Variable Centers (Laying)</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(kClust$center[1, 1:10], pch = 19, ylab = &quot;Cluster Center&quot;, xlab = &quot;&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-9.png" alt="plot of chunk unnamed-chunk-9"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Cluster 2 Variable Centers (Walking)</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(kClust$center[4, 1:10], pch = 19, ylab = &quot;Cluster Center&quot;, xlab = &quot;&quot;)
+</code></pre>
+
+<p><img src="figure/unnamed-chunk-10.png" alt="plot of chunk unnamed-chunk-10"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

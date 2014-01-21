@@ -1,0 +1,535 @@
+
+Now, I'm going to talk a little bit about
+two popular dimension reduction techniques
+called principal component analysis and
+the singular value decomposition. These
+are two related dimension reduction
+techniques, which can be used to take a
+large set of variables, and compress them
+down into a smaller set of variables that
+are easier to interpret. So I'm going to
+start off with a random set of data that
+I've assigned to this Matrix.
+So you can imagine this is a data matrix
+where there's absolutely no relationship
+between the variables or the observations.
+Here, in each row is an observation, and
+in each column is a variable. And the
+color represents what the value of that
+variable is for that observation. So
+example, for example, this upper left-hand
+corner represents the value for the first
+variable. In the first observation. So you
+can see in this matrix, visually that
+there aren't, doesn't appear to be any
+pattern relating the variables or the
+observations and, in fact you can even
+cluster the data set and you can see that
+there doesn't appear to be any strong
+patterns even once the data are clustered.
+There don't appear to be any sort of
+clumps of color, with the exception of
+this small little clump of yellow here at
+the bottom of the data set. What we can do
+then is actually add in a particular
+pattern that effects some of the rows of
+this data set. So the way that we do that
+is we run through all forty rows of the
+data set and for each row, we flip a coin.
+We do that by generating one binomial
+random variable with an equal probablility
+of being equal to 0 or 1. If the coin flip
+is equal to one, we add to that row of the
+data matrix a particular pattern, such
+that the value of the first five variables
+we add zero to and the last five variables
+we add three to. So this means that for
+some of the rows of this matrix there's a
+particular pattern that looks like zero
+for the first five elements and three for
+the last five elements. Looking at this
+visually, this is what the matrix looks
+like on ce we've added that pattern in. So
+you can see that for some of these rows,
+it looks like the values are somewhat
+smaller on, for the first five columns and
+somewhat larger for the last five columns.
+You can see it isn't true for every row
+because we flipped a coin and each time we
+flipped the coin, we decide whether to add
+that pattern. Or not.
+Once you perform a clustering, you can
+actually see that the pattern appears now
+to separate out the two sets of
+observations, the first 5 set of
+variables, and the last 5 set of
+variables. You can see now that these are
+the rows. Everything above this line right
+here appear to be the rows where we've
+added that pattern. So there is, we added
+a pattern of zero plus 3. To the first
+five and the last five. So what we want to
+do is maybe be able to determine what that
+pattern is. We've only added a very small
+pattern. We haven't added a very
+complicated pattern at all. We might want
+to be able to determine what that pattern
+is without reporting the entire data set
+in the form of this heap. So the first
+thing that we could do is we could
+actually just take the means of the rows
+and the means of the columns. So again
+this is the data matriices here. And what
+I've done is I've taken the mean of each
+row and I've plotted it here. So you can
+see is the first several rows. You can see
+that they have a higher mean and that's
+because to these rows I've added the
+pattern which was the only positive values
+to some of the columns. You can also plot
+for each column its mean. Now what you see
+is that how means for the first set of
+variables might be slightly smaller than
+the column means for the second set
+variables because we've added a, a
+particular value that's positive only to
+the 5, last 5 variables. So you can see
+the pattern in both the columns and the
+rows by taking the means. But what happens
+if there's more than 1 pattern? And is
+this the best way to describe the patterns
+in the, or to compress the patterns in
+this data matrix. It turns out there are 2
+re lated problems that show the best way
+to compress a data matrix, depending on
+what your definition of compression is. So
+you could imagine you have a, a
+multivariate set of variables. So here,
+each variable X1 to Xn represents all the
+observations in 1 column of that matrix.
+So X1 is actually equal to a larger set of
+values, X11 down to X1m, and these values
+represent. All the values in the first
+column of the matrix. So there are two
+related goals. One you could try to find a
+new set of variables, not the x's, but
+some other set of variables, that are
+uncorrelated, and explain as much
+variables as possible. You could also put
+all the variables together in one matrix,
+like we did on those previous slides. And
+then try to find a, the best matrix
+created with fewer variables. Or matrix of
+what's called lower Rank that explains the
+original data. The first goal is a
+statistical goal and the second goal is a
+data compression goal. But it turns out
+that the solutions to these 2 problems are
+related. So the first approach, the
+singular value decomposition compresses
+the data by performing a matrix
+decomposition. Don't be too imitated by
+what a matrix decomposition is in terms of
+math, we primarily need to be concerned
+with knowing that this decomposition has 3
+parts. The U, or the left singular
+vectors, the D, the singular values, and
+the V, which are the right singular
+vectors. The principal components of a
+matrix are actually equal to the right
+singular vectors if you first scale and
+The variables by the appropriate
+quantities, before performing the singular
+value decomposition. In other words, the
+SVD and PCA are actually solutions to the,
+give you the same solutions if you perform
+the right pre-processing first. So first
+I'm going to talk a little bit about the
+singular value decomposition, and I'm
+going to talk about two of those
+components. The U component and the V
+component. Plot it.
+U is called the left singular vectors and
+V is called the right singular vectors. In
+R, to calculate the singular value
+decomposition of a matrix you use the
+command SVD. So, here I've plotted SVD to
+our scaled matrix. I then make a plot,
+first of the entire data matrix using the
+image command Then I plot the first left
+singular vector which is the first column
+of the U component of the list that
+results when you apply SVD to a matrix in
+R. Then I also plot the first column of
+the V matrix or the red singular matrix
+that also is a part of the list that gets
+created when you apply SVD to a The matrix
+in R. The left singular vectors appear to
+show that same pattern that the bromines
+showed earlier. The first set of rows is
+different from the second set of rows. And
+that corresponds to the rows that got the
+pattern, added to them. Versus the. The
+rows that didn't have the pattern added to
+them. Here the scale isn't the same, so
+it's not positive and negative don't
+necessarily mean the same thing that they
+did previously. You can just see the
+visual pattern of the difference between
+the columns. Right.
+Then you can also look at the difference
+between the patterns that you see a across
+the rows.So this is the right singular
+vectors plotted by column and so what you
+can see is that the last 4 or the last 5
+col, columns of this matrix all have a
+particular value whereas the first 5
+columns all seem to have some more
+variation. This makes sense because we've
+added a specific value 3. To the last 5.
+So, several of the rows of the last 5
+columns. But we did not add any values to
+the first columns. And so they still
+represent random noise. We can also look
+at the d component that comes out of the
+singular value decomposition. So if we
+apply the SVD to the data matrix. And then
+we make a plot of the d values, read by
+column. We can see that there are
+decreasing set of values. So these
+decreasing set of values start with the
+first right singular vector or left
+singular vector corresponds to this first
+d value, the second right singular vector
+or left singular vector that corresponds
+to this value and so forth. If you
+actually plot, instead of d, you plot d
+squared divided by the sum of the d
+squareds, this actually corresponds to the
+percent variance explained by a particular
+column or row of the singular vectors. So
+what you can see is, that the first right
+and left singular vector together explain
+four per, about 40% of the variance in
+that matrix. The second right and left
+singular vectors explain much less
+variance. They only explain about 15% of
+the variance in the matrix and so forth.
+This is important a plot because you can
+actually go and see. How many patterns are
+actually appear, appear to explain most of
+the variation in the data set? One thing
+that people do often is they add up the
+cumulative amount of variants explained
+moving from left to right, and they
+identify all the patterns that explain
+some large percentage. Of the variance say
+80 or 90 percent and they can compress
+that data down by only considering the
+components of the singular value
+decomposition that represent those
+patterns. So just to show you the
+relationship between singular value
+decomposition and principle components,
+here I've actually calculated the singular
+value decomposition on the scaled matrix
+and I've also calculated the principle
+com, components on the same matrix also
+scaled. And if I plot the first principal
+component, which you can get from the
+rotation matrix in the PCA1 object. Versus
+the right singular vector from SVD object,
+you see they're exactly the same. They
+actually lie directly on the 45 degree
+line and there's no difference between
+them. So, performing a singular value
+decomposition is equivalent to performing
+a principal component analysis. In this
+case. Now, a little bit more about how the
+singular value decomposition variance is
+calculated. So imagine I create a constant
+matrix. In other words, I create a matrix
+where every row is identicaly the same.
+Where the row, where each row has 5 values
+of 0 followed by 5 values of 1. If I then
+calculate the singular value decomposition
+of thi s matrix, and I plot the d values,
+you can see that there's only 1 d value
+that stands out much above the others. It
+turns out that, that actually explains
+100% Of the variance in this matrix. The
+reason why is, if I take only the first
+right singular vector, and first left
+singular vector, and multiply them
+together, I can reproduce this matrix
+exactly. So all the variation in this
+matrix is explained by exactly one
+pattern. Alternatively, if the data was
+exactly random each singular, value or
+each singular vector would explain
+approximately one over the number of
+columns of variance in the data set. So,
+what if we add a second pattern to the
+data set? What happens to the singular
+values and singular vectors? So again,
+I've preformed an analysis where I loop
+through each of the rows of the data set,
+and now, I preform two coin flips. If coin
+flip one is true, then I add a pattern
+that has five zeros, followed by five
+fives, to the data set. If the second coin
+flip is 2, I add a pattern that is equal
+to (0,5),(0,5),(0,5) repeated over and
+over again. So, I can then cluster the
+data set and make a plot of that
+clustering. And you can see that there are
+now two patterns in this data set. You can
+see there are some rows where there is a
+pattern such that the values are low on
+the left hand side and high on the right
+hand side. You can see that there's also a
+second pattern that's this striped
+pattern. So it goes low, high, low, high,
+low, high. And these 2 patterns overlap
+each other. So you can see that the 2
+patterns are given here on the right. in
+these 2, plots. So pattern 1 is low for
+the first 5 columns. And then high for the
+next 5 columns. Pattern 2 goes. Low high,
+low high, low high, so what happens that
+we perform the singular value
+decomposition on this matrixs we can
+actually plot the right singular vectors
+of this matrixs and they look like this So
+here, what's going on is that the two
+singular vectors actually represent a
+combination of the patterns that went into
+creating this ma trix.
+So you can see, for example, that these
+values go low, high, low, high, low, high,
+low, high, low, Low high.
+But they also have the first five values
+are lower than the second five values. So
+you can see that that's a combination of
+the two patterns that were used to create
+this data, to create this data set.
+Similarly, the second right singular
+vector also is a combination of these two
+patterns but where the pattern is flipped.
+Taken together, these two patterns explain
+most of the variation that is going on in
+this data matrix. You can see that in the
+percent of variance explained. So if we
+take the singular value decomposition of
+our new matrix, so that has two patterns
+in it, and plot the singular values, we
+can see that they go from large to small.
+And again the first two values explain
+most of the variants. As you can see in
+this plot, the first value explains 50% of
+the variants and the second value explains
+almost 20% of the variants. And then the
+next several values also explain a small
+percentage of the variants but it's much
+lower. So what this would suggest is that
+there are two patterns in the data set But
+they aren't necessarily the two patterns
+we observed in the singular values or
+singular vectors. Remember each of the
+singular values, vectors, might represent
+multiple patterns mashed together. You can
+actually perform this singular vector,
+value decomposition much faster when the
+data set is built so that either the
+number of rows is much smaller than the
+number of columns, or the number of
+columns is much smaller than the number of
+rows. Here, I've created a larger matrix,
+big matrix, that has 10,000 rows and 40
+columns. So the number of rows is much
+larger than the number of columns. If I
+perform the singular value decomposition
+on this big matrix object, I see that it
+takes about 0.16 seconds to perform that
+operation. If I use the fast.svd function.
+I had actually performed the calculations
+substantially faster so 0.127 seconds.
+This doesn't seem like much of a diff
+erence, but if the matrices get much
+larger than this, it can be much, much
+larger in terms of the computation time.
+Here I've set the tolerance to be equal to
+0 because the fast dot SVD only calculates
+singular values and singular vectors for
+values above the, The tolerance.
+If you set the tolerance to equal to 0,
+it'll calculate all the singular values
+and singular vectors. An important note,
+is that the singular value decomposition
+cannot be performed on values on miss, on
+data sets with missing values. So here I
+generated a data matrix that has some,
+some of the values equal to missing
+values. I've set them equal to NA. I can
+then try to perform the singular value
+decomposition on this matrix but it
+returns an error because there are missing
+values. So one option is if you have
+missing values in your matrix is that you
+can impute those missing values. There are
+a large number of ways to impute data and
+there's a large literature on missing
+data. But for the purposes of exploratory
+analysis, one quick way to impute the
+missing data is to use the impute package.
+And to use the impute.knn function. So
+here, I've created a data matrix. Which,
+it has some missing values. And then I can
+use the impute.knn function applied to the
+data set with missing values. And return
+the completed data set which has imputed
+those data values. With a k nearest
+neighbors amputation approach. I'm not
+going to go into the details of the k
+nearest neighbors amputation approach
+here, but suffice it to say, it uses
+vectors and variables that are nearby,
+that are complete observations to impute
+the values that are missing in the data
+set. You can then perform the singular
+value decomposition on both the original
+data set and the data set that had missing
+values imputed with knn's neighbors and
+then plot the rate the first vector of
+both of those analysis. You can see that
+they're very, very similar to each other
+in other words by imputing and then
+convert performaing a singular value
+decomposition you get very similarl y
+results to what you would have gotten. If
+you had not impeded if you had the
+incomplete original data set. Of course,
+this is works in this, very contrived
+example. Very simple example. But, in
+general it might not always work,
+particularly if you have a large number of
+missing data, or if there's a pattern of
+missing data that's related to some of the
+variables that exist in. In your data set.
+So now I'm going to show you one quick
+example of why this sort of singular value
+decomposition can be very useful and cool.
+So what I'm going to do, is I'm going to
+actually use an example where I've
+downloaded a particular face data set from
+the course website. so i just cut off a
+little bit but i just saved this as a file
+face.rda in my folder data, data folder
+here. So then what i do is i load the face
+data using the load command and if i look
+at an image of that data i can actually
+see That this data matrix actually looks
+like a person's face. And so what this is,
+is actually a picture that has been, where
+all of the pixel's intensities have been
+saved into this data matrix. So if I
+perform a singular value decomposition on
+this face data set, and then I look at the
+percentage of variance explained, I can
+see that the first, second, third, fourth,
+and fifth variables all explain a large
+percentage of the. The variance.
+So, what I can do now is I can actually
+reconstruct versions of this fig, face
+where I only use first singular vector.
+Where I use the first 5 singular vectors
+to reconstruct the face or I use the first
+10 singular vectors to reconstruct the
+face. If I only use the first singular
+vector, I've actually reduced the amount
+of data I have to store, dramatically.
+Since I only have to store one right
+singular vector, and one left singular
+vector rather than the whole data set.
+Similarly if I only have to store 5 right
+singular vectors, and 5 left singular
+vectors, I've still reduced the amount of
+data that I have to store. And so I've
+actually compressed the information that I
+have on th is face.
+So to create the approximations, I first
+calculate the singular value
+decomposition. And then I perform a
+specific set of matrix multiplications
+that are represented by the matrix
+multiplication that I explained in math,
+earlier in the talk. So basically I take
+u, times v, times d. In the, in the, case
+of when you have multiple vectors, I
+actaully matrix multiply. U times a
+diagonal matrix with d on the diagonal and
+times the v matrix transposed. This
+exactly maps to the UDV transpose
+definition of the, singular value
+composition that I gave in the beginning
+of the talk. So I'm in approximation with
+one singular vector, with five singular
+vectors and with ten singular vectors, and
+I can show you what those look like in
+terms of images. So on the left here, you
+actually see the original image itself.
+The next picture over you see is the image
+that you get if you actually only include
+the top 10 singular vectors. So what we've
+done here is we've eliminated a lot of the
+data. And stored only a much smaller
+subset of the data. And you can see that
+you get very close to the original image
+itself. Remember that five singular
+vectors represented most of the variance
+in the image. And so if you use the first
+five singular vectors, you can actually
+reconstruct a very close approximation to
+the original face. Data set.
+If you only use one singular vector, you
+actually don't see the face very well at
+all, because all it captures is the fact
+that this part of the, image, actually has
+higher values than the other part. So,
+what you can see here is, as you increase
+the number of singular vectors that you
+use, you get closer and closer
+approximations, to the original face. So
+I've talked a lot about the singular value
+decomposition and principle component
+analysis. The right singular vectors of a
+data matrix or the left singular vectors
+of a data matrix can be used to represent
+common patterns in. In the data sets. But
+remember that the principle components or
+singular vectors may represent a mix of
+the real patterns that were used to
+generate the data set. So you would have
+to pay a little bit of attention, and be
+careful in interpreting singular vectors
+as corresponding to a particular observed
+variable. It can be computationally
+intensive, but I talked a little bit about
+the fast dot SVD function for making it a
+little bit faster when either the rows or
+columns are much, much larger. Here I
+pointed to a resource, Advanced Data
+Analysis from an Elementary Point of View,
+that goes into much more mathematical
+detail and much more detail about the
+singular value decomposition and principal
+component analysis, as well as a book,
+Elements and Machine. Learning that also
+covers a lot of those details. There are a
+large number of alternatives for dimension
+reduction and also for understanding
+patterns in a data set; including factor
+analysis, independent components analysis,
+or latent semantic analysis and I've given
+you links here to each of these different
+kinds of analysis in this file.

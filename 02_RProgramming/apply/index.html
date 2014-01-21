@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Introduction to the R Language</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Introduction to the R Language">
+  <meta name="author" content="Roger Peng, Associate Professor">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Introduction to the R Language</h1>
+        <h2>Loop Functions - apply</h2>
+        <p>Roger Peng, Associate Professor<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>apply</h2>
+  </hgroup>
+  <article>
+    <p><code>apply</code> is used to a evaluate a function (often an anonymous one) over the margins of an array.</p>
+
+<ul>
+<li><p>It is most often used to apply a function to the rows or columns of a matrix</p></li>
+<li><p>It can be used with general arrays, e.g. taking the average of an array of matrices </p></li>
+<li><p>It is not really faster than writing a loop, but it works in one line!</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>apply</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">&gt; str(apply)
+function (X, MARGIN, FUN, ...)
+</code></pre>
+
+<ul>
+<li><code>X</code> is an array</li>
+<li><code>MARGIN</code> is an integer vector indicating which margins should be “retained”. </li>
+<li><code>FUN</code> is a function to be applied</li>
+<li>... is for other arguments to be passed to <code>FUN</code></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>apply</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">&gt; x &lt;- matrix(rnorm(200), 20, 10)
+&gt; apply(x, 2, mean)
+ [1]  0.04868268  0.35743615 -0.09104379
+ [4] -0.05381370 -0.16552070 -0.18192493
+ [7]  0.10285727  0.36519270  0.14898850
+[10]  0.26767260
+
+&gt; apply(x, 1, sum)
+ [1] -1.94843314  2.60601195  1.51772391
+ [4] -2.80386816  3.73728682 -1.69371360
+ [7]  0.02359932  3.91874808 -2.39902859
+[10]  0.48685925 -1.77576824 -3.34016277
+[13]  4.04101009  0.46515429  1.83687755
+[16]  4.36744690  2.21993789  2.60983764
+[19] -1.48607630  3.58709251
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>col/row sums and means</h2>
+  </hgroup>
+  <article>
+    <p>For sums and means of matrix dimensions, we have some shortcuts.</p>
+
+<ul>
+<li><code>rowSums</code> = <code>apply(x, 1, sum)</code></li>
+<li><code>rowMeans</code> = <code>apply(x, 1, mean)</code></li>
+<li><code>colSums</code> = <code>apply(x, 2, sum)</code></li>
+<li><code>colMeans</code> = <code>apply(x, 2, mean)</code></li>
+</ul>
+
+<p>The shortcut functions are <em>much</em> faster, but you won’t notice unless you’re using a large matrix.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Other Ways to Apply</h2>
+  </hgroup>
+  <article>
+    <p>Quantiles of the rows of a matrix.</p>
+
+<pre><code class="r">&gt; x &lt;- matrix(rnorm(200), 20, 10)
+&gt; apply(x, 1, quantile, probs = c(0.25, 0.75))
+          [,1]        [,2]       [,3]        [,4]
+25% -0.3304284 -0.99812467 -0.9186279 -0.49711686
+75%  0.9258157  0.07065724  0.3050407 -0.06585436
+           [,5]       [,6]      [,7]       [,8]
+25% -0.05999553 -0.6588380 -0.653250 0.01749997
+75%  0.52928743  0.3727449  1.255089 0.72318419
+          [,9]      [,10]      [,11]      [,12]
+25% -1.2467955 -0.8378429 -1.0488430 -0.7054902
+75%  0.3352377  0.7297176  0.3113434  0.4581150
+         [,13]      [,14]      [,15]      [,16]
+25% -0.1895108 -0.5729407 -0.5968578 -0.9517069
+75%  0.5326299  0.5064267  0.4933852  0.8868922
+         [,17]      [,18]      [,19]     [,20]
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>apply</h2>
+  </hgroup>
+  <article>
+    <p>Average matrix in an array</p>
+
+<pre><code class="r">&gt; a &lt;- array(rnorm(2 * 2 * 10), c(2, 2, 10))
+&gt; apply(a, c(1, 2), mean)
+           [,1]        [,2]
+[1,] -0.2353245 -0.03980211
+[2,] -0.3339748  0.04364908
+
+&gt; rowMeans(a, dims = 2)
+           [,1]        [,2]
+[1,] -0.2353245 -0.03980211
+[2,] -0.3339748  0.04364908
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Example Git/GitHub Workflow</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Example Git/GitHub Workflow">
+  <meta name="author" content="Jeffrey Leek, Assistant Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Example Git/GitHub Workflow</h1>
+        <h2></h2>
+        <p>Jeffrey Leek, Assistant Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>An example workflow</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Feel free to create a test repo of your own (on your GitHub account) and follow along</li>
+<li>This is not meant to be an exhaustive introduction to all Git and GitHub features</li>
+<li>Best way to learn Git and GitHub are by using them</li>
+<li>If you get stuck, use the resources at the end of the last lecture</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Create a new repo on GitHub</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/01createNewRepo.png" height='400'/></p>
+
+<ul>
+<li>Leave the box next to &quot;Initialize this repository with a README&quot; <strong>unchecked</strong>, since we will add one later</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Copy repo URL to clipboard</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>After clicking &quot;create repository&quot;, you will get a screen with some basic instructions for getting started</li>
+<li>They are a good starting point, but we won&#39;t follow them exactly here</li>
+<li>Copy the URL displayed below to your clipboard (yours will be slightly different since it depends on your username and repo name)</li>
+</ul>
+
+<p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/02copyURL.png" height='160'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Create a new local directory</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Open Git Bash or Terminal (Windows or Mac, respectively) and create a new directory on your computer</li>
+<li>&quot;Step inside&quot; of this new directory with the <code>cd</code> command</li>
+<li><code>mkdir</code> stands for &quot;make directory&quot;, <code>cd</code> stands for &quot;change directory&quot;, and <code>ls</code> stands for &quot;list&quot;</li>
+<li>Since we get no output after typing <code>ls</code>, we can see that the directory we created is still empty</li>
+</ul>
+
+<p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/03makeDirectory.png" height='250'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Create a new file in directory</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Open your favorite text editor and create a new text file</li>
+<li>Make sure to save it in the directory you just created</li>
+</ul>
+
+<p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/04createFile1.png" height='100'/>
+<br>
+<img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/05saveFile.png" height='250'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Create a new repo locally</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>We already created a <strong>GitHub</strong> repository, but we still need to create a <strong>Git</strong> repository locally on your computer</li>
+<li>We can see that our new file is now in our chosen directory with <code>ls</code></li>
+<li><code>git init</code> initializes a Git repo in our current directory</li>
+<li><code>git status</code> is a helpful command that we&#39;ll make frequent use of
+
+<ul>
+<li>Does exactly what is sounds like -- gives us a &quot;status report&quot; for our local repo</li>
+</ul></li>
+</ul>
+
+<p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/06newFileStatus.png" height='250'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Stage file for commit</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Notice that our newly created file falls under &quot;untracked files&quot; when we look at <code>git status</code></li>
+<li>Use <code>git add</code> to tell Git that we want it to start &quot;paying attention&quot; to this file
+
+<ul>
+<li>Could have used <code>git add test_file.txt</code> for the same result, but <code>git add .</code> is often easier if you are okay tracking all currently untracked files</li>
+</ul></li>
+</ul>
+
+<p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/07gitAdd.png" height='350'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Commit changes</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Using <code>git commit</code> with a <code>-m</code> after it tells Git that whatever follows in double quotes is the message that we want to attach to this round of changes</li>
+<li>Another call to <code>git status</code> confirms that there is nothing new to commit (since our first commit)</li>
+</ul>
+
+<p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/08_01gitCommit.png" height='250'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Check log</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><code>git log</code> shows us a history of all commits</li>
+<li>So far, there&#39;s only one</li>
+</ul>
+
+<p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/08_02gitLog.png" height='250'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Add link to remote repo</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>We now have a remote repo on GitHub&#39;s servers and a local repo on our computer, but they still don&#39;t know about each other</li>
+<li>To establish a link between the two, we paste the URL copied earlier from GitHub as follows</li>
+</ul>
+
+<p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/09gitRemoteAdd.png" height='150'/></p>
+
+<ul>
+<li><code>git remote -v</code> shows us that our GitHub repo is now set up as a &quot;remote&quot; repository for our local repo, which allows the two repos to communicate</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Push changes to GitHub</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>We want our GitHub repo to reflect the changes we&#39;ve made locally (i.e. to contain our new text file)</li>
+<li><code>git push -u origin master</code> tells Git to push our changes to the &quot;master&quot; (or main) branch of the &quot;origin&quot; (or primary) remote</li>
+<li>You only need to include the <code>-u origin master</code> once, as Git will remember this configuration for future <code>push</code>es
+
+<ul>
+<li><code>git push</code> then becomes sufficient, assuming you don&#39;t want to do anything fancy</li>
+</ul></li>
+</ul>
+
+<p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/10gitPush.png" height='240'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Check status</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Check status again for piece of mind</li>
+<li>Notice that it confirms <em>Your branch is up-to-date with &#39;origin/master&#39;</em></li>
+</ul>
+
+<p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/11gitStatus.png" height='250'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Check GitHub</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>We want to make sure that our changes made it to GitHub safely and indeed they did</li>
+<li>Our text file shows up in the file list</li>
+</ul>
+
+<p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/12checkGitHub.png" height='300'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Add README file from GitHub</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>How can we can &quot;pull&quot; changes from a remote repository to our local repository?</li>
+<li>To illustrate, we&#39;ll add and edit a README file directly from the GitHub website </li>
+<li>A more common scenario would be that a collaborator makes changes to a shared repository and you want to incorporate those changes into your local repo</li>
+<li>Click on the &quot;Add a README&quot; button on your GitHub repo page, under the list of files</li>
+</ul>
+
+<p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/13_01addReadme.png" height='75'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Edit README file from GitHub</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Put anything you want in the README, then press &quot;Commit New File&quot; to commit the file to your GitHub repo</li>
+</ul>
+
+<p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/13_02editReadme.png" height='225'/>
+<br>
+<br>
+<img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/14commitNewFile.png" height='75'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Fetch changes from GitHub</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Now that README.md exists on GitHub, we want to &quot;pull&quot; it down to our local repo</li>
+<li>There is a <code>git pull</code> command that allows you to do this, but it&#39;s recommended that you instead use a combination of <code>git fetch</code> and <code>git merge</code></li>
+<li><code>git fetch origin</code> tells Git to fetch all changes from the &quot;origin&quot; (primary) remote repo, which we set up earlier with <code>git remote add origin ...</code></li>
+</ul>
+
+<p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/15gitFetch.png" height='300'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Merge changes into local repo</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Git is now aware of all changes that have been made to the remote (i.e. GitHub) repo</li>
+<li>Still need to incorporate these changes into our local repo</li>
+<li><code>git branch -a</code> shows us that we now have two &quot;branches&quot; stored on our computer: <code>master</code> and <code>remotes/origin/master</code></li>
+<li><code>master</code> represents the files on our local repo and <code>remotes/origin/master</code> represents the files we pulled from our remote repo</li>
+<li>Use <code>git merge origin/master</code> to incorporate the changes from our remote repo</li>
+</ul>
+
+<p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/16gitMerge.png" height='250'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Check status</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>A quick call to <code>ls</code> confirms that the README.md file is now in our local directory</li>
+<li><code>git status</code> tells us that we have no new changes and are up-to-date with our remote repo</li>
+</ul>
+
+<p><img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/17gitStatus.png" height='300'/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

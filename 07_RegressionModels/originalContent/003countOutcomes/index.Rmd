@@ -1,0 +1,262 @@
+---
+title       : Count outcomes
+subtitle    : 
+author      : Jeffrey Leek, Assistant Professor of Biostatistics 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## Key ideas
+
+* Many data take the form of counts
+  * Calls to a call center
+  * Number of flu cases in an area
+  * Number of cars that cross a bridge
+* Data may also be in the form of rates
+  * Percent of children passing a test
+  * Percent of hits to a website from a country
+* Linear regression with transformation is an option
+
+---
+
+## Poisson distribution
+
+```{r simPois,fig.height=4,fig.width=8, cache=TRUE}
+set.seed(3433); par(mfrow=c(1,2))
+poisData2 <- rpois(100,lambda=100); poisData1 <- rpois(100,lambda=50)
+hist(poisData1,col="blue",xlim=c(0,150)); hist(poisData2,col="blue",xlim=c(0,150))
+```
+
+---
+
+## Poisson distribution
+
+
+```{r dependson="simPois"}
+c(mean(poisData1),var(poisData1))
+c(mean(poisData2),var(poisData2))
+```
+
+---
+
+## Example: Leek Group Website Traffic
+
+<img class=center src=../../assets/img/leekgroup.png height=400>
+
+[http://biostat.jhsph.edu/~jleek/](http://biostat.jhsph.edu/~jleek/)
+
+---
+
+## Website data
+
+```{r leekLoad,cache=TRUE}
+download.file("https://dl.dropboxusercontent.com/u/7710864/data/gaData.rda",destfile="./data/gaData.rda",method="curl")
+load("./data/gaData.rda")
+gaData$julian <- julian(gaData$date)
+head(gaData)
+```
+
+[http://skardhamar.github.com/rga/](http://skardhamar.github.com/rga/)
+
+
+---
+
+## Plot data
+
+```{r, dependson="leekLoad",fig.height=4.5,fig.width=4.5}
+plot(gaData$julian,gaData$visits,pch=19,col="darkgrey",xlab="Julian",ylab="Visits")
+```
+
+
+---
+
+## Linear regression
+
+$$ NH_i = b_0 + b_1 JD_i + e_i $$
+
+$NH_i$ - number of hits to the website
+
+$JD_i$ - day of the year (Julian day)
+
+$b_0$ - number of hits on Julian day 0 (1970-01-01)
+
+$b_1$ - increase in number of hits per unit day
+
+$e_i$ - variation due to everything we didn't measure
+
+
+---
+
+## Linear regression line
+
+```{r linReg, dependson="leekLoad",fig.height=4,fig.width=4, cache=TRUE}
+plot(gaData$julian,gaData$visits,pch=19,col="darkgrey",xlab="Julian",ylab="Visits")
+lm1 <- lm(gaData$visits ~ gaData$julian)
+abline(lm1,col="red",lwd=3)
+```
+
+
+---
+
+## Linear vs. Poisson regression
+
+__Linear__
+
+$$ NH_i = b_0 + b_1 JD_i + e_i $$
+
+or
+
+$$ E[NH_i | JD_i, b_0, b_1] = b_0 + b_1 JD_i$$
+
+__Poisson/log-linear__
+
+$$ \log\left(E[NH_i | JD_i, b_0, b_1]\right) = b_0 + b_1 JD_i $$
+
+or
+
+$$ E[NH_i | JD_i, b_0, b_1] = \exp\left(b_0 + b_1 JD_i\right) $$
+
+
+---
+
+## Multiplicative differences
+
+<br><br>
+$$ E[NH_i | JD_i, b_0, b_1] = \exp\left(b_0 + b_1 JD_i\right) $$
+
+<br><br>
+
+$$ E[NH_i | JD_i, b_0, b_1] = \exp\left(b_0 \right)\exp\left(b_1 JD_i\right) $$
+
+<br><br>
+
+If $JD_i$ is increased by one unit, $E[NH_i | JD_i, b_0, b_1]$ is multiplied by $\exp\left(b_1\right)$
+
+---
+
+## Poisson regression in R
+
+```{r poisReg, dependson="linReg",fig.height=4.5,fig.width=4.5, cache=TRUE}
+plot(gaData$julian,gaData$visits,pch=19,col="darkgrey",xlab="Julian",ylab="Visits")
+glm1 <- glm(gaData$visits ~ gaData$julian,family="poisson")
+abline(lm1,col="red",lwd=3); lines(gaData$julian,glm1$fitted,col="blue",lwd=3)
+```
+
+
+---
+
+## Mean-variance relationship?
+
+```{r, dependson="poisReg",fig.height=4.5,fig.width=4.5}
+plot(glm1$fitted,glm1$residuals,pch=19,col="grey",ylab="Residuals",xlab="Date")
+```
+
+---
+
+## Model agnostic standard errors 
+
+```{r agnostic, dependson="poisReg",fig.height=4.5,fig.width=4.5,cache=TRUE}
+library(sandwich)
+confint.agnostic <- function (object, parm, level = 0.95, ...)
+{
+    cf <- coef(object); pnames <- names(cf)
+    if (missing(parm))
+        parm <- pnames
+    else if (is.numeric(parm))
+        parm <- pnames[parm]
+    a <- (1 - level)/2; a <- c(a, 1 - a)
+    pct <- stats:::format.perc(a, 3)
+    fac <- qnorm(a)
+    ci <- array(NA, dim = c(length(parm), 2L), dimnames = list(parm,
+                                                               pct))
+    ses <- sqrt(diag(sandwich::vcovHC(object)))[parm]
+    ci[] <- cf[parm] + ses %o% fac
+    ci
+}
+```
+[http://stackoverflow.com/questions/3817182/vcovhc-and-confidence-interval](http://stackoverflow.com/questions/3817182/vcovhc-and-confidence-interval)
+
+---
+
+## Estimating confidence intervals
+
+```{r, dependson="agnostic",fig.height=4.5,fig.width=4.5}
+confint(glm1)
+confint.agnostic(glm1)
+```
+
+
+---
+
+## Rates 
+
+
+<br><br>
+
+
+$$ E[NHSS_i | JD_i, b_0, b_1]/NH_i = \exp\left(b_0 + b_1 JD_i\right) $$
+
+<br><br>
+
+$$ \log\left(E[NHSS_i | JD_i, b_0, b_1]\right) - \log(NH_i)  =  b_0 + b_1 JD_i $$
+
+<br><br>
+
+$$ \log\left(E[NHSS_i | JD_i, b_0, b_1]\right) = \log(NH_i) + b_0 + b_1 JD_i $$
+
+---
+
+## Fitting rates in R 
+
+```{r ratesFit,dependson="agnostic", cache=TRUE,fig.height=4,fig.width=4}
+glm2 <- glm(gaData$simplystats ~ julian(gaData$date),offset=log(visits+1),
+            family="poisson",data=gaData)
+plot(julian(gaData$date),glm2$fitted,col="blue",pch=19,xlab="Date",ylab="Fitted Counts")
+points(julian(gaData$date),glm1$fitted,col="red",pch=19)
+```
+
+---
+
+## Fitting rates in R 
+
+```{r,dependson="ratesFit",fig.height=4,fig.width=4}
+glm2 <- glm(gaData$simplystats ~ julian(gaData$date),offset=log(visits+1),
+            family="poisson",data=gaData)
+plot(julian(gaData$date),gaData$simplystats/(gaData$visits+1),col="grey",xlab="Date",
+     ylab="Fitted Rates",pch=19)
+lines(julian(gaData$date),glm2$fitted/(gaData$visits+1),col="blue",lwd=3)
+```
+
+---
+
+## More information
+
+* [Log-linear models and multiway tables](http://ww2.coastal.edu/kingw/statistics/R-tutorials/loglin.html)
+* [Wikipedia on Poisson regression](http://en.wikipedia.org/wiki/Poisson_regression), [Wikipedia on overdispersion](http://en.wikipedia.org/wiki/Overdispersion)
+* [Regression models for count data in R](http://cran.r-project.org/web/packages/pscl/vignettes/countreg.pdf)
+* [pscl package](http://cran.r-project.org/web/packages/pscl/index.html) - the function _zeroinfl_ fits zero inflated models. 

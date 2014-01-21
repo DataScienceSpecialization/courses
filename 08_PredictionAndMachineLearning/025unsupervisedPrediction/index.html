@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Unsupervised prediction</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Unsupervised prediction">
+  <meta name="author" content="Jeffrey Leek, Assistant Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
+<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
+<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Unsupervised prediction</h1>
+        <h2></h2>
+        <p>Jeffrey Leek, Assistant Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Key ideas</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Sometimes you don&#39;t know the labels for prediction</li>
+<li>To build a predictor
+
+<ul>
+<li>Create clusters</li>
+<li>Name clusters</li>
+<li>Build predictor for clusters</li>
+</ul></li>
+<li>In a new data set
+
+<ul>
+<li>Predict clusters</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Iris example ignoring species labels</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">data(iris); library(ggplot2)
+inTrain &lt;- createDataPartition(y=iris$Species,
+                              p=0.7, list=FALSE)
+training &lt;- iris[inTrain,]
+testing &lt;- iris[-inTrain,]
+dim(training); dim(testing)
+</code></pre>
+
+<pre><code>[1] 45  5
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Cluster with k-means</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">kMeans1 &lt;- kmeans(subset(training,select=-c(Species)),centers=3)
+training$clusters &lt;- as.factor(kMeans1$cluster)
+qplot(Petal.Width,Petal.Length,colour=clusters,data=training)
+</code></pre>
+
+<div class="rimage center"><img src="fig/kmeans.png" title="plot of chunk kmeans" alt="plot of chunk kmeans" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Compare to real labels</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">table(kMeans1$cluster,training$Species)
+</code></pre>
+
+<pre><code>
+    setosa versicolor virginica
+  1      0          1        23
+  2     35          0         0
+  3      0         34        12
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Build predictor</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">modFit &lt;- train(clusters ~.,data=subset(training,select=-c(Species)),method=&quot;rpart&quot;)
+table(predict(modFit,training),training$Species)
+</code></pre>
+
+<pre><code>
+    setosa versicolor virginica
+  1      0          0        21
+  2     35          0         0
+  3      0         35        14
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Apply on test</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">testClusterPred &lt;- predict(modFit,testing) 
+table(testClusterPred ,testing$Species)
+</code></pre>
+
+<pre><code>
+testClusterPred setosa versicolor virginica
+              1      0          0        13
+              2     15          0         0
+              3      0         15         2
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Notes and further reading</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The cl_predict function in the clue package provides similar functionality</li>
+<li>Beware over-interpretation of clusters!</li>
+<li>This is one basic approach to <a href="http://en.wikipedia.org/wiki/Recommender_system">recommendation engines</a></li>
+<li><a href="http://www-stat.stanford.edu/%7Etibs/ElemStatLearn/">Elements of statistical learning</a></li>
+<li><a href="http://www-bcf.usc.edu/%7Egareth/ISL/">Introduction to statistical learning</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

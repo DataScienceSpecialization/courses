@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Count outcomes</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Count outcomes">
+  <meta name="author" content="Jeffrey Leek, Assistant Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="../../libraries/frameworks/io2012/js/slides" 
+    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+    <link rel="stylesheet" href = "../../assets/css/custom.css">
+<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+    <!-- END LOGO SLIDE -->
+    
+
+    <!-- TITLE SLIDE -->
+    <!-- Should I move this to a Local Layout File? -->
+    <slide class="title-slide segue nobackground">
+      <aside class="gdbar">
+        <img src="../../assets/img/bloomberg_shield.png">
+      </aside>
+      <hgroup class="auto-fadein">
+        <h1>Count outcomes</h1>
+        <h2></h2>
+        <p>Jeffrey Leek, Assistant Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+      </hgroup>
+          </slide>
+
+    <!-- SLIDES -->
+      <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Key ideas</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Many data take the form of counts
+
+<ul>
+<li>Calls to a call center</li>
+<li>Number of flu cases in an area</li>
+<li>Number of cars that cross a bridge</li>
+</ul></li>
+<li>Data may also be in the form of rates
+
+<ul>
+<li>Percent of children passing a test</li>
+<li>Percent of hits to a website from a country</li>
+</ul></li>
+<li>Linear regression with transformation is an option</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Poisson distribution</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">set.seed(3433); par(mfrow=c(1,2))
+poisData2 &lt;- rpois(100,lambda=100); poisData1 &lt;- rpois(100,lambda=50)
+hist(poisData1,col=&quot;blue&quot;,xlim=c(0,150)); hist(poisData2,col=&quot;blue&quot;,xlim=c(0,150))
+</code></pre>
+
+<div class="rimage center"><img src="fig/simPois.png" title="plot of chunk simPois" alt="plot of chunk simPois" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Poisson distribution</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">c(mean(poisData1),var(poisData1))
+</code></pre>
+
+<pre><code>[1] 49.85 49.38
+</code></pre>
+
+<pre><code class="r">c(mean(poisData2),var(poisData2))
+</code></pre>
+
+<pre><code>[1] 100.12  95.26
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Example: Leek Group Website Traffic</h2>
+  </hgroup>
+  <article>
+    <p><img class=center src=../../assets/img/leekgroup.png height=400></p>
+
+<p><a href="http://biostat.jhsph.edu/%7Ejleek/">http://biostat.jhsph.edu/~jleek/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Website data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">download.file(&quot;https://dl.dropboxusercontent.com/u/7710864/data/gaData.rda&quot;,destfile=&quot;./data/gaData.rda&quot;,method=&quot;curl&quot;)
+load(&quot;./data/gaData.rda&quot;)
+gaData$julian &lt;- julian(gaData$date)
+head(gaData)
+</code></pre>
+
+<pre><code>        date visits simplystats julian
+1 2011-01-01      0           0  14975
+2 2011-01-02      0           0  14976
+3 2011-01-03      0           0  14977
+4 2011-01-04      0           0  14978
+5 2011-01-05      0           0  14979
+6 2011-01-06      0           0  14980
+</code></pre>
+
+<p><a href="http://skardhamar.github.com/rga/">http://skardhamar.github.com/rga/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Plot data</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(gaData$julian,gaData$visits,pch=19,col=&quot;darkgrey&quot;,xlab=&quot;Julian&quot;,ylab=&quot;Visits&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Linear regression</h2>
+  </hgroup>
+  <article>
+    <p>\[ NH_i = b_0 + b_1 JD_i + e_i \]</p>
+
+<p>\(NH_i\) - number of hits to the website</p>
+
+<p>\(JD_i\) - day of the year (Julian day)</p>
+
+<p>\(b_0\) - number of hits on Julian day 0 (1970-01-01)</p>
+
+<p>\(b_1\) - increase in number of hits per unit day</p>
+
+<p>\(e_i\) - variation due to everything we didn&#39;t measure</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Linear regression line</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(gaData$julian,gaData$visits,pch=19,col=&quot;darkgrey&quot;,xlab=&quot;Julian&quot;,ylab=&quot;Visits&quot;)
+lm1 &lt;- lm(gaData$visits ~ gaData$julian)
+abline(lm1,col=&quot;red&quot;,lwd=3)
+</code></pre>
+
+<div class="rimage center"><img src="fig/linReg.png" title="plot of chunk linReg" alt="plot of chunk linReg" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Linear vs. Poisson regression</h2>
+  </hgroup>
+  <article>
+    <p><strong>Linear</strong></p>
+
+<p>\[ NH_i = b_0 + b_1 JD_i + e_i \]</p>
+
+<p>or</p>
+
+<p>\[ E[NH_i | JD_i, b_0, b_1] = b_0 + b_1 JD_i\]</p>
+
+<p><strong>Poisson/log-linear</strong></p>
+
+<p>\[ \log\left(E[NH_i | JD_i, b_0, b_1]\right) = b_0 + b_1 JD_i \]</p>
+
+<p>or</p>
+
+<p>\[ E[NH_i | JD_i, b_0, b_1] = \exp\left(b_0 + b_1 JD_i\right) \]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Multiplicative differences</h2>
+  </hgroup>
+  <article>
+    <p><br><br>
+\[ E[NH_i | JD_i, b_0, b_1] = \exp\left(b_0 + b_1 JD_i\right) \]</p>
+
+<p><br><br></p>
+
+<p>\[ E[NH_i | JD_i, b_0, b_1] = \exp\left(b_0 \right)\exp\left(b_1 JD_i\right) \]</p>
+
+<p><br><br></p>
+
+<p>If \(JD_i\) is increased by one unit, \(E[NH_i | JD_i, b_0, b_1]\) is multiplied by \(\exp\left(b_1\right)\)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Poisson regression in R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(gaData$julian,gaData$visits,pch=19,col=&quot;darkgrey&quot;,xlab=&quot;Julian&quot;,ylab=&quot;Visits&quot;)
+glm1 &lt;- glm(gaData$visits ~ gaData$julian,family=&quot;poisson&quot;)
+abline(lm1,col=&quot;red&quot;,lwd=3); lines(gaData$julian,glm1$fitted,col=&quot;blue&quot;,lwd=3)
+</code></pre>
+
+<div class="rimage center"><img src="fig/poisReg.png" title="plot of chunk poisReg" alt="plot of chunk poisReg" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Mean-variance relationship?</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">plot(glm1$fitted,glm1$residuals,pch=19,col=&quot;grey&quot;,ylab=&quot;Residuals&quot;,xlab=&quot;Date&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Model agnostic standard errors</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">library(sandwich)
+confint.agnostic &lt;- function (object, parm, level = 0.95, ...)
+{
+    cf &lt;- coef(object); pnames &lt;- names(cf)
+    if (missing(parm))
+        parm &lt;- pnames
+    else if (is.numeric(parm))
+        parm &lt;- pnames[parm]
+    a &lt;- (1 - level)/2; a &lt;- c(a, 1 - a)
+    pct &lt;- stats:::format.perc(a, 3)
+    fac &lt;- qnorm(a)
+    ci &lt;- array(NA, dim = c(length(parm), 2L), dimnames = list(parm,
+                                                               pct))
+    ses &lt;- sqrt(diag(sandwich::vcovHC(object)))[parm]
+    ci[] &lt;- cf[parm] + ses %o% fac
+    ci
+}
+</code></pre>
+
+<p><a href="http://stackoverflow.com/questions/3817182/vcovhc-and-confidence-interval">http://stackoverflow.com/questions/3817182/vcovhc-and-confidence-interval</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Estimating confidence intervals</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">confint(glm1)
+</code></pre>
+
+<pre><code>                  2.5 %     97.5 %
+(Intercept)   -34.34658 -31.159716
+gaData$julian   0.00219   0.002396
+</code></pre>
+
+<pre><code class="r">confint.agnostic(glm1)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Rates</h2>
+  </hgroup>
+  <article>
+    <p><br><br></p>
+
+<p>\[ E[NHSS_i | JD_i, b_0, b_1]/NH_i = \exp\left(b_0 + b_1 JD_i\right) \]</p>
+
+<p><br><br></p>
+
+<p>\[ \log\left(E[NHSS_i | JD_i, b_0, b_1]\right) - \log(NH_i)  =  b_0 + b_1 JD_i \]</p>
+
+<p><br><br></p>
+
+<p>\[ \log\left(E[NHSS_i | JD_i, b_0, b_1]\right) = \log(NH_i) + b_0 + b_1 JD_i \]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Fitting rates in R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">glm2 &lt;- glm(gaData$simplystats ~ julian(gaData$date),offset=log(visits+1),
+            family=&quot;poisson&quot;,data=gaData)
+plot(julian(gaData$date),glm2$fitted,col=&quot;blue&quot;,pch=19,xlab=&quot;Date&quot;,ylab=&quot;Fitted Counts&quot;)
+points(julian(gaData$date),glm1$fitted,col=&quot;red&quot;,pch=19)
+</code></pre>
+
+<div class="rimage center"><img src="fig/ratesFit.png" title="plot of chunk ratesFit" alt="plot of chunk ratesFit" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Fitting rates in R</h2>
+  </hgroup>
+  <article>
+    <pre><code class="r">glm2 &lt;- glm(gaData$simplystats ~ julian(gaData$date),offset=log(visits+1),
+            family=&quot;poisson&quot;,data=gaData)
+plot(julian(gaData$date),gaData$simplystats/(gaData$visits+1),col=&quot;grey&quot;,xlab=&quot;Date&quot;,
+     ylab=&quot;Fitted Rates&quot;,pch=19)
+lines(julian(gaData$date),glm2$fitted/(gaData$visits+1),col=&quot;blue&quot;,lwd=3)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>More information</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><a href="http://ww2.coastal.edu/kingw/statistics/R-tutorials/loglin.html">Log-linear models and multiway tables</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Poisson_regression">Wikipedia on Poisson regression</a>, <a href="http://en.wikipedia.org/wiki/Overdispersion">Wikipedia on overdispersion</a></li>
+<li><a href="http://cran.r-project.org/web/packages/pscl/vignettes/countreg.pdf">Regression models for count data in R</a></li>
+<li><a href="http://cran.r-project.org/web/packages/pscl/index.html">pscl package</a> - the function <em>zeroinfl</em> fits zero inflated models. </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+
+  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+<!-- Grab CDN jQuery, fall back to local if offline -->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
+<!-- Load Javascripts for Widgets -->
+<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script> -->
+<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+</html>

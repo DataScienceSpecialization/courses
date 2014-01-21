@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -27,16 +27,7 @@ mode        : selfcontained # {standalone, draft}
 
 ## Example
 ### Find the center of mass of the bars
-
-```r
-library(UsingR)
-data(galton)
-par(mfrow = c(1, 2))
-hist(galton$child, col = "blue", breaks = 100)
-hist(galton$parent, col = "blue", breaks = 100)
-```
-
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1.png) 
+![plot of chunk unnamed-chunk-1](assets/fig/unnamed-chunk-1.png) 
 
 
 ---
@@ -62,7 +53,7 @@ meanChild <- mean(galton$child)
 lines(rep(meanChild, 100), seq(0, 150, length = 100), col = "red", lwd = 5)
 ```
 
-![plot of chunk lsm](figure/lsm.png) 
+![plot of chunk lsm](assets/fig/lsm.png) 
 
 
 ---
@@ -75,7 +66,7 @@ lines(rep(meanChild, 100), seq(0, 150, length = 100), col = "red", lwd = 5)
     $$
 - Note, if thought about geometrically, this answer is obvious; if two equal weights are spaced at 0 and 1, the center of mass will be $.5$
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
+![plot of chunk unnamed-chunk-2](assets/fig/unnamed-chunk-2.png) 
 
 ---
 
@@ -108,7 +99,7 @@ lines(rep(meanChild, 100), seq(0, 150, length = 100), col = "red", lwd = 5)
 - Consider a density where $f(x) = 1$ for $x$ between zero and one
 - (Is this a valid density?)
 - Suppose that $X$ follows this density; what is its expected value?  
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
+![plot of chunk unnamed-chunk-3](assets/fig/unnamed-chunk-3.png) 
 
 
 ---
@@ -161,7 +152,7 @@ $$
 
 ## The variance
 
-- The variance of a random variable is a measure of {\em spread}
+- The variance of a random variable is a measure of *spread*
 - If $X$ is a random variable with mean $\mu$, the variance of $X$ is defined as
 
 $$
@@ -240,3 +231,4 @@ $$
 - A former buzz phrase in industrial quality control is Motorola's "Six Sigma" whereby businesses are suggested to control extreme events or rare defective parts
 - Chebyshev's inequality states that the probability of a "Six Sigma" event is less than $1/6^2 \approx 3\%$
 - If a bell curve is assumed, the probability of a "six sigma" event is on the order of $10^{-9}$ (one ten millionth of a percent)
+

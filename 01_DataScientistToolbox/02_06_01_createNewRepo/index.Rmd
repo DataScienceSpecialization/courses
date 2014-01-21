@@ -74,7 +74,7 @@ __...OR...__
 ```
 $ mkdir ~/test-repo
 ```
-* Note: The tilda (`~`) symbol refers to your "home" directory, so this will create a directory called `test-repo` in your home directory
+* Note: The tilde (`~`) symbol refers to your "home" directory, so this will create a directory called `test-repo` in your home directory
 * Navigate to this new directory using the following command (`cd` stands for "change directory"):
 
 ```

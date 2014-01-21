@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -196,13 +196,21 @@ $$
 
 ```r
 data(father.son)
-hist(father.son$sheight, col = "lightblue", border = "black")
 x <- father.son$sheight
 n <- length(x)
-c(sum((x - mean(x))^2)/(n - 1), var(x), var(x)/n, sd(x), sd(x)/sqrt(n))
+```
+
+
+---
+![plot of chunk unnamed-chunk-2](assets/fig/unnamed-chunk-2.png) 
+
+
+```r
+round(c(sum((x - mean(x))^2)/(n - 1), var(x), var(x)/n, sd(x), sd(x)/sqrt(n)), 
+    2)
 ```
 
 ```
-## [1] 7.922545 7.922545 0.007349 2.814702 0.085728
+## [1] 7.92 7.92 0.01 2.81 0.09
 ```
 

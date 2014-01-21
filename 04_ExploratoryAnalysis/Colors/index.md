@@ -1,7 +1,7 @@
 ---
 title       : Plotting and Color in R
-subtitle    : Computing for Data Analysis
-author      : Roger Peng, Associate Professor
+subtitle    : 
+author      : Roger D. Peng, Associate Professor of Biostatistics
 job         : Johns Hopkins Bloomberg School of Public Health
 logo        : bloomberg_shield.png
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}

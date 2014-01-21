@@ -1,53 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Count outcomes</title>
+  <title>Count outcomes, Poisson GLMs</title>
   <meta charset="utf-8">
-  <meta name="description" content="Count outcomes">
-  <meta name="author" content="Jeffrey Leek, Assistant Professor of Biostatistics">
+  <meta name="description" content="Count outcomes, Poisson GLMs">
+  <meta name="author" content="Brian Caffo, Jeffrey Leek, Roger Peng">
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
     media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../libraries/frameworks/io2012/js/slides" 
-    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-    <link rel="stylesheet" href = "../../assets/css/custom.css">
-<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+  
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
     
     <!-- LOGO SLIDE -->
-    <!-- END LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Count outcomes, Poisson GLMs</h1>
+    <h2>Regression Models</h2>
+    <p>Brian Caffo, Jeffrey Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
     
 
-    <!-- TITLE SLIDE -->
-    <!-- Should I move this to a Local Layout File? -->
-    <slide class="title-slide segue nobackground">
-      <aside class="gdbar">
-        <img src="../../assets/img/bloomberg_shield.png">
-      </aside>
-      <hgroup class="auto-fadein">
-        <h1>Count outcomes</h1>
-        <h2></h2>
-        <p>Jeffrey Leek, Assistant Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
-      </hgroup>
-          </slide>
-
     <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
+    <slide class="" id="slide-1" style="background:;">
   <hgroup>
     <h2>Key ideas</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Many data take the form of counts
 
@@ -69,14 +69,54 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-2" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
     <h2>Poisson distribution</h2>
   </hgroup>
-  <article>
-    <pre><code class="r">set.seed(3433); par(mfrow=c(1,2))
-poisData2 &lt;- rpois(100,lambda=100); poisData1 &lt;- rpois(100,lambda=50)
-hist(poisData1,col=&quot;blue&quot;,xlim=c(0,150)); hist(poisData2,col=&quot;blue&quot;,xlim=c(0,150))
+  <article data-timings="">
+    <ul>
+<li>The Poisson distribution is a useful model for counts and rates</li>
+<li>Here a rate is count per some monitoring time</li>
+<li>Some examples uses of the Poisson distribution
+
+<ul>
+<li>Modeling web traffic hits</li>
+<li>Incidence rates</li>
+<li>Approximating binomial probabilities with small \(p\) and large \(n\)</li>
+<li>Analyzing contigency table data</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>The Poisson mass function</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>\(X \sim Poisson(t\lambda)\) if
+\[
+P(X = x) = \frac{(t\lambda)^x e^{-t\lambda}}{x!}
+\]
+For \(x = 0, 1, \ldots\).</li>
+<li>The mean of the Poisson is \(E[X] = t\lambda\), thus \(E[X / t] = \lambda\)</li>
+<li>The variance of the Poisson is \(Var(X) = t\lambda\).</li>
+<li>The Poisson tends to a normal as \(t\lambda\) gets large.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">par(mfrow = c(1, 3))
+plot(0 : 10, dpois(0 : 10, lambda = 2), type = &quot;h&quot;, frame = FALSE)
+plot(0 : 20, dpois(0 : 20, lambda = 10), type = &quot;h&quot;, frame = FALSE)
+plot(0 : 200, dpois(0 : 200, lambda = 100), type = &quot;h&quot;, frame = FALSE) 
 </code></pre>
 
 <div class="rimage center"><img src="fig/simPois.png" title="plot of chunk simPois" alt="plot of chunk simPois" class="plot" /></div>
@@ -85,45 +125,52 @@ hist(poisData1,col=&quot;blue&quot;,xlim=c(0,150)); hist(poisData2,col=&quot;blu
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>Poisson distribution</h2>
   </hgroup>
-  <article>
-    <pre><code class="r">c(mean(poisData1),var(poisData1))
+  <article data-timings="">
+    <h3>Sort of, showing that the mean and variance are equal</h3>
+
+<pre><code class="r">x &lt;- 0 : 10000; lambda = 3
+mu &lt;- sum(x * dpois(x, lambda = lambda))
+sigmasq &lt;- sum((x - mu)^2 * dpois(x, lambda = lambda))
+c(mu, sigmasq)
 </code></pre>
 
-<pre><code>[1] 49.85 49.38
-</code></pre>
-
-<pre><code class="r">c(mean(poisData2),var(poisData2))
-</code></pre>
-
-<pre><code>[1] 100.12  95.26
+<pre><code>[1] 3 3
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Example: Leek Group Website Traffic</h2>
   </hgroup>
-  <article>
-    <p><img class=center src=../../assets/img/leekgroup.png height=400></p>
+  <article data-timings="">
+    <ul>
+<li>Consider the daily counts to Jeff Leek&#39;s web site</li>
+</ul>
 
 <p><a href="http://biostat.jhsph.edu/%7Ejleek/">http://biostat.jhsph.edu/~jleek/</a></p>
+
+<ul>
+<li>Since the unit of time is always one day, set \(t = 1\) and then
+the Poisson mean is interpretted as web hits per day. (If we set \(t = 24\), it would
+be web hits per hour).</li>
+</ul>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>Website data</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">download.file(&quot;https://dl.dropboxusercontent.com/u/7710864/data/gaData.rda&quot;,destfile=&quot;./data/gaData.rda&quot;,method=&quot;curl&quot;)
 load(&quot;./data/gaData.rda&quot;)
 gaData$julian &lt;- julian(gaData$date)
@@ -145,11 +192,11 @@ head(gaData)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>Plot data</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">plot(gaData$julian,gaData$visits,pch=19,col=&quot;darkgrey&quot;,xlab=&quot;Julian&quot;,ylab=&quot;Visits&quot;)
 </code></pre>
 
@@ -159,11 +206,11 @@ head(gaData)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>Linear regression</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>\[ NH_i = b_0 + b_1 JD_i + e_i \]</p>
 
 <p>\(NH_i\) - number of hits to the website</p>
@@ -180,11 +227,11 @@ head(gaData)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Linear regression line</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">plot(gaData$julian,gaData$visits,pch=19,col=&quot;darkgrey&quot;,xlab=&quot;Julian&quot;,ylab=&quot;Visits&quot;)
 lm1 &lt;- lm(gaData$visits ~ gaData$julian)
 abline(lm1,col=&quot;red&quot;,lwd=3)
@@ -196,11 +243,66 @@ abline(lm1,col=&quot;red&quot;,lwd=3)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Aside, taking the log of the outcome</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Taking the natural log of the outcome has a specific interpretation.</li>
+<li>Consider the model</li>
+</ul>
+
+<p>\[ \log(NH_i) = b_0 + b_1 JD_i + e_i \]</p>
+
+<p>\(NH_i\) - number of hits to the website</p>
+
+<p>\(JD_i\) - day of the year (Julian day)</p>
+
+<p>\(b_0\) - log number of hits on Julian day 0 (1970-01-01)</p>
+
+<p>\(b_1\) - increase in log number of hits per unit day</p>
+
+<p>\(e_i\) - variation due to everything we didn&#39;t measure</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Exponentiating coefficients</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>\(e^{E[\log(Y)]}\) geometric mean of \(Y\). 
+
+<ul>
+<li>With no covariates, this is estimated by \(e^{\frac{1}{n}\sum_{i=1}^n \log(y_i)} = (\prod_{i=1}^n y_i)^{1/n}\)</li>
+</ul></li>
+<li>When you take the natural log of outcomes and fit a regression model, your exponentiated coefficients
+estimate things about geometric means.</li>
+<li>\(e^{\beta_0}\) estimated geometric mean hits on day 0</li>
+<li>\(e^{\beta_1}\) estimated relative increase or decrease in geometric mean hits per day</li>
+<li>There&#39;s a problem with logs with you have zero counts, adding a constant works</li>
+</ul>
+
+<pre><code class="r">round(exp(coef(lm(I(log(gaData$visits + 1)) ~ gaData$julian))), 5)
+</code></pre>
+
+<pre><code>  (Intercept) gaData$julian 
+        0.000         1.002 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
   <hgroup>
     <h2>Linear vs. Poisson regression</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><strong>Linear</strong></p>
 
 <p>\[ NH_i = b_0 + b_1 JD_i + e_i \]</p>
@@ -221,11 +323,11 @@ abline(lm1,col=&quot;red&quot;,lwd=3)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>Multiplicative differences</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><br><br>
 \[ E[NH_i | JD_i, b_0, b_1] = \exp\left(b_0 + b_1 JD_i\right) \]</p>
 
@@ -241,11 +343,11 @@ abline(lm1,col=&quot;red&quot;,lwd=3)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>Poisson regression in R</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">plot(gaData$julian,gaData$visits,pch=19,col=&quot;darkgrey&quot;,xlab=&quot;Julian&quot;,ylab=&quot;Visits&quot;)
 glm1 &lt;- glm(gaData$visits ~ gaData$julian,family=&quot;poisson&quot;)
 abline(lm1,col=&quot;red&quot;,lwd=3); lines(gaData$julian,glm1$fitted,col=&quot;blue&quot;,lwd=3)
@@ -257,25 +359,25 @@ abline(lm1,col=&quot;red&quot;,lwd=3); lines(gaData$julian,glm1$fitted,col=&quot
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-16" style="background:;">
   <hgroup>
     <h2>Mean-variance relationship?</h2>
   </hgroup>
-  <article>
-    <pre><code class="r">plot(glm1$fitted,glm1$residuals,pch=19,col=&quot;grey&quot;,ylab=&quot;Residuals&quot;,xlab=&quot;Date&quot;)
+  <article data-timings="">
+    <pre><code class="r">plot(glm1$fitted,glm1$residuals,pch=19,col=&quot;grey&quot;,ylab=&quot;Residuals&quot;,xlab=&quot;Fitted&quot;)
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-17" style="background:;">
   <hgroup>
     <h2>Model agnostic standard errors</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">library(sandwich)
 confint.agnostic &lt;- function (object, parm, level = 0.95, ...)
 {
@@ -301,11 +403,11 @@ confint.agnostic &lt;- function (object, parm, level = 0.95, ...)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-18" style="background:;">
   <hgroup>
     <h2>Estimating confidence intervals</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">confint(glm1)
 </code></pre>
 
@@ -317,15 +419,20 @@ gaData$julian   0.00219   0.002396
 <pre><code class="r">confint.agnostic(glm1)
 </code></pre>
 
+<pre><code>                   2.5 %     97.5 %
+(Intercept)   -36.362675 -29.136997
+gaData$julian   0.002058   0.002528
+</code></pre>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-19" style="background:;">
   <hgroup>
     <h2>Rates</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><br><br></p>
 
 <p>\[ E[NHSS_i | JD_i, b_0, b_1]/NH_i = \exp\left(b_0 + b_1 JD_i\right) \]</p>
@@ -342,11 +449,11 @@ gaData$julian   0.00219   0.002396
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-20" style="background:;">
   <hgroup>
     <h2>Fitting rates in R</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">glm2 &lt;- glm(gaData$simplystats ~ julian(gaData$date),offset=log(visits+1),
             family=&quot;poisson&quot;,data=gaData)
 plot(julian(gaData$date),glm2$fitted,col=&quot;blue&quot;,pch=19,xlab=&quot;Date&quot;,ylab=&quot;Fitted Counts&quot;)
@@ -359,11 +466,11 @@ points(julian(gaData$date),glm1$fitted,col=&quot;red&quot;,pch=19)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-17" style="background:;">
+<slide class="" id="slide-21" style="background:;">
   <hgroup>
     <h2>Fitting rates in R</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">glm2 &lt;- glm(gaData$simplystats ~ julian(gaData$date),offset=log(visits+1),
             family=&quot;poisson&quot;,data=gaData)
 plot(julian(gaData$date),gaData$simplystats/(gaData$visits+1),col=&quot;grey&quot;,xlab=&quot;Date&quot;,
@@ -371,17 +478,17 @@ plot(julian(gaData$date),gaData$simplystats/(gaData$visits+1),col=&quot;grey&quo
 lines(julian(gaData$date),glm2$fitted/(gaData$visits+1),col=&quot;blue&quot;,lwd=3)
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+<div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-18" style="background:;">
+<slide class="" id="slide-22" style="background:;">
   <hgroup>
     <h2>More information</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><a href="http://ww2.coastal.edu/kingw/statistics/R-tutorials/loglin.html">Log-linear models and multiway tables</a></li>
 <li><a href="http://en.wikipedia.org/wiki/Poisson_regression">Wikipedia on Poisson regression</a>, <a href="http://en.wikipedia.org/wiki/Overdispersion">Wikipedia on overdispersion</a></li>
@@ -395,34 +502,167 @@ lines(julian(gaData$date),glm2$fitted/(gaData$visits+1),col=&quot;blue&quot;,lwd
 
     <slide class="backdrop"></slide>
   </slides>
-
-  <!--[if IE]>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Key ideas'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Poisson distribution'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='The Poisson mass function'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title=''>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Poisson distribution'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Example: Leek Group Website Traffic'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Website data'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Plot data'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Linear regression'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Linear regression line'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Aside, taking the log of the outcome'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Exponentiating coefficients'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Linear vs. Poisson regression'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Multiplicative differences'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Poisson regression in R'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Mean-variance relationship?'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Model agnostic standard errors'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Estimating confidence intervals'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Rates'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Fitting rates in R'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='Fitting rates in R'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='More information'>
+         22
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
     <script 
       src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
 </body>
-<!-- Grab CDN jQuery, fall back to local if offline -->
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
-<!-- Load Javascripts for Widgets -->
-<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> -->
-<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
 </script>
 <!-- LOAD HIGHLIGHTER JS FILES -->
-<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- DONE LOADING HIGHLIGHTER JS FILES -->
-</html>
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

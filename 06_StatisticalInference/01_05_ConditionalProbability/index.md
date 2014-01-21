@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -166,3 +166,4 @@ $$
 - $DLR_- = (1 - .997) / .985  \approx .003$
 - Therefore, the post-test odds of disease is now $.3\%$ of the pretest odds given the negative test.
 - Or, the hypothesis of disease is supported $.003$ times that of the hypothesis of absence of disease given the negative test result
+

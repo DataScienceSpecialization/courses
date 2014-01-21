@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -27,7 +27,7 @@ mode        : selfcontained # {standalone, draft}
 
 ## Example
 ### Find the center of mass of the bars
-```{r ,fig.height=3.5,fig.width=8, fig.align='center'}
+```{r ,fig.height=3.5,fig.width=8, fig.align='center', echo = FALSE}
 library(UsingR); data(galton)
 par(mfrow=c(1,2))
 hist(galton$child,col="blue",breaks=100)
@@ -156,7 +156,7 @@ $$
 
 ## The variance
 
-- The variance of a random variable is a measure of {\em spread}
+- The variance of a random variable is a measure of *spread*
 - If $X$ is a random variable with mean $\mu$, the variance of $X$ is defined as
 
 $$
@@ -235,3 +235,4 @@ $$
 - A former buzz phrase in industrial quality control is Motorola's "Six Sigma" whereby businesses are suggested to control extreme events or rare defective parts
 - Chebyshev's inequality states that the probability of a "Six Sigma" event is less than $1/6^2 \approx 3\%$
 - If a bell curve is assumed, the probability of a "six sigma" event is on the order of $10^{-9}$ (one ten millionth of a percent)
+

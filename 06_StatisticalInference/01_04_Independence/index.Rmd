@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -193,8 +193,16 @@ $$
 
 ---
 ## Example
-```{r, fig.height=3, fig.width=3}
-data(father.son); hist(father.son$sheight, col="lightblue", border="black")
-x <- father.son$sheight; n<-length(x)
-c(sum( (x - mean(x) )^ 2) / (n-1), var(x), var(x) / n, sd(x), sd(x) / sqrt(n))
+```{r}
+data(father.son); 
+x <- father.son$sheight
+n<-length(x)
+```
+
+---
+```{r, fig.height=5, fig.width=5, echo=FALSE}
+hist(father.son$sheight, col="lightblue", border="black")
+```
+```{r}
+round(c(sum( (x - mean(x) )^ 2) / (n-1), var(x), var(x) / n, sd(x), sd(x) / sqrt(n)),2)
 ```

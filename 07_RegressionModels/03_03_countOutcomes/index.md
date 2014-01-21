@@ -1,14 +1,14 @@
 ---
-title       : Count outcomes
-subtitle    : 
-author      : Jeffrey Leek, Assistant Professor of Biostatistics 
+title       : Count outcomes, Poisson GLMs
+subtitle    : Regression Models
+author      : Brian Caffo, Jeffrey Leek, Roger Peng 
 job         : Johns Hopkins Bloomberg School of Public Health
 logo        : bloomberg_shield.png
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -32,12 +32,33 @@ mode        : selfcontained # {standalone, draft}
 ---
 
 ## Poisson distribution
+- The Poisson distribution is a useful model for counts and rates
+- Here a rate is count per some monitoring time
+- Some examples uses of the Poisson distribution
+    - Modeling web traffic hits
+    - Incidence rates
+    - Approximating binomial probabilities with small $p$ and large $n$
+    - Analyzing contigency table data
+
+---
+## The Poisson mass function
+- $X \sim Poisson(t\lambda)$ if
+$$
+P(X = x) = \frac{(t\lambda)^x e^{-t\lambda}}{x!}
+$$
+For $x = 0, 1, \ldots$.
+- The mean of the Poisson is $E[X] = t\lambda$, thus $E[X / t] = \lambda$
+- The variance of the Poisson is $Var(X) = t\lambda$.
+- The Poisson tends to a normal as $t\lambda$ gets large.
+
+---
 
 
 ```r
-set.seed(3433); par(mfrow=c(1,2))
-poisData2 <- rpois(100,lambda=100); poisData1 <- rpois(100,lambda=50)
-hist(poisData1,col="blue",xlim=c(0,150)); hist(poisData2,col="blue",xlim=c(0,150))
+par(mfrow = c(1, 3))
+plot(0 : 10, dpois(0 : 10, lambda = 2), type = "h", frame = FALSE)
+plot(0 : 20, dpois(0 : 20, lambda = 10), type = "h", frame = FALSE)
+plot(0 : 200, dpois(0 : 200, lambda = 100), type = "h", frame = FALSE) 
 ```
 
 <div class="rimage center"><img src="fig/simPois.png" title="plot of chunk simPois" alt="plot of chunk simPois" class="plot" /></div>
@@ -46,33 +67,30 @@ hist(poisData1,col="blue",xlim=c(0,150)); hist(poisData2,col="blue",xlim=c(0,150
 ---
 
 ## Poisson distribution
-
-
-
-```r
-c(mean(poisData1),var(poisData1))
-```
-
-```
-[1] 49.85 49.38
-```
+### Sort of, showing that the mean and variance are equal
 
 ```r
-c(mean(poisData2),var(poisData2))
+x <- 0 : 10000; lambda = 3
+mu <- sum(x * dpois(x, lambda = lambda))
+sigmasq <- sum((x - mu)^2 * dpois(x, lambda = lambda))
+c(mu, sigmasq)
 ```
 
 ```
-[1] 100.12  95.26
+[1] 3 3
 ```
 
 
 ---
 
 ## Example: Leek Group Website Traffic
-
-<img class=center src=../../assets/img/leekgroup.png height=400>
+* Consider the daily counts to Jeff Leek's web site
 
 [http://biostat.jhsph.edu/~jleek/](http://biostat.jhsph.edu/~jleek/)
+
+* Since the unit of time is always one day, set $t = 1$ and then
+the Poisson mean is interpretted as web hits per day. (If we set $t = 24$, it would
+be web hits per hour).
 
 ---
 
@@ -143,6 +161,42 @@ abline(lm1,col="red",lwd=3)
 
 <div class="rimage center"><img src="fig/linReg.png" title="plot of chunk linReg" alt="plot of chunk linReg" class="plot" /></div>
 
+---
+
+## Aside, taking the log of the outcome
+- Taking the natural log of the outcome has a specific interpretation.
+- Consider the model
+
+$$ \log(NH_i) = b_0 + b_1 JD_i + e_i $$
+
+$NH_i$ - number of hits to the website
+
+$JD_i$ - day of the year (Julian day)
+
+$b_0$ - log number of hits on Julian day 0 (1970-01-01)
+
+$b_1$ - increase in log number of hits per unit day
+
+$e_i$ - variation due to everything we didn't measure
+
+---
+## Exponentiating coefficients
+- $e^{E[\log(Y)]}$ geometric mean of $Y$. 
+    - With no covariates, this is estimated by $e^{\frac{1}{n}\sum_{i=1}^n \log(y_i)} = (\prod_{i=1}^n y_i)^{1/n}$
+- When you take the natural log of outcomes and fit a regression model, your exponentiated coefficients
+estimate things about geometric means.
+- $e^{\beta_0}$ estimated geometric mean hits on day 0
+- $e^{\beta_1}$ estimated relative increase or decrease in geometric mean hits per day
+- There's a problem with logs with you have zero counts, adding a constant works
+
+```r
+round(exp(coef(lm(I(log(gaData$visits + 1)) ~ gaData$julian))), 5)
+```
+
+```
+  (Intercept) gaData$julian 
+        0.000         1.002 
+```
 
 
 ---
@@ -202,10 +256,10 @@ abline(lm1,col="red",lwd=3); lines(gaData$julian,glm1$fitted,col="blue",lwd=3)
 
 
 ```r
-plot(glm1$fitted,glm1$residuals,pch=19,col="grey",ylab="Residuals",xlab="Date")
+plot(glm1$fitted,glm1$residuals,pch=19,col="grey",ylab="Residuals",xlab="Fitted")
 ```
 
-<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
 
 
 ---
@@ -252,6 +306,12 @@ gaData$julian   0.00219   0.002396
 
 ```r
 confint.agnostic(glm1)
+```
+
+```
+                   2.5 %     97.5 %
+(Intercept)   -36.362675 -29.136997
+gaData$julian   0.002058   0.002528
 ```
 
 
@@ -302,7 +362,7 @@ plot(julian(gaData$date),gaData$simplystats/(gaData$visits+1),col="grey",xlab="D
 lines(julian(gaData$date),glm2$fitted/(gaData$visits+1),col="blue",lwd=3)
 ```
 
-<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+<div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
 
 
 ---

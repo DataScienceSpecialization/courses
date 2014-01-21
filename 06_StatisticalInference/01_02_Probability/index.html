@@ -8,51 +8,46 @@
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
     media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../libraries/frameworks/io2012/js/slides" 
-    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-    <link rel="stylesheet" href = "../../assets/css/custom.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
-<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
-<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+  
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
     
     <!-- LOGO SLIDE -->
-    <!-- END LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Probability</h1>
+    <h2>Statistical Inference</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
     
 
-    <!-- TITLE SLIDE -->
-    <!-- Should I move this to a Local Layout File? -->
-    <slide class="title-slide segue nobackground">
-      <aside class="gdbar">
-        <img src="../../assets/img/bloomberg_shield.png">
-      </aside>
-      <hgroup class="auto-fadein">
-        <h1>Probability</h1>
-        <h2>Statistical Inference</h2>
-        <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
-      </hgroup>
-          </slide>
-
     <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
+    <slide class="" id="slide-1" style="background:;">
   <hgroup>
     <h2>Notation</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>The <strong>sample space</strong>, \(\Omega\), is the collection of possible outcomes of an experiment
 
@@ -77,11 +72,11 @@ of an experiment
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-2" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
     <h2>Interpretation of set operations</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>Normal set operations have particular interpretations in this setting</p>
 
 <ol>
@@ -98,11 +93,11 @@ of an experiment
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Probability</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>A <strong>probability measure</strong>, \(P\), is a function from the collection of possible events so that the following hold</p>
 
 <ol>
@@ -124,11 +119,11 @@ additivity is used in advanced classes.)</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Example consequences</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>\(P(\emptyset) = 0\)</li>
 <li>\(P(E) = 1 - P(E^c)\)</li>
@@ -144,22 +139,22 @@ additivity is used in advanced classes.)</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>The National Sleep Foundation (<a href="http://www.sleepfoundation.org/">www.sleepfoundation.org</a>) reports that around 3% of the American population has sleep apnea. They also report that around 10% of the North American and European population has restless leg syndrome. Does this imply that 13% of people will have at least one sleep problems of these sorts?</p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Example continued</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>Answer: No, the events are not mutually exclusive. To elaborate let:</p>
 
 <p>\[
@@ -183,11 +178,11 @@ Likely, some fraction of the population has both.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>Random variables</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>A <strong>random variable</strong> is a numerical outcome of an experiment.</li>
 <li>The random variables that we study will come in two varieties,
@@ -209,11 +204,11 @@ countable number of possibilities.
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>Examples of variables that can be thought of as random variables</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>The \((0-1)\) outcome of the flip of a coin</li>
 <li>The outcome from the roll of a die</li>
@@ -225,11 +220,11 @@ countable number of possibilities.
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>PMF</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>A probability mass function evaluated at a value corresponds to the
 probability that a random variable takes that value. To be a valid
 pmf a function, \(p\), must satisfy</p>
@@ -245,11 +240,11 @@ pmf a function, \(p\), must satisfy</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>Let \(X\) be the result of a coin flip where \(X=0\) represents
 tails and \(X = 1\) represents heads.
 \[
@@ -266,11 +261,11 @@ p(x) = \theta^{x} (1 - \theta)^{1-x} ~~\mbox{ for }~~x = 0,1
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>PDF</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>A probability density function (pdf), is a function associated with
 a continuous random variable </p>
 
@@ -287,11 +282,11 @@ a continuous random variable </p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>Suppose that the proportion of help calls that get addressed in
 a random day by a help line is given by
 \[
@@ -307,40 +302,34 @@ f(x) = \left\{\begin{array}{ll}
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-13" style="background:;">
-  <hgroup>
-    
-  </hgroup>
-  <article>
+<slide class="" id="slide-13" style="background:;">
+  <article data-timings="">
     <pre><code class="r">x &lt;- c(-0.5, 0, 1, 1, 1.5)
 y &lt;- c(0, 0, 2, 0, 0)
 plot(x, y, lwd = 3, frame = FALSE, type = &quot;l&quot;)
 </code></pre>
 
-<p><img src="figure/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+<p><img src="assets/fig/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>Example continued</h2>
   </hgroup>
-  <article>
-    <p>What is the probability that 75% or less of calls get addressed?</p>
+  <article data-timings="">
+    <p>What is the probability that 75% or fewer of calls get addressed?</p>
 
-<p><img src="figure/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
+<p><img src="assets/fig/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-15" style="background:;">
-  <hgroup>
-    
-  </hgroup>
-  <article>
+<slide class="" id="slide-15" style="background:;">
+  <article data-timings="">
     <pre><code class="r">1.5 * 0.75/2
 </code></pre>
 
@@ -357,11 +346,11 @@ plot(x, y, lwd = 3, frame = FALSE, type = &quot;l&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-16" style="background:;">
   <hgroup>
     <h2>CDF and survival function</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>The <strong>cumulative distribution function</strong> (CDF) of a random variable \(X\) is defined as the function 
 \[
@@ -380,12 +369,12 @@ S(x) = P(X > x)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-17" style="background:;">
+<slide class="" id="slide-17" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
-  <article>
-    <p>What are the survival function and CDF from the exponential density considered before?</p>
+  <article data-timings="">
+    <p>What are the survival function and CDF from the density considered before?</p>
 
 <p>For \(1 \geq x \geq 0\)
 \[
@@ -406,11 +395,11 @@ S(x) = 1 - x^2
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-18" style="background:;">
+<slide class="" id="slide-18" style="background:;">
   <hgroup>
     <h2>Quantiles</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>The  \(\alpha^{th}\) <strong>quantile</strong> of a distribution with distribution function \(F\) is the point \(x_\alpha\) so that
 \[
@@ -424,11 +413,11 @@ F(x_\alpha) = \alpha
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-19" style="background:;">
+<slide class="" id="slide-19" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>We want to solve \(0.5 = F(x) = x^2\)</li>
 <li>Resulting in the solution </li>
@@ -455,11 +444,11 @@ F(x_\alpha) = \alpha
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-20" style="background:;">
+<slide class="" id="slide-20" style="background:;">
   <hgroup>
     <h2>Summary</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>You might be wondering at this point &quot;I&#39;ve heard of a median before, it didn&#39;t require integration. Where&#39;s the data?&quot;</li>
 <li>We&#39;re referring to are <strong>population quantities</strong>. Therefore, the median being
@@ -474,34 +463,155 @@ discussed is the <strong>population median</strong>.</li>
 
     <slide class="backdrop"></slide>
   </slides>
-
-  <!--[if IE]>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Notation'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Interpretation of set operations'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Probability'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Example consequences'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Example'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Example continued'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Random variables'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Examples of variables that can be thought of as random variables'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='PMF'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Example'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='PDF'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Example'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title=''>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Example continued'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title=''>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='CDF and survival function'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Example'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Quantiles'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Example'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Summary'>
+         20
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
     <script 
       src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
 </body>
-<!-- Grab CDN jQuery, fall back to local if offline -->
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
-<!-- Load Javascripts for Widgets -->
-<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> -->
-<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
 </script>
 <!-- LOAD HIGHLIGHTER JS FILES -->
-<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- DONE LOADING HIGHLIGHTER JS FILES -->
-</html>
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

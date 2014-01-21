@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -191,16 +191,16 @@ y <- c(0, 0, 2, 0, 0)
 plot(x, y, lwd = 3, frame = FALSE, type = "l")
 ```
 
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1.png) 
+![plot of chunk unnamed-chunk-1](assets/fig/unnamed-chunk-1.png) 
 
 
 ---
 
 ## Example continued
 
-What is the probability that 75% or less of calls get addressed?
+What is the probability that 75% or fewer of calls get addressed?
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
+![plot of chunk unnamed-chunk-2](assets/fig/unnamed-chunk-2.png) 
 
 
 ---
@@ -241,7 +241,7 @@ $$
 
 ## Example
 
-What are the survival function and CDF from the exponential density considered before?
+What are the survival function and CDF from the density considered before?
 
 For $1 \geq x \geq 0$
 $$
@@ -308,3 +308,4 @@ qbeta(0.5, 2, 1)
   discussed is the **population median**.
 - A probability model connects the data to the population using assumptions.
 - Therefore the median we're discussing is the **estimand**, the sample median will be the **estimator**
+

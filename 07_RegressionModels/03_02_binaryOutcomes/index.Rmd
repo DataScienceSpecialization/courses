@@ -143,16 +143,17 @@ $\exp(b_1)$ - Odds ratio of win probability for each point scored (compared to z
     - (If $p < 0.5$ you have to pay less if you lose than you get if you win.)
 
 ---
-
----
-```{r, echo = TRUE, fig.height=5, fig.width=5}
-x <- seq(-10, 10, length = 1000); p <- exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x))
+## Visualizing fitting logistic regression curves
+```
+x <- seq(-10, 10, length = 1000)
 manipulate(
     plot(x, exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)), 
          type = "l", lwd = 3, frame = FALSE),
     beta1 = slider(-2, 2, step = .1, initial = 2),
     beta0 = slider(-2, 2, step = .1, initial = 0)
     )
+```
+
 ---
 
 ## Ravens logistic regression

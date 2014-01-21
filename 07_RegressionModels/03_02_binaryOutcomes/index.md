@@ -150,6 +150,18 @@ $\exp(b_1)$ - Odds ratio of win probability for each point scored (compared to z
     - (If $p < 0.5$ you have to pay less if you lose than you get if you win.)
 
 ---
+## Visualizing fitting logistic regression curves
+```
+x <- seq(-10, 10, length = 1000)
+manipulate(
+    plot(x, exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)), 
+         type = "l", lwd = 3, frame = FALSE),
+    beta1 = slider(-2, 2, step = .1, initial = 2),
+    beta0 = slider(-2, 2, step = .1, initial = 0)
+    )
+```
+
+---
 
 ## Ravens logistic regression
 
@@ -251,14 +263,6 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 
 
-
----
-
-## Simpson's paradox
-
-<img class=center src=../../assets/img/simpsons.png height=300>
-
-[http://en.wikipedia.org/wiki/Simpson's_paradox](http://en.wikipedia.org/wiki/Simpson's_paradox)
 
 ---
 

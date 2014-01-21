@@ -223,6 +223,24 @@ ravensData$ravenScore   0.0159   0.009059   1.755  0.09625
 
 <slide class="" id="slide-9" style="background:;">
   <hgroup>
+    <h2>Visualizing fitting logistic regression curves</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>x &lt;- seq(-10, 10, length = 1000)
+manipulate(
+    plot(x, exp(beta0 + beta1 * x) / (1 + exp(beta0 + beta1 * x)), 
+         type = &quot;l&quot;, lwd = 3, frame = FALSE),
+    beta1 = slider(-2, 2, step = .1, initial = 2),
+    beta0 = slider(-2, 2, step = .1, initial = 0)
+    )
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
     <h2>Ravens logistic regression</h2>
   </hgroup>
   <article data-timings="">
@@ -257,7 +275,7 @@ Number of Fisher Scoring iterations: 5
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>Ravens fitted values</h2>
   </hgroup>
@@ -271,7 +289,7 @@ Number of Fisher Scoring iterations: 5
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>Odds ratios and confidence intervals</h2>
   </hgroup>
@@ -295,7 +313,7 @@ ravensData$ravenScore 0.996230  1.303
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-13" style="background:;">
   <hgroup>
     <h2>ANOVA for logistic regression</h2>
   </hgroup>
@@ -317,19 +335,6 @@ ravensData$ravenScore  1     3.54        18       20.9     0.06 .
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 </code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-13" style="background:;">
-  <hgroup>
-    <h2>Simpson&#39;s paradox</h2>
-  </hgroup>
-  <article data-timings="">
-    <p><img class=center src=../../assets/img/simpsons.png height=300></p>
-
-<p><a href="http://en.wikipedia.org/wiki/Simpson&#x27;s_paradox">http://en.wikipedia.org/wiki/Simpson&#39;s_paradox</a></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -425,31 +430,31 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title='Ravens logistic regression'>
+        data-slide=9 title='Visualizing fitting logistic regression curves'>
          9
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=10 title='Ravens fitted values'>
+        data-slide=10 title='Ravens logistic regression'>
          10
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title='Odds ratios and confidence intervals'>
+        data-slide=11 title='Ravens fitted values'>
          11
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=12 title='ANOVA for logistic regression'>
+        data-slide=12 title='Odds ratios and confidence intervals'>
          12
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=13 title='Simpson&#39;s paradox'>
+        data-slide=13 title='ANOVA for logistic regression'>
          13
       </a>
     </li>

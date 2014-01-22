@@ -96,7 +96,19 @@ than it sounds)</p>
     <h2>DON&#39;T: Point And Click</h2>
   </hgroup>
   <article>
-    
+    <ul>
+<li><p>Many data processing / statistical analysis packages have graphical
+user interfaces (GUIs)</p></li>
+<li><p>GUIs are convenient / intuitive but the actions you take with a GUI
+can be difficult for others to reproduce</p></li>
+<li><p>Some GUIs produce a log file or script which includes equivalent
+commands; these can be saved for later examination</p></li>
+<li><p>In general, be careful with data analysis software that is highly
+<em>interactive</em>; ease of use can sometimes lead to non-reproducible
+analyses</p></li>
+<li><p>Other interactive software, such as text editors, are usually fine</p></li>
+</ul>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
@@ -106,12 +118,57 @@ than it sounds)</p>
     <h2>DO: Teach a Computer</h2>
   </hgroup>
   <article>
-    
+    <ul>
+<li><p>If something needs to be done as part of your analysis /
+investigation, try to teach your computer to do it (even if you only
+need to do it once)</p></li>
+<li><p>In order to give your computer instructions, you need to write down
+exactly what you mean to do and how it should be done</p></li>
+<li><p>Teaching a computer almost guarantees reproducibilty</p></li>
+</ul>
+
+<p>For example, by hand, you can </p>
+
+<ol>
+<li><p>Go to the UCI Machine Learning Repository at
+<a href="http://archive.ics.uci.edu/ml/">http://archive.ics.uci.edu/ml/</a></p></li>
+<li><p>Download the <a href="http://archive.ics.uci.edu/ml/datasets/Bike+Sharing+Dataset">Bike Sharing
+Dataset</a>
+by clicking on the link to the Data Folder, then clicking on the
+link to the zip file of dataset, and choosing &quot;Save Linked File
+As...&quot; and then saving it to a folder on your computer</p></li>
+</ol>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
 
       <slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>DO: Teach a Computer</h2>
+  </hgroup>
+  <article>
+    <p>Or You can teach your computer to do the same thing using R:</p>
+
+<pre><code class="r">download.file(&quot;http://archive.ics.uci.edu/ml/machine-learning-databases/00275/
+               Bike-Sharing-Dataset.zip&quot;, &quot;ProjectData/Bike-Sharing-Dataset.zip&quot;)
+</code></pre>
+
+<p>Notice here that</p>
+
+<ul>
+<li><p>The full URL to the dataset file is specified (no clicking through a
+series of links)</p></li>
+<li><p>The name of the file saved to your local computer is specified</p></li>
+<li><p>The directory in which the file was saved is specified (&quot;ProjectData&quot;)</p></li>
+<li><p>Code can always be executed in R (as long as link is available)</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>DO: Use Some Version Control</h2>
   </hgroup>
@@ -128,17 +185,32 @@ publish results</p></li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-6" style="background:;">
+      <slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>DO: Keep Track of Your Software Environment</h2>
   </hgroup>
   <article>
-    
+    <ul>
+<li><p>If you work on a complex project involving many tools / datasets,
+the software and computing environment can be critical for
+reproducing your analysis</p></li>
+<li><p><strong>Computer architecture</strong>: CPU (Intel, AMD, ARM), GPUs, </p></li>
+<li><p><strong>Operating system</strong>: Windows, Mac OS, Linux / Unix</p></li>
+<li><p><strong>Software toolchain</strong>: Compilers, interpreters, command shell,
+programming languages (C, Perl, Python, etc.), database backends,
+data analysis software</p></li>
+<li><p><strong>Supporting software / infrastructure</strong>: Libraries, R packages,
+dependencies</p></li>
+<li><p><strong>External dependencies</strong>: Web sites, data repositories, remote
+databases, software repositories</p></li>
+<li><p><strong>Version numbers</strong>: Ideally, for everything (if available)</p></li>
+</ul>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-7" style="background:;">
+      <slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>DO: Keep Track of Your Software Environment</h2>
   </hgroup>
@@ -167,17 +239,28 @@ publish results</p></li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-8" style="background:;">
+      <slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>DON&#39;T: Save Output</h2>
   </hgroup>
   <article>
-    
+    <ul>
+<li><p>Avoid saving data analysis output (tables, figures, summaries,
+processed data, etc.), except perhaps temporarily for efficiency
+purposes.</p></li>
+<li><p>If a stray output file cannot be easily connected with the means by
+which it was created, then it is not reproducible.</p></li>
+<li><p>Save the data + code that generated the output, rather than the
+output itself</p></li>
+<li><p>Intermediate files are okay as long as there is clear documentation
+of how they were created</p></li>
+</ul>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-9" style="background:;">
+      <slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>DO: Set Your Seed</h2>
   </hgroup>
@@ -200,7 +283,7 @@ exactly reproducible</p></li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-10" style="background:;">
+      <slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>DO: Think About the Entire Pipeline</h2>
   </hgroup>
@@ -218,7 +301,7 @@ the better for everyone</p></li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-11" style="background:;">
+      <slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>Summary: Checklist</h2>
   </hgroup>

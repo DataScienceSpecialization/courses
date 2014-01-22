@@ -53,10 +53,67 @@ than it sounds)
 
 ## DON'T: Point And Click
 
+* Many data processing / statistical analysis packages have graphical
+  user interfaces (GUIs)
+
+* GUIs are convenient / intuitive but the actions you take with a GUI
+  can be difficult for others to reproduce
+
+* Some GUIs produce a log file or script which includes equivalent
+  commands; these can be saved for later examination
+
+* In general, be careful with data analysis software that is highly
+  *interactive*; ease of use can sometimes lead to non-reproducible
+  analyses
+
+* Other interactive software, such as text editors, are usually fine
 
 ---
 
 ## DO: Teach a Computer
+
+* If something needs to be done as part of your analysis /
+  investigation, try to teach your computer to do it (even if you only
+  need to do it once)
+
+* In order to give your computer instructions, you need to write down
+  exactly what you mean to do and how it should be done
+
+* Teaching a computer almost guarantees reproducibilty
+
+For example, by hand, you can 
+
+  1. Go to the UCI Machine Learning Repository at
+  http://archive.ics.uci.edu/ml/
+
+  2. Download the [Bike Sharing
+  Dataset](http://archive.ics.uci.edu/ml/datasets/Bike+Sharing+Dataset)
+  by clicking on the link to the Data Folder, then clicking on the
+  link to the zip file of dataset, and choosing "Save Linked File
+  As..." and then saving it to a folder on your computer
+
+---
+
+## DO: Teach a Computer
+
+
+Or You can teach your computer to do the same thing using R:
+
+```r
+download.file("http://archive.ics.uci.edu/ml/machine-learning-databases/00275/
+               Bike-Sharing-Dataset.zip", "ProjectData/Bike-Sharing-Dataset.zip")
+```
+
+Notice here that
+
+* The full URL to the dataset file is specified (no clicking through a
+  series of links)
+
+* The name of the file saved to your local computer is specified
+
+* The directory in which the file was saved is specified ("ProjectData")
+
+* Code can always be executed in R (as long as link is available)
 
 
 ---
@@ -75,6 +132,26 @@ than it sounds)
 ---
 ## DO: Keep Track of Your Software Environment
 
+* If you work on a complex project involving many tools / datasets,
+  the software and computing environment can be critical for
+  reproducing your analysis
+
+* **Computer architecture**: CPU (Intel, AMD, ARM), GPUs, 
+
+* **Operating system**: Windows, Mac OS, Linux / Unix
+
+* **Software toolchain**: Compilers, interpreters, command shell,
+  programming languages (C, Perl, Python, etc.), database backends,
+  data analysis software
+
+* **Supporting software / infrastructure**: Libraries, R packages,
+  dependencies
+
+* **External dependencies**: Web sites, data repositories, remote
+  databases, software repositories
+
+* **Version numbers**: Ideally, for everything (if available)
+  
 
 ---
 
@@ -108,6 +185,19 @@ sessionInfo()
 ---
 
 ## DON'T: Save Output
+
+* Avoid saving data analysis output (tables, figures, summaries,
+  processed data, etc.), except perhaps temporarily for efficiency
+  purposes.
+
+* If a stray output file cannot be easily connected with the means by
+  which it was created, then it is not reproducible.
+
+* Save the data + code that generated the output, rather than the
+  output itself
+
+* Intermediate files are okay as long as there is clear documentation
+  of how they were created
 
 
 ---

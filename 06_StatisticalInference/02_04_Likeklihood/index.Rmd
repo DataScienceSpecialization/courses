@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -98,7 +98,7 @@ $$
 - Because the likelihood measures *relative evidence*, dividing the curve by its maximum value (or any other value for that matter) does not change its interpretation
 
 ---
-```{r, fig.heigh=4.5, fig.width=6}
+```{r, fig.height=4.5, fig.width=4.5}
 pvals <- seq(0, 1, length = 1000)
 plot(pvals, dbinom(3, 4, pvals) / dbinom(3, 4, 3/4), type = "l", frame = FALSE, lwd = 3, xlab = "p", ylab = "likelihood / max likelihood")
 ```
@@ -139,4 +139,6 @@ lines(rep(5/94, 2), 0 : 1, col = "red", lwd = 3)
 lines(range(lambda[likelihood > 1/16]), rep(1/16, 2), lwd = 2)
 lines(range(lambda[likelihood > 1/8]), rep(1/8, 2), lwd = 2)
 ```
+
+
 

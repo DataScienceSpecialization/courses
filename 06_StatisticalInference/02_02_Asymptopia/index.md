@@ -8,14 +8,13 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
 
----
 ## Asymptotics
 * Asymptotics is the term for the behavior of statistics as the sample size (or some other relevant quantity) limits to infinity (or some other relevant number)
 * (Asymptopia is my name for the land of asymptotics, where everything works out well and there's no messes. The land of infinite data is nice that way.)
@@ -49,7 +48,7 @@ mode        : selfcontained # {standalone, draft}
 
   - Example $\bar X_n$ could be the average of the result of $n$ coin flips (i.e. the sample proportion of heads)
 
-- We say that $\bar X_n$ {\bf converges in probability} to a limit if for any fixed distance the {\em probability} of $\bar X_n$ being closer (further away) than that distance from the limit converges to one (zero)
+- We say that $\bar X_n$ converges in probability to a limit if for any fixed distance the  probability of $\bar X_n$ being closer (further away) than that distance from the limit converges to one (zero)
 
 ---
 
@@ -157,8 +156,8 @@ $$
 
 ## Confidence intervals
 
-- Therefore, according to the CLT, the probability that the random interval $$\bar X_n \pm z_{1-\alpha/2}\sigma / \sqrt{n}$$ contains $\mu$ is approximately 95%, where $z_{1-\alpha/2}$ is the $1-\alpha/2$ quantile of the standard normal distribution
-- This is called a 95% **confidence interval** for $\mu$
+- Therefore, according to the CLT, the probability that the random interval $$\bar X_n \pm z_{1-\alpha/2}\sigma / \sqrt{n}$$ contains $\mu$ is approximately 100$(1-\alpha)$%, where $z_{1-\alpha/2}$ is the $1-\alpha/2$ quantile of the standard normal distribution
+- This is called a $100(1 - \alpha)$% **confidence interval** for $\mu$
 - We can replace the unknown $\sigma$ with $s$
 
 ---
@@ -260,4 +259,5 @@ exp(confint(glm(x ~ 1 + offset(log(t)), family = poisson(link = log))))
   2.5 %  97.5 % 
 0.01901 0.11393 
 ```
+
 

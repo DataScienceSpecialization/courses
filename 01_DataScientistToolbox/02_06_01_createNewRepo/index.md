@@ -74,7 +74,7 @@ __...OR...__
 ```
 $ mkdir ~/test-repo
 ```
-* Note: The tilda (`~`) symbol refers to your "home" directory, so this will create a directory called `test-repo` in your home directory
+* Note: The tilde (`~`) symbol refers to your "home" directory, so this will create a directory called `test-repo` in your home directory
 * Navigate to this new directory using the following command (`cd` stands for "change directory"):
 
 ```
@@ -96,6 +96,10 @@ $ git init
 ```
 $ git remote add origin https://github.com/your-user-name-goes-here/test-repo.git
 ```
+
+* **Tip:** You can easily copy the URL of your Github repository with the copy to clipboard button
+
+<img class=center src=../../assets/img/CreateRepo/git-repo-url.png height='200'/>
 
 ---
 

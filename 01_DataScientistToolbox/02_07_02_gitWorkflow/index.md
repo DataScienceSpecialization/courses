@@ -158,6 +158,7 @@ mode        : selfcontained # {standalone, draft}
 ## Edit README file from GitHub
 
 * Put anything you want in the README, then press "Commit New File" to commit the file to your GitHub repo
+* **Note:** README files written in Markdown will render in HTML on your repository's homepage.
 
 <img class=center src="../../assets/img/01_DataScientistToolbox/gitWorkflow/13_02editReadme.png" height='225'/>
 <br>

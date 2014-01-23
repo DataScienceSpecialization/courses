@@ -97,6 +97,10 @@ $ git init
 $ git remote add origin https://github.com/your-user-name-goes-here/test-repo.git
 ```
 
+* **Tip:** You can easily copy the URL of your Github repository with the copy to clipboard button
+
+<img class=center src=../../assets/img/CreateRepo/git-repo-url.png height='200'/>
+
 ---
 
 ## Creating a Local Copy

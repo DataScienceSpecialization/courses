@@ -1,5 +1,5 @@
 ---
-title       : Hypothesis testing, Power
+title       : Power
 subtitle    : Statistical Inference
 author      : Brian Caffo, Jeff Leek, Roger Peng
 job         : Johns Hopkins Bloomberg School of Public Health
@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -118,7 +118,8 @@ $$z_{1-\alpha} - \frac{\sqrt{n}(\mu_a - \mu_0)}{\sigma} = z_{\beta}$$
   P\left(\frac{\bar X - \mu_0}{S /\sqrt{n}} > t_{1-\alpha, n-1} ~|~ \mu = \mu_a \right)
   $$
 - Calcuting this requires the non-central t distribution.
-- `power.t.test`
+- `power.t.test` does this very well
+  - Omit one of the arguments and it solves for it
 
 ---
 ## Example

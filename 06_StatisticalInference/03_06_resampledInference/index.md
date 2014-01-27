@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -92,8 +92,8 @@ c(biasEst, seEst)
 
 ```r
 library(bootstrap)
-out <- jackknife(x, median)
-c(out$jack.bias, out$jack.se)
+temp <- jackknife(x, median)
+c(temp$jack.bias, temp$jack.se)
 ```
 
 ```
@@ -185,7 +185,7 @@ sd(medians)
 ```
 
 ```
-[1] 0.08366
+[1] 0.08546
 ```
 
 ```r
@@ -194,7 +194,7 @@ quantile(medians, c(.025, .975))
 
 ```
  2.5% 97.5% 
-68.44 68.82 
+68.43 68.82 
 ```
 
 
@@ -214,7 +214,6 @@ hist(medians)
 ## Notes on the bootstrap
 
 - The bootstrap is non-parametric
-- However, the theoretical arguments proving the validity of the bootstrap rely on large samples
 - Better percentile bootstrap confidence intervals correct for bias
 - There are lots of variations on bootstrap procedures; the book "An Introduction to the Bootstrap"" by Efron and Tibshirani is a great place to start for both bootstrap and jackknife information
 
@@ -290,4 +289,6 @@ mean(permutations > observedStat)
 ---
 ## Histogram of permutations
 <div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+
+
 

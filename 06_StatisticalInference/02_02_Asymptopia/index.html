@@ -8,61 +8,46 @@
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
     media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../libraries/frameworks/io2012/js/slides" 
-    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-    <link rel="stylesheet" href = "../../assets/css/custom.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
-<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
-<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+  
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
     
     <!-- LOGO SLIDE -->
-    <!-- END LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>A trip to Asymptopia</h1>
+    <h2>Statistical Inference</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
     
-
-    <!-- TITLE SLIDE -->
-    <!-- Should I move this to a Local Layout File? -->
-    <slide class="title-slide segue nobackground">
-      <aside class="gdbar">
-        <img src="../../assets/img/bloomberg_shield.png">
-      </aside>
-      <hgroup class="auto-fadein">
-        <h1>A trip to Asymptopia</h1>
-        <h2>Statistical Inference</h2>
-        <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
-      </hgroup>
-          </slide>
 
     <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
-  <hgroup>
-    
-  </hgroup>
-  <article>
-    
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-2" style="background:;">
+    <slide class="" id="slide-1" style="background:;">
   <hgroup>
     <h2>Asymptotics</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Asymptotics is the term for the behavior of statistics as the sample size (or some other relevant quantity) limits to infinity (or some other relevant number)</li>
 <li>(Asymptopia is my name for the land of asymptotics, where everything works out well and there&#39;s no messes. The land of infinite data is nice that way.)</li>
@@ -82,11 +67,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
     <h2>Numerical limits</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><p>Imagine a sequence</p>
 
@@ -103,11 +88,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Limits of random variables</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>The problem is harder for random variables</li>
 <li><p>Consider \(\bar X_n\) the sample average of the first \(n\) of a collection of \(iid\) observations</p>
@@ -115,18 +100,18 @@
 <ul>
 <li>Example \(\bar X_n\) could be the average of the result of \(n\) coin flips (i.e. the sample proportion of heads)</li>
 </ul></li>
-<li><p>We say that \(\bar X_n\) {\bf converges in probability} to a limit if for any fixed distance the {\em probability} of \(\bar X_n\) being closer (further away) than that distance from the limit converges to one (zero)</p></li>
+<li><p>We say that \(\bar X_n\) converges in probability to a limit if for any fixed distance the  probability of \(\bar X_n\) being closer (further away) than that distance from the limit converges to one (zero)</p></li>
 </ul>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>The Law of Large Numbers</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Establishing that a random sequence converges to a limit is hard</li>
 <li>Fortunately, we have a theorem that does all the work for us, called
@@ -139,11 +124,11 @@ the <strong>Law of Large Numbers</strong></li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>Law of large numbers in action</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">n &lt;- 10000; means &lt;- cumsum(rnorm(n)) / (1  : n)
 plot(1 : n, means, type = &quot;l&quot;, lwd = 2, 
      frame = FALSE, ylab = &quot;cumulative means&quot;, xlab = &quot;sample size&quot;)
@@ -156,11 +141,11 @@ abline(h = 0)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Discussion</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>An estimator is <strong>consistent</strong> if it converges to what you want to estimate
 
@@ -178,11 +163,11 @@ abline(h = 0)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>The Central Limit Theorem</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>The <strong>Central Limit Theorem</strong> (CLT) is one of the most important theorems in statistics</li>
 <li>For our purposes, the CLT states that the distribution of averages of iid variables, properly normalized, becomes that of a standard normal as the sample size increases</li>
@@ -201,11 +186,11 @@ abline(h = 0)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Simulate a standard normal random variable by rolling \(n\) (six sided)</li>
 <li>Let \(X_i\) be the outcome for die \(i\)</li>
@@ -222,22 +207,22 @@ abline(h = 0)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>Simulation of mean of \(n\) dice</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Coin CLT</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Let \(X_i\) be the \(0\) or \(1\) result of the \(i^{th}\) flip of a possibly unfair coin
 
@@ -257,22 +242,19 @@ will be approximately normally distributed</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-12" style="background:;">
-  <hgroup>
-    
-  </hgroup>
-  <article>
+<slide class="" id="slide-11" style="background:;">
+  <article data-timings="">
     <div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>CLT in practice</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>In practice the CLT is mostly useful as an approximation
 \[
@@ -292,14 +274,14 @@ P\left( \frac{\bar X_n - \mu}{\sigma / \sqrt{n}} \leq z \right) \approx \Phi(z).
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-13" style="background:;">
   <hgroup>
     <h2>Confidence intervals</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
-<li>Therefore, according to the CLT, the probability that the random interval \[\bar X_n \pm z_{1-\alpha/2}\sigma / \sqrt{n}\] contains \(\mu\) is approximately 95%, where \(z_{1-\alpha/2}\) is the \(1-\alpha/2\) quantile of the standard normal distribution</li>
-<li>This is called a 95% <strong>confidence interval</strong> for \(\mu\)</li>
+<li>Therefore, according to the CLT, the probability that the random interval \[\bar X_n \pm z_{1-\alpha/2}\sigma / \sqrt{n}\] contains \(\mu\) is approximately 100\((1-\alpha)\)%, where \(z_{1-\alpha/2}\) is the \(1-\alpha/2\) quantile of the standard normal distribution</li>
+<li>This is called a \(100(1 - \alpha)\)% <strong>confidence interval</strong> for \(\mu\)</li>
 <li>We can replace the unknown \(\sigma\) with \(s\)</li>
 </ul>
 
@@ -307,11 +289,11 @@ P\left( \frac{\bar X_n - \mu}{\sigma / \sqrt{n}} \leq z \right) \approx \Phi(z).
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>Give a confidence interval for the average height of sons</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>in Galton&#39;s data</p>
 
 <pre><code class="r">library(UsingR);data(father.son); x &lt;- father.son$sheight
@@ -325,11 +307,11 @@ P\left( \frac{\bar X_n - \mu}{\sigma / \sqrt{n}} \leq z \right) \approx \Phi(z).
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>Sample proportions</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>In the event that each \(X_i\) is \(0\) or \(1\) with common success probability \(p\) then \(\sigma^2 = p(1 - p)\)</li>
 <li>The interval takes the form
@@ -349,11 +331,11 @@ P\left( \frac{\bar X_n - \mu}{\sigma / \sqrt{n}} \leq z \right) \approx \Phi(z).
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-17" style="background:;">
+<slide class="" id="slide-16" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Your campaign advisor told you that in a random sample of 100 likely voters,
 56 intent to vote for you. 
@@ -380,11 +362,11 @@ P\left( \frac{\bar X_n - \mu}{\sigma / \sqrt{n}} \leq z \right) \approx \Phi(z).
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-18" style="background:;">
+<slide class="" id="slide-17" style="background:;">
   <hgroup>
     <h2>Poisson interval</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>A nuclear pump failed 5 times out of 94.32 days, give a 95% confidence interval for the failure rate per day?</li>
 <li>\(X \sim Poisson(\lambda t)\).</li>
@@ -408,11 +390,11 @@ P\left( \frac{\bar X_n - \mu}{\sigma / \sqrt{n}} \leq z \right) \approx \Phi(z).
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-19" style="background:;">
+<slide class="" id="slide-18" style="background:;">
   <hgroup>
     <h3>R code</h3>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">x &lt;- 5; t &lt;- 94.32; lambda &lt;- x / t
 round(lambda + c(-1, 1) * qnorm(.975) * sqrt(lambda / t), 3)
 </code></pre>
@@ -432,11 +414,11 @@ attr(,&quot;conf.level&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-20" style="background:;">
+<slide class="" id="slide-19" style="background:;">
   <hgroup>
     <h2>In the regression class</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">exp(confint(glm(x ~ 1 + offset(log(t)), family = poisson(link = log))))
 </code></pre>
 
@@ -450,34 +432,149 @@ attr(,&quot;conf.level&quot;)
 
     <slide class="backdrop"></slide>
   </slides>
-
-  <!--[if IE]>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Asymptotics'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Numerical limits'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Limits of random variables'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='The Law of Large Numbers'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Law of large numbers in action'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Discussion'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='The Central Limit Theorem'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Example'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Simulation of mean of \(n\) dice'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Coin CLT'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title=''>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='CLT in practice'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Confidence intervals'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Give a confidence interval for the average height of sons'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Sample proportions'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Example'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Poisson interval'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='R code'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='In the regression class'>
+         19
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
     <script 
       src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
 </body>
-<!-- Grab CDN jQuery, fall back to local if offline -->
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
-<!-- Load Javascripts for Widgets -->
-<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> -->
-<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
 </script>
 <!-- LOAD HIGHLIGHTER JS FILES -->
-<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- DONE LOADING HIGHLIGHTER JS FILES -->
-</html>
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

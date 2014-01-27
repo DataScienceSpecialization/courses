@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -62,7 +62,7 @@ title(paste("Likelihoods for n = ", n))
 
 ## Binomial trials
 
-- The {\bf binomial random variables} are obtained as the sum of iid Bernoulli trials
+- The *binomial random variables* are obtained as the sum of iid Bernoulli trials
 - In specific, let $X_1,\ldots,X_n$ be iid Bernoulli$(p)$; then $X = \sum_{i=1}^n X_i$ is a binomial random variable
 - The binomial mass function is
 $$
@@ -77,6 +77,8 @@ $$
 for $x=0,\ldots,n$
 
 ---
+
+## Choose
 
 - Recall that the notation 
   $$\left(
@@ -377,4 +379,5 @@ ppois(2, lambda=500 * .01)
 ```
 [1] 0.1247
 ```
+
 

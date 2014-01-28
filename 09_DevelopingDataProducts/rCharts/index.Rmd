@@ -1,0 +1,104 @@
+---
+title       : rCharts
+subtitle    : Building Data Products
+author      : Brian Caffo, Jeff Leek, Roger Peng
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012
+highlighter : highlight.js  
+hitheme     : tomorrow       
+url:
+    lib: ../../librariesNew #Remove new if using old slidify
+    assets: ../../assets
+widgets     : [mathjax, quiz, bootstrap]
+mode        : selfcontained # {standalone, draft}
+ext_widgets : {rCharts: ["libraries/nvd3"]}
+---
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F, results='hide'}
+# make this an external chunk that can be included in any file
+library(knitr)
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+runif(1)
+```
+
+## rCharts
+- rCharts is a way to create interactive javascript visualizations using R
+- So
+  - You don't have to learn complex tools, like D3
+  - You simply work in R learning a minimal amount of new syntaxt
+- rCharts was written by Ramnath Vaidyanathan (friend of the Data Science Series), who also wrote slidify, the framework we use for all of the lectures in the class
+- This lecture is basically going through
+  (http://ramnathv.github.io/rCharts/)
+
+---
+## Example
+```
+require(rCharts)
+haireye = as.data.frame(HairEyeColor)
+nPlot(Freq ~ Hair, group = 'Eye', type = 'multiBarChart',
+  data = subset(haireye, Sex == 'Male')
+)
+```
+
+---
+## Holy eye candy Batman!
+```{r, echo = FALSE, results = 'hide'}
+require(rCharts)
+```
+```{r echo = FALSE, results = 'asis'}
+haireye = as.data.frame(HairEyeColor)
+n1 <- nPlot(Freq ~ Hair, group = 'Eye', type = 'multiBarChart',
+  data = subset(haireye, Sex == 'Male')
+)
+n1$print('chart1')
+```
+
+---
+## Slidify interactive
+- The above was an example of embedding an rChart in a slidify document
+  - In the YAML 
+```yaml ext_widgets : {rCharts: ["libraries/nvd3"]}```
+
+---
+## Deconstructing another example
+```
+## Example 1 Facetted Scatterplot
+names(iris) = gsub("\\.", "", names(iris))
+rPlot(SepalLength ~ SepalWidth | Species, data = iris, color = 'Species', type = 'point')
+```
+
+
+---
+## When run
+```{r echo = FALSE, results = 'asis'}
+## Example 1 Facetted Scatterplot
+names(iris) = gsub("\\.", "", names(iris))
+rPlot(SepalLength ~ SepalWidth | Species, data = iris, color = 'Species', type = 'point')
+```
+
+---
+## Example 2 Facetted Barplot
+```
+hair_eye = as.data.frame(HairEyeColor)
+rPlot(Freq ~ Hair | Eye, color = 'Eye', data = hair_eye, type = 'bar')
+```
+
+---
+## Example 2 Facetted Barplot, when run
+```{r echo = FALSE, results = 'asis'}
+hair_eye = as.data.frame(HairEyeColor)
+rPlot(Freq ~ Hair | Eye, color = 'Eye', data = hair_eye, type = 'bar')
+```
+
+

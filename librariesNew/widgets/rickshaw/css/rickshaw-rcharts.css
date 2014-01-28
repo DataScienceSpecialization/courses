@@ -1,0 +1,25 @@
+.chart_container {
+  position: relative;
+ display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.rChart {
+  display: inline-block;
+  margin-left: 40px;
+}
+.yAxis {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+}
+.legend {
+  position: absolute;
+  top: 0;
+  right: -160px;
+  vertical-align: top;
+}
+.slider {
+  margin-left: 40px;
+  margin-top: 12px;
+}

@@ -1,0 +1,39 @@
+<script type='text/javascript'>
+ $(document).ready(function(){
+      draw{{chartId}}()
+    });
+    function draw{{chartId}}(){  
+      var opts = {{{ opts }}},
+        data = {{{ data }}}
+  
+       var y1 = data.map(function (d) { return { date: new Date(+d[opts.x] * 86400000), y: d[opts.y]} });
+       var y2 = data.map(function (d) { return { date: new Date(+d[opts.x] * 86400000), y: d[opts.y2]} });
+
+      data = [{ key: opts.y, values: y1 }, { key: opts.y2, bar: true, values: y2}];
+      
+      nv.addGraph(function() {
+        var chart = nv.models[opts.type]()
+          .x(function(d) { return d[opts.x] })
+          //.y(function(d) { return d[opts.y] })
+          .width(opts.width)
+          .height(opts.height)
+         
+        {{{ chart }}}
+          
+        {{{ xAxis }}}
+
+        {{{ x2Axis }}}
+        
+        {{{ yAxis }}}
+      
+       d3.select("#" + opts.id)
+        .append('svg')
+        .datum(data)
+        .transition().duration(500)
+        .call(chart);
+
+       nv.utils.windowResize(chart.update);
+       return chart;
+      });
+    };
+</script>

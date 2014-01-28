@@ -1,0 +1,239 @@
+---
+title       : rCharts
+subtitle    : Building Data Products
+author      : Brian Caffo, Jeff Leek, Roger Peng
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012
+highlighter : highlight.js  
+hitheme     : tomorrow       
+url:
+    lib: ../../librariesNew #Remove new if using old slidify
+    assets: ../../assets
+widgets     : [mathjax, quiz, bootstrap]
+mode        : selfcontained # {standalone, draft}
+ext_widgets : {rCharts: ["libraries/highcharts","libraries/nvd3", "libraries/morris", "libraries/leaflet", "libraries/rickshaw"]}
+---
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F, results='hide'}
+# make this an external chunk that can be included in any file
+library(knitr)
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+runif(1)
+```
+
+## rCharts
+![rCharts](fig/rCharts.png)
+- rCharts is a way to create interactive javascript visualizations using R
+- So
+  - You don't have to learn complex tools, like D3
+  - You simply work in R learning a minimal amount of new syntaxt
+- rCharts was written by Ramnath Vaidyanathan (friend of the Data Science Series), who also wrote slidify, the framework we use for all of the lectures in the class
+- This lecture is basically going through
+  (http://ramnathv.github.io/rCharts/)
+
+---
+## Example
+```
+require(rCharts)
+haireye = as.data.frame(HairEyeColor)
+nPlot(Freq ~ Hair, group = 'Eye', type = 'multiBarChart',
+  data = subset(haireye, Sex == 'Male')
+)
+```
+
+---
+## nvD3 run
+```{r, echo = FALSE, results = 'hide'}
+require(rCharts)
+```
+```{r echo = FALSE, results = 'asis'}
+haireye = as.data.frame(HairEyeColor)
+n1 <- nPlot(Freq ~ Hair, group = 'Eye', type = 'multiBarChart',
+  data = subset(haireye, Sex == 'Male')
+)
+n1$print('chart1')
+```
+
+---
+## Slidify interactive
+- The above was an example of embedding an rChart in a slidify document
+  - In the YAML 
+```yaml ext_widgets : {rCharts: ["libraries/nvd3"]}```
+- Or, if you use more than one library
+- YAML example
+```yaml ext_widgets : {rCharts: ["libraries/highcharts",libraries/nvd3", "libraries/morris"]}``` 
+
+---
+## Deconstructing another example
+```
+## Example 1 Facetted Scatterplot
+names(iris) = gsub("\\.", "", names(iris))
+rPlot(SepalLength ~ SepalWidth | Species, data = iris, color = 'Species', type = 'point')
+```
+
+
+---
+## When run
+```{r echo = FALSE, results = 'asis'}
+## Example 1 Facetted Scatterplot
+names(iris) = gsub("\\.", "", names(iris))
+rPlot(SepalLength ~ SepalWidth | Species, data = iris, color = 'Species', type = 'point')
+```
+
+---
+## Example 2 Facetted Barplot
+```
+hair_eye = as.data.frame(HairEyeColor)
+rPlot(Freq ~ Hair | Eye, color = 'Eye', data = hair_eye, type = 'bar')
+```
+
+---
+## Example 2 Facetted Barplot, when run
+```{r echo = FALSE, results = 'asis'}
+hair_eye = as.data.frame(HairEyeColor)
+rPlot(Freq ~ Hair | Eye, color = 'Eye', data = hair_eye, type = 'bar')
+```
+
+
+---
+## How to get the js/html or publish an rChart
+Now you can add whatever you'd like
+```{r echo = TRUE, results = 'hide', eval=FALSE}
+r1 <- rPlot(mpg ~ wt | am + vs, data = mtcars, type = "point", color = "gear")
+r1$print("chart1") # print out the js 
+r1$save('myPlot.html') #save as html file
+r1$publish('myPlot', host = 'gist') # save to gist, rjson required
+r1$publish('myPlot', host = 'rpubs') # save to rpubs
+```
+
+
+---
+## rCharts has links to several libraries
+- We'll do some examples
+- Note Ramnath mentions that io2012 and polychart have conflicting js
+  - They seem to work for me with that theme, but I get errors if I load the polychart library
+  - If debugging with io and polychart, factor that in
+
+
+---
+## morris
+```
+data(economics, package = "ggplot2")
+econ <- transform(economics, date = as.character(date))
+m1 <- mPlot(x = "date", y = c("psavert", "uempmed"), type = "Line", data = econ)
+m1$set(pointSize = 0, lineWidth = 1)
+m1
+```
+
+---
+## morris example run
+```{r echo = FALSE, results = 'asis'}
+data(economics, package = "ggplot2")
+econ <- transform(economics, date = as.character(date))
+m1 <- mPlot(x = "date", y = c("psavert", "uempmed"), type = "Line", data = econ)
+m1$set(pointSize = 0, lineWidth = 1)
+m1
+```
+
+---
+## xCharts
+```
+require(reshape2)
+uspexp <- melt(USPersonalExpenditure)
+names(uspexp)[1:2] = c("category", "year")
+x1 <- xPlot(value ~ year, group = "category", data = uspexp, type = "line-dotted")
+x1
+```
+
+---
+## xCharts run
+```{r echo = FALSE, results = 'asis'}
+require(reshape2)
+uspexp <- melt(USPersonalExpenditure)
+names(uspexp)[1:2] = c("category", "year")
+x1 <- xPlot(value ~ year, group = "category", data = uspexp, type = "line-dotted")
+x1
+```
+
+---
+## Leaflet
+```
+map3 <- Leaflet$new()
+map3$setView(c(51.505, -0.09), zoom = 13)
+map3$marker(c(51.5, -0.09), bindPopup = "<p> Hi. I am a popup </p>")
+map3$marker(c(51.495, -0.083), bindPopup = "<p> Hi. I am another popup </p>")
+map3
+```
+
+---
+## Leaflet run
+```{r echo = FALSE, results = 'asis'}
+map3 <- Leaflet$new()
+map3$setView(c(51.505, -0.09), zoom = 13)
+map3$marker(c(51.5, -0.09), bindPopup = "<p> Hi. I am a popup </p>")
+map3$marker(c(51.495, -0.083), bindPopup = "<p> Hi. I am another popup </p>")
+map3
+```
+
+---
+## Rickshaw
+```
+usp = reshape2::melt(USPersonalExpenditure)
+# get the decades into a date Rickshaw likes
+usp$Var2 <- as.numeric(as.POSIXct(paste0(usp$Var2, "-01-01")))
+p4 <- Rickshaw$new()
+p4$layer(value ~ Var2, group = "Var1", data = usp, type = "area", width = 560)
+# add a helpful slider this easily; other features TRUE as a default
+p4$set(slider = TRUE)
+p4
+```
+
+---
+## Rickshaw run
+```{r echo = FALSE, results = 'asis'}
+usp = reshape2::melt(USPersonalExpenditure)
+# get the decades into a date Rickshaw likes
+usp$Var2 <- as.numeric(as.POSIXct(paste0(usp$Var2, "-01-01")))
+p4 <- Rickshaw$new()
+p4$layer(value ~ Var2, group = "Var1", data = usp, type = "area", width = 560)
+# add a helpful slider this easily; other features TRUE as a default
+p4$set(slider = TRUE)
+p4
+```
+
+---
+## highchart
+```
+h1 <- hPlot(x = "Wr.Hnd", y = "NW.Hnd", data = MASS::survey, type = c("line", 
+    "bubble", "scatter"), group = "Clap", size = "Age")
+h1
+```
+
+
+---
+## highchart run
+```{r echo = FALSE, results = 'asis'}
+h1 <- hPlot(x = "Wr.Hnd", y = "NW.Hnd", data = MASS::survey, type = c("line", 
+    "bubble", "scatter"), group = "Clap", size = "Age")
+h1
+```
+
+---
+## Embedding rCharts into a shiny app 
+### (then embedding it into slidify)
+
+
+---
+## What to do now
+- Go forth, and produce some eye candy

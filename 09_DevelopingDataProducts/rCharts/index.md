@@ -12,12 +12,13 @@ url:
     assets: ../../assets
 widgets     : [mathjax, quiz, bootstrap]
 mode        : selfcontained # {standalone, draft}
-ext_widgets : {rCharts: ["libraries/nvd3"]}
+ext_widgets : {rCharts: ["libraries/highcharts","libraries/nvd3", "libraries/morris", "libraries/leaflet", "libraries/rickshaw"]}
 ---
 
 
 
 ## rCharts
+![rCharts](fig/rCharts.png)
 - rCharts is a way to create interactive javascript visualizations using R
 - So
   - You don't have to learn complex tools, like D3
@@ -37,7 +38,7 @@ nPlot(Freq ~ Hair, group = 'Eye', type = 'multiBarChart',
 ```
 
 ---
-## Holy eye candy Batman!
+## nvD3 run
 
 
 
@@ -205,6 +206,9 @@ nPlot(Freq ~ Hair, group = 'Eye', type = 'multiBarChart',
 - The above was an example of embedding an rChart in a slidify document
   - In the YAML 
 ```yaml ext_widgets : {rCharts: ["libraries/nvd3"]}```
+- Or, if you use more than one library
+- YAML example
+```yaml ext_widgets : {rCharts: ["libraries/highcharts",libraries/nvd3", "libraries/morris"]}``` 
 
 ---
 ## Deconstructing another example
@@ -249,3 +253,150 @@ chart16c57cd13d81
 
 
 
+---
+## How to get the js/html or publish an rChart
+Now you can add whatever you'd like
+
+```r
+r1 <- rPlot(mpg ~ wt | am + vs, data = mtcars, type = "point", color = "gear")
+r1$print("chart1") # print out the js 
+r1$save('myPlot.html') #save as html file
+r1$publish('myPlot', host = 'gist') # save to gist, rjson required
+r1$publish('myPlot', host = 'rpubs') # save to rpubs
+```
+
+
+
+---
+## rCharts has links to several libraries
+- We'll do some examples
+- Note Ramnath mentions that io2012 and polychart have conflicting js
+  - They seem to work for me with that theme, but I get errors if I load the polychart library
+  - If debugging with io and polychart, factor that in
+
+
+---
+## morris
+```
+data(economics, package = "ggplot2")
+econ <- transform(economics, date = as.character(date))
+m1 <- mPlot(x = "date", y = c("psavert", "uempmed"), type = "Line", data = econ)
+m1$set(pointSize = 0, lineWidth = 1)
+m1
+```
+
+---
+## morris example run
+<iframe src='
+fig/unnamed-chunk-6.html
+' scrolling='no' seamless class='rChart 
+morris
+ '
+id=iframe-
+chart16c527b1afb7
+></iframe>
+<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+
+
+---
+## xCharts
+```
+require(reshape2)
+uspexp <- melt(USPersonalExpenditure)
+names(uspexp)[1:2] = c("category", "year")
+x1 <- xPlot(value ~ year, group = "category", data = uspexp, type = "line-dotted")
+x1
+```
+
+---
+## xCharts run
+<iframe src='
+fig/unnamed-chunk-7.html
+' scrolling='no' seamless class='rChart 
+xcharts
+ '
+id=iframe-
+chart16c57d6e1b94
+></iframe>
+<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+
+
+---
+## Leaflet
+```
+map3 <- Leaflet$new()
+map3$setView(c(51.505, -0.09), zoom = 13)
+map3$marker(c(51.5, -0.09), bindPopup = "<p> Hi. I am a popup </p>")
+map3$marker(c(51.495, -0.083), bindPopup = "<p> Hi. I am another popup </p>")
+map3
+```
+
+---
+## Leaflet run
+<iframe src='
+fig/unnamed-chunk-8.html
+' scrolling='no' seamless class='rChart 
+leaflet
+ '
+id=iframe-
+chart16c577763a3f
+></iframe>
+<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+
+
+---
+## Rickshaw
+```
+usp = reshape2::melt(USPersonalExpenditure)
+# get the decades into a date Rickshaw likes
+usp$Var2 <- as.numeric(as.POSIXct(paste0(usp$Var2, "-01-01")))
+p4 <- Rickshaw$new()
+p4$layer(value ~ Var2, group = "Var1", data = usp, type = "area", width = 560)
+# add a helpful slider this easily; other features TRUE as a default
+p4$set(slider = TRUE)
+p4
+```
+
+---
+## Rickshaw run
+<iframe src='
+fig/unnamed-chunk-9.html
+' scrolling='no' seamless class='rChart 
+rickshaw
+ '
+id=iframe-
+chart16c56fdfd342
+></iframe>
+<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+
+
+---
+## highchart
+```
+h1 <- hPlot(x = "Wr.Hnd", y = "NW.Hnd", data = MASS::survey, type = c("line", 
+    "bubble", "scatter"), group = "Clap", size = "Age")
+h1
+```
+
+
+---
+## highchart run
+<iframe src='
+fig/unnamed-chunk-10.html
+' scrolling='no' seamless class='rChart 
+highcharts
+ '
+id=iframe-
+chart16c54f760d43
+></iframe>
+<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+
+
+---
+## Embedding rCharts into a shiny app 
+### (then embedding it into slidify)
+
+
+---
+## What to do now
+- Go forth, and produce some eye candy

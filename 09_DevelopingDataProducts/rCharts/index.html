@@ -17,6 +17,12 @@
 <link rel=stylesheet href="../../librariesNew/widgets/bootstrap/css/bootstrap.css"></link>
 <link rel=stylesheet href="../../librariesNew/widgets/nvd3/css/nv.d3.css"></link>
 <link rel=stylesheet href="../../librariesNew/widgets/nvd3/css/rNVD3.css"></link>
+<link rel=stylesheet href="../../librariesNew/widgets/morris/css/morris.css"></link>
+<link rel=stylesheet href="../../librariesNew/widgets/leaflet/external/leaflet.css"></link>
+<link rel=stylesheet href="../../librariesNew/widgets/leaflet/external/leaflet-rCharts.css"></link>
+<link rel=stylesheet href="../../librariesNew/widgets/leaflet/external/legend.css"></link>
+<link rel=stylesheet href="../../librariesNew/widgets/rickshaw/css/rickshaw.min.css"></link>
+<link rel=stylesheet href="../../librariesNew/widgets/rickshaw/css/jquery-ui.css"></link>
 
   
   <!-- Grab CDN jQuery, fall back to local if offline -->
@@ -26,10 +32,23 @@
     src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-  <script src="../../librariesNew/widgets/nvd3/js/jquery-1.8.2.min.js"></script>
+  <script src="../../librariesNew/widgets/highcharts/js/jquery-1.9.1.min.js"></script>
+<script src="../../librariesNew/widgets/highcharts/js/highcharts.js"></script>
+<script src="../../librariesNew/widgets/highcharts/js/highcharts-more.js"></script>
+<script src="../../librariesNew/widgets/highcharts/js/exporting.js"></script>
+<script src="../../librariesNew/widgets/nvd3/js/jquery-1.8.2.min.js"></script>
 <script src="../../librariesNew/widgets/nvd3/js/d3.v3.min.js"></script>
 <script src="../../librariesNew/widgets/nvd3/js/nv.d3.min-new.js"></script>
 <script src="../../librariesNew/widgets/nvd3/js/fisheye.js"></script>
+<script src="../../librariesNew/widgets/morris/js/raphael-2.1.0.min.js"></script>
+<script src="../../librariesNew/widgets/morris/js/morris.min.js"></script>
+<script src="../../librariesNew/widgets/leaflet/external/leaflet.js"></script>
+<script src="../../librariesNew/widgets/leaflet/external/leaflet-providers.js"></script>
+<script src="../../librariesNew/widgets/leaflet/external/Control.FullScreen.js"></script>
+<script src="../../librariesNew/widgets/rickshaw/js/d3.v2.min.js"></script>
+<script src="../../librariesNew/widgets/rickshaw/js/rickshaw.min.js"></script>
+<script src="../../librariesNew/widgets/rickshaw/js/jquery.min.js"></script>
+<script src="../../librariesNew/widgets/rickshaw/js/jquery-ui.min.js"></script>
 
 
 </head>
@@ -56,7 +75,9 @@
     <h2>rCharts</h2>
   </hgroup>
   <article data-timings="">
-    <ul>
+    <p><img src="fig/rCharts.png" alt="rCharts"></p>
+
+<ul>
 <li>rCharts is a way to create interactive javascript visualizations using R</li>
 <li>So
 
@@ -91,7 +112,7 @@ nPlot(Freq ~ Hair, group = &#39;Eye&#39;, type = &#39;multiBarChart&#39;,
 
 <slide class="" id="slide-3" style="background:;">
   <hgroup>
-    <h2>Holy eye candy Batman!</h2>
+    <h2>nvD3 run</h2>
   </hgroup>
   <article data-timings="">
     <div id = 'chart1' class = 'rChart nvd3'></div>
@@ -269,6 +290,9 @@ nPlot(Freq ~ Hair, group = &#39;Eye&#39;, type = &#39;multiBarChart&#39;,
 <li>In the YAML 
 <code>yaml ext_widgets : {rCharts: [&quot;libraries/nvd3&quot;]}</code></li>
 </ul></li>
+<li>Or, if you use more than one library</li>
+<li>YAML example
+<code>yaml ext_widgets : {rCharts: [&quot;libraries/highcharts&quot;,libraries/nvd3&quot;, &quot;libraries/morris&quot;]}</code> </li>
 </ul>
 
   </article>
@@ -342,6 +366,248 @@ chart16c57cd13d81
   <!-- Presenter Notes -->
 </slide>
 
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>How to get the js/html or publish an rChart</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Now you can add whatever you&#39;d like</p>
+
+<pre><code class="r">r1 &lt;- rPlot(mpg ~ wt | am + vs, data = mtcars, type = &quot;point&quot;, color = &quot;gear&quot;)
+r1$print(&quot;chart1&quot;) # print out the js 
+r1$save(&#39;myPlot.html&#39;) #save as html file
+r1$publish(&#39;myPlot&#39;, host = &#39;gist&#39;) # save to gist, rjson required
+r1$publish(&#39;myPlot&#39;, host = &#39;rpubs&#39;) # save to rpubs
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>rCharts has links to several libraries</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>We&#39;ll do some examples</li>
+<li>Note Ramnath mentions that io2012 and polychart have conflicting js
+
+<ul>
+<li>They seem to work for me with that theme, but I get errors if I load the polychart library</li>
+<li>If debugging with io and polychart, factor that in</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>morris</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>data(economics, package = &quot;ggplot2&quot;)
+econ &lt;- transform(economics, date = as.character(date))
+m1 &lt;- mPlot(x = &quot;date&quot;, y = c(&quot;psavert&quot;, &quot;uempmed&quot;), type = &quot;Line&quot;, data = econ)
+m1$set(pointSize = 0, lineWidth = 1)
+m1
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>morris example run</h2>
+  </hgroup>
+  <article data-timings="">
+    <iframe src='
+fig/unnamed-chunk-6.html
+' scrolling='no' seamless class='rChart 
+morris
+ '
+id=iframe-
+chart16c527b1afb7
+></iframe>
+
+<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>xCharts</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>require(reshape2)
+uspexp &lt;- melt(USPersonalExpenditure)
+names(uspexp)[1:2] = c(&quot;category&quot;, &quot;year&quot;)
+x1 &lt;- xPlot(value ~ year, group = &quot;category&quot;, data = uspexp, type = &quot;line-dotted&quot;)
+x1
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>xCharts run</h2>
+  </hgroup>
+  <article data-timings="">
+    <iframe src='
+fig/unnamed-chunk-7.html
+' scrolling='no' seamless class='rChart 
+xcharts
+ '
+id=iframe-
+chart16c57d6e1b94
+></iframe>
+
+<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Leaflet</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>map3 &lt;- Leaflet$new()
+map3$setView(c(51.505, -0.09), zoom = 13)
+map3$marker(c(51.5, -0.09), bindPopup = &quot;&lt;p&gt; Hi. I am a popup &lt;/p&gt;&quot;)
+map3$marker(c(51.495, -0.083), bindPopup = &quot;&lt;p&gt; Hi. I am another popup &lt;/p&gt;&quot;)
+map3
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Leaflet run</h2>
+  </hgroup>
+  <article data-timings="">
+    <iframe src='
+fig/unnamed-chunk-8.html
+' scrolling='no' seamless class='rChart 
+leaflet
+ '
+id=iframe-
+chart16c577763a3f
+></iframe>
+
+<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Rickshaw</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>usp = reshape2::melt(USPersonalExpenditure)
+# get the decades into a date Rickshaw likes
+usp$Var2 &lt;- as.numeric(as.POSIXct(paste0(usp$Var2, &quot;-01-01&quot;)))
+p4 &lt;- Rickshaw$new()
+p4$layer(value ~ Var2, group = &quot;Var1&quot;, data = usp, type = &quot;area&quot;, width = 560)
+# add a helpful slider this easily; other features TRUE as a default
+p4$set(slider = TRUE)
+p4
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Rickshaw run</h2>
+  </hgroup>
+  <article data-timings="">
+    <iframe src='
+fig/unnamed-chunk-9.html
+' scrolling='no' seamless class='rChart 
+rickshaw
+ '
+id=iframe-
+chart16c56fdfd342
+></iframe>
+
+<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>highchart</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>h1 &lt;- hPlot(x = &quot;Wr.Hnd&quot;, y = &quot;NW.Hnd&quot;, data = MASS::survey, type = c(&quot;line&quot;, 
+    &quot;bubble&quot;, &quot;scatter&quot;), group = &quot;Clap&quot;, size = &quot;Age&quot;)
+h1
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>highchart run</h2>
+  </hgroup>
+  <article data-timings="">
+    <iframe src='
+fig/unnamed-chunk-10.html
+' scrolling='no' seamless class='rChart 
+highcharts
+ '
+id=iframe-
+chart16c54f760d43
+></iframe>
+
+<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Embedding rCharts into a shiny app</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>(then embedding it into slidify)</h3>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>What to do now</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Go forth, and produce some eye candy</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
     <slide class="backdrop"></slide>
   </slides>
   <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
@@ -360,7 +626,7 @@ chart16c57cd13d81
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='Holy eye candy Batman!'>
+        data-slide=3 title='nvD3 run'>
          3
       </a>
     </li>
@@ -392,6 +658,90 @@ chart16c57cd13d81
       <a href="#" target="_self" rel='tooltip' 
         data-slide=8 title='Example 2 Facetted Barplot, when run'>
          8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='How to get the js/html or publish an rChart'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='rCharts has links to several libraries'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='morris'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='morris example run'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='xCharts'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='xCharts run'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Leaflet'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Leaflet run'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Rickshaw'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Rickshaw run'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='highchart'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='highchart run'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='Embedding rCharts into a shiny app'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='What to do now'>
+         22
       </a>
     </li>
   </ul>

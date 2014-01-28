@@ -42,7 +42,7 @@
       </aside>
       <hgroup class="auto-fadein">
         <h1>Reproducible Research Case Study</h1>
-        <h2>Identifying the &quot;Smoking Guns&quot; in Particulate Matter Air Pollution</h2>
+        <h2>Identifying Harmful Constituents in Particulate Matter Air Pollution</h2>
         <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
       </hgroup>
           </slide>
@@ -98,18 +98,16 @@ Review Committee</li>
 
       <slide class="" id="slide-3" style="background:;">
   <hgroup>
-    <h2>What Causes Particulate Matter to be Toxic?</h2>
+    <h2>NMMAPS and Reproducibility</h2>
   </hgroup>
   <article>
-    <p><img src="lippmann.png" width=1000 /></p>
-
-<p><a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1665439/">http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1665439/</a></p>
-
-<ul>
-<li><p>Lippmann et al. found strong evidence that Ni and V modified
-the short-term effect of \(PM_{10}\) across 60 US communities</p></li>
-<li><p>No other PM chemical constituent seemed to have the same modifying
-effect</p></li>
+    <ul>
+<li><p>Data made available at the Internet-based Health and Air Pollution
+Surveillance System (<a href="http://www.ihapss.jhsph.edu">http://www.ihapss.jhsph.edu</a>)</p></li>
+<li><p>Research results and software also available at iHAPSS</p></li>
+<li><p>Many studies (over 67 published) have been conducted based on the
+public data <a href="http://www.ncbi.nlm.nih.gov/pubmed/22475833">http://www.ncbi.nlm.nih.gov/pubmed/22475833</a></p></li>
+<li><p>Has served as an important test bed for methodological development</p></li>
 </ul>
 
   </article>
@@ -118,10 +116,20 @@ effect</p></li>
 
       <slide class="" id="slide-4" style="background:;">
   <hgroup>
-    <h2>A Reanalysis</h2>
+    <h2>What Causes Particulate Matter to be Toxic?</h2>
   </hgroup>
   <article>
-    <p><img src="dominici.png" width=1000 /></p>
+    <p><img src="lippmann.png" width=1000 /></p>
+
+<p><a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1665439/">http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1665439/</a></p>
+
+<ul>
+<li><p>Lippmann <em>et al.</em> found strong evidence that Ni modified the
+short-term effect of \(PM_{10}\) across 60 US communities</p></li>
+<li><p>No other PM chemical constituent seemed to have the same modifying
+effect</p></li>
+<li><p>To simple to be true?</p></li>
+</ul>
 
   </article>
   <!-- Presenter Notes -->
@@ -129,10 +137,118 @@ effect</p></li>
 
       <slide class="" id="slide-5" style="background:;">
   <hgroup>
+    <h2>A Reanalysis of the Lippmann <em>et al.</em> Study</h2>
+  </hgroup>
+  <article>
+    <p><img src="dominici.png" width=1000 /></p>
+
+<p><a href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2137127/">http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2137127/</a></p>
+
+<ul>
+<li><p>Reexamine the data from NMMAPS and link with PM chemical constituent
+data</p></li>
+<li><p>Are the findings sensitive to levels of Nickel in New York City?</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Does Nickel Make PM Toxic?</h2>
+  </hgroup>
+  <article>
+    <p><img src="nickel-beta.png", height=400></p>
+
+<ul>
+<li><p>Long-term average nickel concentrations appear correlated with PM risk</p></li>
+<li><p>There appear to be some outliers on the right-hand side (New York City)</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Does Nickel Make PM Toxic?</h2>
+  </hgroup>
+  <article>
+    <p><img src="nickel-beta-lm.png", height=450></p>
+
+<ul>
+<li>Regression line statistically significant (\(p < 0.01\))</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Does Nickel Make PM Toxic?</h2>
+  </hgroup>
+  <article>
+    <p><img src="nickel-beta-lm-no-ny.png", height=450> </p>
+
+<ul>
+<li>Adjusted regression line (blue) no longer statistically significant
+(\(p < 0.31\))</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Does Nickel Make PM Toxic?</h2>
+  </hgroup>
+  <article>
+    <p><img src="ni-leaveout.png" height=500></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>What Have We Learned?</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li><p>New York does have very high levels of nickel and vanadium, much
+higher than any other US community</p></li>
+<li><p>There is evidence of a positive relationship between Ni
+concentrations and \(PM_{10}\) risk</p></li>
+<li><p>The strength of this relationship is highly sensitive to the
+observations from New York City</p></li>
+<li><p>Most of the information in the data is derived from just 3 observations</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
     <h2>Lessons Learned</h2>
   </hgroup>
   <article>
-    
+    <ul>
+<li><p>Reproducibility of NMMAPS allowed for a secondary analysis (and
+linking with PM chemical constituent data) investigating a novel
+hypothesis (Lippmann <em>et al.</em>)</p></li>
+<li><p>Reproducibility also allowed for a critique of that new analysis
+and some additional new analysis (Dominici <em>et al.</em>)</p></li>
+<li><p>Original hypothesis not necessarily invalidated, but evidence not as
+strong as originally suggested (more work should be done)</p></li>
+<li><p>Reproducibility allows for the scientific discussion to occur in a
+timely and informed manner</p></li>
+<li><p>This is how science works</p></li>
+</ul>
+
   </article>
   <!-- Presenter Notes -->
 </slide>

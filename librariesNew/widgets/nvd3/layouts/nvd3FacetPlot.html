@@ -1,0 +1,113 @@
+<script type='text/javascript'>
+    draw{{chartId}}()
+/*    setupChart = function(data, selector){
+      d3.select(selector)
+        .selectAll("div")
+        .data(data).enter()
+        .append('div').attr('class', 'preview')
+        .append('svg');
+    }
+*/
+    
+    
+    function draw{{chartId}}(){  
+      var opts = {{{ opts }}},
+        data = {{{ data }}}
+        
+  var subCharts = [];  
+  
+
+  //if facet not provided for x or y make Dummy variable
+  opts.facet.x = opts.facet.x ? opts.facet.x : "Dummy"
+  opts.facet.y = opts.facet.y ? opts.facet.y : "Dummy"    
+  if(opts.facet.x === "Dummy" || opts.facet.y === "Dummy") {
+    data.forEach(function(d){
+      d.Dummy = 1;
+    })
+  }
+
+  var rows = d3.set(data.map(function(d){return d[opts.facet.y]})).values();
+  var nrow = rows.length;
+  var cols = d3.set(data.map(function(d){return d[opts.facet.x]})).values()
+  var ncol = cols.length;
+  
+  var tuples = d3.merge(rows.map(function(row,irow){return cols.map(function(col,icol){return {key:row + "~" + col, values: {"row":irow, "col":icol} }})}))
+    
+  var grid = d3.layout.grid()
+    .rows( nrow )
+    .cols( ncol )
+    .size([ opts.width, opts.height-100])
+    .bands();
+  
+  var svgGrid = d3.select("#" + opts.id).append("svg")
+    .attr("width", opts.width)
+    .attr("height", opts.height);
+   // .attr("transform", "translate(50,0)");
+
+  grid(tuples);        
+        
+    var data = d3.nest()
+        .key(function(d){ return d[opts.facet]} ).sortKeys(d3.ascending)   
+        .entries(data)
+        
+      facets = d3.select("#" + opts.id)
+        .selectAll("div")
+        .data(data).enter()
+        .append('div').attr('class', 'facets')
+        .append('svg')
+          .attr("height", opts.height/d3.keys(data).length);
+          
+      facets[0].forEach(function(d,i){
+        d3.select(d3.select(d).node().parentNode).insert("h3","svg")
+          .text(opts.facet + " : " + d3.select(d).datum().key)
+      })
+    
+      facets.each(function(d, i){
+         var facetdata = d3.nest()
+          .key(function(d){
+            return opts.group === undefined ? d[opts.facet] : d[opts.group]
+          })
+          .key(function(d){
+            return d[opts.x]
+          })          
+          .rollup(function(d){
+              tempobj = {};
+              tempobj[opts.x] = d[0][opts.x];
+              tempobj[opts.y] = d3.sum(d, function(dd) {
+                return dd[opts.y];
+              });
+              return tempobj;
+          })          
+          .entries(d.values)
+      
+         nv.addGraph(function() {
+           var chart = nv.models[opts.type]()
+             .x(function(d) {
+               return d.values[opts.x] })
+             .y(function(d) { return d.values[opts.y] })
+             .width(opts.width)
+             .height(opts.height / facets[0].length)
+         
+        {{{ chart }}}
+          
+        {{{ xAxis }}}
+
+        {{{ x2Axis }}}
+        
+        {{{ yAxis }}}           
+          
+        
+         if(opts.type==="pieChart" || opts.type==="sparklinePlus") {
+           facetdata = facetdata[0].values;
+         };
+      
+         d3.select(facets[0][i])
+          .datum(facetdata)
+          .transition().duration(500)
+          .call(chart);
+
+          nv.utils.windowResize(chart.update);
+        });
+      });
+    };
+</script>

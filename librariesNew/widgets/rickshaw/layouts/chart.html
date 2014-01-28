@@ -1,0 +1,14 @@
+<script type='text/javascript'> 
+  var palette = new Rickshaw.Color.Palette({ scheme: "{{{params.scheme}}}" });
+  var chartParams = {{{ chartParams }}}
+  chartParams.element = document.querySelector('#{{{ chartId }}}')
+  
+  var graph{{{ chartId }}} = new Rickshaw.Graph(chartParams);
+  
+  graph{{{ chartId }}}.render();
+  
+  {{{ chartExtensions }}}
+  
+  graph{{{ chartId }}}.render();
+  
+</script> 

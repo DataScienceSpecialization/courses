@@ -1,0 +1,75 @@
+<div class='container'>
+  <div class='row'>
+    <div class='span4' id='my-gui-container'>
+      
+    </div>
+    <div class='span8'>
+      <div class="bs-docs-example">
+        <div id='{{chartId}}' class='rChart nvd3'>
+          <svg></svg>
+        </div><br/>
+{{# CODE }}
+<pre><code class='r'>{{CODE}}
+</code></pre>
+{{/ CODE }}
+      </div>
+    </div>
+  </div>
+</div>
+  
+<script type='text/javascript'>
+ $(document).ready(function(){
+  var opts = {{{ opts }}},
+    data = {{{ data }}}
+ 
+  var myChart = drawChart(opts, data)
+  var gui = new dat.GUI({ autoPlace: false }),
+    controls_json = {{{ controls_json }}}
+
+  var customContainer = document.getElementById('my-gui-container');
+  customContainer.appendChild(gui.domElement);  
+  
+  {{# controls }}
+    var {{{ name }}} = gui.add(opts, '{{{ name }}}', 
+      controls_json['{{{ name }}}'].values)
+    {{{ name }}}.onChange(function(value){
+      opts['{{{ name }}}'] = value;
+      $('#{{chartId}} svg').empty();
+      drawChart(opts, data)
+    })
+  {{/ controls }}
+  
+});
+
+function drawChart(opts, data){  
+  var data = d3.nest()
+    .key(function(d){
+      return opts.group === undefined ? 'main' : d[opts.group]
+    })
+    .entries(data)
+  
+  var chart = nv.models[opts.type]()
+      .x(function(d) { return d[opts.x] })
+      .y(function(d) { return d[opts.y] })
+      .width(opts.width)
+      .height(opts.height)
+     
+ {{{ chart }}}
+      
+ {{{ xAxis }}}
+
+ {{{ x2Axis }}}
+
+ {{{ yAxis }}}  
+
+   d3.select("#" + opts.id + ' svg')
+    .datum(data)
+    .transition().duration(500)
+    .call(chart);
+
+   nv.utils.windowResize(chart.update);
+   return chart
+};
+</script>
+<script src='http://dat-gui.googlecode.com/git/build/dat.gui.min.js'></script>
+    

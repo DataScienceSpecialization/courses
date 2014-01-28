@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -96,15 +96,15 @@ seEst <- sqrt((n - 1) * mean((jk - thetaBar)^2))
 ```{r}
 c(biasEst, seEst)
 library(bootstrap)
-out <- jackknife(x, median)
-c(out$jack.bias, out$jack.se)
+temp <- jackknife(x, median)
+c(temp$jack.bias, temp$jack.se)
 ```
 
 ---
 
 ## Example
 
-- Both methods (of course) yield an estimated bias of `r out$jack.bias` and a se of `r out$jack.se`
+- Both methods (of course) yield an estimated bias of `r temp$jack.bias` and a se of `r temp$jack.se`
 - Odd little fact: the jackknife estimate of the bias for the median is always $0$ when the number of observations is even
 - It has been shown that the jackknife is a linear approximation to the bootstrap
 - Generally do not use the jackknife for sample quantiles like the median; as it has been shown to have some poor properties
@@ -255,3 +255,5 @@ mean(permutations > observedStat)
 ```{r, echo= FALSE, fig.width=5, fig.height=5}
 hist(permutations)
 ```
+
+

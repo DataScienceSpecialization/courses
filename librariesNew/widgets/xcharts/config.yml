@@ -1,0 +1,9 @@
+xcharts:
+  css: css/xcharts.min.css
+  jshead: [js/d3.v2.min.js, js/xcharts.min.js]
+  cdn:
+    css: http://tenxer.github.io/xcharts/css/master.css
+    jshead:
+      - http://d3js.org/d3.v2.min.js
+      - http://tenxer.github.io/xcharts/js/xcharts.min.js
+

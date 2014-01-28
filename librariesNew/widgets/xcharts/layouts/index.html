@@ -1,0 +1,18 @@
+<!doctype HTML>
+<html>
+<head>
+  <link rel="stylesheet" href="http://tenxer.github.io/xcharts/css/master.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script src="http://tenxer.github.io/xcharts/js/d3.v2.min.js"></script>
+  <script src="http://tenxer.github.io/xcharts/js/xcharts.min.js"></script>
+</head>
+<body style='padding-top:50px;'>
+<figure id="example" style="width: 400px; height: 300px;"></figure>
+<script type='text/javascript'>
+    var data = {"dom":"example","width":900,"height":400,"xScale":"ordinal","yScale":"linear","main":[{"data":[{"x":4,"y":11},{"x":6,"y":7},{"x":8,"y":14}]}],"id":"example"},
+      chartType = "bar",
+      myChart = new xChart(chartType, data, '#example');
+</script>
+ 
+</body>
+</html>

@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -128,7 +128,7 @@ $$
 * If $n$ is small, then a Gossett's $T$ test is performed exactly in the same way,
   with the normal quantiles replaced by the appropriate Student's $T$ quantiles and
   $n-1$ df
-* The probability of rejecting the null hypothesis when it is false is called {\bf power}
+* The probability of rejecting the null hypothesis when it is false is called *power*
 * Power is a used a lot to calculate sample sizes for experiments
 
 ---
@@ -168,11 +168,11 @@ t.test(father.son$sheight - father.son$fheight)
 
 	One Sample t-test
 
-data:  father.son$sheight - father.son$fheight 
+data:  father.son$sheight - father.son$fheight
 t = 11.79, df = 1077, p-value < 2.2e-16
-alternative hypothesis: true mean is not equal to 0 
+alternative hypothesis: true mean is not equal to 0
 95 percent confidence interval:
- 0.831 1.163 
+ 0.831 1.163
 sample estimates:
 mean of x 
     0.997 
@@ -184,7 +184,7 @@ mean of x
 * Consider testing $H_0: \mu = \mu_0$ versus $H_a: \mu \neq \mu_0$
 * Take the set of all possible values for which you fail to reject $H_0$, this set is a $(1-\alpha)100\%$ confidence interval for $\mu$
 * The same works in reverse; if a $(1-\alpha)100\%$ interval
-  contains $\mu_0$, then we {\bf fail  to} reject $H_0$
+  contains $\mu_0$, then we *fail  to* reject $H_0$
 
 ---
 ## Exact binomial test
@@ -213,4 +213,5 @@ Rejection region | Type I error rate |
 * Two sided test isn't obvious. 
   * Given a way to do two sided tests, we could take the set of values of $p_0$ for which we fail to reject to get an exact binomial confidence interval (called the Clopper/Pearson interval, BTW)
 * For these problems, people always create a P-value (next lecture) rather than computing the rejection region.
-* 
+
+

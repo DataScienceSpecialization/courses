@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -71,7 +71,7 @@ pt(0.8, 15, lower.tail = FALSE)
 ## The attained significance level
 * Our test statistic was $2$ for $H_0 : \mu_0  = 30$ versus $H_a:\mu > 30$.
 * Notice that we rejected the one sided test when $\alpha = 0.05$, would we reject if $\alpha = 0.01$, how about $0.001$?
-* The smallest value for alpha that you still reject the null hypothesis is called the {\bf attained significance level}
+* The smallest value for alpha that you still reject the null hypothesis is called the *attained significance level*
 * This is equivalent, but philosophically a little different from, the *P-value*
 
 ---
@@ -102,7 +102,6 @@ pbinom(6, size = 8, prob = .5, lower.tail = FALSE)
 ```{r}
 ppois(9, 5, lower.tail = FALSE)
 ```
-
 
 
 

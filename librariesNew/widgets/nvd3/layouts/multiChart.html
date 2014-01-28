@@ -1,0 +1,54 @@
+<script type='text/javascript'>
+ $(document).ready(function(){
+      draw{{chartId}}()
+    });
+    function draw{{chartId}}(){  
+      var opts = {{{ opts }}},
+        data = {{{ data }}}
+  
+      if(!(opts.type==="pieChart")) {
+        var data = d3.nest()
+          .key(function(d){
+            return opts.group === undefined ? 'main' : d[opts.group]
+          })
+          .entries(data);
+      }
+      
+      //loop through to give an expected x and y
+      //then give the type and yAxis hopefully provided by R
+      data.forEach(function(variables) {
+		    variables.values.forEach(function(values){
+			    values.x = values[opts.x];
+			    values.y = values[opts.y];
+		    });
+        variables.type = opts.multi[variables.key].type;
+        variables.yAxis = opts.multi[variables.key].yAxis;
+	    });
+    
+      
+      nv.addGraph(function() {
+        var chart = nv.models[opts.type]()
+          //.x(function(d) { return d[opts.x] })
+          //.y(function(d) { return d[opts.y] })
+          .width(opts.width)
+          .height(opts.height)
+         
+        {{{ chart }}}
+          
+        {{{ xAxis }}}
+
+        {{{ x2Axis }}}
+        
+        {{{ yAxis }}}
+      
+       d3.select("#" + opts.id)
+        .append('svg')
+        .datum(data)
+        .transition().duration(500)
+        .call(chart);
+
+       nv.utils.windowResize(chart.update);
+       return chart;
+      });
+    };
+</script>

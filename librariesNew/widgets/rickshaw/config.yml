@@ -1,0 +1,12 @@
+rickshaw:
+  css: [css/rickshaw.min.css, css/jquery-ui.css]
+  jshead: [js/d3.v2.min.js, js/rickshaw.min.js, js/jquery.min.js, js/jquery-ui.min.js]
+  cdn:
+    css: 
+      - "http://cdn.strategiqcommerce.com/ajax/libs/rickshaw/1.2.1/rickshaw.min.css"
+      - "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
+    jshead:
+      - "http://d3js.org/d3.v2.min.js"
+      - "http://cdn.strategiqcommerce.com/ajax/libs/rickshaw/1.2.1/rickshaw.min.js"
+      - "https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"
+      - "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"

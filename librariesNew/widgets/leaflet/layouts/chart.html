@@ -1,0 +1,108 @@
+<script>
+  var spec = {{{ chartParams }}}
+
+  var map = L.map(spec.dom, spec.mapOpts)
+  
+  {{^ addons.kml }}
+    map.setView(spec.center, spec.zoom);
+  {{/ addons.kml }}
+
+
+    if (spec.provider){
+      L.tileLayer.provider(spec.provider).addTo(map)    
+    } else {
+		  L.tileLayer(spec.urlTemplate, spec.layerOpts).addTo(map)
+    }
+     
+    {{{ marker }}}
+    
+    {{{ circle }}}
+    
+    
+    if (spec.circle2){
+      for (var c in spec.circle2){
+        var circle = L.circle(c.center, c.radius, c.opts)
+         .addTo(map);
+      }
+    }
+    
+    {{# addons.geocsv }}
+      var geo_csv = L.geoCsv(null, {
+        titles: spec.geocsv.titles,
+        fieldSeparator: ';',
+        lineSeparator: '\n',
+        deleteDobleQuotes: true,
+        firstLineTitles: false,
+          onEachFeature: function (feature, layer) {
+        var popup = '';
+          for (var clave in feature.properties) {
+            var title = geo_csv.getPropertyTitle(clave);
+            popup += '<b>'+title+'</b><br />'+feature.properties[clave]+'<br /><br />';
+          }
+          layer.bindPopup(popup);
+        }
+      })
+    
+      geo_csv.addData(spec.geocsv.data)
+      map.addLayer(geo_csv)
+    {{/ addons.geocsv }}
+    
+    {{# addons.enablePopover }}
+      var popup = L.popup();
+      function onMapClick(e) {
+        popup
+          .setLatLng(e.latlng)
+          .setContent("<b>Latitude:</b> " + e.latlng.lat.toFixed(2) + "<br />" +
+            "<b>Longitude:</b> " + e.latlng.lng.toFixed(2))
+          .openOn(map);
+      }
+      map.on('click', onMapClick);
+    {{/ addons.enablePopover }}
+    
+    
+    {{# addons.geoJson }}
+    var geojsonLayer = L.geoJson(spec.features 
+        {{# geoJson }}, 
+         {{{ geoJson }}}
+        {{/ geoJson }}
+      ).addTo(map)
+    {{/ addons.geoJson }}
+    
+    {{#addons.legend}}
+    var legend = L.control({position: spec.legend.position});
+    legend.onAdd = function (map) {
+      var div = L.DomUtil.create('div', 'info legend'),
+          labels = spec.legend.labels,
+          colors = spec.legend.colors
+
+      // loop through our density intervals and generate a 
+      // label with a colored square for each interval
+      for (var i = 0; i < labels.length; i++) {
+          div.innerHTML += '<i style="background:' +  colors[i] + '"></i>' + 
+            labels[i] + "<br>"
+      }
+     return div;
+    };
+    legend.addTo(map); 
+   {{/addons.legend}}
+   
+   {{#addons.fullscreen}}
+   
+     L.control.fullscreen({
+       position: 'topleft',
+       title: 'Show me the fullscreen !'
+    }).addTo(map);
+   
+   {{/addons.fullscreen}}
+   
+   {{#addons.kml}}
+   var kmlLayer = new L.KML({{{ kml }}}, {async: true});
+                                                              
+   kmlLayer.on("loaded", function(e) { 
+        map.fitBounds(e.target.getBounds());
+   });
+                                                
+   map.addLayer(kmlLayer);
+   {{/addons.kml}}
+   
+</script>

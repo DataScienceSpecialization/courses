@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{{> head }}
+  {{{ stylesheets }}}  
+</head>
+<body style='display: none'>
+	<section class='slides layout-regular template-regular'>
+     <!-- SLIDES -->
+      {{# slides }}
+        {{{ slide }}}
+      {{/ slides }} 
+  </section>
+</body>
+  <!-- LOAD JAVASCRIPTS  -->
+	<script src='{{url.theme}}/slides.js'></script>
+	{{> javascripts }}
+</html>
+

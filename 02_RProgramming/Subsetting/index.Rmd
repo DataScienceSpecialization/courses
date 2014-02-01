@@ -21,7 +21,7 @@ There are a number of operators that can be used to extract subsets of R objects
 
 - `[[` is used to extract elements of a list or a data frame; it can only be used to extract a single element and the class of the returned object will not necessarily be a list or data frame
 
-- `$` is used to extract elements of a list or data frame by name; semantics are similar to hat of `[[`.
+- `$` is used to extract elements of a list or data frame by name; semantics are similar to that of `[[`.
 
 ---
 

@@ -208,7 +208,7 @@ jeff$
 - `cd` stands for "change directory"
 - `cd` takes as an argument the directory you want to visit
 - `cd` with no argument takes you to your home directory
-- `cd ..` allows you to chnage directory to one level above your current directory
+- `cd ..` allows you to change directory to one level above your current directory
 
 ```bash
 jeff$ cd Music/Debussy

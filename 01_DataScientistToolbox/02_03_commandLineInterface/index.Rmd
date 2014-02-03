@@ -308,7 +308,7 @@ jeff$
 ## CLI Commands
 
 - You can also use `rm` to delete entire directories and their contents by using the `-r` flag
-- **Be very careful when you do this, there is no was to undo an `rm`**
+- **Be very careful when you do this, there is no way to undo an `rm`**
 
 ```bash
 jeff$ ls

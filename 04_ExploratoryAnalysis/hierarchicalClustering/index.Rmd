@@ -1,0 +1,335 @@
+---
+title       : Hierarchical Clustering
+subtitle    : 
+author      : Roger D. Peng, Associate Professor of Biostatistics 
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../libraries
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## Can we find things that are close together? 
+
+Clustering organizes things that are __close__ into groups
+
+
+* How do we define close?
+* How do we group things?
+* How do we visualize the grouping? 
+* How do we interpret the grouping? 
+
+---
+
+## Hugely important/impactful
+
+<img class=center src=../../assets/img/cluster.png height=450>
+
+[http://scholar.google.com/scholar?hl=en&q=cluster+analysis&btnG=&as_sdt=1%2C21&as_sdtp=](http://scholar.google.com/scholar?hl=en&q=cluster+analysis&btnG=&as_sdt=1%2C21&as_sdtp=)
+
+---
+
+## Hierarchical clustering
+
+* An agglomerative approach
+  * Find closest two things
+  * Put them together
+  * Find next closest
+* Requires
+  * A defined distance
+  * A merging approach
+* Produces
+  * A tree showing how close things are to each other
+
+
+---
+
+
+## How do we define close?
+
+* Most important step
+  * Garbage in -> garbage out
+* Distance or similarity
+  * Continuous - euclidean distance
+  * Continuous - correlation similarity
+  * Binary - manhattan distance
+* Pick a distance/similarity that makes sense for your problem
+  
+  
+
+---
+
+## Example distances - Euclidean
+
+<img class=center src=../../assets/img/distance.png height=450>
+
+[http://rafalab.jhsph.edu/688/lec/lecture5-clustering.pdf](http://rafalab.jhsph.edu/688/lec/lecture5-clustering.pdf)
+
+
+---
+
+## Example distances - Euclidean
+
+<img class=center src=../../assets/img/distance2.png height=300>
+
+In general:
+
+$$\sqrt{(A_1-A_2)^2 + (B_1-B_2)^2 + \ldots + (Z_1-Z_2)^2}$$
+[http://rafalab.jhsph.edu/688/lec/lecture5-clustering.pdf](http://rafalab.jhsph.edu/688/lec/lecture5-clustering.pdf)
+
+
+
+---
+
+## Example distances - Manhattan
+
+<img class=center src=../../assets/img/manhattan.svg height=300>
+
+In general:
+
+$$|A_1-A_2| + |B_1-B_2| + \ldots + |Z_1-Z_2|$$
+
+[http://en.wikipedia.org/wiki/Taxicab_geometry](http://en.wikipedia.org/wiki/Taxicab_geometry)
+
+
+
+---
+
+## Hierarchical clustering - example
+
+```{r createData, fig.height=3.5,fig.width=3.5}
+set.seed(1234); par(mar=c(0,0,0,0))
+x <- rnorm(12,mean=rep(1:3,each=4),sd=0.2)
+y <- rnorm(12,mean=rep(c(1,2,1),each=4),sd=0.2)
+plot(x,y,col="blue",pch=19,cex=2)
+text(x+0.05,y+0.05,labels=as.character(1:12))
+```
+
+
+---
+
+## Hierarchical clustering - `dist`
+
+* Important parameters: _x_,_method_
+```{r dependson="createData",fig.height=4,fig.width=4}
+dataFrame <- data.frame(x=x,y=y)
+dist(dataFrame)
+```
+
+---
+
+## Hierarchical clustering - #1
+
+```{r dependson="createData",echo=FALSE, fig.height=4,fig.width=8}
+suppressMessages(library(fields))
+dataFrame <- data.frame(x=x,y=y)
+rdistxy <- rdist(dataFrame)
+diag(rdistxy) <- diag(rdistxy) + 1e5
+
+# Find the index of the points with minimum distance
+ind <- which(rdistxy == min(rdistxy),arr.ind=TRUE)
+par(mfrow=c(1,2),mar=rep(0.2,4))
+# Plot the points with the minimum overlayed
+plot(x,y,col="blue",pch=19,cex=2)
+text(x+0.05,y+0.05,labels=as.character(1:12))
+points(x[ind[1,]],y[ind[1,]],col="orange",pch=19,cex=2)
+
+# Make a cluster and cut it at the right height
+distxy <- dist(dataFrame)
+hcluster <- hclust(distxy)
+dendro <- as.dendrogram(hcluster)
+cutDendro <- cut(dendro,h=(hcluster$height[1]+0.00001) )
+plot(cutDendro$lower[[11]],yaxt="n")
+```
+
+
+
+---
+
+## Hierarchical clustering - #2
+
+```{r dependson="createData",echo=FALSE}
+library(fields)
+dataFrame <- data.frame(x=x,y=y)
+rdistxy <- rdist(dataFrame)
+diag(rdistxy) <- diag(rdistxy) + 1e5
+
+# Find the index of the points with minimum distance
+ind <- which(rdistxy == min(rdistxy),arr.ind=TRUE)
+par(mar=rep(0.2,4))
+# Plot the points with the minimum overlayed
+plot(x,y,col="blue",pch=19,cex=2)
+text(x+0.05,y+0.05,labels=as.character(1:12))
+points(x[ind[1,]],y[ind[1,]],col="orange",pch=19,cex=2)
+points(mean(x[ind[1,]]),mean(y[ind[1,]]),col="black",cex=3,lwd=3,pch=3)
+points(mean(x[ind[1,]]),mean(y[ind[1,]]),col="orange",cex=5,lwd=3,pch=1)
+
+
+```
+
+
+
+---
+
+## Hierarchical clustering - #3
+
+```{r dependson="createData",echo=FALSE, fig.height=5,fig.width=14}
+library(fields)
+dataFrame <- data.frame(x=x,y=y)
+rdistxy <- rdist(dataFrame)
+diag(rdistxy) <- diag(rdistxy) + 1e5
+
+# Find the index of the points with minimum distance
+ind <- which(rdistxy == rdistxy[order(rdistxy)][3],arr.ind=TRUE)
+par(mfrow=c(1,3),mar=rep(0.2,4))
+# Plot the points with the minimum overlayed
+plot(x,y,col="blue",pch=19,cex=2)
+text(x+0.05,y+0.05,labels=as.character(1:12))
+points(x[c(5,6)],y[c(5,6)],col="orange",pch=19,cex=2)
+points(x[ind[1,]],y[ind[1,]],col="red",pch=19,cex=2)
+
+# Make dendogram plots
+distxy <- dist(dataFrame)
+hcluster <- hclust(distxy)
+dendro <- as.dendrogram(hcluster)
+cutDendro <- cut(dendro,h=(hcluster$height[2]) )
+plot(cutDendro$lower[[10]],yaxt="n")
+plot(cutDendro$lower[[5]],yaxt="n")
+
+```
+
+
+
+---
+
+## Hierarchical clustering - hclust
+
+```{r, dependson="createData", fig.height=4,fig.width=4}
+dataFrame <- data.frame(x=x,y=y)
+distxy <- dist(dataFrame)
+hClustering <- hclust(distxy)
+plot(hClustering)
+```
+
+
+---
+
+## Prettier dendrograms
+
+```{r plclust}
+myplclust <- function( hclust, lab=hclust$labels, lab.col=rep(1,length(hclust$labels)), hang=0.1,...){
+  ## modifiction of plclust for plotting hclust objects *in colour*!
+  ## Copyright Eva KF Chan 2009
+  ## Arguments:
+  ##    hclust:    hclust object
+  ##    lab:        a character vector of labels of the leaves of the tree
+  ##    lab.col:    colour for the labels; NA=default device foreground colour
+  ##    hang:     as in hclust & plclust
+  ## Side effect:
+  ##    A display of hierarchical cluster with coloured leaf labels.
+  y <- rep(hclust$height,2); x <- as.numeric(hclust$merge)
+  y <- y[which(x<0)]; x <- x[which(x<0)]; x <- abs(x)
+  y <- y[order(x)]; x <- x[order(x)]
+  plot( hclust, labels=FALSE, hang=hang, ... )
+  text( x=x, y=y[hclust$order]-(max(hclust$height)*hang),
+        labels=lab[hclust$order], col=lab.col[hclust$order], 
+        srt=90, adj=c(1,0.5), xpd=NA, ... )
+}
+
+```
+
+
+---
+
+## Pretty dendrograms
+
+```{r, dependson="createData", fig.height=4,fig.width=4}
+dataFrame <- data.frame(x=x,y=y)
+distxy <- dist(dataFrame)
+hClustering <- hclust(distxy)
+myplclust(hClustering,lab=rep(1:3,each=4),lab.col=rep(1:3,each=4))
+```
+
+---
+
+## Even Prettier dendrograms
+
+
+<img class=center src=../../assets/img/prettydendro.png height=450>
+
+
+[http://gallery.r-enthusiasts.com/RGraphGallery.php?graph=79](http://gallery.r-enthusiasts.com/RGraphGallery.php?graph=79)
+
+
+---
+
+## Merging points - complete
+
+```{r,echo=FALSE,dependson="createData"}
+dataFrame <- data.frame(x=x,y=y)
+par(mar=rep(0.1,4))
+plot(x,y,col="blue",pch=19,cex=2)
+points(x[8],y[8],col="orange",pch=3,lwd=3,cex=3)
+points(x[1],y[1],col="orange",pch=3,lwd=3,cex=3)
+segments(x[8],y[8],x[1],y[1],lwd=3,col="orange")
+
+```
+
+
+
+---
+
+## Merging points - average
+
+```{r,echo=FALSE,dependson="createData"}
+dataFrame <- data.frame(x=x,y=y)
+par(mar=rep(0.1,4))
+plot(x,y,col="blue",pch=19,cex=2)
+points(mean(x[1:4]),mean(y[1:4]),col="orange",pch=3,lwd=3,cex=3)
+points(mean(x[5:8]),mean(y[5:8]),col="orange",pch=3,lwd=3,cex=3)
+segments(mean(x[1:4]),mean(y[1:4]),mean(x[5:8]),mean(y[5:8]),lwd=3,col="orange")
+
+```
+
+
+---
+
+## `heatmap()`
+
+```{r,dependson="createData",fig.height=5,fig.width=6}
+dataFrame <- data.frame(x=x,y=y)
+set.seed(143)
+dataMatrix <- as.matrix(dataFrame)[sample(1:12),]
+heatmap(dataMatrix)
+```
+
+
+
+---
+
+## Notes and further resources
+
+* Gives an idea of the relationships between variables/observations
+* The picture may be unstable
+  * Change a few points
+  * Have different missing values
+  * Pick a different distance
+  * Change the merging strategy
+  * Change the scale of points for one variable
+* But it is deterministic
+* Choosing where to cut isn't always obvious
+* Should be primarily used for exploration 
+* [Rafa's Distances and Clustering Video](http://www.youtube.com/watch?v=wQhVWUcXM0A)
+* [Elements of statistical learning](http://www-stat.stanford.edu/~tibs/ElemStatLearn/)
+
+
+
+
+
+
+

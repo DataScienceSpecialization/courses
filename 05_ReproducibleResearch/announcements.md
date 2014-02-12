@@ -13,3 +13,23 @@ Watching the videos on the Coursera web site is the best way to watch the lectur
 I hope you enjoy the class. I anticipate a fun four weeks!
 
 Roger Peng and the Data Science Team
+
+---
+
+## Reproducible Research: Week 2
+
+Today marks the beginning of Week 2 of Reproducible Research. This week we cover some of the core tools for developing reproducible documents. We cover the literate programming tool knitr and show how to integrate it with Markdown to publish reproducible web documents. This week also introduces the first peer assessment which will require you to write up a reproducible data analysis using knitr.
+
+Roger Peng and the Data Science Team
+
+---
+
+## Reproducible Research: Week 3
+
+
+---
+
+## Reproducible Research: Week 4
+
+
+---

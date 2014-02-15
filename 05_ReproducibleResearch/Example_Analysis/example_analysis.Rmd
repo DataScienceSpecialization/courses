@@ -1,60 +1,116 @@
 # Describing Decreases in Fine Particle Air Pollution Between 1999 and 2012
-===
 
 ## Synopsis
 
+In this report we aim to describe the changes in fine particle (PM<sub>2.5</sub>) outdoor air pollution in the United States between the years 1999 and 2012. Our overall hypothesis is that out door PM<sub>2.5</sub> has decreased on average across the U.S. due to nationwide regulatory requirements arising from the Clean Air Act. To investigate this hypothesis, we obtained PM<sub>2.5</sub> data from the U.S. Environmental Protection Agency which is collected from monitors sited across the U.S. We specifically obtained data for the years 1999 and 2012 (the most recent complete year available). From these data, we found that, on average across the U.S., levels of PM<sub>2.5</sub> have decreased between 1999 and 2012. At one individual monitor, we found that levels have decreased and that the variability of PM<sub>2.5</sub> has decreased. Most individual states also experienced decreases in PM<sub>2.5</sub>, although some states saw increases.
+
+
+## Loading and Processing the Raw Data
+
+From the [EPA Air Quality System](http://www.epa.gov/ttn/airs/airsaqs/detaildata/downloadaqsdata.htm) we obtained data on fine particulate matter air pollution (PM<sub>2.5</sub>) that is monitored across the U.S. as part of the nationwide PM monitoring network. We obtained the files for the years [1999](http://www.epa.gov/ttn/airs/airsaqs/detaildata/501files/Rd_501_88101_1999.Zip) and [2012](http://www.epa.gov/ttn/airs/airsaqs/detaildata/501files/RD_501_88101_2012[1].zip).
+
+
+### Reading in the 1999 data
+
+We first read in the 1999 data from the raw text file included in the zip archive. The data is a delimited file were fields are delimited with the `|` character adn missing values are coded as blank fields. We skip some commented lines in the beginning of the file and initially we do not read the header data.
+
 
 ```{r read 1999 data,cache=TRUE}
-pm0 <- read.table("RD_501_88101_1999-0.txt", comment.char = "#", header = FALSE, sep = "|", na.strings = "")
+pm0 <- read.table("pm25_data/RD_501_88101_1999-0.txt", comment.char = "#", header = FALSE, sep = "|", na.strings = "")
 ```
 
+After reading in the 1999 we check the first few rows (there are `r format(nrow(pm0),big.mark=",")` rows in this dataset. 
+
+```{r check first few rows}
 dim(pm0)
-head(pm0)
-cnames <- readLines("RD_501_88101_1999-0.txt", 1)
-print(cnames)
+head(pm0[, 1:13])
+```
+
+We then attach the column headers to the dataset and make sure that they are properly formated for R data frames.
+
+
+```{r set column names}
+cnames <- readLines("pm25_data/RD_501_88101_1999-0.txt", 1)
 cnames <- strsplit(cnames, "|", fixed = TRUE)
-print(cnames)
-names(pm0) <- make.names(cnames[[1]])
-head(pm0)
+names(pm0) <- make.names(cnames[[1]])  ## Ensure names are properly formatted
+head(pm0[, 1:13])
+```
+
+The column we are interested in is the `Sample.Value` column which contains the PM<sub>2.5</sub> measurements. Here we extract that column and print a brief summary.
+
+
+```{r}
 x0 <- pm0$Sample.Value
-class(x0)
-str(x0)
 summary(x0)
+```
+
+Missing values are a common problem with environmental data and so we check to se what proportion of the observations are missing (i.e. coded as `NA`).
+
+```{r}
 mean(is.na(x0))  ## Are missing values important here?
+```
 
-## Read in data from 2012
+Because the proportion of missing values is relatively low (`r mean(is.na(x0))`), we choose to ignore missing values for now.
 
-pm1 <- read.table("RD_501_88101_2012-0.txt", comment.char = "#", header = FALSE, sep = "|", na.strings = "", nrow = 1304290)
+
+### Reading in the 2012 data
+
+We then read in the 2012 data in the same manner in which we read the 1999 data (the data files are in the same format). 
+
+
+```{r read 2012 data,cache=TRUE}
+pm1 <- read.table("pm25_data/RD_501_88101_2012-0.txt", comment.char = "#", header = FALSE, sep = "|", na.strings = "", nrow = 1304290)
+```
+
+We also set the column names (they are the same ast the 1999 dataset) and extract the `Sample.Value` column from this dataset.
+
+```{r}
 names(pm1) <- make.names(cnames[[1]])
-head(pm1)
-dim(pm1)
 x1 <- pm1$Sample.Value
-class(x1)
+```
 
-## Five number summaries for both periods
-summary(x1)
-summary(x0)
-mean(is.na(x1))  ## Are missing values important here?
+## Results
 
-## Make a boxplot of both 1999 and 2012
-boxplot(x0, x1)
+```{r boxplot log values}
 boxplot(log(x0), log(x1))
+```
 
-## Check negative values in 'x1'
+```{r summaries}
+summary(x0)
 summary(x1)
+```
+
+Interestingly, from the summary of `x1` it appears there are some negative values of PM, which in general should not occur. We can investigate that somewhat to see if there is anything we should worry about.
+
+```{r check negative values}
 negative <- x1 < 0
-sum(negative, na.rm = T)
 mean(negative, na.rm = T)
+````
+
+There is a relatively small proportion of values that are negative, which is perhaps reassuring. We can extract the date of each measurement from the original data frame. However, the original data are formatted as character strings so we convert them to R's `Date` format for easier manipulation.
+
+```{r converting dates,cache=TRUE}
 dates <- pm1$Date
-str(dates)
 dates <- as.Date(as.character(dates), "%Y%m%d")
-str(dates)
-hist(dates, "month")  ## Check what's going on in months 1--6
+```
 
 
-## Plot a subset for one monitor at both times
+We can then extract the month from each of the dates with negative values and attempt to identify when negative values occur most often.
 
-## Find a monitor for New York State that exists in both datasets
+```{r check dates for negative values}
+missing.months <- month.name[as.POSIXlt(dates)$mon + 1]
+tab <- table(factor(missing.months, levels = month.name))
+round(100 * tab / sum(tab))
+```
+
+From the table above it appears that bulk of the negative values occur in the first six months of the year (January--June). However, beyond that simple observation, it is not clear why the negative values occur. That said, given the relatively low proportion of negative values, we will ignore them for now.
+
+
+### Changes in PM levels at an individual monitor
+
+Find a monitor for New York State that exists in both datasets
+
+```{r}
 site0 <- unique(subset(pm0, State.Code == 36, c(County.Code, Site.ID)))
 site1 <- unique(subset(pm1, State.Code == 36, c(County.Code, Site.ID)))
 site0 <- paste(site0[,1], site0[,2], sep = ".")
@@ -63,7 +119,9 @@ str(site0)
 str(site1)
 both <- intersect(site0, site1)
 print(both)
+```
 
+```{r}
 ## Find how many observations available at each monitor
 pm0$county.site <- with(pm0, paste(County.Code, Site.ID, sep = "."))
 pm1$county.site <- with(pm1, paste(County.Code, Site.ID, sep = "."))
@@ -107,7 +165,12 @@ plot(dates0, x0sub, pch = 20, ylim = rng)
 abline(h = median(x0sub, na.rm = T))
 plot(dates1, x1sub, pch = 20, ylim = rng)
 abline(h = median(x1sub, na.rm = T))
+```
 
+
+### Changes in state-wide PM levels
+
+```{r}
 ## Show state-wide means and make a plot showing trend
 head(pm0)
 mn0 <- with(pm0, tapply(Sample.Value, State.Code, mean, na.rm = T))
@@ -128,4 +191,4 @@ par(mfrow = c(1, 1))
 with(mrg, plot(rep(1, 52), mrg[, 2], xlim = c(.5, 2.5)))
 with(mrg, points(rep(2, 52), mrg[, 3]))
 segments(rep(1, 52), mrg[, 2], rep(2, 52), mrg[, 3])
-
+```

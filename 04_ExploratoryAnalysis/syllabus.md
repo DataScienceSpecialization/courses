@@ -1,13 +1,6 @@
-## Course Title
-
-Exploratory Data Analysis
-
----
-
-## Course Instructor(s)
+## Exploratory Data Analysis
 
 [Roger D. Peng](http://www.biostat.jhsph.edu/~rpeng/) 
-
 
 ---
 
@@ -34,31 +27,25 @@ Lecture videos will be released weekly and will be available for the week and th
 
 ---
 
-## Weekly quizzes
+## Assessments
 
-### Quiz 1
+### Quizzes
 
-Assigned: Class open (1st of Month)
-Due: 7th of the Month 12:00 AM UTC
+There will be one quiz every week. The quizzes will all open on the
+first day of the course but they will be due weekly. So the Week 1
+Quiz will be due at the end of the first week and the Week 2 Quiz will
+be due at the end of the second week, etc. 
 
+Please refer to the individual weekly Quiz deadlines to see the exact
+date and time that each Quiz is due.
 
-### Quiz 2
+### Peer Assessments
 
-Assigned: 8th of the Month 12:01 AM UTC
-Due: 14th of the Month 12:00 AM UTC
-
-
-### Quiz 3
-
-Assigned: 15th of the Month 12:01 AM UTC
-Due: 21st of the Month 12:00 AM UTC
-
-
-### Quiz 4
-
-Assigned: 22nd of the Month 12:01 AM UTC
-Due: 28th of the Month 12:00 AM UTC
-
+The plotting assignments will be assessed via peer assessment. In
+these assignments you will be asked to construct or reproduce certain
+plots. You will be evaluated on the plot that you produce and the code
+that you write to construct the plot. Assignments evaluted via peer
+assessment will make use of your GitHub account.
 
 ---
 
@@ -71,33 +58,24 @@ Background lectures about the content of the course with respect to other quanti
 
 ## Quiz Scoring
 
-You may attempt each quiz up to 2 times. Only the score from your final attempt will count toward your grade.
+You may attempt each quiz up to 2 times. Only the score from your
+final attempt will count toward your grade.
 
 ---
 
 ## Hard deadlines and soft deadlines
 
-The reported due date is the soft deadline for each quiz. You may turn in quizzes up to two days after the soft deadline. The hard deadline is the Tuesday after the Quiz is due at 23:30 UTC-5:00\. Each day late will incur a 10% penalty, but if you use a late day, the penalty will not be applied to that day.
+The reported due date is the soft deadline for each quiz. You may turn
+in quizzes up to two days after the soft deadline. The hard deadline
+is **two days** after the Quiz is due at 23:30 UTC. Each day late
+will incur a 10% penalty, but if you use a late day, the penalty will
+not be applied to that day.
 
 ---
 
 ## Late Days for Quizzes
 
 You are permitted 5 late days for quizzes in the course. If you use a late day, your quiz grade will not be affected. 
-
----
-
-## Dates for the project
-
-### Submission
-
-Assigned: Class open (1st of Month)
-Due: 21st of the Month 12:00 AM UTC
-
-### Review
-
-Assigned: 22nd of the Month 12:01 AM UTC
-Due: 28th of the Month 12:00 AM UTC
 
 ---
 

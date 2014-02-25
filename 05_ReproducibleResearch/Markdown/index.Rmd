@@ -116,7 +116,7 @@ mode        : selfcontained # {standalone, draft}
 <br></br>
 
 ```markdown
-[Johns Hopkin Bloomberg School of Public Health](http://www.jhsph.edu/)
+[Johns Hopkins Bloomberg School of Public Health](http://www.jhsph.edu/)
 [Download R](http://www.r-project.org/)
 [RStudio](http://www.rstudio.com/)
 ```

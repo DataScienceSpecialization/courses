@@ -1,4 +1,4 @@
-# Describing Decreases in Fine Particle Air Pollution Between 1999 and 2012
+# Decreases in Fine Particle Air Pollution Between 1999 and 2012
 
 ## Synopsis
 
@@ -17,12 +17,12 @@ We first read in the 1999 data from the raw text file included in the zip archiv
 
 
 ```r
-pm0 <- read.table("pm25_data/RD_501_88101_1999-0.txt", comment.char = "#", header = FALSE, 
-    sep = "|", na.strings = "")
+pm0 <- read.table("pm25_data/RD_501_88101_1999-0.txt", comment.char = "#", 
+                  header = FALSE, sep = "|", na.strings = "")
 ```
 
 
-After reading in the 1999 we check the first few rows (there are 117,421 rows in this dataset. 
+After reading in the 1999 we check the first few rows (there are 117,421) rows in this dataset. 
 
 
 ```r
@@ -114,8 +114,8 @@ We then read in the 2012 data in the same manner in which we read the 1999 data 
 
 
 ```r
-pm1 <- read.table("pm25_data/RD_501_88101_2012-0.txt", comment.char = "#", header = FALSE, 
-    sep = "|", na.strings = "", nrow = 1304290)
+pm1 <- read.table("pm25_data/RD_501_88101_2012-0.txt", comment.char = "#", 
+                  header = FALSE, sep = "|", na.strings = "", nrow = 1304290)
 ```
 
 
@@ -130,9 +130,13 @@ x1 <- pm1$Sample.Value
 
 ## Results
 
+### Entire U.S. analysis
+
+In order to show aggregate changes in PM across the entire monitoring network, we can make boxplots of all monitor values in 1999 and 2012. Here, we take the log of the PM values to adjust for the skew in the data.
+
 
 ```r
-boxplot(log(x0), log(x1))
+boxplot(log2(x0), log2(x1))
 ```
 
 ```
@@ -177,7 +181,7 @@ mean(negative, na.rm = T)
 ```
 
 
-There is a relatively small proportion of values that are negative, which is perhaps reassuring. We can extract the date of each measurement from the original data frame. However, the original data are formatted as character strings so we convert them to R's `Date` format for easier manipulation.
+There is a relatively small proportion of values that are negative, which is perhaps reassuring. In order to investigate this a step further we can extract the date of each measurement from the original data frame. The idea here is that perhaps negative values occur more often in some parts of the year than other parts. However, the original data are formatted as character strings so we convert them to R's `Date` format for easier manipulation.
 
 
 ```r
@@ -210,12 +214,21 @@ From the table above it appears that bulk of the negative values occur in the fi
 
 ### Changes in PM levels at an individual monitor
 
-Find a monitor for New York State that exists in both datasets
+So far we have examined the change in PM levels on average across the country. One issue with the previous analysis is that the monitoring network could have changed in the time period between 1999 and 2012. So if for some reason in 2012 there are more monitors concentrated in cleaner parts of the country than there were in 1999, it might appear the PM levels decreased when in fact they didn't. In this section we will focus on a single monitor in New York State to see if PM levels *at that monitor* decreased from 1999 to 2012. 
+
+Our first task is to identify a monitor in New York State that has data in 1999 and 2012 (not all monitors operated during both time periods). First we subset the data frames to only include data from New York (`State.Code == 36`) and only include the `County.Code` and the `Site.ID` (i.e. monitor number) variables.
 
 
 ```r
 site0 <- unique(subset(pm0, State.Code == 36, c(County.Code, Site.ID)))
 site1 <- unique(subset(pm1, State.Code == 36, c(County.Code, Site.ID)))
+```
+
+
+Then we create a new variable that combines the county code and the site ID into a single string.
+
+
+```r
 site0 <- paste(site0[, 1], site0[, 2], sep = ".")
 site1 <- paste(site1[, 1], site1[, 2], sep = ".")
 str(site0)
@@ -233,6 +246,10 @@ str(site1)
 ##  chr [1:18] "1.5" "1.12" "5.80" "5.133" "13.11" "29.5" ...
 ```
 
+
+Finaly, we want the intersection between the sites present in 1999 and 2012 so that we might choose a monitor that has data in both periods.
+
+
 ```r
 both <- intersect(site0, site1)
 print(both)
@@ -244,6 +261,8 @@ print(both)
 ```
 
 
+Here (above) we can see that there are 10 monitors that were operating in both time periods. However, rather than choose one at random, it might best to choose one that had a reasonable amount of data in each year.
+
 
 ```r
 ## Find how many observations available at each monitor
@@ -251,7 +270,14 @@ pm0$county.site <- with(pm0, paste(County.Code, Site.ID, sep = "."))
 pm1$county.site <- with(pm1, paste(County.Code, Site.ID, sep = "."))
 cnt0 <- subset(pm0, State.Code == 36 & county.site %in% both)
 cnt1 <- subset(pm1, State.Code == 36 & county.site %in% both)
-sapply(split(cnt0, cnt0$county.site), nrow)
+```
+
+
+Now that we have subsetted the original data frames to only include the data from the monitors that overlap between 1999 and 2012, we can split the data frames and count the number of observations at each monitor to see which ones have the most observations.
+
+
+```r
+sapply(split(cnt0, cnt0$county.site), nrow)  ## 1999
 ```
 
 ```
@@ -262,7 +288,7 @@ sapply(split(cnt0, cnt0$county.site), nrow)
 ```
 
 ```r
-sapply(split(cnt1, cnt1$county.site), nrow)
+sapply(split(cnt1, cnt1$county.site), nrow)  ## 2012
 ```
 
 ```
@@ -272,195 +298,61 @@ sapply(split(cnt1, cnt1$county.site), nrow)
 ##      31
 ```
 
+
+A number of monitors seem suitable from the output, but we will focus here on County 63 and site ID 2008. 
+
+
 ```r
+both.county <- 63
+both.id <- 2008
 
 ## Choose county 63 and side ID 2008
-pm1sub <- subset(pm1, State.Code == 36 & County.Code == 63 & Site.ID == 2008)
-pm0sub <- subset(pm0, State.Code == 36 & County.Code == 63 & Site.ID == 2008)
-dim(pm1sub)
+pm1sub <- subset(pm1, State.Code == 36 & County.Code == both.county & Site.ID == 
+    both.id)
+pm0sub <- subset(pm0, State.Code == 36 & County.Code == both.county & Site.ID == 
+    both.id)
 ```
 
-```
-## [1] 30 29
-```
 
-```r
-dim(pm0sub)
-```
+Now we plot the time series data of PM for the monitor in both years.
 
-```
-## [1] 122  29
-```
 
 ```r
-
-## Plot data for 2012
-dates1 <- pm1sub$Date
+dates1 <- as.Date(as.character(pm1sub$Date), "%Y%m%d")
 x1sub <- pm1sub$Sample.Value
-plot(dates1, x1sub)
-```
-
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-51.png) 
-
-```r
-dates1 <- as.Date(as.character(dates1), "%Y%m%d")
-str(dates1)
-```
-
-```
-##  Date[1:30], format: "2012-01-01" "2012-01-04" "2012-01-07" "2012-01-10" ...
-```
-
-```r
-plot(dates1, x1sub)
-```
-
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-52.png) 
-
-```r
-
-## Plot data for 1999
-dates0 <- pm0sub$Date
-dates0 <- as.Date(as.character(dates0), "%Y%m%d")
+dates0 <- as.Date(as.character(pm0sub$Date), "%Y%m%d")
 x0sub <- pm0sub$Sample.Value
-plot(dates0, x0sub)
-```
-
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-53.png) 
-
-```r
-
-## Plot data for both years in same panel
-par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
-plot(dates0, x0sub, pch = 20)
-abline(h = median(x0sub, na.rm = T))
-plot(dates1, x1sub, pch = 20)  ## Whoa! Different ranges
-abline(h = median(x1sub, na.rm = T))
-```
-
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-54.png) 
-
-```r
 
 ## Find global range
 rng <- range(x0sub, x1sub, na.rm = T)
-rng
-```
-
-```
-## [1]  3.0 40.1
-```
-
-```r
-par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
-plot(dates0, x0sub, pch = 20, ylim = rng)
+par(mfrow = c(1, 2), mar = c(4, 5, 2, 1))
+plot(dates0, x0sub, pch = 20, ylim = rng, xlab = "", ylab = expression(PM[2.5] * 
+    " (" * mu * g/m^3 * ")"))
 abline(h = median(x0sub, na.rm = T))
-plot(dates1, x1sub, pch = 20, ylim = rng)
+plot(dates1, x1sub, pch = 20, ylim = rng, xlab = "", ylab = expression(PM[2.5] * 
+    " (" * mu * g/m^3 * ")"))
 abline(h = median(x1sub, na.rm = T))
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-55.png) 
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10.png) 
 
 
+From the plot above, we can that median levels of PM (horizontal solid line) have decreased a little from 10.45 in 1999 to 8.29 in 2012. However, perhaps more interesting is that the variation (spread) in the PM values in 2012 is much smaller than it was in 1999. This suggest that not only are median levels of PM lower in 2012, but that there are fewer large spikes from day to day. One issue with the data here is that the 1999 data are from July through December while the 2012 data are recorded in January through April. It would have been better if we'd had full-year data for both years as there could be some seasonal confounding going on.
 
 ### Changes in state-wide PM levels
 
+Although ambient air quality standards are set at the federal level in the U.S. and hence affect the entire country, the actual reduction and management of PM is left to the individual states. States that are not "in attainment" have to develop a plan to reduce PM so that that the are in attainment (eventually). Therefore, it might be useful to examine changes in PM at the state level. This analysis falls somewhere in between looking at the entire country all at once and looking at an individual monitor.
+
+What we do here is calculate the mean of PM for each state in 1999 and 2012.
+
 
 ```r
-## Show state-wide means and make a plot showing trend
-head(pm0)
-```
-
-```
-##   X..RD Action.Code State.Code County.Code Site.ID Parameter POC
-## 1    RD           I          1          27       1     88101   1
-## 2    RD           I          1          27       1     88101   1
-## 3    RD           I          1          27       1     88101   1
-## 4    RD           I          1          27       1     88101   1
-## 5    RD           I          1          27       1     88101   1
-## 6    RD           I          1          27       1     88101   1
-##   Sample.Duration Unit Method     Date Start.Time Sample.Value
-## 1               7  105    120 19990103      00:00           NA
-## 2               7  105    120 19990106      00:00           NA
-## 3               7  105    120 19990109      00:00           NA
-## 4               7  105    120 19990112      00:00        8.841
-## 5               7  105    120 19990115      00:00       14.920
-## 6               7  105    120 19990118      00:00        3.878
-##   Null.Data.Code Sampling.Frequency Monitor.Protocol..MP..ID Qualifier...1
-## 1             AS                  3                       NA          <NA>
-## 2             AS                  3                       NA          <NA>
-## 3             AS                  3                       NA          <NA>
-## 4           <NA>                  3                       NA          <NA>
-## 5           <NA>                  3                       NA          <NA>
-## 6           <NA>                  3                       NA          <NA>
-##   Qualifier...2 Qualifier...3 Qualifier...4 Qualifier...5 Qualifier...6
-## 1            NA            NA            NA            NA            NA
-## 2            NA            NA            NA            NA            NA
-## 3            NA            NA            NA            NA            NA
-## 4            NA            NA            NA            NA            NA
-## 5            NA            NA            NA            NA            NA
-## 6            NA            NA            NA            NA            NA
-##   Qualifier...7 Qualifier...8 Qualifier...9 Qualifier...10
-## 1            NA            NA            NA             NA
-## 2            NA            NA            NA             NA
-## 3            NA            NA            NA             NA
-## 4            NA            NA            NA             NA
-## 5            NA            NA            NA             NA
-## 6            NA            NA            NA             NA
-##   Alternate.Method.Detectable.Limit Uncertainty county.site
-## 1                                NA          NA        27.1
-## 2                                NA          NA        27.1
-## 3                                NA          NA        27.1
-## 4                                NA          NA        27.1
-## 5                                NA          NA        27.1
-## 6                                NA          NA        27.1
-```
-
-```r
-mn0 <- with(pm0, tapply(Sample.Value, State.Code, mean, na.rm = T))
-str(mn0)
-```
-
-```
-##  num [1:53(1d)] 19.96 6.67 10.8 15.68 17.66 ...
-##  - attr(*, "dimnames")=List of 1
-##   ..$ : chr [1:53] "1" "2" "4" "5" ...
-```
-
-```r
-summary(mn0)
-```
-
-```
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    4.86    9.52   12.30   12.40   15.60   20.00
-```
-
-```r
-mn1 <- with(pm1, tapply(Sample.Value, State.Code, mean, na.rm = T))
-str(mn1)
-```
-
-```
-##  num [1:52(1d)] 10.13 4.75 8.61 10.56 9.28 ...
-##  - attr(*, "dimnames")=List of 1
-##   ..$ : chr [1:52] "1" "2" "4" "5" ...
-```
-
-```r
-
+mn0 <- with(pm0, tapply(Sample.Value, State.Code, mean, na.rm = TRUE))  ## 1999
+mn1 <- with(pm1, tapply(Sample.Value, State.Code, mean, na.rm = TRUE))  ## 2012
 ## Make separate data frames for states / years
 d0 <- data.frame(state = names(mn0), mean = mn0)
 d1 <- data.frame(state = names(mn1), mean = mn1)
 mrg <- merge(d0, d1, by = "state")
-dim(mrg)
-```
-
-```
-## [1] 52  3
-```
-
-```r
 head(mrg)
 ```
 
@@ -474,14 +366,21 @@ head(mrg)
 ## 6    15  4.862  8.749
 ```
 
-```r
 
-## Connect lines
+Now make a plot that shows the 1999 state-wide means in one "column" and the 2012 state-wide means in another columns. We then draw a line connecting the means for each year in the same state to highlight the trend.
+
+
+```r
 par(mfrow = c(1, 1))
-with(mrg, plot(rep(1, 52), mrg[, 2], xlim = c(0.5, 2.5)))
+rng <- range(mrg[, 2], mrg[, 3])
+with(mrg, plot(rep(1, 52), mrg[, 2], xlim = c(0.5, 2.5), ylim = rng, xaxt = "n", 
+    xlab = "", ylab = "State-wide Mean PM"))
 with(mrg, points(rep(2, 52), mrg[, 3]))
 segments(rep(1, 52), mrg[, 2], rep(2, 52), mrg[, 3])
+axis(1, c(1, 2), c("1999", "2012"))
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
+![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12.png) 
 
+
+From the plot above we can see that many states have decreased the average PM levels from 1999 to 2012 (although a few states actually increased their levels). 

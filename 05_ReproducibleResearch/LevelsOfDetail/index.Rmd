@@ -58,7 +58,7 @@ mode        : selfcontained # {standalone, draft}
   - If action needs to be taken as a result of this presentation,
     suggest some options and make them as concrete as possible.
 
-  - If questions need to be addressed, try ot make them yes / no
+  - If questions need to be addressed, try to make them yes / no
 
 ---
 

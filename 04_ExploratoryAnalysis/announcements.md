@@ -19,47 +19,40 @@ Roger Peng and the Data Science Team
 ---
 
 
-## Week 2 Announcement
+## Exploratory Data Analysis: Week 2
 
-Welcome to Week 2 of Prediction and Machine Learning! This will be the most lecture-intensive week of the course. The primary goal is to introduce you to how to build predictors in practice. 
 
-Remember that the course project is open and ongoing. With the skills you learn this week you should be able to start on the basic analyses that will form the beginnings of your project. 
 
 Good luck and have a great week!
 
-Jeff Leek and the Data Science Track Team
+Roger Peng and the Data Science Team
 
 
 ---
 
 
-## Week 3 Announcement
+## Exploratory Data Analysis: Week 3
 
+Welcome to Week 3 of Exploratory Data Analysis. This week covers some of the workhorse statisticsl methods for exploratory analysis. These methods include clustering and dimension reduction techniques that allow you to make graphical displayes of very high dimensional data (many many variables). We also cover novel ways to specify colors in R so that you can use color as an important and useful dimension when making data graphics.
 
-Welcome to Week 3 of Prediction and Machine Learning! This week we will start to reduce the number of lectures so you can spend more time focusing on your course project. Your project is due at the end of this week. 
-
-If you have trouble or want to explore issues in more depth, please seek out answers on the message boards. They are a great resource! If you happen to be a superstar who already gets it, please take the time to help your classmates by answering their questions as well. This is one of the best ways to practice using and explaining your skills to others. These are two of the key characteristics of excellent data scientists.
+This week also introduces a new Peer Assessment involving the analysis of data from the U.S. Environmental Protection Agency's National Emissions Inventory. Because this Assessment is rather involved, there is <b>no Quiz</b> for this week. 
 
 Good luck and have a great week!
 
-Jeff Leek and the Data Science Track Team
-
+Roger Peng and the Data Science Team
 
 
 ---
 
 
-## Week 4 Announcement
+## Exploratory Data Analysis: Week 4
 
 
-Welcome to Week 4 of Prediction and Machine Learning! In this final week we will focus on peer grading of assignments. 
-
-Participating in peer grading is an amazing learning opportunity. It gives you a chance to learn things from your fellow students,
-pick up tips for explaning key ideas, and helping others to learn as well. We have focused our effort on making the rubric as objective and straightforward to implement as possible. If you have any issues please report them in the forums as described in the syllabus. 
+Welcome to Week 4 of Exploratory Data Analysis. In this final week we will focus on peer grading of assignments. I also have posted two case studies in exploratory data analysis. The first involves the use of cluster analysis techniques and the second is a more involved analysis of some air pollution data. How one goes about doing EDA is often personal, but by providing these videos I thought I would give you a sense of how one might proceed with a specific type of dataset.
 
 Thanks again for all of your efforts in the course, we are in the last stretch. Good luck and have a great week!
 
-Jeff Leek and the Data Science Track Team
+Roger Peng and the Data Science Team
 
 
 ---

@@ -26,6 +26,16 @@ Roger Peng and the Data Science Team
 
 ## Reproducible Research: Week 3
 
+Welcome to Week 3 of Reproducible Research. This week covers what I think of as a basic check list for ensuring that a data analysis is reproducible. While it's not absolutely sufficient follow the check list, I think it provides a necessary minimum standard that would be applicable to almost any area of analysis. I also present a series of videos on a new concept that I call "Evidence-based data analysis". 
+
+There is a new Peer Assessment this week that involves writing up a data analysis using the U.S. National Oceanic and Atmospheric Administration's Storm Events database. The key questions to address there will be what types of events are most harmful to population health and what types of events have the greatest economic consequences.
+
+This week there is <b>no Quiz</b>. I figured with the new Peer Assessment and the review of last week's Assessment you will have plenty to do for the week.
+
+Good luck!
+
+Roger Peng and the Data Science Team
+
 
 ---
 

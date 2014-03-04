@@ -36,7 +36,7 @@ mean(is.na(x1))  ## Are missing values important here?
 
 ## Make a boxplot of both 1999 and 2012
 boxplot(x0, x1)
-boxplot(log(x0), log(x1))
+boxplot(log10(x0), log10(x1))
 
 ## Check negative values in 'x1'
 summary(x1)

@@ -201,7 +201,7 @@ methods("mean")
 
 ## An S4 generic function
 
-The `show` function is from the **methods** package and is the S4
+The `show` function is from the <b>methods</b> package and is the S4
 equivalent of `print`
 
 ```r
@@ -566,9 +566,9 @@ plot(p)
 - Developing classes and associated methods is a powerful way to
   extend the functionality of R
 
-- **Classes** define new data types
+- <b>Classes</b> define new data types
 
-- **Methods** extend **generic functions** to specificy the behavior
+- <b>Methods</b> extend <b>generic functions</b> to specificy the behavior
     of generic functions on new classes
 
 - As new data types and concepts are created, classes/methods provide
@@ -583,7 +583,7 @@ plot(p)
 
 - There are quite a few examples on CRAN which use S4
   classes/methods. You can usually tell if they use S4 classes/methods
-  if the **methods** package is listed in the `Depends:` field
+  if the <b>methods</b> package is listed in the `Depends:` field
 
 - Bioconductor (http://www.bioconductor.org) — a rich resource, even
   if you know nothing about bioinformatics

@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Classes and Methods in R</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Classes and Methods in R">
+  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Classes and Methods in R</h1>
+    <h2></h2>
+    <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Classes and Methods</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>A system for doing object oriented programming</li>
+<li>R was originally quite interesting because it is both interactive <em>and</em> has a system for object orientation.
+
+<ul>
+<li>Other languages which support OOP (C++, Java, Lisp, Python, Perl) generally speaking are not interactive languages</li>
+</ul></li>
+<li><p>In R much of the code for supporting classes/methods is written by John Chambers himself (the creator of the original S language) and documented in the book <em>Programming with Data: A Guide to the S Language</em></p></li>
+<li><p>A natural extension of Chambers’ idea of allowing someone to cross the user −→ programmer spectrum</p></li>
+<li><p>Object oriented programming is a bit different in R than it is in most languages — even if you are familiar with the idea, you may want to pay attention to the details</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Two styles of classes and methods</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>S3 classes/methods</p>
+
+<ul>
+<li>Included with version 3 of the S language. </li>
+<li>Informal, a little kludgey</li>
+<li>Sometimes called <em>old-style</em> classes/methods</li>
+</ul>
+
+<p>S4 classes/methods</p>
+
+<ul>
+<li>more formal and rigorous</li>
+<li>Included with S-PLUS 6 and R 1.4.0 (December 2001) </li>
+<li>Also called <em>new-style</em> classes/methods</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Two worlds living side by side</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>For now (and the forseeable future), S3 classes/methods and S4 classes/methods are separate systems (but they can be mixed to some degree).</li>
+<li>Each system can be used fairly independently of the other.</li>
+<li>Developers of new projects (you!) are encouraged to use the S4 style classes/methods.
+
+<ul>
+<li>Used extensively in the Bioconductor project</li>
+</ul></li>
+<li>But many developers still use S3 classes/methods because they are “quick and dirty” (and easier).</li>
+<li>In this lecture we will focus primarily on S4 classes/methods</li>
+<li>The code for implementing S4 classes/methods in R is in the <em>methods</em> package, which is usually loaded by default (but you can load it with <code>library(methods)</code> if for some reason it is not loaded)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Object Oriented Programming in R</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>A class is a description of an thing. A class can be defined using <code>setClass()</code> in the <em>methods</em> package.</li>
+<li>An <em>object</em> is an instance of a class. Objects can be created using <code>new()</code>. </li>
+<li>A <em>method</em> is a function that only operates on a certain class of objects.</li>
+<li>A generic function is an R function which dispatches methods. A generic function typically encapsulates a “generic” concept (e.g. <code>plot</code>, <code>mean</code>, <code>predict</code>, ...)
+
+<ul>
+<li>The generic function does not actually do any computation.</li>
+</ul></li>
+<li>A <em>method</em> is the implementation of a generic function for an object of a particular class.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Things to look up</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The help files for the ‘methods’ package are extensive — do read them as they are the primary documentation</li>
+<li>You may want to start with <code>?Classes</code> and <code>?Methods</code> </li>
+<li>Check out <code>?setClass</code>, <code>?setMethod</code>, and <code>?setGeneric</code></li>
+<li>Some of it gets technical, but try your best for now—it will make sense in the future as you keep using it.</li>
+<li>Most of the documentation in the <em>methods</em> package is oriented towards developers/programmers as these are the primary people using classes/methods</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Classes</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>All objects in R have a class which can be determined by the class function</p>
+
+<pre><code class="r">class(1)
+</code></pre>
+
+<pre><code>## [1] &quot;numeric&quot;
+</code></pre>
+
+<pre><code class="r">class(TRUE)
+</code></pre>
+
+<pre><code>## [1] &quot;logical&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Classes</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">class(rnorm(100))
+</code></pre>
+
+<pre><code>## [1] &quot;numeric&quot;
+</code></pre>
+
+<pre><code class="r">class(NA)
+</code></pre>
+
+<pre><code>## [1] &quot;logical&quot;
+</code></pre>
+
+<pre><code class="r">class(&quot;foo&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;character&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Classes (cont’d)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Data classes go beyond the atomic classes</p>
+
+<pre><code class="r">x &lt;- rnorm(100)
+y &lt;- x + rnorm(100)
+fit &lt;- lm(y ~ x)  ## linear regression model
+class(fit)
+</code></pre>
+
+<pre><code>## [1] &quot;lm&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Generics/Methods in R</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>S4 and S3 style generic functions look different but conceptually, they are the same (they play the same role).</li>
+<li>When you program you can write new methods for an existing generic OR create your own generics and associated methods.</li>
+<li>Of course, if a data type does not exist in R that matches your needs, you can always define a new class along with generics/methods that go with it</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>An S3 generic function (in the ‘base’ package)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The <code>mean</code> and <code>print</code> functions are generic </p>
+
+<pre><code class="r">mean
+</code></pre>
+
+<pre><code>## function (x, ...) 
+## UseMethod(&quot;mean&quot;)
+## &lt;bytecode: 0x7fe72e1e3910&gt;
+## &lt;environment: namespace:base&gt;
+</code></pre>
+
+<pre><code class="r">print
+</code></pre>
+
+<pre><code>## function (x, ...) 
+## UseMethod(&quot;print&quot;)
+## &lt;bytecode: 0x7fe72db58c08&gt;
+## &lt;environment: namespace:base&gt;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>S3 methods</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The <code>mean</code> generic function has a number of methods associated with it.</p>
+
+<pre><code class="r">methods(&quot;mean&quot;)
+</code></pre>
+
+<pre><code>## [1] mean.Date     mean.default  mean.difftime mean.POSIXct  mean.POSIXlt
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>An S4 generic function</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The <code>show</code> function is from the <strong>methods</strong> package and is the S4
+equivalent of <code>print</code></p>
+
+<pre><code class="r">show
+</code></pre>
+
+<pre><code>## Error: object &#39;show&#39; not found
+</code></pre>
+
+<p>The <code>show</code> function is usually not called directly (much like <code>print</code>)
+because objects are auto-printed.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>S4 methods</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">showMethods(&quot;show&quot;)
+</code></pre>
+
+<pre><code>## Error: could not find function &quot;showMethods&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Generic/method mechanism</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The first argument of a generic function is an object of a particular class (there may be other arguments)</p>
+
+<ol>
+<li>The generic function checks the class of the object.</li>
+<li>A search is done to see if there is an appropriate method for that class.</li>
+<li>If there exists a method for that class, then that method is called on the object and we’re done.</li>
+<li>If a method for that class does not exist, a search is done to see if there is a default method for the generic. If a default exists, then the default method is called.</li>
+<li>If a default method doesn’t exist, then an error is thrown.</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Examining Code for Methods</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>You cannot just print the code for a method like other functions because the code for the method is usually hidden.</li>
+<li>If you want to see the code for an S3 method, you can use the function <code>getS3method</code>.</li>
+<li>The call is <code>getS3method(&lt;generic&gt;, &lt;class&gt;)</code></li>
+<li>For S4 methods you can use the function <code>getMethod</code></li>
+<li>The call is <code>getMethod(&lt;generic&gt;, &lt;signature&gt;)</code> (more details later)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>S3 Class/Method: Example 1</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>What’s happening here?</p>
+
+<pre><code class="r">set.seed(2)
+x &lt;- rnorm(100)
+mean(x)
+</code></pre>
+
+<pre><code>## [1] -0.0307
+</code></pre>
+
+<ol>
+<li>The class of x is “numeric”</li>
+<li>But there is no mean method for “numeric” objects!</li>
+<li>So we call the default function for <code>mean</code>.</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>S3 Class/Method: Example 1</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">head(getS3method(&quot;mean&quot;, &quot;default&quot;), 10)
+</code></pre>
+
+<pre><code>##                                                                       
+## 1  function (x, trim = 0, na.rm = FALSE, ...)                         
+## 2  {                                                                  
+## 3      if (!is.numeric(x) &amp;&amp; !is.complex(x) &amp;&amp; !is.logical(x)) {      
+## 4          warning(&quot;argument is not numeric or logical: returning NA&quot;)
+## 5          return(NA_real_)                                           
+## 6      }                                                              
+## 7      if (na.rm)                                                     
+## 8          x &lt;- x[!is.na(x)]                                          
+## 9      if (!is.numeric(trim) || length(trim) != 1L)                   
+## 10         stop(&quot;&#39;trim&#39; must be numeric of length one&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>S3 Class/Method: Example 1</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">tail(getS3method(&quot;mean&quot;, &quot;default&quot;), 10)
+</code></pre>
+
+<pre><code>##                                                                
+## 15         if (any(is.na(x)))                                  
+## 16             return(NA_real_)                                
+## 17         if (trim &gt;= 0.5)                                    
+## 18             return(stats::median(x, na.rm = FALSE))         
+## 19         lo &lt;- floor(n * trim) + 1                           
+## 20         hi &lt;- n + 1 - lo                                    
+## 21         x &lt;- sort.int(x, partial = unique(c(lo, hi)))[lo:hi]
+## 22     }                                                       
+## 23     .Internal(mean(x))                                      
+## 24 }
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>S3 Class/Method: Example 2</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>What happens here?</p>
+
+<pre><code class="r">set.seed(3)
+df &lt;- data.frame(x = rnorm(100), y = 1:100)
+sapply(df, mean)
+</code></pre>
+
+<pre><code>##        x        y 
+##  0.01104 50.50000
+</code></pre>
+
+<ol>
+<li><p>The class of df is &quot;data.frame&quot;; in a data frame each column can be
+an object of a different class</p></li>
+<li><p>We <code>sapply</code> over the columns and call the <code>mean</code> function</p></li>
+<li><p>In each column, <code>mean</code> checks the class of the object and dispatches the
+appropriate method.</p></li>
+<li><p>Here we have a <code>numeric</code> column and an <code>integer</code> column; in both cases <code>mean</code> calls the default method</p></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Calling Methods</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>NOTE: Some methods are visible to the user (i.e. <code>mean.default</code>), but you should <em>never</em> call methods directly. Rather, use the generic function and let the method be dispatched automatically.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>S3 Class/Method: Example 3</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The <code>plot</code> function is generic and its behavior depends on the object being plotted. </p>
+
+<pre><code class="r">set.seed(10)
+x &lt;- rnorm(100)
+plot(x)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-12.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="300" height="300" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>S3 Class/Method: Example 3</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>For time series objects, <code>plot</code> connects the dots</p>
+
+<pre><code class="r">set.seed(10)
+x &lt;- rnorm(100)
+x &lt;- as.ts(x)  ## Convert to a time series object 
+plot(x)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-13.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="300" height="300" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Write your own methods!</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>If you write new methods for new classes, you’ll probably end up writing methods for the following generics:</p>
+
+<ul>
+<li>print/show </li>
+<li>summary </li>
+<li>plot</li>
+</ul>
+
+<p>There are two ways that you can extend the R system via classes/methods</p>
+
+<ul>
+<li>Write a method for a new class but for an existing generic function (i.e. like
+<code>print</code>)</li>
+<li>Write new generic functions and new methods for those generics</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>S4 Classes</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Why would you want to create a new class?</p>
+
+<ul>
+<li>To represent new types of data (e.g. gene expression, space-time, hierarchical, sparse matrices)</li>
+<li>New concepts/ideas that haven’t been thought of yet (e.g. a fitted point process model, mixed-effects model, a sparse matrix)</li>
+<li>To abstract/hide implementation details from the user
+I say things are “new” meaning that R does not know about them (not that they are new to the statistical community).</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>S4 Class/Method: Creating a New Class</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>A new class can be defined using the <code>setClass</code> function</p>
+
+<ul>
+<li>At a minimum you need to specify the name of the class</li>
+<li>You can also specify data elements that are called <em>slots</em></li>
+<li>You can then define methods for the class with the <code>setMethod</code> function Information about a class definition can be obtained with the <code>showClass</code> function</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>S4 Class/Method: Polygon Class</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Creating new classes/methods is usually not something done at the console; you likely want to save the code in a separate file</p>
+
+<pre><code class="r">library(methods)
+setClass(&quot;polygon&quot;,
+         representation(x = &quot;numeric&quot;,
+                        y = &quot;numeric&quot;))
+</code></pre>
+
+<ul>
+<li><p>The slots for this class are <code>x</code>and <code>y</code></p></li>
+<li><p>The slots for an S4 object can be accessed with the <code>@</code> operator.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-27" style="background:;">
+  <hgroup>
+    <h2>S4 Class/Method: Polygon Class</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>A plot method can be created with the <code>setMethod</code> function.</p>
+
+<ul>
+<li><p>For <code>setMethod</code> you need to specify a generic function (<code>plot</code>), and
+a <em>signature</em>.</p></li>
+<li><p>A signature is a character vector indicating the classes of objects
+that are accepted by the method.</p></li>
+<li><p>In this case, the <code>plot</code> method will take one type of object, a
+<code>polygon</code> object.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-28" style="background:;">
+  <hgroup>
+    <h2>S4 Class/Method: Polygon Class</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Creating a <code>plot</code> method with <code>setMethod</code>.</p>
+
+<pre><code class="r">setMethod(&quot;plot&quot;, &quot;polygon&quot;,
+          function(x, y, ...) {
+                  plot(x@x, x@y, type = &quot;n&quot;, ...)
+                  xp &lt;- c(x@x, x@x[1])
+                  yp &lt;- c(x@y, x@y[1])
+                  lines(xp, yp)
+      })
+</code></pre>
+
+<pre><code>## Creating a generic function for &#39;plot&#39; from package &#39;graphics&#39; in the global environment
+</code></pre>
+
+<pre><code>## [1] &quot;plot&quot;
+</code></pre>
+
+<ul>
+<li>Notice that the slots of the polygon (the x- and y-coordinates) are
+accessed with the <code>@</code> operator.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-29" style="background:;">
+  <hgroup>
+    <h2>S4 Class/Method: Polygon Class</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>After calling <code>setMethod</code> the new <code>plot</code> method will be added to the list of methods for <code>plot</code>.</p>
+
+<pre><code class="r">library(methods)
+showMethods(&quot;plot&quot;)
+</code></pre>
+
+<pre><code>## Function: plot (package graphics)
+## x=&quot;ANY&quot;
+## x=&quot;polygon&quot;
+</code></pre>
+
+<p>Notice that the signature for class <code>polygon</code> is listed. The method for <code>ANY</code> is the default method and it is what is called when now other signature matches</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-30" style="background:;">
+  <hgroup>
+    <h2>S4 Class/Method: Polygon class</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">p &lt;- new(&quot;polygon&quot;, x = c(1, 2, 3, 4), y = c(1, 2, 3, 1))
+plot(p)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-17.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="400" height="400" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-31" style="background:;">
+  <hgroup>
+    <h2>An Object That Remembers its Mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Class definition</p>
+
+<pre><code class="r">setClass(&quot;cachemean&quot;,
+         representation(set = &quot;function&quot;,
+                        get = &quot;function&quot;,
+                        getmean = &quot;function&quot;,
+                        setmean = &quot;function&quot;))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-32" style="background:;">
+  <hgroup>
+    <h2>An Object That Remembers its Mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>A constructor function</p>
+
+<pre><code class="r">makeVector &lt;- function(x) {
+    data &lt;- x
+    datamean &lt;- NULL
+    get &lt;- function() data
+    set &lt;- function(newvalue) {
+        data &lt;&lt;- newvalue
+        datamean &lt;&lt;- NULL
+    }
+    setmean &lt;- function(newmean) datamean &lt;&lt;- newmean
+    getmean &lt;- function() datamean
+    new(&quot;cachemean&quot;, set = set, get = get, setmean = setmean, getmean = getmean)
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-33" style="background:;">
+  <hgroup>
+    <h2>An Object That Remembers its Mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>A <code>show</code> method</p>
+
+<pre><code class="r">setMethod(&quot;show&quot;, &quot;cachemean&quot;,
+          function(object) {
+                  x &lt;- object@get()
+                  show(x)
+                  invisible(x)
+          })
+</code></pre>
+
+<pre><code>## [1] &quot;show&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-34" style="background:;">
+  <hgroup>
+    <h2>An Object That Remembers its Mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>A <code>mean</code> method</p>
+
+<pre><code class="r">setMethod(&quot;mean&quot;, &quot;cachemean&quot;,
+          function(x, ...) {
+                  m &lt;- x@getmean()
+                  if(!is.null(m))
+                          return(m)
+                  data &lt;- x@get()
+                  m &lt;- mean(data, ...)
+                  x@setmean(m)
+                  m
+          })
+</code></pre>
+
+<pre><code>## Creating a generic function for &#39;mean&#39; from package &#39;base&#39; in the global environment
+</code></pre>
+
+<pre><code>## [1] &quot;mean&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-35" style="background:;">
+  <hgroup>
+    <h2>An Object That Remembers its Mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Using the new class</p>
+
+<pre><code class="r">set.seed(1)
+x &lt;- makeVector(rnorm(10000000))
+system.time(print(mean(x)))
+</code></pre>
+
+<pre><code>## [1] 0.0004037
+</code></pre>
+
+<pre><code>##    user  system elapsed 
+##   0.018   0.000   0.018
+</code></pre>
+
+<pre><code class="r">system.time(print(mean(x)))
+</code></pre>
+
+<pre><code>## [1] 0.0004037
+</code></pre>
+
+<pre><code>##    user  system elapsed 
+##       0       0       0
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-36" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>Developing classes and associated methods is a powerful way to
+extend the functionality of R</p></li>
+<li><p><strong>Classes</strong> define new data types</p></li>
+<li><p><strong>Methods</strong> extend <strong>generic functions</strong> to specificy the behavior
+of generic functions on new classes</p></li>
+<li><p>As new data types and concepts are created, classes/methods provide
+a way for you to develop an intuitive interface to those
+data/concepts for users</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-37" style="background:;">
+  <hgroup>
+    <h2>Where to Look, Places to Start</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>The best way to learn this stuff is to look at examples</p></li>
+<li><p>There are quite a few examples on CRAN which use S4
+classes/methods. You can usually tell if they use S4 classes/methods
+if the <strong>methods</strong> package is listed in the <code>Depends:</code> field</p></li>
+<li><p>Bioconductor (<a href="http://www.bioconductor.org">http://www.bioconductor.org</a>) — a rich resource, even
+if you know nothing about bioinformatics</p></li>
+<li><p>Some packages on CRAN (as far as I know) — SparseM, gpclib, flexmix,
+its, lme4, orientlib, pixmap</p></li>
+<li><p>The <code>stats4</code> package (comes with R) has a bunch of classes/methods
+for doing maximum likelihood analysis.  ￼￼￼￼￼</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Classes and Methods'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Two styles of classes and methods'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Two worlds living side by side'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Object Oriented Programming in R'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Things to look up'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Classes'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Classes'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Classes (cont’d)'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Generics/Methods in R'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='An S3 generic function (in the ‘base’ package)'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='S3 methods'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='An S4 generic function'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='S4 methods'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Generic/method mechanism'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Examining Code for Methods'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='S3 Class/Method: Example 1'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='S3 Class/Method: Example 1'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='S3 Class/Method: Example 1'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='S3 Class/Method: Example 2'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Calling Methods'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='S3 Class/Method: Example 3'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='S3 Class/Method: Example 3'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='Write your own methods!'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='S4 Classes'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='S4 Class/Method: Creating a New Class'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='S4 Class/Method: Polygon Class'>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='S4 Class/Method: Polygon Class'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='S4 Class/Method: Polygon Class'>
+         28
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='S4 Class/Method: Polygon Class'>
+         29
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=30 title='S4 Class/Method: Polygon class'>
+         30
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=31 title='An Object That Remembers its Mean'>
+         31
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=32 title='An Object That Remembers its Mean'>
+         32
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=33 title='An Object That Remembers its Mean'>
+         33
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=34 title='An Object That Remembers its Mean'>
+         34
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=35 title='An Object That Remembers its Mean'>
+         35
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=36 title='Summary'>
+         36
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=37 title='Where to Look, Places to Start'>
+         37
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

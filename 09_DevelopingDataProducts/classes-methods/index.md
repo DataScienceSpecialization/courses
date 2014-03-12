@@ -77,20 +77,53 @@ S4 classes/methods
 
 All objects in R have a class which can be determined by the class function
 
-```{r}
+
+```r
 class(1)
+```
+
+```
+## [1] "numeric"
+```
+
+```r
 class(TRUE)
 ```
+
+```
+## [1] "logical"
+```
+
 
 ---
 
 ## Classes
 
-```{r}
+
+```r
 class(rnorm(100))
+```
+
+```
+## [1] "numeric"
+```
+
+```r
 class(NA)
+```
+
+```
+## [1] "logical"
+```
+
+```r
 class("foo")
 ```
+
+```
+## [1] "character"
+```
+
 
 ---
 
@@ -98,12 +131,18 @@ class("foo")
 
 Data classes go beyond the atomic classes
 
-```{r}
+
+```r
 x <- rnorm(100)
 y <- x + rnorm(100)
 fit <- lm(y ~ x)  ## linear regression model
 class(fit)
 ```
+
+```
+## [1] "lm"
+```
+
 
 ---
 
@@ -118,10 +157,29 @@ class(fit)
 ## An S3 generic function (in the ‘base’ package)
 
 The `mean` and `print` functions are generic 
-```{r}
+
+```r
 mean
+```
+
+```
+## function (x, ...) 
+## UseMethod("mean")
+## <bytecode: 0x7fe72e1e3910>
+## <environment: namespace:base>
+```
+
+```r
 print
 ```
+
+```
+## function (x, ...) 
+## UseMethod("print")
+## <bytecode: 0x7fe72db58c08>
+## <environment: namespace:base>
+```
+
 
 ---
 
@@ -129,9 +187,15 @@ print
 
 The `mean` generic function has a number of methods associated with it.
 
-```{r}
+
+```r
 methods("mean")
 ```
+
+```
+## [1] mean.Date     mean.default  mean.difftime mean.POSIXct  mean.POSIXlt
+```
+
 
 ---
 
@@ -139,9 +203,15 @@ methods("mean")
 
 The `show` function is from the **methods** package and is the S4
 equivalent of `print`
-```{r}
+
+```r
 show
 ```
+
+```
+## Error: object 'show' not found
+```
+
 The `show` function is usually not called directly (much like `print`)
 because objects are auto-printed.
 
@@ -149,9 +219,15 @@ because objects are auto-printed.
 
 ## S4 methods
 
-```{r}
+
+```r
 showMethods("show")
 ```
+
+```
+## Error: could not find function "showMethods"
+```
+
 
 ---
 
@@ -181,11 +257,17 @@ The first argument of a generic function is an object of a particular class (the
 
 What’s happening here?
 
-```{r}
+
+```r
 set.seed(2)
 x <- rnorm(100)
 mean(x)
 ```
+
+```
+## [1] -0.0307
+```
+
 
 1. The class of x is “numeric”
 2. But there is no mean method for “numeric” objects!
@@ -195,17 +277,49 @@ mean(x)
 
 ## S3 Class/Method: Example 1
 
-```{r}
+
+```r
 head(getS3method("mean", "default"), 10)
 ```
+
+```
+##                                                                       
+## 1  function (x, trim = 0, na.rm = FALSE, ...)                         
+## 2  {                                                                  
+## 3      if (!is.numeric(x) && !is.complex(x) && !is.logical(x)) {      
+## 4          warning("argument is not numeric or logical: returning NA")
+## 5          return(NA_real_)                                           
+## 6      }                                                              
+## 7      if (na.rm)                                                     
+## 8          x <- x[!is.na(x)]                                          
+## 9      if (!is.numeric(trim) || length(trim) != 1L)                   
+## 10         stop("'trim' must be numeric of length one")
+```
+
 
 ---
 
 ## S3 Class/Method: Example 1
 
-```{r}
+
+```r
 tail(getS3method("mean", "default"), 10)
 ```
+
+```
+##                                                                
+## 15         if (any(is.na(x)))                                  
+## 16             return(NA_real_)                                
+## 17         if (trim >= 0.5)                                    
+## 18             return(stats::median(x, na.rm = FALSE))         
+## 19         lo <- floor(n * trim) + 1                           
+## 20         hi <- n + 1 - lo                                    
+## 21         x <- sort.int(x, partial = unique(c(lo, hi)))[lo:hi]
+## 22     }                                                       
+## 23     .Internal(mean(x))                                      
+## 24 }
+```
+
 
 ---
 
@@ -213,11 +327,18 @@ tail(getS3method("mean", "default"), 10)
 
 What happens here?
 
-```{r}
+
+```r
 set.seed(3)
 df <- data.frame(x = rnorm(100), y = 1:100)
 sapply(df, mean)
 ```
+
+```
+##        x        y 
+##  0.01104 50.50000
+```
+
 
 1. The class of df is "data.frame"; in a data frame each column can be
 an object of a different class
@@ -241,11 +362,15 @@ NOTE: Some methods are visible to the user (i.e. `mean.default`), but you should
 
 The `plot` function is generic and its behavior depends on the object being plotted. 
 
-```{r,out.height=300,out.width=300}
+
+```r
 set.seed(10)
 x <- rnorm(100)
 plot(x)
 ```
+
+<img src="assets/fig/unnamed-chunk-12.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="300" height="300" />
+
 
 ---
 
@@ -253,12 +378,16 @@ plot(x)
 
 For time series objects, `plot` connects the dots
 
-```{r,out.height=300,out.width=300}
+
+```r
 set.seed(10)
 x <- rnorm(100)
-x <- as.ts(x) ## Convert to a time series object 
+x <- as.ts(x)  ## Convert to a time series object 
 plot(x)
 ```
+
+<img src="assets/fig/unnamed-chunk-13.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="300" height="300" />
+
 
 ---
 
@@ -299,12 +428,14 @@ A new class can be defined using the `setClass` function
 
 Creating new classes/methods is usually not something done at the console; you likely want to save the code in a separate file
 
-```{r, tidy = FALSE}
+
+```r
 library(methods)
 setClass("polygon",
          representation(x = "numeric",
                         y = "numeric"))
 ```
+
 
 - The slots for this class are `x`and `y`
 
@@ -331,7 +462,8 @@ A plot method can be created with the `setMethod` function.
 
 Creating a `plot` method with `setMethod`.
 
-```{r, tidy = FALSE}
+
+```r
 setMethod("plot", "polygon",
           function(x, y, ...) {
                   plot(x@x, x@y, type = "n", ...)
@@ -340,6 +472,15 @@ setMethod("plot", "polygon",
                   lines(xp, yp)
 	  })
 ```
+
+```
+## Creating a generic function for 'plot' from package 'graphics' in the global environment
+```
+
+```
+## [1] "plot"
+```
+
 
 - Notice that the slots of the polygon (the x- and y-coordinates) are
   accessed with the `@` operator.
@@ -350,10 +491,18 @@ setMethod("plot", "polygon",
 
 After calling `setMethod` the new `plot` method will be added to the list of methods for `plot`.
 
-```{r}
+
+```r
 library(methods)
 showMethods("plot")
 ```
+
+```
+## Function: plot (package graphics)
+## x="ANY"
+## x="polygon"
+```
+
 
 Notice that the signature for class `polygon` is listed. The method for `ANY` is the default method and it is what is called when now other signature matches
 
@@ -361,17 +510,22 @@ Notice that the signature for class `polygon` is listed. The method for `ANY` is
 
 ## S4 Class/Method: Polygon class
 
-```{r,out.height=400,out.width=400}
+
+```r
 p <- new("polygon", x = c(1, 2, 3, 4), y = c(1, 2, 3, 1))
 plot(p)
 ```
+
+<img src="assets/fig/unnamed-chunk-17.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="400" height="400" />
+
 
 ---
 
 ## An Object That Remembers its Mean
 
 Class definition
-```{r,tidy=FALSE}
+
+```r
 setClass("cachemean",
          representation(set = "function",
                         get = "function",
@@ -379,26 +533,28 @@ setClass("cachemean",
                         setmean = "function"))
 ```
 
+
 ---
 ## An Object That Remembers its Mean
 
 A constructor function
 
-```{r}
+
+```r
 makeVector <- function(x) {
-        data <- x
-        datamean <- NULL
-        get <- function() data
-        set <- function(newvalue) {
-                data <<- newvalue
-                datamean <<- NULL
-        }
-        setmean <- function(newmean) datamean <<- newmean
-        getmean <- function() datamean
-        new("cachemean", set = set, get = get, setmean = setmean,
-            getmean = getmean)
+    data <- x
+    datamean <- NULL
+    get <- function() data
+    set <- function(newvalue) {
+        data <<- newvalue
+        datamean <<- NULL
+    }
+    setmean <- function(newmean) datamean <<- newmean
+    getmean <- function() datamean
+    new("cachemean", set = set, get = get, setmean = setmean, getmean = getmean)
 }
 ```
+
 
 ---
 
@@ -406,7 +562,8 @@ makeVector <- function(x) {
 
 A `show` method
 
-```{r,tidy=FALSE}
+
+```r
 setMethod("show", "cachemean",
           function(object) {
                   x <- object@get()
@@ -415,13 +572,19 @@ setMethod("show", "cachemean",
           })
 ```
 
+```
+## [1] "show"
+```
+
+
 ---
 
 ## An Object That Remembers its Mean
 
 A `mean` method
 
-```{r,tidy=FALSE}
+
+```r
 setMethod("mean", "cachemean",
           function(x, ...) {
                   m <- x@getmean()
@@ -434,18 +597,50 @@ setMethod("mean", "cachemean",
           })
 ```
 
+```
+## Creating a generic function for 'mean' from package 'base' in the global environment
+```
+
+```
+## [1] "mean"
+```
+
+
 ---
 
 ## An Object That Remembers its Mean
 
 Using the new class
 
-```{r}
+
+```r
 set.seed(1)
-x <- makeVector(rnorm(1e7))
-system.time(print(mean(x)))
+x <- makeVector(rnorm(10000000))
 system.time(print(mean(x)))
 ```
+
+```
+## [1] 0.0004037
+```
+
+```
+##    user  system elapsed 
+##   0.018   0.000   0.018
+```
+
+```r
+system.time(print(mean(x)))
+```
+
+```
+## [1] 0.0004037
+```
+
+```
+##    user  system elapsed 
+##       0       0       0
+```
+
 
 ---
 

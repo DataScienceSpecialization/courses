@@ -246,7 +246,7 @@ class(fit)
 
 <pre><code>## function (x, ...) 
 ## UseMethod(&quot;mean&quot;)
-## &lt;bytecode: 0x7fe72e1e3910&gt;
+## &lt;bytecode: 0x7fceae2c9980&gt;
 ## &lt;environment: namespace:base&gt;
 </code></pre>
 
@@ -255,7 +255,7 @@ class(fit)
 
 <pre><code>## function (x, ...) 
 ## UseMethod(&quot;print&quot;)
-## &lt;bytecode: 0x7fe72db58c08&gt;
+## &lt;bytecode: 0x7fceacc3f608&gt;
 ## &lt;environment: namespace:base&gt;
 </code></pre>
 
@@ -291,7 +291,15 @@ equivalent of <code>print</code></p>
 <pre><code class="r">show
 </code></pre>
 
-<pre><code>## Error: object &#39;show&#39; not found
+<pre><code>## standardGeneric for &quot;show&quot; defined from package &quot;methods&quot;
+## 
+## function (object) 
+## standardGeneric(&quot;show&quot;)
+## &lt;bytecode: 0x7fe0141d3a78&gt;
+## &lt;environment: 0x7fe0146db8a8&gt;
+## Methods may be defined for arguments: object
+## Use  showMethods(&quot;show&quot;)  for currently available ones.
+## (This generic function excludes non-simple inheritance; see ?setIs)
 </code></pre>
 
 <p>The <code>show</code> function is usually not called directly (much like <code>print</code>)
@@ -309,7 +317,31 @@ because objects are auto-printed.</p>
     <pre><code class="r">showMethods(&quot;show&quot;)
 </code></pre>
 
-<pre><code>## Error: could not find function &quot;showMethods&quot;
+<pre><code>## Function: show (package methods)
+## object=&quot;ANY&quot;
+## object=&quot;classGeneratorFunction&quot;
+## object=&quot;classRepresentation&quot;
+## object=&quot;envRefClass&quot;
+## object=&quot;function&quot;
+##     (inherited from: object=&quot;ANY&quot;)
+## object=&quot;genericFunction&quot;
+## object=&quot;genericFunctionWithTrace&quot;
+## object=&quot;MethodDefinition&quot;
+## object=&quot;MethodDefinitionWithTrace&quot;
+## object=&quot;MethodSelectionReport&quot;
+## object=&quot;MethodWithNext&quot;
+## object=&quot;MethodWithNextWithTrace&quot;
+## object=&quot;namedList&quot;
+## object=&quot;ObjectsWithPackage&quot;
+## object=&quot;oldClass&quot;
+## object=&quot;refClassRepresentation&quot;
+## object=&quot;refMethodDef&quot;
+## object=&quot;refObjectGenerator&quot;
+## object=&quot;signature&quot;
+## object=&quot;sourceEnvironment&quot;
+## object=&quot;standardGeneric&quot;
+##     (inherited from: object=&quot;genericFunction&quot;)
+## object=&quot;traceable&quot;
 </code></pre>
 
   </article>
@@ -444,12 +476,12 @@ sapply(df, mean)
 </code></pre>
 
 <ol>
-<li><p>The class of df is &quot;data.frame&quot;; in a data frame each column can be
-an object of a different class</p></li>
+<li><p>The class of <code>df</code> is &quot;data.frame&quot;; each column can be an object of
+a different class</p></li>
 <li><p>We <code>sapply</code> over the columns and call the <code>mean</code> function</p></li>
 <li><p>In each column, <code>mean</code> checks the class of the object and dispatches the
 appropriate method.</p></li>
-<li><p>Here we have a <code>numeric</code> column and an <code>integer</code> column; in both cases <code>mean</code> calls the default method</p></li>
+<li><p>We have a <code>numeric</code> column and an <code>integer</code> column; <code>mean</code> calls the default method for both</p></li>
 </ol>
 
   </article>
@@ -458,10 +490,16 @@ appropriate method.</p></li>
 
 <slide class="" id="slide-20" style="background:;">
   <hgroup>
-    <h2>Calling Methods</h2>
+    <h2>Calling Methods Directly</h2>
   </hgroup>
   <article data-timings="">
-    <p>NOTE: Some methods are visible to the user (i.e. <code>mean.default</code>), but you should <em>never</em> call methods directly. Rather, use the generic function and let the method be dispatched automatically.</p>
+    <ul>
+<li><p>Some S3 methods are visible to the user (i.e. <code>mean.default</code>),</p></li>
+<li><p><b>Never</b> call methods directly</p></li>
+<li><p>Use the generic function and let the method be dispatched
+automatically.</p></li>
+<li><p>With S4 methods you cannot call them directly at all</p></li>
+</ul>
 
   </article>
   <!-- Presenter Notes -->
@@ -676,133 +714,6 @@ plot(p)
 
 <slide class="" id="slide-31" style="background:;">
   <hgroup>
-    <h2>An Object That Remembers its Mean</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>Class definition</p>
-
-<pre><code class="r">setClass(&quot;cachemean&quot;,
-         representation(set = &quot;function&quot;,
-                        get = &quot;function&quot;,
-                        getmean = &quot;function&quot;,
-                        setmean = &quot;function&quot;))
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-32" style="background:;">
-  <hgroup>
-    <h2>An Object That Remembers its Mean</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>A constructor function</p>
-
-<pre><code class="r">makeVector &lt;- function(x) {
-    data &lt;- x
-    datamean &lt;- NULL
-    get &lt;- function() data
-    set &lt;- function(newvalue) {
-        data &lt;&lt;- newvalue
-        datamean &lt;&lt;- NULL
-    }
-    setmean &lt;- function(newmean) datamean &lt;&lt;- newmean
-    getmean &lt;- function() datamean
-    new(&quot;cachemean&quot;, set = set, get = get, setmean = setmean, getmean = getmean)
-}
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-33" style="background:;">
-  <hgroup>
-    <h2>An Object That Remembers its Mean</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>A <code>show</code> method</p>
-
-<pre><code class="r">setMethod(&quot;show&quot;, &quot;cachemean&quot;,
-          function(object) {
-                  x &lt;- object@get()
-                  show(x)
-                  invisible(x)
-          })
-</code></pre>
-
-<pre><code>## [1] &quot;show&quot;
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-34" style="background:;">
-  <hgroup>
-    <h2>An Object That Remembers its Mean</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>A <code>mean</code> method</p>
-
-<pre><code class="r">setMethod(&quot;mean&quot;, &quot;cachemean&quot;,
-          function(x, ...) {
-                  m &lt;- x@getmean()
-                  if(!is.null(m))
-                          return(m)
-                  data &lt;- x@get()
-                  m &lt;- mean(data, ...)
-                  x@setmean(m)
-                  m
-          })
-</code></pre>
-
-<pre><code>## Creating a generic function for &#39;mean&#39; from package &#39;base&#39; in the global environment
-</code></pre>
-
-<pre><code>## [1] &quot;mean&quot;
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-35" style="background:;">
-  <hgroup>
-    <h2>An Object That Remembers its Mean</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>Using the new class</p>
-
-<pre><code class="r">set.seed(1)
-x &lt;- makeVector(rnorm(10000000))
-system.time(print(mean(x)))
-</code></pre>
-
-<pre><code>## [1] 0.0004037
-</code></pre>
-
-<pre><code>##    user  system elapsed 
-##   0.018   0.000   0.018
-</code></pre>
-
-<pre><code class="r">system.time(print(mean(x)))
-</code></pre>
-
-<pre><code>## [1] 0.0004037
-</code></pre>
-
-<pre><code>##    user  system elapsed 
-##       0       0       0
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-36" style="background:;">
-  <hgroup>
     <h2>Summary</h2>
   </hgroup>
   <article data-timings="">
@@ -821,7 +732,7 @@ data/concepts for users</p></li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-37" style="background:;">
+<slide class="" id="slide-32" style="background:;">
   <hgroup>
     <h2>Where to Look, Places to Start</h2>
   </hgroup>
@@ -963,7 +874,7 @@ for doing maximum likelihood analysis.  ￼￼￼￼￼</p></li>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=20 title='Calling Methods'>
+        data-slide=20 title='Calling Methods Directly'>
          20
       </a>
     </li>
@@ -1029,44 +940,14 @@ for doing maximum likelihood analysis.  ￼￼￼￼￼</p></li>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=31 title='An Object That Remembers its Mean'>
+        data-slide=31 title='Summary'>
          31
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=32 title='An Object That Remembers its Mean'>
+        data-slide=32 title='Where to Look, Places to Start'>
          32
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=33 title='An Object That Remembers its Mean'>
-         33
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=34 title='An Object That Remembers its Mean'>
-         34
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=35 title='An Object That Remembers its Mean'>
-         35
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=36 title='Summary'>
-         36
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=37 title='Where to Look, Places to Start'>
-         37
       </a>
     </li>
   </ul>

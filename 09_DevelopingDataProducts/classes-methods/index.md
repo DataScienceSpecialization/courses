@@ -165,7 +165,7 @@ mean
 ```
 ## function (x, ...) 
 ## UseMethod("mean")
-## <bytecode: 0x7fe72e1e3910>
+## <bytecode: 0x7fceae2c9980>
 ## <environment: namespace:base>
 ```
 
@@ -176,7 +176,7 @@ print
 ```
 ## function (x, ...) 
 ## UseMethod("print")
-## <bytecode: 0x7fe72db58c08>
+## <bytecode: 0x7fceacc3f608>
 ## <environment: namespace:base>
 ```
 
@@ -209,7 +209,15 @@ show
 ```
 
 ```
-## Error: object 'show' not found
+## standardGeneric for "show" defined from package "methods"
+## 
+## function (object) 
+## standardGeneric("show")
+## <bytecode: 0x7fe0141d3a78>
+## <environment: 0x7fe0146db8a8>
+## Methods may be defined for arguments: object
+## Use  showMethods("show")  for currently available ones.
+## (This generic function excludes non-simple inheritance; see ?setIs)
 ```
 
 The `show` function is usually not called directly (much like `print`)
@@ -225,7 +233,31 @@ showMethods("show")
 ```
 
 ```
-## Error: could not find function "showMethods"
+## Function: show (package methods)
+## object="ANY"
+## object="classGeneratorFunction"
+## object="classRepresentation"
+## object="envRefClass"
+## object="function"
+##     (inherited from: object="ANY")
+## object="genericFunction"
+## object="genericFunctionWithTrace"
+## object="MethodDefinition"
+## object="MethodDefinitionWithTrace"
+## object="MethodSelectionReport"
+## object="MethodWithNext"
+## object="MethodWithNextWithTrace"
+## object="namedList"
+## object="ObjectsWithPackage"
+## object="oldClass"
+## object="refClassRepresentation"
+## object="refMethodDef"
+## object="refObjectGenerator"
+## object="signature"
+## object="sourceEnvironment"
+## object="standardGeneric"
+##     (inherited from: object="genericFunction")
+## object="traceable"
 ```
 
 
@@ -340,21 +372,28 @@ sapply(df, mean)
 ```
 
 
-1. The class of df is "data.frame"; in a data frame each column can be
-an object of a different class
+1. The class of `df` is "data.frame"; each column can be an object of
+a different class
 
 2. We `sapply` over the columns and call the `mean` function
 
 3. In each column, `mean` checks the class of the object and dispatches the
 appropriate method.
 
-4. Here we have a `numeric` column and an `integer` column; in both cases `mean` calls the default method
+4. We have a `numeric` column and an `integer` column; `mean` calls the default method for both
 
 ---
 
-## Calling Methods
+## Calling Methods Directly
 
-NOTE: Some methods are visible to the user (i.e. `mean.default`), but you should *never* call methods directly. Rather, use the generic function and let the method be dispatched automatically.
+* Some S3 methods are visible to the user (i.e. `mean.default`),
+
+* <b>Never</b> call methods directly
+
+* Use the generic function and let the method be dispatched
+automatically.
+
+* With S4 methods you cannot call them directly at all
 
 ---
 
@@ -521,128 +560,6 @@ plot(p)
 
 ---
 
-## An Object That Remembers its Mean
-
-Class definition
-
-```r
-setClass("cachemean",
-         representation(set = "function",
-                        get = "function",
-                        getmean = "function",
-                        setmean = "function"))
-```
-
-
----
-## An Object That Remembers its Mean
-
-A constructor function
-
-
-```r
-makeVector <- function(x) {
-    data <- x
-    datamean <- NULL
-    get <- function() data
-    set <- function(newvalue) {
-        data <<- newvalue
-        datamean <<- NULL
-    }
-    setmean <- function(newmean) datamean <<- newmean
-    getmean <- function() datamean
-    new("cachemean", set = set, get = get, setmean = setmean, getmean = getmean)
-}
-```
-
-
----
-
-## An Object That Remembers its Mean
-
-A `show` method
-
-
-```r
-setMethod("show", "cachemean",
-          function(object) {
-                  x <- object@get()
-                  show(x)
-                  invisible(x)
-          })
-```
-
-```
-## [1] "show"
-```
-
-
----
-
-## An Object That Remembers its Mean
-
-A `mean` method
-
-
-```r
-setMethod("mean", "cachemean",
-          function(x, ...) {
-                  m <- x@getmean()
-                  if(!is.null(m))
-                          return(m)
-                  data <- x@get()
-                  m <- mean(data, ...)
-                  x@setmean(m)
-                  m
-          })
-```
-
-```
-## Creating a generic function for 'mean' from package 'base' in the global environment
-```
-
-```
-## [1] "mean"
-```
-
-
----
-
-## An Object That Remembers its Mean
-
-Using the new class
-
-
-```r
-set.seed(1)
-x <- makeVector(rnorm(10000000))
-system.time(print(mean(x)))
-```
-
-```
-## [1] 0.0004037
-```
-
-```
-##    user  system elapsed 
-##   0.018   0.000   0.018
-```
-
-```r
-system.time(print(mean(x)))
-```
-
-```
-## [1] 0.0004037
-```
-
-```
-##    user  system elapsed 
-##       0       0       0
-```
-
-
----
 
 ## Summary
 

@@ -589,7 +589,7 @@ plot(p)
   if you know nothing about bioinformatics
 
 - Some packages on CRAN (as far as I know) — SparseM, gpclib, flexmix,
-  its, lme4, orientlib, pixmap
+  its, lme4, orientlib, filehash
 
 - The `stats4` package (comes with R) has a bunch of classes/methods
 for doing maximum likelihood analysis.  ￼￼￼￼￼

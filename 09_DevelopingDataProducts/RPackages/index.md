@@ -26,9 +26,16 @@ mode        : selfcontained # {standalone, draft}
 ## Where are These R Packages?
 
 - Primarily available from CRAN and Bioconductor
+
 - Also available from GitHub, Bitbucket, Gitorious, etc. (and elsewhere)
+
 - Packages from CRAN/Bioconductor can be installed with `install.packages()`
-- Packages from GitHub can be installed using `install_github()` from the **devtools** package
+
+- Packages from GitHub can be installed using `install_github()` from
+  the <b>devtools</b> package
+
+You do not have to put a package on a central repository, but doing so
+makes it easier for others to install your package.
 
 ---
 
@@ -89,7 +96,7 @@ mode        : selfcontained # {standalone, draft}
 
 ---
 
-## The DESCRIPTION file
+## The DESCRIPTION File
 
 These fields are optional but commonly used
 
@@ -101,7 +108,7 @@ These fields are optional but commonly used
 
 ---
 
-## DESCRIPTION file: gpclib
+## DESCRIPTION File: `gpclib`
 
 <b>Package</b>:  gpclib<br />
 <b>Title</b>:  General Polygon Clipping Library for R
@@ -135,7 +142,7 @@ These fields are optional but commonly used
 
 ---
 
-## The NAMESPACE file
+## The NAMESPACE File
 
 - You can also indicate what functions you <b>import</b> from other packages
 - This allows for your package to use other packages without making other packages visible to the user
@@ -143,7 +150,7 @@ These fields are optional but commonly used
 
 ---
 
-## The NAMESPACE file
+## The NAMESPACE File
 
 Key directives
 - export("\<function>") 
@@ -156,7 +163,7 @@ Also important
 
 ---
 
-## NAMESPACE file: mvtsplot package
+## NAMESPACE File: `mvtsplot` package
 
 ```r
 export("mvtsplot")
@@ -166,7 +173,7 @@ import(splines)
 
 ---
 
-## NAMESPACE file: gpclib package
+## NAMESPACE File: `gpclib` package
 
 ```r
 export("read.polyfile", "write.polyfile")
@@ -252,17 +259,14 @@ line(x, y)
 
 ## Building and Checking
 
-- R CMD build is a command-line program that creates a package archive file (.tar.gz)
+- R CMD build is a command-line program that creates a package archive
+  file (`.tar.gz`)
+
 - R CMD check runs a battery of tests on the package
-- `build()` function in <b>devtools</b>
-- `check()` function in <b>devtools</b>
 
+- You can run R CMD build or R CMD check from the command-line using a
+  terminal or command-shell application
 
----
-
-## Building and Checking
-
-- You can run R CMD build or R CMD check from the command-line using a terminal application
 - You can also run them from R using the system() function
 
 ```r

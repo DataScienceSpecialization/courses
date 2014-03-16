@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{{> head }}
+  {{{ page.stylesheets }}}  
+</head>
+<body style='display: none'>
+	<section class='slides layout-regular template-regular'>
+     {{{ page.content }}}
+  </section>
+</body>
+  <!-- LOAD JAVASCRIPTS  -->
+	<script src='{{page.url.framework}}/{{page.html5slides.theme}}/slides.js'></script>
+	{{> javascripts }}
+</html>
+

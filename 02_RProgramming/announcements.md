@@ -40,7 +40,9 @@ Roger Peng and the Data Science Team
 
 We have now entered the third week of R Programming which also marks the halfway point. The lectures this week cover loop functions and the debugging tools in R. These aspects of R make R useful for both interactive work and writing longer code, and so they are commonly used in practice.
 
-The Programming Assignment is challenging and so I encourage you to start early if you have the chance. It requires you to explore some of the more interesting aspects of the R language, including taking advantage of the scoping rules to implement state preservation in R objects. The Programming Assignment this week uses a submit script that you have to download from the Coursera web site. 
+The Programming Assignment is challenging and so I encourage you to start early if you have the chance. It requires you to explore some of the more interesting aspects of the R language, including taking advantage of the scoping rules to implement state preservation in R objects. 
+
+Note that the programming assignment this week is implemented as a <b>Peer Assessment</b> so you will not see it listed under the Programming Assignments section.
 
 Best of luck!
 

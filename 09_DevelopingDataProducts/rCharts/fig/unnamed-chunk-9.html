@@ -1,0 +1,343 @@
+<!doctype HTML>
+<html>
+  <head>
+    <link rel='stylesheet' href='http://cdn.strategiqcommerce.com/ajax/libs/rickshaw/1.2.1/rickshaw.min.css'>
+    <link rel='stylesheet' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css'>
+    
+    <script src='http://d3js.org/d3.v2.min.js' type='text/javascript'></script>
+    <script src='http://cdn.strategiqcommerce.com/ajax/libs/rickshaw/1.2.1/rickshaw.min.js' type='text/javascript'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js' type='text/javascript'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js' type='text/javascript'></script>
+    
+    <style>
+    .chart_container {
+        position: relative;
+        display: inline-block;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .rChart {
+        display: inline-block;
+        margin-left: 40px;
+    }
+   .yAxis {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 40px;
+   }
+   .legend {
+        position: absolute;
+        top: 0;
+        right: -160px;
+        vertical-align: top;
+    }
+    .slider {
+      margin-left: 40px;
+      margin-top: 12px;
+    }
+    </style>
+    
+  </head>
+  <body>
+    <div class='chart_container'>
+      <div id='yAxischart16c56fdfd342' class='yAxis'></div>
+      <div id='chart16c56fdfd342' class='rChart rickshaw'></div>
+      <div id='xAxischart16c56fdfd342' class='xAxis'></div>
+      <div id='legendchart16c56fdfd342' class='legend'></div>
+      <div id='sliderchart16c56fdfd342' class='slider'></div>
+    </div>
+    
+    <script type='text/javascript'> 
+  var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
+  var chartParams = {
+ "dom": "chart16c56fdfd342",
+"width":            560,
+"height":            400,
+"scheme": "colorwheel",
+"series": [
+ {
+ "data": [
+ {
+ "x":     -946753200,
+"y":           22.2 
+},
+{
+ "x":     -788904000,
+"y":           44.5 
+},
+{
+ "x":     -631134000,
+"y":           59.6 
+},
+{
+ "x":     -473367600,
+"y":           73.2 
+},
+{
+ "x":     -315601200,
+"y":           86.8 
+} 
+],
+"name": "Food and Tobacco",
+"info": {
+ "-946753200": {
+ "Var1": "Food and Tobacco",
+"Var2":     -946753200 
+},
+"-788904000": {
+ "Var1": "Food and Tobacco",
+"Var2":     -788904000 
+},
+"-631134000": {
+ "Var1": "Food and Tobacco",
+"Var2":     -631134000 
+},
+"-473367600": {
+ "Var1": "Food and Tobacco",
+"Var2":     -473367600 
+},
+"-315601200": {
+ "Var1": "Food and Tobacco",
+"Var2":     -315601200 
+} 
+},
+"color":  palette.color()  
+},
+{
+ "data": [
+ {
+ "x":     -946753200,
+"y":           10.5 
+},
+{
+ "x":     -788904000,
+"y":           15.5 
+},
+{
+ "x":     -631134000,
+"y":             29 
+},
+{
+ "x":     -473367600,
+"y":           36.5 
+},
+{
+ "x":     -315601200,
+"y":           46.2 
+} 
+],
+"name": "Household Operation",
+"info": {
+ "-946753200": {
+ "Var1": "Household Operation",
+"Var2":     -946753200 
+},
+"-788904000": {
+ "Var1": "Household Operation",
+"Var2":     -788904000 
+},
+"-631134000": {
+ "Var1": "Household Operation",
+"Var2":     -631134000 
+},
+"-473367600": {
+ "Var1": "Household Operation",
+"Var2":     -473367600 
+},
+"-315601200": {
+ "Var1": "Household Operation",
+"Var2":     -315601200 
+} 
+},
+"color":  palette.color()  
+},
+{
+ "data": [
+ {
+ "x":     -946753200,
+"y":           3.53 
+},
+{
+ "x":     -788904000,
+"y":           5.76 
+},
+{
+ "x":     -631134000,
+"y":           9.71 
+},
+{
+ "x":     -473367600,
+"y":             14 
+},
+{
+ "x":     -315601200,
+"y":           21.1 
+} 
+],
+"name": "Medical and Health",
+"info": {
+ "-946753200": {
+ "Var1": "Medical and Health",
+"Var2":     -946753200 
+},
+"-788904000": {
+ "Var1": "Medical and Health",
+"Var2":     -788904000 
+},
+"-631134000": {
+ "Var1": "Medical and Health",
+"Var2":     -631134000 
+},
+"-473367600": {
+ "Var1": "Medical and Health",
+"Var2":     -473367600 
+},
+"-315601200": {
+ "Var1": "Medical and Health",
+"Var2":     -315601200 
+} 
+},
+"color":  palette.color()  
+},
+{
+ "data": [
+ {
+ "x":     -946753200,
+"y":           1.04 
+},
+{
+ "x":     -788904000,
+"y":           1.98 
+},
+{
+ "x":     -631134000,
+"y":           2.45 
+},
+{
+ "x":     -473367600,
+"y":            3.4 
+},
+{
+ "x":     -315601200,
+"y":            5.4 
+} 
+],
+"name": "Personal Care",
+"info": {
+ "-946753200": {
+ "Var1": "Personal Care",
+"Var2":     -946753200 
+},
+"-788904000": {
+ "Var1": "Personal Care",
+"Var2":     -788904000 
+},
+"-631134000": {
+ "Var1": "Personal Care",
+"Var2":     -631134000 
+},
+"-473367600": {
+ "Var1": "Personal Care",
+"Var2":     -473367600 
+},
+"-315601200": {
+ "Var1": "Personal Care",
+"Var2":     -315601200 
+} 
+},
+"color":  palette.color()  
+},
+{
+ "data": [
+ {
+ "x":     -946753200,
+"y":          0.341 
+},
+{
+ "x":     -788904000,
+"y":          0.974 
+},
+{
+ "x":     -631134000,
+"y":            1.8 
+},
+{
+ "x":     -473367600,
+"y":            2.6 
+},
+{
+ "x":     -315601200,
+"y":           3.64 
+} 
+],
+"name": "Private Education",
+"info": {
+ "-946753200": {
+ "Var1": "Private Education",
+"Var2":     -946753200 
+},
+"-788904000": {
+ "Var1": "Private Education",
+"Var2":     -788904000 
+},
+"-631134000": {
+ "Var1": "Private Education",
+"Var2":     -631134000 
+},
+"-473367600": {
+ "Var1": "Private Education",
+"Var2":     -473367600 
+},
+"-315601200": {
+ "Var1": "Private Education",
+"Var2":     -315601200 
+} 
+},
+"color":  palette.color()  
+} 
+],
+"renderer": "area",
+"id": "chart16c56fdfd342" 
+}
+  chartParams.element = document.querySelector('#chart16c56fdfd342')
+  
+  var graphchart16c56fdfd342 = new Rickshaw.Graph(chartParams);
+  
+  graphchart16c56fdfd342.render();
+  
+  var xAxischart16c56fdfd342 = new Rickshaw.Graph.Axis.Time({
+ "graph":  graphchart16c56fdfd342  
+})
+var yAxischart16c56fdfd342 = new Rickshaw.Graph.Axis.Y({
+ "graph":  graphchart16c56fdfd342 ,
+"orientation": "left",
+"element":  document.getElementById('yAxischart16c56fdfd342') ,
+"tickFormat":  Rickshaw.Fixtures.Number.formatKMBT  
+})
+graphchart16c56fdfd342.render()
+var legendchart16c56fdfd342 = new Rickshaw.Graph.Legend({
+ "graph":  graphchart16c56fdfd342 ,
+"element":  document.getElementById('legendchart16c56fdfd342')  
+})
+var shelvingchart16c56fdfd342 = new Rickshaw.Graph.Behavior.Series.Toggle({
+ "graph":  graphchart16c56fdfd342 ,
+"legend":  legendchart16c56fdfd342  
+})
+var hoverDetailchart16c56fdfd342 = new Rickshaw.Graph.HoverDetail({
+ "graph":  graphchart16c56fdfd342  
+})
+var highlightchart16c56fdfd342 = new Rickshaw.Graph.Behavior.Series.Highlight({
+ "graph":  graphchart16c56fdfd342 ,
+"legend":  legendchart16c56fdfd342  
+})
+var sliderchart16c56fdfd342 = new Rickshaw.Graph.RangeSlider({
+ "graph":  graphchart16c56fdfd342 ,
+"element":  document.getElementById('sliderchart16c56fdfd342')  
+})
+  
+  graphchart16c56fdfd342.render();
+  
+</script> 
+    
+  </body>
+</html>

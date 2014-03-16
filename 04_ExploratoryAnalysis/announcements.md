@@ -1,57 +1,58 @@
-## Week 1 Announcement
+## Exploratory Data Analysis: Week 1 
 
-Welcome to Week 1 of Exploratory Data Analysis! This course
-will focus on developing the tools and techniques for making preliminary examinations of data and to develop a "rough cut" analysis that can be the basis for more formal development.
 
-[SOME STUFF]
+I'm very excited to start Exploratory Data Analysis and I hope you are too. Exploratory data analysis (EDA) is a key element of data science because it allows you to develop a rough idea of what your data look like and what kinds of questions might be answered by them. EDA is often the "fun part" of data analysis, where you get to play around with the data and, well, explore! 
 
-Please see the course syllabus for information about the quizes, the project, due dates, and grading. Don't forget to introduce yourself on the message boards. The community developed around these courses is one of the key benefits of taking a MOOC and is one of the places to learn.
+As of now the course web site on Coursera is open and you are free to start watching lecture videos, take the quizzes, and look at the first programming assignment. As you browse the course web site, please make sure to read through the <b>syllabus</b> which contains important information about the grading policy for quizzes and programming assignments as well as the course schedule.
 
-Roger Peng and the Data Science Track Team
+The primary way to interact with me in this course is through the <b>discussion forums</b>. Here, you can start new threads by asking questions or you can respond to other people's questions. If you have a question about any aspect of the course, I strongly suggest that you search through the discussion boards first to see if anyone as already asked that question. If you see something similar to what you want to ask, you should up-vote that question using the up-arrow button rather than asking your question separately. The more votes a question or comment gets, the more likely it is that I will see it and be able to respond quickly. Of course, if you don't see a question similar to the one you want to ask, then you should definitely start a new thread on the appropriate forum.
+
+This week will cover the basics of analytic graphics and the base plotting system in R. I recommend that you watch the videos in the order that they are listed on the web page, but watching the videos out of order isn't going to ruin the story. For each lecture video you can download a separate PDF document of the slides (the demonstration videos don't have slides associated with them).
+
+Watching the videos on the Coursera web site is the best way to watch the lectures. However, there are alternative ways to view the lectures if that suits you. You can download the lecture video MP4 files and watch them locally on your computer.
+
+I hope you enjoy the class. I anticipate a fun four weeks!
+
+Roger Peng and the Data Science Team
+
 
 ---
 
-## Week 2 Announcement
 
-Welcome to Week 2 of Prediction and Machine Learning! This will be the most lecture-intensive week of the course. The primary goal is to introduce you to how to build predictors in practice. 
+## Exploratory Data Analysis: Week 2
 
-Remember that the course project is open and ongoing. With the skills you learn this week you should be able to start on the basic analyses that will form the beginnings of your project. 
+
 
 Good luck and have a great week!
 
-Jeff Leek and the Data Science Track Team
+Roger Peng and the Data Science Team
 
 
 ---
 
 
-## Week 3 Announcement
+## Exploratory Data Analysis: Week 3
 
+Welcome to Week 3 of Exploratory Data Analysis. This week covers some of the workhorse statisticsl methods for exploratory analysis. These methods include clustering and dimension reduction techniques that allow you to make graphical displayes of very high dimensional data (many many variables). We also cover novel ways to specify colors in R so that you can use color as an important and useful dimension when making data graphics.
 
-Welcome to Week 3 of Prediction and Machine Learning! This week we will start to reduce the number of lectures so you can spend more time focusing on your course project. Your project is due at the end of this week. 
-
-If you have trouble or want to explore issues in more depth, please seek out answers on the message boards. They are a great resource! If you happen to be a superstar who already gets it, please take the time to help your classmates by answering their questions as well. This is one of the best ways to practice using and explaining your skills to others. These are two of the key characteristics of excellent data scientists.
+This week also introduces a new Peer Assessment involving the analysis of data from the U.S. Environmental Protection Agency's National Emissions Inventory. Because this Assessment is rather involved, there is <b>no Quiz</b> for this week. 
 
 Good luck and have a great week!
 
-Jeff Leek and the Data Science Track Team
-
+Roger Peng and the Data Science Team
 
 
 ---
 
 
-## Week 4 Announcement
+## Exploratory Data Analysis: Week 4
 
 
-Welcome to Week 4 of Prediction and Machine Learning! In this final week we will focus on peer grading of assignments. 
-
-Participating in peer grading is an amazing learning opportunity. It gives you a chance to learn things from your fellow students,
-pick up tips for explaning key ideas, and helping others to learn as well. We have focused our effort on making the rubric as objective and straightforward to implement as possible. If you have any issues please report them in the forums as described in the syllabus. 
+Welcome to Week 4 of Exploratory Data Analysis. In this final week we will focus on peer grading of assignments. I also have posted two case studies in exploratory data analysis. The first involves the use of cluster analysis techniques and the second is a more involved analysis of some air pollution data. How one goes about doing EDA is often personal, but by providing these videos I thought I would give you a sense of how one might proceed with a specific type of dataset.
 
 Thanks again for all of your efforts in the course, we are in the last stretch. Good luck and have a great week!
 
-Jeff Leek and the Data Science Track Team
+Roger Peng and the Data Science Team
 
 
 ---

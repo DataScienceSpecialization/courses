@@ -1,0 +1,57 @@
+<!doctype HTML>
+<meta charset = 'utf-8'>
+<html>
+  <head>
+    
+    <script src='http://ramnathv.github.io/rCharts/libraries/widgets/polycharts/js/polychart2.standalone.js' type='text/javascript'></script>
+    
+    <style>
+    .rChart {
+      display: block;
+      margin-left: auto; 
+      margin-right: auto;
+      width: 800px;
+      height: 400px;
+    }  
+    </style>
+    
+  </head>
+  <body>
+    <div id='chart16c57cd13d81' class='rChart polycharts'></div>  
+    
+    <script type='text/javascript'>
+    var chartParams = {
+ "dom": "chart16c57cd13d81",
+"width":    800,
+"height":    400,
+"layers": [
+ {
+ "x": "Hair",
+"y": "Freq",
+"data": {
+ "Hair": [ "Black", "Brown", "Red", "Blond", "Black", "Brown", "Red", "Blond", "Black", "Brown", "Red", "Blond", "Black", "Brown", "Red", "Blond", "Black", "Brown", "Red", "Blond", "Black", "Brown", "Red", "Blond", "Black", "Brown", "Red", "Blond", "Black", "Brown", "Red", "Blond" ],
+"Eye": [ "Brown", "Brown", "Brown", "Brown", "Blue", "Blue", "Blue", "Blue", "Hazel", "Hazel", "Hazel", "Hazel", "Green", "Green", "Green", "Green", "Brown", "Brown", "Brown", "Brown", "Blue", "Blue", "Blue", "Blue", "Hazel", "Hazel", "Hazel", "Hazel", "Green", "Green", "Green", "Green" ],
+"Sex": [ "Male", "Male", "Male", "Male", "Male", "Male", "Male", "Male", "Male", "Male", "Male", "Male", "Male", "Male", "Male", "Male", "Female", "Female", "Female", "Female", "Female", "Female", "Female", "Female", "Female", "Female", "Female", "Female", "Female", "Female", "Female", "Female" ],
+"Freq": [     32,     53,     10,      3,     11,     50,     10,     30,     10,     25,      7,      5,      3,     15,      7,      8,     36,     66,     16,      4,      9,     34,      7,     64,      5,     29,      7,      5,      2,     14,      7,      8 ] 
+},
+"facet": "Eye",
+"color": "Eye",
+"type": "bar" 
+} 
+],
+"facet": {
+ "type": "wrap",
+"var": "Eye" 
+},
+"guides": [],
+"coord": [],
+"id": "chart16c57cd13d81" 
+}
+    _.each(chartParams.layers, function(el){
+        el.data = polyjs.data(el.data)
+    })
+    var graph_chart16c57cd13d81 = polyjs.chart(chartParams);
+</script>
+    
+  </body>
+</html>

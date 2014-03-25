@@ -111,7 +111,7 @@ These fields are optional but commonly used
 ## DESCRIPTION File: `gpclib`
 
 <b>Package</b>:  gpclib<br />
-<b>Title</b>:  General Polygon Clipping Library for R
+<b>Title</b>:  General Polygon Clipping Library for R<br />
 <b>Description</b>:  General polygon clipping routines for R based on Alan Murta's C library<br />
 <b>Version</b>:  1.5-5<br />
 <b>Author</b>:  Roger D. Peng <rpeng@jhsph.edu> with contributions from Duncan Murdoch and Barry Rowlingson; GPC library by Alan Murta<br />

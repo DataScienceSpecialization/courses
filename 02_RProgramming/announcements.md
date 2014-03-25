@@ -1,15 +1,14 @@
 ## Week 1 Announcement
 
-I'm very excited to start R Programming and I hope you are too. As of now the course web site on Coursera is open and you are free to start watching lecture videos, take the quizzes, and look at the first programming assignment.
+I'm very excited to start R Programming and I hope you are too. This is the second course in the <a href="https://www.coursera.org/specialization/jhudatascience/1">Data Science Specialization</a> and it focuses on the nuts and bolts of using R as a programming language. As of now the course web site on Coursera is open and you are free to start watching lecture videos, take the quizzes, and look at the first programming assignment.
 
 As you browse the course web site, please make sure to read through the <b>syllabus</b> which contains important information about the grading policy for quizzes and programming assignments as well as the course schedule.
 
-The primary way to interact with me in this course is through the <b>discussion forums</b>. Here, you can start new threads by asking questions or you can respond to other people's questions. If you have a question about any aspect of the course, I strongly suggest that you search through the discussion boards first to see if anyone as already asked that question. If you see something similar to what you want to ask, you should up-vote that question using the up-arrow button rather than asking your question separately. The more votes a question or comment gets, the more likely it is that I will see it and be able to respond quickly. Of course, if you don't see a question similar to the one you want to ask, then you should definitely start a new thread on the appropriate forum.
+The primary way to interact with me and the other students in this course is through the <b>discussion forums</b>. Here, you can start new threads by asking questions or you can respond to other people's questions. If you have a question about any aspect of the course, I strongly suggest that you search through the discussion boards first to see if anyone as already asked that question. If you see something similar to what you want to ask, you should up-vote that question using the up-arrow button rather than asking your question separately. The more votes a question or comment gets, the more likely it is that I will see it and be able to respond quickly. Of course, if you don't see a question similar to the one you want to ask, then you should definitely start a new thread on the appropriate forum.
 
-This week will cover the basics to get you started up with R. There are videos demonstrating how to install R on Windows and Mac. The Week 1 videos will cover the history of R and S, go over the basic data types in R, and describe the functions for reading and writing data. I recommend that you watch the videos in the order that they are listed on the web page, but watching the videos out of order isn't going to ruin the story. For each lecture video you can download a separate PDF document of the slides (the demonstration videos don't have slides
-associated with them).
+This week will cover the basics to get you started up with R. There are videos demonstrating how to install R on Windows and Mac. The Week 1 videos will cover the history of R and S, go over the basic data types in R, and describe the functions for reading and writing data. I recommend that you watch the videos in the order that they are listed on the web page, but watching the videos out of order isn't going to ruin the story. For each lecture video you can download a separate PDF document of the slides (the demonstration videos don't have slides associated with them).
 
-Watching the videos on the Coursera web site is the best way to watch the lectures. However, there are alternative ways to view the lectures if that suits you. You can download the lecture video MP4 files and watch them locally on your computer.
+Watching the videos on the Coursera web site is the best way to watch the lectures. However, there are alternative ways to view the lectures if that suits you. You can download the lecture video files and watch them locally on your computer.
 
 I hope you enjoy the class. I anticipate a fun four weeks!
 
@@ -60,7 +59,7 @@ Welcome to Week 4 of R Programming! In this final week there is a Programming As
 
 Participating in peer grading is an amazing learning opportunity. It gives you a chance to learn things from your fellow students, pick up tips for explaning key ideas, and helping others to learn as well. We have focused our effort on making the rubric as objective and straightforward to implement as possible. If you have any issues please report them in the forums as described in the syllabus. 
 
-This weeks Programming Assignment uses data on hospital mortality rates in the United States from the Center for Medicare and Medicaid Services. This a large database that is used to evaluate hospital quality in the U.S. We will be scratching the surface of this dataset to explore hospital ranking.
+This week's Programming Assignment uses data on hospital mortality rates in the United States from the Center for Medicare and Medicaid Services. This a large database that is used to evaluate hospital quality in the U.S. We will be scratching the surface of this dataset to explore hospital ranking.
 
 Thanks again for all of your efforts in the course, we are in the last stretch. Good luck and have a great week!
 
@@ -77,18 +76,14 @@ We have set the grading and released the Statements of Accomplishment for the Co
 
 A couple of other notes:
 
+* This course is the second course in the <a href="https://www.coursera.org/specialization/jhudatascience/1">Data Science Specialization</a>. The next course is <a href="https://www.coursera.org/course/getdata">Getting and Cleaning Data</a> which focuses on how to obtain and clean data from the web and through APIs.
+
 * The course will begin again immediately starting in a couple of days. If you are still interested in keeping in touch with your fellow learners, please enroll in the new course and keep the conversation going. You may also be an invaluable resource for new course takers!
 
 * Keep your eye on Hopkins offerings from Coursera. All announcements about future offerings will be posted at: <a href ="https://twitter.com/jhubiostat">https://twitter.com/jhubiostat</a> and <a href="http://simplystatistics.org/">http://simplystatistics.org/</a>, <a href="http://twitter.com/simplystats">http://twitter.com/simplystats</a>.
 
-* If you liked this course, please consider taking some of the other
-  course offerings through the Data Science Specialization. If you
-  have completed all the course work in this track you now have the
-  tools you will need to take on the challenges in the rest of our
-  courses or in other Statistics, Data Science, or Machine Learning
-  courses you may encounter.
+* If you liked this course, please consider taking some of the other  course offerings through the Data Science Specialization. If you  have completed all the course work in this track you now have the  tools you will need to take on the challenges in the rest of our  courses or in other Statistics, Data Science, or Machine Learning  courses you may encounter.
 
-Thanks again for all of your efforts during the course of the class
-and best of luck in your career!
+Thanks again for all of your efforts during the course of the class and best of luck in your career!
 
 Roger Peng and the Data Science Team

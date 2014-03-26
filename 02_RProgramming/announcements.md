@@ -16,6 +16,16 @@ Roger Peng and the Data Science Team
 
 ---
 
+## Welcome to SWIRL
+
+For Week 1 we have an experimental feature called Statistics with Interactive R Learning, or SWIRL. This is an R package designed to help you learn R by walking you through a series of interactive lessons. The lessons take place right on the R console and so you can learn and use R at the same time in the proper environment. 
+
+I encourage you to try the SWIRL modules as I think it's a fun way to learn R, especially if you've never seen it before. If you complete a module, the SWIRL package will notify the Coursera web site so that you'll get extra credit! Please note, however, that the SWIRL modules are <b>completely optional</b> and you can get full marks in the class without completing them.
+
+Roger Peng and the Data Science Team
+
+---
+
 ## Week 2 Announcement
 
 Today marks the beginning of Week 2 of R Programming. This week we take the gloves off and the lectures cover key topics like control structures and functions. We also introduce the first programming assignment for the course, which is due at the end of the week.

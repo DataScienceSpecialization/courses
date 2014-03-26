@@ -41,7 +41,7 @@ We have now entered the third week of R Programming which also marks the halfway
 
 The Programming Assignment is challenging and so I encourage you to start early if you have the chance. It requires you to explore some of the more interesting aspects of the R language, including taking advantage of the scoping rules to implement state preservation in R objects. 
 
-Note that the programming assignment this week is implemented as a <b>Peer Assessment</b> so you will not see it listed under the Programming Assignments section.
+Note that the programming assignment this week is implemented as a <b>Peer Assessment</b> so you will not see it listed under the Programming Assignments section. Please go to the Peer Assessment section of the course to find the assignment instructions.
 
 Best of luck!
 

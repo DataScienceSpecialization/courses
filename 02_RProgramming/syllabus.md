@@ -1,6 +1,6 @@
 # R Programming
 
-[Roger D. Peng](http://www.biostat.jhsph.edu/~rpeng/) 
+[Roger D. Peng](https://class.coursera.org/rprog-001/wiki/About_the_Instructor) 
 
 
 ---
@@ -38,6 +38,14 @@ week and thereafter. You are welcome to view them at your
 convenience. Accompanying each video lecture will be a PDF copy of the
 slides and a link to an HTML5 version of the slides.
 
+### Background lectures
+
+Background lectures about the content of the course with respect to
+other quantitative courses, course logistics, and the R programming
+language are provided as reference material. It is not necessary to
+watch the videos to complete the course, however you may find them
+useful.
+
 ---
 
 ## Assessments
@@ -56,36 +64,45 @@ date and time that each Quiz is due.
 
 ### Programming Assignments
 
-There will be three programming assignments. The first programming
-assignment is due at the end of the second week. Subsequent
-programming assignments are due weekly after that.
+There will be <b>three</b> programming assignments. The first
+programming assignment is due at the end of the second
+week. Subsequent programming assignments are due weekly after that.
 
 Programming Assignments 1 and 3 will be graded via unit tests using a
 submission script that will compare the output of your functions to
-the correct output. Note that Programming Assignment 2 will be graded
-via a peer assessment.
+the correct output. Note that <b>Programming Assignment 2 will be graded
+via a peer assessment</b>.
+
+### OPTIONAL: Interactive Learning Module
+
+For Week 1 we have an experimental feature called Statistics with
+Interactive R Learning, or SWIRL. This is an R package designed to
+help you learn R by walking you through a series of interactive
+lessons. The lessons take place right on the R console and so you can
+learn and use R at the same time in the proper environment.
+
+Running these modules is <b>completely optional</b>. If you complete
+them you will get 1 <b>extra credit</b> point per module, for a total
+of 6 extra points.
 
 ---
 
-## Background lectures
 
-Background lectures about the content of the course with respect to
-other quantitative courses, course logistics, and the R programming
-language are provided as reference material. It is not necessary to
-watch the videos to complete the course, however you may find them
-useful.
+## Grading
 
+### Quizzes
 
----
+You may attempt each quiz up to 2 times. Only the <b>maximum</b> score
+from your final attempt will count toward your grade.
 
-## Quiz Scoring
+### Programming Assignments
 
-You may attempt each quiz up to 2 times. Only the score from your
-final attempt will count toward your grade.
+Programming assignments will require submissions via a submission
+script. You may make an unlimited number of submissions for each of
+the programming assignments and your <b>maximum score</b> will count
+toward your grade.
 
----
-
-## Hard deadlines and soft deadlines
+### Hard deadlines and soft deadlines
 
 The reported due date is the soft deadline for each quiz. You may turn
 in quizzes up to two days after the soft deadline. The hard deadline
@@ -93,11 +110,23 @@ is **two days** after the Quiz is due at 23:30 UTC. Each day late
 will incur a 10% penalty, but if you use a late day, the penalty will
 not be applied to that day.
 
----
 
-## Late Days for Quizzes
+### Late Days for Quizzes and Assignments
 
-You are permitted 5 late days for quizzes in the course. If you use a late day, your quiz grade will not be affected. 
+You are permitted a total of 5 late days for quizzes and assignments
+in the course. If you use a late day, your quiz or assignment grade will not be
+affected if it is submitted late.
+
+
+### Peer Assessments
+
+Peer assessments deadlines have to be synchronous. Therefore, late
+days <b>cannot be applied</b> to peer-assessed exercises. Only one
+deadline can be set for students to submit and peer-grade each other's
+work. This is necessary in order to maintain a synchronized peer
+grading process.
+
+
 
 ---
 
@@ -125,11 +154,12 @@ who are just seeing this material for the first time.
 
 ## Peer Review
 
-For many of the course projects, peer scoring will be necessary
-to evaluate the completion of the assignments. We have created
-and tested rubrics for each assignment. They are not perfect
-and will not be perfectly applied. However, we believe that
-the feedback from peer assessment adds value above simple multiple choice assessments. 
+For many of the course projects in the Data Science Specialization,
+peer assessment will be necessary to evaluate the completion of the
+assignments. We have created and tested rubrics for each
+assignment. They are not perfect and will not be perfectly
+applied. However, we believe that the feedback from peer assessment
+adds value above simple multiple choice assessments.
 
 * We have tried to make the criteria as objective as possible,
 do your best to apply them to the best of your abilities. 

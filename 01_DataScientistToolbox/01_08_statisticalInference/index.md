@@ -7,7 +7,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -49,7 +49,7 @@ Is this a mathematically valid density?
   $$
   (2\pi \sigma^2)^{-1/2}e^{-(x - \mu)^2/2\sigma^2}
   $$
-  If $X$ a RV with this density then $E[X] = \mu$ and $Var(X) = \sigma^2$
+  If $X$ a random variable with this density then $E[X] = \mu$ and $Var(X) = \sigma^2$
 - We write $X\sim \mbox{N}(\mu, \sigma^2)$
 - When $\mu = 0$ and $\sigma = 1$ the resulting distribution is called **the standard normal distribution**
 - The standard normal density function is labeled $\phi$

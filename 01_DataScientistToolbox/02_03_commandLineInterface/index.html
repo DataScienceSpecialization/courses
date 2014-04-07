@@ -8,51 +8,46 @@
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
     media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../libraries/frameworks/io2012/js/slides" 
-    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-    <link rel="stylesheet" href = "../../assets/css/custom.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
-<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
-<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+  
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
     
     <!-- LOGO SLIDE -->
-    <!-- END LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Introduction to the Command Line Interface</h1>
+    <h2></h2>
+    <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
     
 
-    <!-- TITLE SLIDE -->
-    <!-- Should I move this to a Local Layout File? -->
-    <slide class="title-slide segue nobackground">
-      <aside class="gdbar">
-        <img src="../../assets/img/bloomberg_shield.png">
-      </aside>
-      <hgroup class="auto-fadein">
-        <h1>Introduction to the Command Line Interface</h1>
-        <h2></h2>
-        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
-      </hgroup>
-          </slide>
-
     <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
+    <slide class="" id="slide-1" style="background:;">
   <hgroup>
     <h2>What is the Command Line Interface?</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>Nearly ever computer comes with a CLI</p>
 
 <ul>
@@ -64,11 +59,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-2" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
     <h2>What can the CLI do?</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>The CLI can help you:</p>
 
 <ul>
@@ -82,11 +77,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Basics of Directories</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>&quot;Directory&quot; is just another name for folder</li>
 <li>Directories on your computer are organized like a tree</li>
@@ -100,11 +95,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Basics of Directories</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>My &quot;Debussy&quot; directory is contained inside of my &quot;Music&quot; directory</li>
 </ul>
@@ -115,11 +110,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>Basics of Directories</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>One directory &quot;up&quot; from my Debussy directory is my Music directory</li>
 </ul>
@@ -130,11 +125,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Your computer&#39;s directory structure</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>The directory structure on your computer looks something like this</li>
 </ul>
@@ -145,11 +140,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>Special directories: root</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>The directory at the top of the tree is called the root directory</li>
 <li>The root directory contains all other directories</li>
@@ -162,11 +157,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>Special directories: home</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Your home directory is represented by a tilde: <code>~</code></li>
 <li>Your home directory usually contains most of your personal files, pictures, music, etc.</li>
@@ -179,11 +174,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>Navigating directories with the CLI</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>Windows users:</p>
 
 <ul>
@@ -198,11 +193,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Navigating directories with the CLI</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>Mac users:</p>
 
 <ul>
@@ -217,15 +212,15 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>CLI Basics</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>When you open your CLI you will see your prompt, which will looks something like the name of your computer, followed by your username, followed by a <code>$</code></li>
 <li>When you open your CLI you start in your home directory.</li>
-<li>Whatever directory directory you&#39;re currently working with in your CLI is called the &quot;working directory&quot;</li>
+<li>Whatever directory you&#39;re currently working with in your CLI is called the &quot;working directory&quot;</li>
 </ul>
 
 <p><img class=center src=../../assets/img/IntroToCLI/bash1.png height=100%/></p>
@@ -234,11 +229,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>CLI Basics</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>You can imagine tracing all of the directories from your root directory to the directory you&#39;re currently in. </li>
 <li>This is called the &quot;path&quot; to your working directory. </li>
@@ -250,14 +245,14 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-13" style="background:;">
   <hgroup>
     <h2>CLI Basics</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>In your CLI prompt, type <code>pwd</code> and press enter.</li>
-<li>This will display the path to you&#39;re working directory.</li>
+<li>This will display the path to your working directory.</li>
 <li>As you can see we get the prompt back after entering a command.</li>
 </ul>
 
@@ -267,11 +262,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>CLI Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>You use the CLI prompt by typing in a command and pressing enter.</li>
 <li><code>pwd</code> can be used at any time to display the path to your working directory (<code>pwd</code> is an abbreviation for &quot;print working directory&quot;)</li>
@@ -281,11 +276,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>CLI Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>CLI commands follow this recipe: <strong><em>command flags arguments</em></strong></li>
 <li><strong><em>command</em></strong> is the CLI command which does a specific task</li>
@@ -299,11 +294,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-16" style="background:;">
   <hgroup>
     <h2>CLI Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><code>pwd</code> displays the path to the current working directory</li>
 </ul>
@@ -317,11 +312,11 @@ jeff$
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-17" style="background:;">
+<slide class="" id="slide-17" style="background:;">
   <hgroup>
     <h2>CLI Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><code>clear</code> will clear out the commands in your current CLI window</li>
 </ul>
@@ -338,11 +333,11 @@ jeff$ clear
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-18" style="background:;">
+<slide class="" id="slide-18" style="background:;">
   <hgroup>
     <h2>CLI Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><code>ls</code> lists files and folders in the current directory</li>
 <li><code>ls -a</code> lists hidden and unhidden files and folders</li>
@@ -362,16 +357,16 @@ jeff$
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-19" style="background:;">
+<slide class="" id="slide-19" style="background:;">
   <hgroup>
     <h2>CLI Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><code>cd</code> stands for &quot;change directory&quot;</li>
 <li><code>cd</code> takes as an argument the directory you want to visit</li>
 <li><code>cd</code> with no argument takes you to your home directory</li>
-<li><code>cd ..</code> allows you to chnage directory to one level above your current directory</li>
+<li><code>cd ..</code> allows you to change directory to one level above your current directory</li>
 </ul>
 
 <pre><code class="bash">jeff$ cd Music/Debussy
@@ -390,11 +385,11 @@ jeff$
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-20" style="background:;">
+<slide class="" id="slide-20" style="background:;">
   <hgroup>
     <h2>CLI Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><code>mkdir</code> stands for &quot;make directory&quot;</li>
 <li>Just like: right click -&gt; create new folder</li>
@@ -415,11 +410,11 @@ jeff$
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-21" style="background:;">
+<slide class="" id="slide-21" style="background:;">
   <hgroup>
     <h2>CLI Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><code>touch</code> creates an empty file</li>
 </ul>
@@ -434,11 +429,11 @@ jeff$
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-22" style="background:;">
+<slide class="" id="slide-22" style="background:;">
   <hgroup>
     <h2>CLI Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><code>cp</code> stands for &quot;copy&quot;</li>
 <li><code>cp</code> takes as its first argument a file, and as its second argument the path to where you want the file to be copied</li>
@@ -456,11 +451,11 @@ jeff$
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-23" style="background:;">
+<slide class="" id="slide-23" style="background:;">
   <hgroup>
     <h2>CLI Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><code>cp</code> can also be used for copying the contents of directories, but you must use the <code>-r</code> flag</li>
 <li>The line: <code>cp -r Documents More_docs</code> copies the contents of <code>Documents</code> into <code>More_docs</code></li>
@@ -479,11 +474,11 @@ jeff$
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-24" style="background:;">
+<slide class="" id="slide-24" style="background:;">
   <hgroup>
     <h2>CLI Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><code>rm</code> stands for &quot;remove&quot;</li>
 <li><code>rm</code> takes the name of a file you wish to remove as its argument</li>
@@ -501,14 +496,14 @@ jeff$
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-25" style="background:;">
+<slide class="" id="slide-25" style="background:;">
   <hgroup>
     <h2>CLI Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>You can also use <code>rm</code> to delete entire directories and their contents by using the <code>-r</code> flag</li>
-<li><strong>Be very careful when you do this, there is no was to undo an <code>rm</code></strong></li>
+<li><strong>Be very careful when you do this, there is no way to undo an <code>rm</code></strong></li>
 </ul>
 
 <pre><code class="bash">jeff$ ls
@@ -523,11 +518,11 @@ jeff$
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-26" style="background:;">
+<slide class="" id="slide-26" style="background:;">
   <hgroup>
     <h2>CLI Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><code>mv</code> stands for &quot;move&quot;</li>
 <li>With <code>mv</code> you can move files between directories</li>
@@ -547,11 +542,11 @@ jeff$
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-27" style="background:;">
+<slide class="" id="slide-27" style="background:;">
   <hgroup>
     <h2>CLI Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>You can also use <code>mv</code> to rename files</li>
 </ul>
@@ -568,11 +563,11 @@ jeff$
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-28" style="background:;">
+<slide class="" id="slide-28" style="background:;">
   <hgroup>
     <h2>CLI Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><code>echo</code> will print whatever arguments you provide</li>
 </ul>
@@ -586,11 +581,11 @@ jeff$
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-29" style="background:;">
+<slide class="" id="slide-29" style="background:;">
   <hgroup>
     <h2>CLI Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><code>date</code> will print today&#39;s date</li>
 </ul>
@@ -604,11 +599,11 @@ jeff$
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-30" style="background:;">
+<slide class="" id="slide-30" style="background:;">
   <hgroup>
     <h2>Summary of Commands</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><code>pwd</code></li>
 <li><code>clear</code></li>
@@ -629,34 +624,215 @@ jeff$
 
     <slide class="backdrop"></slide>
   </slides>
-
-  <!--[if IE]>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='What is the Command Line Interface?'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='What can the CLI do?'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Basics of Directories'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Basics of Directories'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Basics of Directories'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Your computer&#39;s directory structure'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Special directories: root'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Special directories: home'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Navigating directories with the CLI'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Navigating directories with the CLI'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='CLI Basics'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='CLI Basics'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='CLI Basics'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='CLI Commands'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='CLI Commands'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='CLI Commands'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='CLI Commands'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='CLI Commands'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='CLI Commands'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='CLI Commands'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='CLI Commands'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='CLI Commands'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='CLI Commands'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='CLI Commands'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='CLI Commands'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='CLI Commands'>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='CLI Commands'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='CLI Commands'>
+         28
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='CLI Commands'>
+         29
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=30 title='Summary of Commands'>
+         30
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
     <script 
       src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
 </body>
-<!-- Grab CDN jQuery, fall back to local if offline -->
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
-<!-- Load Javascripts for Widgets -->
-<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> -->
-<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
 </script>
 <!-- LOAD HIGHLIGHTER JS FILES -->
-<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- DONE LOADING HIGHLIGHTER JS FILES -->
-</html>
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

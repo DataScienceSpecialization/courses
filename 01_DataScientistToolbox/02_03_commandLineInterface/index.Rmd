@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -114,7 +114,7 @@ Mac users:
 
 - When you open your CLI you will see your prompt, which will looks something like the name of your computer, followed by your username, followed by a `$`
 - When you open your CLI you start in your home directory.
-- Whatever directory directory you're currently working with in your CLI is called the "working directory"
+- Whatever directory you're currently working with in your CLI is called the "working directory"
 
 <img class=center src=../../assets/img/IntroToCLI/bash1.png height=100%/>
 
@@ -132,7 +132,7 @@ Mac users:
 ## CLI Basics
 
 - In your CLI prompt, type `pwd` and press enter.
-- This will display the path to you're working directory.
+- This will display the path to your working directory.
 - As you can see we get the prompt back after entering a command.
 
 <img class=center src=../../assets/img/IntroToCLI/pwd.png height=100%/>
@@ -208,7 +208,7 @@ jeff$
 - `cd` stands for "change directory"
 - `cd` takes as an argument the directory you want to visit
 - `cd` with no argument takes you to your home directory
-- `cd ..` allows you to chnage directory to one level above your current directory
+- `cd ..` allows you to change directory to one level above your current directory
 
 ```bash
 jeff$ cd Music/Debussy
@@ -308,7 +308,7 @@ jeff$
 ## CLI Commands
 
 - You can also use `rm` to delete entire directories and their contents by using the `-r` flag
-- **Be very careful when you do this, there is no was to undo an `rm`**
+- **Be very careful when you do this, there is no way to undo an `rm`**
 
 ```bash
 jeff$ ls

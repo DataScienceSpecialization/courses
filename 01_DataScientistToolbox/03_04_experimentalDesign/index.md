@@ -157,7 +157,7 @@ _Sometimes called spurious correlation*_
 
 
 * If you can (and want to) fix a variable
-  * Website always says Obama 2014 on it
+  * Website always says Obama 2012 on it
 * If you don't fix a variable, stratify it
   * If you are testing sign up phrases and have two website colors, use both phrases equally on both. 
 * If you can't fix a variable, randomize it

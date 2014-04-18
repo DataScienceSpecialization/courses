@@ -8,51 +8,46 @@
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
     media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../libraries/frameworks/io2012/js/slides" 
-    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-    <link rel="stylesheet" href = "../../assets/css/custom.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
-<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
-<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+  
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
     
     <!-- LOGO SLIDE -->
-    <!-- END LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Multivariable regression examples</h1>
+    <h2>Regression Models</h2>
+    <p>Brian Caffo, Jeff Leek and Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
     
 
-    <!-- TITLE SLIDE -->
-    <!-- Should I move this to a Local Layout File? -->
-    <slide class="title-slide segue nobackground">
-      <aside class="gdbar">
-        <img src="../../assets/img/bloomberg_shield.png">
-      </aside>
-      <hgroup class="auto-fadein">
-        <h1>Multivariable regression examples</h1>
-        <h2>Regression Models</h2>
-        <p>Brian Caffo, Jeff Leek and Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
-      </hgroup>
-          </slide>
-
     <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
+    <slide class="" id="slide-1" style="background:;">
   <hgroup>
     <h2>Swiss fertility data</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">library(datasets); data(swiss); require(stats); require(graphics)
 pairs(swiss, panel = panel.smooth, main = &quot;Swiss data&quot;, col = 3 + (swiss$Catholic &gt; 50))
 </code></pre>
@@ -63,11 +58,11 @@ pairs(swiss, panel = panel.smooth, main = &quot;Swiss data&quot;, col = 3 + (swi
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-2" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
     <h2><code>?swiss</code></h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <h3>Description</h3>
 
 <p>Standardized fertility measure and socio-economic indicators for each of 47 French-speaking provinces of Switzerland at about 1888.</p>
@@ -89,11 +84,11 @@ pairs(swiss, panel = panel.smooth, main = &quot;Swiss data&quot;, col = 3 + (swi
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Calling <code>lm</code></h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><code>summary(lm(Fertility ~ . , data = swiss))</code></p>
 
 <pre><code>                 Estimate Std. Error t value  Pr(&gt;|t|)
@@ -109,11 +104,11 @@ Infant.Mortality   1.0770    0.38172   2.822 7.336e-03
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Example interpretation</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Agriculture is expressed in percentages (0 - 100)</li>
 <li>Estimate is -0.1721.</li>
@@ -134,11 +129,8 @@ Agriculture   0.1942    0.07671   2.532 1.492e-02
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-5" style="background:;">
-  <hgroup>
-    
-  </hgroup>
-  <article>
+<slide class="" id="slide-5" style="background:;">
+  <article data-timings="">
     <p>How can adjustment reverse the sign of an effect? Let&#39;s try a simulation.</p>
 
 <pre><code class="r">n &lt;- 100; x2 &lt;- 1 : n; x1 &lt;- .01 * x2 + runif(n, -.1, .1); y = -x1 + x2 + rnorm(n, sd = .01)
@@ -146,39 +138,36 @@ summary(lm(y ~ x1))$coef
 </code></pre>
 
 <pre><code>            Estimate Std. Error t value  Pr(&gt;|t|)
-(Intercept)    1.758      1.104   1.593 1.144e-01
-x1            95.100      1.881  50.546 5.261e-72
+(Intercept)    1.618      1.200   1.349 1.806e-01
+x1            95.854      2.058  46.579 1.153e-68
 </code></pre>
 
 <pre><code class="r">summary(lm(y ~ x1 + x2))$coef
 </code></pre>
 
-<pre><code>             Estimate Std. Error  t value   Pr(&gt;|t|)
-(Intercept) -0.002992  0.0021942   -1.364  1.759e-01
-x1          -0.982973  0.0194025  -50.662  1.374e-71
-x2           0.999846  0.0001982 5044.296 1.242e-264
+<pre><code>              Estimate Std. Error   t value   Pr(&gt;|t|)
+(Intercept)  0.0003683  0.0020141    0.1829  8.553e-01
+x1          -1.0215256  0.0166372  -61.4001  1.922e-79
+x2           1.0001909  0.0001681 5950.1818 1.369e-271
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-6" style="background:;">
-  <hgroup>
-    
-  </hgroup>
-  <article>
+<slide class="" id="slide-6" style="background:;">
+  <article data-timings="">
     <div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>Back to this data set</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>The sign reverses itself with the inclusion of Examination and Education, but of which are negatively correlated with Agriculture.</li>
 <li>The percent of males in the province working in agriculture is negatively related to educational attainment (correlation of -0.6395) and Education and Examination (correlation of 0.6984) are obviously measuring similar things. 
@@ -193,11 +182,11 @@ x2           0.999846  0.0001982 5044.296 1.242e-264
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>What if we include an unnecessary variable?</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>z adds no new linear information, since it&#39;s a linear
 combination of variables already included. R just drops 
 terms that are linear combinations of other terms.</p>
@@ -221,11 +210,11 @@ Infant.Mortality                 z
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>Dummy variables are smart</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Consider the linear model
 \[
@@ -243,11 +232,11 @@ where each \(X_{i1}\) is binary so that it is a 1 if measurement \(i\) is in a g
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>More than 2 levels</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Consider a multilevel factor level. For didactic reasons, let&#39;s say a three level factor (example, US political party affiliation: Republican, Democrat, Independent)</li>
 <li>\(Y_i = \beta_0 + X_{i1} \beta_1 + X_{i2} \beta_2 + \epsilon_i\).</li>
@@ -266,22 +255,22 @@ where each \(X_{i1}\) is binary so that it is a 1 if measurement \(i\) is in a g
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>Insect Sprays</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>Linear model fit, group A is the reference</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">summary(lm(count ~ spray, data = InsectSprays))$coef
 </code></pre>
 
@@ -298,11 +287,11 @@ sprayF        2.1667      1.601  1.3532 1.806e-01
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-13" style="background:;">
   <hgroup>
     <h2>Hard coding the dummy variables</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">summary(lm(count ~ 
              I(1 * (spray == &#39;B&#39;)) + I(1 * (spray == &#39;C&#39;)) + 
              I(1 * (spray == &#39;D&#39;)) + I(1 * (spray == &#39;E&#39;)) +
@@ -323,11 +312,11 @@ I(1 * (spray == &quot;F&quot;))   2.1667      1.601  1.3532 1.806e-01
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>What if we include all 6?</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">lm(count ~ 
    I(1 * (spray == &#39;B&#39;)) + I(1 * (spray == &#39;C&#39;)) +  
    I(1 * (spray == &#39;D&#39;)) + I(1 * (spray == &#39;E&#39;)) +
@@ -351,11 +340,11 @@ I(1 * (spray == &quot;E&quot;))  I(1 * (spray == &quot;F&quot;))  I(1 * (spray =
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>What if we omit the intercept?</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">summary(lm(count ~ spray - 1, data = InsectSprays))$coef
 </code></pre>
 
@@ -378,11 +367,11 @@ sprayF   16.667      1.132  14.721 1.573e-22
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-16" style="background:;">
   <hgroup>
     <h2>Summary</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>If we treat Spray as a factor, R includes an intercept and omits the alphabetically first level of the factor.
 
@@ -404,11 +393,11 @@ sprayF   16.667      1.132  14.721 1.573e-22
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-17" style="background:;">
+<slide class="" id="slide-17" style="background:;">
   <hgroup>
     <h2>Reordering the levels</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">spray2 &lt;- relevel(InsectSprays$spray, &quot;C&quot;)
 summary(lm(count ~ spray2, data = InsectSprays))$coef
 </code></pre>
@@ -426,11 +415,11 @@ spray2F       14.583      1.601  9.1083 2.794e-13
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-18" style="background:;">
+<slide class="" id="slide-18" style="background:;">
   <hgroup>
     <h2>Doing it manually</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>Equivalently 
 \[Var(\hat \beta_B - \hat \beta_C) = Var(\hat \beta_B) + Var(\hat \beta_C) - 2 Cov(\hat \beta_B, \hat \beta_C)\]</p>
 
@@ -453,11 +442,11 @@ round(out, 3)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-19" style="background:;">
+<slide class="" id="slide-19" style="background:;">
   <hgroup>
     <h2>Other thoughts on this data</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Counts are bounded from below by 0, violates the assumption of normality of the errors. 
 
@@ -477,14 +466,12 @@ round(out, 3)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-20" style="background:;">
+<slide class="" id="slide-20" style="background:;">
   <hgroup>
     <h2>Example - Millenium Development Goal 1</h2>
   </hgroup>
-  <article>
-    <p><img class=center src=../../assets/img/mdg1.png height=450></p>
-
-<p><a href="http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf">http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf</a></p>
+  <article data-timings="">
+    <p><a href="http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf">http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf</a></p>
 
 <p><a href="http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&amp;filter=COUNTRY:*;SEX:*">http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&amp;filter=COUNTRY:<em>;SEX:</em></a></p>
 
@@ -492,39 +479,57 @@ round(out, 3)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-21" style="background:;">
+<slide class="" id="slide-21" style="background:;">
   <hgroup>
     <h2>WHO childhood hunger data</h2>
   </hgroup>
-  <article>
-    <pre><code class="r">download.file(&quot;http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&amp;filter=COUNTRY:*;SEX:*&quot;,&quot;./data/hunger.csv&quot;,method=&quot;curl&quot;)
-hunger &lt;- read.csv(&quot;./data/hunger.csv&quot;)
+  <article data-timings="">
+    <pre><code class="r">#download.file(&quot;http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&amp;filter=COUNTRY:*;SEX:*&quot;,&quot;hunger.csv&quot;,method=&quot;curl&quot;)
+hunger &lt;- read.csv(&quot;hunger.csv&quot;)
 hunger &lt;- hunger[hunger$Sex!=&quot;Both sexes&quot;,]
 head(hunger)
 </code></pre>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-22" style="background:;">
-  <hgroup>
-    <h2>Plot percent hungry versus time</h2>
-  </hgroup>
-  <article>
-    <pre><code class="r">lm1 &lt;- lm(hunger$Numeric ~ hunger$Year)
-plot(hunger$Year,hunger$Numeric,pch=19,col=&quot;blue&quot;)
+<pre><code>                               Indicator Data.Source PUBLISH.STATES Year            WHO.region
+1 Children aged &lt;5 years underweight (%) NLIS_310044      Published 1986                Africa
+2 Children aged &lt;5 years underweight (%) NLIS_310233      Published 1990              Americas
+3 Children aged &lt;5 years underweight (%) NLIS_312902      Published 2005              Americas
+5 Children aged &lt;5 years underweight (%) NLIS_312522      Published 2002 Eastern Mediterranean
+6 Children aged &lt;5 years underweight (%) NLIS_312955      Published 2008                Africa
+8 Children aged &lt;5 years underweight (%) NLIS_312963      Published 2008                Africa
+        Country    Sex Display.Value Numeric Low High Comments
+1       Senegal   Male          19.3    19.3  NA   NA       NA
+2      Paraguay   Male           2.2     2.2  NA   NA       NA
+3     Nicaragua   Male           5.3     5.3  NA   NA       NA
+5        Jordan Female           3.2     3.2  NA   NA       NA
+6 Guinea-Bissau Female          17.0    17.0  NA   NA       NA
+8         Ghana   Male          15.7    15.7  NA   NA       NA
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-23" style="background:;">
+<slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Plot percent hungry versus time</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">lm1 &lt;- lm(hunger$Numeric ~ hunger$Year)
+plot(hunger$Year,hunger$Numeric,pch=19,col=&quot;blue&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-14.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-23" style="background:;">
   <hgroup>
     <h2>Remember the linear model</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>\[Hu_i = b_0 + b_1 Y_i + e_i\]</p>
 
 <p>\(b_0\) = percent hungry at Year 0</p>
@@ -537,38 +542,42 @@ plot(hunger$Year,hunger$Numeric,pch=19,col=&quot;blue&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-24" style="background:;">
+<slide class="" id="slide-24" style="background:;">
   <hgroup>
     <h2>Add the linear model</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">lm1 &lt;- lm(hunger$Numeric ~ hunger$Year)
 plot(hunger$Year,hunger$Numeric,pch=19,col=&quot;blue&quot;)
 lines(hunger$Year,lm1$fitted,lwd=3,col=&quot;darkgrey&quot;)
 </code></pre>
 
+<div class="rimage center"><img src="fig/unnamed-chunk-15.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" class="plot" /></div>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-25" style="background:;">
+<slide class="" id="slide-25" style="background:;">
   <hgroup>
     <h2>Color by male/female</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">plot(hunger$Year,hunger$Numeric,pch=19)
 points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex==&quot;Male&quot;)*1+1))
 </code></pre>
 
+<div class="rimage center"><img src="fig/unnamed-chunk-16.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" class="plot" /></div>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-26" style="background:;">
+<slide class="" id="slide-26" style="background:;">
   <hgroup>
     <h2>Now two lines</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>\[HuF_i = bf_0 + bf_1 YF_i + ef_i\]</p>
 
 <p>\(bf_0\) = percent of girls hungry at Year 0</p>
@@ -589,11 +598,11 @@ points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex==&quot;Male&quot;)*1+1
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-27" style="background:;">
+<slide class="" id="slide-27" style="background:;">
   <hgroup>
     <h2>Color by male/female</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">lmM &lt;- lm(hunger$Numeric[hunger$Sex==&quot;Male&quot;] ~ hunger$Year[hunger$Sex==&quot;Male&quot;])
 lmF &lt;- lm(hunger$Numeric[hunger$Sex==&quot;Female&quot;] ~ hunger$Year[hunger$Sex==&quot;Female&quot;])
 plot(hunger$Year,hunger$Numeric,pch=19)
@@ -602,15 +611,17 @@ lines(hunger$Year[hunger$Sex==&quot;Male&quot;],lmM$fitted,col=&quot;black&quot;
 lines(hunger$Year[hunger$Sex==&quot;Female&quot;],lmF$fitted,col=&quot;red&quot;,lwd=3)
 </code></pre>
 
+<div class="rimage center"><img src="fig/unnamed-chunk-17.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" class="plot" /></div>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-28" style="background:;">
+<slide class="" id="slide-28" style="background:;">
   <hgroup>
     <h2>Two lines, same slope</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>\[Hu_i = b_0 + b_1 \mathbb{1}(Sex_i="Male") + b_2 Y_i + e^*_i\]</p>
 
 <p>\(b_0\) - percent hungry at year zero for females</p>
@@ -625,11 +636,11 @@ lines(hunger$Year[hunger$Sex==&quot;Female&quot;],lmF$fitted,col=&quot;red&quot;
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-29" style="background:;">
+<slide class="" id="slide-29" style="background:;">
   <hgroup>
     <h2>Two lines, same slope in R</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">lmBoth &lt;- lm(hunger$Numeric ~ hunger$Year + hunger$Sex)
 plot(hunger$Year,hunger$Numeric,pch=19)
 points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex==&quot;Male&quot;)*1+1))
@@ -637,15 +648,17 @@ abline(c(lmBoth$coeff[1],lmBoth$coeff[2]),col=&quot;red&quot;,lwd=3)
 abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] ),col=&quot;black&quot;,lwd=3)
 </code></pre>
 
+<div class="rimage center"><img src="fig/unnamed-chunk-18.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" class="plot" /></div>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-30" style="background:;">
+<slide class="" id="slide-30" style="background:;">
   <hgroup>
     <h2>Two lines, different slopes (interactions)</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>\[Hu_i = b_0 + b_1 \mathbb{1}(Sex_i="Male") + b_2 Y_i + b_3 \mathbb{1}(Sex_i="Male")\times Y_i + e^+_i\]</p>
 
 <p>\(b_0\) - percent hungry at year zero for females</p>
@@ -662,11 +675,11 @@ abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] ),col=&quot;black&quo
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-31" style="background:;">
+<slide class="" id="slide-31" style="background:;">
   <hgroup>
     <h2>Two lines, different slopes in R</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">lmBoth &lt;- lm(hunger$Numeric ~ hunger$Year + hunger$Sex + hunger$Sex*hunger$Year)
 plot(hunger$Year,hunger$Numeric,pch=19)
 points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex==&quot;Male&quot;)*1+1))
@@ -674,27 +687,52 @@ abline(c(lmBoth$coeff[1],lmBoth$coeff[2]),col=&quot;red&quot;,lwd=3)
 abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] +lmBoth$coeff[4]),col=&quot;black&quot;,lwd=3)
 </code></pre>
 
+<div class="rimage center"><img src="fig/lmBothChunk.png" title="plot of chunk lmBothChunk" alt="plot of chunk lmBothChunk" class="plot" /></div>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-32" style="background:;">
+<slide class="" id="slide-32" style="background:;">
   <hgroup>
     <h2>Two lines, different slopes in R</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">summary(lmBoth)
+</code></pre>
+
+<pre><code>
+Call:
+lm(formula = hunger$Numeric ~ hunger$Year + hunger$Sex + hunger$Sex * 
+    hunger$Year)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-25.91 -11.25  -1.85   7.09  46.15 
+
+Coefficients:
+                           Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                603.5058   171.0552    3.53  0.00044 ***
+hunger$Year                 -0.2934     0.0855   -3.43  0.00062 ***
+hunger$SexMale              61.9477   241.9086    0.26  0.79795    
+hunger$Year:hunger$SexMale  -0.0300     0.1209   -0.25  0.80402    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 13.2 on 944 degrees of freedom
+Multiple R-squared:  0.0318,    Adjusted R-squared:  0.0287 
+F-statistic: 10.3 on 3 and 944 DF,  p-value: 1.06e-06
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-33" style="background:;">
+<slide class="" id="slide-33" style="background:;">
   <hgroup>
     <h2>Interpretting a continuous interaction</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>\[
 E[Y_i | X_{1i}=x_1, X_{2i}=x_2] = \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \beta_3 x_{1}x_{2}
 \]
@@ -715,15 +753,17 @@ E[Y_i | X_{1i}=x_1+1, X_{2i}=x_2+1]-E[Y_i | X_{1i}=x_1, X_{2i}=x_2+1]
 \]
 Thus, \(\beta_3\) is the change in the expected change in \(Y\) per unit change in \(X_1\), per unit change in \(X_2\).</p>
 
+<p>Or, the change in the slope relating \(X_1\) and \(Y\) per unit change in \(X_2\).</p>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-34" style="background:;">
+<slide class="" id="slide-34" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>\[Hu_i = b_0 + b_1 In_i + b_2 Y_i + b_3 In_i \times Y_i + e^+_i\]</p>
 
 <p>\(b_0\) - percent hungry at year zero for children with whose parents have no income</p>
@@ -746,34 +786,239 @@ Thus, \(\beta_3\) is the change in the expected change in \(Y\) per unit change 
 
     <slide class="backdrop"></slide>
   </slides>
-
-  <!--[if IE]>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Swiss fertility data'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='<code>?swiss</code>'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Calling <code>lm</code>'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Example interpretation'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title=''>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title=''>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Back to this data set'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='What if we include an unnecessary variable?'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Dummy variables are smart'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='More than 2 levels'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Insect Sprays'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Linear model fit, group A is the reference'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Hard coding the dummy variables'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='What if we include all 6?'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='What if we omit the intercept?'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Summary'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Reordering the levels'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Doing it manually'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Other thoughts on this data'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Example - Millenium Development Goal 1'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='WHO childhood hunger data'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='Plot percent hungry versus time'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='Remember the linear model'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='Add the linear model'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='Color by male/female'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='Now two lines'>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='Color by male/female'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='Two lines, same slope'>
+         28
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='Two lines, same slope in R'>
+         29
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=30 title='Two lines, different slopes (interactions)'>
+         30
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=31 title='Two lines, different slopes in R'>
+         31
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=32 title='Two lines, different slopes in R'>
+         32
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=33 title='Interpretting a continuous interaction'>
+         33
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=34 title='Example'>
+         34
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
     <script 
       src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
 </body>
-<!-- Grab CDN jQuery, fall back to local if offline -->
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
-<!-- Load Javascripts for Widgets -->
-<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> -->
-<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
 </script>
 <!-- LOAD HIGHLIGHTER JS FILES -->
-<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- DONE LOADING HIGHLIGHTER JS FILES -->
-</html>
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

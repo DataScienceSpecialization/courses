@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -86,8 +86,8 @@ summary(lm(y ~ x1))$coef
 
 ```
             Estimate Std. Error t value  Pr(>|t|)
-(Intercept)    1.758      1.104   1.593 1.144e-01
-x1            95.100      1.881  50.546 5.261e-72
+(Intercept)    1.618      1.200   1.349 1.806e-01
+x1            95.854      2.058  46.579 1.153e-68
 ```
 
 ```r
@@ -95,10 +95,10 @@ summary(lm(y ~ x1 + x2))$coef
 ```
 
 ```
-             Estimate Std. Error  t value   Pr(>|t|)
-(Intercept) -0.002992  0.0021942   -1.364  1.759e-01
-x1          -0.982973  0.0194025  -50.662  1.374e-71
-x2           0.999846  0.0001982 5044.296 1.242e-264
+              Estimate Std. Error   t value   Pr(>|t|)
+(Intercept)  0.0003683  0.0020141    0.1829  8.553e-01
+x1          -1.0215256  0.0166372  -61.4001  1.922e-79
+x2           1.0001909  0.0001681 5950.1818 1.369e-271
 ```
 
 
@@ -327,8 +327,6 @@ round(out, 3)
 
 ## Example - Millenium Development Goal 1
 
-<img class=center src=../../assets/img/mdg1.png height=450>
-
 [http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf](http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf)
 
 [http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*](http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*)
@@ -340,10 +338,27 @@ round(out, 3)
 
 
 ```r
-download.file("http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*","./data/hunger.csv",method="curl")
-hunger <- read.csv("./data/hunger.csv")
+#download.file("http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*","hunger.csv",method="curl")
+hunger <- read.csv("hunger.csv")
 hunger <- hunger[hunger$Sex!="Both sexes",]
 head(hunger)
+```
+
+```
+                               Indicator Data.Source PUBLISH.STATES Year            WHO.region
+1 Children aged <5 years underweight (%) NLIS_310044      Published 1986                Africa
+2 Children aged <5 years underweight (%) NLIS_310233      Published 1990              Americas
+3 Children aged <5 years underweight (%) NLIS_312902      Published 2005              Americas
+5 Children aged <5 years underweight (%) NLIS_312522      Published 2002 Eastern Mediterranean
+6 Children aged <5 years underweight (%) NLIS_312955      Published 2008                Africa
+8 Children aged <5 years underweight (%) NLIS_312963      Published 2008                Africa
+        Country    Sex Display.Value Numeric Low High Comments
+1       Senegal   Male          19.3    19.3  NA   NA       NA
+2      Paraguay   Male           2.2     2.2  NA   NA       NA
+3     Nicaragua   Male           5.3     5.3  NA   NA       NA
+5        Jordan Female           3.2     3.2  NA   NA       NA
+6 Guinea-Bissau Female          17.0    17.0  NA   NA       NA
+8         Ghana   Male          15.7    15.7  NA   NA       NA
 ```
 
 
@@ -356,6 +371,8 @@ head(hunger)
 lm1 <- lm(hunger$Numeric ~ hunger$Year)
 plot(hunger$Year,hunger$Numeric,pch=19,col="blue")
 ```
+
+<div class="rimage center"><img src="fig/unnamed-chunk-14.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" class="plot" /></div>
 
 
 ---
@@ -381,6 +398,8 @@ plot(hunger$Year,hunger$Numeric,pch=19,col="blue")
 lines(hunger$Year,lm1$fitted,lwd=3,col="darkgrey")
 ```
 
+<div class="rimage center"><img src="fig/unnamed-chunk-15.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" class="plot" /></div>
+
 
 
 ---
@@ -393,9 +412,11 @@ plot(hunger$Year,hunger$Numeric,pch=19)
 points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex=="Male")*1+1))
 ```
 
+<div class="rimage center"><img src="fig/unnamed-chunk-16.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" class="plot" /></div>
+
 
 ---
-
+ 
 ## Now two lines
 
 $$HuF_i = bf_0 + bf_1 YF_i + ef_i$$
@@ -431,6 +452,8 @@ lines(hunger$Year[hunger$Sex=="Male"],lmM$fitted,col="black",lwd=3)
 lines(hunger$Year[hunger$Sex=="Female"],lmF$fitted,col="red",lwd=3)
 ```
 
+<div class="rimage center"><img src="fig/unnamed-chunk-17.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" class="plot" /></div>
+
 
 
 ---
@@ -460,6 +483,8 @@ points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex=="Male")*1+1))
 abline(c(lmBoth$coeff[1],lmBoth$coeff[2]),col="red",lwd=3)
 abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] ),col="black",lwd=3)
 ```
+
+<div class="rimage center"><img src="fig/unnamed-chunk-18.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" class="plot" /></div>
 
 
 ---
@@ -492,6 +517,8 @@ abline(c(lmBoth$coeff[1],lmBoth$coeff[2]),col="red",lwd=3)
 abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] +lmBoth$coeff[4]),col="black",lwd=3)
 ```
 
+<div class="rimage center"><img src="fig/lmBothChunk.png" title="plot of chunk lmBothChunk" alt="plot of chunk lmBothChunk" class="plot" /></div>
+
 
 
 ---
@@ -502,6 +529,30 @@ abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] +lmBoth$coeff[4]),col
 
 ```r
 summary(lmBoth)
+```
+
+```
+
+Call:
+lm(formula = hunger$Numeric ~ hunger$Year + hunger$Sex + hunger$Sex * 
+    hunger$Year)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-25.91 -11.25  -1.85   7.09  46.15 
+
+Coefficients:
+                           Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                603.5058   171.0552    3.53  0.00044 ***
+hunger$Year                 -0.2934     0.0855   -3.43  0.00062 ***
+hunger$SexMale              61.9477   241.9086    0.26  0.79795    
+hunger$Year:hunger$SexMale  -0.0300     0.1209   -0.25  0.80402    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 13.2 on 944 degrees of freedom
+Multiple R-squared:  0.0318,	Adjusted R-squared:  0.0287 
+F-statistic: 10.3 on 3 and 944 DF,  p-value: 1.06e-06
 ```
 
 
@@ -526,6 +577,8 @@ $$
 =\beta_3  
 $$
 Thus, $\beta_3$ is the change in the expected change in $Y$ per unit change in $X_1$, per unit change in $X_2$.
+
+Or, the change in the slope relating $X_1$ and $Y$ per unit change in $X_2$.
 
 ---
 

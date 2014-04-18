@@ -13,9 +13,9 @@ Taket the `mtcars` data set and write up an analysis to answer their question us
 
 ## Form of report
 Your report must be
-  * Written as an R markdown document.
+  * Written as a pdf printout of a compiled (using knitr) R markdown document.
     * Do not use any packages that are not in R-base or the library datasets. 
-  * Brief, roughly the equivalent of 2 pages long or less. Since it will be html, think of the link if printed to a pdf. 
+  * Brief. roughly the equivalent of 2 pages long or less. 
   * Include a first paragraph executive summary.
   
 ### Peer grading
@@ -27,11 +27,10 @@ Your report will be graded on the following equally weighted criteria:
 4. Did you answer the questions of interest or detail why the question(s) is (are) not answerable?
 5. Did you do a residual plot and some diagnostics?
 6. Did you quantify the uncertainty in your conclusions and/or perform an inference correctly?
-7. Did you communicate your findings effectively?
+7. Did you communicate your findings?
 8. Was the report brief (about 2 pages long)?
-9. Did the Rmd document compile?
-10. Did it include an executive summary?
-
+9. Did it include an executive summary?
+10. Was the report done in Rmd (knitr)?
 
 * The grading will be for each of the criteria
   * 1 point - criteria met acceptably 

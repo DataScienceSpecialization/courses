@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -134,7 +134,7 @@ class(restData$zcf)
 ```{r}
 yesno <- sample(c("yes","no"),size=10,replace=TRUE)
 yesnofac = factor(yesno,levels=c("yes","no"))
-relevel(yesnofac,ref="yes")
+relevel(yesnofac,ref="no")
 as.numeric(yesnofac)
 ```
 
@@ -169,7 +169,7 @@ table(restData2$zipGroups)
 * `sqrt(x)` square root
 * `ceiling(x)` ceiling(3.475) is 4
 * `floor(x)` floor(3.475) is 3
-* `round(x,digits=n)` roun(3.475,digits=2) is 3.48
+* `round(x,digits=n)` round(3.475,digits=2) is 3.48
 * `signif(x,digits=n)` signif(3.475,digits=2) is 3.5
 * `cos(x), sin(x)` etc.
 * `log(x)` natural logarithm
@@ -186,4 +186,4 @@ table(restData2$zipGroups)
 
 * A tutorial from the developer of plyr - [http://plyr.had.co.nz/09-user/](http://plyr.had.co.nz/09-user/)
 * Andrew Jaffe's R notes [http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%202.pdf](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%202.pdf)
-* 
+* A nice lecture on categorical and factor variables [http://www.stat.berkeley.edu/classes/s133/factors.html](http://www.stat.berkeley.edu/classes/s133/factors.html)

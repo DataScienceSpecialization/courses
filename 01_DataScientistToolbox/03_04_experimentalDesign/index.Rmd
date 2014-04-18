@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -260,7 +260,7 @@ _Sometimes called spurious correlation*_
 
 * Good experiments
   * Have replication
-  * Meaure variability
+  * Measure variability
   * Generalize to the problem you care about
   * Are transparent
 * Prediction is not inference

@@ -8,51 +8,46 @@
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
     media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../libraries/frameworks/io2012/js/slides" 
-    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-    <link rel="stylesheet" href = "../../assets/css/custom.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
-<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
-<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+  
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
     
     <!-- LOGO SLIDE -->
-    <!-- END LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Reading XML</h1>
+    <h2></h2>
+    <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
     
 
-    <!-- TITLE SLIDE -->
-    <!-- Should I move this to a Local Layout File? -->
-    <slide class="title-slide segue nobackground">
-      <aside class="gdbar">
-        <img src="../../assets/img/bloomberg_shield.png">
-      </aside>
-      <hgroup class="auto-fadein">
-        <h1>Reading XML</h1>
-        <h2></h2>
-        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
-      </hgroup>
-          </slide>
-
     <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
+    <slide class="" id="slide-1" style="background:;">
   <hgroup>
     <h2>XML</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Extensible markup language</li>
 <li>Frequently used to store structured data</li>
@@ -72,11 +67,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-2" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
     <h2>Tags, elements and attributes</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Tags correspond to general labels
 
@@ -104,11 +99,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Example XML file</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><img class=center src=../../assets/img/03_ObtainingData/xmlexample.png height=450></p>
 
 <p><a href="http://www.w3schools.com/xml/simple.xml">http://www.w3schools.com/xml/simple.xml</a></p>
@@ -117,11 +112,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Read the file into R</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">library(XML)
 fileUrl &lt;- &quot;http://www.w3schools.com/xml/simple.xml&quot;
 doc &lt;- xmlTreeParse(fileUrl,useInternal=TRUE)
@@ -143,11 +138,11 @@ xmlName(rootNode)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>Directly access parts of the XML document</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">rootNode[[1]]
 </code></pre>
 
@@ -169,11 +164,11 @@ xmlName(rootNode)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Programatically extract parts of the file</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">xmlSApply(rootNode,xmlValue)
 </code></pre>
 
@@ -193,35 +188,11 @@ xmlName(rootNode)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-7" style="background:;">
-  <hgroup>
-    <h2>Programatically extract parts of the file</h2>
-  </hgroup>
-  <article>
-    <pre><code class="r">xmlSApply(rootNode,xmlValue)
-</code></pre>
-
-<pre><code>                                                                                                                    food 
-                              &quot;Belgian Waffles$5.95Two of our famous Belgian Waffles with plenty of real maple syrup650&quot; 
-                                                                                                                    food 
-                   &quot;Strawberry Belgian Waffles$7.95Light Belgian waffles covered with strawberries and whipped cream900&quot; 
-                                                                                                                    food 
-&quot;Berry-Berry Belgian Waffles$8.95Light Belgian waffles covered with an assortment of fresh berries and whipped cream900&quot; 
-                                                                                                                    food 
-                                               &quot;French Toast$4.50Thick slices made from our homemade sourdough bread600&quot; 
-                                                                                                                    food 
-                        &quot;Homestyle Breakfast$6.95Two eggs, bacon or sausage, toast, and our ever-popular hash browns950&quot; 
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>XPath</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><em>/node</em> Top level node</li>
 <li><em>//node</em> Node at any level</li>
@@ -235,11 +206,11 @@ xmlName(rootNode)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>Get the items on the menu and prices</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">xpathSApply(rootNode,&quot;//name&quot;,xmlValue)
 </code></pre>
 
@@ -257,11 +228,11 @@ xmlName(rootNode)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>Another example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><img class=center src=../../assets/img/03_ObtainingData/ravens.png height=450></p>
 
 <p><a href="http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens">http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens</a></p>
@@ -270,11 +241,11 @@ xmlName(rootNode)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Viewing the source</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><img class=center src=../../assets/img/03_ObtainingData/ravenssource.png height=450></p>
 
 <p><a href="http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens">http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens</a></p>
@@ -283,11 +254,11 @@ xmlName(rootNode)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>Extract content by attributes</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">fileUrl &lt;- &quot;http://espn.go.com/nfl/team/_/name/bal/baltimore-ravens&quot;
 doc &lt;- htmlTreeParse(fileUrl,useInternal=TRUE)
 scores &lt;- xpathSApply(doc,&quot;//li[@class=&#39;score&#39;]&quot;,xmlValue)
@@ -311,11 +282,11 @@ scores
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>Notes and further resources</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Official XML tutorials <a href="http://www.omegahat.org/RSXML/shortIntro.pdf">short</a>, <a href="http://www.omegahat.org/RSXML/Tour.pdf">long</a></li>
 <li><a href="http://www.stat.berkeley.edu/%7Estatcur/Workshop2/Presentations/XML.pdf">An outstanding guide to the XML package</a></li>
@@ -327,34 +298,107 @@ scores
 
     <slide class="backdrop"></slide>
   </slides>
-
-  <!--[if IE]>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='XML'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Tags, elements and attributes'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Example XML file'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Read the file into R'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Directly access parts of the XML document'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Programatically extract parts of the file'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='XPath'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Get the items on the menu and prices'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Another example'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Viewing the source'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Extract content by attributes'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Notes and further resources'>
+         12
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
     <script 
       src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
 </body>
-<!-- Grab CDN jQuery, fall back to local if offline -->
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
-<!-- Load Javascripts for Widgets -->
-<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> -->
-<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
 </script>
 <!-- LOAD HIGHLIGHTER JS FILES -->
-<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- DONE LOADING HIGHLIGHTER JS FILES -->
-</html>
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

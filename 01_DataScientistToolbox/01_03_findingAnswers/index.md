@@ -31,7 +31,7 @@ mode        : selfcontained # {standalone, draft}
 * Willing to find answers on their own
 * Knowledgeable about where to find answers on their own
 * Unintimidated by new data types or packages
-* Unafriad to say they don't know the answer
+* Unafraid to say they don't know the answer
 * _Polite but relentless_
 
 [Google knows it too](http://www.nytimes.com/2013/06/20/business/in-head-hunting-big-data-may-not-be-such-a-big-deal.html?pagewanted=all&_r=0)

@@ -1,0 +1,25 @@
+library(yhatr)
+
+model.require <- function() {
+
+}
+
+model.transform <- function(df) {
+        df
+}
+
+model.predict <- function(df) {
+        pkgs <- installed.packages()
+        d <- as.data.frame(pkgs, stringsAsFactors = FALSE)
+        row.names(d) <- NULL
+        d
+}
+
+yhat.config  <- c(
+        username="rdpeng@gmail.com",
+        apikey="90d2a80bb532cabb2387aa51ac4553cc",
+        env="http://sandbox.yhathq.com/"
+)
+
+
+yhat.deploy("environment")

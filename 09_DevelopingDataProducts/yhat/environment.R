@@ -9,10 +9,7 @@ model.transform <- function(df) {
 }
 
 model.predict <- function(df) {
-        pkgs <- installed.packages()
-        d <- as.data.frame(pkgs, stringsAsFactors = FALSE)
-        row.names(d) <- NULL
-        d
+        data.frame(version = R.version.string, stringsAsFactors = FALSE)
 }
 
 yhat.config  <- c(

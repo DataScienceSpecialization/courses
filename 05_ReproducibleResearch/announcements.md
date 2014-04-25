@@ -41,5 +41,10 @@ Roger Peng and the Data Science Team
 
 ## Reproducible Research: Week 4
 
+Welcome to Week 4 of Reproducible Research. This week there are two case studies involving the importance of reproducibility in science for you to watch. The first case study is an air pollution and health story in which I was personally involved. Here, researchers published some findings and we were able to use their data to test the sensitivity of their findings to outlier observations. The second case study is a real treat. It is given by Keith Baggerly, a Professor in the Department of Bioinformatics and Computational Biology at the M. D. Anderson Cancer Center in Houston, Texas. Here, he discusses a case of "forensic bioinformatics" and his investigation into the use of gene signatures for personalized medicine. It's possible that you heard this story in the mainstream media (there was a feature on "60 Minutes"). Here, you can see the inside story.
 
----
+This week there is **no Quiz**, but I encourage you to watch the case studies and learn from them. Also, you will spend this week evaluating the second Peer Assessment.
+
+Have a great week!
+
+Roger Peng and the Data Science Team

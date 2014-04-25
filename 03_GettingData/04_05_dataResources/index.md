@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -82,7 +82,7 @@ mode        : selfcontained # {standalone, draft}
 
 ## More specialized collections
 
-* [Stanford Large Newtork Data](http://snap.stanford.edu/data/)
+* [Stanford Large Network Data](http://snap.stanford.edu/data/)
 * [UCI Machine Learning](http://archive.ics.uci.edu/ml/)
 * [KDD Nugets Datasets](http://www.kdnuggets.com/datasets/index.html)
 * [CMU Statlib](http://lib.stat.cmu.edu/datasets/)

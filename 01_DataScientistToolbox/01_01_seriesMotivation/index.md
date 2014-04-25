@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -31,7 +31,7 @@ mode        : selfcontained # {standalone, draft}
 
 ## The key challenge in data science
 
-"Ask yourselves, what problem have you solved, ever, that was worth solving, where you knew knew all of the given information in advance? Where you didn’t have a surplus of information and have to filter it out, or you didn’t have insufficient information and have to go find some?"
+"Ask yourselves, what problem have you solved, ever, that was worth solving, where you knew all of the given information in advance? Where you didn’t have a surplus of information and have to filter it out, or you didn’t have insufficient information and have to go find some?"
 
 <img src="../../assets/img/01_DataScientistToolbox/meyer.jpg" height=100 /> [Dan Myer, Mathematics Educator](http://www.ted.com/talks/dan_meyer_math_curriculum_makeover.html)
 
@@ -118,7 +118,7 @@ mode        : selfcontained # {standalone, draft}
   * Data cleaning
   * Analysis
   * Data reporting
-* It has one of the best development enviroments - Rstudio [http://www.rstudio.com/](http://www.rstudio.com/)
+* It has one of the best development environments - Rstudio [http://www.rstudio.com/](http://www.rstudio.com/)
 * It has an amazing ecosystem of developers
 * Packages are easy to install and "play nicely together"
 

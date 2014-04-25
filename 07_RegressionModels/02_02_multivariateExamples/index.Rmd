@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -223,8 +223,6 @@ round(out, 3)
 
 ## Example - Millenium Development Goal 1
 
-<img class=center src=../../assets/img/mdg1.png height=450>
-
 [http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf](http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf)
 
 [http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*](http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*)
@@ -235,8 +233,8 @@ round(out, 3)
 
 
 ```{r whoDataLoad}
-download.file("http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*","./data/hunger.csv",method="curl")
-hunger <- read.csv("./data/hunger.csv")
+#download.file("http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*","hunger.csv",method="curl")
+hunger <- read.csv("hunger.csv")
 hunger <- hunger[hunger$Sex!="Both sexes",]
 head(hunger)
 ```
@@ -283,7 +281,7 @@ points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex=="Male")*1+1))
 ```
 
 ---
-
+ 
 ## Now two lines
 
 $$HuF_i = bf_0 + bf_1 YF_i + ef_i$$

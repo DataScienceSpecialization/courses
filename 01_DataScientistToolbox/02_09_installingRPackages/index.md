@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -53,7 +53,7 @@ head(rownames(a), 3)  ## Show the names of the first few packages
 
 
 
-- There are approximately 5200 packages on CRAN covering a wide range of topics
+- There are approximately 5600 packages on CRAN covering a wide range of topics
 
 - A list of some topics is available through the [Task
   Views](http://cran.r-project.org/web/views/) link, which groups
@@ -66,7 +66,7 @@ head(rownames(a), 3)  ## Show the names of the first few packages
 - Packages can be installed with the `install.packages()`
   function in R
 
-- To install a single package, pass the name of the lecture to the
+- To install a single package, pass the name of the package to the
   `install.packages()` function as the first argument
 
 - The following the code installs the **slidify** package from CRAN
@@ -172,12 +172,11 @@ search()
 ```
 
 ```
-##  [1] ".GlobalEnv"         "package:kernlab"    "package:caret"     
-##  [4] "package:lattice"    "package:ggplot2"    "package:makeslides"
-##  [7] "package:knitr"      "package:slidify"    "tools:rstudio"     
-## [10] "package:stats"      "package:graphics"   "package:grDevices" 
-## [13] "package:utils"      "package:datasets"   "package:methods"   
-## [16] "Autoloads"          "package:base"
+##  [1] ".GlobalEnv"         "package:ggplot2"    "package:makeslides"
+##  [4] "package:knitr"      "package:slidify"    "tools:rstudio"     
+##  [7] "package:stats"      "package:graphics"   "package:grDevices" 
+## [10] "package:utils"      "package:datasets"   "package:methods"   
+## [13] "Autoloads"          "package:base"
 ```
 
 

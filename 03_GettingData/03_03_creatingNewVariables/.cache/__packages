@@ -1,4 +1,5 @@
 base
+BiocInstaller
 cluster
 corpcor
 data.table
@@ -13,6 +14,7 @@ lars
 lattice
 makeslides
 maps
+Matrix
 mgcv
 nlme
 plyr

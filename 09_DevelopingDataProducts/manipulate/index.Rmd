@@ -23,7 +23,7 @@ mode        : selfcontained # {standalone, draft}
 ---
 ## Documentation
 - Manipulate is well documented at the Rstudio web site here
-  - (http://www.rstudio.com/ide/docs/advanced/manipulate)
+  - http://www.rstudio.com/ide/docs/advanced/manipulate
 - From there, try this
 ```
 library(manipulate)

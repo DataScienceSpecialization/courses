@@ -101,9 +101,11 @@
   <article data-timings="">
     <pre><code>require(rCharts)
 haireye = as.data.frame(HairEyeColor)
-nPlot(Freq ~ Hair, group = &#39;Eye&#39;, type = &#39;multiBarChart&#39;,
+n1 &lt;- nPlot(Freq ~ Hair, group = &#39;Eye&#39;, type = &#39;multiBarChart&#39;,
   data = subset(haireye, Sex == &#39;Male&#39;)
 )
+n1$save(&#39;fig/n1.html&#39;, cdn = TRUE)
+cat(&#39;&lt;iframe src=&quot;fig/n1.html&quot; width=100%, height=600&gt;&lt;/iframe&gt;&#39;)
 </code></pre>
 
   </article>
@@ -115,164 +117,7 @@ nPlot(Freq ~ Hair, group = &#39;Eye&#39;, type = &#39;multiBarChart&#39;,
     <h2>nvD3 run</h2>
   </hgroup>
   <article data-timings="">
-    <div id = 'chart1' class = 'rChart nvd3'></div>
-
-<script type='text/javascript'>
- $(document).ready(function(){
-      drawchart1()
-    });
-    function drawchart1(){  
-      var opts = {
- "dom": "chart1",
-"width":    800,
-"height":    400,
-"x": "Hair",
-"y": "Freq",
-"group": "Eye",
-"type": "multiBarChart",
-"id": "chart1" 
-},
-        data = [
- {
- "Hair": "Black",
-"Eye": "Brown",
-"Sex": "Male",
-"Freq":             32 
-},
-{
- "Hair": "Brown",
-"Eye": "Brown",
-"Sex": "Male",
-"Freq":             53 
-},
-{
- "Hair": "Red",
-"Eye": "Brown",
-"Sex": "Male",
-"Freq":             10 
-},
-{
- "Hair": "Blond",
-"Eye": "Brown",
-"Sex": "Male",
-"Freq":              3 
-},
-{
- "Hair": "Black",
-"Eye": "Blue",
-"Sex": "Male",
-"Freq":             11 
-},
-{
- "Hair": "Brown",
-"Eye": "Blue",
-"Sex": "Male",
-"Freq":             50 
-},
-{
- "Hair": "Red",
-"Eye": "Blue",
-"Sex": "Male",
-"Freq":             10 
-},
-{
- "Hair": "Blond",
-"Eye": "Blue",
-"Sex": "Male",
-"Freq":             30 
-},
-{
- "Hair": "Black",
-"Eye": "Hazel",
-"Sex": "Male",
-"Freq":             10 
-},
-{
- "Hair": "Brown",
-"Eye": "Hazel",
-"Sex": "Male",
-"Freq":             25 
-},
-{
- "Hair": "Red",
-"Eye": "Hazel",
-"Sex": "Male",
-"Freq":              7 
-},
-{
- "Hair": "Blond",
-"Eye": "Hazel",
-"Sex": "Male",
-"Freq":              5 
-},
-{
- "Hair": "Black",
-"Eye": "Green",
-"Sex": "Male",
-"Freq":              3 
-},
-{
- "Hair": "Brown",
-"Eye": "Green",
-"Sex": "Male",
-"Freq":             15 
-},
-{
- "Hair": "Red",
-"Eye": "Green",
-"Sex": "Male",
-"Freq":              7 
-},
-{
- "Hair": "Blond",
-"Eye": "Green",
-"Sex": "Male",
-"Freq":              8 
-} 
-]
-  
-      if(!(opts.type==="pieChart" || opts.type==="sparklinePlus")) {
-        var data = d3.nest()
-          .key(function(d){
-            //return opts.group === undefined ? 'main' : d[opts.group]
-            //instead of main would think a better default is opts.x
-            return opts.group === undefined ? opts.y : d[opts.group];
-          })
-          .entries(data);
-      }
-      
-      if (opts.disabled != undefined){
-        data.map(function(d, i){
-          d.disabled = opts.disabled[i]
-        })
-      }
-      
-      nv.addGraph(function() {
-        var chart = nv.models[opts.type]()
-          .x(function(d) { return d[opts.x] })
-          .y(function(d) { return d[opts.y] })
-          .width(opts.width)
-          .height(opts.height)
-         
-        
-          
-        
-
-        
-        
-        
-      
-       d3.select("#" + opts.id)
-        .append('svg')
-        .datum(data)
-        .transition().duration(500)
-        .call(chart);
-
-       nv.utils.windowResize(chart.update);
-       return chart;
-      });
-    };
-</script>
+    <iframe src="fig/n1.html" width=100%, height=600></iframe>
 
   </article>
   <!-- Presenter Notes -->
@@ -292,7 +137,7 @@ nPlot(Freq ~ Hair, group = &#39;Eye&#39;, type = &#39;multiBarChart&#39;,
 </ul></li>
 <li>Or, if you use more than one library</li>
 <li>YAML example
-<code>yaml ext_widgets : {rCharts: [&quot;libraries/highcharts&quot;,libraries/nvd3&quot;, &quot;libraries/morris&quot;]}</code> </li>
+<code>yaml ext_widgets : {rCharts: [&quot;libraries/highcharts&quot;, &quot;libraries/nvd3&quot;, &quot;libraries/morris&quot;]}</code> </li>
 </ul>
 
   </article>
@@ -301,13 +146,27 @@ nPlot(Freq ~ Hair, group = &#39;Eye&#39;, type = &#39;multiBarChart&#39;,
 
 <slide class="" id="slide-5" style="background:;">
   <hgroup>
-    <h2>Deconstructing another example</h2>
+    <h2>Viewing the plot</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code>## Example 1 Facetted Scatterplot
-names(iris) = gsub(&quot;\\.&quot;, &quot;&quot;, names(iris))
-rPlot(SepalLength ~ SepalWidth | Species, data = iris, color = &#39;Species&#39;, type = &#39;point&#39;)
-</code></pre>
+    <ul>
+<li>The object <code>n1</code> contains the plot
+
+<ul>
+<li>In RStudio, typing <code>n1</code> brings up the plot in the RStudio viewer (or you can just not assign it to an object)</li>
+</ul></li>
+<li>Do <code>n1$</code> then hit TAB to see the various functions contained in the object
+
+<ul>
+<li><code>n1$html()</code> prints out the html for the plot</li>
+</ul></li>
+<li>I do <code>n1$save(filename)</code> then bring the code back into slidify document
+
+<ul>
+<li>This is recommended for slidify, but if you&#39;re just looking at the plot,
+it&#39;s unnecessary</li>
+</ul></li>
+</ul>
 
   </article>
   <!-- Presenter Notes -->
@@ -315,19 +174,15 @@ rPlot(SepalLength ~ SepalWidth | Species, data = iris, color = &#39;Species&#39;
 
 <slide class="" id="slide-6" style="background:;">
   <hgroup>
-    <h2>When run</h2>
+    <h2>Deconstructing another example</h2>
   </hgroup>
   <article data-timings="">
-    <iframe src='
-fig/unnamed-chunk-3.html
-' scrolling='no' seamless class='rChart 
-polycharts
- '
-id=iframe-
-chart16c56388ccbc
-></iframe>
-
-<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+    <pre><code>## Example 1 Facetted Scatterplot
+names(iris) = gsub(&quot;\\.&quot;, &quot;&quot;, names(iris))
+r1 &lt;- rPlot(SepalLength ~ SepalWidth | Species, data = iris, color = &#39;Species&#39;, type = &#39;point&#39;)
+r1$save(&#39;fig/r1.html&#39;, cdn = TRUE)
+cat(&#39;&lt;iframe src=&quot;fig/r1.html&quot; width=100%, height=600&gt;&lt;/iframe&gt;&#39;)
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -335,12 +190,10 @@ chart16c56388ccbc
 
 <slide class="" id="slide-7" style="background:;">
   <hgroup>
-    <h2>Example 2 Facetted Barplot</h2>
+    <h2>When run</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code>hair_eye = as.data.frame(HairEyeColor)
-rPlot(Freq ~ Hair | Eye, color = &#39;Eye&#39;, data = hair_eye, type = &#39;bar&#39;)
-</code></pre>
+    <iframe src="fig/r1.html" width=100%, height=600></iframe>
 
   </article>
   <!-- Presenter Notes -->
@@ -348,25 +201,31 @@ rPlot(Freq ~ Hair | Eye, color = &#39;Eye&#39;, data = hair_eye, type = &#39;bar
 
 <slide class="" id="slide-8" style="background:;">
   <hgroup>
-    <h2>Example 2 Facetted Barplot, when run</h2>
+    <h2>Example 2 Facetted Barplot</h2>
   </hgroup>
   <article data-timings="">
-    <iframe src='
-fig/unnamed-chunk-4.html
-' scrolling='no' seamless class='rChart 
-polycharts
- '
-id=iframe-
-chart16c57cd13d81
-></iframe>
-
-<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+    <pre><code>hair_eye = as.data.frame(HairEyeColor)
+r2 &lt;- rPlot(Freq ~ Hair | Eye, color = &#39;Eye&#39;, data = hair_eye, type = &#39;bar&#39;)
+r2$save(&#39;fig/r2.html&#39;, cdn = TRUE)
+cat(&#39;&lt;iframe src=&quot;fig/r2.html&quot; width=100%, height=600&gt;&lt;/iframe&gt;&#39;)
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
 <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Example 2 Facetted Barplot, when run</h2>
+  </hgroup>
+  <article data-timings="">
+    <iframe src="fig/r2.html" width=100%, height=600></iframe>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>How to get the js/html or publish an rChart</h2>
   </hgroup>
@@ -384,7 +243,7 @@ r1$publish(&#39;myPlot&#39;, host = &#39;rpubs&#39;) # save to rpubs
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>rCharts has links to several libraries</h2>
   </hgroup>
@@ -403,7 +262,7 @@ r1$publish(&#39;myPlot&#39;, host = &#39;rpubs&#39;) # save to rpubs
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>morris</h2>
   </hgroup>
@@ -412,34 +271,26 @@ r1$publish(&#39;myPlot&#39;, host = &#39;rpubs&#39;) # save to rpubs
 econ &lt;- transform(economics, date = as.character(date))
 m1 &lt;- mPlot(x = &quot;date&quot;, y = c(&quot;psavert&quot;, &quot;uempmed&quot;), type = &quot;Line&quot;, data = econ)
 m1$set(pointSize = 0, lineWidth = 1)
-m1
+m1$save(&#39;fig/m1.html&#39;, cdn = TRUE)
+cat(&#39;&lt;iframe src=&quot;fig/m1.html&quot; width=100%, height=600&gt;&lt;/iframe&gt;&#39;)
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-13" style="background:;">
   <hgroup>
     <h2>morris example run</h2>
   </hgroup>
   <article data-timings="">
-    <iframe src='
-fig/unnamed-chunk-6.html
-' scrolling='no' seamless class='rChart 
-morris
- '
-id=iframe-
-chart16c527b1afb7
-></iframe>
-
-<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+    <iframe src="fig/m1.html" width=100%, height=600></iframe>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>xCharts</h2>
   </hgroup>
@@ -448,34 +299,26 @@ chart16c527b1afb7
 uspexp &lt;- melt(USPersonalExpenditure)
 names(uspexp)[1:2] = c(&quot;category&quot;, &quot;year&quot;)
 x1 &lt;- xPlot(value ~ year, group = &quot;category&quot;, data = uspexp, type = &quot;line-dotted&quot;)
-x1
+x1$save(&#39;fig/x1.html&#39;, cdn = TRUE)
+cat(&#39;&lt;iframe src=&quot;fig/x1.html&quot; width=100%, height=600&gt;&lt;/iframe&gt;&#39;)
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>xCharts run</h2>
   </hgroup>
   <article data-timings="">
-    <iframe src='
-fig/unnamed-chunk-7.html
-' scrolling='no' seamless class='rChart 
-xcharts
- '
-id=iframe-
-chart16c57d6e1b94
-></iframe>
-
-<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+    <iframe src="fig/x1.html" width=100%, height=600></iframe>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-16" style="background:;">
   <hgroup>
     <h2>Leaflet</h2>
   </hgroup>
@@ -484,34 +327,26 @@ chart16c57d6e1b94
 map3$setView(c(51.505, -0.09), zoom = 13)
 map3$marker(c(51.5, -0.09), bindPopup = &quot;&lt;p&gt; Hi. I am a popup &lt;/p&gt;&quot;)
 map3$marker(c(51.495, -0.083), bindPopup = &quot;&lt;p&gt; Hi. I am another popup &lt;/p&gt;&quot;)
-map3
+map3$save(&#39;fig/map3.html&#39;, cdn = TRUE)
+cat(&#39;&lt;iframe src=&quot;fig/map3.html&quot; width=100%, height=600&gt;&lt;/iframe&gt;&#39;)
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-17" style="background:;">
   <hgroup>
     <h2>Leaflet run</h2>
   </hgroup>
   <article data-timings="">
-    <iframe src='
-fig/unnamed-chunk-8.html
-' scrolling='no' seamless class='rChart 
-leaflet
- '
-id=iframe-
-chart16c577763a3f
-></iframe>
-
-<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+    <iframe src="fig/map3.html" width=100%, height=600></iframe>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-17" style="background:;">
+<slide class="" id="slide-18" style="background:;">
   <hgroup>
     <h2>Rickshaw</h2>
   </hgroup>
@@ -523,28 +358,9 @@ p4 &lt;- Rickshaw$new()
 p4$layer(value ~ Var2, group = &quot;Var1&quot;, data = usp, type = &quot;area&quot;, width = 560)
 # add a helpful slider this easily; other features TRUE as a default
 p4$set(slider = TRUE)
-p4
+p4$save(&#39;fig/p4.html&#39;, cdn = TRUE)
+cat(&#39;&lt;iframe src=&quot;fig/p4.html&quot; width=100%, height=600&gt;&lt;/iframe&gt;&#39;)
 </code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-18" style="background:;">
-  <hgroup>
-    <h2>Rickshaw run</h2>
-  </hgroup>
-  <article data-timings="">
-    <iframe src='
-fig/unnamed-chunk-9.html
-' scrolling='no' seamless class='rChart 
-rickshaw
- '
-id=iframe-
-chart16c56fdfd342
-></iframe>
-
-<style>iframe.rChart{ width: 100%; height: 400px;}</style>
 
   </article>
   <!-- Presenter Notes -->
@@ -552,13 +368,10 @@ chart16c56fdfd342
 
 <slide class="" id="slide-19" style="background:;">
   <hgroup>
-    <h2>highchart</h2>
+    <h2>Rickshaw run</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code>h1 &lt;- hPlot(x = &quot;Wr.Hnd&quot;, y = &quot;NW.Hnd&quot;, data = MASS::survey, type = c(&quot;line&quot;, 
-    &quot;bubble&quot;, &quot;scatter&quot;), group = &quot;Clap&quot;, size = &quot;Age&quot;)
-h1
-</code></pre>
+    <iframe src="fig/p4.html" width=100%, height=600></iframe>
 
   </article>
   <!-- Presenter Notes -->
@@ -566,19 +379,14 @@ h1
 
 <slide class="" id="slide-20" style="background:;">
   <hgroup>
-    <h2>highchart run</h2>
+    <h2>highchart</h2>
   </hgroup>
   <article data-timings="">
-    <iframe src='
-fig/unnamed-chunk-10.html
-' scrolling='no' seamless class='rChart 
-highcharts
- '
-id=iframe-
-chart16c54f760d43
-></iframe>
-
-<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+    <pre><code>h1 &lt;- hPlot(x = &quot;Wr.Hnd&quot;, y = &quot;NW.Hnd&quot;, data = MASS::survey, type = c(&quot;line&quot;, 
+    &quot;bubble&quot;, &quot;scatter&quot;), group = &quot;Clap&quot;, size = &quot;Age&quot;)
+h1$save(&#39;fig/h1.html&#39;, cdn = TRUE)
+cat(&#39;&lt;iframe src=&quot;fig/h1.html&quot; width=100%, height=600&gt;&lt;/iframe&gt;&#39;)
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -586,10 +394,10 @@ chart16c54f760d43
 
 <slide class="" id="slide-21" style="background:;">
   <hgroup>
-    <h2>Embedding rCharts into a shiny app</h2>
+    <h2>highchart run</h2>
   </hgroup>
   <article data-timings="">
-    <h3>(then embedding it into slidify)</h3>
+    <iframe src="fig/h1.html" width=100%, height=600></iframe>
 
   </article>
   <!-- Presenter Notes -->
@@ -597,12 +405,61 @@ chart16c54f760d43
 
 <slide class="" id="slide-22" style="background:;">
   <hgroup>
-    <h2>What to do now</h2>
+    <h2>rCharts summarized</h2>
   </hgroup>
   <article data-timings="">
     <ul>
-<li>Go forth, and produce some eye candy</li>
+<li>rCharts makes creating interactive javascript visualizations in R ridiculously easy</li>
+<li>However, non-trivial customization is going to require knowledge of javascript</li>
+<li>If what you want is not too big of a deviation from the rCharts examples, then it&#39;s awesome
+
+<ul>
+<li>Otherwise, it&#39;s challenging to extend without fairly deep knowledge of the JS
+libraries that it&#39;s calling.</li>
+</ul></li>
+<li>rCharts is unde fairly rapid development</li>
 </ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>BONUS RMaps!!!</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>There&#39;s a new github repository describing connections between more 
+mapping libraries and R
+
+<ul>
+<li>We already saw leaflet</li>
+</ul></li>
+</ul>
+
+<pre><code>library(devtools);
+require(devtools)
+install_github(&#39;ramnathv/rCharts@dev&#39;)
+install_github(&#39;ramnathv/rMaps&#39;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>Creating a map</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>library(rjson); library(rMaps)
+crosslet(
+  x = &quot;country&quot;, 
+  y = c(&quot;web_index&quot;, &quot;universal_access&quot;, &quot;impact_empowerment&quot;, &quot;freedom_openness&quot;),
+  data = web_index
+)
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -638,110 +495,122 @@ chart16c54f760d43
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Deconstructing another example'>
+        data-slide=5 title='Viewing the plot'>
          5
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='When run'>
+        data-slide=6 title='Deconstructing another example'>
          6
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=7 title='Example 2 Facetted Barplot'>
+        data-slide=7 title='When run'>
          7
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title='Example 2 Facetted Barplot, when run'>
+        data-slide=8 title='Example 2 Facetted Barplot'>
          8
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title='How to get the js/html or publish an rChart'>
+        data-slide=9 title='Example 2 Facetted Barplot, when run'>
          9
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=10 title='rCharts has links to several libraries'>
+        data-slide=10 title='How to get the js/html or publish an rChart'>
          10
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title='morris'>
+        data-slide=11 title='rCharts has links to several libraries'>
          11
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=12 title='morris example run'>
+        data-slide=12 title='morris'>
          12
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=13 title='xCharts'>
+        data-slide=13 title='morris example run'>
          13
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=14 title='xCharts run'>
+        data-slide=14 title='xCharts'>
          14
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title='Leaflet'>
+        data-slide=15 title='xCharts run'>
          15
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=16 title='Leaflet run'>
+        data-slide=16 title='Leaflet'>
          16
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=17 title='Rickshaw'>
+        data-slide=17 title='Leaflet run'>
          17
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=18 title='Rickshaw run'>
+        data-slide=18 title='Rickshaw'>
          18
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=19 title='highchart'>
+        data-slide=19 title='Rickshaw run'>
          19
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=20 title='highchart run'>
+        data-slide=20 title='highchart'>
          20
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=21 title='Embedding rCharts into a shiny app'>
+        data-slide=21 title='highchart run'>
          21
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=22 title='What to do now'>
+        data-slide=22 title='rCharts summarized'>
          22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='BONUS RMaps!!!'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='Creating a map'>
+         24
       </a>
     </li>
   </ul>

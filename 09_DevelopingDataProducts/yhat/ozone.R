@@ -5,11 +5,15 @@ model.require <- function() {
 }
 
 model.transform <- function(df) {
-        df
+        transform(df, Wind = as.numeric(as.character(Wind)),
+                  Temp = as.integer(as.character(Temp)))
 }
 
 model.predict <- function(df) {
-        data.frame(Ozone = predict(fit, newdata = df))
+        result <- data.frame(Ozone = predict(fit, newdata = df))
+        cl <- data.frame(clWind = class(df$Wind), clTemp = class(df$Temp))
+        data.frame(result, Temp = as.character(df$Temp),
+                   Wind = as.character(df$Wind), cl)
 }
 
 fit <- lm(Ozone ~ Wind + Temp, data = airquality)
@@ -22,3 +26,6 @@ yhat.config  <- c(
 
 
 yhat.deploy("ozone")
+
+
+## yhat.predict("ozone", data.frame(Wind = 9.7, Temp = 67))

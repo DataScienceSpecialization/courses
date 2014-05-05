@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Boosting</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Boosting">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Boosting</h1>
+    <h2></h2>
+    <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Basic idea</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Take lots of (possibly) weak predictors</li>
+<li>Weight them and add them up</li>
+<li>Get a stronger predictor</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Basic idea behind boosting</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Start with a set of classifiers \(h_1,\ldots,h_k\)
+
+<ul>
+<li>Examples: All possible trees, all possible regression models, all possible cutoffs.</li>
+</ul></li>
+<li>Create a classifier that combines classification functions:
+\(f(x) = \rm{sgn}\left(\sum_{t=1}^T \alpha_t h_t(x)\right)\).
+
+<ul>
+<li>Goal is to minimize error (on training set)</li>
+<li>Iterative, select one \(h\) at each step</li>
+<li>Calculate weights based on errors</li>
+<li>Upweight missed classifications and select next \(h\)</li>
+</ul></li>
+</ol>
+
+<p><a href="http://en.wikipedia.org/wiki/AdaBoost">Adaboost on Wikipedia</a></p>
+
+<p><a href="http://webee.technion.ac.il/people/rmeir/BoostingTutorial.pdf">http://webee.technion.ac.il/people/rmeir/BoostingTutorial.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Simple example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/ada1.png height=450></p>
+
+<p><a href="http://webee.technion.ac.il/people/rmeir/BoostingTutorial.pdf">http://webee.technion.ac.il/people/rmeir/BoostingTutorial.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Round 1: adaboost</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/adar1.png height=450></p>
+
+<p><a href="http://webee.technion.ac.il/people/rmeir/BoostingTutorial.pdf">http://webee.technion.ac.il/people/rmeir/BoostingTutorial.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Round 2 &amp; 3</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/ada2.png height=450></p>
+
+<p><a href="http://webee.technion.ac.il/people/rmeir/BoostingTutorial.pdf">http://webee.technion.ac.il/people/rmeir/BoostingTutorial.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Completed classifier</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/ada3.png height=450></p>
+
+<p><a href="http://webee.technion.ac.il/people/rmeir/BoostingTutorial.pdf">http://webee.technion.ac.il/people/rmeir/BoostingTutorial.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Boosting in R</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Boosting can be used with any subset of classifiers</li>
+<li>One large subclass is <a href="http://en.wikipedia.org/wiki/Gradient_boosting">gradient boosting</a></li>
+<li>R has multiple boosting libraries. Differences include the choice of basic classification functions and combination rules.
+
+<ul>
+<li><a href="http://cran.r-project.org/web/packages/gbm/index.html">gbm</a> - boosting with trees.</li>
+<li><a href="http://cran.r-project.org/web/packages/mboost/index.html">mboost</a> - model based boosting</li>
+<li><a href="http://cran.r-project.org/web/packages/ada/index.html">ada</a> - statistical boosting based on <a href="http://projecteuclid.org/DPubS?service=UI&amp;version=1.0&amp;verb=Display&amp;handle=euclid.aos/1016218223">additive logistic regression</a></li>
+<li><a href="http://cran.r-project.org/web/packages/GAMBoost/index.html">gamBoost</a> for boosting generalized additive models</li>
+</ul></li>
+<li>Most of these are available in the caret package </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Wage example</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(ISLR); data(Wage); library(ggplot2); library(caret);
+Wage &lt;- subset(Wage,select=-c(logwage))
+inTrain &lt;- createDataPartition(y=Wage$wage,
+                              p=0.7, list=FALSE)
+training &lt;- Wage[inTrain,]; testing &lt;- Wage[-inTrain,]
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Fit the model</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">modFit &lt;- train(wage ~ ., method=&quot;gbm&quot;,data=training,verbose=FALSE)
+print(modFit)
+</code></pre>
+
+<pre><code>2102 samples
+  10 predictors
+
+No pre-processing
+Resampling: Bootstrap (25 reps) 
+
+Summary of sample sizes: 2102, 2102, 2102, 2102, 2102, 2102, ... 
+
+Resampling results across tuning parameters:
+
+  interaction.depth  n.trees  RMSE  Rsquared  RMSE SD  Rsquared SD
+  1                  50       30    0.3       1        0.02       
+  1                  100      30    0.3       1        0.02       
+  1                  200      30    0.3       1        0.02       
+  2                  50       30    0.3       1        0.02       
+  2                  100      30    0.3       1        0.02       
+  2                  200      30    0.3       1        0.02       
+  3                  50       30    0.3       1        0.02       
+  3                  100      30    0.3       1        0.02       
+  3                  200      30    0.3       1        0.02       
+
+Tuning parameter &#39;shrinkage&#39; was held constant at a value of 0.1
+RMSE was used to select the optimal model using  the smallest value.
+The final values used for the model were interaction.depth = 2, n.trees = 100 and shrinkage = 0.1. 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Plot the results</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">qplot(predict(modFit,testing),wage,data=testing)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Notes and further reading</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>A couple of nice tutorials for boosting
+
+<ul>
+<li>Freund and Shapire - <a href="http://www.cc.gatech.edu/%7Ethad/6601-gradAI-fall2013/boosting.pdf">http://www.cc.gatech.edu/~thad/6601-gradAI-fall2013/boosting.pdf</a></li>
+<li>Ron Meir- <a href="http://webee.technion.ac.il/people/rmeir/BoostingTutorial.pdf">http://webee.technion.ac.il/people/rmeir/BoostingTutorial.pdf</a></li>
+</ul></li>
+<li>Boosting, random forests, and model ensembling are the most common tools that win Kaggle and other prediction contests. 
+
+<ul>
+<li><a href="http://www.netflixprize.com/assets/GrandPrize2009_BPC_BigChaos.pdf">http://www.netflixprize.com/assets/GrandPrize2009_BPC_BigChaos.pdf</a></li>
+<li><a href="https://kaggle2.blob.core.windows.net/wiki-files/327/09ccf652-8c1c-4a3d-b979-ce2369c985e4/Willem%20Mestrom%20-%20Milestone%201%20Description%20V2%202.pdf">https://kaggle2.blob.core.windows.net/wiki-files/327/09ccf652-8c1c-4a3d-b979-ce2369c985e4/Willem%20Mestrom%20-%20Milestone%201%20Description%20V2%202.pdf</a></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Basic idea'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Basic idea behind boosting'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Simple example'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Round 1: adaboost'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Round 2 &amp; 3'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Completed classifier'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Boosting in R'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Wage example'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Fit the model'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Plot the results'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Notes and further reading'>
+         11
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

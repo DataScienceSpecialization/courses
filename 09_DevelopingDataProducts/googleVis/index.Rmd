@@ -20,7 +20,7 @@ mode        : selfcontained # {standalone, draft}
 
 https://developers.google.com/chart/interactive/docs/gallery
 
-```{r setOptions, echo=FALSE}
+```{r, setOptions, echo=FALSE}
 options(gvis.plot.tag="chart")
 ```
 
@@ -36,11 +36,86 @@ options(gvis.plot.tag="chart")
 
 ## Example 
 
-```{r,results="asis"}
-library(googleVis)
+```{r gv,results="asis"}
+suppressPackageStartupMessages(library(googleVis))
 plot(gvisMotionChart(Fruits, "Fruit", "Year",
                      options=list(width=600, height=400)))
 ```
+
+---
+
+## Charts in googleVis
+
+<center> "gvis + ChartType" </center>
+
+* Motion charts:  `gvisMotionChart`
+* Interactive maps: `gvisGeoChart`
+* Interactive tables: `gvisTable`
+* Line charts: `gvisLineChart`
+* Bar charts: `gvisColumnChart`
+* Tree maps: `gvisTreeMap`
+
+http://cran.r-project.org/web/packages/googleVis/googleVis.pdf
+
+---
+
+## Plots on maps
+
+```{r,dependson="gv",results="asis"}
+plot(gvisGeoChart(Exports, locationvar="Country",colorvar="Profit",options=list(width=600, height=400)))
+```
+
+
+---
+
+## Specifying a region
+
+```{r,dependson="gv",results="asis"}
+plot(gvisGeoChart(Exports, locationvar="Country",colorvar="Profit",options=list(width=600, height=400,region="150")))
+```
+
+---
+
+## Finding parameters to set under `options`
+
+
+<img class="center" src="../../assets/img/configoptions.png" height=450>
+
+https://developers.google.com/chart/interactive/docs/gallery/geochart
+
+---
+
+## Combining multiple plots together
+
+```{r,dependson="gv",results="asis"}
+G <- gvisGeoChart(Exports, "Country", "Profit",options=list(width=200, height=100))
+T1 <- gvisTable(Exports,options=list(width=200, height=270))
+M <- gvisMotionChart(Fruits, "Fruit", "Year", options=list(width=400, height=370))
+GT <- gvisMerge(G,T1, horizontal=FALSE)
+GTM <- gvisMerge(GT, M, horizontal=TRUE,tableOptions="bgcolor=\"#CCCCCC\" cellspacing=10")
+plot(GTM)
+```
+
+---
+
+## Seeing the HTML code
+
+```{r ,dependson="gv",results="asis"}
+M <- gvisMotionChart(Fruits, "Fruit", "Year", options=list(width=600, height=400))
+print(M)
+print(M, 'chart', file='myfilename.html')
+```
+
+---
+
+## Things you can do with Google Vis
+
+* The visualizations can be embedded in websites with HTML code
+* Dynamic visualizations can be built with Shiny, Rook, and R.rsp
+* Embed them in [R markdown](http://www.rstudio.com/ide/docs/authoring/using_markdown) based documents
+  * Set `results="asis"` in the chunk options
+  * Can be used with [knitr](http://cran.r-project.org/web/packages/knitr/index.html) and [slidify](http://slidify.org/)
+* 
 
 
 ---
@@ -51,5 +126,7 @@ plot(gvisMotionChart(Fruits, "Fruit", "Year",
 demo(googleVis)
 ```
 
-http://cran.r-project.org/web/packages/googleVis/vignettes/googleVis.pdf
-https://developers.google.com/chart/interactive/docs/gallery
+* http://cran.r-project.org/web/packages/googleVis/vignettes/googleVis.pdf
+* http://cran.r-project.org/web/packages/googleVis/googleVis.pdf
+* https://developers.google.com/chart/interactive/docs/gallery
+* https://developers.google.com/chart/interactive/faq

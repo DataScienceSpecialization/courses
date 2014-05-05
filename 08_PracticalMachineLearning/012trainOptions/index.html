@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Training options</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Training options">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Training options</h1>
+    <h2></h2>
+    <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>SPAM Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(caret); library(kernlab); data(spam)
+inTrain &lt;- createDataPartition(y=spam$type,
+                              p=0.75, list=FALSE)
+training &lt;- spam[inTrain,]
+testing &lt;- spam[-inTrain,]
+modelFit &lt;- train(type ~.,data=training, method=&quot;glm&quot;)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Train options</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">args(train.default)
+</code></pre>
+
+<pre><code>function (x, y, method = &quot;rf&quot;, preProcess = NULL, ..., weights = NULL, 
+    metric = ifelse(is.factor(y), &quot;Accuracy&quot;, &quot;RMSE&quot;), maximize = ifelse(metric == 
+        &quot;RMSE&quot;, FALSE, TRUE), trControl = trainControl(), tuneGrid = NULL, 
+    tuneLength = 3) 
+NULL
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Metric options</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><strong>Continous outcomes</strong>:</p>
+
+<ul>
+<li><em>RMSE</em> = Root mean squared error</li>
+<li><em>RSquared</em> = \(R^2\) from regression models</li>
+</ul>
+
+<p><strong>Categorical outcomes</strong>:</p>
+
+<ul>
+<li><em>Accuracy</em> = Fraction correct</li>
+<li><em>Kappa</em> = A measure of <a href="http://en.wikipedia.org/wiki/Cohen%27s_kappa">concordance</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>trainControl</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">args(trainControl)
+</code></pre>
+
+<pre><code>function (method = &quot;boot&quot;, number = ifelse(method %in% c(&quot;cv&quot;, 
+    &quot;repeatedcv&quot;), 10, 25), repeats = ifelse(method %in% c(&quot;cv&quot;, 
+    &quot;repeatedcv&quot;), 1, number), p = 0.75, initialWindow = NULL, 
+    horizon = 1, fixedWindow = TRUE, verboseIter = FALSE, returnData = TRUE, 
+    returnResamp = &quot;final&quot;, savePredictions = FALSE, classProbs = FALSE, 
+    summaryFunction = defaultSummary, selectionFunction = &quot;best&quot;, 
+    custom = NULL, preProcOptions = list(thresh = 0.95, ICAcomp = 3, 
+        k = 5), index = NULL, indexOut = NULL, timingSamps = 0, 
+    predictionBounds = rep(FALSE, 2), seeds = NA, allowParallel = TRUE) 
+NULL
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>trainControl resampling</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><em>method</em>
+
+<ul>
+<li><em>boot</em> = bootstrapping</li>
+<li><em>boot632</em> = bootstrapping with adjustment</li>
+<li><em>cv</em> = cross validation</li>
+<li><em>repeatedcv</em> = repeated cross validation</li>
+<li><em>LOOCV</em> = leave one out cross validation</li>
+</ul></li>
+<li><em>number</em>
+
+<ul>
+<li>For boot/cross validation</li>
+<li>Number of subsamples to take</li>
+</ul></li>
+<li><em>repeats</em>
+
+<ul>
+<li>Number of times to repeate subsampling</li>
+<li>If big this can <em>slow things down</em></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Setting the seed</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>It is often useful to set an overall seed</li>
+<li>You can also set a seed for each resample</li>
+<li>Seeding each resample is useful for parallel fits</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>seed example</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">set.seed(1235)
+modelFit2 &lt;- train(type ~.,data=training, method=&quot;glm&quot;)
+modelFit2
+</code></pre>
+
+<pre><code>Generalized Linear Model 
+
+3451 samples
+  57 predictors
+   2 classes: &#39;nonspam&#39;, &#39;spam&#39; 
+
+No pre-processing
+Resampling: Bootstrapped (25 reps) 
+
+Summary of sample sizes: 3451, 3451, 3451, 3451, 3451, 3451, ... 
+
+Resampling results
+
+  Accuracy  Kappa  Accuracy SD  Kappa SD
+  0.9       0.8    0.007        0.01    
+
+
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>seed example</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">set.seed(1235)
+modelFit3 &lt;- train(type ~.,data=training, method=&quot;glm&quot;)
+modelFit3
+</code></pre>
+
+<pre><code>Generalized Linear Model 
+
+3451 samples
+  57 predictors
+   2 classes: &#39;nonspam&#39;, &#39;spam&#39; 
+
+No pre-processing
+Resampling: Bootstrapped (25 reps) 
+
+Summary of sample sizes: 3451, 3451, 3451, 3451, 3451, 3451, ... 
+
+Resampling results
+
+  Accuracy  Kappa  Accuracy SD  Kappa SD
+  0.9       0.8    0.007        0.01    
+
+
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Further resources</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><a href="http://www.edii.uclm.es/%7EuseR-2013/Tutorials/kuhn/user_caret_2up.pdf">Caret tutorial</a></li>
+<li><a href="http://caret.r-forge.r-project.org/training.html">Model training and tuning</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='SPAM Example'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Train options'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Metric options'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='trainControl'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='trainControl resampling'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Setting the seed'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='seed example'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='seed example'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Further resources'>
+         9
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

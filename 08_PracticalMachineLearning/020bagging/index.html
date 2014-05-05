@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bagging</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Bagging">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Bagging</h1>
+    <h2></h2>
+    <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Bootstrap aggregating (bagging)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><strong>Basic idea</strong>: </p>
+
+<ol>
+<li>Resample cases and recalculate predictions</li>
+<li>Average or majority vote</li>
+</ol>
+
+<p><strong>Notes</strong>:</p>
+
+<ul>
+<li>Similar bias </li>
+<li>Reduced variance</li>
+<li>More useful for non-linear functions</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Ozone data</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(ElemStatLearn); data(ozone,package=&quot;ElemStatLearn&quot;)
+ozone &lt;- ozone[order(ozone$ozone),]
+head(ozone)
+</code></pre>
+
+<pre><code>    ozone radiation temperature wind
+17      1         8          59  9.7
+19      4        25          61  9.7
+14      6        78          57 18.4
+45      7        48          80 14.3
+106     7        49          69 10.3
+7       8        19          61 20.1
+</code></pre>
+
+<p><a href="http://en.wikipedia.org/wiki/Bootstrap_aggregating">http://en.wikipedia.org/wiki/Bootstrap_aggregating</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Bagged loess</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">ll &lt;- matrix(NA,nrow=10,ncol=155)
+for(i in 1:10){
+  ss &lt;- sample(1:dim(ozone)[1],replace=T)
+  ozone0 &lt;- ozone[ss,]; ozone0 &lt;- ozone0[order(ozone0$ozone),]
+  loess0 &lt;- loess(temperature ~ ozone,data=ozone0,span=0.2)
+  ll[i,] &lt;- predict(loess0,newdata=data.frame(ozone=1:155))
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Bagged loess</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">plot(ozone$ozone,ozone$temperature,pch=19,cex=0.5)
+for(i in 1:10){lines(1:155,ll[i,],col=&quot;grey&quot;,lwd=2)}
+lines(1:155,apply(ll,2,mean),col=&quot;red&quot;,lwd=2)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Bagging in caret</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Some models perform bagging for you, in <code>train</code> function consider <code>method</code> options 
+
+<ul>
+<li><code>bagEarth</code> </li>
+<li><code>treebag</code></li>
+<li><code>bagFDA</code></li>
+</ul></li>
+<li>Alternatively you can bag any model you choose using the <code>bag</code> function</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>More bagging in caret</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">predictors = data.frame(ozone=ozone$ozone)
+temperature = ozone$temperature
+treebag &lt;- bag(predictors, temperature, B = 10,
+                bagControl = bagControl(fit = ctreeBag$fit,
+                                        predict = ctreeBag$pred,
+                                        aggregate = ctreeBag$aggregate))
+</code></pre>
+
+<p><a href="http://www.inside-r.org/packages/cran/caret/docs/nbBag">http://www.inside-r.org/packages/cran/caret/docs/nbBag</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Example of custom bagging (continued)</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">plot(ozone$ozone,temperature,col=&#39;lightgrey&#39;,pch=19)
+points(ozone$ozone,predict(treebag$fits[[1]]$fit,predictors),pch=19,col=&quot;red&quot;)
+points(ozone$ozone,predict(treebag,predictors),pch=19,col=&quot;blue&quot;)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Parts of bagging</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">ctreeBag$fit
+</code></pre>
+
+<pre><code>function (x, y, ...) 
+{
+    library(party)
+    data &lt;- as.data.frame(x)
+    data$y &lt;- y
+    ctree(y ~ ., data = data)
+}
+&lt;environment: namespace:caret&gt;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Parts of bagging</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">ctreeBag$pred
+</code></pre>
+
+<pre><code>function (object, x) 
+{
+    obsLevels &lt;- levels(object@data@get(&quot;response&quot;)[, 1])
+    if (!is.null(obsLevels)) {
+        rawProbs &lt;- treeresponse(object, x)
+        probMatrix &lt;- matrix(unlist(rawProbs), ncol = length(obsLevels), 
+            byrow = TRUE)
+        out &lt;- data.frame(probMatrix)
+        colnames(out) &lt;- obsLevels
+        rownames(out) &lt;- NULL
+    }
+    else out &lt;- unlist(treeresponse(object, x))
+    out
+}
+&lt;environment: namespace:caret&gt;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Parts of bagging</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">ctreeBag$aggregate
+</code></pre>
+
+<pre><code>function (x, type = &quot;class&quot;) 
+{
+    if (is.matrix(x[[1]]) | is.data.frame(x[[1]])) {
+        pooled &lt;- x[[1]] &amp; NA
+        classes &lt;- colnames(pooled)
+        for (i in 1:ncol(pooled)) {
+            tmp &lt;- lapply(x, function(y, col) y[, col], col = i)
+            tmp &lt;- do.call(&quot;rbind&quot;, tmp)
+            pooled[, i] &lt;- apply(tmp, 2, median)
+        }
+        if (type == &quot;class&quot;) {
+            out &lt;- factor(classes[apply(pooled, 1, which.max)], 
+                levels = classes)
+        }
+        else out &lt;- as.data.frame(pooled)
+    }
+    else {
+        x &lt;- matrix(unlist(x), ncol = length(x))
+        out &lt;- apply(x, 1, median)
+    }
+    out
+}
+&lt;environment: namespace:caret&gt;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Notes and further resources</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><strong>Notes</strong>:</p>
+
+<ul>
+<li>Bagging is most useful for nonlinear models</li>
+<li>Often used with trees - an extension is random forests</li>
+<li>Several models use bagging in caret&#39;s <em>train</em> function</li>
+</ul>
+
+<p><strong>Further resources</strong>:</p>
+
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Bootstrap_aggregating">Bagging</a></li>
+<li><a href="http://stat.ethz.ch/education/semesters/FS_2008/CompStat/sk-ch8.pdf">Bagging and boosting</a></li>
+<li><a href="http://www-stat.stanford.edu/%7Etibs/ElemStatLearn/">Elements of Statistical Learning</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Bootstrap aggregating (bagging)'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Ozone data'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Bagged loess'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Bagged loess'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Bagging in caret'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='More bagging in caret'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Example of custom bagging (continued)'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Parts of bagging'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Parts of bagging'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Parts of bagging'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Notes and further resources'>
+         11
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

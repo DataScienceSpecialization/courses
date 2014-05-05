@@ -176,6 +176,54 @@ shinyServer(
 ---
 ## Try it out
 * Notice it doesn't display output `text3` until the go button is pressed
+* `input$goButton` (or whatever you named it) gets increased by one for every
+time pushed
+* So, when in reactive code (such as `render` or `reactive`) you can use conditional statements like below to only execute code on the first button press or to not execute code until the first or subsequent button press
 
+```if (input$goButton == 1){  Conditional statements }``` 
+
+
+---
+## Example
+Here's some replaced code from our previous `server.R` 
+```
+output$text3 <- renderText({
+    if (input$goButton == 0) "You have not pressed the button"
+    else if (input$goButton == 1) "you pressed it once"
+    else "OK quit pressing it"
+})
+```
+
+---
+## More on layouts
+* The sidebar layout with a main panel is the easiest.
+* Using `shinyUI(fluidpage(` is much more flexible and allows 
+tighter access to the bootstrap styles
+* Examples here (http://shiny.rstudio.com/articles/layout-guide.html)
+* `fluidRow` statements create rows and then the `column` function
+from within it can create columns
+* Tabsets, navlists and navbars can be created for more complex apps
+
+---
+### Directly using html
+* For more complex layouts, direct use of html is preferred
+    (http://shiny.rstudio.com/articles/html-ui.html)
+* Also, if you know web development well, you might find using
+R to create web layouts kind of annoying
+* Create a directory called `www` in the same directory with `server.R`
+* Have an `index.html` page in that directory
+* Your named input variables will be passed to `server.R`
+`<input type="number" name="n" value="500" min="1" max="1000" />`
+* Your `server.R` output will have class definitions of the form `shiny-`
+`<pre id="summary" class="shiny-text-output"></pre>`
+
+---
+## Debugging techniques for Shiny
+* Debugging shiny apps can be tricky
+* We saw that `runApp(displayMode = 'showcase')` highlights execution while a 
+shiny app runs
+* Using `cat` in your code displays output to stdout (so R console)
+* The `browser()` function can interupt execution and can be called conditionally
+(http://shiny.rstudio.com/articles/debugging.html)
 
 

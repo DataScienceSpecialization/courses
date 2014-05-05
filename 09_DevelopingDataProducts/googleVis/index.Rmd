@@ -14,3 +14,42 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
+## Google Vis API
+
+<img class="center" src="../../assets/img/googlecharts.png" height=500>
+
+https://developers.google.com/chart/interactive/docs/gallery
+
+```{r setOptions, echo=FALSE}
+options(gvis.plot.tag="chart")
+```
+
+---
+
+## Basic idea
+
+* The R function creates an HTML page
+* The HTML page calls Google Charts
+* The result is an interactive HTML graphic
+
+---
+
+## Example 
+
+```{r,results="asis"}
+library(googleVis)
+plot(gvisMotionChart(Fruits, "Fruit", "Year",
+                     options=list(width=600, height=400)))
+```
+
+
+---
+
+## For more info
+
+```{r,eval=FALSE}
+demo(googleVis)
+```
+
+http://cran.r-project.org/web/packages/googleVis/vignettes/googleVis.pdf
+https://developers.google.com/chart/interactive/docs/gallery

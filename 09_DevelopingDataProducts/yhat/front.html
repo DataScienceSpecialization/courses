@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <title>What Am I Breathing?</title>
+        <link href="/static/css/main.css" rel="stylesheet" type="text/css"></link>
+    </head>
+    <body>
+        <div class="container">
+            <form id="rec">
+	      Latitude <input id="lat" type="text" /><br />
+	      Longitude <input id="lon" type="text" /><br />
+	      Radius (mi) <input id="radius" type="text" /><br />
+              <button class="btn" type="submit">Go!</button>
+            </form>
+            <section class="results">
+                <p class="lead">Top Ten Recommended Beers</p>
+                <figure class="visualization row">
+                    <div class="col-sm-6 col-1"></div>
+                    <div class="col-sm-6 col-2"></div>
+                </figure>
+            </section>
+            <pre id="result" class="language-javascript"><code class="language-javascript"></code></pre>
+        </div>
+        <script src="/static/js/jquery-1.10.2.min.js"></script>
+        <script src="/static/js/code.js"></script>
+        <script src="/static/js/beers.js"></script>
+        <script src="/static/js/main.js"></script>
+    </body>
+</html>

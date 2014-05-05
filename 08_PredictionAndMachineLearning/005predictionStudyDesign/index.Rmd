@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -35,9 +35,7 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 
 1. Define your error rate
 2. Split data into:
-  * Training 
-  * Testing
-  * Validation (optional)
+  * Training, Testing, Validation (optional)
 3. On the training set pick features
   * Use cross-validation
 4. On the training set pick prediction function
@@ -81,7 +79,7 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 
 * Suppose you are predicting a binary outcome 
   * Diseased/healthy
-  * Click on add/not click on add 
+  * Click on ad/not click on ad 
 * One classifier is flipping a coin
 * Probability of perfect classification is approximately:
   * $\left(\frac{1}{2}\right)^{sample \; size}$

@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -4420,10 +4420,13 @@ attr(,"class")
 * Level 1 feature creation (raw data to covariates)
   * Science is key. Google "feature extraction for [data type]"
   * Err on overcreation of features
+  * In some applications (images, voices) automated feature creation is possible/necessary
+    * http://www.cs.nyu.edu/~yann/talks/lecun-ranzato-icml2013.pdf
 * Level 2 feature creation (covariates to new covariates)
   * The function _preProcess_ in _caret_ will handle some preprocessing.
   * Create new covariates if you think they will improve fit
   * Use exploratory analysis on the training set for creating them
   * Be careful about overfitting!
 * [preprocessing with caret](http://caret.r-forge.r-project.org/preprocess.html)
+* If you want to fit spline models, use the _gam_ method in the _caret_ package which allows smoothing of multiple variables.
 * More on feature creation/data tidying in the Obtaining Data course from the Data Science course track. 

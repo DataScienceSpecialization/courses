@@ -8,62 +8,70 @@
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
     media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../libraries/frameworks/io2012/js/slides" 
-    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-    <link rel="stylesheet" href = "../../assets/css/custom.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
-<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
-<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+  
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
     
     <!-- LOGO SLIDE -->
-    <!-- END LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>What is prediction?</h1>
+    <h2></h2>
+    <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
     
 
-    <!-- TITLE SLIDE -->
-    <!-- Should I move this to a Local Layout File? -->
-    <slide class="title-slide segue nobackground">
-      <aside class="gdbar">
-        <img src="../../assets/img/bloomberg_shield.png">
-      </aside>
-      <hgroup class="auto-fadein">
-        <h1>What is prediction?</h1>
-        <h2></h2>
-        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
-      </hgroup>
-          </slide>
-
     <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
+    <slide class="" id="slide-1" style="background:;">
   <hgroup>
     <h2>The central dogma of prediction</h2>
   </hgroup>
-  <article>
-    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/centraldogma.png height=450></p>
+  <article data-timings="">
+    <p><img class="center" src=../../assets/img/08_PredictionAndMachineLearning/centraldogma.png height=450></p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-2" style="background:;">
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>What can go wrong</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class="center" src=../../assets/img/08_PredictionAndMachineLearning/googleflu.png height=450></p>
+
+<p><a href="http://www.sciencemag.org/content/343/6176/1203.full.pdf">http://www.sciencemag.org/content/343/6176/1203.full.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Components of a predictor</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p></br></p>
 
 <p><center> question -&gt; input data -&gt; features -&gt; algorithm -&gt; parameters -&gt; evaluation  </center></p>
@@ -72,11 +80,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>SPAM Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p></br></p>
 
 <p><center> <redtext>question</redtext> -&gt; input data -&gt; features -&gt; algorithm -&gt; parameters -&gt; evaluation  </center></p>
@@ -95,11 +103,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>SPAM Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p></br></p>
 
 <p><center> question -&gt; <redtext>input data </redtext> -&gt; features -&gt; algorithm -&gt; parameters -&gt; evaluation  </center></p>
@@ -112,11 +120,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>SPAM Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p></br></p>
 
 <p><center> question -&gt; input data  -&gt; <redtext>features</redtext> -&gt; algorithm -&gt; parameters -&gt; evaluation  </center></p>
@@ -137,11 +145,11 @@ Dear Jeff, </p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>SPAM Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p></br></p>
 
 <p><center> question -&gt; input data  -&gt; <redtext>features</redtext> -&gt; algorithm -&gt; parameters -&gt; evaluation  </center></p>
@@ -167,11 +175,11 @@ Dear Jeff, </p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>SPAM Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p></br></p>
 
 <p><center> question -&gt; input data  -&gt; <redtext>features</redtext> -&gt; algorithm -&gt; parameters -&gt; evaluation  </center></p>
@@ -222,11 +230,11 @@ head(spam)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>SPAM Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><center> question -&gt; input data  -&gt; features -&gt; <redtext>algorithm</redtext> -&gt; parameters -&gt; evaluation  </center></p>
 
 <pre><code class="r">plot(density(spam$your[spam$type==&quot;nonspam&quot;]),
@@ -240,11 +248,11 @@ lines(density(spam$your[spam$type==&quot;spam&quot;]),col=&quot;red&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>SPAM Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><center> question -&gt; input data  -&gt; features -&gt; <redtext>algorithm</redtext> -&gt; parameters -&gt; evaluation  </center></p>
 
 <p></br></br></p>
@@ -260,11 +268,11 @@ lines(density(spam$your[spam$type==&quot;spam&quot;]),col=&quot;red&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>SPAM Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><center> question -&gt; input data  -&gt; features -&gt; algorithm -&gt; <redtext>parameters</redtext> -&gt; evaluation  </center></p>
 
 <pre><code class="r">plot(density(spam$your[spam$type==&quot;nonspam&quot;]),
@@ -279,11 +287,11 @@ abline(v=0.5,col=&quot;black&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>SPAM Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><center> question -&gt; input data  -&gt; features -&gt; algorithm -&gt; parameters -&gt; <redtext>evaluation</redtext></center></p>
 
 <pre><code class="r">prediction &lt;- ifelse(spam$your &gt; 0.5,&quot;spam&quot;,&quot;nonspam&quot;)
@@ -296,7 +304,7 @@ prediction nonspam   spam
    spam     0.1469 0.2923
 </code></pre>
 
-<p>\(Accuracy \approx 0.459 + 0.292 = 0.751\)</p>
+<p>Accuracy$ \approx 0.459 + 0.292 = 0.751$</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -304,34 +312,107 @@ prediction nonspam   spam
 
     <slide class="backdrop"></slide>
   </slides>
-
-  <!--[if IE]>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='The central dogma of prediction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='What can go wrong'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Components of a predictor'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='SPAM Example'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='SPAM Example'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='SPAM Example'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='SPAM Example'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='SPAM Example'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='SPAM Example'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='SPAM Example'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='SPAM Example'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='SPAM Example'>
+         12
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
     <script 
       src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
 </body>
-<!-- Grab CDN jQuery, fall back to local if offline -->
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
-<!-- Load Javascripts for Widgets -->
-<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> -->
-<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
 </script>
 <!-- LOAD HIGHLIGHTER JS FILES -->
-<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- DONE LOADING HIGHLIGHTER JS FILES -->
-</html>
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

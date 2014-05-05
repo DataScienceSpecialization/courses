@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -21,7 +21,16 @@ mode        : selfcontained # {standalone, draft}
 
 ## The central dogma of prediction
 
-<img class=center src=../../assets/img/08_PredictionAndMachineLearning/centraldogma.png height=450>
+<img class="center" src=../../assets/img/08_PredictionAndMachineLearning/centraldogma.png height=450>
+
+---
+
+## What can go wrong
+
+<img class="center" src=../../assets/img/08_PredictionAndMachineLearning/googleflu.png height=450>
+
+
+http://www.sciencemag.org/content/343/6176/1203.full.pdf
 
 ---
 
@@ -241,4 +250,4 @@ prediction nonspam   spam
 ```
 
 
-$Accuracy \approx 0.459 + 0.292 = 0.751$
+Accuracy$ \approx 0.459 + 0.292 = 0.751$

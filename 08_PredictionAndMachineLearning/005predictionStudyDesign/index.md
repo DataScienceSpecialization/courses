@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -22,9 +22,7 @@ mode        : selfcontained # {standalone, draft}
 
 1. Define your error rate
 2. Split data into:
-  * Training 
-  * Testing
-  * Validation (optional)
+  * Training, Testing, Validation (optional)
 3. On the training set pick features
   * Use cross-validation
 4. On the training set pick prediction function
@@ -68,7 +66,7 @@ mode        : selfcontained # {standalone, draft}
 
 * Suppose you are predicting a binary outcome 
   * Diseased/healthy
-  * Click on add/not click on add 
+  * Click on ad/not click on ad 
 * One classifier is flipping a coin
 * Probability of perfect classification is approximately:
   * $\left(\frac{1}{2}\right)^{sample \; size}$
@@ -96,7 +94,7 @@ mode        : selfcontained # {standalone, draft}
 ## Some principles to remember
 
 * Set the test/validation set aside and _don't look at it_
-* In general _Randomly_ sample training and test
+* In general _randomly_ sample training and test
 * Your data sets must reflect structure of the problem
   * If predictions evolve with time split train/test in time chunks (called[backtesting](http://en.wikipedia.org/wiki/Backtesting) in finance)
 * All subsets should reflect as much diversity as possible

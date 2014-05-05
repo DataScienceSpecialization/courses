@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -113,25 +113,6 @@ NULL
 * It is often useful to set an overall seed
 * You can also set a seed for each resample
 * Seeding each resample is useful for parallel fits
-* _seed_ must be a list with
-  * Length equal to number of resamples
-  * Length of each element equal to number of models fit
-
-
-
---- 
-
-
-
-## seed example
-
-
-```r
-set.seed(1235); seeds <- vector(26,mode="list")
-for(i in 1:26){seeds[[i]] <- floor(runif(1,0,1e5))}
-trControl <- trainControl(seeds=seeds)
-```
-
 
 
 
@@ -142,24 +123,27 @@ trControl <- trainControl(seeds=seeds)
 
 
 ```r
+set.seed(1235)
 modelFit2 <- train(type ~.,data=training, method="glm")
 modelFit2
 ```
 
 ```
+Generalized Linear Model 
+
 3451 samples
   57 predictors
    2 classes: 'nonspam', 'spam' 
 
 No pre-processing
-Resampling: Bootstrap (25 reps) 
+Resampling: Bootstrapped (25 reps) 
 
 Summary of sample sizes: 3451, 3451, 3451, 3451, 3451, 3451, ... 
 
 Resampling results
 
   Accuracy  Kappa  Accuracy SD  Kappa SD
-  0.9       0.8    0.006        0.01    
+  0.9       0.8    0.007        0.01    
 
  
 ```
@@ -172,26 +156,37 @@ Resampling results
 
 
 ```r
+set.seed(1235)
 modelFit3 <- train(type ~.,data=training, method="glm")
 modelFit3
 ```
 
 ```
+Generalized Linear Model 
+
 3451 samples
   57 predictors
    2 classes: 'nonspam', 'spam' 
 
 No pre-processing
-Resampling: Bootstrap (25 reps) 
+Resampling: Bootstrapped (25 reps) 
 
 Summary of sample sizes: 3451, 3451, 3451, 3451, 3451, 3451, ... 
 
 Resampling results
 
   Accuracy  Kappa  Accuracy SD  Kappa SD
-  0.9       0.8    0.006        0.01    
+  0.9       0.8    0.007        0.01    
 
  
 ```
 
+
+
+--- 
+
+## Further resources
+
+* [Caret tutorial](http://www.edii.uclm.es/~useR-2013/Tutorials/kuhn/user_caret_2up.pdf)
+* [Model training and tuning](http://caret.r-forge.r-project.org/training.html)
 

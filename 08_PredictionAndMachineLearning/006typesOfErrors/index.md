@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -18,7 +18,6 @@ mode        : selfcontained # {standalone, draft}
 
 
 
----
 
 ## Basic terms
 
@@ -44,22 +43,80 @@ __False negative__ = Sick people incorrectly identified as healthy.
 
 [http://en.wikipedia.org/wiki/Sensitivity_and_specificity](http://en.wikipedia.org/wiki/Sensitivity_and_specificity)
 
+
 ---
 
-## Define your error rate
+## Key quantities
 
-<img class=center src=../../assets/img/08_PredictionAndMachineLearning/sensspec.png height=400>
+
+<img class=center src=../../assets/img/keyquantities.png height=500>
 
 
 [http://en.wikipedia.org/wiki/Sensitivity_and_specificity](http://en.wikipedia.org/wiki/Sensitivity_and_specificity)
 
+http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/
+
 ---
 
-## Why your choice matters
+## Key quantities as fractions
 
-<img class=center src=../../assets/img/08_PredictionAndMachineLearning/sensspecex.png height=400>
 
-[http://en.wikipedia.org/wiki/Sensitivity_and_specificity](http://en.wikipedia.org/wiki/Sensitivity_and_specificity)
+<img class=center src=../../assets/img/keyquantfrac.png height=500>
+http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/
+
+
+---
+
+## Screening tests
+
+
+<img class=center src=../../assets/img/predpos1.png height=500>
+http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/
+
+---
+
+## General population
+
+
+<img class=center src=../../assets/img/predpos2.png height=500>
+http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/
+
+---
+
+## General population as fractions
+
+
+<img class=center src=../../assets/img/predpos3.png height=500>
+http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/
+
+---
+
+## At risk subpopulation
+
+<img class=center src=../../assets/img/predpos4.png height=500>
+http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/
+
+---
+
+## At risk subpopulation as fraction
+
+<img class=center src=../../assets/img/predpos5.png height=500>
+http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/
+
+
+---
+
+## Key public health issue 
+
+<img class=center src=../../assets/img/mammograms.png height=500>
+http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/
+
+---
+
+## Key public health issue 
+
+<img class=center src=../../assets/img/prostatescreen.png height=500>
+
 
 
 ---

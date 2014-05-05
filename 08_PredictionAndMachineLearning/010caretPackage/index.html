@@ -8,51 +8,46 @@
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
     media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../libraries/frameworks/io2012/js/slides" 
-    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-    <link rel="stylesheet" href = "../../assets/css/custom.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
-<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
-<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+  
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
     
     <!-- LOGO SLIDE -->
-    <!-- END LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>The caret package</h1>
+    <h2></h2>
+    <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
     
 
-    <!-- TITLE SLIDE -->
-    <!-- Should I move this to a Local Layout File? -->
-    <slide class="title-slide segue nobackground">
-      <aside class="gdbar">
-        <img src="../../assets/img/bloomberg_shield.png">
-      </aside>
-      <hgroup class="auto-fadein">
-        <h1>The caret package</h1>
-        <h2></h2>
-        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
-      </hgroup>
-          </slide>
-
     <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
+    <slide class="" id="slide-1" style="background:;">
   <hgroup>
     <h2>The caret R package</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/caret.png height=400></p>
 
 <p><a href="http://caret.r-forge.r-project.org/">http://caret.r-forge.r-project.org/</a></p>
@@ -61,11 +56,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-2" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
     <h2>Caret functionality</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Some preprocessing (cleaning)
 
@@ -96,11 +91,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Machine learning algorithms in R</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Linear discriminant analysis</li>
 <li>Regression</li>
@@ -116,24 +111,24 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Why caret?</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/predicttable.png height=250></p>
 
-<p><a href="??">add link</a></p>
+<p><a href="http://www.edii.uclm.es/%7EuseR-2013/Tutorials/kuhn/user_caret_2up.pdf">http://www.edii.uclm.es/~useR-2013/Tutorials/kuhn/user_caret_2up.pdf</a></p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>SPAM Example: Data splitting</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">library(caret); library(kernlab); data(spam)
 inTrain &lt;- createDataPartition(y=spam$type,
                               p=0.75, list=FALSE)
@@ -149,29 +144,31 @@ dim(training)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>SPAM Example: Fit a model</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">set.seed(32343)
 modelFit &lt;- train(type ~.,data=training, method=&quot;glm&quot;)
 modelFit
 </code></pre>
 
-<pre><code>3451 samples
+<pre><code>Generalized Linear Model 
+
+3451 samples
   57 predictors
    2 classes: &#39;nonspam&#39;, &#39;spam&#39; 
 
 No pre-processing
-Resampling: Bootstrap (25 reps) 
+Resampling: Bootstrapped (25 reps) 
 
 Summary of sample sizes: 3451, 3451, 3451, 3451, 3451, 3451, ... 
 
 Resampling results
 
   Accuracy  Kappa  Accuracy SD  Kappa SD
-  0.9       0.8    0.01         0.03    
+  0.9       0.8    0.02         0.04    
 
 
 </code></pre>
@@ -180,11 +177,11 @@ Resampling results
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>SPAM Example: Final model</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">modelFit &lt;- train(type ~.,data=training, method=&quot;glm&quot;)
 modelFit$finalModel
 </code></pre>
@@ -194,150 +191,150 @@ Call:  NULL
 
 Coefficients:
       (Intercept)               make            address                all              num3d  
-        -1.73e+00          -4.85e-01          -1.15e-01           5.40e-02           2.23e+00  
+        -1.78e+00          -7.76e-01          -1.39e-01           3.68e-02           1.94e+00  
               our               over             remove           internet              order  
-         6.90e-01           8.38e-01           2.23e+00           5.08e-01           5.39e-01  
+         7.61e-01           6.66e-01           2.34e+00           5.94e-01           4.10e-01  
              mail            receive               will             people             report  
-         5.66e-02          -2.76e-01          -5.43e-02          -5.92e-02           2.61e-01  
+         4.08e-02           2.71e-01          -1.08e-01          -2.28e-01          -1.14e-01  
         addresses               free           business              email                you  
-         1.76e+00           1.11e+00           1.03e+00           8.93e-02           8.89e-02  
+         2.16e+00           8.78e-01           6.49e-01           1.38e-01           6.91e-02  
            credit               your               font             num000              money  
-         1.22e+00           1.99e-01           1.04e-01           1.78e+00           8.49e-01  
+         8.00e-01           2.17e-01           2.17e-01           2.04e+00           1.95e+00  
                hp                hpl             george             num650                lab  
-        -2.40e+00          -8.10e-01          -2.53e+01           4.39e-01          -1.81e+00  
+        -1.82e+00          -9.17e-01          -7.50e+00           3.33e-01          -1.89e+00  
              labs             telnet             num857               data             num415  
-        -2.53e-01          -4.38e+00           2.07e+00          -5.07e-01           1.41e+00  
+        -7.15e-02          -2.33e-01           1.15e+00          -7.58e-01           1.33e+00  
             num85         technology            num1999              parts                 pm  
-        -2.12e+00           8.73e-01           1.31e-01           7.87e-01          -1.16e+00  
+        -2.15e+00           1.27e+00          -6.55e-02           9.83e-01          -8.28e-01  
            direct                 cs            meeting           original            project  
-         1.83e+00          -3.99e+01          -2.17e+00          -1.36e+00          -1.81e+00  
+        -2.69e-01          -4.55e+01          -2.50e+00          -6.93e-01          -2.01e+00  
                re                edu              table         conference      charSemicolon  
-        -8.80e-01          -1.30e+00          -2.43e+00          -3.81e+00          -1.25e+00  
+        -5.54e-01          -1.94e+00          -1.32e+00          -3.83e+00          -1.21e+00  
  charRoundbracket  charSquarebracket    charExclamation         charDollar           charHash  
-        -2.09e-02          -6.97e-01           2.57e-01           4.88e+00           2.45e+00  
+        -1.92e-01          -1.92e-01           5.27e-01           6.86e+00           2.11e+00  
        capitalAve        capitalLong       capitalTotal  
-         9.79e-02           7.49e-03           7.63e-04  
+         3.60e-02           1.05e-02           8.13e-04  
 
 Degrees of Freedom: 3450 Total (i.e. Null);  3393 Residual
 Null Deviance:      4630 
-Residual Deviance: 1320     AIC: 1440
+Residual Deviance: 1260     AIC: 1370
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>SPAM Example: Prediction</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">predictions &lt;- predict(modelFit,newdata=testing)
 predictions
 </code></pre>
 
-<pre><code>   [1] spam    spam    spam    spam    spam    spam    nonspam spam    spam    spam    spam   
-  [12] spam    spam    spam    spam    spam    nonspam spam    spam    nonspam spam    spam   
-  [23] spam    spam    spam    spam    spam    nonspam spam    spam    spam    spam    spam   
-  [34] spam    spam    spam    spam    spam    nonspam spam    spam    spam    spam    spam   
-  [45] spam    spam    spam    spam    spam    spam    nonspam spam    spam    spam    spam   
-  [56] spam    spam    spam    spam    spam    nonspam spam    nonspam spam    spam    spam   
-  [67] spam    spam    spam    nonspam spam    spam    spam    spam    spam    spam    spam   
-  [78] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
-  [89] spam    nonspam nonspam nonspam spam    spam    spam    spam    spam    spam    spam   
- [100] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    nonspam
- [111] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
- [122] spam    spam    spam    spam    nonspam nonspam nonspam spam    spam    spam    spam   
- [133] spam    spam    spam    spam    spam    spam    spam    nonspam spam    spam    spam   
- [144] spam    spam    spam    spam    nonspam spam    spam    spam    spam    spam    nonspam
- [155] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
+<pre><code>   [1] spam    spam    spam    nonspam nonspam nonspam spam    spam    spam    spam    spam   
+  [12] spam    spam    spam    spam    spam    spam    spam    nonspam spam    spam    spam   
+  [23] nonspam spam    nonspam nonspam spam    spam    spam    spam    spam    spam    spam   
+  [34] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
+  [45] spam    spam    spam    spam    nonspam spam    nonspam spam    spam    spam    spam   
+  [56] spam    nonspam nonspam spam    spam    spam    spam    spam    nonspam spam    spam   
+  [67] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
+  [78] nonspam nonspam nonspam spam    spam    nonspam spam    nonspam nonspam spam    spam   
+  [89] spam    spam    spam    spam    spam    spam    nonspam spam    spam    spam    spam   
+ [100] spam    spam    spam    nonspam spam    nonspam spam    spam    spam    spam    spam   
+ [111] spam    spam    spam    spam    nonspam spam    spam    spam    spam    spam    spam   
+ [122] spam    spam    spam    spam    spam    spam    spam    nonspam spam    spam    nonspam
+ [133] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
+ [144] spam    spam    spam    nonspam spam    spam    spam    spam    spam    spam    spam   
+ [155] nonspam spam    nonspam spam    nonspam spam    spam    spam    spam    spam    spam   
  [166] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
- [177] spam    spam    spam    spam    nonspam spam    spam    spam    spam    spam    spam   
- [188] spam    spam    spam    spam    spam    nonspam spam    spam    nonspam spam    spam   
- [199] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
- [210] spam    spam    spam    spam    nonspam spam    spam    spam    spam    spam    spam   
+ [177] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
+ [188] nonspam spam    spam    nonspam spam    nonspam spam    spam    spam    spam    spam   
+ [199] spam    spam    spam    spam    spam    nonspam spam    spam    spam    spam    spam   
+ [210] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
  [221] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
- [232] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
+ [232] spam    spam    spam    spam    spam    spam    nonspam spam    spam    nonspam spam   
  [243] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
- [254] nonspam spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
- [265] spam    spam    spam    spam    spam    nonspam spam    nonspam spam    spam    spam   
- [276] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
- [287] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
+ [254] spam    spam    spam    spam    nonspam spam    spam    spam    spam    spam    spam   
+ [265] nonspam spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
+ [276] spam    spam    spam    spam    spam    spam    nonspam spam    spam    spam    spam   
+ [287] nonspam nonspam spam    spam    spam    spam    spam    spam    spam    spam    spam   
  [298] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
- [309] spam    spam    spam    spam    spam    spam    nonspam spam    spam    spam    spam   
- [320] nonspam spam    spam    spam    spam    spam    spam    nonspam spam    spam    spam   
+ [309] spam    spam    spam    nonspam spam    spam    spam    spam    spam    spam    spam   
+ [320] spam    spam    spam    spam    spam    spam    spam    spam    spam    nonspam spam   
  [331] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
  [342] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
- [353] spam    spam    spam    spam    spam    spam    nonspam spam    spam    spam    spam   
- [364] spam    spam    nonspam nonspam spam    spam    spam    spam    spam    spam    spam   
+ [353] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
+ [364] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
  [375] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
- [386] spam    spam    spam    nonspam nonspam nonspam spam    spam    spam    spam    nonspam
+ [386] nonspam spam    spam    spam    spam    nonspam spam    spam    spam    spam    spam   
  [397] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
- [408] spam    spam    spam    spam    nonspam spam    spam    spam    spam    nonspam spam   
- [419] spam    nonspam spam    spam    nonspam spam    spam    spam    nonspam spam    spam   
- [430] spam    spam    spam    spam    spam    nonspam spam    spam    spam    spam    spam   
+ [408] spam    spam    nonspam nonspam spam    spam    spam    spam    spam    spam    nonspam
+ [419] spam    spam    spam    spam    nonspam spam    nonspam spam    nonspam spam    spam   
+ [430] nonspam nonspam spam    nonspam nonspam spam    nonspam spam    spam    spam    spam   
  [441] spam    spam    spam    spam    spam    spam    spam    spam    spam    spam    spam   
- [452] spam    spam    nonspam nonspam nonspam nonspam nonspam nonspam nonspam spam    nonspam
+ [452] spam    spam    spam    nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [463] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [474] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam
+ [474] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [485] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [496] nonspam spam    nonspam nonspam nonspam nonspam nonspam nonspam nonspam spam    nonspam
+ [496] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam
  [507] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [518] nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam nonspam nonspam nonspam
+ [518] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [529] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [540] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam spam   
+ [540] nonspam nonspam spam    nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [551] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [562] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
+ [562] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam
  [573] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [584] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [595] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam spam   
- [606] nonspam nonspam nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam
- [617] nonspam nonspam nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam
- [628] spam    spam    nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
+ [584] nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam nonspam nonspam
+ [595] nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam nonspam nonspam
+ [606] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
+ [617] spam    nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
+ [628] nonspam nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam
  [639] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [650] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam
- [661] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [672] nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam nonspam
+ [661] nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam nonspam nonspam
+ [672] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [683] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [694] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam spam   
- [705] nonspam nonspam spam    spam    nonspam nonspam nonspam nonspam nonspam nonspam nonspam
+ [694] nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam nonspam
+ [705] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [716] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [727] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [738] nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam nonspam
+ [738] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [749] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [760] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [771] nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam nonspam nonspam
+ [760] nonspam spam    spam    nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
+ [771] nonspam nonspam spam    nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [782] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [793] nonspam spam    nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
+ [793] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [804] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [815] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [826] spam    spam    nonspam spam    nonspam nonspam nonspam nonspam nonspam nonspam spam   
- [837] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [848] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam
- [859] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [870] nonspam nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam
+ [815] nonspam nonspam nonspam spam    spam    nonspam nonspam nonspam nonspam nonspam nonspam
+ [826] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
+ [837] nonspam nonspam spam    nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam
+ [848] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
+ [859] nonspam spam    nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
+ [870] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [881] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [892] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [903] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [914] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [925] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [936] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
- [947] nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam nonspam spam   
- [958] nonspam nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam
- [969] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
+ [947] nonspam spam    nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
+ [958] nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam nonspam nonspam
+ [969] nonspam nonspam nonspam spam    nonspam nonspam spam    nonspam nonspam nonspam nonspam
  [980] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
  [991] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
 [1002] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
 [1013] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
 [1024] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
-[1035] nonspam nonspam nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam spam   
-[1046] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
-[1057] nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam nonspam nonspam
-[1068] spam    nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
-[1079] nonspam nonspam spam    nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam
-[1090] nonspam nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam
-[1101] nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam spam    nonspam nonspam
-[1112] nonspam nonspam spam    spam    spam    nonspam nonspam nonspam nonspam nonspam nonspam
+[1035] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
+[1046] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam spam   
+[1057] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam spam   
+[1068] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
+[1079] nonspam nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam
+[1090] nonspam nonspam nonspam nonspam nonspam spam    spam    nonspam nonspam nonspam nonspam
+[1101] nonspam nonspam nonspam spam    spam    nonspam nonspam nonspam nonspam spam    nonspam
+[1112] nonspam nonspam nonspam nonspam nonspam spam    nonspam nonspam nonspam nonspam nonspam
 [1123] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
 [1134] nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam nonspam
 [1145] nonspam nonspam nonspam nonspam nonspam nonspam
@@ -348,11 +345,11 @@ Levels: nonspam spam
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>SPAM Example: Confusion Matrix</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">confusionMatrix(predictions,testing$type)
 </code></pre>
 
@@ -360,26 +357,27 @@ Levels: nonspam spam
 
           Reference
 Prediction nonspam spam
-   nonspam     657   42
-   spam         40  411
+   nonspam     665   54
+   spam         32  399
 
-               Accuracy : 0.929         
-                 95% CI : (0.912, 0.943)
-    No Information Rate : 0.606         
-    P-Value [Acc &gt; NIR] : &lt;2e-16        
+               Accuracy : 0.925        
+                 95% CI : (0.908, 0.94)
+    No Information Rate : 0.606        
+    P-Value [Acc &gt; NIR] : &lt;2e-16       
 
-                  Kappa : 0.851         
- Mcnemar&#39;s Test P-Value : 0.912         
+                  Kappa : 0.842        
+ Mcnemar&#39;s Test P-Value : 0.0235       
 
-            Sensitivity : 0.943         
-            Specificity : 0.907         
-         Pos Pred Value : 0.940         
-         Neg Pred Value : 0.911         
-             Prevalence : 0.606         
-         Detection Rate : 0.571         
-   Detection Prevalence : 0.608         
+            Sensitivity : 0.954        
+            Specificity : 0.881        
+         Pos Pred Value : 0.925        
+         Neg Pred Value : 0.926        
+             Prevalence : 0.606        
+         Detection Rate : 0.578        
+   Detection Prevalence : 0.625        
+      Balanced Accuracy : 0.917        
 
-       &#39;Positive&#39; Class : nonspam       
+       &#39;Positive&#39; Class : nonspam      
 
 </code></pre>
 
@@ -387,11 +385,11 @@ Prediction nonspam spam
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Further information</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Caret tutorials:
 
@@ -412,34 +410,95 @@ Prediction nonspam spam
 
     <slide class="backdrop"></slide>
   </slides>
-
-  <!--[if IE]>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='The caret R package'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Caret functionality'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Machine learning algorithms in R'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Why caret?'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='SPAM Example: Data splitting'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='SPAM Example: Fit a model'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='SPAM Example: Final model'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='SPAM Example: Prediction'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='SPAM Example: Confusion Matrix'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Further information'>
+         10
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
     <script 
       src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
 </body>
-<!-- Grab CDN jQuery, fall back to local if offline -->
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
-<!-- Load Javascripts for Widgets -->
-<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> -->
-<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
 </script>
 <!-- LOAD HIGHLIGHTER JS FILES -->
-<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- DONE LOADING HIGHLIGHTER JS FILES -->
-</html>
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -56,7 +56,7 @@ summary(Wage)
 
 ---
 
-### Get training/test sets
+## Get training/test sets
 
 ```{r trainingTest,dependson="loadData",cache=TRUE}
 inTrain <- createDataPartition(y=Wage$wage,
@@ -69,7 +69,7 @@ dim(training); dim(testing)
 
 ---
 
-### Feature plot
+## Feature plot
 
 ```{r ,dependson="trainingTest",fig.height=4,fig.width=4}
 featurePlot(x=training[,c("age","education","jobclass")],
@@ -80,7 +80,7 @@ featurePlot(x=training[,c("age","education","jobclass")],
 
 ---
 
-### Plot age versus wage
+## Plot age versus wage
 
 
 ```{r ,dependson="trainingTest",fig.height=4,fig.width=6}
@@ -90,7 +90,7 @@ qplot(age,wage,data=training)
 
 ---
 
-### Plot age versus wage colour by jobclass
+## Plot age versus wage colour by jobclass
 
 
 ```{r ,dependson="trainingTest",fig.height=4,fig.width=6}
@@ -100,7 +100,7 @@ qplot(age,wage,colour=jobclass,data=training)
 
 ---
 
-### Plot age versus wage colour by education
+## Plot age versus wage colour by education
 
 
 ```{r ,dependson="trainingTest",fig.height=4,fig.width=6}

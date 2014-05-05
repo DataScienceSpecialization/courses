@@ -12,7 +12,9 @@ gridExtra
 Hmisc
 ISLR
 kernlab
+knitr
 lattice
+makeslides
 MASS
 plyr
 randomForest

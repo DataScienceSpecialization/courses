@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -72,7 +72,7 @@ summary(Wage)
 
 ---
 
-### Get training/test sets
+## Get training/test sets
 
 
 ```r
@@ -83,7 +83,7 @@ dim(training); dim(testing)
 ```
 
 ```
-[1] 898  11
+[1] 898  12
 ```
 
 
@@ -91,7 +91,7 @@ dim(training); dim(testing)
 
 ---
 
-### Feature plot
+## Feature plot
 
 
 ```r
@@ -106,7 +106,7 @@ featurePlot(x=training[,c("age","education","jobclass")],
 
 ---
 
-### Plot age versus wage
+## Plot age versus wage
 
 
 
@@ -120,7 +120,7 @@ qplot(age,wage,data=training)
 
 ---
 
-### Plot age versus wage colour by jobclass
+## Plot age versus wage colour by jobclass
 
 
 
@@ -134,7 +134,7 @@ qplot(age,wage,colour=jobclass,data=training)
 
 ---
 
-### Plot age versus wage colour by education
+## Plot age versus wage colour by education
 
 
 
@@ -160,18 +160,20 @@ print(modFit)
 ```
 
 ```
+Linear Regression 
+
 2102 samples
-  10 predictors
+  11 predictors
 
 No pre-processing
-Resampling: Bootstrap (25 reps) 
+Resampling: Bootstrapped (25 reps) 
 
 Summary of sample sizes: 2102, 2102, 2102, 2102, 2102, 2102, ... 
 
 Resampling results
 
   RMSE  Rsquared  RMSE SD  Rsquared SD
-  40    0.3       1        0.02       
+  40    0.2       1        0.02       
 
  
 ```

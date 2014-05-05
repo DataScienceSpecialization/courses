@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -182,7 +182,7 @@ p1
 
 ---
 
-### Boxplots with points overlayed
+## Boxplots with points overlayed
 
 
 
@@ -198,7 +198,7 @@ grid.arrange(p1,p2,ncol=2)
 
 ---
 
-### Tables
+## Tables
 
 
 ```r
@@ -230,7 +230,7 @@ cutWage         1. Industrial 2. Information
 
 ---
 
-### Density plots
+## Density plots
 
 
 ```r

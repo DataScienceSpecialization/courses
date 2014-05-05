@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -35,16 +35,16 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 ## Key ideas
 
 * Iteratively split variables into groups
-* Split where maximally predictive
-* Evaluate "homogeneity" within each branch
-* Fitting multiple trees often works better (forests)
+* Evaluate "homogeneity" within each group
+* Split again if necessary
 
 __Pros__:
-* Easy to implement
+
 * Easy to interpret
 * Better performance in nonlinear settings
 
 __Cons__:
+
 * Without pruning/cross-validation can lead to overfitting
 * Harder to estimate uncertainty
 * Results may be variable
@@ -68,6 +68,7 @@ __Cons__:
 4. Within each split, find the best variable/split that separates the outcomes
 5. Continue until the groups are too small or sufficiently "pure"
 
+
 ---
 
 ## Measures of impurity
@@ -75,14 +76,57 @@ __Cons__:
 $$\hat{p}_{mk} = \frac{1}{N_m}\sum_{x_i\; in \; Leaf \; m}\mathbb{1}(y_i = k)$$
 
 __Misclassification Error__: 
-$$ 1 - \hat{p}_{mk(m)}$$
+$$ 1 - \hat{p}_{m k(m)}; k(m) = {\rm most; common; k}$$ 
+* 0 = perfect purity
+* 0.5 = no purity
 
 __Gini index__:
-$$ \sum_{k \neq k'} \hat{p}_{mk} \times \hat{p}_{mk'} = \sum_{k=1}^K \hat{p}_{mk}(1-\hat{p}_{mk}) $$
+$$ \sum_{k \neq k'} \hat{p}_{mk} \times \hat{p}_{mk'} = \sum_{k=1}^K \hat{p}_{mk}(1-\hat{p}_{mk}) = 1 - \sum_{k=1}^K p_{mk}^2$$
 
-__Cross-entropy or deviance__:
+* 0 = perfect purity
+* 0.5 = no purity
 
-$$ -\sum_{k=1}^K \hat{p}_{mk} \ln\hat{p}_{mk} $$
+http://en.wikipedia.org/wiki/Decision_tree_learning
+
+---
+
+## Measures of impurity
+
+__Deviance/information gain__:
+
+$$ -\sum_{k=1}^K \hat{p}_{mk} \log_2\hat{p}_{mk} $$
+* 0 = perfect purity
+* 1 = no purity
+
+http://en.wikipedia.org/wiki/Decision_tree_learning
+
+
+--- &twocol w1:50% w2:50%
+## Measures of impurity
+
+*** =left
+
+```{r leftplot,fig.height=3,fig.width=4,echo=FALSE,fig.align="center"}
+par(mar=c(0,0,0,0)); set.seed(1234); x = rep(1:4,each=4); y = rep(1:4,4)
+plot(x,y,xaxt="n",yaxt="n",cex=3,col=c(rep("blue",15),rep("red",1)),pch=19)
+```
+
+* __Misclassification:__ $1/16 = 0.06$
+* __Gini:__ $1 - [(1/16)^2 + (15/16)^2] = 0.12$
+* __Information:__$-[1/16 \times log2(1/16) + 15/16 \times log2(15/16)] = 0.34$
+
+*** =right
+
+```{r,dependson="leftplot",fig.height=3,fig.width=4,echo=FALSE,fig.align="center"}
+par(mar=c(0,0,0,0)); 
+plot(x,y,xaxt="n",yaxt="n",cex=3,col=c(rep("blue",8),rep("red",8)),pch=19)
+```
+
+* __Misclassification:__ $8/16 = 0.5$
+* __Gini:__ $1 - [(8/16)^2 + (8/16)^2] = 0.5$
+* __Information:__$-[1/16 \times log2(1/16) + 15/16 \times log2(15/16)] = 1$
+
+
 
 
 ---

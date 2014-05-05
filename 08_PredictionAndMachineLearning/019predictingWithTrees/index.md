@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -22,16 +22,16 @@ mode        : selfcontained # {standalone, draft}
 ## Key ideas
 
 * Iteratively split variables into groups
-* Split where maximally predictive
-* Evaluate "homogeneity" within each branch
-* Fitting multiple trees often works better (forests)
+* Evaluate "homogeneity" within each group
+* Split again if necessary
 
 __Pros__:
-* Easy to implement
+
 * Easy to interpret
 * Better performance in nonlinear settings
 
 __Cons__:
+
 * Without pruning/cross-validation can lead to overfitting
 * Harder to estimate uncertainty
 * Results may be variable
@@ -55,6 +55,7 @@ __Cons__:
 4. Within each split, find the best variable/split that separates the outcomes
 5. Continue until the groups are too small or sufficiently "pure"
 
+
 ---
 
 ## Measures of impurity
@@ -62,19 +63,59 @@ __Cons__:
 $$\hat{p}_{mk} = \frac{1}{N_m}\sum_{x_i\; in \; Leaf \; m}\mathbb{1}(y_i = k)$$
 
 __Misclassification Error__: 
-$$ 1 - \hat{p}_{mk(m)}$$
+$$ 1 - \hat{p}_{m k(m)}; k(m) = {\rm most; common; k}$$ 
+* 0 = perfect purity
+* 0.5 = no purity
 
 __Gini index__:
-$$ \sum_{k \neq k'} \hat{p}_{mk} \times \hat{p}_{mk'} = \sum_{k=1}^K \hat{p}_{mk}(1-\hat{p}_{mk}) $$
+$$ \sum_{k \neq k'} \hat{p}_{mk} \times \hat{p}_{mk'} = \sum_{k=1}^K \hat{p}_{mk}(1-\hat{p}_{mk}) = 1 - \sum_{k=1}^K p_{mk}^2$$
 
-__Cross-entropy or deviance__:
+* 0 = perfect purity
+* 0.5 = no purity
 
-$$ -\sum_{k=1}^K \hat{p}_{mk} \ln\hat{p}_{mk} $$
+http://en.wikipedia.org/wiki/Decision_tree_learning
+
+---
+
+## Measures of impurity
+
+__Deviance/information gain__:
+
+$$ -\sum_{k=1}^K \hat{p}_{mk} \log_2\hat{p}_{mk} $$
+* 0 = perfect purity
+* 1 = no purity
+
+http://en.wikipedia.org/wiki/Decision_tree_learning
+
+
+--- &twocol w1:50% w2:50%
+## Measures of impurity
+
+*** =left
+
+<div class="rimage center"><img src="fig/leftplot.png" title="plot of chunk leftplot" alt="plot of chunk leftplot" class="plot" /></div>
+
+
+* __Misclassification:__ $1/16 = 0.06$
+* __Gini:__ $1 - [(1/16)^2 + (15/16)^2] = 0.12$
+* __Information:__$-[1/16 \times log2(1/16) + 15/16 \times log2(15/16)] = 0.34$
+
+*** =right
+
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+
+
+* __Misclassification:__ $8/16 = 0.5$
+* __Gini:__ $1 - [(8/16)^2 + (8/16)^2] = 0.5$
+* __Information:__$-[1/16 \times log2(1/16) + 15/16 \times log2(15/16)] = 1$
+
+
 
 
 ---
 
 ## Example: Iris Data
+
 
 ```r
 data(iris); library(ggplot2)
@@ -125,7 +166,7 @@ dim(training); dim(testing)
 qplot(Petal.Width,Sepal.Width,colour=Species,data=training)
 ```
 
-<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
 
 
 
@@ -146,11 +187,11 @@ n= 105
 node), split, n, loss, yval, (yprob)
       * denotes terminal node
 
-1) root 105 70 setosa (0.33333 0.33333 0.33333)  
-  2) Petal.Length< 2.6 35  0 setosa (1.00000 0.00000 0.00000) *
-  3) Petal.Length>=2.6 70 35 versicolor (0.00000 0.50000 0.50000)  
-    6) Petal.Length< 4.75 31  1 versicolor (0.00000 0.96774 0.03226) *
-    7) Petal.Length>=4.75 39  5 virginica (0.00000 0.12821 0.87179) *
+1) root 105 70 setosa (0.3333 0.3333 0.3333)  
+  2) Petal.Length< 2.45 35  0 setosa (1.0000 0.0000 0.0000) *
+  3) Petal.Length>=2.45 70 35 versicolor (0.0000 0.5000 0.5000)  
+    6) Petal.Length< 4.75 31  0 versicolor (0.0000 1.0000 0.0000) *
+    7) Petal.Length>=4.75 39  4 virginica (0.0000 0.1026 0.8974) *
 ```
 
 
@@ -165,7 +206,7 @@ plot(modFit$finalModel, uniform=TRUE,
 text(modFit$finalModel, use.n=TRUE, all=TRUE, cex=.8)
 ```
 
-<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
 
 
 
@@ -179,7 +220,7 @@ library(rattle)
 fancyRpartPlot(modFit$finalModel)
 ```
 
-<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
 
 
 ---
@@ -194,9 +235,9 @@ predict(modFit,newdata=testing)
 ```
  [1] setosa     setosa     setosa     setosa     setosa     setosa     setosa     setosa    
  [9] setosa     setosa     setosa     setosa     setosa     setosa     setosa     versicolor
-[17] versicolor versicolor versicolor versicolor versicolor virginica  versicolor versicolor
-[25] versicolor versicolor versicolor versicolor versicolor versicolor virginica  virginica 
-[33] virginica  virginica  virginica  virginica  virginica  virginica  virginica  virginica 
+[17] versicolor versicolor versicolor versicolor versicolor versicolor versicolor versicolor
+[25] virginica  versicolor virginica  versicolor versicolor versicolor virginica  virginica 
+[33] virginica  versicolor virginica  virginica  virginica  virginica  virginica  virginica 
 [41] virginica  virginica  virginica  virginica  virginica 
 Levels: setosa versicolor virginica
 ```

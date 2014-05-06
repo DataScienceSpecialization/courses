@@ -18,7 +18,7 @@ mode        : selfcontained # {standalone, draft}
 Statistical inference is the process of drawing formal conclusions from
 data. 
 
-In our class, we wil define formal statistical inference as settings where one wants to infer facts about a population using noisy
+In our class, we will define formal statistical inference as settings where one wants to infer facts about a population using noisy
 statistical data where uncertainty must be accounted for.
 
 ---

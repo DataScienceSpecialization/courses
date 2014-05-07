@@ -96,7 +96,7 @@ $$
 - The following are useful facts about covariance
   1. $Cov(X, Y) = Cov(Y, X)$
   2. $Cov(X, Y)$ can be negative or positive
-  3. $|Cov(X, Y)| \leq \sqrt{Var(X) Var(y)}$
+  3. $|Cov(X, Y)| \leq \sqrt{Var(X) Var(Y)}$
 
 ---
 
@@ -104,7 +104,7 @@ $$
 
 - The **correlation** between $X$ and $Y$ is 
 $$
-Cor(X, Y) = Cov(X, Y) / \sqrt{Var(X) Var(y)}
+Cor(X, Y) = Cov(X, Y) / \sqrt{Var(X) Var(Y)}
 $$
 
   1. $-1 \leq Cor(X, Y) \leq 1$
@@ -193,6 +193,9 @@ $$
 
 ---
 ## Example
+```{r, echo=FALSE, message=FALSE}
+require(UsingR)
+```
 ```{r}
 data(father.son); 
 x <- father.son$sheight

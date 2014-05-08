@@ -417,49 +417,8 @@ cat(&#39;&lt;iframe src=&quot;fig/h1.html&quot; width=100%, height=600&gt;&lt;/i
 <li>Otherwise, it&#39;s challenging to extend without fairly deep knowledge of the JS
 libraries that it&#39;s calling.</li>
 </ul></li>
-<li>rCharts is unde fairly rapid development</li>
+<li>rCharts is under fairly rapid development</li>
 </ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-23" style="background:;">
-  <hgroup>
-    <h2>BONUS RMaps!!!</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>There&#39;s a new github repository describing connections between more 
-mapping libraries and R
-
-<ul>
-<li>We already saw leaflet</li>
-</ul></li>
-</ul>
-
-<pre><code>library(devtools);
-require(devtools)
-install_github(&#39;ramnathv/rCharts@dev&#39;)
-install_github(&#39;ramnathv/rMaps&#39;)
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-24" style="background:;">
-  <hgroup>
-    <h2>Creating a map</h2>
-  </hgroup>
-  <article data-timings="">
-    <pre><code>library(rjson); library(rMaps)
-crosslet(
-  x = &quot;country&quot;, 
-  y = c(&quot;web_index&quot;, &quot;universal_access&quot;, &quot;impact_empowerment&quot;, &quot;freedom_openness&quot;),
-  data = web_index
-)
-</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -599,18 +558,6 @@ crosslet(
       <a href="#" target="_self" rel='tooltip' 
         data-slide=22 title='rCharts summarized'>
          22
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=23 title='BONUS RMaps!!!'>
-         23
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=24 title='Creating a map'>
-         24
       </a>
     </li>
   </ul>

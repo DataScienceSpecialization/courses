@@ -8,51 +8,46 @@
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
     media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../libraries/frameworks/io2012/js/slides" 
-    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-    <link rel="stylesheet" href = "../../assets/css/custom.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
-<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
-<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+  
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
     
     <!-- LOGO SLIDE -->
-    <!-- END LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Data resources</h1>
+    <h2></h2>
+    <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
     
 
-    <!-- TITLE SLIDE -->
-    <!-- Should I move this to a Local Layout File? -->
-    <slide class="title-slide segue nobackground">
-      <aside class="gdbar">
-        <img src="../../assets/img/bloomberg_shield.png">
-      </aside>
-      <hgroup class="auto-fadein">
-        <h1>Data resources</h1>
-        <h2></h2>
-        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
-      </hgroup>
-          </slide>
-
     <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
+    <slide class="" id="slide-1" style="background:;">
   <hgroup>
     <h2>Open Government Sites</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>United Nations <a href="http://data.un.org/">http://data.un.org/</a></li>
 <li>U.S. <a href="http://www.data.gov/">http://www.data.gov/</a>
@@ -74,11 +69,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-2" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
     <h2>Gapminder</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><img class=center src=../../assets/img/03_ObtainingData/gapminder.png height=400/></p>
 
 <p><a href="http://www.gapminder.org/">http://www.gapminder.org/</a></p>
@@ -87,11 +82,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Survey data from the United States</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><img class=center src=../../assets/img/03_ObtainingData/asdfree.png height=400/></p>
 
 <p><a href="http://www.asdfree.com/">http://www.asdfree.com/</a></p>
@@ -100,11 +95,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Infochimps Marketplace</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><img class=center src=../../assets/img/03_ObtainingData/infochimps.png height=400/></p>
 
 <p><a href="http://www.infochimps.com/marketplace">http://www.infochimps.com/marketplace</a></p>
@@ -113,11 +108,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>Kaggle</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><img class=center src=../../assets/img/03_ObtainingData/kaggle.png  height=400 /></p>
 
 <p><a href="http://www.kaggle.com/">http://www.kaggle.com/</a></p>
@@ -126,11 +121,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Collections by data scientists</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Hilary Mason <a href="http://bitly.com/bundles/hmason/1">http://bitly.com/bundles/hmason/1</a></li>
 <li>Peter Skomoroch <a href="https://delicious.com/pskomoroch/dataset">https://delicious.com/pskomoroch/dataset</a></li>
@@ -143,13 +138,13 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>More specialized collections</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
-<li><a href="http://snap.stanford.edu/data/">Stanford Large Newtork Data</a></li>
+<li><a href="http://snap.stanford.edu/data/">Stanford Large Network Data</a></li>
 <li><a href="http://archive.ics.uci.edu/ml/">UCI Machine Learning</a></li>
 <li><a href="http://www.kdnuggets.com/datasets/index.html">KDD Nugets Datasets</a></li>
 <li><a href="http://lib.stat.cmu.edu/datasets/">CMU Statlib</a></li>
@@ -162,11 +157,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>Some API&#39;s with R interfaces</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li><a href="https://dev.twitter.com/">twitter</a> and <a href="http://cran.r-project.org/web/packages/twitteR/index.html">twitteR</a> package</li>
 <li><a href="http://api.figshare.com/docs/intro.html">figshare</a> and <a href="http://cran.r-project.org/web/packages/rfigshare/index.html">rfigshare</a></li>
@@ -182,34 +177,83 @@
 
     <slide class="backdrop"></slide>
   </slides>
-
-  <!--[if IE]>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Open Government Sites'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Gapminder'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Survey data from the United States'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Infochimps Marketplace'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Kaggle'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Collections by data scientists'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='More specialized collections'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Some API&#39;s with R interfaces'>
+         8
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
     <script 
       src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
 </body>
-<!-- Grab CDN jQuery, fall back to local if offline -->
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
-<!-- Load Javascripts for Widgets -->
-<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> -->
-<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
 </script>
 <!-- LOAD HIGHLIGHTER JS FILES -->
-<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- DONE LOADING HIGHLIGHTER JS FILES -->
-</html>
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

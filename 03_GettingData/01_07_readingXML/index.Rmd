@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -101,14 +101,6 @@ rootNode[[1]][[1]]
 ## Programatically extract parts of the file
 
 ```{r explore2, dependson="xmldata"}
-xmlSApply(rootNode,xmlValue)
-```
-
----
-
-## Programatically extract parts of the file
-
-```{r explore3, dependson="xmldata"}
 xmlSApply(rootNode,xmlValue)
 ```
 

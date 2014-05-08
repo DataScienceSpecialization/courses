@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -191,7 +191,7 @@ will match the lines
 
 ## Character Classes with []
 
-When used at the beginning of a character class, the “^” is also a metacharacter and indicates matching characters NOT in the indicated class
+When used at the beginning of a character class, the “\^” is also a metacharacter and indicates matching characters NOT in the indicated class
 
 ```markdown
 [^?.]$

@@ -1,0 +1,217 @@
+---
+title       : Predicting with trees
+subtitle    : 
+author      : Jeffrey Leek
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../librariesNew
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache=TRUE, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+
+## Key ideas
+
+* Iteratively split variables into groups
+* Evaluate "homogeneity" within each group
+* Split again if necessary
+
+__Pros__:
+
+* Easy to interpret
+* Better performance in nonlinear settings
+
+__Cons__:
+
+* Without pruning/cross-validation can lead to overfitting
+* Harder to estimate uncertainty
+* Results may be variable
+
+
+---
+
+## Example Tree
+
+<img class=center src=../../assets/img/08_PredictionAndMachineLearning/obamaTree.png height=450>
+
+[http://graphics8.nytimes.com/images/2008/04/16/us/0416-nat-subOBAMA.jpg](http://graphics8.nytimes.com/images/2008/04/16/us/0416-nat-subOBAMA.jpg)
+
+---
+
+## Basic algorithm
+
+1. Start with all variables in one group
+2. Find the variable/split that best separates the outcomes
+3. Divide the data into two groups ("leaves") on that split ("node")
+4. Within each split, find the best variable/split that separates the outcomes
+5. Continue until the groups are too small or sufficiently "pure"
+
+
+---
+
+## Measures of impurity
+
+$$\hat{p}_{mk} = \frac{1}{N_m}\sum_{x_i\; in \; Leaf \; m}\mathbb{1}(y_i = k)$$
+
+__Misclassification Error__: 
+$$ 1 - \hat{p}_{m k(m)}; k(m) = {\rm most; common; k}$$ 
+* 0 = perfect purity
+* 0.5 = no purity
+
+__Gini index__:
+$$ \sum_{k \neq k'} \hat{p}_{mk} \times \hat{p}_{mk'} = \sum_{k=1}^K \hat{p}_{mk}(1-\hat{p}_{mk}) = 1 - \sum_{k=1}^K p_{mk}^2$$
+
+* 0 = perfect purity
+* 0.5 = no purity
+
+http://en.wikipedia.org/wiki/Decision_tree_learning
+
+---
+
+## Measures of impurity
+
+__Deviance/information gain__:
+
+$$ -\sum_{k=1}^K \hat{p}_{mk} \log_2\hat{p}_{mk} $$
+* 0 = perfect purity
+* 1 = no purity
+
+http://en.wikipedia.org/wiki/Decision_tree_learning
+
+
+--- &twocol w1:50% w2:50%
+## Measures of impurity
+
+*** =left
+
+```{r leftplot,fig.height=3,fig.width=4,echo=FALSE,fig.align="center"}
+par(mar=c(0,0,0,0)); set.seed(1234); x = rep(1:4,each=4); y = rep(1:4,4)
+plot(x,y,xaxt="n",yaxt="n",cex=3,col=c(rep("blue",15),rep("red",1)),pch=19)
+```
+
+* __Misclassification:__ $1/16 = 0.06$
+* __Gini:__ $1 - [(1/16)^2 + (15/16)^2] = 0.12$
+* __Information:__$-[1/16 \times log2(1/16) + 15/16 \times log2(15/16)] = 0.34$
+
+*** =right
+
+```{r,dependson="leftplot",fig.height=3,fig.width=4,echo=FALSE,fig.align="center"}
+par(mar=c(0,0,0,0)); 
+plot(x,y,xaxt="n",yaxt="n",cex=3,col=c(rep("blue",8),rep("red",8)),pch=19)
+```
+
+* __Misclassification:__ $8/16 = 0.5$
+* __Gini:__ $1 - [(8/16)^2 + (8/16)^2] = 0.5$
+* __Information:__$-[1/16 \times log2(1/16) + 15/16 \times log2(15/16)] = 1$
+
+
+
+
+---
+
+## Example: Iris Data
+
+```{r iris, cache=TRUE}
+data(iris); library(ggplot2)
+names(iris)
+table(iris$Species)
+```
+
+
+---
+
+## Create training and test sets
+
+```{r trainingTest, dependson="iris",cache=TRUE}
+inTrain <- createDataPartition(y=iris$Species,
+                              p=0.7, list=FALSE)
+training <- iris[inTrain,]
+testing <- iris[-inTrain,]
+dim(training); dim(testing)
+```
+
+
+---
+
+## Iris petal widths/sepal width
+
+```{r, dependson="trainingTest",fig.height=4,fig.width=6}
+qplot(Petal.Width,Sepal.Width,colour=Species,data=training)
+```
+
+
+---
+
+## Iris petal widths/sepal width
+
+```{r createTree, dependson="trainingTest", cache=TRUE}
+library(caret)
+modFit <- train(Species ~ .,method="rpart",data=training)
+print(modFit$finalModel)
+```
+
+---
+
+## Plot tree
+
+```{r, dependson="createTree", fig.height=4.5, fig.width=4.5}
+plot(modFit$finalModel, uniform=TRUE, 
+      main="Classification Tree")
+text(modFit$finalModel, use.n=TRUE, all=TRUE, cex=.8)
+```
+
+
+---
+
+## Prettier plots
+
+```{r, dependson="createTree", fig.height=4.5, fig.width=4.5}
+library(rattle)
+fancyRpartPlot(modFit$finalModel)
+```
+
+---
+
+## Predicting new values
+
+```{r newdata, dependson="createTree", fig.height=4.5, fig.width=4.5, cache=TRUE}
+predict(modFit,newdata=testing)
+```
+
+---
+
+## Notes and further resources
+
+* Classification trees are non-linear models
+  * They use interactions between variables
+  * Data transformations may be less important (monotone transformations)
+  * Trees can also be used for regression problems (continuous outcome)
+* Note that there are multiple tree building options
+in R both in the caret package - [party](http://cran.r-project.org/web/packages/party/index.html), [rpart](http://cran.r-project.org/web/packages/rpart/index.html) and out of the caret package - [tree](http://cran.r-project.org/web/packages/tree/index.html)
+* [Introduction to statistical learning](http://www-bcf.usc.edu/~gareth/ISL/)
+* [Elements of Statistical Learning](http://www-stat.stanford.edu/~tibs/ElemStatLearn/)
+* [Classification and regression trees](http://www.amazon.com/Classification-Regression-Trees-Leo-Breiman/dp/0412048418)
+
+

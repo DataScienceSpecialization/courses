@@ -1,0 +1,164 @@
+---
+title       : Types of errors
+subtitle    : 
+author      : Jeffrey Leek
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow   # 
+url:
+  lib: ../../librariesNew
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# make this an external chunk that can be included in any file
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+
+## Basic terms
+
+In general, __Positive__ = identified and __negative__ = rejected. Therefore:
+
+__True positive__ = correctly identified
+
+__False positive__ = incorrectly identified
+
+__True negative__ = correctly rejected
+
+__False negative__ = incorrectly rejected
+
+_Medical testing example_:
+
+__True positive__ = Sick people correctly diagnosed as sick
+
+__False positive__= Healthy people incorrectly identified as sick
+
+__True negative__ = Healthy people correctly identified as healthy
+
+__False negative__ = Sick people incorrectly identified as healthy.
+
+[http://en.wikipedia.org/wiki/Sensitivity_and_specificity](http://en.wikipedia.org/wiki/Sensitivity_and_specificity)
+
+
+---
+
+## Key quantities
+
+
+<img class=center src=../../assets/img/keyquantities.png height=500>
+
+
+[http://en.wikipedia.org/wiki/Sensitivity_and_specificity](http://en.wikipedia.org/wiki/Sensitivity_and_specificity)
+
+http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/
+
+---
+
+## Key quantities as fractions
+
+
+<img class=center src=../../assets/img/keyquantfrac.png height=500>
+http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/
+
+
+---
+
+## Screening tests
+
+
+<img class=center src=../../assets/img/predpos1.png height=500>
+http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/
+
+---
+
+## General population
+
+
+<img class=center src=../../assets/img/predpos2.png height=500>
+http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/
+
+---
+
+## General population as fractions
+
+
+<img class=center src=../../assets/img/predpos3.png height=500>
+http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/
+
+---
+
+## At risk subpopulation
+
+<img class=center src=../../assets/img/predpos4.png height=500>
+http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/
+
+---
+
+## At risk subpopulation as fraction
+
+<img class=center src=../../assets/img/predpos5.png height=500>
+http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/
+
+
+---
+
+## Key public health issue 
+
+<img class=center src=../../assets/img/mammograms.png height=500>
+http://www.biostat.jhsph.edu/~iruczins/teaching/140.615/
+
+---
+
+## Key public health issue 
+
+<img class=center src=../../assets/img/prostatescreen.png height=500>
+
+
+
+---
+
+## For continuous data
+
+__Mean squared error (MSE)__:
+
+$$\frac{1}{n} \sum_{i=1}^n (Prediction_i - Truth_i)^2$$
+
+__Root mean squared error (RMSE)__:
+
+$$\sqrt{\frac{1}{n} \sum_{i=1}^n(Prediction_i - Truth_i)^2}$$
+
+---
+
+## Common error measures
+
+1. Mean squared error (or root mean squared error)
+  * Continuous data, sensitive to outliers
+2. Median absolute deviation 
+  * Continuous data, often more robust
+3. Sensitivity (recall)
+  * If you want few missed positives
+4. Specificity
+  * If you want few negatives called positives
+5. Accuracy
+  * Weights false positives/negatives equally
+6. Concordance
+  * One example is [kappa](http://en.wikipedia.org/wiki/Cohen%27s_kappa)
+5. Predictive value of a positive (precision)
+  * When you are screeing and prevelance is low

@@ -208,33 +208,6 @@ cat('<iframe src="fig/h1.html" width=100%, height=600></iframe>')
 - If what you want is not too big of a deviation from the rCharts examples, then it's awesome
   - Otherwise, it's challenging to extend without fairly deep knowledge of the JS
     libraries that it's calling.
-- rCharts is unde fairly rapid development
-
-
----
-## BONUS RMaps!!!
-- There's a new github repository describing connections between more 
-  mapping libraries and R
-  - We already saw leaflet
-
-```
-library(devtools);
-require(devtools)
-install_github('ramnathv/rCharts@dev')
-install_github('ramnathv/rMaps')
-```
-
----
-## Creating a map
-```
-library(rjson); library(rMaps)
-crosslet(
-  x = "country", 
-  y = c("web_index", "universal_access", "impact_empowerment", "freedom_openness"),
-  data = web_index
-)
-```
-
----
+- rCharts is under fairly rapid development
 
 

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shiny Lecture 2 (Shinier)</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Shiny Lecture 2 (Shinier)">
+  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Shiny Lecture 2 (Shinier)</h1>
+    <h2>Data Products</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Shiny revisited</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>In the last lecture, we covered basic creation of 
+Shiny applications</li>
+<li>If you tried it and are like most, you had an easy time with <code>ui.R</code>
+but a harder time with <code>server.R</code></li>
+<li>In this lecture, we cover some more of the details of shiny</li>
+<li>Since writing the last lecture, a more detailed tutorial has
+been created that is worth checking out
+(<a href="http://shiny.rstudio.com/tutorial/">http://shiny.rstudio.com/tutorial/</a>)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Details</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Code that you put before <code>shinyServer</code> in the <code>server.R</code> function gets
+called once when you do <code>runApp()</code></li>
+<li>Code inside the unnamed function of <code>shinyServer(function(input, output){</code> but
+not in a reactive statement will run once for every new user (or page refresh) </li>
+<li>Code in reactive functions of <code>shinyServer</code> get run repeatedly as needed
+when new values are entered (reactive functions are those like <code>render*</code>)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h3>Experiment (code in the slidify document)</h3>
+  </hgroup>
+  <article data-timings="">
+    <p><code>ui.R</code></p>
+
+<pre><code>shinyUI(pageWithSidebar(
+  headerPanel(&quot;Hello Shiny!&quot;),
+  sidebarPanel(
+      textInput(inputId=&quot;text1&quot;, label = &quot;Input Text1&quot;),
+      textInput(inputId=&quot;text2&quot;, label = &quot;Input Text2&quot;)
+  ),
+  mainPanel(
+      p(&#39;Output text1&#39;),
+      textOutput(&#39;text1&#39;),
+      p(&#39;Output text2&#39;),
+      textOutput(&#39;text2&#39;),
+      p(&#39;Output text3&#39;),
+      textOutput(&#39;text3&#39;),
+      p(&#39;Outside text&#39;),
+      textOutput(&#39;text4&#39;),
+      p(&#39;Inside text, but non-reactive&#39;),
+      textOutput(&#39;text5&#39;)
+  )
+))
+
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <article data-timings="">
+    <p><code>server.R</code>
+Set <code>x &lt;- 0</code> before running</p>
+
+<pre><code>library(shiny)
+x &lt;&lt;- x + 1
+y &lt;&lt;- 0
+
+shinyServer(
+  function(input, output) {
+    y &lt;&lt;- y + 1
+    output$text1 &lt;- renderText({input$text1})
+    output$text2 &lt;- renderText({input$text2})
+    output$text3 &lt;- renderText({as.numeric(input$text1)+1})
+    output$text4 &lt;- renderText(y)
+    output$text5 &lt;- renderText(x)
+  }
+)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Try it</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>type <code>runApp()</code> </li>
+<li>Notice hitting refresh incriments <code>y</code> but enterting values in the textbox does not</li>
+<li>Notice <code>x</code> is always 1</li>
+<li>Watch how it updated <code>text1</code> and <code>text2</code> as needed.</li>
+<li>Doesn&#39;t add 1 to text1 every time a new <code>text2</code> is input.</li>
+<li><em>Important</em> try <code>runApp(display.mode=&#39;showcase&#39;)</code> </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Reactive expressions</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Sometimes to speed up your app, you want reactive operations (those operations that depend on widget input values) to be performed outside of a <code>render*</code>1 statement</li>
+<li>For example, you want to do some code that gets reused in several 
+<code>render*</code> statements and don&#39;t want to recalculate it for each</li>
+<li>The <code>reactive</code> function is made for this purpose</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><code>server.R</code></p>
+
+<pre><code>shinyServer(
+  function(input, output) {
+    x &lt;- reactive({as.numeric(input$text1)+100})      
+    output$text1 &lt;- renderText({x()                          })
+    output$text2 &lt;- renderText({x() + as.numeric(input$text2)})
+  }
+)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>As opposed to</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>shinyServer(
+  function(input, output) {
+    output$text1 &lt;- renderText({as.numeric(input$text1)+100  })
+    output$text2 &lt;- renderText({as.numeric(input$text1)+100 + 
+        as.numeric(input$text2)})
+  }
+)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Discussion</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Do <code>runApp(display.mode=&#39;showcase&#39;)</code> </li>
+<li>(While inconsequential) the second example has to add 100 twice every time
+text1 is updated for the second set of code</li>
+<li>Also note the somewhat odd syntax for reactive variables</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Non-reactive reactivity (what?)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Sometimes you don&#39;t want shiny to immediately perform reactive
+calculations from widget inputs</li>
+<li>In other words, you want something like a submit button</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>ui.R</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>shinyUI(pageWithSidebar(
+  headerPanel(&quot;Hello Shiny!&quot;),
+  sidebarPanel(
+      textInput(inputId=&quot;text1&quot;, label = &quot;Input Text1&quot;),
+      textInput(inputId=&quot;text2&quot;, label = &quot;Input Text2&quot;),
+      actionButton(&quot;goButton&quot;, &quot;Go!&quot;)
+  ),
+  mainPanel(
+      p(&#39;Output text1&#39;),
+      textOutput(&#39;text1&#39;),
+      p(&#39;Output text2&#39;),
+      textOutput(&#39;text2&#39;),
+      p(&#39;Output text3&#39;),
+      textOutput(&#39;text3&#39;)
+  )
+))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Server.R</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>shinyServer(
+  function(input, output) {
+    output$text1 &lt;- renderText({input$text1})
+    output$text2 &lt;- renderText({input$text2})
+    output$text3 &lt;- renderText({
+        input$goButton
+        isolate(paste(input$text1, input$text2))
+    })
+  }
+)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Try it out</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Notice it doesn&#39;t display output <code>text3</code> until the go button is pressed</li>
+<li><code>input$goButton</code> (or whatever you named it) gets increased by one for every
+time pushed</li>
+<li>So, when in reactive code (such as <code>render</code> or <code>reactive</code>) you can use conditional statements like below to only execute code on the first button press or to not execute code until the first or subsequent button press</li>
+</ul>
+
+<p><code>if (input$goButton == 1){  Conditional statements }</code> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Here&#39;s some replaced code from our previous <code>server.R</code> </p>
+
+<pre><code>output$text3 &lt;- renderText({
+    if (input$goButton == 0) &quot;You have not pressed the button&quot;
+    else if (input$goButton == 1) &quot;you pressed it once&quot;
+    else &quot;OK quit pressing it&quot;
+})
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>More on layouts</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The sidebar layout with a main panel is the easiest.</li>
+<li>Using <code>shinyUI(fluidpage(</code> is much more flexible and allows 
+tighter access to the bootstrap styles</li>
+<li>Examples here (<a href="http://shiny.rstudio.com/articles/layout-guide.html">http://shiny.rstudio.com/articles/layout-guide.html</a>)</li>
+<li><code>fluidRow</code> statements create rows and then the <code>column</code> function
+from within it can create columns</li>
+<li>Tabsets, navlists and navbars can be created for more complex apps</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h3>Directly using html</h3>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>For more complex layouts, direct use of html is preferred
+(<a href="http://shiny.rstudio.com/articles/html-ui.html">http://shiny.rstudio.com/articles/html-ui.html</a>)</li>
+<li>Also, if you know web development well, you might find using
+R to create web layouts kind of annoying</li>
+<li>Create a directory called <code>www</code> in the same directory with <code>server.R</code></li>
+<li>Have an <code>index.html</code> page in that directory</li>
+<li>Your named input variables will be passed to <code>server.R</code>
+<code>&lt;input type=&quot;number&quot; name=&quot;n&quot; value=&quot;500&quot; min=&quot;1&quot; max=&quot;1000&quot; /&gt;</code></li>
+<li>Your <code>server.R</code> output will have class definitions of the form <code>shiny-</code>
+<code>&lt;pre id=&quot;summary&quot; class=&quot;shiny-text-output&quot;&gt;&lt;/pre&gt;</code></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Debugging techniques for Shiny</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Debugging shiny apps can be tricky</li>
+<li>We saw that <code>runApp(displayMode = &#39;showcase&#39;)</code> highlights execution while a 
+shiny app runs</li>
+<li>Using <code>cat</code> in your code displays output to stdout (so R console)</li>
+<li>The <code>browser()</code> function can interupt execution and can be called conditionally
+(<a href="http://shiny.rstudio.com/articles/debugging.html">http://shiny.rstudio.com/articles/debugging.html</a>)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Shiny revisited'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Details'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Experiment (code in the slidify document)'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title=''>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Try it'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Reactive expressions'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Example'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='As opposed to'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Discussion'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Non-reactive reactivity (what?)'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='ui.R'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Server.R'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Try it out'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Example'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='More on layouts'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Directly using html'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Debugging techniques for Shiny'>
+         17
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

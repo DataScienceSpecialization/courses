@@ -1,7 +1,7 @@
 ---
 title       : Slidify
 subtitle    : Data meets presentation
-author      : Jeffrey Leek, Assistant Professor of Biostatistics 
+author      : Brian Caffo, Jeffrey Leek, Roger Peng 
 job         : Johns Hopkins Bloomberg School of Public Health
 logo        : bloomberg_shield.png
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
@@ -111,9 +111,9 @@ mode        : selfcontained # {standalone, draft}
 - Other fields you can include in your `YAML`: a logo to appear in your title slide under `logo`, the path to your assets folder and the paths to any other folders you may be using under `url`, and the specific theme for your code highlighter of choice under `hitheme`.
 
 ```YAML
-logo        : my_logo.png
-url:
-  assets: ../assets
+logo    : my_logo.png
+url     :
+    assets: ../assets
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : zenburn       # 
 ```

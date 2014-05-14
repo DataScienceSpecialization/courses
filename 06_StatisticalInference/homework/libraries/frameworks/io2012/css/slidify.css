@@ -1,0 +1,368 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700|Source+Code+Pro:500|Open+Sans|Oswald);
+
+/* Styles for Table of Contents */
+#io2012-toc {
+  position: absolute;
+  top:0;
+  left:10px;
+  z-index: 999;
+}
+#io2012-toc a{
+  border-bottom: none;
+}
+
+#io2012-toc .nav-pills > .active > a{
+  background-color: darkslategray;
+  color: yellow;
+}
+#io2012-toc li {
+  margin-bottom: 0em;
+}
+
+#io2012-toc li.current {
+  background-color: yellow;
+}
+
+.license {
+  font-size: 14px;
+  color: #a9a9a9;
+  position: absolute;
+  bottom: 30px;
+  left: 60px;
+}
+
+
+/* Styles for Title Slide */
+.title-slide hgroup > h1{
+  font-family: 'Oswald', sans-serif;
+}
+
+.title-slide hgroup > h2{
+  font-family: 'Oswald', 'Calibri', sans-serif;
+}
+
+/* Fonts and Spacing */
+article p, article li, article li.build, section p, section li{
+  font-family: 'Open Sans','Helvetica', 'Crimson Text', 'Garamond',  'Palatino', sans-serif;
+  text-align: justify;
+  font-size:22px;
+  line-height: 1.5em;
+  color: #444;
+}
+
+slide:not(.segue) h2{
+  font-family: 'Calibri', Arial, sans-serif;
+  font-size: 52px;
+  font-style: normal;
+  font-weight: bold;
+  text-transform: normal;
+  letter-spacing: -2px;
+  line-height: 1.2em;
+/*  color: #193441;*/
+/*  color: #02574D;*/
+  color: #CC2904;
+}
+
+/* Reduce Space between Title and Body */
+slides > slide > hgroup + article {
+  margin-top: 15px;
+}
+
+/* Remove Border, Margins and Padding from iframe */
+iframe {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Knitr Images */
+.rimage.left {
+  text-align: left;
+}
+.rimage.right {
+  text-align: right;
+}
+.rimage.center {
+  text-align: center;
+}
+
+/* Quotes and Shout (for io2012, custom) */
+article q {
+  font-family: 'Crimson Text', sans-serif;
+}
+
+q {
+  display: block;
+  font-size: 44px;
+  line-height: 56px;
+  margin-left: 50px;
+  margin-top: 100px;
+  margin-right: 150px;
+}
+
+q::before {
+  content: '“';
+  position: absolute;
+  display: inline-block;
+  margin-left: -2.1em;
+  width: 2em;
+  text-align: right;
+  font-size: 90px;
+  color: silver;
+}
+
+q::after {
+  content: '”';
+  position: absolute;
+  margin-left: .1em;
+  font-size: 90px;
+  color: silver;
+}
+
+div.author {
+  text-align: right;
+  font-size: 40px;
+  margin-top: 20px;
+  margin-right: 150px;
+}
+
+div.author::before {
+  content: '—';
+}
+
+q.shout:before {
+  content: '';
+  position: absolute;
+  margin-left: -0.5em;
+}
+
+q.shout:after {
+  content: '';
+  position: absolute;
+  margin-left: 0.1em;
+}
+
+/* Tables */
+table caption{
+  margin-top: 20pt;
+  font-weight: normal;
+  font-family: "Trebuchet MS", Garuda, sans-serif;
+}
+
+table th {
+  text-transform: capitalize;
+}
+
+/* Tables */
+
+table {
+  border: none;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 24px;
+  line-height: 32px;
+  font-family: 'Trebuchet MS';
+  font-weight: bolder;
+  color: rgb(102, 102, 102);
+}
+table thead {
+  border-top: 1px solid #BFBEAD;
+  border-bottom: 1px solid #BFBEAD;
+}
+table th, table td, table caption {
+  margin: 0;
+  padding: 2pt 6pt;
+  text-align: left;
+  vertical-align: top;
+}
+table th {
+  background: #CFCEBD;
+  color: #575400;
+  text-transform: uppercase;
+}
+table td {
+  border-bottom: 1px solid #CFCEBD;
+}
+table tr:nth-child(2n+1) {
+/*  background: #E8F2FF; */
+  background: #EFEEDD;
+}
+
+/* Styling for Ordered Lists (only for io2012) */
+
+ol {
+  margin-left: 1.2em;
+  margin-bottom: 1em;
+  postion: relative;
+}
+
+ol li {
+  margin-bottom: 0.5em;
+  font-family: "Open Sans";
+}
+
+ol li ol {
+  margin-left: 0.5em;
+  margin-bottom: 0;
+}
+
+ol, ul {
+  margin-top: .5em;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+/*Github Ribbon Test*/
+/* Source: https://github.com/dciccale/css3-github-ribbon */
+/* Define classes for example, definition, problem etc. */
+/* Choose meaningful colors for background and text */
+
+.example {
+  background-color: #121621;
+  top: 1.2em;
+  right: -3.2em;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-box-shadow: 0 0 0 1px #1d212e inset,0 0 2px 1px #fff inset,0 0 1em #888;
+  -moz-box-shadow: 0 0 0 1px #1d212e inset,0 0 2px 1px #fff inset,0 0 1em #888;
+  box-shadow: 0 0 0 1px #1d212e inset,0 0 2px 1px #fff inset,0 0 1em #888;
+  color: #FF0;
+  display: block;
+  padding: .6em 3.5em;
+  position: absolute;
+  font: bold .82em sans-serif;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 1px -1px 8px rgba(0,0,0,0.60);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.definition {
+  background-color: #a00;
+  top: 1.2em;
+  right: -3.2em;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-box-shadow: 0 0 0 1px #1d212e inset,0 0 2px 1px #fff inset,0 0 1em #888;
+  -moz-box-shadow: 0 0 0 1px #1d212e inset,0 0 2px 1px #fff inset,0 0 1em #888;
+  box-shadow: 0 0 0 1px #1d212e inset,0 0 2px 1px #fff inset,0 0 1em #888;
+  color: #FFF;
+  display: block;
+  padding: .6em 3.5em;
+  position: absolute;
+  font: bold .82em sans-serif;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 1px -1px 8px rgba(0,0,0,0.60);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+
+/* Pasted from Custom.css */
+aside.gbar img {
+  width: 175px;
+}
+
+
+div.modal-body pre{
+  width: 95%;
+  left: 0px;
+}
+
+.pagination {
+  position: absolute;
+  bottom: -5px;
+  left:110px;
+}
+
+.pagination ul li:before {
+  content: "";
+}
+
+body {
+  font-family: "Open Sans";
+  color: #444;
+}
+
+p {
+  text-align: justify;
+  line-height: 1.5em;
+}
+/* Place Video on Top Right */
+/* FIXME: Move CSS to css/popcorn.css */
+section.video {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+
+/* Smaller code fonts in modal popup */
+.modal pre code {
+  font-size: 16px;
+}
+
+img.center {
+  display: block;
+  margin: auto auto;
+}
+
+body {
+  background-color: #000;
+}
+.quiz-option label{
+  display: inline;
+  font-size: 1em;
+}
+slide.segue h2{
+ font-family: "Open Sans Condensed";
+ font-weight: 700;
+}
+slide:not(.segue)  h2{
+ font-family: "Open Sans Condensed";
+ font-weight: 700;
+ color: darkslategray;
+}
+article p {
+  font-family: "Open Sans"
+}
+
+code {
+  font-size: 100%;
+  font-family: "Source Code Pro", monospace;
+  color: darkred;
+}
+pre code {
+  font-weight: 500;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+#glimmer iframe {
+  width: 100%;
+}
+
+.title-slide {
+  background-color: #CBE7A5; /* #EDE0CF; ; #CA9F9D*/
+  /* background-image:url(http://goo.gl/EpXln); */
+}
+
+.title-slide hgroup > h1{
+ font-family: 'Oswald', 'Helvetica', sanserif; 
+}
+
+.title-slide hgroup > h1, 
+.title-slide hgroup > h2 {
+  color: #535E43 ;  /* ; #EF5150*/
+}
+
+

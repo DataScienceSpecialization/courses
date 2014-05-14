@@ -69,7 +69,7 @@ Creating Data Products</li>
 <li>15%</li>
 <li>6%</li>
 <li>5%</li>
-<li><em>1%</em></li>
+<li><em>2%</em></li>
 </ol>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
@@ -85,6 +85,12 @@ Creating Data Products</li>
 <div class="quiz-explanation">
   <p>\(P(A\cup B) = P(A) + P(B) - 2 P(AB)\) thus
 \[.15 = .06 + .05 - 2 P(AB)\]</p>
+
+<pre><code class="r">(0.15 - .06 - .05) / 2
+</code></pre>
+
+<pre><code>[1] 0.02
+</code></pre>
 
 </div>
 </div>

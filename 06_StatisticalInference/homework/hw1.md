@@ -30,7 +30,7 @@ Consider influenza epidemics for two parent heterosexual families. Suppose that 
 1. 15%
 2. 6%
 3. 5%
-4. _1%_
+4. _2%_
 
 *** .hint
 $A = Father$, $P(A) = .06$, $B = Mother$, $P(B) = .05$ 
@@ -39,6 +39,15 @@ $P(A\cup B) = .15$,
 *** .explanation
 $P(A\cup B) = P(A) + P(B) - 2 P(AB)$ thus
 $$.15 = .06 + .05 - 2 P(AB)$$
+
+```r
+(0.15 - .06 - .05) / 2
+```
+
+```
+[1] 0.02
+```
+
 
 ---  &radio
 

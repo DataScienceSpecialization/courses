@@ -64,7 +64,7 @@ A random variable, $X$, is uniform, a box from $0$ to $1$ of height $1$. (So tha
 
 1. 1.00
 2. 0.75
-3. 0.50
+3. _0.50_
 4. 0.25
 
 *** .hint

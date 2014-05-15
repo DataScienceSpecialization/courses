@@ -1,18 +1,17 @@
 ---
-title       : Statistical Inference Second Homework
-subtitle    : 
+title       : Homework 2 for Stat Inference
+subtitle    : Extra problems for Stat Inference
 author      : Brian Caffo
 job         : Johns Hopkins Bloomberg School of Public Health
-logo        : bloomberg_shield.png
 framework   : io2012
 highlighter : highlight.js  
 hitheme     : tomorrow       
-url:
-    lib: ../../librariesNew #Remove new if using old slidify
-    assets: ../../assets
+#url:
+#    lib: ../../librariesNew #Remove new if using old slidify
+#    assets: ../../assets
 widgets     : [mathjax, quiz, bootstrap]
 mode        : selfcontained # {standalone, draft}
---- 
+---
 ```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F, results='hide'}
 # make this an external chunk that can be included in any file
 library(knitr)
@@ -30,6 +29,14 @@ knit_hooks$set(inline = function(x) {
 knit_hooks$set(plot = knitr:::hook_plot_html)
 runif(1)
 ```
+
+## About these slides
+- These are some practice problems for Statistical Inference Quiz 1
+- They were created using slidify interactive which you will learn in 
+Creating Data Products
+- Please help improve this with pull requests here
+(https://github.com/bcaffo/courses)
+runif(1)
 
 --- &radio
 The probability that a manuscript gets accepted to a journal is 12% (say). However,

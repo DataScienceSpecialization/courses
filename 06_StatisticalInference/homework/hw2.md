@@ -1,20 +1,27 @@
 ---
-title       : Statistical Inference Second Homework
-subtitle    : 
+title       : Homework 2 for Stat Inference
+subtitle    : Extra problems for Stat Inference
 author      : Brian Caffo
 job         : Johns Hopkins Bloomberg School of Public Health
-logo        : bloomberg_shield.png
 framework   : io2012
 highlighter : highlight.js  
 hitheme     : tomorrow       
-url:
-    lib: ../../librariesNew #Remove new if using old slidify
-    assets: ../../assets
+#url:
+#    lib: ../../librariesNew #Remove new if using old slidify
+#    assets: ../../assets
 widgets     : [mathjax, quiz, bootstrap]
 mode        : selfcontained # {standalone, draft}
---- 
+---
 
 
+
+## About these slides
+- These are some practice problems for Statistical Inference Quiz 1
+- They were created using slidify interactive which you will learn in 
+Creating Data Products
+- Please help improve this with pull requests here
+(https://github.com/bcaffo/courses)
+runif(1)
 
 --- &radio
 The probability that a manuscript gets accepted to a journal is 12% (say). However,
@@ -44,8 +51,14 @@ Let $X$ be the number of hits per day. We want $P(X \leq 93)$ given that
 $X$ is $N(100, 10^2)$.
 
 *** .explanation
-round(pnorm(93, mean = 100, sd = 10) * 100)[1] 24
 
+```r
+round(pnorm(93, mean = 100, sd = 10) * 100)
+```
+
+```
+[1] 24
+```
 
 
 
@@ -71,8 +84,14 @@ We want
 $$
 P(A^c | T_-) = \frac{P(T_- | A^c) P(A^c)}{P(T_- | A^c) P(A^c) + P(T_- | A) P(A)}
 $$
-(.88 * .95) / (.88 * .95 + .07 * .05)[1] 0.9958
 
+```r
+(.88 * .95) / (.88 * .95 + .07 * .05)
+```
+
+```
+[1] 0.9958
+```
 
 
 
@@ -87,9 +106,22 @@ Let $X$ be the number of hits per day. We want $P(X \leq 93)$ given that
 $X$ is $N(100, 10^2)$.
 
 *** .explanation
-round(qnorm(.95, mean = 100, sd = 10), 3)[1] 116.4
-round(qnorm(.05, mean = 100, sd = 10, lower.tail = FALSE), 3)[1] 116.4
 
+```r
+round(qnorm(.95, mean = 100, sd = 10), 3)
+```
+
+```
+[1] 116.4
+```
+
+```r
+round(qnorm(.05, mean = 100, sd = 10, lower.tail = FALSE), 3)
+```
+
+```
+[1] 116.4
+```
 
 
 
@@ -104,8 +136,21 @@ Let $\bar X$ be the average number of hits per day for 50 randomly sampled days.
 $X$ is $N(100, 10^2 / 50)$.
 
 *** .explanation
-round(qnorm(.95, mean = 100, sd = 10 / sqrt(50) ), 3)[1] 102.3
-round(qnorm(.05, mean = 100, sd = 10 / sqrt(50), lower.tail = FALSE), 3)[1] 102.3
 
+```r
+round(qnorm(.95, mean = 100, sd = 10 / sqrt(50) ), 3)
+```
+
+```
+[1] 102.3
+```
+
+```r
+round(qnorm(.05, mean = 100, sd = 10 / sqrt(50), lower.tail = FALSE), 3)
+```
+
+```
+[1] 102.3
+```
 
 

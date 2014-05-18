@@ -31,12 +31,11 @@ runif(1)
 ```
 
 ## About these slides
-- These are some practice problems for Statistical Inference Quiz 1
+- These are some practice problems for Statistical Inference Quiz 2
 - They were created using slidify interactive which you will learn in 
 Creating Data Products
 - Please help improve this with pull requests here
 (https://github.com/bcaffo/courses)
-runif(1)
 
 --- &radio
 The probability that a manuscript gets accepted to a journal is 12% (say). However,

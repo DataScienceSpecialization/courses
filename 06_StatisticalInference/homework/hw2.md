@@ -101,10 +101,13 @@ $$
 
 
 
----  &radio
+---  &multitext
 Suppose that the number of web hits to a particular site are approximately normally
-distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. What number of web hits per day represents the number so that only
+distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. 
+
+1. What number of web hits per day represents the number so that only
 5% of days have more hits? Express your answer to 3 decimal places.
+
 
 
 *** .hint
@@ -112,6 +115,7 @@ Let $X$ be the number of hits per day. We want $P(X \leq 93)$ given that
 $X$ is $N(100, 10^2)$.
 
 *** .explanation
+<span class="answer">116.449</span>
 
 ```r
 round(qnorm(.95, mean = 100, sd = 10), 3)

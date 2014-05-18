@@ -181,10 +181,14 @@ P(A^c | T_-) = \frac{P(T_- | A^c) P(A^c)}{P(T_- | A^c) P(A^c) + P(T_- | A) P(A)}
 <slide class="" id="slide-5" style="background:;">
   <article data-timings="">
     
-<div class="quiz quiz-single well ">
+<div class="quiz-text quiz-multitext well">
   <p>Suppose that the number of web hits to a particular site are approximately normally
-distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. What number of web hits per day represents the number so that only
-5% of days have more hits? Express your answer to 3 decimal places.</p>
+distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. </p>
+
+<ol>
+<li>What number of web hits per day represents the number so that only
+5% of days have more hits? Express your answer to 3 decimal places.</li>
+</ol>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
   <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
@@ -197,7 +201,9 @@ distributed with a mean of 100 hits per day and a standard deviation of 10 hits 
 
 </div>
 <div class="quiz-explanation">
-  <pre><code class="r">round(qnorm(.95, mean = 100, sd = 10), 3)
+  <p><span class="answer">116.449</span></p>
+
+<pre><code class="r">round(qnorm(.95, mean = 100, sd = 10), 3)
 </code></pre>
 
 <pre><code>[1] 116.4

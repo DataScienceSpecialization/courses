@@ -27,7 +27,6 @@ knit_hooks$set(inline = function(x) {
   }
 })
 knit_hooks$set(plot = knitr:::hook_plot_html)
-runif(1)
 ```
 
 ## About these slides

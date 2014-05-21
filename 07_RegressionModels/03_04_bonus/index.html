@@ -44,19 +44,11 @@
 
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>How to fit functions using linear models</h2>
+  </hgroup>
   <article data-timings="">
-    <pre><code>## Error: object &#39;opts_chunk&#39; not found
-</code></pre>
-
-<pre><code>## Error: object &#39;knit_hooks&#39; not found
-</code></pre>
-
-<pre><code>## Error: object &#39;knit_hooks&#39; not found
-</code></pre>
-
-<h2>How to fit functions using linear models</h2>
-
-<ul>
+    <ul>
 <li>Consider a model \(Y_i = f(X_i) + \epsilon\). </li>
 <li>How can we fit such a model using linear models (called scatterplot smoothing)</li>
 <li>Consider the model 
@@ -80,10 +72,8 @@ is continuous at the knot points.</li>
     <h2>Simulated example</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">n &lt;- 500
-x &lt;- seq(0, 4 * pi, length = n)
-y &lt;- sin(x) + rnorm(n, sd = 0.3)
-knots &lt;- seq(0, 8 * pi, length = 20)
+    <pre><code class="r">n &lt;- 500; x &lt;- seq(0, 4 * pi, length = n); y &lt;- sin(x) + rnorm(n, sd = .3)
+knots &lt;- seq(0, 8 * pi, length = 20); 
 splineTerms &lt;- sapply(knots, function(knot) (x &gt; knot) * (x - knot))
 xMat &lt;- cbind(1, x, splineTerms)
 yhat &lt;- predict(lm(y ~ xMat - 1))
@@ -91,7 +81,7 @@ plot(x, y, frame = FALSE, pch = 21, bg = &quot;lightblue&quot;, cex = 2)
 lines(x, yhat, col = &quot;red&quot;, lwd = 2)
 </code></pre>
 
-<p><img src="assets/fig/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
@@ -123,7 +113,7 @@ plot(x, y, frame = FALSE, pch = 21, bg = &quot;lightblue&quot;, cex = 2)
 lines(x, yhat, col = &quot;red&quot;, lwd = 2)
 </code></pre>
 
-<p><img src="assets/fig/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
@@ -158,12 +148,10 @@ lines(x, yhat, col = &quot;red&quot;, lwd = 2)
     <h2>Harmonics using linear models</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">## Chord finder, playing the white keys on a piano from octave c4 - c5
-notes4 &lt;- c(261.63, 293.66, 329.63, 349.23, 392, 440, 493.88, 523.25)
-t &lt;- seq(0, 2, by = 0.001)
-n &lt;- length(t)
-c4 &lt;- sin(2 * pi * notes4[1] * t)
-e4 &lt;- sin(2 * pi * notes4[3] * t)
+    <pre><code class="r">##Chord finder, playing the white keys on a piano from octave c4 - c5
+notes4 &lt;- c(261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25)
+t &lt;- seq(0, 2, by = .001); n &lt;- length(t)
+c4 &lt;- sin(2 * pi * notes4[1] * t); e4 &lt;- sin(2 * pi * notes4[3] * t); 
 g4 &lt;- sin(2 * pi * notes4[5] * t)
 chord &lt;- c4 + e4 + g4 + rnorm(n, 0, 0.3)
 x &lt;- sapply(notes4, function(freq) sin(2 * pi * freq * t))
@@ -176,7 +164,7 @@ fit &lt;- lm(chord ~ x - 1)
 
 <slide class="" id="slide-7" style="background:;">
   <article data-timings="">
-    <p><img src="assets/fig/unnamed-chunk-4.png" alt="plot of chunk unnamed-chunk-4"> </p>
+    <div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
@@ -184,12 +172,11 @@ fit &lt;- lm(chord ~ x - 1)
 
 <slide class="" id="slide-8" style="background:;">
   <article data-timings="">
-    <pre><code class="r">## (How you would really do it)
-a &lt;- fft(chord)
-plot(Re(a)^2, type = &quot;l&quot;)
+    <pre><code class="r">##(How you would really do it)
+a &lt;- fft(chord); plot(Re(a)^2, type = &quot;l&quot;)
 </code></pre>
 
-<p><img src="assets/fig/unnamed-chunk-5.png" alt="plot of chunk unnamed-chunk-5"> </p>
+<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
@@ -201,7 +188,7 @@ plot(Re(a)^2, type = &quot;l&quot;)
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title=''>
+        data-slide=1 title='How to fit functions using linear models'>
          1
       </a>
     </li>

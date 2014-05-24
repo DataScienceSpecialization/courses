@@ -157,10 +157,10 @@ Let $p=.5$ and $X$ be binomial
 
 *** .explanation
 
-<span class="answer">`r round(pbinom(4, prob = .5, size = 6, lower.tail = TRUE) * 100, 1)`</span>
+<span class="answer">`r round(pbinom(4, prob = .5, size = 6, lower.tail = FALSE) * 100, 1)`</span>
 
 ```{r}
-round(pbinom(4, prob = .5, size = 6, lower.tail = TRUE) * 100, 1)
+round(pbinom(4, prob = .5, size = 6, lower.tail = FALSE) * 100, 1)
 ```
 
 --- &multitext

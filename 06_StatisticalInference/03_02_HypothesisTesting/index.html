@@ -44,11 +44,19 @@
 
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
-  <hgroup>
-    <h2>Hypothesis testing</h2>
-  </hgroup>
   <article data-timings="">
-    <ul>
+    <pre><code>## Error: object &#39;opts_chunk&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<h2>Hypothesis testing</h2>
+
+<ul>
 <li>Hypothesis testing is concerned with making decisions using data</li>
 <li>A null hypothesis is specified that represents the status quo,
 usually labeled \(H_0\)</li>
@@ -326,21 +334,22 @@ too large or too small, but the critical value is calculated using
     <h2>T test in R</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">library(UsingR); data(father.son)
+    <pre><code class="r">library(UsingR)
+data(father.son)
 t.test(father.son$sheight - father.son$fheight)
 </code></pre>
 
-<pre><code>
-    One Sample t-test
-
-data:  father.son$sheight - father.son$fheight
-t = 11.79, df = 1077, p-value &lt; 2.2e-16
-alternative hypothesis: true mean is not equal to 0
-95 percent confidence interval:
- 0.831 1.163
-sample estimates:
-mean of x 
-    0.997 
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  father.son$sheight - father.son$fheight
+## t = 11.79, df = 1077, p-value &lt; 2.2e-16
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  0.831 1.163
+## sample estimates:
+## mean of x 
+##     0.997
 </code></pre>
 
   </article>
@@ -456,7 +465,7 @@ contains \(\mu_0\), then we <em>fail  to</em> reject \(H_0\)</li>
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Hypothesis testing'>
+        data-slide=1 title=''>
          1
       </a>
     </li>

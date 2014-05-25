@@ -44,11 +44,19 @@
 
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
-  <hgroup>
-    <h2>The jackknife</h2>
-  </hgroup>
   <article data-timings="">
-    <ul>
+    <pre><code>## Error: object &#39;opts_chunk&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<h2>The jackknife</h2>
+
+<ul>
 <li>The jackknife is a tool for estimating standard errors  and the bias of estimators </li>
 <li>As its name suggests, the jackknife is a small, handy tool; in contrast to the bootstrap, which is then the moral equivalent of a giant workshop full of tools</li>
 <li>Both the jackknife and the bootstrap involve <em>resampling</em> data; that is, repeatedly creating new data sets from the original data</li>
@@ -124,11 +132,9 @@ data(father.son)
 x &lt;- father.son$sheight
 n &lt;- length(x)
 theta &lt;- median(x)
-jk &lt;- sapply(1 : n,
-             function(i) median(x[-i])
-             )
+jk &lt;- sapply(1:n, function(i) median(x[-i]))
 thetaBar &lt;- mean(jk)
-biasEst &lt;- (n - 1) * (thetaBar - theta) 
+biasEst &lt;- (n - 1) * (thetaBar - theta)
 seEst &lt;- sqrt((n - 1) * mean((jk - thetaBar)^2))
 </code></pre>
 
@@ -144,15 +150,25 @@ seEst &lt;- sqrt((n - 1) * mean((jk - thetaBar)^2))
     <pre><code class="r">c(biasEst, seEst)
 </code></pre>
 
-<pre><code>[1] 0.0000 0.1014
+<pre><code>## [1] 0.0000 0.1014
 </code></pre>
 
 <pre><code class="r">library(bootstrap)
-temp &lt;- jackknife(x, median)
-c(temp$jack.bias, temp$jack.se)
 </code></pre>
 
-<pre><code>[1] 0.0000 0.1014
+<pre><code>## Error: there is no package called &#39;bootstrap&#39;
+</code></pre>
+
+<pre><code class="r">temp &lt;- jackknife(x, median)
+</code></pre>
+
+<pre><code>## Error: could not find function &quot;jackknife&quot;
+</code></pre>
+
+<pre><code class="r">c(temp$jack.bias, temp$jack.se)
+</code></pre>
+
+<pre><code>## Error: $ operator is invalid for atomic vectors
 </code></pre>
 
   </article>
@@ -165,7 +181,22 @@ c(temp$jack.bias, temp$jack.se)
   </hgroup>
   <article data-timings="">
     <ul>
-<li>Both methods (of course) yield an estimated bias of 0 and a se of 0.1014</li>
+<li>Both methods (of course) yield an estimated bias of </li>
+</ul>
+
+<pre><code>
+Error in temp$jack.bias : $ operator is invalid for atomic vectors
+
+</code></pre>
+
+<p>and a se of </p>
+
+<pre><code>
+Error in temp$jack.se : $ operator is invalid for atomic vectors
+
+</code></pre>
+
+<ul>
 <li>Odd little fact: the jackknife estimate of the bias for the median is always \(0\) when the number of observations is even</li>
 <li>It has been shown that the jackknife is a linear approximation to the bootstrap</li>
 <li>Generally do not use the jackknife for sample quantiles like the median; as it has been shown to have some poor properties</li>
@@ -279,22 +310,19 @@ c(temp$jack.bias, temp$jack.se)
   </hgroup>
   <article data-timings="">
     <pre><code class="r">B &lt;- 1000
-resamples &lt;- matrix(sample(x,
-                           n * B,
-                           replace = TRUE),
-                    B, n)
+resamples &lt;- matrix(sample(x, n * B, replace = TRUE), B, n)
 medians &lt;- apply(resamples, 1, median)
 sd(medians)
 </code></pre>
 
-<pre><code>[1] 0.08546
+<pre><code>## [1] 0.08465
 </code></pre>
 
-<pre><code class="r">quantile(medians, c(.025, .975))
+<pre><code class="r">quantile(medians, c(0.025, 0.975))
 </code></pre>
 
-<pre><code> 2.5% 97.5% 
-68.43 68.82 
+<pre><code>##  2.5% 97.5% 
+## 68.41 68.81
 </code></pre>
 
   </article>
@@ -309,7 +337,7 @@ sd(medians)
     <pre><code class="r">hist(medians)
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
+<p><img src="assets/fig/unnamed-chunk-4.png" alt="plot of chunk unnamed-chunk-4"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -344,7 +372,7 @@ sd(medians)
 boxplot(count ~ spray, data = InsectSprays)
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+<p><img src="assets/fig/unnamed-chunk-5.png" alt="plot of chunk unnamed-chunk-5"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -425,22 +453,22 @@ one could also use a t-statistic </li>
     <h2>Permutation test for pesticide data</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">subdata &lt;- InsectSprays[InsectSprays$spray %in% c(&quot;B&quot;, &quot;C&quot;),]
+    <pre><code class="r">subdata &lt;- InsectSprays[InsectSprays$spray %in% c(&quot;B&quot;, &quot;C&quot;), ]
 y &lt;- subdata$count
 group &lt;- as.character(subdata$spray)
 testStat &lt;- function(w, g) mean(w[g == &quot;B&quot;]) - mean(w[g == &quot;C&quot;])
 observedStat &lt;- testStat(y, group)
-permutations &lt;- sapply(1 : 10000, function(i) testStat(y, sample(group)))
+permutations &lt;- sapply(1:10000, function(i) testStat(y, sample(group)))
 observedStat
 </code></pre>
 
-<pre><code>[1] 13.25
+<pre><code>## [1] 13.25
 </code></pre>
 
 <pre><code class="r">mean(permutations &gt; observedStat)
 </code></pre>
 
-<pre><code>[1] 0
+<pre><code>## [1] 0
 </code></pre>
 
   </article>
@@ -452,7 +480,7 @@ observedStat
     <h2>Histogram of permutations</h2>
   </hgroup>
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+    <p><img src="assets/fig/unnamed-chunk-7.png" alt="plot of chunk unnamed-chunk-7"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -464,7 +492,7 @@ observedStat
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='The jackknife'>
+        data-slide=1 title=''>
          1
       </a>
     </li>

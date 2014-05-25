@@ -14,6 +14,17 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
+```
+## Error: object 'opts_chunk' not found
+```
+
+```
+## Error: object 'knit_hooks' not found
+```
+
+```
+## Error: object 'knit_hooks' not found
+```
 
 
 ## Independent group $t$ confidence intervals
@@ -98,12 +109,12 @@ $$
 - Pooled variance estimate
 
 ```r
-sp <- sqrt((7 * 15.34^2 + 20 * 18.23^2) / (8 + 21 - 2))
-132.86 - 127.44 + c(-1, 1) * qt(.975, 27) * sp * (1 / 8 + 1 / 21)^.5
+sp <- sqrt((7 * 15.34^2 + 20 * 18.23^2)/(8 + 21 - 2))
+132.86 - 127.44 + c(-1, 1) * qt(0.975, 27) * sp * (1/8 + 1/21)^0.5
 ```
 
 ```
-[1] -9.521 20.361
+## [1] -9.521 20.361
 ```
 
 
@@ -115,14 +126,14 @@ x1 <- sleep$extra[sleep$group == 1]
 x2 <- sleep$extra[sleep$group == 2]
 n1 <- length(x1)
 n2 <- length(x2)
-sp <- sqrt( ((n1 - 1) * sd(x1)^2 + (n2-1) * sd(x2)^2) / (n1 + n2-2))
+sp <- sqrt(((n1 - 1) * sd(x1)^2 + (n2 - 1) * sd(x2)^2)/(n1 + n2 - 2))
 md <- mean(x1) - mean(x2)
-semd <- sp * sqrt(1 / n1 + 1/n2)
-md + c(-1, 1) * qt(.975, n1 + n2 - 2) * semd
+semd <- sp * sqrt(1/n1 + 1/n2)
+md + c(-1, 1) * qt(0.975, n1 + n2 - 2) * semd
 ```
 
 ```
-[1] -3.3639  0.2039
+## [1] -3.3639  0.2039
 ```
 
 ```r
@@ -130,9 +141,9 @@ t.test(x1, x2, paired = FALSE, var.equal = TRUE)$conf
 ```
 
 ```
-[1] -3.3639  0.2039
-attr(,"conf.level")
-[1] 0.95
+## [1] -3.3639  0.2039
+## attr(,"conf.level")
+## [1] 0.95
 ```
 
 ```r
@@ -140,15 +151,15 @@ t.test(x1, x2, paired = TRUE)$conf
 ```
 
 ```
-[1] -2.4599 -0.7001
-attr(,"conf.level")
-[1] 0.95
+## [1] -2.4599 -0.7001
+## attr(,"conf.level")
+## [1] 0.95
 ```
 
 
 ---
 ## Ignoring pairing
-<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+![plot of chunk unnamed-chunk-3](assets/fig/unnamed-chunk-3.png) 
 
 
 ---

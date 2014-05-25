@@ -14,6 +14,17 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
+```
+## Error: object 'opts_chunk' not found
+```
+
+```
+## Error: object 'knit_hooks' not found
+```
+
+```
+## Error: object 'knit_hooks' not found
+```
 
 ## Asymptotics
 * Asymptotics is the term for the behavior of statistics as the sample size (or some other relevant quantity) limits to infinity (or some other relevant number)
@@ -64,13 +75,13 @@ mode        : selfcontained # {standalone, draft}
 ## Law of large numbers in action
 
 ```r
-n <- 10000; means <- cumsum(rnorm(n)) / (1  : n)
-plot(1 : n, means, type = "l", lwd = 2, 
-     frame = FALSE, ylab = "cumulative means", xlab = "sample size")
+n <- 10000
+means <- cumsum(rnorm(n))/(1:n)
+plot(1:n, means, type = "l", lwd = 2, frame = FALSE, ylab = "cumulative means", xlab = "sample size")
 abline(h = 0)
 ```
 
-<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+![plot of chunk unnamed-chunk-1](assets/fig/unnamed-chunk-1.png) 
 
 ---
 ## Discussion
@@ -114,7 +125,7 @@ $$
 
 ---
 ## Simulation of mean of $n$ dice
-<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+![plot of chunk unnamed-chunk-2](assets/fig/unnamed-chunk-2.png) 
 
 ---
 
@@ -132,7 +143,7 @@ will be approximately normally distributed
 
 ---
 
-<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+![plot of chunk unnamed-chunk-3](assets/fig/unnamed-chunk-3.png) 
 
 
 ---
@@ -165,12 +176,14 @@ $$
 in Galton's data
 
 ```r
-library(UsingR);data(father.son); x <- father.son$sheight
-(mean(x) + c(-1, 1) * qnorm(.975) * sd(x) / sqrt(length(x))) / 12
+library(UsingR)
+data(father.son)
+x <- father.son$sheight
+(mean(x) + c(-1, 1) * qnorm(0.975) * sd(x)/sqrt(length(x)))/12
 ```
 
 ```
-[1] 5.710 5.738
+## [1] 5.710 5.738
 ```
 
 
@@ -202,11 +215,11 @@ $$
 * Rough guidelines, 100 for 1 decimal place, 10,000 for 2, 1,000,000 for 3.
 
 ```r
-round(1 / sqrt(10 ^ (1 : 6)), 3)
+round(1/sqrt(10^(1:6)), 3)
 ```
 
 ```
-[1] 0.316 0.100 0.032 0.010 0.003 0.001
+## [1] 0.316 0.100 0.032 0.010 0.003 0.001
 ```
 
 ---
@@ -229,12 +242,14 @@ $$
 ### R code
 
 ```r
-x <- 5; t <- 94.32; lambda <- x / t
-round(lambda + c(-1, 1) * qnorm(.975) * sqrt(lambda / t), 3)
+x <- 5
+t <- 94.32
+lambda <- x/t
+round(lambda + c(-1, 1) * qnorm(0.975) * sqrt(lambda/t), 3)
 ```
 
 ```
-[1] 0.007 0.099
+## [1] 0.007 0.099
 ```
 
 ```r
@@ -242,9 +257,9 @@ poisson.test(x, T = 94.32)$conf
 ```
 
 ```
-[1] 0.01721 0.12371
-attr(,"conf.level")
-[1] 0.95
+## [1] 0.01721 0.12371
+## attr(,"conf.level")
+## [1] 0.95
 ```
 
 
@@ -256,8 +271,12 @@ exp(confint(glm(x ~ 1 + offset(log(t)), family = poisson(link = log))))
 ```
 
 ```
-  2.5 %  97.5 % 
-0.01901 0.11393 
+## Waiting for profiling to be done...
+```
+
+```
+##   2.5 %  97.5 % 
+## 0.01901 0.11393
 ```
 
 

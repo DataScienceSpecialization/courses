@@ -14,6 +14,17 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
+```
+## Error: object 'opts_chunk' not found
+```
+
+```
+## Error: object 'knit_hooks' not found
+```
+
+```
+## Error: object 'knit_hooks' not found
+```
 
 
 ## Hypothesis testing
@@ -160,22 +171,23 @@ $$
 ## T test in R
 
 ```r
-library(UsingR); data(father.son)
+library(UsingR)
+data(father.son)
 t.test(father.son$sheight - father.son$fheight)
 ```
 
 ```
-
-	One Sample t-test
-
-data:  father.son$sheight - father.son$fheight
-t = 11.79, df = 1077, p-value < 2.2e-16
-alternative hypothesis: true mean is not equal to 0
-95 percent confidence interval:
- 0.831 1.163
-sample estimates:
-mean of x 
-    0.997 
+## 
+## 	One Sample t-test
+## 
+## data:  father.son$sheight - father.son$fheight
+## t = 11.79, df = 1077, p-value < 2.2e-16
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  0.831 1.163
+## sample estimates:
+## mean of x 
+##     0.997
 ```
 
 

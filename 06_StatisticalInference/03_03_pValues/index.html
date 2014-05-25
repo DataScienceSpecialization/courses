@@ -44,11 +44,19 @@
 
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
-  <hgroup>
-    <h2>P-values</h2>
-  </hgroup>
   <article data-timings="">
-    <ul>
+    <pre><code>## Error: object &#39;opts_chunk&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<h2>P-values</h2>
+
+<ul>
 <li>Most common measure of &quot;statistical significance&quot;</li>
 <li>Their ubiquity, along with concern over their interpretation and use
 makes them controversial among statisticians
@@ -106,10 +114,10 @@ makes them controversial among statisticians
 </ul></li>
 </ul>
 
-<pre><code class="r">pt(0.8, 15, lower.tail = FALSE) 
+<pre><code class="r">pt(0.8, 15, lower.tail = FALSE)
 </code></pre>
 
-<pre><code>[1] 0.2181
+<pre><code>## [1] 0.2181
 </code></pre>
 
 <ul>
@@ -163,16 +171,16 @@ sided hypothesis test Pvalues</li>
 <li>If each gender has an independent \(50\)% probability for each birth, what&#39;s the probability of getting \(7\) or more girls out of \(8\) births?</li>
 </ul>
 
-<pre><code class="r">choose(8, 7) * .5 ^ 8 + choose(8, 8) * .5 ^ 8 
+<pre><code class="r">choose(8, 7) * 0.5^8 + choose(8, 8) * 0.5^8
 </code></pre>
 
-<pre><code>[1] 0.03516
+<pre><code>## [1] 0.03516
 </code></pre>
 
-<pre><code class="r">pbinom(6, size = 8, prob = .5, lower.tail = FALSE)
+<pre><code class="r">pbinom(6, size = 8, prob = 0.5, lower.tail = FALSE)
 </code></pre>
 
-<pre><code>[1] 0.03516
+<pre><code>## [1] 0.03516
 </code></pre>
 
   </article>
@@ -195,7 +203,7 @@ sided hypothesis test Pvalues</li>
 <pre><code class="r">ppois(9, 5, lower.tail = FALSE)
 </code></pre>
 
-<pre><code>[1] 0.03183
+<pre><code>## [1] 0.03183
 </code></pre>
 
   </article>
@@ -208,7 +216,7 @@ sided hypothesis test Pvalues</li>
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='P-values'>
+        data-slide=1 title=''>
          1
       </a>
     </li>

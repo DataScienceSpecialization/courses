@@ -14,6 +14,17 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
+```
+## Error: object 'opts_chunk' not found
+```
+
+```
+## Error: object 'knit_hooks' not found
+```
+
+```
+## Error: object 'knit_hooks' not found
+```
 
 
 ## Power
@@ -60,7 +71,7 @@ pnorm(-0.355, lower.tail = FALSE)
 ```
 
 ```
-[1] 0.6387
+## [1] 0.6387
 ```
 
 
@@ -81,7 +92,12 @@ abline(v = qnorm(1 - alpha))
 ```
 
 ---
-<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+
+```
+## Error: object 'false' not found
+```
+
+![plot of chunk unnamed-chunk-2](assets/fig/unnamed-chunk-2.png) 
 
 
 
@@ -125,27 +141,27 @@ $$z_{1-\alpha} - \frac{\sqrt{n}(\mu_a - \mu_0)}{\sigma} = z_{\beta}$$
 ## Example
 
 ```r
-power.t.test(n = 16, delta = 2 / 4, sd=1, type = "one.sample",  alt = "one.sided")$power
+power.t.test(n = 16, delta = 2/4, sd = 1, type = "one.sample", alt = "one.sided")$power
 ```
 
 ```
-[1] 0.604
-```
-
-```r
-power.t.test(n = 16, delta = 2, sd=4, type = "one.sample",  alt = "one.sided")$power
-```
-
-```
-[1] 0.604
+## [1] 0.604
 ```
 
 ```r
-power.t.test(n = 16, delta = 100, sd=200, type = "one.sample", alt = "one.sided")$power
+power.t.test(n = 16, delta = 2, sd = 4, type = "one.sample", alt = "one.sided")$power
 ```
 
 ```
-[1] 0.604
+## [1] 0.604
+```
+
+```r
+power.t.test(n = 16, delta = 100, sd = 200, type = "one.sample", alt = "one.sided")$power
+```
+
+```
+## [1] 0.604
 ```
 
 
@@ -153,27 +169,27 @@ power.t.test(n = 16, delta = 100, sd=200, type = "one.sample", alt = "one.sided"
 ## Example
 
 ```r
-power.t.test(power = .8, delta = 2 / 4, sd=1, type = "one.sample",  alt = "one.sided")$n
+power.t.test(power = 0.8, delta = 2/4, sd = 1, type = "one.sample", alt = "one.sided")$n
 ```
 
 ```
-[1] 26.14
-```
-
-```r
-power.t.test(power = .8, delta = 2, sd=4, type = "one.sample",  alt = "one.sided")$n
-```
-
-```
-[1] 26.14
+## [1] 26.14
 ```
 
 ```r
-power.t.test(power = .8, delta = 100, sd=200, type = "one.sample", alt = "one.sided")$n
+power.t.test(power = 0.8, delta = 2, sd = 4, type = "one.sample", alt = "one.sided")$n
 ```
 
 ```
-[1] 26.14
+## [1] 26.14
+```
+
+```r
+power.t.test(power = 0.8, delta = 100, sd = 200, type = "one.sample", alt = "one.sided")$n
+```
+
+```
+## [1] 26.14
 ```
 
 

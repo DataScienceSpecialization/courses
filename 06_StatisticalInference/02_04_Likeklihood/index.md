@@ -14,6 +14,17 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
+```
+## Error: object 'opts_chunk' not found
+```
+
+```
+## Error: object 'knit_hooks' not found
+```
+
+```
+## Error: object 'knit_hooks' not found
+```
 
 
 ## Likelihood
@@ -87,10 +98,10 @@ $$
 
 ```r
 pvals <- seq(0, 1, length = 1000)
-plot(pvals, dbinom(3, 4, pvals) / dbinom(3, 4, 3/4), type = "l", frame = FALSE, lwd = 3, xlab = "p", ylab = "likelihood / max likelihood")
+plot(pvals, dbinom(3, 4, pvals)/dbinom(3, 4, 3/4), type = "l", frame = FALSE, lwd = 3, xlab = "p", ylab = "likelihood / max likelihood")
 ```
 
-<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+![plot of chunk unnamed-chunk-1](assets/fig/unnamed-chunk-1.png) 
 
 
 
@@ -123,15 +134,15 @@ plot(pvals, dbinom(3, 4, pvals) / dbinom(3, 4, 3/4), type = "l", frame = FALSE, 
 ---
 
 ```r
-lambda <- seq(0, .2, length = 1000)
-likelihood <- dpois(5, 94 * lambda) / dpois(5, 5)
+lambda <- seq(0, 0.2, length = 1000)
+likelihood <- dpois(5, 94 * lambda)/dpois(5, 5)
 plot(lambda, likelihood, frame = FALSE, lwd = 3, type = "l", xlab = expression(lambda))
-lines(rep(5/94, 2), 0 : 1, col = "red", lwd = 3)
+lines(rep(5/94, 2), 0:1, col = "red", lwd = 3)
 lines(range(lambda[likelihood > 1/16]), rep(1/16, 2), lwd = 2)
 lines(range(lambda[likelihood > 1/8]), rep(1/8, 2), lwd = 2)
 ```
 
-<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+![plot of chunk unnamed-chunk-2](assets/fig/unnamed-chunk-2.png) 
 
 
 

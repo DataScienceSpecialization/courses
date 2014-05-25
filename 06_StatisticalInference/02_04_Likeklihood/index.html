@@ -44,11 +44,19 @@
 
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
-  <hgroup>
-    <h2>Likelihood</h2>
-  </hgroup>
   <article data-timings="">
-    <ul>
+    <pre><code>## Error: object &#39;opts_chunk&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<h2>Likelihood</h2>
+
+<ul>
 <li>A common and fruitful approach to statistics is to assume that the data arises from a family of distributions indexed by a parameter that represents a useful summary of the distribution</li>
 <li>The <strong>likelihood</strong> of a collection of data is the joint density evaluated as a function of the parameters with the data fixed</li>
 <li>Likelihood analysis of data uses the likelihood to perform inference regarding the unknown parameter</li>
@@ -155,10 +163,10 @@ where \(x\) is either \(0\) (Tails) or \(1\) (Heads) </li>
 <slide class="" id="slide-7" style="background:;">
   <article data-timings="">
     <pre><code class="r">pvals &lt;- seq(0, 1, length = 1000)
-plot(pvals, dbinom(3, 4, pvals) / dbinom(3, 4, 3/4), type = &quot;l&quot;, frame = FALSE, lwd = 3, xlab = &quot;p&quot;, ylab = &quot;likelihood / max likelihood&quot;)
+plot(pvals, dbinom(3, 4, pvals)/dbinom(3, 4, 3/4), type = &quot;l&quot;, frame = FALSE, lwd = 3, xlab = &quot;p&quot;, ylab = &quot;likelihood / max likelihood&quot;)
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+<p><img src="assets/fig/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -217,15 +225,15 @@ MLE = \mathrm{argmax}_\theta {\cal L}(\theta, x).
 
 <slide class="" id="slide-11" style="background:;">
   <article data-timings="">
-    <pre><code class="r">lambda &lt;- seq(0, .2, length = 1000)
-likelihood &lt;- dpois(5, 94 * lambda) / dpois(5, 5)
+    <pre><code class="r">lambda &lt;- seq(0, 0.2, length = 1000)
+likelihood &lt;- dpois(5, 94 * lambda)/dpois(5, 5)
 plot(lambda, likelihood, frame = FALSE, lwd = 3, type = &quot;l&quot;, xlab = expression(lambda))
-lines(rep(5/94, 2), 0 : 1, col = &quot;red&quot;, lwd = 3)
+lines(rep(5/94, 2), 0:1, col = &quot;red&quot;, lwd = 3)
 lines(range(lambda[likelihood &gt; 1/16]), rep(1/16, 2), lwd = 2)
 lines(range(lambda[likelihood &gt; 1/8]), rep(1/8, 2), lwd = 2)
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+<p><img src="assets/fig/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -237,7 +245,7 @@ lines(range(lambda[likelihood &gt; 1/8]), rep(1/8, 2), lwd = 2)
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Likelihood'>
+        data-slide=1 title=''>
          1
       </a>
     </li>

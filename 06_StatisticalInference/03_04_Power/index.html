@@ -44,11 +44,19 @@
 
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
-  <hgroup>
-    <h2>Power</h2>
-  </hgroup>
   <article data-timings="">
-    <ul>
+    <pre><code>## Error: object &#39;opts_chunk&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<h2>Power</h2>
+
+<ul>
 <li>Power is the probability of rejecting the null hypothesis when it is false</li>
 <li>Ergo, power (as it&#39;s name would suggest) is a good thing; you want more power</li>
 <li>A type II error (a bad thing, as its name would suggest) is failing to reject the null hypothesis when it&#39;s false; the probability of a type II error is usually called \(\beta\)</li>
@@ -118,7 +126,7 @@ of at least 2 events / hour (above 30). </li>
 <pre><code class="r">pnorm(-0.355, lower.tail = FALSE)
 </code></pre>
 
-<pre><code>[1] 0.6387
+<pre><code>## [1] 0.6387
 </code></pre>
 
   </article>
@@ -151,7 +159,10 @@ abline(v = qnorm(1 - alpha))
 
 <slide class="" id="slide-6" style="background:;">
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+    <pre><code>## Error: object &#39;false&#39; not found
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -231,22 +242,22 @@ P\left(\frac{\bar X - \mu_0}{S /\sqrt{n}} > t_{1-\alpha, n-1} ~|~ \mu = \mu_a \r
     <h2>Example</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">power.t.test(n = 16, delta = 2 / 4, sd=1, type = &quot;one.sample&quot;,  alt = &quot;one.sided&quot;)$power
+    <pre><code class="r">power.t.test(n = 16, delta = 2/4, sd = 1, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$power
 </code></pre>
 
-<pre><code>[1] 0.604
+<pre><code>## [1] 0.604
 </code></pre>
 
-<pre><code class="r">power.t.test(n = 16, delta = 2, sd=4, type = &quot;one.sample&quot;,  alt = &quot;one.sided&quot;)$power
+<pre><code class="r">power.t.test(n = 16, delta = 2, sd = 4, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$power
 </code></pre>
 
-<pre><code>[1] 0.604
+<pre><code>## [1] 0.604
 </code></pre>
 
-<pre><code class="r">power.t.test(n = 16, delta = 100, sd=200, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$power
+<pre><code class="r">power.t.test(n = 16, delta = 100, sd = 200, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$power
 </code></pre>
 
-<pre><code>[1] 0.604
+<pre><code>## [1] 0.604
 </code></pre>
 
   </article>
@@ -258,22 +269,22 @@ P\left(\frac{\bar X - \mu_0}{S /\sqrt{n}} > t_{1-\alpha, n-1} ~|~ \mu = \mu_a \r
     <h2>Example</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">power.t.test(power = .8, delta = 2 / 4, sd=1, type = &quot;one.sample&quot;,  alt = &quot;one.sided&quot;)$n
+    <pre><code class="r">power.t.test(power = 0.8, delta = 2/4, sd = 1, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$n
 </code></pre>
 
-<pre><code>[1] 26.14
+<pre><code>## [1] 26.14
 </code></pre>
 
-<pre><code class="r">power.t.test(power = .8, delta = 2, sd=4, type = &quot;one.sample&quot;,  alt = &quot;one.sided&quot;)$n
+<pre><code class="r">power.t.test(power = 0.8, delta = 2, sd = 4, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$n
 </code></pre>
 
-<pre><code>[1] 26.14
+<pre><code>## [1] 26.14
 </code></pre>
 
-<pre><code class="r">power.t.test(power = .8, delta = 100, sd=200, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$n
+<pre><code class="r">power.t.test(power = 0.8, delta = 100, sd = 200, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$n
 </code></pre>
 
-<pre><code>[1] 26.14
+<pre><code>## [1] 26.14
 </code></pre>
 
   </article>
@@ -286,7 +297,7 @@ P\left(\frac{\bar X - \mu_0}{S /\sqrt{n}} > t_{1-\alpha, n-1} ~|~ \mu = \mu_a \r
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Power'>
+        data-slide=1 title=''>
          1
       </a>
     </li>

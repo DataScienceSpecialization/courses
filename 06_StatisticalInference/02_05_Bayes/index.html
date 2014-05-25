@@ -44,11 +44,19 @@
 
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
-  <hgroup>
-    <h2>Bayesian analysis</h2>
-  </hgroup>
   <article data-timings="">
-    <ul>
+    <pre><code>## Error: object &#39;opts_chunk&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<h2>Bayesian analysis</h2>
+
+<ul>
 <li>Bayesian statistics posits a <em>prior</em> on the parameter
 of interest</li>
 <li>All inferences are then performed on the distribution of 
@@ -216,8 +224,8 @@ myPlot &lt;- function(alpha, beta){
 }
 manipulate(
     myPlot(alpha, beta),
-    alpha = slider(0.01, 10, initial = 1, step = .5),
-    beta = slider(0.01, 10, initial = 1, step = .5)
+    alpha = slider(0.01, 100, initial = 1, step = .5),
+    beta = slider(0.01, 100, initial = 1, step = .5)
     )
 </code></pre>
 
@@ -256,11 +264,15 @@ line in the same way we did for likelihoods </li>
 </ul>
 
 <pre><code class="r">library(binom)
-binom.bayes(13, 20, type = &quot;highest&quot;)
 </code></pre>
 
-<pre><code>  method  x  n shape1 shape2   mean  lower  upper  sig
-1  bayes 13 20   13.5    7.5 0.6429 0.4423 0.8361 0.05
+<pre><code>## Error: there is no package called &#39;binom&#39;
+</code></pre>
+
+<pre><code class="r">binom.bayes(13, 20, type = &quot;highest&quot;)
+</code></pre>
+
+<pre><code>## Error: could not find function &quot;binom.bayes&quot;
 </code></pre>
 
 <p>gives the HPD interval. </p>
@@ -307,7 +319,7 @@ manipulate(
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Bayesian analysis'>
+        data-slide=1 title=''>
          1
       </a>
     </li>

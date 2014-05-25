@@ -14,6 +14,17 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
+```
+## Error: object 'opts_chunk' not found
+```
+
+```
+## Error: object 'knit_hooks' not found
+```
+
+```
+## Error: object 'knit_hooks' not found
+```
 
 
 ## Bayesian analysis
@@ -137,8 +148,8 @@ myPlot <- function(alpha, beta){
 }
 manipulate(
     myPlot(alpha, beta),
-    alpha = slider(0.01, 10, initial = 1, step = .5),
-    beta = slider(0.01, 10, initial = 1, step = .5)
+    alpha = slider(0.01, 100, initial = 1, step = .5),
+    beta = slider(0.01, 100, initial = 1, step = .5)
     )
 ```
 
@@ -160,12 +171,18 @@ manipulate(
 
 ```r
 library(binom)
+```
+
+```
+## Error: there is no package called 'binom'
+```
+
+```r
 binom.bayes(13, 20, type = "highest")
 ```
 
 ```
-  method  x  n shape1 shape2   mean  lower  upper  sig
-1  bayes 13 20   13.5    7.5 0.6429 0.4423 0.8361 0.05
+## Error: could not find function "binom.bayes"
 ```
 
 gives the HPD interval. 

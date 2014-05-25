@@ -191,7 +191,7 @@ y <- c(0, 0, 2, 0, 0)
 plot(x, y, lwd = 3, frame = FALSE, type = "l")
 ```
 
-![plot of chunk unnamed-chunk-1](assets/fig/unnamed-chunk-1.png) 
+<img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
 
 
 ---
@@ -200,7 +200,7 @@ plot(x, y, lwd = 3, frame = FALSE, type = "l")
 
 What is the probability that 75% or fewer of calls get addressed?
 
-![plot of chunk unnamed-chunk-2](assets/fig/unnamed-chunk-2.png) 
+<img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
 
 
 ---

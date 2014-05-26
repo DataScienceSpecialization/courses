@@ -32,173 +32,18 @@ ext_widgets : {rCharts: ["libraries/highcharts","libraries/nvd3", "libraries/mor
 ```
 require(rCharts)
 haireye = as.data.frame(HairEyeColor)
-nPlot(Freq ~ Hair, group = 'Eye', type = 'multiBarChart',
+n1 <- nPlot(Freq ~ Hair, group = 'Eye', type = 'multiBarChart',
   data = subset(haireye, Sex == 'Male')
 )
+n1$save('fig/n1.html', cdn = TRUE)
+cat('<iframe src="fig/n1.html" width=100%, height=600></iframe>')
 ```
 
 ---
 ## nvD3 run
 
 
-
-<div id = 'chart1' class = 'rChart nvd3'></div>
-<script type='text/javascript'>
- $(document).ready(function(){
-      drawchart1()
-    });
-    function drawchart1(){  
-      var opts = {
- "dom": "chart1",
-"width":    800,
-"height":    400,
-"x": "Hair",
-"y": "Freq",
-"group": "Eye",
-"type": "multiBarChart",
-"id": "chart1" 
-},
-        data = [
- {
- "Hair": "Black",
-"Eye": "Brown",
-"Sex": "Male",
-"Freq":             32 
-},
-{
- "Hair": "Brown",
-"Eye": "Brown",
-"Sex": "Male",
-"Freq":             53 
-},
-{
- "Hair": "Red",
-"Eye": "Brown",
-"Sex": "Male",
-"Freq":             10 
-},
-{
- "Hair": "Blond",
-"Eye": "Brown",
-"Sex": "Male",
-"Freq":              3 
-},
-{
- "Hair": "Black",
-"Eye": "Blue",
-"Sex": "Male",
-"Freq":             11 
-},
-{
- "Hair": "Brown",
-"Eye": "Blue",
-"Sex": "Male",
-"Freq":             50 
-},
-{
- "Hair": "Red",
-"Eye": "Blue",
-"Sex": "Male",
-"Freq":             10 
-},
-{
- "Hair": "Blond",
-"Eye": "Blue",
-"Sex": "Male",
-"Freq":             30 
-},
-{
- "Hair": "Black",
-"Eye": "Hazel",
-"Sex": "Male",
-"Freq":             10 
-},
-{
- "Hair": "Brown",
-"Eye": "Hazel",
-"Sex": "Male",
-"Freq":             25 
-},
-{
- "Hair": "Red",
-"Eye": "Hazel",
-"Sex": "Male",
-"Freq":              7 
-},
-{
- "Hair": "Blond",
-"Eye": "Hazel",
-"Sex": "Male",
-"Freq":              5 
-},
-{
- "Hair": "Black",
-"Eye": "Green",
-"Sex": "Male",
-"Freq":              3 
-},
-{
- "Hair": "Brown",
-"Eye": "Green",
-"Sex": "Male",
-"Freq":             15 
-},
-{
- "Hair": "Red",
-"Eye": "Green",
-"Sex": "Male",
-"Freq":              7 
-},
-{
- "Hair": "Blond",
-"Eye": "Green",
-"Sex": "Male",
-"Freq":              8 
-} 
-]
-  
-      if(!(opts.type==="pieChart" || opts.type==="sparklinePlus")) {
-        var data = d3.nest()
-          .key(function(d){
-            //return opts.group === undefined ? 'main' : d[opts.group]
-            //instead of main would think a better default is opts.x
-            return opts.group === undefined ? opts.y : d[opts.group];
-          })
-          .entries(data);
-      }
-      
-      if (opts.disabled != undefined){
-        data.map(function(d, i){
-          d.disabled = opts.disabled[i]
-        })
-      }
-      
-      nv.addGraph(function() {
-        var chart = nv.models[opts.type]()
-          .x(function(d) { return d[opts.x] })
-          .y(function(d) { return d[opts.y] })
-          .width(opts.width)
-          .height(opts.height)
-         
-        
-          
-        
-
-        
-        
-        
-      
-       d3.select("#" + opts.id)
-        .append('svg')
-        .datum(data)
-        .transition().duration(500)
-        .call(chart);
-
-       nv.utils.windowResize(chart.update);
-       return chart;
-      });
-    };
-</script>
+<iframe src="fig/n1.html" width=100%, height=600></iframe>
 
 
 ---
@@ -208,48 +53,46 @@ nPlot(Freq ~ Hair, group = 'Eye', type = 'multiBarChart',
 ```yaml ext_widgets : {rCharts: ["libraries/nvd3"]}```
 - Or, if you use more than one library
 - YAML example
-```yaml ext_widgets : {rCharts: ["libraries/highcharts",libraries/nvd3", "libraries/morris"]}``` 
+```yaml ext_widgets : {rCharts: ["libraries/highcharts", "libraries/nvd3", "libraries/morris"]}``` 
+
+---
+## Viewing the plot
+- The object `n1` contains the plot
+  - In RStudio, typing `n1` brings up the plot in the RStudio viewer (or you can just not assign it to an object)
+- Do `n1$` then hit TAB to see the various functions contained in the object
+  - `n1$html()` prints out the html for the plot
+- I do `n1$save(filename)` then bring the code back into slidify document
+  - This is recommended for slidify, but if you're just looking at the plot,
+  it's unnecessary
 
 ---
 ## Deconstructing another example
 ```
 ## Example 1 Facetted Scatterplot
 names(iris) = gsub("\\.", "", names(iris))
-rPlot(SepalLength ~ SepalWidth | Species, data = iris, color = 'Species', type = 'point')
+r1 <- rPlot(SepalLength ~ SepalWidth | Species, data = iris, color = 'Species', type = 'point')
+r1$save('fig/r1.html', cdn = TRUE)
+cat('<iframe src="fig/r1.html" width=100%, height=600></iframe>')
 ```
 
 
 ---
 ## When run
-<iframe src='
-fig/unnamed-chunk-3.html
-' scrolling='no' seamless class='rChart 
-polycharts
- '
-id=iframe-
-chart16c56388ccbc
-></iframe>
-<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+<iframe src="fig/r1.html" width=100%, height=600></iframe>
 
 
 ---
 ## Example 2 Facetted Barplot
 ```
 hair_eye = as.data.frame(HairEyeColor)
-rPlot(Freq ~ Hair | Eye, color = 'Eye', data = hair_eye, type = 'bar')
+r2 <- rPlot(Freq ~ Hair | Eye, color = 'Eye', data = hair_eye, type = 'bar')
+r2$save('fig/r2.html', cdn = TRUE)
+cat('<iframe src="fig/r2.html" width=100%, height=600></iframe>')
 ```
 
 ---
 ## Example 2 Facetted Barplot, when run
-<iframe src='
-fig/unnamed-chunk-4.html
-' scrolling='no' seamless class='rChart 
-polycharts
- '
-id=iframe-
-chart16c57cd13d81
-></iframe>
-<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+<iframe src="fig/r2.html" width=100%, height=600></iframe>
 
 
 
@@ -282,20 +125,13 @@ data(economics, package = "ggplot2")
 econ <- transform(economics, date = as.character(date))
 m1 <- mPlot(x = "date", y = c("psavert", "uempmed"), type = "Line", data = econ)
 m1$set(pointSize = 0, lineWidth = 1)
-m1
+m1$save('fig/m1.html', cdn = TRUE)
+cat('<iframe src="fig/m1.html" width=100%, height=600></iframe>')
 ```
 
 ---
 ## morris example run
-<iframe src='
-fig/unnamed-chunk-6.html
-' scrolling='no' seamless class='rChart 
-morris
- '
-id=iframe-
-chart16c527b1afb7
-></iframe>
-<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+<iframe src="fig/m1.html" width=100%, height=600></iframe>
 
 
 ---
@@ -305,20 +141,13 @@ require(reshape2)
 uspexp <- melt(USPersonalExpenditure)
 names(uspexp)[1:2] = c("category", "year")
 x1 <- xPlot(value ~ year, group = "category", data = uspexp, type = "line-dotted")
-x1
+x1$save('fig/x1.html', cdn = TRUE)
+cat('<iframe src="fig/x1.html" width=100%, height=600></iframe>')
 ```
 
 ---
 ## xCharts run
-<iframe src='
-fig/unnamed-chunk-7.html
-' scrolling='no' seamless class='rChart 
-xcharts
- '
-id=iframe-
-chart16c57d6e1b94
-></iframe>
-<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+<iframe src="fig/x1.html" width=100%, height=600></iframe>
 
 
 ---
@@ -328,20 +157,13 @@ map3 <- Leaflet$new()
 map3$setView(c(51.505, -0.09), zoom = 13)
 map3$marker(c(51.5, -0.09), bindPopup = "<p> Hi. I am a popup </p>")
 map3$marker(c(51.495, -0.083), bindPopup = "<p> Hi. I am another popup </p>")
-map3
+map3$save('fig/map3.html', cdn = TRUE)
+cat('<iframe src="fig/map3.html" width=100%, height=600></iframe>')
 ```
 
 ---
 ## Leaflet run
-<iframe src='
-fig/unnamed-chunk-8.html
-' scrolling='no' seamless class='rChart 
-leaflet
- '
-id=iframe-
-chart16c577763a3f
-></iframe>
-<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+<iframe src="fig/map3.html" width=100%, height=600></iframe>
 
 
 ---
@@ -354,20 +176,13 @@ p4 <- Rickshaw$new()
 p4$layer(value ~ Var2, group = "Var1", data = usp, type = "area", width = 560)
 # add a helpful slider this easily; other features TRUE as a default
 p4$set(slider = TRUE)
-p4
+p4$save('fig/p4.html', cdn = TRUE)
+cat('<iframe src="fig/p4.html" width=100%, height=600></iframe>')
 ```
 
 ---
 ## Rickshaw run
-<iframe src='
-fig/unnamed-chunk-9.html
-' scrolling='no' seamless class='rChart 
-rickshaw
- '
-id=iframe-
-chart16c56fdfd342
-></iframe>
-<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+<iframe src="fig/p4.html" width=100%, height=600></iframe>
 
 
 ---
@@ -375,28 +190,24 @@ chart16c56fdfd342
 ```
 h1 <- hPlot(x = "Wr.Hnd", y = "NW.Hnd", data = MASS::survey, type = c("line", 
     "bubble", "scatter"), group = "Clap", size = "Age")
-h1
+h1$save('fig/h1.html', cdn = TRUE)
+cat('<iframe src="fig/h1.html" width=100%, height=600></iframe>')
 ```
 
 
 ---
 ## highchart run
-<iframe src='
-fig/unnamed-chunk-10.html
-' scrolling='no' seamless class='rChart 
-highcharts
- '
-id=iframe-
-chart16c54f760d43
-></iframe>
-<style>iframe.rChart{ width: 100%; height: 400px;}</style>
+<iframe src="fig/h1.html" width=100%, height=600></iframe>
+
 
 
 ---
-## Embedding rCharts into a shiny app 
-### (then embedding it into slidify)
+## rCharts summarized
+- rCharts makes creating interactive javascript visualizations in R ridiculously easy
+- However, non-trivial customization is going to require knowledge of javascript
+- If what you want is not too big of a deviation from the rCharts examples, then it's awesome
+  - Otherwise, it's challenging to extend without fairly deep knowledge of the JS
+    libraries that it's calling.
+- rCharts is under fairly rapid development
 
 
----
-## What to do now
-- Go forth, and produce some eye candy

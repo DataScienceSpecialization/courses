@@ -13,19 +13,6 @@ url:
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
-
-```
-## Error: object 'opts_chunk' not found
-```
-
-```
-## Error: object 'knit_hooks' not found
-```
-
-```
-## Error: object 'knit_hooks' not found
-```
-
 ## Asymptotics
 * Asymptotics is the term for the behavior of statistics as the sample size (or some other relevant quantity) limits to infinity (or some other relevant number)
 * (Asymptopia is my name for the land of asymptotics, where everything works out well and there's no messes. The land of infinite data is nice that way.)
@@ -77,7 +64,8 @@ mode        : selfcontained # {standalone, draft}
 ```r
 n <- 10000
 means <- cumsum(rnorm(n))/(1:n)
-plot(1:n, means, type = "l", lwd = 2, frame = FALSE, ylab = "cumulative means", xlab = "sample size")
+plot(1:n, means, type = "l", lwd = 2, frame = FALSE, ylab = "cumulative means", 
+    xlab = "sample size")
 abline(h = 0)
 ```
 

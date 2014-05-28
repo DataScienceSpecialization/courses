@@ -169,6 +169,7 @@ head(sleep)
 
 
 ---
+## Results
 
 ```r
 g1 <- sleep$extra[1:10]
@@ -193,5 +194,8 @@ t.test(difference)$conf.int
 ## attr(,"conf.level")
 ## [1] 0.95
 ```
+
+
+---
 
 

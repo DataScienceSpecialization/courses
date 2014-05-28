@@ -44,19 +44,11 @@
 
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Asymptotics</h2>
+  </hgroup>
   <article data-timings="">
-    <pre><code>## Error: object &#39;opts_chunk&#39; not found
-</code></pre>
-
-<pre><code>## Error: object &#39;knit_hooks&#39; not found
-</code></pre>
-
-<pre><code>## Error: object &#39;knit_hooks&#39; not found
-</code></pre>
-
-<h2>Asymptotics</h2>
-
-<ul>
+    <ul>
 <li>Asymptotics is the term for the behavior of statistics as the sample size (or some other relevant quantity) limits to infinity (or some other relevant number)</li>
 <li>(Asymptopia is my name for the land of asymptotics, where everything works out well and there&#39;s no messes. The land of infinite data is nice that way.)</li>
 <li>Asymptotics are incredibly useful for simple statistical inference and approximations </li>
@@ -139,7 +131,8 @@ the <strong>Law of Large Numbers</strong></li>
   <article data-timings="">
     <pre><code class="r">n &lt;- 10000
 means &lt;- cumsum(rnorm(n))/(1:n)
-plot(1:n, means, type = &quot;l&quot;, lwd = 2, frame = FALSE, ylab = &quot;cumulative means&quot;, xlab = &quot;sample size&quot;)
+plot(1:n, means, type = &quot;l&quot;, lwd = 2, frame = FALSE, ylab = &quot;cumulative means&quot;, 
+    xlab = &quot;sample size&quot;)
 abline(h = 0)
 </code></pre>
 
@@ -451,7 +444,7 @@ round(lambda + c(-1, 1) * qnorm(0.975) * sqrt(lambda/t), 3)
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title=''>
+        data-slide=1 title='Asymptotics'>
          1
       </a>
     </li>

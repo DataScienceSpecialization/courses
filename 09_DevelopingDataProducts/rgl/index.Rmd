@@ -1,0 +1,50 @@
+---
+title       : rgl
+subtitle    : Building Data Products
+author      : Brian Caffo, Jeff Leek, Roger Peng
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012
+highlighter : highlight.js  
+hitheme     : tomorrow       
+url:
+    lib: ../../librariesNew #Remove new if using old slidify
+    assets: ../../assets
+widgets     : [mathjax, quiz, bootstrap]
+mode        : selfcontained # {standalone, draft}
+---
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F, results='hide'}
+# make this an external chunk that can be included in any file
+library(knitr)
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+runif(1)
+knit_hooks$set(webgl = hook_webgl)
+```
+## About rgl
+- rgl is R's interface to opengl (the popular graphics library)
+- With rgl you can create interactive 3D visualizations easily
+- It's still up in the air, but you can embed them into slidify and shiny
+- rgl can export to webgl
+
+---
+### Example
+
+```{r testgl, webgl = TRUE}
+x <- sort(rnorm(1000))
+y <- rnorm(1000)
+z <- rnorm(1000) + atan2(x,y)
+plot3d(x, y, z, col=rainbow(1000))
+```
+
+

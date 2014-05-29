@@ -14,8 +14,6 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
-
-
 ## P-values
 
 * Most common measure of "statistical significance"
@@ -51,11 +49,11 @@ __Approach__:
   * What's the probability of getting a $T$ statistic as large as $0.8$?
 
 ```r
-pt(0.8, 15, lower.tail = FALSE) 
+pt(0.8, 15, lower.tail = FALSE)
 ```
 
 ```
-[1] 0.2181
+## [1] 0.2181
 ```
 
 * Therefore, the probability of seeing evidence as extreme or more extreme than that actually obtained under $H_0$ is 0.2181
@@ -81,19 +79,19 @@ pt(0.8, 15, lower.tail = FALSE)
 - If each gender has an independent $50$% probability for each birth, what's the probability of getting $7$ or more girls out of $8$ births?
 
 ```r
-choose(8, 7) * .5 ^ 8 + choose(8, 8) * .5 ^ 8 
+choose(8, 7) * 0.5^8 + choose(8, 8) * 0.5^8
 ```
 
 ```
-[1] 0.03516
+## [1] 0.03516
 ```
 
 ```r
-pbinom(6, size = 8, prob = .5, lower.tail = FALSE)
+pbinom(6, size = 8, prob = 0.5, lower.tail = FALSE)
 ```
 
 ```
-[1] 0.03516
+## [1] 0.03516
 ```
 
 
@@ -111,7 +109,7 @@ ppois(9, 5, lower.tail = FALSE)
 ```
 
 ```
-[1] 0.03183
+## [1] 0.03183
 ```
 
 

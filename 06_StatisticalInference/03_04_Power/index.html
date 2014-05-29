@@ -118,7 +118,7 @@ of at least 2 events / hour (above 30). </li>
 <pre><code class="r">pnorm(-0.355, lower.tail = FALSE)
 </code></pre>
 
-<pre><code>[1] 0.6387
+<pre><code>## [1] 0.6387
 </code></pre>
 
   </article>
@@ -138,7 +138,7 @@ of at least 2 events / hour (above 30). </li>
 </ul>
 
 <pre><code>sigma &lt;- 10; mu_0 = 0; mu_a = 2; n &lt;- 100; alpha = .05
-plot(c(-3, 6),c(0, dnorm(0)), type = &quot;n&quot;, frame = false, xlab = &quot;Z value&quot;, ylab = &quot;&quot;)
+plot(c(-3, 6),c(0, dnorm(0)), type = &quot;n&quot;, frame = FALSE, xlab = &quot;Z value&quot;, ylab = &quot;&quot;)
 xvals &lt;- seq(-3, 6, length = 1000)
 lines(xvals, dnorm(xvals), type = &quot;l&quot;, lwd = 3)
 lines(xvals, dnorm(xvals, mean = sqrt(n) * (mu_a - mu_0) / sigma), lwd =3)
@@ -151,7 +151,7 @@ abline(v = qnorm(1 - alpha))
 
 <slide class="" id="slide-6" style="background:;">
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+    <p><img src="assets/fig/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -231,22 +231,22 @@ P\left(\frac{\bar X - \mu_0}{S /\sqrt{n}} > t_{1-\alpha, n-1} ~|~ \mu = \mu_a \r
     <h2>Example</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">power.t.test(n = 16, delta = 2 / 4, sd=1, type = &quot;one.sample&quot;,  alt = &quot;one.sided&quot;)$power
+    <pre><code class="r">power.t.test(n = 16, delta = 2/4, sd = 1, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$power
 </code></pre>
 
-<pre><code>[1] 0.604
+<pre><code>## [1] 0.604
 </code></pre>
 
-<pre><code class="r">power.t.test(n = 16, delta = 2, sd=4, type = &quot;one.sample&quot;,  alt = &quot;one.sided&quot;)$power
+<pre><code class="r">power.t.test(n = 16, delta = 2, sd = 4, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$power
 </code></pre>
 
-<pre><code>[1] 0.604
+<pre><code>## [1] 0.604
 </code></pre>
 
-<pre><code class="r">power.t.test(n = 16, delta = 100, sd=200, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$power
+<pre><code class="r">power.t.test(n = 16, delta = 100, sd = 200, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$power
 </code></pre>
 
-<pre><code>[1] 0.604
+<pre><code>## [1] 0.604
 </code></pre>
 
   </article>
@@ -258,22 +258,22 @@ P\left(\frac{\bar X - \mu_0}{S /\sqrt{n}} > t_{1-\alpha, n-1} ~|~ \mu = \mu_a \r
     <h2>Example</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">power.t.test(power = .8, delta = 2 / 4, sd=1, type = &quot;one.sample&quot;,  alt = &quot;one.sided&quot;)$n
+    <pre><code class="r">power.t.test(power = 0.8, delta = 2/4, sd = 1, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$n
 </code></pre>
 
-<pre><code>[1] 26.14
+<pre><code>## [1] 26.14
 </code></pre>
 
-<pre><code class="r">power.t.test(power = .8, delta = 2, sd=4, type = &quot;one.sample&quot;,  alt = &quot;one.sided&quot;)$n
+<pre><code class="r">power.t.test(power = 0.8, delta = 2, sd = 4, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$n
 </code></pre>
 
-<pre><code>[1] 26.14
+<pre><code>## [1] 26.14
 </code></pre>
 
-<pre><code class="r">power.t.test(power = .8, delta = 100, sd=200, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$n
+<pre><code class="r">power.t.test(power = 0.8, delta = 100, sd = 200, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$n
 </code></pre>
 
-<pre><code>[1] 26.14
+<pre><code>## [1] 26.14
 </code></pre>
 
   </article>

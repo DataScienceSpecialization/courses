@@ -105,7 +105,7 @@ title(paste(&quot;Likelihoods for n = &quot;, n))
 
 <slide class="" id="slide-4" style="background:;">
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+    <p><img src="assets/fig/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -215,16 +215,16 @@ possible orders of \(6\) heads and \(4\) tails</li>
 \]</li>
 </ul>
 
-<pre><code class="r">choose(8, 7) * .5 ^ 8 + choose(8, 8) * .5 ^ 8 
+<pre><code class="r">choose(8, 7) * 0.5^8 + choose(8, 8) * 0.5^8
 </code></pre>
 
-<pre><code>[1] 0.03516
+<pre><code>## [1] 0.03516
 </code></pre>
 
-<pre><code class="r">pbinom(6, size = 8, prob = .5, lower.tail = FALSE)
+<pre><code class="r">pbinom(6, size = 8, prob = 0.5, lower.tail = FALSE)
 </code></pre>
 
-<pre><code>[1] 0.03516
+<pre><code>## [1] 0.03516
 </code></pre>
 
   </article>
@@ -233,11 +233,11 @@ possible orders of \(6\) heads and \(4\) tails</li>
 
 <slide class="" id="slide-9" style="background:;">
   <article data-timings="">
-    <pre><code class="r">plot(pvals, dbinom(7, 8, pvals) / dbinom(7, 8, 7/8) , 
-     lwd = 3, frame = FALSE, type = &quot;l&quot;, xlab = &quot;p&quot;, ylab = &quot;likelihood&quot;)
+    <pre><code class="r">plot(pvals, dbinom(7, 8, pvals)/dbinom(7, 8, 7/8), lwd = 3, frame = FALSE, type = &quot;l&quot;, 
+    xlab = &quot;p&quot;, ylab = &quot;likelihood&quot;)
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+<p><img src="assets/fig/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -267,34 +267,11 @@ If \(X\) a RV with this density then \(E[X] = \mu\) and \(Var(X) = \sigma^2\)</l
 <slide class="" id="slide-11" style="background:;">
   <article data-timings="">
     <pre><code class="r">zvals &lt;- seq(-3, 3, length = 1000)
-plot(zvals, dnorm(zvals), 
-     type = &quot;l&quot;, lwd = 3, frame = FALSE, xlab = &quot;z&quot;, ylab = &quot;Density&quot;)
-sapply(-3 : 3, function(k) abline(v = k))
+plot(zvals, dnorm(zvals), type = &quot;l&quot;, lwd = 3, frame = FALSE, xlab = &quot;z&quot;, ylab = &quot;Density&quot;)
+sapply(-3:3, function(k) abline(v = k))
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
-
-<pre><code>[[1]]
-NULL
-
-[[2]]
-NULL
-
-[[3]]
-NULL
-
-[[4]]
-NULL
-
-[[5]]
-NULL
-
-[[6]]
-NULL
-
-[[7]]
-NULL
-</code></pre>
+<p><img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -538,7 +515,7 @@ or fewer people show up for the whole time?</p>
 <pre><code class="r">ppois(3, lambda = 2.5 * 4)
 </code></pre>
 
-<pre><code>[1] 0.01034
+<pre><code>## [1] 0.01034
 </code></pre>
 
   </article>
@@ -554,16 +531,16 @@ or fewer people show up for the whole time?</p>
 
 <p>What&#39;s the probability of 2 or fewer successes?</p>
 
-<pre><code class="r">pbinom(2, size = 500, prob = .01)
+<pre><code class="r">pbinom(2, size = 500, prob = 0.01)
 </code></pre>
 
-<pre><code>[1] 0.1234
+<pre><code>## [1] 0.1234
 </code></pre>
 
-<pre><code class="r">ppois(2, lambda=500 * .01)
+<pre><code class="r">ppois(2, lambda = 500 * 0.01)
 </code></pre>
 
-<pre><code>[1] 0.1247
+<pre><code>## [1] 0.1247
 </code></pre>
 
   </article>

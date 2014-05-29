@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Homework 4 for Stat Inference</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Homework 4 for Stat Inference">
+  <meta name="author" content="Brian Caffo">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="libraries/widgets/quiz/css/demo.css"></link>
+<link rel=stylesheet href="libraries/widgets/bootstrap/css/bootstrap.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Homework 4 for Stat Inference</h1>
+    <h2>Extra problems for Stat Inference</h2>
+    <p>Brian Caffo<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>About these slides</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>These are some practice problems for Statistical Inference Quiz 4</li>
+<li>They were created using slidify interactive which you will learn in 
+Creating Data Products</li>
+<li>Please help improve this with pull requests here
+(<a href="https://github.com/bcaffo/courses">https://github.com/bcaffo/courses</a>)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>Load the data set <code>mtcars</code> in the <code>datasets</code> R package. You want
+to test whether the MPG is \(\mu_0\) or smaller using a one sided
+5% level test. (\(H_0 : \mu = \mu_0\) versus \(H_a : \mu < \mu_0\)).
+Using that data set and a Z test:</p>
+
+<ol>
+<li>what is the smallest value of \(\mu_0\) that you would reject for?</li>
+</ol>
+
+<p>Both to two decimal places.</p>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>This is the inversion of a one sided hypothesis test. It yields confidence
+bounds. (Note inverting a two sidded test yields confidence intervals.) 
+Think about the derivation of the confidence interval.</p>
+
+</div>
+<div class="quiz-explanation">
+  <p>We want to solve 
+\[
+\frac{\sqrt{n}(\bar{X} - \mu_0)}{s} = Z_{0.05}
+\]
+Or \[\mu_0 = \bar{X} - Z_{0.05} s / \sqrt{n} = \bar{X} + Z_{0.95} s / \sqrt{n}\]. Note that the quantile is negative.</p>
+
+<pre><code class="r">mn &lt;- mean(mtcars$mpg); s &lt;- sd(mtcars$mpg); z &lt;- qnorm(.05)
+mu0 &lt;- mn - z * s / sqrt(nrow(mtcars))
+</code></pre>
+
+<p>Note, it&#39;s easy to get tripped up in this problem on signs. If you get a value
+that&#39;s less than \(\bar X\), then clearly it&#39;s wrong, since you&#39;d never reject for
+\(H_0:\mu = \mu_0\) versus \(H_a : \mu < \mu_0\) if \(\mu_0\) was less than your observed mean.
+Also note the answer to &quot;What is the largest value for which you would reject for?&quot; is
+infinity.</p>
+
+<p><span class="answer">21.84</span<></p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>Consider again the <code>mtcars</code> dataset. Use a two group t-test to test
+the hypothesis that the 4 and 6 cyl cars have the same mpg.  Use
+a two sided test with unequal variances.</p>
+
+<ol>
+<li>Do you reject at the 5% level (enter 0 for no, 1 for yes).</li>
+<li>What is the P-value to 4 decimal places expressed as a proportion?</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>Use <code>t.test</code> with the options <code>var.equal=FALSE</code>, <code>paired=FALSE</code>,  <code>altnernative</code> as <code>two.sided</code>. </p>
+
+</div>
+<div class="quiz-explanation">
+  <pre><code class="r">m4 &lt;- mtcars$mpg[mtcars$cyl == 4]
+m6 &lt;- mtcars$mpg[mtcars$cyl == 6]
+p &lt;- t.test(m4, m6, paired = FALSE, alternative=&quot;two.sided&quot;, var.equal=FALSE)$p.value
+</code></pre>
+
+<p>The answer to 1. is <span class="answer">1</span> <br>
+The answer to 2. is <span class="answer">4e-04</span></p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>A sample of 100 men yielded an average PSA level of 3.0 with a sd of 1.1. What
+are the complete set of values that a 5% two sided Z test of \(H_0 : \mu = \mu_0\) 
+would reject the null hypothesis for?</p>
+
+<ol>
+<li>Enter the lower value to 2 decimal places.</li>
+<li>Enter the upper value to 2 decimal places. </li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>This is equivalent to the confidence interval.</p>
+
+</div>
+<div class="quiz-explanation">
+  <p>The answer to 1 is
+ <span class="answer">2.78</span><br>
+The answer to 2 is <span class="answer">2.78</span></p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>You believe the coin that you&#39;re flipping is biased towards heads. You get 55 heads out of 
+100 flips. </p>
+
+<ol>
+<li>What&#39;s the exact relevant pvalue to 4 decimal places (expressed as a proportion)?</li>
+<li>Would you reject a 1 sided hypothesis at \(\alpha = .05\)? (0 for no 1 for yes)?</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>Use <code>pbinom</code> for a hypothesis that \(p=.5\) veruss \(p>.5\) where \(p\) is the binomial success
+probability.</p>
+
+</div>
+<div class="quiz-explanation">
+  <p>Note you have to start at 54 as it <code>lower.tail = FALSE</code> gives the strictly greater than
+probabilities</p>
+
+<pre><code class="r">ans &lt;- round(pbinom(54, prob = .5, size = 100, lower.tail = FALSE),4)
+</code></pre>
+
+<p>The answer to 1 is <span class="answer">0.1841</span><br>
+The answer to 2 is <span class="answer">0</span><br></p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>A web site was monitored for a year and it received 520 hits per day. In the first
+30 days in the next year, the site received 15,800 hits. Assuming that web hits
+are Poisson.</p>
+
+<ol>
+<li>Give an exact one sided P-value to the hypothesis that web hits are up this year over last
+to four significant digits (expressed as a proportion).</li>
+<li>Does the one sided test reject (0 for no 1 for yes)?</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>Consider using <code>ppois</code> with \(\lambda=520 * 30\).  Note this is nearly exactly Gaussian, 
+so one could get away with the Gaussian calculation.</p>
+
+</div>
+<div class="quiz-explanation">
+  <p>This test comes with the important assumption that web hits are a Poisson process.</p>
+
+<pre><code class="r">pv &lt;- ppois(15800 - 1, lambda = 520 * 30, lower.tail = FALSE)
+</code></pre>
+
+<p>The answer to 1 is <span class="answer">0.0553</span><br>
+The answer to 2 is <span class="answer">0</span><br></p>
+
+<p>Also, compare with the Gaussian approximation where \(\hat \lambda  \sim N(\lambda, \lambda / t)\)</p>
+
+<pre><code class="r">pnorm(15800 / 30, mean = 520, sd = sqrt(520 / 30), lower.tail = FALSE)
+</code></pre>
+
+<pre><code>[1] 0.05466
+</code></pre>
+
+<p>As \(t\rightarrow \infty\) this becomes more Gaussian. The approximation is pretty good for this
+setting.</p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>Suppose that in an AB test, one advertising scheme led to an average of 10 purchases per day for a sample of 100 days, while the other led to 11 purchaces per day, also for a sample of 100 days.
+Assuming a common standard deviation of 4 purchaces per day.
+Assuming that the groups are independent and that they days are iid, perform a Z test of
+equivalence. </p>
+
+<ol>
+<li>What is the P-value reported to 3 digits expressed as a proportion?</li>
+<li>Do you reject the test? (O for no 1 for yes).</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>The standard error is 
+\[
+s \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}
+\]</p>
+
+</div>
+<div class="quiz-explanation">
+  <pre><code class="r">m1 &lt;- 10; m2 &lt;- 11
+n1 &lt;- n2 &lt;- 100
+s &lt;- 4
+se &lt;- s * sqrt(1 / n1 + 1 / n2)
+ts &lt;- (m2 - m1) / se
+pv &lt;- 2 * pnorm(-abs(ts))
+</code></pre>
+
+<p>The answer to 1 is <span class="answer">0.077</span><br>
+The answer to 2 is <span class="answer">0</span></p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>A confidence interval for the mean contains:</p>
+
+<ol>
+<li><em>All of the values of the hypothesized mean for which we would fail to reject with 
+\(\alpha = 1 - Conf. Level\).</em></li>
+<li>All of the values of the hypothesized mean for which we would fail to reject with 
+\(2 \alpha = 1 - Conf. Level\).</li>
+<li>All of the values of the hypothesized mean for which we would reject with 
+\(\alpha = 1 - Conf. Level\).</li>
+<li>All of the values of the hypothesized mean for which we would fail to reject with 
+\(2 \alpha = 1 - Conf. Level\).</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>This is directly from the notes. Note that a confidence interval gives
+values of \(\mu\) that are supported by the data whereas a test rejects
+for values of \(\mu\) different from \(\mu_0\). </p>
+
+</div>
+<div class="quiz-explanation">
+  <p>The only complicated part of this is the 2. Note that a 95% interval corresponds
+to a 5% level two sided test. So it&#39;s \(\alpha = 1 - Conf.Level\). The confusion is that
+for both the two sided test and confidence interval, one needs to calculate
+\(Z_{1 - \alpha / 2}\) (or the relevant T quantile).</p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>Consider two problems previous. Assuming that 10 purchases per day is a benchmark null value, 
+that days are iid and that the standard deviation is 4 purchases for day. Suppose that you
+plan on sampling 100 days. What would be the power for a one sided 5% 
+Z mean test that purchases per day
+have increased under the alternative of \(\mu = 11\) purchase per day?</p>
+
+<ol>
+<li>Give your result as a proportion to 3 decimal places.</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>Under \(H_0\) \(\bar X \sim N(10, .4)\). Under \(H_a\) \(\bar X \sim N(11, .4)\). We reject
+when \(\bar X \geq 10 + Z_{.95} .4\).</p>
+
+</div>
+<div class="quiz-explanation">
+  <p>The hint prettty much gives it away.</p>
+
+<pre><code class="r">power &lt;- pnorm(10 + qnorm(.95) * .4, mean = 11, sd = .4, lower.tail = FALSE)
+</code></pre>
+
+<p>The answer is <span class="answer">0.804</span></p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>Researchers would like to conduct a study of healthy adults to detect a four year mean brain volume loss of .01 mm3. Assume that the standard deviation of four year volume loss in this population is .04 mm3. </p>
+
+<ol>
+<li>What is necessary sample size for the study for a 5% one sided test versus a null hypothesis of no volume loss to acheive 80% power? (Always round up)</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>Under \(H_0\) \(\bar X\) is \(N(0, .05 / \sqrt{n})\) and is \(N(.01, .05 / \sqrt{n})\) under \(H_a\). 
+We will reject if 
+\[
+\bar X \geq  Z_{.95} s / sqrt{n}
+\] 
+which has probability 0.05 under \(H_0\). Under \(H_a\) it has probability
+\[
+P\left( \frac{\bar X - 0.01}{s / \sqrt{n}} \geq  \frac{.01}{s / \sqrt{n}} + z_{.95} \right)
+= P\left( Z \geq \frac{.01}{s / \sqrt{n}} + z_{.95}\right)
+\]</p>
+
+</div>
+<div class="quiz-explanation">
+  <p>Looking at the hint we set
+\[
+\frac{.01}{s / \sqrt{n}} + z_{.95} = z_{.2}
+\]
+\[
+n = \frac{(z_{.95} - z_{.2})^2 s^2}{.01^2} = \frac{ (z_{.95} + z_{.8})^2 s^2}{.01^2}
+\]
+So we get</p>
+
+<pre><code class="r">n &lt;- (qnorm(.95) + qnorm(.8)) ^ 2 * .04 ^ 2 / .01^2
+</code></pre>
+
+<p>The answer is <span class="answer">99</span></p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>In a court of law, all things being equal, if via policy you require a lower
+standard of evidence to convict people then</p>
+
+<ol>
+<li>Less guilty people will be convicted.</li>
+<li><em>More innocent people will be convicted.</em></li>
+<li>More Innocent people will be not convicted.</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>Think about it.</p>
+
+</div>
+<div class="quiz-explanation">
+  <p>If you require less evidence to convict, then you will convict more people, guilty and
+innocent. Relate this property back to hypothesis tests.</p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>Consider the <code>mtcars</code> data set. </p>
+
+<ol>
+<li>Give the p-value for a t-test for assuming 
+constant variance comparing MPG for 6 and 8 cylinder cars as a proportion to 3 decimal places.</li>
+<li>Give the associated P-value for a z test.</li>
+<li>Give the common standard deviation estimate for MPG across cylinders to 3 decimal places.</li>
+<li>Would the t test reject at the two sided 0.05 level (0 for no 1 for yes)?</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <pre><code class="r">mpg8 &lt;- mtcars$mpg[mtcars$cyl == 8]
+mpg6 &lt;- mtcars$mpg[mtcars$cyl == 6]
+m8 &lt;- mean(mpg8); m6 &lt;- mean(mpg6)
+s8 &lt;- sd(mpg8); s6 &lt;- sd(mpg6)
+n8 &lt;- length(mpg8); n6 &lt;- length(mpg6)
+</code></pre>
+
+</div>
+<div class="quiz-explanation">
+  <pre><code class="r">p &lt;- t.test(mpg8, mpg6, paired = FALSE, alternative=&quot;two.sided&quot;, var.equal=TRUE)$p.value
+mixprob &lt;- (n8 - 1) / (n8 + n6 - 2)
+s &lt;- sqrt(mixprob * s8 ^ 2  +  (1 - mixprob) * s6 ^ 2)
+z &lt;- (m8 - m6) / (s * sqrt(1 / n8 + 1 / n6))
+pz &lt;- 2 * pnorm(-abs(z))
+## Hand calculating the T just to check
+#2 * pt(-abs(z), df = n8 + n6 - 2)
+</code></pre>
+
+<ol>
+<li><span class="answer">0</span> <br></li>
+<li><span class="answer">0</span><br></li>
+<li><span class="answer">2.27</span><br></li>
+<li><span class="answer">1</span></li>
+</ol>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>The Bonferonni correction controls this</p>
+
+<ol>
+<li>False discovery rate</li>
+<li><em>The familywise error rate</em></li>
+<li>The rate of true rejections</li>
+<li>The number of true rejections</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>This is pretty much straight out of the notes</p>
+
+</div>
+<div class="quiz-explanation">
+  <p>The Bonferonni correction is the classic correction for the familywise error rate.</p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='About these slides'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title=''>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title=''>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title=''>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title=''>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title=''>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title=''>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title=''>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title=''>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title=''>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title=''>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title=''>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title=''>
+         13
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  <script src="libraries/widgets/quiz/js/jquery.quiz.js"></script>
+<script src="libraries/widgets/quiz/js/mustache.min.js"></script>
+<script src="libraries/widgets/quiz/js/quiz-app.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootstrap.min.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootbox.min.js"></script>
+
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<script>  
+  $(function (){ 
+    $("#example").popover(); 
+    $("[rel='tooltip']").tooltip(); 
+  });  
+  </script>  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

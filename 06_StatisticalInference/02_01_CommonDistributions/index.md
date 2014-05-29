@@ -15,7 +15,6 @@ mode        : selfcontained # {standalone, draft}
 ---
 
 
-
 ## The Bernoulli distribution
 
 - The **Bernoulli distribution** arises as the result of a binary outcome
@@ -55,7 +54,7 @@ title(paste("Likelihoods for n = ", n))
 ```
 
 ---
-<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+![plot of chunk unnamed-chunk-1](assets/fig/unnamed-chunk-1.png) 
 
 
 ---
@@ -139,30 +138,30 @@ $$\left(
 $$
 
 ```r
-choose(8, 7) * .5 ^ 8 + choose(8, 8) * .5 ^ 8 
+choose(8, 7) * 0.5^8 + choose(8, 8) * 0.5^8
 ```
 
 ```
-[1] 0.03516
+## [1] 0.03516
 ```
 
 ```r
-pbinom(6, size = 8, prob = .5, lower.tail = FALSE)
+pbinom(6, size = 8, prob = 0.5, lower.tail = FALSE)
 ```
 
 ```
-[1] 0.03516
+## [1] 0.03516
 ```
 
 
 ---
 
 ```r
-plot(pvals, dbinom(7, 8, pvals) / dbinom(7, 8, 7/8) , 
-     lwd = 3, frame = FALSE, type = "l", xlab = "p", ylab = "likelihood")
+plot(pvals, dbinom(7, 8, pvals)/dbinom(7, 8, 7/8), lwd = 3, frame = FALSE, type = "l", 
+    xlab = "p", ylab = "likelihood")
 ```
 
-<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+![plot of chunk unnamed-chunk-3](assets/fig/unnamed-chunk-3.png) 
 
 
 ---
@@ -183,35 +182,11 @@ plot(pvals, dbinom(7, 8, pvals) / dbinom(7, 8, 7/8) ,
 
 ```r
 zvals <- seq(-3, 3, length = 1000)
-plot(zvals, dnorm(zvals), 
-     type = "l", lwd = 3, frame = FALSE, xlab = "z", ylab = "Density")
-sapply(-3 : 3, function(k) abline(v = k))
+plot(zvals, dnorm(zvals), type = "l", lwd = 3, frame = FALSE, xlab = "z", ylab = "Density")
+sapply(-3:3, function(k) abline(v = k))
 ```
 
-<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
-
-```
-[[1]]
-NULL
-
-[[2]]
-NULL
-
-[[3]]
-NULL
-
-[[4]]
-NULL
-
-[[5]]
-NULL
-
-[[6]]
-NULL
-
-[[7]]
-NULL
-```
+<img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
 
 
 ---
@@ -352,7 +327,7 @@ ppois(3, lambda = 2.5 * 4)
 ```
 
 ```
-[1] 0.01034
+## [1] 0.01034
 ```
 
 
@@ -365,19 +340,19 @@ What's the probability of 2 or fewer successes?
 
 
 ```r
-pbinom(2, size = 500, prob = .01)
+pbinom(2, size = 500, prob = 0.01)
 ```
 
 ```
-[1] 0.1234
+## [1] 0.1234
 ```
 
 ```r
-ppois(2, lambda=500 * .01)
+ppois(2, lambda = 500 * 0.01)
 ```
 
 ```
-[1] 0.1247
+## [1] 0.1247
 ```
 
 

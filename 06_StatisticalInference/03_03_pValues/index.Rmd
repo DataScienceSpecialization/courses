@@ -13,7 +13,7 @@ url:
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
-
+  
 ## P-values
 
 * Most common measure of "statistical significance"

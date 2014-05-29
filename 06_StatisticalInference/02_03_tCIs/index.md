@@ -196,6 +196,5 @@ t.test(difference)$conf.int
 ```
 
 
----
 
 

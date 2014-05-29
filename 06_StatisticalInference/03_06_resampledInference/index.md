@@ -15,19 +15,6 @@ mode        : selfcontained # {standalone, draft}
 
 ---
 
-```
-## Error: object 'opts_chunk' not found
-```
-
-```
-## Error: object 'knit_hooks' not found
-```
-
-```
-## Error: object 'knit_hooks' not found
-```
-
-
 ## The jackknife
 
 - The jackknife is a tool for estimating standard errors  and the bias of estimators 
@@ -88,7 +75,7 @@ seEst <- sqrt((n - 1) * mean((jk - thetaBar)^2))
 
 ---
 
-## Example
+## Example test
 
 
 ```r
@@ -101,26 +88,12 @@ c(biasEst, seEst)
 
 ```r
 library(bootstrap)
-```
-
-```
-## Error: there is no package called 'bootstrap'
-```
-
-```r
 temp <- jackknife(x, median)
-```
-
-```
-## Error: could not find function "jackknife"
-```
-
-```r
 c(temp$jack.bias, temp$jack.se)
 ```
 
 ```
-## Error: $ operator is invalid for atomic vectors
+## [1] 0.0000 0.1014
 ```
 
 
@@ -128,23 +101,7 @@ c(temp$jack.bias, temp$jack.se)
 
 ## Example
 
-- Both methods (of course) yield an estimated bias of 
-
-```
-
-Error in temp$jack.bias : $ operator is invalid for atomic vectors
-
-```
-
- and a se of 
-
-```
-
-Error in temp$jack.se : $ operator is invalid for atomic vectors
-
-```
-
-
+- Both methods (of course) yield an estimated bias of 0 and a se of 0.1014
 - Odd little fact: the jackknife estimate of the bias for the median is always $0$ when the number of observations is even
 - It has been shown that the jackknife is a linear approximation to the bootstrap
 - Generally do not use the jackknife for sample quantiles like the median; as it has been shown to have some poor properties
@@ -221,7 +178,7 @@ sd(medians)
 ```
 
 ```
-## [1] 0.08465
+## [1] 0.08834
 ```
 
 ```r
@@ -230,7 +187,7 @@ quantile(medians, c(0.025, 0.975))
 
 ```
 ##  2.5% 97.5% 
-## 68.41 68.81
+## 68.41 68.82
 ```
 
 

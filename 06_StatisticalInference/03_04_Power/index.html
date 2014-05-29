@@ -44,19 +44,11 @@
 
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Power</h2>
+  </hgroup>
   <article data-timings="">
-    <pre><code>## Error: object &#39;opts_chunk&#39; not found
-</code></pre>
-
-<pre><code>## Error: object &#39;knit_hooks&#39; not found
-</code></pre>
-
-<pre><code>## Error: object &#39;knit_hooks&#39; not found
-</code></pre>
-
-<h2>Power</h2>
-
-<ul>
+    <ul>
 <li>Power is the probability of rejecting the null hypothesis when it is false</li>
 <li>Ergo, power (as it&#39;s name would suggest) is a good thing; you want more power</li>
 <li>A type II error (a bad thing, as its name would suggest) is failing to reject the null hypothesis when it&#39;s false; the probability of a type II error is usually called \(\beta\)</li>
@@ -146,7 +138,7 @@ of at least 2 events / hour (above 30). </li>
 </ul>
 
 <pre><code>sigma &lt;- 10; mu_0 = 0; mu_a = 2; n &lt;- 100; alpha = .05
-plot(c(-3, 6),c(0, dnorm(0)), type = &quot;n&quot;, frame = false, xlab = &quot;Z value&quot;, ylab = &quot;&quot;)
+plot(c(-3, 6),c(0, dnorm(0)), type = &quot;n&quot;, frame = FALSE, xlab = &quot;Z value&quot;, ylab = &quot;&quot;)
 xvals &lt;- seq(-3, 6, length = 1000)
 lines(xvals, dnorm(xvals), type = &quot;l&quot;, lwd = 3)
 lines(xvals, dnorm(xvals, mean = sqrt(n) * (mu_a - mu_0) / sigma), lwd =3)
@@ -159,10 +151,7 @@ abline(v = qnorm(1 - alpha))
 
 <slide class="" id="slide-6" style="background:;">
   <article data-timings="">
-    <pre><code>## Error: object &#39;false&#39; not found
-</code></pre>
-
-<p><img src="assets/fig/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
+    <p><img src="assets/fig/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -297,7 +286,7 @@ P\left(\frac{\bar X - \mu_0}{S /\sqrt{n}} > t_{1-\alpha, n-1} ~|~ \mu = \mu_a \r
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title=''>
+        data-slide=1 title='Power'>
          1
       </a>
     </li>

@@ -157,6 +157,5 @@ mn + c(-1, 1) * qt(.975, n-1) * s / sqrt(n)
 t.test(difference)$conf.int
 ```
 
----
 
 

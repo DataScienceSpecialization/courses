@@ -44,19 +44,11 @@
 
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Likelihood</h2>
+  </hgroup>
   <article data-timings="">
-    <pre><code>## Error: object &#39;opts_chunk&#39; not found
-</code></pre>
-
-<pre><code>## Error: object &#39;knit_hooks&#39; not found
-</code></pre>
-
-<pre><code>## Error: object &#39;knit_hooks&#39; not found
-</code></pre>
-
-<h2>Likelihood</h2>
-
-<ul>
+    <ul>
 <li>A common and fruitful approach to statistics is to assume that the data arises from a family of distributions indexed by a parameter that represents a useful summary of the distribution</li>
 <li>The <strong>likelihood</strong> of a collection of data is the joint density evaluated as a function of the parameters with the data fixed</li>
 <li>Likelihood analysis of data uses the likelihood to perform inference regarding the unknown parameter</li>
@@ -163,7 +155,8 @@ where \(x\) is either \(0\) (Tails) or \(1\) (Heads) </li>
 <slide class="" id="slide-7" style="background:;">
   <article data-timings="">
     <pre><code class="r">pvals &lt;- seq(0, 1, length = 1000)
-plot(pvals, dbinom(3, 4, pvals)/dbinom(3, 4, 3/4), type = &quot;l&quot;, frame = FALSE, lwd = 3, xlab = &quot;p&quot;, ylab = &quot;likelihood / max likelihood&quot;)
+plot(pvals, dbinom(3, 4, pvals)/dbinom(3, 4, 3/4), type = &quot;l&quot;, frame = FALSE, 
+    lwd = 3, xlab = &quot;p&quot;, ylab = &quot;likelihood / max likelihood&quot;)
 </code></pre>
 
 <p><img src="assets/fig/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
@@ -245,7 +238,7 @@ lines(range(lambda[likelihood &gt; 1/8]), rep(1/8, 2), lwd = 2)
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title=''>
+        data-slide=1 title='Likelihood'>
          1
       </a>
     </li>

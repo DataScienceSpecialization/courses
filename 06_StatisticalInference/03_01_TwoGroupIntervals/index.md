@@ -14,19 +14,6 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
-```
-## Error: object 'opts_chunk' not found
-```
-
-```
-## Error: object 'knit_hooks' not found
-```
-
-```
-## Error: object 'knit_hooks' not found
-```
-
-
 ## Independent group $t$ confidence intervals
 
 - Suppose that we want to compare the mean blood pressure between two groups in a randomized trial; those who received the treatment to those who received a placebo

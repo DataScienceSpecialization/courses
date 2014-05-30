@@ -14,19 +14,6 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
-```
-## Error: object 'opts_chunk' not found
-```
-
-```
-## Error: object 'knit_hooks' not found
-```
-
-```
-## Error: object 'knit_hooks' not found
-```
-
-
 ## P-values
 
 * Most common measure of "statistical significance"

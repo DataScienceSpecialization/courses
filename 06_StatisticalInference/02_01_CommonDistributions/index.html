@@ -44,19 +44,11 @@
 
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>The Bernoulli distribution</h2>
+  </hgroup>
   <article data-timings="">
-    <pre><code>## Error: object &#39;opts_chunk&#39; not found
-</code></pre>
-
-<pre><code>## Error: object &#39;knit_hooks&#39; not found
-</code></pre>
-
-<pre><code>## Error: object &#39;knit_hooks&#39; not found
-</code></pre>
-
-<h2>The Bernoulli distribution</h2>
-
-<ul>
+    <ul>
 <li>The <strong>Bernoulli distribution</strong> arises as the result of a binary outcome</li>
 <li>Bernoulli random variables take (only) the values 1 and 0 with probabilities of (say) \(p\) and \(1-p\) respectively</li>
 <li>The PMF for a Bernoulli random variable \(X\) is \[P(X = x) =  p^x (1 - p)^{1 - x}\]</li>
@@ -241,7 +233,8 @@ possible orders of \(6\) heads and \(4\) tails</li>
 
 <slide class="" id="slide-9" style="background:;">
   <article data-timings="">
-    <pre><code class="r">plot(pvals, dbinom(7, 8, pvals)/dbinom(7, 8, 7/8), lwd = 3, frame = FALSE, type = &quot;l&quot;, xlab = &quot;p&quot;, ylab = &quot;likelihood&quot;)
+    <pre><code class="r">plot(pvals, dbinom(7, 8, pvals)/dbinom(7, 8, 7/8), lwd = 3, frame = FALSE, type = &quot;l&quot;, 
+    xlab = &quot;p&quot;, ylab = &quot;likelihood&quot;)
 </code></pre>
 
 <p><img src="assets/fig/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
@@ -278,29 +271,7 @@ plot(zvals, dnorm(zvals), type = &quot;l&quot;, lwd = 3, frame = FALSE, xlab = &
 sapply(-3:3, function(k) abline(v = k))
 </code></pre>
 
-<p><img src="assets/fig/unnamed-chunk-4.png" alt="plot of chunk unnamed-chunk-4"> </p>
-
-<pre><code>## [[1]]
-## NULL
-## 
-## [[2]]
-## NULL
-## 
-## [[3]]
-## NULL
-## 
-## [[4]]
-## NULL
-## 
-## [[5]]
-## NULL
-## 
-## [[6]]
-## NULL
-## 
-## [[7]]
-## NULL
-</code></pre>
+<p><img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -582,7 +553,7 @@ or fewer people show up for the whole time?</p>
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title=''>
+        data-slide=1 title='The Bernoulli distribution'>
          1
       </a>
     </li>

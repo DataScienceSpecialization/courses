@@ -14,18 +14,6 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
-```
-## Error: object 'opts_chunk' not found
-```
-
-```
-## Error: object 'knit_hooks' not found
-```
-
-```
-## Error: object 'knit_hooks' not found
-```
-
 
 ## The Bernoulli distribution
 
@@ -169,7 +157,8 @@ pbinom(6, size = 8, prob = 0.5, lower.tail = FALSE)
 ---
 
 ```r
-plot(pvals, dbinom(7, 8, pvals)/dbinom(7, 8, 7/8), lwd = 3, frame = FALSE, type = "l", xlab = "p", ylab = "likelihood")
+plot(pvals, dbinom(7, 8, pvals)/dbinom(7, 8, 7/8), lwd = 3, frame = FALSE, type = "l", 
+    xlab = "p", ylab = "likelihood")
 ```
 
 ![plot of chunk unnamed-chunk-3](assets/fig/unnamed-chunk-3.png) 
@@ -197,30 +186,7 @@ plot(zvals, dnorm(zvals), type = "l", lwd = 3, frame = FALSE, xlab = "z", ylab =
 sapply(-3:3, function(k) abline(v = k))
 ```
 
-![plot of chunk unnamed-chunk-4](assets/fig/unnamed-chunk-4.png) 
-
-```
-## [[1]]
-## NULL
-## 
-## [[2]]
-## NULL
-## 
-## [[3]]
-## NULL
-## 
-## [[4]]
-## NULL
-## 
-## [[5]]
-## NULL
-## 
-## [[6]]
-## NULL
-## 
-## [[7]]
-## NULL
-```
+<img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
 
 
 ---

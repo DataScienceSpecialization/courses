@@ -44,19 +44,11 @@
 
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>The jackknife</h2>
+  </hgroup>
   <article data-timings="">
-    <pre><code>## Error: object &#39;opts_chunk&#39; not found
-</code></pre>
-
-<pre><code>## Error: object &#39;knit_hooks&#39; not found
-</code></pre>
-
-<pre><code>## Error: object &#39;knit_hooks&#39; not found
-</code></pre>
-
-<h2>The jackknife</h2>
-
-<ul>
+    <ul>
 <li>The jackknife is a tool for estimating standard errors  and the bias of estimators </li>
 <li>As its name suggests, the jackknife is a small, handy tool; in contrast to the bootstrap, which is then the moral equivalent of a giant workshop full of tools</li>
 <li>Both the jackknife and the bootstrap involve <em>resampling</em> data; that is, repeatedly creating new data sets from the original data</li>
@@ -144,7 +136,7 @@ seEst &lt;- sqrt((n - 1) * mean((jk - thetaBar)^2))
 
 <slide class="" id="slide-6" style="background:;">
   <hgroup>
-    <h2>Example</h2>
+    <h2>Example test</h2>
   </hgroup>
   <article data-timings="">
     <pre><code class="r">c(biasEst, seEst)
@@ -154,21 +146,11 @@ seEst &lt;- sqrt((n - 1) * mean((jk - thetaBar)^2))
 </code></pre>
 
 <pre><code class="r">library(bootstrap)
+temp &lt;- jackknife(x, median)
+c(temp$jack.bias, temp$jack.se)
 </code></pre>
 
-<pre><code>## Error: there is no package called &#39;bootstrap&#39;
-</code></pre>
-
-<pre><code class="r">temp &lt;- jackknife(x, median)
-</code></pre>
-
-<pre><code>## Error: could not find function &quot;jackknife&quot;
-</code></pre>
-
-<pre><code class="r">c(temp$jack.bias, temp$jack.se)
-</code></pre>
-
-<pre><code>## Error: $ operator is invalid for atomic vectors
+<pre><code>## [1] 0.0000 0.1014
 </code></pre>
 
   </article>
@@ -181,22 +163,7 @@ seEst &lt;- sqrt((n - 1) * mean((jk - thetaBar)^2))
   </hgroup>
   <article data-timings="">
     <ul>
-<li>Both methods (of course) yield an estimated bias of </li>
-</ul>
-
-<pre><code>
-Error in temp$jack.bias : $ operator is invalid for atomic vectors
-
-</code></pre>
-
-<p>and a se of </p>
-
-<pre><code>
-Error in temp$jack.se : $ operator is invalid for atomic vectors
-
-</code></pre>
-
-<ul>
+<li>Both methods (of course) yield an estimated bias of 0 and a se of 0.1014</li>
 <li>Odd little fact: the jackknife estimate of the bias for the median is always \(0\) when the number of observations is even</li>
 <li>It has been shown that the jackknife is a linear approximation to the bootstrap</li>
 <li>Generally do not use the jackknife for sample quantiles like the median; as it has been shown to have some poor properties</li>
@@ -315,14 +282,14 @@ medians &lt;- apply(resamples, 1, median)
 sd(medians)
 </code></pre>
 
-<pre><code>## [1] 0.08465
+<pre><code>## [1] 0.08834
 </code></pre>
 
 <pre><code class="r">quantile(medians, c(0.025, 0.975))
 </code></pre>
 
 <pre><code>##  2.5% 97.5% 
-## 68.41 68.81
+## 68.41 68.82
 </code></pre>
 
   </article>
@@ -492,7 +459,7 @@ observedStat
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title=''>
+        data-slide=1 title='The jackknife'>
          1
       </a>
     </li>
@@ -522,7 +489,7 @@ observedStat
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='Example'>
+        data-slide=6 title='Example test'>
          6
       </a>
     </li>

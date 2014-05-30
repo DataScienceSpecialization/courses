@@ -308,4 +308,3 @@ qbeta(0.5, 2, 1)
   discussed is the **population median**.
 - A probability model connects the data to the population using assumptions.
 - Therefore the median we're discussing is the **estimand**, the sample median will be the **estimator**
-

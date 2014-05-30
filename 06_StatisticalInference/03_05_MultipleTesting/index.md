@@ -13,22 +13,6 @@ url:
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
-
-
-
-```
-## Error: object 'opts_chunk' not found
-```
-
-```
-## Error: object 'knit_hooks' not found
-```
-
-```
-## Error: object 'knit_hooks' not found
-```
-
-
 ## Key ideas
 
 * Hypothesis testing/significance analysis is commonly overused

@@ -49,20 +49,20 @@ install_github('ramnathv/rMaps')
 ---
 ## Creating a map
 ```
-library(rjson); library(rMaps)
-crosslet(
-  x = "country", 
-  y = c("web_index", "universal_access", "impact_empowerment", "freedom_openness"),
-  data = web_index
-)
+#library(rjson); library(rMaps)
+#crosslet(
+#  x = "country", 
+#  y = c("web_index", "universal_access", "impact_empowerment", #"freedom_openness"),
+#  data = web_index
+#)
 ```
 
 ---
 ```{r, echo=FALSE, warning=FALSE, results='hide'}
-library(rjson); library(rMaps)
-crosslet(
-  x = "country", 
-  y = c("web_index", "universal_access", "impact_empowerment", "freedom_openness"),
-  data = web_index
-)
+#library(rjson); library(rMaps)
+#crosslet(
+#  x = "country", 
+#  y = c("web_index", "universal_access", "impact_empowerment", #"freedom_openness"),
+#  data = web_index
+#)
 ```

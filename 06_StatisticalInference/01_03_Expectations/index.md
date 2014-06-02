@@ -27,7 +27,12 @@ mode        : selfcontained # {standalone, draft}
 
 ## Example
 ### Find the center of mass of the bars
-![plot of chunk unnamed-chunk-1](assets/fig/unnamed-chunk-1.png) 
+
+```
+## Loading required package: MASS
+```
+
+<img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
 
 
 ---
@@ -53,7 +58,7 @@ meanChild <- mean(galton$child)
 lines(rep(meanChild, 100), seq(0, 150, length = 100), col = "red", lwd = 5)
 ```
 
-![plot of chunk lsm](assets/fig/lsm.png) 
+<img src="assets/fig/lsm.png" title="plot of chunk lsm" alt="plot of chunk lsm" style="display: block; margin: auto;" />
 
 
 ---
@@ -66,7 +71,7 @@ lines(rep(meanChild, 100), seq(0, 150, length = 100), col = "red", lwd = 5)
     $$
 - Note, if thought about geometrically, this answer is obvious; if two equal weights are spaced at 0 and 1, the center of mass will be $.5$
 
-![plot of chunk unnamed-chunk-2](assets/fig/unnamed-chunk-2.png) 
+<img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
 
 ---
 

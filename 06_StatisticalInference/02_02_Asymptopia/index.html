@@ -129,13 +129,14 @@ the <strong>Law of Large Numbers</strong></li>
     <h2>Law of large numbers in action</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">n &lt;- 10000; means &lt;- cumsum(rnorm(n)) / (1  : n)
-plot(1 : n, means, type = &quot;l&quot;, lwd = 2, 
-     frame = FALSE, ylab = &quot;cumulative means&quot;, xlab = &quot;sample size&quot;)
+    <pre><code class="r">n &lt;- 10000
+means &lt;- cumsum(rnorm(n))/(1:n)
+plot(1:n, means, type = &quot;l&quot;, lwd = 2, frame = FALSE, ylab = &quot;cumulative means&quot;, 
+    xlab = &quot;sample size&quot;)
 abline(h = 0)
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+<p><img src="assets/fig/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -212,7 +213,7 @@ abline(h = 0)
     <h2>Simulation of mean of \(n\) dice</h2>
   </hgroup>
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+    <p><img src="assets/fig/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -244,7 +245,7 @@ will be approximately normally distributed</li>
 
 <slide class="" id="slide-11" style="background:;">
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+    <p><img src="assets/fig/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -296,11 +297,13 @@ P\left( \frac{\bar X_n - \mu}{\sigma / \sqrt{n}} \leq z \right) \approx \Phi(z).
   <article data-timings="">
     <p>in Galton&#39;s data</p>
 
-<pre><code class="r">library(UsingR);data(father.son); x &lt;- father.son$sheight
-(mean(x) + c(-1, 1) * qnorm(.975) * sd(x) / sqrt(length(x))) / 12
+<pre><code class="r">library(UsingR)
+data(father.son)
+x &lt;- father.son$sheight
+(mean(x) + c(-1, 1) * qnorm(0.975) * sd(x)/sqrt(length(x)))/12
 </code></pre>
 
-<pre><code>[1] 5.710 5.738
+<pre><code>## [1] 5.710 5.738
 </code></pre>
 
   </article>
@@ -352,10 +355,10 @@ P\left( \frac{\bar X_n - \mu}{\sigma / \sqrt{n}} \leq z \right) \approx \Phi(z).
 <li>Rough guidelines, 100 for 1 decimal place, 10,000 for 2, 1,000,000 for 3.</li>
 </ul>
 
-<pre><code class="r">round(1 / sqrt(10 ^ (1 : 6)), 3)
+<pre><code class="r">round(1/sqrt(10^(1:6)), 3)
 </code></pre>
 
-<pre><code>[1] 0.316 0.100 0.032 0.010 0.003 0.001
+<pre><code>## [1] 0.316 0.100 0.032 0.010 0.003 0.001
 </code></pre>
 
   </article>
@@ -395,19 +398,21 @@ P\left( \frac{\bar X_n - \mu}{\sigma / \sqrt{n}} \leq z \right) \approx \Phi(z).
     <h3>R code</h3>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">x &lt;- 5; t &lt;- 94.32; lambda &lt;- x / t
-round(lambda + c(-1, 1) * qnorm(.975) * sqrt(lambda / t), 3)
+    <pre><code class="r">x &lt;- 5
+t &lt;- 94.32
+lambda &lt;- x/t
+round(lambda + c(-1, 1) * qnorm(0.975) * sqrt(lambda/t), 3)
 </code></pre>
 
-<pre><code>[1] 0.007 0.099
+<pre><code>## [1] 0.007 0.099
 </code></pre>
 
 <pre><code class="r">poisson.test(x, T = 94.32)$conf
 </code></pre>
 
-<pre><code>[1] 0.01721 0.12371
-attr(,&quot;conf.level&quot;)
-[1] 0.95
+<pre><code>## [1] 0.01721 0.12371
+## attr(,&quot;conf.level&quot;)
+## [1] 0.95
 </code></pre>
 
   </article>
@@ -422,8 +427,11 @@ attr(,&quot;conf.level&quot;)
     <pre><code class="r">exp(confint(glm(x ~ 1 + offset(log(t)), family = poisson(link = log))))
 </code></pre>
 
-<pre><code>  2.5 %  97.5 % 
-0.01901 0.11393 
+<pre><code>## Waiting for profiling to be done...
+</code></pre>
+
+<pre><code>##   2.5 %  97.5 % 
+## 0.01901 0.11393
 </code></pre>
 
   </article>

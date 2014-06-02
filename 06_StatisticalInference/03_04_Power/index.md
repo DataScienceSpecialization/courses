@@ -14,8 +14,6 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
-
-
 ## Power
 - Power is the probability of rejecting the null hypothesis when it is false
 - Ergo, power (as it's name would suggest) is a good thing; you want more power
@@ -60,12 +58,12 @@ pnorm(-0.355, lower.tail = FALSE)
 ```
 
 ```
-[1] 0.6387
+## [1] 0.6387
 ```
 
 
 ---
-## Note
+## Note 
 - Consider $H_0 : \mu = \mu_0$ and $H_a : \mu > \mu_0$ with $\mu = \mu_a$ under $H_a$.
 - Under $H_0$ the statistic $Z = \frac{\sqrt{n}(\bar X - \mu_0)}{\sigma}$ is $N(0, 1)$
 - Under $H_a$ $Z$ is $N\left( \frac{\sqrt{n}(\mu_a - \mu_0)}{\sigma}, 1\right)$
@@ -73,7 +71,7 @@ pnorm(-0.355, lower.tail = FALSE)
 
 ```
 sigma <- 10; mu_0 = 0; mu_a = 2; n <- 100; alpha = .05
-plot(c(-3, 6),c(0, dnorm(0)), type = "n", frame = false, xlab = "Z value", ylab = "")
+plot(c(-3, 6),c(0, dnorm(0)), type = "n", frame = FALSE, xlab = "Z value", ylab = "")
 xvals <- seq(-3, 6, length = 1000)
 lines(xvals, dnorm(xvals), type = "l", lwd = 3)
 lines(xvals, dnorm(xvals, mean = sqrt(n) * (mu_a - mu_0) / sigma), lwd =3)
@@ -81,7 +79,7 @@ abline(v = qnorm(1 - alpha))
 ```
 
 ---
-<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
+![plot of chunk unnamed-chunk-2](assets/fig/unnamed-chunk-2.png) 
 
 
 
@@ -125,27 +123,27 @@ $$z_{1-\alpha} - \frac{\sqrt{n}(\mu_a - \mu_0)}{\sigma} = z_{\beta}$$
 ## Example
 
 ```r
-power.t.test(n = 16, delta = 2 / 4, sd=1, type = "one.sample",  alt = "one.sided")$power
+power.t.test(n = 16, delta = 2/4, sd = 1, type = "one.sample", alt = "one.sided")$power
 ```
 
 ```
-[1] 0.604
-```
-
-```r
-power.t.test(n = 16, delta = 2, sd=4, type = "one.sample",  alt = "one.sided")$power
-```
-
-```
-[1] 0.604
+## [1] 0.604
 ```
 
 ```r
-power.t.test(n = 16, delta = 100, sd=200, type = "one.sample", alt = "one.sided")$power
+power.t.test(n = 16, delta = 2, sd = 4, type = "one.sample", alt = "one.sided")$power
 ```
 
 ```
-[1] 0.604
+## [1] 0.604
+```
+
+```r
+power.t.test(n = 16, delta = 100, sd = 200, type = "one.sample", alt = "one.sided")$power
+```
+
+```
+## [1] 0.604
 ```
 
 
@@ -153,27 +151,27 @@ power.t.test(n = 16, delta = 100, sd=200, type = "one.sample", alt = "one.sided"
 ## Example
 
 ```r
-power.t.test(power = .8, delta = 2 / 4, sd=1, type = "one.sample",  alt = "one.sided")$n
+power.t.test(power = 0.8, delta = 2/4, sd = 1, type = "one.sample", alt = "one.sided")$n
 ```
 
 ```
-[1] 26.14
-```
-
-```r
-power.t.test(power = .8, delta = 2, sd=4, type = "one.sample",  alt = "one.sided")$n
-```
-
-```
-[1] 26.14
+## [1] 26.14
 ```
 
 ```r
-power.t.test(power = .8, delta = 100, sd=200, type = "one.sample", alt = "one.sided")$n
+power.t.test(power = 0.8, delta = 2, sd = 4, type = "one.sample", alt = "one.sided")$n
 ```
 
 ```
-[1] 26.14
+## [1] 26.14
+```
+
+```r
+power.t.test(power = 0.8, delta = 100, sd = 200, type = "one.sample", alt = "one.sided")$n
+```
+
+```
+## [1] 26.14
 ```
 
 

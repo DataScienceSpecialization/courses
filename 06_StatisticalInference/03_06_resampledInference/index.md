@@ -15,8 +15,6 @@ mode        : selfcontained # {standalone, draft}
 
 ---
 
-
-
 ## The jackknife
 
 - The jackknife is a tool for estimating standard errors  and the bias of estimators 
@@ -68,18 +66,16 @@ data(father.son)
 x <- father.son$sheight
 n <- length(x)
 theta <- median(x)
-jk <- sapply(1 : n,
-             function(i) median(x[-i])
-             )
+jk <- sapply(1:n, function(i) median(x[-i]))
 thetaBar <- mean(jk)
-biasEst <- (n - 1) * (thetaBar - theta) 
+biasEst <- (n - 1) * (thetaBar - theta)
 seEst <- sqrt((n - 1) * mean((jk - thetaBar)^2))
 ```
 
 
 ---
 
-## Example
+## Example test
 
 
 ```r
@@ -87,7 +83,7 @@ c(biasEst, seEst)
 ```
 
 ```
-[1] 0.0000 0.1014
+## [1] 0.0000 0.1014
 ```
 
 ```r
@@ -97,7 +93,7 @@ c(temp$jack.bias, temp$jack.se)
 ```
 
 ```
-[1] 0.0000 0.1014
+## [1] 0.0000 0.1014
 ```
 
 
@@ -176,25 +172,22 @@ $$
 
 ```r
 B <- 1000
-resamples <- matrix(sample(x,
-                           n * B,
-                           replace = TRUE),
-                    B, n)
+resamples <- matrix(sample(x, n * B, replace = TRUE), B, n)
 medians <- apply(resamples, 1, median)
 sd(medians)
 ```
 
 ```
-[1] 0.08546
+## [1] 0.08834
 ```
 
 ```r
-quantile(medians, c(.025, .975))
+quantile(medians, c(0.025, 0.975))
 ```
 
 ```
- 2.5% 97.5% 
-68.43 68.82 
+##  2.5% 97.5% 
+## 68.41 68.82
 ```
 
 
@@ -206,7 +199,7 @@ quantile(medians, c(.025, .975))
 hist(medians)
 ```
 
-<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
+![plot of chunk unnamed-chunk-4](assets/fig/unnamed-chunk-4.png) 
 
 
 ---
@@ -229,7 +222,7 @@ data(InsectSprays)
 boxplot(count ~ spray, data = InsectSprays)
 ```
 
-<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+![plot of chunk unnamed-chunk-5](assets/fig/unnamed-chunk-5.png) 
 
 
 ---
@@ -264,17 +257,17 @@ Raw data | | ordinary permutation test
 ## Permutation test for pesticide data
 
 ```r
-subdata <- InsectSprays[InsectSprays$spray %in% c("B", "C"),]
+subdata <- InsectSprays[InsectSprays$spray %in% c("B", "C"), ]
 y <- subdata$count
 group <- as.character(subdata$spray)
 testStat <- function(w, g) mean(w[g == "B"]) - mean(w[g == "C"])
 observedStat <- testStat(y, group)
-permutations <- sapply(1 : 10000, function(i) testStat(y, sample(group)))
+permutations <- sapply(1:10000, function(i) testStat(y, sample(group)))
 observedStat
 ```
 
 ```
-[1] 13.25
+## [1] 13.25
 ```
 
 ```r
@@ -282,13 +275,13 @@ mean(permutations > observedStat)
 ```
 
 ```
-[1] 0
+## [1] 0
 ```
 
 
 ---
 ## Histogram of permutations
-<div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+![plot of chunk unnamed-chunk-7](assets/fig/unnamed-chunk-7.png) 
 
 
 

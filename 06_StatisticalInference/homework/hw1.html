@@ -63,13 +63,13 @@ Creating Data Products</li>
   <article data-timings="">
     
 <div class="quiz quiz-single well ">
-  <p>Consider influenza epidemics for two parent heterosexual families. Suppose that the probability is 15% that at least one of the parents has contracted the disease. The probability that the father has contracted influenza is 6% while that the mother contracted the disease is 5%. What is the probability that both contracted influenza expressed as a whole number percentage?</p>
+  <p>Consider influenza epidemics for two parent heterosexual families. Suppose that the probability is 15% that at least one of the parents has contracted the disease. The probability that the father has contracted influenza is 10% while that the mother contracted the disease is 9%. What is the probability that both contracted influenza expressed as a whole number percentage?</p>
 
 <ol>
 <li>15%</li>
-<li>6%</li>
-<li>5%</li>
-<li><em>2%</em></li>
+<li>10%</li>
+<li>9%</li>
+<li><em>4%</em></li>
 </ol>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
@@ -78,18 +78,18 @@ Creating Data Products</li>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
   <div class="quiz-hint">
-  <p>\(A = Father\), \(P(A) = .06\), \(B = Mother\), \(P(B) = .05\) 
+  <p>\(A = Father\), \(P(A) = .10\), \(B = Mother\), \(P(B) = .09\) 
 \(P(A\cup B) = .15\), </p>
 
 </div>
 <div class="quiz-explanation">
-  <p>\(P(A\cup B) = P(A) + P(B) - 2 P(AB)\) thus
-\[.15 = .06 + .05 - 2 P(AB)\]</p>
+  <p>\(P(A\cup B) = P(A) + P(B) - P(AB)\) thus
+\[.15 = .10 + .09 - P(AB)\]</p>
 
-<pre><code class="r">(0.15 - .06 - .05) / 2
+<pre><code class="r">.10 + .09 - .15
 </code></pre>
 
-<pre><code>[1] 0.02
+<pre><code>[1] 0.04
 </code></pre>
 
 </div>
@@ -107,7 +107,7 @@ Creating Data Products</li>
 <ol>
 <li>1.00</li>
 <li>0.75</li>
-<li>0.50</li>
+<li><em>0.50</em></li>
 <li>0.25</li>
 </ol>
 

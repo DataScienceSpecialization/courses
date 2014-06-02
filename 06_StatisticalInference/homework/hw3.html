@@ -122,14 +122,14 @@ students t confidence interval touch zero?</p>
 
 </div>
 <div class="quiz-explanation">
-  <p><span class="answer">0.78</span></p>
+  <p><span class="answer">0.62</span></p>
 
 <p>We want \(\bar x = t_{.95} s / sqrt{n}\)</p>
 
-<pre><code class="r">round(qt(.95, df = 3) * 1 / 3, 2)
+<pre><code class="r">round(qt(.95, df = 8) * 1 / 3, 2)
 </code></pre>
 
-<pre><code>[1] 0.78
+<pre><code>[1] 0.62
 </code></pre>
 
 </div>
@@ -147,7 +147,7 @@ a paired T interval when:</p>
 
 <ol>
 <li>The observations are paired between the groups.</li>
-<li><em>The observations within the groups are natually assumed to be statistically independent</em></li>
+<li><em>The observations between the groups are natually assumed to be statistically independent</em></li>
 <li>As long as you do it correctly, either is fine.</li>
 <li>More details are needed to answer this question</li>
 </ol>
@@ -162,7 +162,7 @@ a paired T interval when:</p>
 
 </div>
 <div class="quiz-explanation">
-  <p>If the groups are independent is the correct interval.</p>
+  <p>We can&#39;t pair them if the groups are independent of each other as well as independent within themselves.</p>
 
 </div>
 </div>
@@ -233,7 +233,7 @@ be the smart thing to do?</p>
 </div>
 <div class="quiz-explanation">
   <p>This is just an example of what happens to confidence intervals as you
-increas the confidence level. You want to be quite sure in your interval (i.e.
+increase the confidence level. You want to be quite sure in your interval (i.e.
 have a large confidence level) and so you would increase the interval&#39;s width</p>
 
 </div>
@@ -279,11 +279,9 @@ make sure the results make sense in the context of the problem.</p>
   <article data-timings="">
     
 <div class="quiz-text quiz-multitext well">
-  <p>Suppose that 18 obese subjects were randomized, 9 each, to a new diet pill and a placebo. Subjects&#39; body mass indices (BMIs) were measured at a baseline and again after having received the treatment or placebo for four weeks. The average difference from follow-up to the baseline (followup - baseline) was ???3 kg/m2 for the treated group and 1 kg/m2 for the placebo group. The corresponding standard deviations of the differences was 1.5 kg/m2 for the treatment group and 1.8 kg/m2 for the placebo group. Does the change in BMI over the four week period appear to differ between the treated and placebo groups?  </p>
+  <p>Suppose that 18 obese subjects were randomized, 9 each, to a new diet pill and a placebo. Subjects&#39; body mass indices (BMIs) were measured at a baseline and again after having received the treatment or placebo for four weeks. The average difference from follow-up to the baseline (followup - baseline) was 3 kg/m2 for the treated group and 1 kg/m2 for the placebo group. The corresponding standard deviations of the differences was 1.5 kg/m2 for the treatment group and 1.8 kg/m2 for the placebo group. The study aims to answer whether the change in BMI over the four week period appear to differ between the treated and placebo groups. </p>
 
-<ol>
-<li>Calculate the pooled variance estimate to 2 decimal places</li>
-</ol>
+<p>What is the pooled variance estimate? (to 2 decimal places)</p>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
   <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
@@ -296,9 +294,7 @@ individual variances</p>
 
 </div>
 <div class="quiz-explanation">
-  <p><span class="answer">3.2</span></p>
-
-<pre><code class="r">n1 &lt;- n2 &lt;- 9
+  <pre><code class="r">n1 &lt;- n2 &lt;- 9
 x1 &lt;- -3  ##treated
 x2 &lt;- 1  ##placebo
 s1 &lt;- 1.5  ##treated

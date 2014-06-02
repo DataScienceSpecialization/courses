@@ -64,16 +64,16 @@ students t confidence interval touch zero?
 The t interval is $\bar x t_{.95, 8}\pm s /sqrt{n}$
 
 *** .explanation
-<span class="answer">0.78</span>
+<span class="answer">0.62</span>
 
 We want $\bar x = t_{.95} s / sqrt{n}$
 
 ```r
-round(qt(.95, df = 3) * 1 / 3, 2)
+round(qt(.95, df = 8) * 1 / 3, 2)
 ```
 
 ```
-[1] 0.78
+[1] 0.62
 ```
 
 
@@ -83,7 +83,7 @@ An independent group Student's T interval is used over
 a paired T interval when:
 
 1. The observations are paired between the groups.
-2. _The observations within the groups are natually assumed to be statistically independent_
+2. _The observations between the groups are natually assumed to be statistically independent_
 3. As long as you do it correctly, either is fine.
 4. More details are needed to answer this question
 
@@ -91,7 +91,7 @@ a paired T interval when:
 A paired interval is for paired observations.
 
 *** .explanation
-If the groups are independent is the correct interval.
+We can't pair them if the groups are independent of each other as well as independent within themselves.
 
 
 --- &multitext
@@ -134,7 +134,7 @@ C'mon. You don't need a hint
 
 *** .explanation
 This is just an example of what happens to confidence intervals as you
-increas the confidence level. You want to be quite sure in your interval (i.e.
+increase the confidence level. You want to be quite sure in your interval (i.e.
 have a large confidence level) and so you would increase the interval's width
 
 --- &radio
@@ -155,9 +155,9 @@ make sure the results make sense in the context of the problem.
 The interval was conducted subtracting 4 - 6 and was entirely above zero.
 
 --- &multitext
-Suppose that 18 obese subjects were randomized, 9 each, to a new diet pill and a placebo. Subjects' body mass indices (BMIs) were measured at a baseline and again after having received the treatment or placebo for four weeks. The average difference from follow-up to the baseline (followup - baseline) was ???3 kg/m2 for the treated group and 1 kg/m2 for the placebo group. The corresponding standard deviations of the differences was 1.5 kg/m2 for the treatment group and 1.8 kg/m2 for the placebo group. Does the change in BMI over the four week period appear to differ between the treated and placebo groups?  
+Suppose that 18 obese subjects were randomized, 9 each, to a new diet pill and a placebo. Subjects' body mass indices (BMIs) were measured at a baseline and again after having received the treatment or placebo for four weeks. The average difference from follow-up to the baseline (followup - baseline) was 3 kg/m2 for the treated group and 1 kg/m2 for the placebo group. The corresponding standard deviations of the differences was 1.5 kg/m2 for the treatment group and 1.8 kg/m2 for the placebo group. The study aims to answer whether the change in BMI over the four week period appear to differ between the treated and placebo groups. 
 
-1. Calculate the pooled variance estimate to 2 decimal places
+What is the pooled variance estimate? (to 2 decimal places)
 
 
 *** .hint
@@ -166,7 +166,6 @@ individual variances
 
 
 *** .explanation
-<span class="answer">3.2</span>
 
 ```r
 n1 <- n2 <- 9

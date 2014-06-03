@@ -85,7 +85,7 @@ You are playing a game with a friend where you flip a coin and if it comes up he
 
 *** .hint
 The odds that you win on a given round is given by $p / (1 - p) = d$ which implies
-that $p = d / (1 + d)$.
+that the probability that you win is $p = d / (1 + d)$.
 
 *** .explanation
 You lose $X$ with probability $p = d/(1 +d)$ and you win $Y$ with probability $1-p = 1/(1 + d)$. So your answer is

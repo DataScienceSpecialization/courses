@@ -75,7 +75,7 @@ You are playing a game with a friend where you flip a coin and if it comes up he
 4. $-X \frac{d}{1 + d} - Y \frac{1}{1+d} $
 
 *** .hint
-The probability that you win on a given round is given by $p / (1 - p) = d$ which implies
+The odds that you win on a given round is given by $p / (1 - p) = d$ which implies
 that $p = d / (1 + d)$.
 
 *** .explanation

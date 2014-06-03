@@ -71,7 +71,7 @@
 <li>Manipulate is well documented at the Rstudio web site here
 
 <ul>
-<li>(<a href="http://www.rstudio.com/ide/docs/advanced/manipulate">http://www.rstudio.com/ide/docs/advanced/manipulate</a>)</li>
+<li><a href="http://www.rstudio.com/ide/docs/advanced/manipulate">http://www.rstudio.com/ide/docs/advanced/manipulate</a></li>
 </ul></li>
 <li>From there, try this
 <code>
@@ -90,15 +90,15 @@ manipulate(plot(1:x), x = slider(1, 100))
     <h2>Example from the regression class</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code>freqData &lt;- as.data.frame(table(galton$child, galton$parent))
-names(freqData) &lt;- c(&quot;child&quot;, &quot;parent&quot;, &quot;freq&quot;)
-plot(as.numeric(as.vector(freqData$parent)), 
-     as.numeric(as.vector(freqData$child)),
-     pch = 21, col = &quot;black&quot;, bg = &quot;lightblue&quot;,
-     cex = .05 * freqData$freq, 
-     xlab = &quot;parent&quot;, ylab = &quot;child&quot;)
-lm1 &lt;- lm(galton$child ~ galton$parent)
-lines(galton$parent,lm1$fitted,col=&quot;red&quot;,lwd=3)
+    <pre><code>library(manipulate)
+myHist &lt;- function(mu){
+  hist(galton$child,col=&quot;blue&quot;,breaks=100)
+  lines(c(mu, mu), c(0, 150),col=&quot;red&quot;,lwd=5)
+  mse &lt;- mean((galton$child - mu)^2)
+  text(63, 150, paste(&quot;mu = &quot;, mu))
+  text(63, 140, paste(&quot;MSE = &quot;, round(mse, 2)))
+}
+manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 </code></pre>
 
   </article>

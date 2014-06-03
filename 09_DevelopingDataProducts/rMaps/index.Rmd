@@ -1,0 +1,68 @@
+---
+title       : rMaps
+subtitle    : Building Data Products
+author      : Brian Caffo, Jeff Leek, Roger Peng
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012
+highlighter : highlight.js  
+hitheme     : tomorrow       
+url:
+    lib: ../../librariesNew #Remove new if using old slidify
+    assets: ../../assets
+widgets     : [mathjax, quiz, bootstrap]
+mode        : selfcontained # {standalone, draft}
+ext_widgets : {rCharts: ["libraries/highcharts","libraries/nvd3", "libraries/morris", "libraries/leaflet", "libraries/rickshaw"]}
+---
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F, results='hide'}
+# make this an external chunk that can be included in any file
+library(knitr)
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+runif(1)
+```
+
+
+---
+## BONUS RMaps!!!
+- There's a new github repository describing connections between more 
+  mapping libraries and R
+  - We already saw leaflet
+
+```
+library(devtools);
+require(devtools)
+install_github('ramnathv/rCharts@dev')
+install_github('ramnathv/rMaps')
+```
+
+---
+## Creating a map
+```
+#library(rjson); library(rMaps)
+#crosslet(
+#  x = "country", 
+#  y = c("web_index", "universal_access", "impact_empowerment", #"freedom_openness"),
+#  data = web_index
+#)
+```
+
+---
+```{r, echo=FALSE, warning=FALSE, results='hide'}
+#library(rjson); library(rMaps)
+#crosslet(
+#  x = "country", 
+#  y = c("web_index", "universal_access", "impact_empowerment", #"freedom_openness"),
+#  data = web_index
+#)
+```

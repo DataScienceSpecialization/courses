@@ -85,7 +85,7 @@ $$
 $$
 
 --- &radio
-A random variable takes the value -4 with probabability .2 and 1 with proabability .8. What
+A random variable takes the value -4 with probability .2 and 1 with probability .8. What
 is the variance of this random variable?
 
 1. 0

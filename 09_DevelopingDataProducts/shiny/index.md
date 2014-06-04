@@ -128,7 +128,7 @@ shinyUI(pageWithSidebar(
 ```
 
 ---
-![markup](fig/markup.png 'Marup in ui.R')
+![markup](fig/markup.png 'Markup in ui.R')
 
 
 ---

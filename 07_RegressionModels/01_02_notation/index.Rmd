@@ -18,7 +18,7 @@ mode        : selfcontained # {standalone, draft}
 
 * In this module, we'll cover some basic definitions and notation used throughout the class.
 * We will try to minimize the amount of mathematics required for this class.
-* No caclculus is required. 
+* No calculus is required. 
 
 ---
 
@@ -48,7 +48,7 @@ $$
 $$
 The the mean of the $\tilde X_i$ is 0.
 * This process is called "centering" the random variables.
-* The mean is a measure of central tendancy of the data.
+* The mean is a measure of central tendency of the data.
 * Recall from the previous lecture that the mean is 
   the least squares solution for minimizing
   $$
@@ -57,7 +57,7 @@ The the mean of the $\tilde X_i$ is 0.
 
 ---
 
-## The emprical standard deviation and variance
+## The empirical standard deviation and variance
 
 * Define the empirical variance as 
 $$

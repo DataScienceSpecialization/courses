@@ -118,18 +118,18 @@ students t confidence interval touch zero?</p>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
   <div class="quiz-hint">
-  <p>The t interval is \(\bar x t_{.95, 8}\pm s /sqrt{n}\)</p>
+  <p>The t interval is \(\bar x t_{.975, 8}\pm s /sqrt{n}\)</p>
 
 </div>
 <div class="quiz-explanation">
-  <p><span class="answer">0.62</span></p>
+  <p><span class="answer">0.77</span></p>
 
-<p>We want \(\bar x = t_{.95} s / sqrt{n}\)</p>
+<p>We want \(\bar x = t_{.975} s / sqrt{n}\)</p>
 
-<pre><code class="r">round(qt(.95, df = 8) * 1 / 3, 2)
+<pre><code class="r">round(qt(.975, df = 8) * 1 / 3, 2)
 </code></pre>
 
-<pre><code>[1] 0.62
+<pre><code>[1] 0.77
 </code></pre>
 
 </div>
@@ -281,7 +281,9 @@ make sure the results make sense in the context of the problem.</p>
 <div class="quiz-text quiz-multitext well">
   <p>Suppose that 18 obese subjects were randomized, 9 each, to a new diet pill and a placebo. Subjects&#39; body mass indices (BMIs) were measured at a baseline and again after having received the treatment or placebo for four weeks. The average difference from follow-up to the baseline (followup - baseline) was 3 kg/m2 for the treated group and 1 kg/m2 for the placebo group. The corresponding standard deviations of the differences was 1.5 kg/m2 for the treatment group and 1.8 kg/m2 for the placebo group. The study aims to answer whether the change in BMI over the four week period appear to differ between the treated and placebo groups. </p>
 
-<p>What is the pooled variance estimate? (to 2 decimal places)</p>
+<ol>
+<li>What is the pooled variance estimate? (to 2 decimal places)</li>
+</ol>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
   <button class="quiz-toggle-hint btn btn-info">Show Hint</button>

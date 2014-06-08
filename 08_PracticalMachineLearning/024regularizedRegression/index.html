@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Regularized regression</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Regularized regression">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Regularized regression</h1>
+    <h2></h2>
+    <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Basic idea</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Fit a regression model</li>
+<li>Penalize (or shrink) large coefficients</li>
+</ol>
+
+<p><strong>Pros:</strong></p>
+
+<ul>
+<li>Can help with the bias/variance tradeoff</li>
+<li>Can help with model selection</li>
+</ul>
+
+<p><strong>Cons:</strong></p>
+
+<ul>
+<li>May be computationally demanding on large data sets</li>
+<li>Does not perform as well as random forests and boosting</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>A motivating example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\[Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \epsilon\]</p>
+
+<p>where \(X_1\) and \(X_2\) are nearly perfectly correlated (co-linear). You can approximate this model by:</p>
+
+<p>\[Y = \beta_0 + (\beta_1 + \beta_2)X_1 + \epsilon\]</p>
+
+<p>The result is:</p>
+
+<ul>
+<li>You will get a good estimate of \(Y\)</li>
+<li>The estimate (of \(Y\)) will be biased </li>
+<li>We may reduce variance in the estimate</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Prostate cancer</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(ElemStatLearn); data(prostate)
+str(prostate)
+</code></pre>
+
+<pre><code>&#39;data.frame&#39;:   97 obs. of  10 variables:
+ $ lcavol : num  -0.58 -0.994 -0.511 -1.204 0.751 ...
+ $ lweight: num  2.77 3.32 2.69 3.28 3.43 ...
+ $ age    : int  50 58 74 58 62 50 64 58 47 63 ...
+ $ lbph   : num  -1.39 -1.39 -1.39 -1.39 -1.39 ...
+ $ svi    : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ lcp    : num  -1.39 -1.39 -1.39 -1.39 -1.39 ...
+ $ gleason: int  6 6 7 6 6 6 6 6 6 6 ...
+ $ pgg45  : int  0 0 20 0 0 0 0 0 0 0 ...
+ $ lpsa   : num  -0.431 -0.163 -0.163 -0.163 0.372 ...
+ $ train  : logi  TRUE TRUE TRUE TRUE TRUE TRUE ...
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Subset selection</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class="center" src="../../assets/img/prostate.png" height="450"></p>
+
+<p><a href="http://www.cbcb.umd.edu/%7Ehcorrada/PracticalML/src/selection.R">Code here</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Most common pattern</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class="center" src="../../assets/img/trainingandtest.png" height="450"></p>
+
+<p><a href="http://www.biostat.jhsph.edu/%7Eririzarr/Teaching/649/">http://www.biostat.jhsph.edu/~ririzarr/Teaching/649/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Model selection approach: split samples</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>No method better when data/computation time permits it</p></li>
+<li><p>Approach</p>
+
+<ol>
+<li>Divide data into training/test/validation</li>
+<li>Treat validation as test data, train all competing models on the train data and pick the best one on validation. </li>
+<li>To appropriately assess performance on new data apply to test set</li>
+<li>You may re-split and reperform steps 1-3</li>
+</ol></li>
+<li><p>Two common problems</p>
+
+<ul>
+<li>Limited data</li>
+<li>Computational complexity</li>
+</ul></li>
+</ul>
+
+<p><a href="http://www.biostat.jhsph.edu/%7Eririzarr/Teaching/649/">http://www.biostat.jhsph.edu/~ririzarr/Teaching/649/</a>
+<a href="http://www.cbcb.umd.edu/%7Ehcorrada/PracticalML/">http://www.cbcb.umd.edu/~hcorrada/PracticalML/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Decomposing expected prediction error</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Assume \(Y_i = f(X_i) + \epsilon_i\)</p>
+
+<p>\(EPE(\lambda) = E\left[\{Y - \hat{f}_{\lambda}(X)\}^2\right]\)</p>
+
+<p>Suppose \(\hat{f}_{\lambda}\) is the estimate from the training data and look at a new data point \(X = x^*\)</p>
+
+<p>\[E\left[\{Y - \hat{f}_{\lambda}(x^*)\}^2\right] = \sigma^2 + \{E[\hat{f}_{\lambda}(x^*)] - f(x^*)\}^2 + var[\hat{f}_\lambda(x_0)]\]</p>
+
+<p><center> = Irreducible error + Bias\(^2\) + Variance </center></p>
+
+<p><a href="http://www.biostat.jhsph.edu/%7Eririzarr/Teaching/649/">http://www.biostat.jhsph.edu/~ririzarr/Teaching/649/</a>
+<a href="http://www.cbcb.umd.edu/%7Ehcorrada/PracticalML/">http://www.cbcb.umd.edu/~hcorrada/PracticalML/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Another issue for high-dimensional data</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">small = prostate[1:5,]
+lm(lpsa ~ .,data =small)
+</code></pre>
+
+<pre><code>
+Call:
+lm(formula = lpsa ~ ., data = small)
+
+Coefficients:
+(Intercept)       lcavol      lweight          age         lbph          svi          lcp  
+     9.6061       0.1390      -0.7914       0.0952           NA           NA           NA  
+    gleason        pgg45    trainTRUE  
+    -2.0871           NA           NA  
+</code></pre>
+
+<p><a href="http://www.biostat.jhsph.edu/%7Eririzarr/Teaching/649/">http://www.biostat.jhsph.edu/~ririzarr/Teaching/649/</a>
+<a href="http://www.cbcb.umd.edu/%7Ehcorrada/PracticalML/">http://www.cbcb.umd.edu/~hcorrada/PracticalML/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Hard thresholding</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>Model \(Y = f(X) + \epsilon\)</p></li>
+<li><p>Set \(\hat{f}_{\lambda}(x) = x'\beta\)</p></li>
+<li><p>Constrain only \(\lambda\) coefficients to be nonzero. </p></li>
+<li><p>Selection problem is after chosing \(\lambda\) figure out which \(p - \lambda\) coefficients to make nonzero</p></li>
+</ul>
+
+<p><a href="http://www.biostat.jhsph.edu/%7Eririzarr/Teaching/649/">http://www.biostat.jhsph.edu/~ririzarr/Teaching/649/</a>
+<a href="http://www.cbcb.umd.edu/%7Ehcorrada/PracticalML/">http://www.cbcb.umd.edu/~hcorrada/PracticalML/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Regularization for regression</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>If the \(\beta_j\)&#39;s are unconstrained:</p>
+
+<ul>
+<li>They can explode</li>
+<li>And hence are susceptible to very high variance</li>
+</ul>
+
+<p>To control variance, we might regularize/shrink the coefficients. </p>
+
+<p>\[ PRSS(\beta) = \sum_{j=1}^n (Y_j - \sum_{i=1}^m \beta_{1i} X_{ij})^2 + P(\lambda; \beta)\]</p>
+
+<p>where \(PRSS\) is a penalized form of the sum of squares. Things that are commonly looked for</p>
+
+<ul>
+<li>Penalty reduces complexity</li>
+<li>Penalty reduces variance</li>
+<li>Penalty respects structure of the problem</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Ridge regression</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Solve:</p>
+
+<p>\[ \sum_{i=1}^N \left(y_i - \beta_0 + \sum_{j=1}^p x_{ij}\beta_j \right)^2 + \lambda \sum_{j=1}^p \beta_j^2\]</p>
+
+<p>equivalent to solving</p>
+
+<p>\(\sum_{i=1}^N \left(y_i - \beta_0 + \sum_{j=1}^p x_{ij}\beta_j \right)^2\) subject to \(\sum_{j=1}^p \beta_j^2 \leq s\) where \(s\) is inversely proportional to \(\lambda\) </p>
+
+<p>Inclusion of \(\lambda\) makes the problem non-singular even if \(X^TX\) is not invertible.</p>
+
+<p><a href="http://www.biostat.jhsph.edu/%7Eririzarr/Teaching/649/">http://www.biostat.jhsph.edu/~ririzarr/Teaching/649/</a>
+<a href="http://www.cbcb.umd.edu/%7Ehcorrada/PracticalML/">http://www.cbcb.umd.edu/~hcorrada/PracticalML/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Ridge coefficient paths</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class="center" src="../../assets/img/ridgepath.png" height="450"></p>
+
+<p><a href="http://www.biostat.jhsph.edu/%7Eririzarr/Teaching/649/">http://www.biostat.jhsph.edu/~ririzarr/Teaching/649/</a>
+<a href="http://www.cbcb.umd.edu/%7Ehcorrada/PracticalML/">http://www.cbcb.umd.edu/~hcorrada/PracticalML/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Tuning parameter \(\lambda\)</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>\(\lambda\) controls the size of the coefficients</li>
+<li>\(\lambda\) controls the amount of {\bf regularization}</li>
+<li>As \(\lambda \rightarrow 0\) we obtain the least square solution</li>
+<li>As \(\lambda \rightarrow \infty\) we have \(\hat{\beta}_{\lambda=\infty}^{ridge} = 0\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Lasso</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\(\sum_{i=1}^N \left(y_i - \beta_0 + \sum_{j=1}^p x_{ij}\beta_j \right)^2\) subject to \(\sum_{j=1}^p |\beta_j| \leq s\) </p>
+
+<p>also has a lagrangian form </p>
+
+<p>\[ \sum_{i=1}^N \left(y_i - \beta_0 + \sum_{j=1}^p x_{ij}\beta_j \right)^2 + \lambda \sum_{j=1}^p |\beta_j|\]</p>
+
+<p>For orthonormal design matrices (not the norm!) this has a closed form solution</p>
+
+<p>\[\hat{\beta}_j = sign(\hat{\beta}_j^0)(|\hat{\beta}_j^0 - \gamma)^{+}\]</p>
+
+<p>but not in general. </p>
+
+<p><a href="http://www.biostat.jhsph.edu/%7Eririzarr/Teaching/649/">http://www.biostat.jhsph.edu/~ririzarr/Teaching/649/</a>
+<a href="http://www.cbcb.umd.edu/%7Ehcorrada/PracticalML/">http://www.cbcb.umd.edu/~hcorrada/PracticalML/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Notes and further reading</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><a href="http://www.cbcb.umd.edu/%7Ehcorrada/PracticalML/">Hector Corrada Bravo&#39;s Practical Machine Learning lecture notes</a></li>
+<li><a href="http://www.cbcb.umd.edu/%7Ehcorrada/AMSC689.html#readings">Hector&#39;s penalized regression reading list</a></li>
+<li><a href="http://statweb.stanford.edu/%7Etibs/ElemStatLearn/">Elements of Statistical Learning</a></li>
+<li>In <code>caret</code> methods are:
+
+<ul>
+<li><code>ridge</code></li>
+<li><code>lasso</code></li>
+<li><code>relaxo</code></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Basic idea'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='A motivating example'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Prostate cancer'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Subset selection'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Most common pattern'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Model selection approach: split samples'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Decomposing expected prediction error'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Another issue for high-dimensional data'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Hard thresholding'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Regularization for regression'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Ridge regression'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Ridge coefficient paths'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Tuning parameter \(\lambda\)'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Lasso'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Notes and further reading'>
+         15
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

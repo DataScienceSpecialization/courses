@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -113,29 +113,6 @@ rootNode[[1]][[1]]
 ```
 
 
-
-
----
-
-## Programatically extract parts of the file
-
-
-```r
-xmlSApply(rootNode,xmlValue)
-```
-
-```
-                                                                                                                    food 
-                              "Belgian Waffles$5.95Two of our famous Belgian Waffles with plenty of real maple syrup650" 
-                                                                                                                    food 
-                   "Strawberry Belgian Waffles$7.95Light Belgian waffles covered with strawberries and whipped cream900" 
-                                                                                                                    food 
-"Berry-Berry Belgian Waffles$8.95Light Belgian waffles covered with an assortment of fresh berries and whipped cream900" 
-                                                                                                                    food 
-                                               "French Toast$4.50Thick slices made from our homemade sourdough bread600" 
-                                                                                                                    food 
-                        "Homestyle Breakfast$6.95Two eggs, bacon or sausage, toast, and our ever-popular hash browns950" 
-```
 
 
 ---

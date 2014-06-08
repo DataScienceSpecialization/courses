@@ -21,9 +21,11 @@ Roger Peng and the Data Science Team
 
 ## Exploratory Data Analysis: Week 2
 
+Welcome to Week 2 of Exploratory Data Analysis. This week covers some of the more advanced graphing systems available in R: the Lattice system and the ggplot2 system. While the base graphics system provides many important tools for visualizing data, it was part of the original R system and lacks many features that may be desirable in a plotting system, particularly when visualizing high dimensional data. The Lattice and ggplot2 systems also simplify the laying out of plots making it a much less tedious process.
 
+This week there is a **Quiz** but there is no Peer Assessment. Rather, you will spend the week grading your classmates' Peer Assessment submissions. For each Peer Assessment you evaluate you will receive 2 points towards your final grade (up to a maximum of 20 points). Evaluating Peer Assessments is a great way to see the variety with which a problem can be solved by others.
 
-Good luck and have a great week!
+Good luck and have a great week! 
 
 Roger Peng and the Data Science Team
 

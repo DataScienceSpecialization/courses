@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -27,7 +27,7 @@ mode        : selfcontained # {standalone, draft}
 * _groups_ containing zero or more data sets and metadata
   * Have a _group header_ with group name and list of attributes
   * Have a _group symbol table_ with a list of objects in group
-* _datasets_ multidmensional array of data elements with metadata
+* _datasets_ multidimensional array of data elements with metadata
   * Have a _header_ with name, datatype, dataspace, and storage layout
   * Have a _data array_ with the data
 

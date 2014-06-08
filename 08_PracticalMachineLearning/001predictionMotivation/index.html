@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Motivation and pre-requisites</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Motivation and pre-requisites">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Motivation and pre-requisites</h1>
+    <h2></h2>
+    <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>About this course</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>This course covers the basic ideas behind machine learning/prediction
+
+<ul>
+<li>Study design - training vs. test sets</li>
+<li>Conceptual issues - out of sample error, ROC curves</li>
+<li>Practical implementation - the caret package</li>
+</ul></li>
+<li>What this course depends on
+
+<ul>
+<li>The Data Scientist&#39;s Toolbox</li>
+<li>R Programming</li>
+</ul></li>
+<li>What would be useful
+
+<ul>
+<li>Exploratory analysis</li>
+<li>Reporting Data and Reproducible Research</li>
+<li>Regression models</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Who predicts?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Local governments -&gt; pension payments</li>
+<li>Google -&gt; whether you will click on an ad</li>
+<li>Amazon -&gt; what movies you will watch</li>
+<li>Insurance companies -&gt; what your risk of death is</li>
+<li>Johns Hopkins -&gt; who will succeed in their programs</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Why predict? Glory!</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/volinsky.png height=450></p>
+
+<p><a href="http://www.zimbio.com/photos/Chris+Volinsky">http://www.zimbio.com/photos/Chris+Volinsky</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Why predict? Riches!</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/heritage.png height=450></p>
+
+<p><a href="http://www.heritagehealthprize.com/c/hhp">http://www.heritagehealthprize.com/c/hhp</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Why predict? For sport!</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/kaggle.png height=350></p>
+
+<p><a href="http://www.kaggle.com/">http://www.kaggle.com/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Why predict? To save lives!</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/oncotype.png height=350></p>
+
+<p><a href="http://www.oncotypedx.com/en-US/Home">http://www.oncotypedx.com/en-US/Home</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>A useful (if a bit advanced) book</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/elemlearn.png height=350></p>
+
+<p><a href="http://statweb.stanford.edu/%7Etibs/ElemStatLearn/">The elements of statistical learning</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>A useful package</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/caret.png height=350></p>
+
+<p><a href="http://caret.r-forge.r-project.org/">http://caret.r-forge.r-project.org/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Machine learning (more advanced material)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=../../assets/img/08_PredictionAndMachineLearning/machinelearning.png height=350></p>
+
+<p><a href="https://www.coursera.org/course/ml">https://www.coursera.org/course/ml</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Even more resources</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><a href="http://www.quora.com/Machine-Learning/What-are-some-good-resources-for-learning-about-machine-learning-Why">List of machine learning resources on Quora</a></li>
+<li><a href="http://www.sciencemag.org/site/feature/data/compsci/machine_learning.xhtml">List of machine learning resources from Science</a></li>
+<li><a href="http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-867-machine-learning-fall-2006/lecture-notes/">Advanced notes from MIT open courseware</a></li>
+<li><a href="http://www.stat.cmu.edu/%7Ecshalizi/350/">Advanced notes from CMU</a></li>
+<li><a href="http://www.kaggle.com/">Kaggle - machine learning competitions</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='About this course'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Who predicts?'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Why predict? Glory!'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Why predict? Riches!'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Why predict? For sport!'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Why predict? To save lives!'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='A useful (if a bit advanced) book'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='A useful package'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Machine learning (more advanced material)'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Even more resources'>
+         10
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

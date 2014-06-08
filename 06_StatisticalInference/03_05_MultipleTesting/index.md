@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -43,14 +43,14 @@ __The era of scientific mass production__, in which new technologies typified by
 
 ## Reasons for multiple testing
 
-<img class=center src=../../assets/img/datasources.png height=450>
+<img class=center src=fig/datasources.png height=450>
 
 
 ---
 
 ## Why correct for multiple tests?
 
-<img class=center src=../../assets/img/jellybeans1.png height=450>
+<img class=center src=fig/jellybeans1.png height=450>
 
 
 [http://xkcd.com/882/](http://xkcd.com/882/)
@@ -59,7 +59,7 @@ __The era of scientific mass production__, in which new technologies typified by
 
 ## Why correct for multiple tests?
 
-<img class=center src=../../assets/img/jellybeans2.png height=400>
+<img class=center src=fig/jellybeans2.png height=400>
 
 [http://xkcd.com/882/](http://xkcd.com/882/)
 
@@ -133,7 +133,7 @@ __Cons__: May be very conservative
 
 ## Controlling false discovery rate (FDR)
 
-This is the most popular correction when performing _lots_ of tests say in genomics, imagining, astronomy, or other signal-processing disciplines. 
+This is the most popular correction when performing _lots_ of tests say in genomics, imaging, astronomy, or other signal-processing disciplines. 
 
 __Basic idea__: 
 * Suppose you do $m$ tests
@@ -150,7 +150,7 @@ __Cons__: Allows for more false positives, may behave strangely under dependence
 
 ## Example with 10 P-values
 
-<img class=center src=../../assets/img/example10pvals.png height=450>
+<img class=center src=fig/example10pvals.png height=450>
 
 Controlling all error rates at $\alpha = 0.20$
 

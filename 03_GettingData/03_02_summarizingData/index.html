@@ -8,51 +8,46 @@
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
     media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../libraries/frameworks/io2012/js/slides" 
-    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-    <link rel="stylesheet" href = "../../assets/css/custom.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
-<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
-<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+  
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
     
     <!-- LOGO SLIDE -->
-    <!-- END LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Summarizing data</h1>
+    <h2></h2>
+    <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
     
 
-    <!-- TITLE SLIDE -->
-    <!-- Should I move this to a Local Layout File? -->
-    <slide class="title-slide segue nobackground">
-      <aside class="gdbar">
-        <img src="../../assets/img/bloomberg_shield.png">
-      </aside>
-      <hgroup class="auto-fadein">
-        <h1>Summarizing data</h1>
-        <h2></h2>
-        <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
-      </hgroup>
-          </slide>
-
     <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
+    <slide class="" id="slide-1" style="background:;">
   <hgroup>
     <h2>Example data set</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><img class=center src="../../assets/img/03_ObtainingData/restaurants.png" height=500 /></p>
 
 <p><a href="https://data.baltimorecity.gov/Community/Restaurants/k5ry-ef3g">https://data.baltimorecity.gov/Community/Restaurants/k5ry-ef3g</a></p>
@@ -61,11 +56,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-2" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
     <h2>Getting the data from the web</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">if(!file.exists(&quot;./data&quot;)){dir.create(&quot;./data&quot;)}
 fileUrl &lt;- &quot;https://data.baltimorecity.gov/api/views/k5ry-ef3g/rows.csv?accessType=DOWNLOAD&quot;
 download.file(fileUrl,destfile=&quot;./data/restaurants.csv&quot;,method=&quot;curl&quot;)
@@ -76,11 +71,11 @@ restData &lt;- read.csv(&quot;./data/restaurants.csv&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Look at a bit of the data</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">head(restData,n=3)
 </code></pre>
 
@@ -107,11 +102,11 @@ restData &lt;- read.csv(&quot;./data/restaurants.csv&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Make summary</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">summary(restData)
 </code></pre>
 
@@ -137,11 +132,11 @@ restData &lt;- read.csv(&quot;./data/restaurants.csv&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
-    <h2>Mpre in depth information</h2>
+    <h2>More in depth information</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">str(restData)
 </code></pre>
 
@@ -158,11 +153,11 @@ restData &lt;- read.csv(&quot;./data/restaurants.csv&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Quantiles of quantitative variables</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">quantile(restData$councilDistrict,na.rm=TRUE)
 </code></pre>
 
@@ -181,11 +176,11 @@ restData &lt;- read.csv(&quot;./data/restaurants.csv&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>Make table</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">table(restData$zipCode,useNA=&quot;ifany&quot;)
 </code></pre>
 
@@ -202,11 +197,11 @@ restData &lt;- read.csv(&quot;./data/restaurants.csv&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>Make table</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">table(restData$councilDistrict,restData$zipCode)
 </code></pre>
 
@@ -264,11 +259,11 @@ restData &lt;- read.csv(&quot;./data/restaurants.csv&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>Check for missing values</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">sum(is.na(restData$councilDistrict))
 </code></pre>
 
@@ -291,11 +286,11 @@ restData &lt;- read.csv(&quot;./data/restaurants.csv&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Row and column sums</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">colSums(is.na(restData))
 </code></pre>
 
@@ -313,11 +308,11 @@ restData &lt;- read.csv(&quot;./data/restaurants.csv&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>Values with specific characteristics</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">table(restData$zipCode %in% c(&quot;21212&quot;))
 </code></pre>
 
@@ -338,11 +333,11 @@ FALSE  TRUE
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>Values with specific characteristics</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">restData[restData$zipCode %in% c(&quot;21212&quot;,&quot;21213&quot;),]
 </code></pre>
 
@@ -472,11 +467,11 @@ FALSE  TRUE
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-13" style="background:;">
   <hgroup>
     <h2>Cross tabs</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">data(UCBAdmissions)
 DF = as.data.frame(UCBAdmissions)
 summary(DF)
@@ -495,11 +490,11 @@ summary(DF)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>Cross tabs</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">xt &lt;- xtabs(Freq ~ Gender + Admit,data=DF)
 xt
 </code></pre>
@@ -514,11 +509,11 @@ Gender   Admitted Rejected
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>Flat tables</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">warpbreaks$replicate &lt;- rep(1:9, len = 54)
 xt = xtabs(breaks ~.,data=warpbreaks)
 xt
@@ -592,11 +587,11 @@ wool  L  M  H
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-16" style="background:;">
   <hgroup>
     <h2>Flat tables</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">ftable(xt)
 </code></pre>
 
@@ -614,11 +609,11 @@ B    L                 27 14 29 19 29 31 41 20 44
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-17" style="background:;">
+<slide class="" id="slide-17" style="background:;">
   <hgroup>
     <h2>Size of a data set</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">fakeData = rnorm(1e5)
 object.size(fakeData)
 </code></pre>
@@ -638,34 +633,137 @@ object.size(fakeData)
 
     <slide class="backdrop"></slide>
   </slides>
-
-  <!--[if IE]>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Example data set'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Getting the data from the web'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Look at a bit of the data'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Make summary'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='More in depth information'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Quantiles of quantitative variables'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Make table'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Make table'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Check for missing values'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Row and column sums'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Values with specific characteristics'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Values with specific characteristics'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Cross tabs'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Cross tabs'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Flat tables'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Flat tables'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Size of a data set'>
+         17
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
     <script 
       src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
 </body>
-<!-- Grab CDN jQuery, fall back to local if offline -->
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
-<!-- Load Javascripts for Widgets -->
-<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> -->
-<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
 </script>
 <!-- LOAD HIGHLIGHTER JS FILES -->
-<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- DONE LOADING HIGHLIGHTER JS FILES -->
-</html>
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

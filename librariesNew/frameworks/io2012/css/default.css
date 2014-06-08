@@ -25,6 +25,27 @@ body {
   line-height: 1;
 }
 
+strong, b {
+  font-weight: bolder;
+}
+em {
+  font-style: italic;
+}
+
+img.center {
+  display: block;
+	margin: auto auto;
+}
+
+redtext {
+  color: red; 
+}
+
+rt {
+  color: red; 
+}
+
+
 /* line 22, ../../../../../../Library/Ruby/Gems/1.8/gems/compass-0.12.1/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;

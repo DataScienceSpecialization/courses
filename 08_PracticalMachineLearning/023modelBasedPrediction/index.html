@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Model based prediction</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Model based prediction">
+  <meta name="author" content="Jeffrey Leek">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Model based prediction</h1>
+    <h2></h2>
+    <p>Jeffrey Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Basic idea</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Assume the data follow a probabilistic model</li>
+<li>Use Bayes&#39; theorem to identify optimal classifiers</li>
+</ol>
+
+<p><strong>Pros:</strong></p>
+
+<ul>
+<li>Can take advantage of structure of the data</li>
+<li>May be computationally convenient</li>
+<li>Are reasonably accurate on real problems</li>
+</ul>
+
+<p><strong>Cons:</strong></p>
+
+<ul>
+<li>Make additional assumptions about the data</li>
+<li>When the model is incorrect you may get reduced accuracy</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Model based approach</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li><p>Our goal is to build parametric model for conditional distribution \(P(Y = k | X = x)\)</p></li>
+<li><p>A typical approach is to apply <a href="http://en.wikipedia.org/wiki/Bayes&#x27;_theorem">Bayes theorem</a>:
+\[ Pr(Y = k | X=x) = \frac{Pr(X=x|Y=k)Pr(Y=k)}{\sum_{\ell=1}^K Pr(X=x |Y = \ell) Pr(Y=\ell)}\]
+\[Pr(Y = k | X=x) = \frac{f_k(x) \pi_k}{\sum_{\ell = 1}^K f_{\ell}(x) \pi_{\ell}}\]</p></li>
+<li><p>Typically prior probabilities \(\pi_k\) are set in advance.</p></li>
+<li><p>A common choice for \(f_k(x) = \frac{1}{\sigma_k \sqrt{2 \pi}}e^{-\frac{(x-\mu_k)^2}{\sigma_k^2}}\), a Gaussian distribution</p></li>
+<li><p>Estimate the parameters (\(\mu_k\),\(\sigma_k^2\)) from the data.</p></li>
+<li><p>Classify to the class with the highest value of \(P(Y = k | X = x)\)</p></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Classifying using the model</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>A range of models use this approach</p>
+
+<ul>
+<li>Linear discriminant analysis assumes \(f_k(x)\) is multivariate Gaussian with same covariances</li>
+<li>Quadratic discrimant analysis assumes \(f_k(x)\) is multivariate Gaussian with different covariances</li>
+<li><a href="http://www.stat.washington.edu/mclust/">Model based prediction</a> assumes more complicated versions for the covariance matrix </li>
+<li>Naive Bayes assumes independence between features for model building</li>
+</ul>
+
+<p><a href="http://statweb.stanford.edu/%7Etibs/ElemStatLearn/">http://statweb.stanford.edu/~tibs/ElemStatLearn/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Why linear discriminant analysis?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\[log \frac{Pr(Y = k | X=x)}{Pr(Y = j | X=x)}\]
+\[ = log \frac{f_k(x)}{f_j(x)} + log \frac{\pi_k}{\pi_j}\]
+\[ = log \frac{\pi_k}{\pi_j} - \frac{1}{2}(\mu_k + \mu_j)^T \Sigma^{-1}(\mu_k + \mu_j)\]
+\[ + x^T \Sigma^{-1} (\mu_k - \mu_j)\]</p>
+
+<p><a href="http://statweb.stanford.edu/%7Etibs/ElemStatLearn/">http://statweb.stanford.edu/~tibs/ElemStatLearn/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Decision boundaries</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class="center" src="../../assets/img/ldaboundary.png" height=500></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Discriminant function</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\[\delta_k(x) = x^T \Sigma^{-1} \mu_k - \frac{1}{2}\mu_k \Sigma^{-1}\mu_k + log(\mu_k)\]</p>
+
+<ul>
+<li>Decide on class based on \(\hat{Y}(x) = argmax_k \delta_k(x)\)</li>
+<li>We usually estimate parameters with maximum likelihood</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Naive Bayes</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Suppose we have many predictors, we would want to model: \(P(Y = k | X_1,\ldots,X_m)\)</p>
+
+<p>We could use Bayes Theorem to get:</p>
+
+<p>\[P(Y = k | X_1,\ldots,X_m) = \frac{\pi_k P(X_1,\ldots,X_m| Y=k)}{\sum_{\ell = 1}^K P(X_1,\ldots,X_m | Y=k) \pi_{\ell}}\]
+\[ \propto \pi_k P(X_1,\ldots,X_m| Y=k)\]</p>
+
+<p>This can be written:</p>
+
+<p>\[P(X_1,\ldots,X_m, Y=k) = \pi_k P(X_1 | Y = k)P(X_2,\ldots,X_m | X_1,Y=k)\]
+\[ = \pi_k P(X_1 | Y = k) P(X_2 | X_1, Y=k) P(X_3,\ldots,X_m | X_1,X_2, Y=k)\]
+\[ = \pi_k P(X_1 | Y = k) P(X_2 | X_1, Y=k)\ldots P(X_m|X_1\ldots,X_{m-1},Y=k)\]</p>
+
+<p>We could make an assumption to write this:</p>
+
+<p>\[ \approx \pi_k P(X_1 | Y = k) P(X_2 | Y = k)\ldots P(X_m |,Y=k)\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Example: Iris Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">data(iris); library(ggplot2)
+names(iris)
+</code></pre>
+
+<pre><code>[1] &quot;Sepal.Length&quot; &quot;Sepal.Width&quot;  &quot;Petal.Length&quot; &quot;Petal.Width&quot;  &quot;Species&quot;     
+</code></pre>
+
+<pre><code class="r">table(iris$Species)
+</code></pre>
+
+<pre><code>
+    setosa versicolor  virginica 
+        50         50         50 
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Create training and test sets</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">inTrain &lt;- createDataPartition(y=iris$Species,
+                              p=0.7, list=FALSE)
+training &lt;- iris[inTrain,]
+testing &lt;- iris[-inTrain,]
+dim(training); dim(testing)
+</code></pre>
+
+<pre><code>[1] 45  5
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Build predictions</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">modlda = train(Species ~ .,data=training,method=&quot;lda&quot;)
+modnb = train(Species ~ ., data=training,method=&quot;nb&quot;)
+plda = predict(modlda,testing); pnb = predict(modnb,testing)
+table(plda,pnb)
+</code></pre>
+
+<pre><code>            pnb
+plda         setosa versicolor virginica
+  setosa         15          0         0
+  versicolor      0         13         1
+  virginica       0          0        16
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Comparison of results</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">equalPredictions = (plda==pnb)
+qplot(Petal.Width,Sepal.Width,colour=equalPredictions,data=testing)
+</code></pre>
+
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Notes and further reading</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><a href="http://www-bcf.usc.edu/%7Egareth/ISL/">Introduction to statistical learning</a></li>
+<li><a href="http://www-stat.stanford.edu/%7Etibs/ElemStatLearn/">Elements of Statistical Learning</a></li>
+<li><a href="http://www.stat.washington.edu/raftery/Research/PDF/fraley2002.pdf">Model based clustering</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Linear_discriminant_analysis">Linear Discriminant Analysis</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Quadratic_classifier">Quadratic Discriminant Analysis</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Basic idea'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Model based approach'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Classifying using the model'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Why linear discriminant analysis?'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Decision boundaries'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Discriminant function'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Naive Bayes'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Example: Iris Data'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Create training and test sets'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Build predictions'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Comparison of results'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Notes and further reading'>
+         12
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

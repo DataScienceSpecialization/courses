@@ -47,7 +47,7 @@ Data from: [ISLR package](http://cran.r-project.org/web/packages/ISLR) from the 
 ## Example: Wage data
 
 ```{r loadData,cache=TRUE}
-library(ISLR); library(ggplot2); library(caret);
+library(ISLR); library(ggplot2); library(caret); library(gridExtra);
 data(Wage)
 summary(Wage)
 ```

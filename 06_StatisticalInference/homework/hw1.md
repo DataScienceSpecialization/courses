@@ -75,8 +75,8 @@ You are playing a game with a friend where you flip a coin and if it comes up he
 4. $-X \frac{d}{1 + d} - Y \frac{1}{1+d} $
 
 *** .hint
-The odds that you lose on a given round is given by $p / (1 - p) = d$ which implies
-that the probability that you win is $p = d / (1 + d)$.
+The odds that you win on a given round is given by $p / (1 - p) = d$ which implies
+that $p = d / (1 + d)$.
 
 *** .explanation
 You lose $X$ with probability $p = d/(1 +d)$ and you win $Y$ with probability $1-p = 1/(1 + d)$. So your answer is
@@ -185,7 +185,7 @@ What is the variance expressed to 1 decimal place?
 4. 17.0
 
 *** .hint
-The variance is $E[X^2] - E[X]^2$
+The variance is $E[X^2] - E[X^2]$
 
 *** .explanation 
 

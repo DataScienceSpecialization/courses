@@ -187,7 +187,7 @@ R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
 $$
 
 ---
-## Relation between $R^2$ and $r$ (the corrrelation)
+## Relation between $R^2$ and $r$ (the correlation)
 Recall that $(\hat Y_i - \bar Y) = \hat \beta_1  (X_i - \bar X)$
 so that
 $$

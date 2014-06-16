@@ -110,8 +110,7 @@ distributed with a mean of 100 hits per day and a standard deviation of 10 hits 
 
 
 *** .hint
-Let $X$ be the number of hits per day. We want $P(X \leq 93)$ given that
-$X$ is $N(100, 10^2)$.
+Let $x$ be the number of hits per day. We want $x$ so that $F(x) = 0.95$.
 
 *** .explanation
 <span class="answer">116.449</span>

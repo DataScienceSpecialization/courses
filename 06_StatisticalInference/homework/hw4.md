@@ -88,7 +88,7 @@ The answer to 2. is <span class="answer">4e-04</span>
 --- &multitext
 A sample of 100 men yielded an average PSA level of 3.0 with a sd of 1.1. What
 are the complete set of values that a 5% two sided Z test of $H_0 : \mu = \mu_0$ 
-would reject the null hypothesis for?
+would fail to reject the null hypothesis for?
 
 1. Enter the lower value to 2 decimal places.
 2. Enter the upper value to 2 decimal places. 
@@ -99,7 +99,7 @@ This is equivalent to the confidence interval.
 *** .explanation
 The answer to 1 is
  <span class="answer">2.78</span><br>
-The answer to 2 is <span class="answer">2.78</span>
+The answer to 2 is <span class="answer">3.22</span>
 
 
 --- &multitext

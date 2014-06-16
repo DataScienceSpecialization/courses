@@ -6,9 +6,9 @@ job         : Johns Hopkins Bloomberg School of Public Health
 framework   : io2012
 highlighter : highlight.js  
 hitheme     : tomorrow       
-#url:
-#    lib: ../../librariesNew #Remove new if using old slidify
-#    assets: ../../assets
+url:
+    lib: ../../librariesNew #Remove new if using old slidify
+    assets: ../../assets
 widgets     : [mathjax, quiz, bootstrap]
 mode        : selfcontained # {standalone, draft}
 ---

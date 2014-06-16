@@ -1,209 +1,53 @@
 <!DOCTYPE html>
-<!-- saved from url=(0014)about:internet -->
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Homework 2 for Stat Inference</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Homework 2 for Stat Inference">
+  <meta name="author" content="Brian Caffo">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="../../librariesNew/widgets/quiz/css/demo.css"></link>
+<link rel=stylesheet href="../../librariesNew/widgets/bootstrap/css/bootstrap.css"></link>
 
-<title>lib: ../../librariesNew #Remove new if using old slidify</title>
-
-<style type="text/css">
-body, td {
-   font-family: sans-serif;
-   background-color: white;
-   font-size: 12px;
-   margin: 8px;
-}
-
-tt, code, pre {
-   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
-}
-
-h1 { 
-   font-size:2.2em; 
-}
-
-h2 { 
-   font-size:1.8em; 
-}
-
-h3 { 
-   font-size:1.4em; 
-}
-
-h4 { 
-   font-size:1.0em; 
-}
-
-h5 { 
-   font-size:0.9em; 
-}
-
-h6 { 
-   font-size:0.8em; 
-}
-
-a:visited {
-   color: rgb(50%, 0%, 50%);
-}
-
-pre {	
-   margin-top: 0;
-   max-width: 95%;
-   border: 1px solid #ccc;
-   white-space: pre-wrap;
-}
-
-pre code {
-   display: block; padding: 0.5em;
-}
-
-code.r, code.cpp {
-   background-color: #F8F8F8;
-}
-
-table, td, th {
-  border: none;
-}
-
-blockquote {
-   color:#666666;
-   margin:0;
-   padding-left: 1em;
-   border-left: 0.5em #EEE solid;
-}
-
-hr {
-   height: 0px;
-   border-bottom: none;
-   border-top-width: thin;
-   border-top-style: dotted;
-   border-top-color: #999999;
-}
-
-@media print {
-   * { 
-      background: transparent !important; 
-      color: black !important; 
-      filter:none !important; 
-      -ms-filter: none !important; 
-   }
-
-   body { 
-      font-size:12pt; 
-      max-width:100%; 
-   }
-       
-   a, a:visited { 
-      text-decoration: underline; 
-   }
-
-   hr { 
-      visibility: hidden;
-      page-break-before: always;
-   }
-
-   pre, blockquote { 
-      padding-right: 1em; 
-      page-break-inside: avoid; 
-   }
-
-   tr, img { 
-      page-break-inside: avoid; 
-   }
-
-   img { 
-      max-width: 100% !important; 
-   }
-
-   @page :left { 
-      margin: 15mm 20mm 15mm 10mm; 
-   }
-     
-   @page :right { 
-      margin: 15mm 10mm 15mm 20mm; 
-   }
-
-   p, h2, h3 { 
-      orphans: 3; widows: 3; 
-   }
-
-   h2, h3 { 
-      page-break-after: avoid; 
-   }
-}
-
-</style>
-
-<!-- Styles for R syntax highlighter -->
-<style type="text/css">
-   pre .operator,
-   pre .paren {
-     color: rgb(104, 118, 135)
-   }
-
-   pre .literal {
-     color: rgb(88, 72, 246)
-   }
-
-   pre .number {
-     color: rgb(0, 0, 205);
-   }
-
-   pre .comment {
-     color: rgb(76, 136, 107);
-   }
-
-   pre .keyword {
-     color: rgb(0, 0, 255);
-   }
-
-   pre .identifier {
-     color: rgb(0, 0, 0);
-   }
-
-   pre .string {
-     color: rgb(3, 106, 7);
-   }
-</style>
-
-<!-- R syntax highlighter -->
-<script type="text/javascript">
-var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
-hljs.initHighlightingOnLoad();
-</script>
-
-
-<!-- MathJax scripts -->
-<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
 
 </head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Homework 2 for Stat Inference</h1>
+    <h2>Extra problems for Stat Inference</h2>
+    <p>Brian Caffo<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
 
-<body>
-<hr/>
-
-<p>title       : Homework 2 for Stat Inference
-subtitle    : Extra problems for Stat Inference
-author      : Brian Caffo
-job         : Johns Hopkins Bloomberg School of Public Health
-framework   : io2012
-highlighter : highlight.js<br/>
-hitheme     : tomorrow<br/>
-#url:</p>
-
-<h1>lib: ../../librariesNew #Remove new if using old slidify</h1>
-
-<h1>assets: ../../assets</h1>
-
-<p>widgets     : [mathjax, quiz, bootstrap]</p>
-
-<h2>mode        : selfcontained # {standalone, draft}</h2>
-
-<h2>About these slides</h2>
-
-<ul>
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>About these slides</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
 <li>These are some practice problems for Statistical Inference Quiz 2</li>
 <li>They were created using slidify interactive which you will learn in 
 Creating Data Products</li>
@@ -211,8 +55,15 @@ Creating Data Products</li>
 (<a href="https://github.com/bcaffo/courses">https://github.com/bcaffo/courses</a>)</li>
 </ul>
 
-<p>&mdash; &amp;radio
-The probability that a manuscript gets accepted to a journal is 12% (say). However,
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>The probability that a manuscript gets accepted to a journal is 12% (say). However,
 given that a revision is asked for, the probability that it gets accepted
 is 90%. Is it possible that the probability that a manuscript has a revision
 asked for is 20%? </p>
@@ -223,15 +74,30 @@ asked for is 20%? </p>
 <li>It&#39;s not possible to answer this question.</li>
 </ol>
 
-<p>*** .hint
-\( A = accepted \), \( B = revision \). \( P(A) = .12 \), \( P(A | B) = .90 \). \( P(B) = .20 \)</p>
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>\(A = accepted\), \(B = revision\). \(P(A) = .12\), \(P(A | B) = .90\). \(P(B) = .20\)</p>
 
-<p>*** .explanation
-\( P(A \cap B) = P(A | B) * P(B) = .9 \times .2 = .18 \) this is larger than
-\( P(A) = .12 \), which is not possible since \( A \cap B \subset A \).</p>
+</div>
+<div class="quiz-explanation">
+  <p>\(P(A \cap B) = P(A | B) * P(B) = .9 \times .2 = .18\) this is larger than
+\(P(A) = .12\), which is not possible since \(A \cap B \subset A\).</p>
 
-<p>&mdash; &amp;radio
-Suppose that the number of web hits to a particular site are approximately normally
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>Suppose that the number of web hits to a particular site are approximately normally
 distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. What&#39;s the probability that a given day has fewer than 93 hits per day
 expressed as a percentage to the nearest percentage point?</p>
 
@@ -242,20 +108,34 @@ expressed as a percentage to the nearest percentage point?</p>
 <li>94%</li>
 </ol>
 
-<p>*** .hint
-Let \( X \) be the number of hits per day. We want \( P(X \leq 93) \) given that
-\( X \) is \( N(100, 10^2) \).</p>
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>Let \(X\) be the number of hits per day. We want \(P(X \leq 93)\) given that
+\(X\) is \(N(100, 10^2)\).</p>
 
-<p>*** .explanation</p>
-
-<pre><code class="r">round(pnorm(93, mean = 100, sd = 10) * 100)
+</div>
+<div class="quiz-explanation">
+  <pre><code class="r">round(pnorm(93, mean = 100, sd = 10) * 100)
 </code></pre>
 
 <pre><code>[1] 24
 </code></pre>
 
-<p>&mdash; &amp;radio
-Suppose 5% of housing projects have issues with asbestos. The sensitivity of a test
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>Suppose 5% of housing projects have issues with asbestos. The sensitivity of a test
 for asbestos is 93% and the specificity is 88%. What is the probability that a 
 housing project has no asbestos given a negative test expressed as a percentage
 to the nearest percentage point?</p>
@@ -269,15 +149,21 @@ to the nearest percentage point?</p>
 <li><em>100%</em></li>
 </ol>
 
-<p>*** .hint
-\( A = asbestos \), \( T_+ = tests positive \), \( T_- = tests negative \). 
-\( P(T_+ | A) = .93 \), \( P(T_- | A^c) = .88 \), \( P(A) = .05 \).</p>
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>\(A = asbestos\), \(T_+ = tests positive\), \(T_- = tests negative\). 
+\(P(T_+ | A) = .93\), \(P(T_- | A^c) = .88\), \(P(A) = .05\).</p>
 
-<p>*** .explanation
-We want
-\[ 
+</div>
+<div class="quiz-explanation">
+  <p>We want
+\[
 P(A^c | T_-) = \frac{P(T_- | A^c) P(A^c)}{P(T_- | A^c) P(A^c) + P(T_- | A) P(A)}
- \]</p>
+\]</p>
 
 <pre><code class="r">(.88 * .95) / (.88 * .95 + .07 * .05)
 </code></pre>
@@ -285,8 +171,17 @@ P(A^c | T_-) = \frac{P(T_- | A^c) P(A^c)}{P(T_- | A^c) P(A^c) + P(T_- | A) P(A)}
 <pre><code>[1] 0.9958
 </code></pre>
 
-<p>&mdash;  &amp;multitext
-Suppose that the number of web hits to a particular site are approximately normally
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>Suppose that the number of web hits to a particular site are approximately normally
 distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. </p>
 
 <ol>
@@ -294,11 +189,17 @@ distributed with a mean of 100 hits per day and a standard deviation of 10 hits 
 5% of days have more hits? Express your answer to 3 decimal places.</li>
 </ol>
 
-<p>*** .hint
-Let \( x \) be the number of hits per day. We want \( x \) so that \( F(x) = 0.95 \).</p>
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>Let \(x\) be the number of hits per day. We want \(x\) so that \(F(x) = 0.95\).</p>
 
-<p>*** .explanation
-<span class="answer">116.449</span></p>
+</div>
+<div class="quiz-explanation">
+  <p><span class="answer">116.449</span></p>
 
 <pre><code class="r">round(qnorm(.95, mean = 100, sd = 10), 3)
 </code></pre>
@@ -312,8 +213,17 @@ Let \( x \) be the number of hits per day. We want \( x \) so that \( F(x) = 0.9
 <pre><code>[1] 116.4
 </code></pre>
 
-<p>&mdash;  &amp;multitext
-Suppose that the number of web hits to a particular site are approximately normally
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>Suppose that the number of web hits to a particular site are approximately normally
 distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. Imagine taking a random sample of 50 days. </p>
 
 <ol>
@@ -322,12 +232,18 @@ be the point so that only 5% of averages of 50 days of web traffic have more hit
 Express your answer to 3 decimal places. </li>
 </ol>
 
-<p>*** .hint
-Let \( \bar X \) be the average number of hits per day for 50 randomly sampled days.
-\( X \) is \( N(100, 10^2 / 50) \).</p>
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>Let \(\bar X\) be the average number of hits per day for 50 randomly sampled days.
+\(X\) is \(N(100, 10^2 / 50)\).</p>
 
-<p>*** .explanation
-<span class="answer">102.326</span></p>
+</div>
+<div class="quiz-explanation">
+  <p><span class="answer">102.326</span></p>
 
 <pre><code class="r">round(qnorm(.95, mean = 100, sd = 10 / sqrt(50) ), 3)
 </code></pre>
@@ -341,23 +257,36 @@ Let \( \bar X \) be the average number of hits per day for 50 randomly sampled d
 <pre><code>[1] 102.3
 </code></pre>
 
-<p>&mdash; &amp;multitext</p>
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
 
-<p>You don&#39;t believe that your friend can discern good wine from cheap. Assuming
+<slide class="" id="slide-7" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>You don&#39;t believe that your friend can discern good wine from cheap. Assuming
 that you&#39;re right, in a blind test where you randomize 6 paired varieties (Merlot,
-Chianti, &hellip;) of cheap and expensive wines</p>
+Chianti, ...) of cheap and expensive wines</p>
 
 <ol>
 <li>what is the change that she gets 5 or 6 right expressed as a percentage
 to one decimal place?</li>
 </ol>
 
-<p>*** .hint
-Let \( p=.5 \) and \( X \) be binomial</p>
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>Let \(p=.5\) and \(X\) be binomial</p>
 
-<p>*** .explanation</p>
-
-<p><span class="answer">10.9</span></p>
+</div>
+<div class="quiz-explanation">
+  <p><span class="answer">10.9</span></p>
 
 <pre><code class="r">round(pbinom(4, prob = .5, size = 6, lower.tail = FALSE) * 100, 1)
 </code></pre>
@@ -365,22 +294,35 @@ Let \( p=.5 \) and \( X \) be binomial</p>
 <pre><code>[1] 10.9
 </code></pre>
 
-<p>&mdash; &amp;multitext</p>
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
 
-<p>Consider a uniform distribution. If we were to sample 100 draws from a 
+<slide class="" id="slide-8" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>Consider a uniform distribution. If we were to sample 100 draws from a 
 a uniform distribution (which has mean 0.5, and variance 1/12) and take their
-mean, \( \bar X \)</p>
+mean, \(\bar X\)</p>
 
 <ol>
 <li>what is the approximate probability of getting as large as 0.51 or larger expressed to 3 decimal places?</li>
 </ol>
 
-<p>*** .hint
-Use the central limit theorem that says \( \bar X \sim N(\mu, \sigma^2/n) \)</p>
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>Use the central limit theorem that says \(\bar X \sim N(\mu, \sigma^2/n)\)</p>
 
-<p>*** .explanation</p>
-
-<p><span class="answer"> 0.365</span></p>
+</div>
+<div class="quiz-explanation">
+  <p><span class="answer"> 0.365</span></p>
 
 <pre><code class="r">round(pnorm(.51, mean = 0.5, sd = sqrt(1 / 12 / 100), lower.tail = FALSE), 3)
 </code></pre>
@@ -388,38 +330,65 @@ Use the central limit theorem that says \( \bar X \sim N(\mu, \sigma^2/n) \)</p>
 <pre><code>[1] 0.365
 </code></pre>
 
-<p>&mdash; &amp;multitext</p>
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
 
-<p>If you roll ten standard dice, take their average, then repeat this process over and over and construct a histogram, </p>
+<slide class="" id="slide-9" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>If you roll ten standard dice, take their average, then repeat this process over and over and construct a histogram, </p>
 
 <ol>
 <li>what would it be centered at?</li>
 </ol>
 
-<p>*** .hint
-\( E[X_i] = E[\bar X] \) where \( \bar X = \frac{1}{n}\sum_{i=1}^n X_i \)</p>
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>\(E[X_i] = E[\bar X]\) where \(\bar X = \frac{1}{n}\sum_{i=1}^n X_i\)</p>
 
-<p>*** .explanation</p>
-
-<p>The answer will be  <span class="answer">3.5</span> since the mean of the
+</div>
+<div class="quiz-explanation">
+  <p>The answer will be  <span class="answer">3.5</span> since the mean of the
 sampling distribution of iid draws will be the population mean that the
 individual draws were taken from.</p>
 
-<p>&mdash; &amp;multitext</p>
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
 
-<p>If you roll ten standard dice, take their average, then repeat this process over and over and construct a histogram, </p>
+<slide class="" id="slide-10" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>If you roll ten standard dice, take their average, then repeat this process over and over and construct a histogram, </p>
 
 <ol>
 <li>what would be its variance expressed to 3 decimal places?</li>
 </ol>
 
-<p>*** .hint
-\[ Var(\bar X) = \sigma^2 /n \]</p>
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>\[Var(\bar X) = \sigma^2 /n\]</p>
 
-<p>*** .explanation
-The answer will be <span class="answer">0.292</span> 
-since the variance of the sampling distribution of the mean is \( \sigma^2/10 \)
-where \( \sigma^2 \) is the variance of a single die roll, which is </p>
+</div>
+<div class="quiz-explanation">
+  <p>The answer will be <span class="answer">0.292</span> 
+since the variance of the sampling distribution of the mean is \(\sigma^2/10\)
+where \(\sigma^2\) is the variance of a single die roll, which is </p>
 
 <pre><code class="r">mean((1 : 6 - 3.5)^2)
 </code></pre>
@@ -427,19 +396,34 @@ where \( \sigma^2 \) is the variance of a single die roll, which is </p>
 <pre><code>[1] 2.917
 </code></pre>
 
-<p>&mdash; &amp;multitext
-The number of web hits to a site is Poisson with mean 16.5 per day. </p>
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz-text quiz-multitext well">
+  <p>The number of web hits to a site is Poisson with mean 16.5 per day. </p>
 
 <ol>
 <li>What is the probability of getting 20 or fewer in 2 days expressed
 as a percentage to one decimal place?</li>
 </ol>
 
-<p>*** .hint
-Let \( X \) be the number of hits in 2 days then \( X \sim Poisson(2\lambda) \)</p>
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>Let \(X\) be the number of hits in 2 days then \(X \sim Poisson(2\lambda)\)</p>
 
-<p>*** .explanation
-<span class="answer">1</span></p>
+</div>
+<div class="quiz-explanation">
+  <p><span class="answer">1</span></p>
 
 <pre><code class="r">round(ppois(20, lambda = 16.5 * 2) * 100, 1)
 </code></pre>
@@ -447,7 +431,120 @@ Let \( X \) be the number of hits in 2 days then \( X \sim Poisson(2\lambda) \)<
 <pre><code>[1] 1
 </code></pre>
 
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='About these slides'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title=''>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title=''>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title=''>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title=''>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title=''>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title=''>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title=''>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title=''>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title=''>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title=''>
+         11
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
 </body>
+  <!-- Load Javascripts for Widgets -->
+  <script src="../../librariesNew/widgets/quiz/js/jquery.quiz.js"></script>
+<script src="../../librariesNew/widgets/quiz/js/mustache.min.js"></script>
+<script src="../../librariesNew/widgets/quiz/js/quiz-app.js"></script>
+<script src="../../librariesNew/widgets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../librariesNew/widgets/bootstrap/js/bootbox.min.js"></script>
 
-</html>
-
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<script>  
+  $(function (){ 
+    $("#example").popover(); 
+    $("[rel='tooltip']").tooltip(); 
+  });  
+  </script>  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

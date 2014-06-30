@@ -45,27 +45,19 @@
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
   <hgroup>
-    <h2>Notation</h2>
+    <h2>Probability</h2>
   </hgroup>
   <article data-timings="">
     <ul>
-<li>The <strong>sample space</strong>, \(\Omega\), is the collection of possible outcomes of an experiment
+<li>In these slides we will cover the basics of probability at low enough level
+to have a basic understanding for the rest of the series</li>
+<li>For a more complete treatment see the class Mathematical Biostatistics Boot Camp 1
 
 <ul>
-<li>Example: die roll \(\Omega = \{1,2,3,4,5,6\}\)</li>
+<li>Youtube: <a href="http://www.youtube.com/playlist?list=PLpl-gQkQivXhk6qSyiNj51qamjAtZISJ-">www.youtube.com/playlist?list=PLpl-gQkQivXhk6qSyiNj51qamjAtZISJ-</a></li>
+<li>Coursera: <a href="http://www.coursera.org/course/biostats">www.coursera.org/course/biostats</a></li>
+<li>Git: <a href="http://github.com/bcaffo/Caffo-Coursera">http://github.com/bcaffo/Caffo-Coursera</a></li>
 </ul></li>
-<li>An <strong>event</strong>, say \(E\), is a subset of \(\Omega\) 
-
-<ul>
-<li>Example: die roll is even \(E = \{2,4,6\}\)</li>
-</ul></li>
-<li>An <strong>elementary</strong> or <strong>simple</strong> event is a particular result
-of an experiment
-
-<ul>
-<li>Example: die roll is a four, \(\omega = 4\)</li>
-</ul></li>
-<li>\(\emptyset\) is called the <strong>null event</strong> or the <strong>empty set</strong></li>
 </ul>
 
   </article>
@@ -74,52 +66,24 @@ of an experiment
 
 <slide class="" id="slide-2" style="background:;">
   <hgroup>
-    <h2>Interpretation of set operations</h2>
+    <h2>Probability</h2>
   </hgroup>
   <article data-timings="">
-    <p>Normal set operations have particular interpretations in this setting</p>
+    <p>Given a random experiment (say rolling a die) a probability measure is a population quantity
+that summarizes the randomness.</p>
 
-<ol>
-<li>\(\omega \in E\) implies that \(E\) occurs when \(\omega\) occurs</li>
-<li>\(\omega \not\in E\) implies that \(E\) does not occur when \(\omega\) occurs</li>
-<li>\(E \subset F\) implies that the occurrence of \(E\) implies the occurrence of \(F\)</li>
-<li>\(E \cap F\)  implies the event that both \(E\) and \(F\) occur</li>
-<li>\(E \cup F\) implies the event that at least one of \(E\) or \(F\) occur</li>
-<li>\(E \cap F=\emptyset\) means that \(E\) and \(F\) are <strong>mutually exclusive</strong>, or cannot both occur</li>
-<li>\(E^c\) or \(\bar E\) is the event that \(E\) does not occur</li>
-</ol>
+<p>Specifically, probability takes a possible outcome from the expertiment and assigns it a number
+between 0 and 1 so that the probability that something occurs is 1 (the die must be rolled)
+and so that the probability of the union of any two sets of outcomes that have nothing in common
+is the sum of their respective probabilities.</p>
+
+<p>The Russian mathematician Kolmogorov formalized these rules.</p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
 <slide class="" id="slide-3" style="background:;">
-  <hgroup>
-    <h2>Probability</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>A <strong>probability measure</strong>, \(P\), is a function from the collection of possible events so that the following hold</p>
-
-<ol>
-<li>For an event \(E\subset \Omega\), \(0 \leq P(E) \leq 1\)</li>
-<li>\(P(\Omega) = 1\)</li>
-<li>If \(E_1\) and \(E_2\) are mutually exclusive events
-\(P(E_1 \cup E_2) = P(E_1) + P(E_2)\).</li>
-</ol>
-
-<p>Part 3 of the definition implies <strong>finite additivity</strong></p>
-
-<p>\[
-P(\cup_{i=1}^n A_i) = \sum_{i=1}^n P(A_i)
-\]
-where the \(\{A_i\}\) are mutually exclusive. (Note a more general version of
-additivity is used in advanced classes.)</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Example consequences</h2>
   </hgroup>
@@ -139,7 +103,7 @@ additivity is used in advanced classes.)</p>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -150,7 +114,7 @@ additivity is used in advanced classes.)</p>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>Example continued</h2>
   </hgroup>
@@ -178,7 +142,7 @@ Likely, some fraction of the population has both.</p>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Random variables</h2>
   </hgroup>
@@ -204,7 +168,7 @@ countable number of possibilities.
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>Examples of variables that can be thought of as random variables</h2>
   </hgroup>
@@ -220,7 +184,7 @@ countable number of possibilities.
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>PMF</h2>
   </hgroup>
@@ -240,7 +204,7 @@ pmf a function, \(p\), must satisfy</p>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -261,7 +225,7 @@ p(x) = \theta^{x} (1 - \theta)^{1-x} ~~\mbox{ for }~~x = 0,1
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>PDF</h2>
   </hgroup>
@@ -282,7 +246,7 @@ a continuous random variable </p>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -302,7 +266,7 @@ f(x) = \left\{\begin{array}{ll}
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <article data-timings="">
     <pre><code class="r">x &lt;- c(-0.5, 0, 1, 1, 1.5)
 y &lt;- c(0, 0, 2, 0, 0)
@@ -315,7 +279,7 @@ plot(x, y, lwd = 3, frame = FALSE, type = &quot;l&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-13" style="background:;">
   <hgroup>
     <h2>Example continued</h2>
   </hgroup>
@@ -328,7 +292,7 @@ plot(x, y, lwd = 3, frame = FALSE, type = &quot;l&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-14" style="background:;">
   <article data-timings="">
     <pre><code class="r">1.5 * 0.75/2
 </code></pre>
@@ -346,7 +310,7 @@ plot(x, y, lwd = 3, frame = FALSE, type = &quot;l&quot;)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>CDF and survival function</h2>
   </hgroup>
@@ -369,7 +333,7 @@ S(x) = P(X > x)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-17" style="background:;">
+<slide class="" id="slide-16" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -395,7 +359,7 @@ S(x) = 1 - x^2
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-18" style="background:;">
+<slide class="" id="slide-17" style="background:;">
   <hgroup>
     <h2>Quantiles</h2>
   </hgroup>
@@ -413,7 +377,7 @@ F(x_\alpha) = \alpha
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-19" style="background:;">
+<slide class="" id="slide-18" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -444,7 +408,7 @@ F(x_\alpha) = \alpha
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-20" style="background:;">
+<slide class="" id="slide-19" style="background:;">
   <hgroup>
     <h2>Summary</h2>
   </hgroup>
@@ -467,122 +431,116 @@ discussed is the <strong>population median</strong>.</li>
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Notation'>
+        data-slide=1 title='Probability'>
          1
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='Interpretation of set operations'>
+        data-slide=2 title='Probability'>
          2
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='Probability'>
+        data-slide=3 title='Example consequences'>
          3
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='Example consequences'>
+        data-slide=4 title='Example'>
          4
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Example'>
+        data-slide=5 title='Example continued'>
          5
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='Example continued'>
+        data-slide=6 title='Random variables'>
          6
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=7 title='Random variables'>
+        data-slide=7 title='Examples of variables that can be thought of as random variables'>
          7
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title='Examples of variables that can be thought of as random variables'>
+        data-slide=8 title='PMF'>
          8
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title='PMF'>
+        data-slide=9 title='Example'>
          9
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=10 title='Example'>
+        data-slide=10 title='PDF'>
          10
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title='PDF'>
+        data-slide=11 title='Example'>
          11
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=12 title='Example'>
+        data-slide=12 title=''>
          12
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=13 title=''>
+        data-slide=13 title='Example continued'>
          13
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=14 title='Example continued'>
+        data-slide=14 title=''>
          14
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title=''>
+        data-slide=15 title='CDF and survival function'>
          15
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=16 title='CDF and survival function'>
+        data-slide=16 title='Example'>
          16
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=17 title='Example'>
+        data-slide=17 title='Quantiles'>
          17
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=18 title='Quantiles'>
+        data-slide=18 title='Example'>
          18
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=19 title='Example'>
+        data-slide=19 title='Summary'>
          19
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=20 title='Summary'>
-         20
       </a>
     </li>
   </ul>

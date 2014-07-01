@@ -70,6 +70,12 @@ where the sum is taken over the possible values of \(x\)</li>
     <h3>Find the center of mass of the bars</h3>
 
 <pre><code>## Loading required package: MASS
+## 
+## Attaching package: &#39;UsingR&#39;
+## 
+## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     movies
 </code></pre>
 
 <p><img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" /></p>
@@ -212,12 +218,9 @@ E[X] = \mbox{the area under the function}~~~ t f(t)
     <h2>Example</h2>
   </hgroup>
   <article data-timings="">
-    <ul>
-<li>You flip a coin, \(X\) and simulate a uniform random number \(Y\), what is the expected value of their sum? 
-\[
-E[X + Y] = E[X] + E[Y] = .5 + .5 = 1
-\] </li>
-<li>Another example, you roll a die twice. What is the expected value of the average? </li>
+    <p>You roll a die twice. What is the expected value of the average? </p>
+
+<ul>
 <li>Let \(X_1\) and \(X_2\) be the results of the two rolls
 \[
 E[(X_1 + X_2) / 2] = \frac{1}{2}(E[X_1] + E[X_2])
@@ -259,6 +262,7 @@ E\left[ \frac{1}{n}\sum_{i=1}^n X_i\right]
     <ul>
 <li>Therefore, the expected value of the <strong>sample mean</strong> is the population mean that it&#39;s trying to estimate</li>
 <li>When the expected value of an estimator is what its trying to estimate, we say that the estimator is <strong>unbiased</strong></li>
+<li>Let&#39;s try a simulation experiment</li>
 </ul>
 
   </article>
@@ -266,6 +270,28 @@ E\left[ \frac{1}{n}\sum_{i=1}^n X_i\right]
 </slide>
 
 <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Simulation experiment</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Averages of x die rolls</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>The variance</h2>
   </hgroup>
@@ -276,48 +302,15 @@ E\left[ \frac{1}{n}\sum_{i=1}^n X_i\right]
 </ul>
 
 <p>\[
-Var(X) = E[(X - \mu)^2]
-\]</p>
-
-<p>the expected (squared) distance from the mean</p>
+Var(X) = E[(X - \mu)^2] = E[X^2] - E[X]^2
+\] </p>
 
 <ul>
+<li>The expected (squared) distance from the mean</li>
 <li>Densities with a higher variance are more spread out than densities with a lower variance</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-14" style="background:;">
-  <article data-timings="">
-    <ul>
-<li>Convenient computational form
-\[
-Var(X) = E[X^2] - E[X]^2
-\]</li>
 <li>If \(a\) is constant then \(Var(aX) = a^2 Var(X)\)</li>
 <li>The square root of the variance is called the <strong>standard deviation</strong></li>
 <li>The standard deviation has the same units as \(X\)</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-15" style="background:;">
-  <hgroup>
-    <h2>Example</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li><p>What&#39;s the sample variance from the result of a toss of a die? </p>
-
-<ul>
-<li>\(E[X] = 3.5\) </li>
-<li>\(E[X^2] = 1 ^ 2 \times \frac{1}{6} + 2 ^ 2 \times \frac{1}{6} + 3 ^ 2 \times \frac{1}{6} + 4 ^ 2 \times \frac{1}{6} + 5 ^ 2 \times \frac{1}{6} + 6 ^ 2 \times \frac{1}{6} = 15.17\) </li>
-</ul></li>
-<li><p>\(Var(X) = E[X^2] - E[X]^2 \approx 2.92\)</p></li>
 </ul>
 
   </article>
@@ -330,7 +323,26 @@ Var(X) = E[X^2] - E[X]^2
   </hgroup>
   <article data-timings="">
     <ul>
-<li><p>What&#39;s the sample variance from the result of the toss of a coin with probability of heads (1) of \(p\)? </p>
+<li><p>What&#39;s the variance from the result of a toss of a die? </p>
+
+<ul>
+<li>\(E[X] = 3.5\) </li>
+<li>\(E[X^2] = 1 ^ 2 \times \frac{1}{6} + 2 ^ 2 \times \frac{1}{6} + 3 ^ 2 \times \frac{1}{6} + 4 ^ 2 \times \frac{1}{6} + 5 ^ 2 \times \frac{1}{6} + 6 ^ 2 \times \frac{1}{6} = 15.17\) </li>
+</ul></li>
+<li><p>\(Var(X) = E[X^2] - E[X]^2 \approx 2.92\)</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>What&#39;s the variance from the result of the toss of a coin with probability of heads (1) of \(p\)? </p>
 
 <ul>
 <li>\(E[X] = 0 \times (1 - p) + 1 \times p = p\)</li>
@@ -343,7 +355,18 @@ Var(X) = E[X^2] - E[X]^2
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-17" style="background:;">
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Distributions with increasing variance</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
   <hgroup>
     <h2>Interpreting variances</h2>
   </hgroup>
@@ -369,7 +392,7 @@ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-18" style="background:;">
+<slide class="" id="slide-20" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -387,7 +410,7 @@ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-19" style="background:;">
+<slide class="" id="slide-21" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -480,19 +503,19 @@ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=13 title='The variance'>
+        data-slide=13 title='Simulation experiment'>
          13
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=14 title=''>
+        data-slide=14 title='Averages of x die rolls'>
          14
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title='Example'>
+        data-slide=15 title='The variance'>
          15
       </a>
     </li>
@@ -504,20 +527,32 @@ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=17 title='Interpreting variances'>
+        data-slide=17 title='Example'>
          17
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=18 title='Example'>
+        data-slide=18 title='Distributions with increasing variance'>
          18
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=19 title='Example'>
+        data-slide=19 title='Interpreting variances'>
          19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Example'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='Example'>
+         21
       </a>
     </li>
   </ul>

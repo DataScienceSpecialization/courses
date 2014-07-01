@@ -30,6 +30,12 @@ mode        : selfcontained # {standalone, draft}
 
 ```
 ## Loading required package: MASS
+## 
+## Attaching package: 'UsingR'
+## 
+## The following object is masked from 'package:ggplot2':
+## 
+##     movies
 ```
 
 <img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
@@ -119,12 +125,7 @@ lines(rep(meanChild, 100), seq(0, 150, length = 100), col = "red", lwd = 5)
 ---
 
 ## Example
-
-- You flip a coin, $X$ and simulate a uniform random number $Y$, what is the expected value of their sum? 
-    $$
-    E[X + Y] = E[X] + E[Y] = .5 + .5 = 1
-    $$ 
-- Another example, you roll a die twice. What is the expected value of the average? 
+You roll a die twice. What is the expected value of the average? 
 - Let $X_1$ and $X_2$ be the results of the two rolls
     $$
     E[(X_1 + X_2) / 2] = \frac{1}{2}(E[X_1] + E[X_2])
@@ -152,6 +153,20 @@ $$
 
 - Therefore, the expected value of the **sample mean** is the population mean that it's trying to estimate
 - When the expected value of an estimator is what its trying to estimate, we say that the estimator is **unbiased**
+- Let's try a simulation experiment
+
+---
+## Simulation experiment
+
+
+
+
+<img src="assets/fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
+
+
+---
+## Averages of x die rolls
+<img src="assets/fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
 
 ---
 
@@ -161,18 +176,11 @@ $$
 - If $X$ is a random variable with mean $\mu$, the variance of $X$ is defined as
 
 $$
-Var(X) = E[(X - \mu)^2]
-$$
-    
-the expected (squared) distance from the mean
+Var(X) = E[(X - \mu)^2] = E[X^2] - E[X]^2
+$$ 
+
+- The expected (squared) distance from the mean
 - Densities with a higher variance are more spread out than densities with a lower variance
-
----
-
-- Convenient computational form
-$$
-Var(X) = E[X^2] - E[X]^2
-$$
 - If $a$ is constant then $Var(aX) = a^2 Var(X)$
 - The square root of the variance is called the **standard deviation**
 - The standard deviation has the same units as $X$
@@ -181,7 +189,7 @@ $$
 
 ## Example
 
-- What's the sample variance from the result of a toss of a die? 
+- What's the variance from the result of a toss of a die? 
 
   - $E[X] = 3.5$ 
   - $E[X^2] = 1 ^ 2 \times \frac{1}{6} + 2 ^ 2 \times \frac{1}{6} + 3 ^ 2 \times \frac{1}{6} + 4 ^ 2 \times \frac{1}{6} + 5 ^ 2 \times \frac{1}{6} + 6 ^ 2 \times \frac{1}{6} = 15.17$ 
@@ -192,12 +200,16 @@ $$
 
 ## Example
 
-- What's the sample variance from the result of the toss of a coin with probability of heads (1) of $p$? 
+- What's the variance from the result of the toss of a coin with probability of heads (1) of $p$? 
 
   - $E[X] = 0 \times (1 - p) + 1 \times p = p$
   - $E[X^2] = E[X] = p$ 
 
 - $Var(X) = E[X^2] - E[X]^2 = p - p^2 = p(1 - p)$
+
+---
+## Distributions with increasing variance
+<img src="assets/fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
 
 ---
 

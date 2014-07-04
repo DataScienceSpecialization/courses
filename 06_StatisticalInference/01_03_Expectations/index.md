@@ -27,17 +27,6 @@ mode        : selfcontained # {standalone, draft}
 
 ## Example
 ### Find the center of mass of the bars
-
-```
-## Loading required package: MASS
-## 
-## Attaching package: 'UsingR'
-## 
-## The following object is masked from 'package:ggplot2':
-## 
-##     movies
-```
-
 <img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
 
 

@@ -27,9 +27,10 @@ mode        : selfcontained # {standalone, draft}
 
 ## Example
 ### Find the center of mass of the bars
-```{r ,fig.height=3.5,fig.width=8, fig.align='center', echo = FALSE}
+```{r ,fig.height=3.5,fig.width=8, fig.align='center', echo = FALSE, message=FALSE, warning=FALSE}
 library(UsingR); data(galton)
 par(mfrow=c(1,2))
+
 hist(galton$child,col="blue",breaks=100)
 hist(galton$parent,col="blue",breaks=100)
 ```

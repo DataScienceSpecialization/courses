@@ -23,7 +23,7 @@ estimate the population versions
 
 
 ---
-## 
+## The population mean
 - The **expected value** or **mean** of a random variable is the center of its distribution
 - For discrete random variable $X$ with PMF $p(x)$, it is defined as follows
     $$
@@ -31,6 +31,15 @@ estimate the population versions
     $$
     where the sum is taken over the possible values of $x$
 - $E[X]$ represents the center of mass of a collection of locations and weights, $\{x, p(x)\}$
+
+---
+## The sample mean
+- The sample mean estimates this population mean
+- The center of mass of the data is the empirical mean
+$$
+\bar X = \sum_{i=1}^n x_i p(x_i)
+$$
+where $p(x_i) = 1/n$
 
 ---
 
@@ -61,7 +70,7 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 
 
 ---
-## Example
+## Example of a population mean
 
 - Suppose a coin is flipped and $X$ is declared $0$ or $1$ corresponding to a head or a tail, respectively
 - What is the expected value of $X$? 
@@ -71,6 +80,17 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 - Note, if thought about geometrically, this answer is obvious; if two equal weights are spaced at 0 and 1, the center of mass will be $.5$
 
 <img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
+
+---
+## What about a biased coin?
+
+- Suppose that a random variable, $X$, is so that
+$P(X=1) = p$ and $P(X=0) = (1 - p)$
+- (This is a biased coin when $p\neq 0.5$)
+- What is its expected value?
+$$
+E[X] = 0 * (1 - p) + 1 * p = p
+$$
 
 ---
 
@@ -92,7 +112,7 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 ## Continuous random variables
 
 - For a continuous random variable, $X$, with density, $f$, the expected value is again exactly the center of mass of the density
-- The rules that expected values have to follow stay the same
+
 
 ---
 
@@ -117,18 +137,30 @@ and its associated distribution has an expected value
 
 ---
 ## Simulation experiment
-
+Simulating normals with mean 0 and variance 1 versus averages
+of 10 normals from the same population
 
 <img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
 
 ---
 ## Averages of x die rolls
+
 <img src="assets/fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
 
 
 ---
 ## Averages of x coin flips
 <img src="assets/fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
+
+---
+## Sumarizing what we know
+- The sample mean is an estimate of the population mean
+- The sample mean is unbiased (it's distribution is centered
+at what it's trying to estimate)
+- The more data that goes into the sample mean, the more 
+concentrated its density / mass function is around what it's 
+estimating
+- Its variance decreases
 
 ---
 
@@ -143,7 +175,6 @@ $$
 
 - The expected (squared) distance from the mean
 - Densities with a higher variance are more spread out than densities with a lower variance
-- If $a$ is constant then $Var(aX) = a^2 Var(X)$
 - The square root of the variance is called the **standard deviation**
 - The standard deviation has the same units as $X$
 
@@ -167,7 +198,7 @@ $$
   - $E[X] = 0 \times (1 - p) + 1 \times p = p$
   - $E[X^2] = E[X] = p$ 
 
-- $Var(X) = E[X^2] - E[X]^2 = p - p^2 = p(1 - p)$
+$$Var(X) = E[X^2] - E[X]^2 = p - p^2 = p(1 - p)$$
 
 
 ---
@@ -175,40 +206,40 @@ $$
 <img src="assets/fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
 
 ---
+## The sample variance 
+- The sample variance is 
+$$
+S^2 = \frac{\sum_{i=1} (X_i - \bar X)^2}{n-1}
+$$
+(almost, but not quite, the average squared deviation from
+the sample mean)
+- It is also a statistic, it has an associate
+population distribution
+- Its expected value is the population variance
 
-## Interpreting variances
-
-- Chebyshev's inequality is useful for interpreting variances
-- This inequality states that
-$$
-P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
-$$
-- For example, the probability that a random variable lies beyond $k$ standard deviations from its mean is less than $1/k^2$
-$$
-\begin{eqnarray*}
-    2\sigma & \rightarrow & 25\% \\
-    3\sigma & \rightarrow & 11\% \\
-    4\sigma & \rightarrow &  6\% 
-\end{eqnarray*}
-$$
-- Note this is only a bound; the actual probability might be quite a bit smaller
 
 ---
+## Simulation experiment
+### Simulating from a population with variance 1
 
-## Example
-
-- IQs are often said to be distributed with a mean of $100$ and a sd of $15$
-- What is the probability of a randomly drawn person having an IQ higher than $160$ or below $40$?
-- Thus we want to know the probability of a person being more than $4$ standard deviations from the mean
-- Thus Chebyshev's inequality suggests that this will be no larger than 6\%
-- IQs distributions are often cited as being bell shaped, in which case this bound is very conservative
-- The probability of a random draw from a bell curve being $4$ standard deviations from the mean is on the order of $10^{-5}$ (one thousandth of one percent)
+<img src="assets/fig/unnamed-chunk-8.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
 
 ---
+## Variances of x die rolls
+<img src="assets/fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
 
-## Example
+---
+## Summarizing what we know about expectations
+- Expectations are properties of populations
+- The mean and the variance are two important such properties
+- These are naturally estimated by the sample mean and
+variance
+- The sample mean and variance from a random sample from 
+a population are random variables
+  - They have distributions
+  - These distributions are centered at the
+population mean and variance they are estimating
+  - If they are comprised of more observations, they have lower
+variability
 
-- A former buzz phrase in industrial quality control is Motorola's "Six Sigma" whereby businesses are suggested to control extreme events or rare defective parts
-- Chebyshev's inequality states that the probability of a "Six Sigma" event is less than $1/6^2 \approx 3\%$
-- If a bell curve is assumed, the probability of a "six sigma" event is on the order of $10^{-9}$ (one ten millionth of a percent)
 

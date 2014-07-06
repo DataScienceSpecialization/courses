@@ -14,7 +14,16 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 ## Expected values
+- Expected values are useful cor characterizing a distribution
+- The mean is a characterization of its center
+- The variance and standard deviation are characterizations of
+how spread out it is
+- Our sample expected values (the sample mean and variance) will
+estimate the population versions
 
+
+---
+## 
 - The **expected value** or **mean** of a random variable is the center of its distribution
 - For discrete random variable $X$ with PMF $p(x)$, it is defined as follows
     $$
@@ -76,16 +85,14 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
     $$
 - Again, the geometric argument makes this answer obvious without calculation.
 
+<img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
+
 ---
 
 ## Continuous random variables
 
-- For a continuous random variable, $X$, with density, $f$, the expected
-    value is defined as follows
-    $$
-    E[X] = \mbox{the area under the function}~~~ t f(t)
-    $$
-- This definition borrows from the definition of center of mass for a continuous body
+- For a continuous random variable, $X$, with density, $f$, the expected value is again exactly the center of mass of the density
+- The rules that expected values have to follow stay the same
 
 ---
 
@@ -94,46 +101,16 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 - Consider a density where $f(x) = 1$ for $x$ between zero and one
 - (Is this a valid density?)
 - Suppose that $X$ follows this density; what is its expected value?  
-<img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
+<img src="assets/fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
 
 ---
 
-## Rules about expected values
+## Facts about expected values
 
-- The expected value is a linear operator 
-- If $a$ and $b$ are not random and $X$ and $Y$ are two random variables then
-  - $E[aX + b] = a E[X] + b$
-  - $E[X + Y] = E[X] + E[Y]$
-
----
-
-## Example
-You roll a die twice. What is the expected value of the average? 
-- Let $X_1$ and $X_2$ be the results of the two rolls
-    $$
-    E[(X_1 + X_2) / 2] = \frac{1}{2}(E[X_1] + E[X_2])
-    = \frac{1}{2}(3.5 + 3.5) = 3.5
-    $$
-
----
-
-## Example
-
-1. Let $X_i$ for $i=1,\ldots,n$ be a collection of random variables, each from a distribution with mean $\mu$
-2. Calculate the expected value of the sample average of the $X_i$
-$$
-  \begin{eqnarray*}
-    E\left[ \frac{1}{n}\sum_{i=1}^n X_i\right]
-    & = & \frac{1}{n} E\left[\sum_{i=1}^n X_i\right] \\
-    & = & \frac{1}{n} \sum_{i=1}^n E\left[X_i\right] \\
-    & = & \frac{1}{n} \sum_{i=1}^n \mu =  \mu.
-  \end{eqnarray*}
-$$
-
----
-
-## Remark
-
+- Recall that expected values are properties of distributions
+- Note the average of random variables is itself a random variable
+and its associated distribution has an expected value
+- The center of this distribution is the same as that of the original distribution
 - Therefore, the expected value of the **sample mean** is the population mean that it's trying to estimate
 - When the expected value of an estimator is what its trying to estimate, we say that the estimator is **unbiased**
 - Let's try a simulation experiment
@@ -142,12 +119,16 @@ $$
 ## Simulation experiment
 
 
-<img src="assets/fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
+<img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
 
 ---
 ## Averages of x die rolls
-<img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
+<img src="assets/fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
 
+
+---
+## Averages of x coin flips
+<img src="assets/fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
 
 ---
 
@@ -191,7 +172,7 @@ $$
 
 ---
 ## Distributions with increasing variance
-<img src="assets/fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
+<img src="assets/fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
 
 ---
 

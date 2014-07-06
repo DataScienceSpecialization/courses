@@ -49,6 +49,21 @@
   </hgroup>
   <article data-timings="">
     <ul>
+<li>Expected values are useful cor characterizing a distribution</li>
+<li>The mean is a characterization of its center</li>
+<li>The variance and standard deviation are characterizations of
+how spread out it is</li>
+<li>Our sample expected values (the sample mean and variance) will
+estimate the population versions</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <article data-timings="">
+    <ul>
 <li>The <strong>expected value</strong> or <strong>mean</strong> of a random variable is the center of its distribution</li>
 <li>For discrete random variable \(X\) with PMF \(p(x)\), it is defined as follows
 \[
@@ -62,7 +77,7 @@ where the sum is taken over the possible values of \(x\)</li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-2" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -75,7 +90,7 @@ where the sum is taken over the possible values of \(x\)</li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Using manipulate</h2>
   </hgroup>
@@ -98,7 +113,7 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>The center of mass is the empirical mean</h2>
   </hgroup>
@@ -109,7 +124,7 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -129,7 +144,7 @@ E[X] = .5 \times 0 + .5 \times 1 = .5
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -145,23 +160,7 @@ E[X] = 1 \times \frac{1}{6} + 2 \times \frac{1}{6} +
 <li>Again, the geometric argument makes this answer obvious without calculation.</li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-7" style="background:;">
-  <hgroup>
-    <h2>Continuous random variables</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>For a continuous random variable, \(X\), with density, \(f\), the expected
-value is defined as follows
-\[
-E[X] = \mbox{the area under the function}~~~ t f(t)
-\]</li>
-<li>This definition borrows from the definition of center of mass for a continuous body</li>
-</ul>
+<p><img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -169,14 +168,12 @@ E[X] = \mbox{the area under the function}~~~ t f(t)
 
 <slide class="" id="slide-8" style="background:;">
   <hgroup>
-    <h2>Example</h2>
+    <h2>Continuous random variables</h2>
   </hgroup>
   <article data-timings="">
     <ul>
-<li>Consider a density where \(f(x) = 1\) for \(x\) between zero and one</li>
-<li>(Is this a valid density?)</li>
-<li>Suppose that \(X\) follows this density; what is its expected value?<br>
-<img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" /></li>
+<li>For a continuous random variable, \(X\), with density, \(f\), the expected value is again exactly the center of mass of the density</li>
+<li>The rules that expected values have to follow stay the same</li>
 </ul>
 
   </article>
@@ -185,17 +182,14 @@ E[X] = \mbox{the area under the function}~~~ t f(t)
 
 <slide class="" id="slide-9" style="background:;">
   <hgroup>
-    <h2>Rules about expected values</h2>
+    <h2>Example</h2>
   </hgroup>
   <article data-timings="">
     <ul>
-<li>The expected value is a linear operator </li>
-<li>If \(a\) and \(b\) are not random and \(X\) and \(Y\) are two random variables then
-
-<ul>
-<li>\(E[aX + b] = a E[X] + b\)</li>
-<li>\(E[X + Y] = E[X] + E[Y]\)</li>
-</ul></li>
+<li>Consider a density where \(f(x) = 1\) for \(x\) between zero and one</li>
+<li>(Is this a valid density?)</li>
+<li>Suppose that \(X\) follows this density; what is its expected value?<br>
+<img src="assets/fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" /></li>
 </ul>
 
   </article>
@@ -204,51 +198,14 @@ E[X] = \mbox{the area under the function}~~~ t f(t)
 
 <slide class="" id="slide-10" style="background:;">
   <hgroup>
-    <h2>Example</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>You roll a die twice. What is the expected value of the average? </p>
-
-<ul>
-<li>Let \(X_1\) and \(X_2\) be the results of the two rolls
-\[
-E[(X_1 + X_2) / 2] = \frac{1}{2}(E[X_1] + E[X_2])
-= \frac{1}{2}(3.5 + 3.5) = 3.5
-\]</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-11" style="background:;">
-  <hgroup>
-    <h2>Example</h2>
-  </hgroup>
-  <article data-timings="">
-    <ol>
-<li>Let \(X_i\) for \(i=1,\ldots,n\) be a collection of random variables, each from a distribution with mean \(\mu\)</li>
-<li>Calculate the expected value of the sample average of the \(X_i\)
-\[
-\begin{eqnarray*}
-E\left[ \frac{1}{n}\sum_{i=1}^n X_i\right]
-& = & \frac{1}{n} E\left[\sum_{i=1}^n X_i\right] \\
-& = & \frac{1}{n} \sum_{i=1}^n E\left[X_i\right] \\
-& = & \frac{1}{n} \sum_{i=1}^n \mu =  \mu.
-\end{eqnarray*}
-\]</li>
-</ol>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-12" style="background:;">
-  <hgroup>
-    <h2>Remark</h2>
+    <h2>Facts about expected values</h2>
   </hgroup>
   <article data-timings="">
     <ul>
+<li>Recall that expected values are properties of distributions</li>
+<li>Note the average of random variables is itself a random variable
+and its associated distribution has an expected value</li>
+<li>The center of this distribution is the same as that of the original distribution</li>
 <li>Therefore, the expected value of the <strong>sample mean</strong> is the population mean that it&#39;s trying to estimate</li>
 <li>When the expected value of an estimator is what its trying to estimate, we say that the estimator is <strong>unbiased</strong></li>
 <li>Let&#39;s try a simulation experiment</li>
@@ -258,20 +215,9 @@ E\left[ \frac{1}{n}\sum_{i=1}^n X_i\right]
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>Simulation experiment</h2>
-  </hgroup>
-  <article data-timings="">
-    <p><img src="assets/fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" /></p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-14" style="background:;">
-  <hgroup>
-    <h2>Averages of x die rolls</h2>
   </hgroup>
   <article data-timings="">
     <p><img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" /></p>
@@ -280,7 +226,29 @@ E\left[ \frac{1}{n}\sum_{i=1}^n X_i\right]
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Averages of x die rolls</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Averages of x coin flips</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>The variance</h2>
   </hgroup>
@@ -306,7 +274,7 @@ Var(X) = E[(X - \mu)^2] = E[X^2] - E[X]^2
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -325,7 +293,7 @@ Var(X) = E[(X - \mu)^2] = E[X^2] - E[X]^2
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-17" style="background:;">
+<slide class="" id="slide-16" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -344,18 +312,18 @@ Var(X) = E[(X - \mu)^2] = E[X^2] - E[X]^2
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-18" style="background:;">
+<slide class="" id="slide-17" style="background:;">
   <hgroup>
     <h2>Distributions with increasing variance</h2>
   </hgroup>
   <article data-timings="">
-    <p><img src="assets/fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" /></p>
+    <p><img src="assets/fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-19" style="background:;">
+<slide class="" id="slide-18" style="background:;">
   <hgroup>
     <h2>Interpreting variances</h2>
   </hgroup>
@@ -381,7 +349,7 @@ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-20" style="background:;">
+<slide class="" id="slide-19" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -399,7 +367,7 @@ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-21" style="background:;">
+<slide class="" id="slide-20" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -426,25 +394,25 @@ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='Example'>
+        data-slide=2 title=''>
          2
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='Using manipulate'>
+        data-slide=3 title='Example'>
          3
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='The center of mass is the empirical mean'>
+        data-slide=4 title='Using manipulate'>
          4
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Example'>
+        data-slide=5 title='The center of mass is the empirical mean'>
          5
       </a>
     </li>
@@ -456,55 +424,55 @@ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=7 title='Continuous random variables'>
+        data-slide=7 title='Example'>
          7
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title='Example'>
+        data-slide=8 title='Continuous random variables'>
          8
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title='Rules about expected values'>
+        data-slide=9 title='Example'>
          9
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=10 title='Example'>
+        data-slide=10 title='Facts about expected values'>
          10
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title='Example'>
+        data-slide=11 title='Simulation experiment'>
          11
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=12 title='Remark'>
+        data-slide=12 title='Averages of x die rolls'>
          12
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=13 title='Simulation experiment'>
+        data-slide=13 title='Averages of x coin flips'>
          13
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=14 title='Averages of x die rolls'>
+        data-slide=14 title='The variance'>
          14
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title='The variance'>
+        data-slide=15 title='Example'>
          15
       </a>
     </li>
@@ -516,19 +484,19 @@ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=17 title='Example'>
+        data-slide=17 title='Distributions with increasing variance'>
          17
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=18 title='Distributions with increasing variance'>
+        data-slide=18 title='Interpreting variances'>
          18
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=19 title='Interpreting variances'>
+        data-slide=19 title='Example'>
          19
       </a>
     </li>
@@ -536,12 +504,6 @@ P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
       <a href="#" target="_self" rel='tooltip' 
         data-slide=20 title='Example'>
          20
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=21 title='Example'>
-         21
       </a>
     </li>
   </ul>

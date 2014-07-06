@@ -69,7 +69,7 @@ where the sum is taken over the possible values of \(x\)</li>
   <article data-timings="">
     <h3>Find the center of mass of the bars</h3>
 
-<p><img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" /></p>
+<p><img src="assets/fig/galton.png" title="plot of chunk galton" alt="plot of chunk galton" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -82,11 +82,14 @@ where the sum is taken over the possible values of \(x\)</li>
   <article data-timings="">
     <pre><code>library(manipulate)
 myHist &lt;- function(mu){
-  hist(galton$child,col=&quot;blue&quot;,breaks=100)
-  lines(c(mu, mu), c(0, 150),col=&quot;red&quot;,lwd=5)
-  mse &lt;- mean((galton$child - mu)^2)
-  text(63, 150, paste(&quot;mu = &quot;, mu))
-  text(63, 140, paste(&quot;Imbalance = &quot;, round(mse, 2)))
+    g &lt;- ggplot(galton, aes(x = child))
+    g &lt;- g + geom_histogram(fill = &quot;salmon&quot;, 
+      binwidth=1, aes(y = ..density..), colour = &quot;black&quot;)
+    g &lt;- g + geom_density(size = 2)
+    g &lt;- g + geom_vline(xintercept = mu, size = 2)
+    mse &lt;- round(mean((galton$child - mu)^2), 3)  
+    g &lt;- g + labs(title = paste(&#39;mu = &#39;, mu, &#39; MSE = &#39;, mse))
+    g
 }
 manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 </code></pre>
@@ -100,12 +103,7 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
     <h2>The center of mass is the empirical mean</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">hist(galton$child, col = &quot;blue&quot;, breaks = 100)
-meanChild &lt;- mean(galton$child)
-lines(rep(meanChild, 100), seq(0, 150, length = 100), col = &quot;red&quot;, lwd = 5)
-</code></pre>
-
-<p><img src="assets/fig/lsm.png" title="plot of chunk lsm" alt="plot of chunk lsm" style="display: block; margin: auto;" /></p>
+    <p><img src="assets/fig/lsm.png" title="plot of chunk lsm" alt="plot of chunk lsm" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -125,7 +123,7 @@ E[X] = .5 \times 0 + .5 \times 1 = .5
 <li>Note, if thought about geometrically, this answer is obvious; if two equal weights are spaced at 0 and 1, the center of mass will be \(.5\)</li>
 </ul>
 
-<p><img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" /></p>
+<p><img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -178,7 +176,7 @@ E[X] = \mbox{the area under the function}~~~ t f(t)
 <li>Consider a density where \(f(x) = 1\) for \(x\) between zero and one</li>
 <li>(Is this a valid density?)</li>
 <li>Suppose that \(X\) follows this density; what is its expected value?<br>
-<img src="assets/fig/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </li>
+<img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" /></li>
 </ul>
 
   </article>
@@ -265,7 +263,7 @@ E\left[ \frac{1}{n}\sum_{i=1}^n X_i\right]
     <h2>Simulation experiment</h2>
   </hgroup>
   <article data-timings="">
-    <p><img src="assets/fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" /></p>
+    <p><img src="assets/fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -276,7 +274,7 @@ E\left[ \frac{1}{n}\sum_{i=1}^n X_i\right]
     <h2>Averages of x die rolls</h2>
   </hgroup>
   <article data-timings="">
-    <p><img src="assets/fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" /></p>
+    <p><img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -351,7 +349,7 @@ Var(X) = E[(X - \mu)^2] = E[X^2] - E[X]^2
     <h2>Distributions with increasing variance</h2>
   </hgroup>
   <article data-timings="">
-    <p><img src="assets/fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" /></p>
+    <p><img src="assets/fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->

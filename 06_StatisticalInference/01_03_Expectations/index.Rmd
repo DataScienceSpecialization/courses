@@ -27,12 +27,13 @@ mode        : selfcontained # {standalone, draft}
 
 ## Example
 ### Find the center of mass of the bars
-```{r ,fig.height=3.5,fig.width=8, fig.align='center', echo = FALSE, message=FALSE, warning=FALSE}
+```{r galton, fig.height=6,fig.width=12, fig.align='center', echo = FALSE, message =FALSE, warning=FALSE}
 library(UsingR); data(galton)
-par(mfrow=c(1,2))
-
-hist(galton$child,col="blue",breaks=100)
-hist(galton$parent,col="blue",breaks=100)
+library(reshape2)
+longGalton <- melt(galton, measure.vars = c("child", "parent"))
+g <- ggplot(longGalton, aes(x = value)) + geom_histogram(aes(y = ..density..,  fill = variable), binwidth=1, colour = "black") + geom_density(size = 2)
+g <- g + facet_grid(. ~ variable)
+g
 ```
 
 ---
@@ -40,22 +41,29 @@ hist(galton$parent,col="blue",breaks=100)
 ```
 library(manipulate)
 myHist <- function(mu){
-  hist(galton$child,col="blue",breaks=100)
-  lines(c(mu, mu), c(0, 150),col="red",lwd=5)
-  mse <- mean((galton$child - mu)^2)
-  text(63, 150, paste("mu = ", mu))
-  text(63, 140, paste("Imbalance = ", round(mse, 2)))
+    g <- ggplot(galton, aes(x = child))
+    g <- g + geom_histogram(fill = "salmon", 
+      binwidth=1, aes(y = ..density..), colour = "black")
+    g <- g + geom_density(size = 2)
+    g <- g + geom_vline(xintercept = mu, size = 2)
+    mse <- round(mean((galton$child - mu)^2), 3)  
+    g <- g + labs(title = paste('mu = ', mu, ' MSE = ', mse))
+    g
 }
 manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 ```
 
 ---
 ## The center of mass is the empirical mean
-```{r lsm, dependson="galton",fig.height=4,fig.width=4, fig.align='center'}
-  hist(galton$child,col="blue",breaks=100)
-  meanChild <- mean(galton$child)
-  lines(rep(meanChild,100),seq(0,150,length=100),col="red",lwd=5)
+```{r lsm, dependson="galton",fig.height=7,fig.width=7, fig.align='center', echo = FALSE}
+    g <- ggplot(galton, aes(x = child))
+    g <- g + geom_histogram(fill = "salmon", 
+      binwidth=1, aes(y = ..density..), colour = "black")
+    g <- g + geom_density(size = 2)
+    g <- g + geom_vline(xintercept = mean(galton$child), size = 2)
+    g
 ```
+
 
 ---
 ## Example
@@ -70,6 +78,7 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 ```{r, echo = FALSE, fig.height=3.5, fig.width = 3.5, fig.align='center'}
 barplot(height = c(.5, .5), names = c(0, 1), border = "black", col = "lightblue", space = .75)
 ```
+
 ---
 
 ## Example
@@ -101,7 +110,7 @@ barplot(height = c(.5, .5), names = c(0, 1), border = "black", col = "lightblue"
 - Consider a density where $f(x) = 1$ for $x$ between zero and one
 - (Is this a valid density?)
 - Suppose that $X$ follows this density; what is its expected value?  
-```{r, fig.height=4, fig.width=8, echo=FALSE}
+```{r, fig.height=4, fig.width=8, echo=FALSE, fig.align='center'}
 par(mfrow = c(1, 2))
 plot(c(-0.25, 0, 0, 1, 1, 1.25), c(0, 0, 1, 1, 0, 0), type = "l", lwd = 3, frame = FALSE, xlab="", ylab = ""); title('f(t)')
 plot(c(-0.25, 0, 1, 1, 1.25), c(0, 0, 1, 0, 0), type = "l", lwd = 3, frame = FALSE, xlab="", ylab = ""); title('t f(t)')
@@ -152,11 +161,9 @@ $$
 ---
 ## Simulation experiment
 
-```{r, echo = FALSE}
-library(ggplot2)
-```
 
 ```{r, fig.height=6, figh.width=6, fig.align='center', echo = FALSE}
+library(ggplot2)
 nosim <- 10000; n <- 10
 dat <- data.frame(
     x = c(rnorm(nosim), apply(matrix(rnorm(nosim * n), nosim), 1, mean)),
@@ -177,9 +184,11 @@ x = c(sample(1 : 6, nosim, replace = TRUE),
 #      apply(matrix(sample(1 : 6, nosim * 5, replace = TRUE), nosim), 1, mean)
       ),
 size = factor(rep(1 : 4, rep(nosim, 4))))
-g <- ggplot(dat, aes(x = x, fill = size, colour = size)) + geom_histogram(size = 2, alpha = .20); 
+g <- ggplot(dat, aes(x = x, fill = size)) + geom_histogram(alpha = .20, binwidth=.25, colour = "black"); 
 g + facet_grid(. ~ size)
 ```
+
+
 ---
 
 ## The variance
@@ -219,6 +228,7 @@ $$
 
 - $Var(X) = E[X^2] - E[X]^2 = p - p^2 = p(1 - p)$
 
+
 ---
 ## Distributions with increasing variance
 ```{r, echo = FALSE, fig.height = 6, fig.width = 8, fig.align='center'}
@@ -235,6 +245,7 @@ dat <- data.frame(
 )
 ggplot(dat, aes(x = x, y = y, color = factor)) + geom_line(size = 2)    
 ```
+
 ---
 
 ## Interpreting variances

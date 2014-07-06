@@ -27,32 +27,27 @@ mode        : selfcontained # {standalone, draft}
 
 ## Example
 ### Find the center of mass of the bars
-<img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
-
+<img src="assets/fig/galton.png" title="plot of chunk galton" alt="plot of chunk galton" style="display: block; margin: auto;" />
 
 ---
 ## Using manipulate
 ```
 library(manipulate)
 myHist <- function(mu){
-  hist(galton$child,col="blue",breaks=100)
-  lines(c(mu, mu), c(0, 150),col="red",lwd=5)
-  mse <- mean((galton$child - mu)^2)
-  text(63, 150, paste("mu = ", mu))
-  text(63, 140, paste("Imbalance = ", round(mse, 2)))
+    g <- ggplot(galton, aes(x = child))
+    g <- g + geom_histogram(fill = "salmon", 
+      binwidth=1, aes(y = ..density..), colour = "black")
+    g <- g + geom_density(size = 2)
+    g <- g + geom_vline(xintercept = mu, size = 2)
+    mse <- round(mean((galton$child - mu)^2), 3)  
+    g <- g + labs(title = paste('mu = ', mu, ' MSE = ', mse))
+    g
 }
 manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 ```
 
 ---
 ## The center of mass is the empirical mean
-
-```r
-hist(galton$child, col = "blue", breaks = 100)
-meanChild <- mean(galton$child)
-lines(rep(meanChild, 100), seq(0, 150, length = 100), col = "red", lwd = 5)
-```
-
 <img src="assets/fig/lsm.png" title="plot of chunk lsm" alt="plot of chunk lsm" style="display: block; margin: auto;" />
 
 
@@ -66,7 +61,7 @@ lines(rep(meanChild, 100), seq(0, 150, length = 100), col = "red", lwd = 5)
     $$
 - Note, if thought about geometrically, this answer is obvious; if two equal weights are spaced at 0 and 1, the center of mass will be $.5$
 
-<img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
+<img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
 
 ---
 
@@ -99,8 +94,7 @@ lines(rep(meanChild, 100), seq(0, 150, length = 100), col = "red", lwd = 5)
 - Consider a density where $f(x) = 1$ for $x$ between zero and one
 - (Is this a valid density?)
 - Suppose that $X$ follows this density; what is its expected value?  
-![plot of chunk unnamed-chunk-3](assets/fig/unnamed-chunk-3.png) 
-
+<img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
 
 ---
 
@@ -148,14 +142,12 @@ $$
 ## Simulation experiment
 
 
-
-
-<img src="assets/fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
-
+<img src="assets/fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
 
 ---
 ## Averages of x die rolls
-<img src="assets/fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
+<img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
+
 
 ---
 
@@ -196,9 +188,10 @@ $$
 
 - $Var(X) = E[X^2] - E[X]^2 = p - p^2 = p(1 - p)$
 
+
 ---
 ## Distributions with increasing variance
-<img src="assets/fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
+<img src="assets/fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
 
 ---
 

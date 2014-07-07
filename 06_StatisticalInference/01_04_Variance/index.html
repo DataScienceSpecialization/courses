@@ -112,8 +112,7 @@ Var(X) = E[(X - \mu)^2] = E[X^2] - E[X]^2
     <h2>Distributions with increasing variance</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code>## Error: could not find function &quot;ggplot&quot;
-</code></pre>
+    <p><img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -131,9 +130,13 @@ S^2 = \frac{\sum_{i=1} (X_i - \bar X)^2}{n-1}
 \]
 (almost, but not quite, the average squared deviation from
 the sample mean)</li>
-<li>It is also a statistic, it has an associate
-population distribution</li>
+<li>It is also a random variable
+
+<ul>
+<li>It has an associate population distribution</li>
 <li>Its expected value is the population variance</li>
+<li>Its distribution gets more concentrated around the population variance with mroe data</li>
+</ul></li>
 <li>Its square root is the sample standard deviation</li>
 </ul>
 
@@ -167,15 +170,19 @@ population distribution</li>
 
 <slide class="" id="slide-8" style="background:;">
   <hgroup>
-    <h2>Hoping to avoid some confusion</h2>
+    <h2>Recall the mean</h2>
   </hgroup>
   <article data-timings="">
     <ul>
-<li>Suppose \(X_i\) are iid with mean \(\mu\) and variance \(\sigma^2\)</li>
-<li>\(S^2\) estimates \(\sigma^2\)</li>
-<li>The calculation of \(S^2\) involves dividing by \(n-1\)</li>
-<li>\(S / \sqrt{n}\) estimates \(\sigma / \sqrt{n}\) the standard error of the mean</li>
-<li>\(S / \sqrt{n}\) is called the sample standard error (of the mean)</li>
+<li>Recall that the average of random sample from a population 
+is itself a random variable</li>
+<li>We know that this distribution is centered around the population
+mean, \(E[\bar X] = \mu\)</li>
+<li>We also know what its variance is \(Var(\bar X) = \sigma^2 / n\)</li>
+<li>This is very useful, since we don&#39;t have repeat sample means 
+to get its variance; now we know how it relates to
+the population variance</li>
+<li>We call the standard deviation of a statistic a standard error</li>
 </ul>
 
   </article>
@@ -184,40 +191,46 @@ population distribution</li>
 
 <slide class="" id="slide-9" style="background:;">
   <hgroup>
-    <h2>Example</h2>
+    <h2>To summarize</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">data(father.son); 
-</code></pre>
+    <ul>
+<li>The sample variance, \(S^2\), estimates the population variance, \(\sigma^2\)</li>
+<li>The distribution of the sample variance is centered around \(\sigma^2\)</li>
+<li>The the variance of sample mean is \(\sigma^2 / n\)
 
-<pre><code>## Warning: data set &#39;father.son&#39; not found
-</code></pre>
-
-<pre><code class="r">x &lt;- father.son$sheight
-</code></pre>
-
-<pre><code>## Error: object &#39;father.son&#39; not found
-</code></pre>
-
-<pre><code class="r">n&lt;-length(x)
-</code></pre>
-
-<pre><code>## Error: object &#39;x&#39; not found
-</code></pre>
+<ul>
+<li>Its logical estimate is \(s^2 / n\)</li>
+<li>The logical estimate of the standard error is \(S / \sqrt{n}\)</li>
+</ul></li>
+<li>\(S\), the standard deviation, talks about how variable the population is</li>
+<li>\(S/\sqrt{n}\), the standard error, talks about how variable averages of random samples of size \(n\) from the population are</li>
+</ul>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
 <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Simulation example</h2>
+  </hgroup>
   <article data-timings="">
-    <pre><code>## Error: object &#39;father.son&#39; not found
+    <p>Standard normals have variance 1; means of \(n\) standard normals
+have standard deviation \(1/\sqrt{n}\)</p>
+
+<pre><code class="r">nosim &lt;- 1000
+n &lt;- 10
+sd(apply(matrix(rnorm(nosim * n), nosim), 1, mean))
 </code></pre>
 
-<pre><code class="r">round(c(sum( (x - mean(x) )^ 2) / (n-1), var(x), var(x) / n, sd(x), sd(x) / sqrt(n)),2)
+<pre><code>## [1] 0.3156
 </code></pre>
 
-<pre><code>## Error: object &#39;x&#39; not found
+<pre><code class="r">1 / sqrt(n)
+</code></pre>
+
+<pre><code>## [1] 0.3162
 </code></pre>
 
   </article>
@@ -226,24 +239,144 @@ population distribution</li>
 
 <slide class="" id="slide-11" style="background:;">
   <hgroup>
+    <h2>Simulation example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Standard uniforms have variance \(1/12\); means of 
+random samples of \(n\) uniforms have sd \(1/\sqrt{12 \times n}\)</p>
+
+<pre><code class="r">nosim &lt;- 1000
+n &lt;- 10
+sd(apply(matrix(runif(nosim * n), nosim), 1, mean))
+</code></pre>
+
+<pre><code>## [1] 0.09017
+</code></pre>
+
+<pre><code class="r">1 / sqrt(12 * n)
+</code></pre>
+
+<pre><code>## [1] 0.09129
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Simulation example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Poisson(4) have variance \(4\); means of 
+random samples of \(n\) Poisson(4) have sd \(2/\sqrt{n}\)</p>
+
+<pre><code class="r">nosim &lt;- 1000
+n &lt;- 10
+sd(apply(matrix(rpois(nosim * n, 4), nosim), 1, mean))
+</code></pre>
+
+<pre><code>## [1] 0.6219
+</code></pre>
+
+<pre><code class="r">2 / sqrt(n)
+</code></pre>
+
+<pre><code>## [1] 0.6325
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Simulation example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Fair coin flips have variance \(0.25\); means of 
+random samples of \(n\) coin flips have sd \(1 / (2 \sqrt{n})\)</p>
+
+<pre><code class="r">nosim &lt;- 1000
+n &lt;- 10
+sd(apply(matrix(sample(0 : 1, nosim * n, replace = TRUE),
+                nosim), 1, mean))
+</code></pre>
+
+<pre><code>## [1] 0.1587
+</code></pre>
+
+<pre><code class="r">1 / (2 * sqrt(n))
+</code></pre>
+
+<pre><code>## [1] 0.1581
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Data example</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(UsingR); data(father.son); 
+x &lt;- father.son$sheight
+n&lt;-length(x)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Plot of the son&#39;s heights</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Let&#39;s interpret these numbers</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">round(c(var(x), var(x) / n, sd(x), sd(x) / sqrt(n)),2)
+</code></pre>
+
+<pre><code>## [1] 7.92 0.01 2.81 0.09
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-11.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
     <h2>Summarizing what we know about variances</h2>
   </hgroup>
   <article data-timings="">
     <ul>
-<li>Expectations are properties of populations</li>
-<li>The mean and the variance are two important such properties</li>
-<li>These are naturally estimated by the sample mean and
-variance</li>
-<li>The sample mean and variance from a random sample from 
-a population are random variables
+<li>The sample variance estimates the population variance</li>
+<li>The distribution of the sample variance is centered at
+what its estimating</li>
+<li>It gets more concentrated around the population variance with larger sample sizes</li>
+<li>The variance of the sample mean is the population variance
+divided by \(n\)
 
 <ul>
-<li>They have distributions</li>
-<li>These distributions are centered at the
-population mean and variance they are estimating</li>
-<li>If they are comprised of more observations, they have lower
-variability</li>
+<li>The square root is the standard error</li>
 </ul></li>
+<li>It turns out that we can say a lot about the distribution of
+averages from random samples, 
+even though we only get one to look at in a given data set</li>
 </ul>
 
   </article>
@@ -298,26 +431,62 @@ variability</li>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title='Hoping to avoid some confusion'>
+        data-slide=8 title='Recall the mean'>
          8
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title='Example'>
+        data-slide=9 title='To summarize'>
          9
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=10 title=''>
+        data-slide=10 title='Simulation example'>
          10
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title='Summarizing what we know about variances'>
+        data-slide=11 title='Simulation example'>
          11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Simulation example'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Simulation example'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Data example'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Plot of the son&#39;s heights'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Let&#39;s interpret these numbers'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Summarizing what we know about variances'>
+         17
       </a>
     </li>
   </ul>

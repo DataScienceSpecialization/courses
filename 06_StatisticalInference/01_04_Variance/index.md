@@ -53,10 +53,7 @@ $$Var(X) = E[X^2] - E[X]^2 = p - p^2 = p(1 - p)$$
 
 ---
 ## Distributions with increasing variance
-
-```
-## Error: could not find function "ggplot"
-```
+<img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
 
 ---
 ## The sample variance 
@@ -66,9 +63,10 @@ S^2 = \frac{\sum_{i=1} (X_i - \bar X)^2}{n-1}
 $$
 (almost, but not quite, the average squared deviation from
 the sample mean)
-- It is also a statistic, it has an associate
-population distribution
-- Its expected value is the population variance
+- It is also a random variable
+  - It has an associate population distribution
+  - Its expected value is the population variance
+  - Its distribution gets more concentrated around the population variance with mroe data
 - Its square root is the sample standard deviation
 
 
@@ -82,68 +80,169 @@ population distribution
 ## Variances of x die rolls
 <img src="assets/fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
 
----
-
-## Hoping to avoid some confusion
-
-- Suppose $X_i$ are iid with mean $\mu$ and variance $\sigma^2$
-- $S^2$ estimates $\sigma^2$
-- The calculation of $S^2$ involves dividing by $n-1$
-- $S / \sqrt{n}$ estimates $\sigma / \sqrt{n}$ the standard error of the mean
-- $S / \sqrt{n}$ is called the sample standard error (of the mean)
 
 ---
-## Example
+
+## Recall the mean
+- Recall that the average of random sample from a population 
+is itself a random variable
+- We know that this distribution is centered around the population
+mean, $E[\bar X] = \mu$
+- We also know what its variance is $Var(\bar X) = \sigma^2 / n$
+- This is very useful, since we don't have repeat sample means 
+to get its variance; now we know how it relates to
+the population variance
+- We call the standard deviation of a statistic a standard error
+
+---
+## To summarize
+- The sample variance, $S^2$, estimates the population variance, $\sigma^2$
+- The distribution of the sample variance is centered around $\sigma^2$
+- The the variance of sample mean is $\sigma^2 / n$
+  - Its logical estimate is $s^2 / n$
+  - The logical estimate of the standard error is $S / \sqrt{n}$
+- $S$, the standard deviation, talks about how variable the population is
+- $S/\sqrt{n}$, the standard error, talks about how variable averages of random samples of size $n$ from the population are
+
+---
+## Simulation example
+Standard normals have variance 1; means of $n$ standard normals
+have standard deviation $1/\sqrt{n}$
+
 
 ```r
-data(father.son); 
+nosim <- 1000
+n <- 10
+sd(apply(matrix(rnorm(nosim * n), nosim), 1, mean))
 ```
 
 ```
-## Warning: data set 'father.son' not found
+## [1] 0.3156
 ```
 
 ```r
+1 / sqrt(n)
+```
+
+```
+## [1] 0.3162
+```
+
+
+---
+## Simulation example
+Standard uniforms have variance $1/12$; means of 
+random samples of $n$ uniforms have sd $1/\sqrt{12 \times n}$
+
+
+
+```r
+nosim <- 1000
+n <- 10
+sd(apply(matrix(runif(nosim * n), nosim), 1, mean))
+```
+
+```
+## [1] 0.09017
+```
+
+```r
+1 / sqrt(12 * n)
+```
+
+```
+## [1] 0.09129
+```
+
+
+---
+## Simulation example
+Poisson(4) have variance $4$; means of 
+random samples of $n$ Poisson(4) have sd $2/\sqrt{n}$
+
+
+
+```r
+nosim <- 1000
+n <- 10
+sd(apply(matrix(rpois(nosim * n, 4), nosim), 1, mean))
+```
+
+```
+## [1] 0.6219
+```
+
+```r
+2 / sqrt(n)
+```
+
+```
+## [1] 0.6325
+```
+
+
+---
+## Simulation example
+Fair coin flips have variance $0.25$; means of 
+random samples of $n$ coin flips have sd $1 / (2 \sqrt{n})$
+
+
+
+```r
+nosim <- 1000
+n <- 10
+sd(apply(matrix(sample(0 : 1, nosim * n, replace = TRUE),
+                nosim), 1, mean))
+```
+
+```
+## [1] 0.1587
+```
+
+```r
+1 / (2 * sqrt(n))
+```
+
+```
+## [1] 0.1581
+```
+
+---
+## Data example
+
+```r
+library(UsingR); data(father.son); 
 x <- father.son$sheight
-```
-
-```
-## Error: object 'father.son' not found
-```
-
-```r
 n<-length(x)
 ```
 
-```
-## Error: object 'x' not found
-```
+---
+## Plot of the son's heights
+<img src="assets/fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
 
 ---
-
-```
-## Error: object 'father.son' not found
-```
+## Let's interpret these numbers
 
 ```r
-round(c(sum( (x - mean(x) )^ 2) / (n-1), var(x), var(x) / n, sd(x), sd(x) / sqrt(n)),2)
+round(c(var(x), var(x) / n, sd(x), sd(x) / sqrt(n)),2)
 ```
 
 ```
-## Error: object 'x' not found
+## [1] 7.92 0.01 2.81 0.09
 ```
+
+<img src="assets/fig/unnamed-chunk-11.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
 
 
 ---
 ## Summarizing what we know about variances
-- Expectations are properties of populations
-- The mean and the variance are two important such properties
-- These are naturally estimated by the sample mean and
-variance
-- The sample mean and variance from a random sample from 
-a population are random variables
-  - They have distributions
-  - These distributions are centered at the
-population mean and variance they are estimating
-  - If they are comprised of more observations, they have lower
-variability
+- The sample variance estimates the population variance
+- The distribution of the sample variance is centered at
+what its estimating
+- It gets more concentrated around the population variance with larger sample sizes
+- The variance of the sample mean is the population variance
+divided by $n$
+  - The square root is the standard error
+- It turns out that we can say a lot about the distribution of
+averages from random samples, 
+even though we only get one to look at in a given data set

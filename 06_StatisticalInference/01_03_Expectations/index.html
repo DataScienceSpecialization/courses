@@ -296,159 +296,18 @@ of 10 normals from the same population</p>
   </hgroup>
   <article data-timings="">
     <ul>
+<li>Expected values are properties of distributions</li>
+<li>The population mean is the center of mass of population</li>
+<li>The sample mean is the center of mass of the observed data</li>
 <li>The sample mean is an estimate of the population mean</li>
-<li>The sample mean is unbiased (it&#39;s distribution is centered
-at what it&#39;s trying to estimate)</li>
+<li>The sample mean is unbiased 
+
+<ul>
+<li>The population mean of its distribution is the mean that it&#39;s
+trying to estimate</li>
+</ul></li>
 <li>The more data that goes into the sample mean, the more 
-concentrated its density / mass function is around what it&#39;s 
-estimating</li>
-<li>Its variance decreases</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-17" style="background:;">
-  <hgroup>
-    <h2>The variance</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>The variance of a random variable is a measure of <em>spread</em></li>
-<li>If \(X\) is a random variable with mean \(\mu\), the variance of \(X\) is defined as</li>
-</ul>
-
-<p>\[
-Var(X) = E[(X - \mu)^2] = E[X^2] - E[X]^2
-\] </p>
-
-<ul>
-<li>The expected (squared) distance from the mean</li>
-<li>Densities with a higher variance are more spread out than densities with a lower variance</li>
-<li>The square root of the variance is called the <strong>standard deviation</strong></li>
-<li>The standard deviation has the same units as \(X\)</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-18" style="background:;">
-  <hgroup>
-    <h2>Example</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li><p>What&#39;s the variance from the result of a toss of a die? </p>
-
-<ul>
-<li>\(E[X] = 3.5\) </li>
-<li>\(E[X^2] = 1 ^ 2 \times \frac{1}{6} + 2 ^ 2 \times \frac{1}{6} + 3 ^ 2 \times \frac{1}{6} + 4 ^ 2 \times \frac{1}{6} + 5 ^ 2 \times \frac{1}{6} + 6 ^ 2 \times \frac{1}{6} = 15.17\) </li>
-</ul></li>
-<li><p>\(Var(X) = E[X^2] - E[X]^2 \approx 2.92\)</p></li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-19" style="background:;">
-  <hgroup>
-    <h2>Example</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li><p>What&#39;s the variance from the result of the toss of a coin with probability of heads (1) of \(p\)? </p>
-
-<ul>
-<li>\(E[X] = 0 \times (1 - p) + 1 \times p = p\)</li>
-<li>\(E[X^2] = E[X] = p\) </li>
-</ul></li>
-</ul>
-
-<p>\[Var(X) = E[X^2] - E[X]^2 = p - p^2 = p(1 - p)\]</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-20" style="background:;">
-  <hgroup>
-    <h2>Distributions with increasing variance</h2>
-  </hgroup>
-  <article data-timings="">
-    <p><img src="assets/fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" /></p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-21" style="background:;">
-  <hgroup>
-    <h2>The sample variance</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>The sample variance is 
-\[
-S^2 = \frac{\sum_{i=1} (X_i - \bar X)^2}{n-1}
-\]
-(almost, but not quite, the average squared deviation from
-the sample mean)</li>
-<li>It is also a statistic, it has an associate
-population distribution</li>
-<li>Its expected value is the population variance</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-22" style="background:;">
-  <hgroup>
-    <h2>Simulation experiment</h2>
-  </hgroup>
-  <article data-timings="">
-    <h3>Simulating from a population with variance 1</h3>
-
-<p><img src="assets/fig/unnamed-chunk-8.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" /></p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-23" style="background:;">
-  <hgroup>
-    <h2>Variances of x die rolls</h2>
-  </hgroup>
-  <article data-timings="">
-    <p><img src="assets/fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" /></p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-24" style="background:;">
-  <hgroup>
-    <h2>Summarizing what we know about expectations</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>Expectations are properties of populations</li>
-<li>The mean and the variance are two important such properties</li>
-<li>These are naturally estimated by the sample mean and
-variance</li>
-<li>The sample mean and variance from a random sample from 
-a population are random variables
-
-<ul>
-<li>They have distributions</li>
-<li>These distributions are centered at the
-population mean and variance they are estimating</li>
-<li>If they are comprised of more observations, they have lower
-variability</li>
-</ul></li>
+concentrated its density / mass function is around the population mean</li>
 </ul>
 
   </article>
@@ -553,54 +412,6 @@ variability</li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=16 title='Sumarizing what we know'>
          16
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=17 title='The variance'>
-         17
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=18 title='Example'>
-         18
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=19 title='Example'>
-         19
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=20 title='Distributions with increasing variance'>
-         20
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=21 title='The sample variance'>
-         21
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=22 title='Simulation experiment'>
-         22
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=23 title='Variances of x die rolls'>
-         23
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=24 title='Summarizing what we know about expectations'>
-         24
       </a>
     </li>
   </ul>

@@ -1,0 +1,158 @@
+---
+title       : The variance
+subtitle    : Statistical Inference
+author      : Brian Caffo, Jeff Leek, Roger Peng
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+url:
+  lib: ../../librariesNew
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## The variance
+
+- The variance of a random variable is a measure of *spread*
+- If $X$ is a random variable with mean $\mu$, the variance of $X$ is defined as
+
+$$
+Var(X) = E[(X - \mu)^2] = E[X^2] - E[X]^2
+$$ 
+
+- The expected (squared) distance from the mean
+- Densities with a higher variance are more spread out than densities with a lower variance
+- The square root of the variance is called the **standard deviation**
+- The standard deviation has the same units as $X$
+
+---
+
+## Example
+
+- What's the variance from the result of a toss of a die? 
+
+  - $E[X] = 3.5$ 
+  - $E[X^2] = 1 ^ 2 \times \frac{1}{6} + 2 ^ 2 \times \frac{1}{6} + 3 ^ 2 \times \frac{1}{6} + 4 ^ 2 \times \frac{1}{6} + 5 ^ 2 \times \frac{1}{6} + 6 ^ 2 \times \frac{1}{6} = 15.17$ 
+
+- $Var(X) = E[X^2] - E[X]^2 \approx 2.92$
+
+---
+
+## Example
+
+- What's the variance from the result of the toss of a coin with probability of heads (1) of $p$? 
+
+  - $E[X] = 0 \times (1 - p) + 1 \times p = p$
+  - $E[X^2] = E[X] = p$ 
+
+$$Var(X) = E[X^2] - E[X]^2 = p - p^2 = p(1 - p)$$
+
+
+---
+## Distributions with increasing variance
+```{r, echo = FALSE, fig.height = 6, fig.width = 8, fig.align='center'}
+xvals <- seq(-10, 10, by = .01)
+dat <- data.frame(
+    y = c(
+        dnorm(xvals, mean = 0, sd = 1),
+        dnorm(xvals, mean = 0, sd = 2),
+        dnorm(xvals, mean = 0, sd = 3),
+        dnorm(xvals, mean = 0, sd = 4)
+    ),
+    x = rep(xvals, 4),
+    factor = factor(rep(1 : 4, rep(length(xvals), 4)))
+)
+ggplot(dat, aes(x = x, y = y, color = factor)) + geom_line(size = 2)    
+```
+
+---
+## The sample variance 
+- The sample variance is 
+$$
+S^2 = \frac{\sum_{i=1} (X_i - \bar X)^2}{n-1}
+$$
+(almost, but not quite, the average squared deviation from
+the sample mean)
+- It is also a statistic, it has an associate
+population distribution
+- Its expected value is the population variance
+- Its square root is the sample standard deviation
+
+
+---
+## Simulation experiment
+### Simulating from a population with variance 1
+
+```{r, fig.height=6, figh.width=6, fig.align='center', echo = FALSE}
+library(ggplot2)
+nosim <- 10000; 
+dat <- data.frame(
+    x = c(apply(matrix(rnorm(nosim * 10), nosim), 1, var),
+          apply(matrix(rnorm(nosim * 20), nosim), 1, var),
+          apply(matrix(rnorm(nosim * 30), nosim), 1, var)),
+    n = factor(rep(c("10", "20", "30"), c(nosim, nosim, nosim))) 
+    )
+ggplot(dat, aes(x = x, fill = n)) + geom_density(size = 2, alpha = .2) + geom_vline(xintercept = 1, size = 2) 
+
+```
+
+---
+## Variances of x die rolls
+```{r, fig.align='center',fig.height=5, fig.width=10, echo = FALSE, warning=FALSE, error=FALSE, message=FALSE}  
+dat <- data.frame(
+  x = c(apply(matrix(sample(1 : 6, nosim * 10, replace = TRUE), 
+                     nosim), 1, var),
+        apply(matrix(sample(1 : 6, nosim * 20, replace = TRUE), 
+                     nosim), 1, var),
+        apply(matrix(sample(1 : 6, nosim * 30, replace = TRUE), 
+                     nosim), 1, var)
+        ),
+  size = factor(rep(c(10, 20, 30), rep(nosim, 3))))
+g <- ggplot(dat, aes(x = x, fill = size)) + geom_histogram(alpha = .20, binwidth=.3, colour = "black") 
+g <- g + geom_vline(xintercept = 2.92, size = 2)
+g + facet_grid(. ~ size)
+```
+
+---
+
+## Hoping to avoid some confusion
+
+- Suppose $X_i$ are iid with mean $\mu$ and variance $\sigma^2$
+- $S^2$ estimates $\sigma^2$
+- The calculation of $S^2$ involves dividing by $n-1$
+- $S / \sqrt{n}$ estimates $\sigma / \sqrt{n}$ the standard error of the mean
+- $S / \sqrt{n}$ is called the sample standard error (of the mean)
+
+---
+## Example
+```{r}
+data(father.son); 
+x <- father.son$sheight
+n<-length(x)
+```
+
+---
+```{r, fig.height=5, fig.width=5, echo=FALSE}
+hist(father.son$sheight, col="lightblue", border="black")
+```
+```{r}
+round(c(sum( (x - mean(x) )^ 2) / (n-1), var(x), var(x) / n, sd(x), sd(x) / sqrt(n)),2)
+```
+
+
+---
+## Summarizing what we know about variances
+- Expectations are properties of populations
+- The mean and the variance are two important such properties
+- These are naturally estimated by the sample mean and
+variance
+- The sample mean and variance from a random sample from 
+a population are random variables
+  - They have distributions
+  - These distributions are centered at the
+population mean and variance they are estimating
+  - If they are comprised of more observations, they have lower
+variability

@@ -334,9 +334,9 @@ S^2 =   \frac{\sum_{i=1}^n (X_i - \bar X)^2}{n-1}
     <h2>Example</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">data(father.son)
+    <pre><code class="r">data(father.son); 
 x &lt;- father.son$sheight
-n &lt;- length(x)
+n&lt;-length(x)
 </code></pre>
 
   </article>
@@ -347,8 +347,7 @@ n &lt;- length(x)
   <article data-timings="">
     <p><img src="assets/fig/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
 
-<pre><code class="r">round(c(sum((x - mean(x))^2)/(n - 1), var(x), var(x)/n, sd(x), sd(x)/sqrt(n)), 
-    2)
+<pre><code class="r">round(c(sum( (x - mean(x) )^ 2) / (n-1), var(x), var(x) / n, sd(x), sd(x) / sqrt(n)),2)
 </code></pre>
 
 <pre><code>## [1] 7.92 7.92 0.01 2.81 0.09

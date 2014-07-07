@@ -195,22 +195,18 @@ $$
 ## Example
 
 ```r
-data(father.son)
+data(father.son); 
 x <- father.son$sheight
-n <- length(x)
+n<-length(x)
 ```
-
 
 ---
 ![plot of chunk unnamed-chunk-2](assets/fig/unnamed-chunk-2.png) 
 
-
 ```r
-round(c(sum((x - mean(x))^2)/(n - 1), var(x), var(x)/n, sd(x), sd(x)/sqrt(n)), 
-    2)
+round(c(sum( (x - mean(x) )^ 2) / (n-1), var(x), var(x) / n, sd(x), sd(x) / sqrt(n)),2)
 ```
 
 ```
 ## [1] 7.92 7.92 0.01 2.81 0.09
 ```
-

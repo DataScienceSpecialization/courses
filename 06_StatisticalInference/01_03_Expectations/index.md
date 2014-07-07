@@ -154,92 +154,12 @@ of 10 normals from the same population
 
 ---
 ## Sumarizing what we know
+- Expected values are properties of distributions
+- The population mean is the center of mass of population
+- The sample mean is the center of mass of the observed data
 - The sample mean is an estimate of the population mean
-- The sample mean is unbiased (it's distribution is centered
-at what it's trying to estimate)
+- The sample mean is unbiased 
+  - The population mean of its distribution is the mean that it's
+  trying to estimate
 - The more data that goes into the sample mean, the more 
-concentrated its density / mass function is around what it's 
-estimating
-- Its variance decreases
-
----
-
-## The variance
-
-- The variance of a random variable is a measure of *spread*
-- If $X$ is a random variable with mean $\mu$, the variance of $X$ is defined as
-
-$$
-Var(X) = E[(X - \mu)^2] = E[X^2] - E[X]^2
-$$ 
-
-- The expected (squared) distance from the mean
-- Densities with a higher variance are more spread out than densities with a lower variance
-- The square root of the variance is called the **standard deviation**
-- The standard deviation has the same units as $X$
-
----
-
-## Example
-
-- What's the variance from the result of a toss of a die? 
-
-  - $E[X] = 3.5$ 
-  - $E[X^2] = 1 ^ 2 \times \frac{1}{6} + 2 ^ 2 \times \frac{1}{6} + 3 ^ 2 \times \frac{1}{6} + 4 ^ 2 \times \frac{1}{6} + 5 ^ 2 \times \frac{1}{6} + 6 ^ 2 \times \frac{1}{6} = 15.17$ 
-
-- $Var(X) = E[X^2] - E[X]^2 \approx 2.92$
-
----
-
-## Example
-
-- What's the variance from the result of the toss of a coin with probability of heads (1) of $p$? 
-
-  - $E[X] = 0 \times (1 - p) + 1 \times p = p$
-  - $E[X^2] = E[X] = p$ 
-
-$$Var(X) = E[X^2] - E[X]^2 = p - p^2 = p(1 - p)$$
-
-
----
-## Distributions with increasing variance
-<img src="assets/fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
-
----
-## The sample variance 
-- The sample variance is 
-$$
-S^2 = \frac{\sum_{i=1} (X_i - \bar X)^2}{n-1}
-$$
-(almost, but not quite, the average squared deviation from
-the sample mean)
-- It is also a statistic, it has an associate
-population distribution
-- Its expected value is the population variance
-
-
----
-## Simulation experiment
-### Simulating from a population with variance 1
-
-<img src="assets/fig/unnamed-chunk-8.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
-
----
-## Variances of x die rolls
-<img src="assets/fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
-
----
-## Summarizing what we know about expectations
-- Expectations are properties of populations
-- The mean and the variance are two important such properties
-- These are naturally estimated by the sample mean and
-variance
-- The sample mean and variance from a random sample from 
-a population are random variables
-  - They have distributions
-  - These distributions are centered at the
-population mean and variance they are estimating
-  - If they are comprised of more observations, they have lower
-variability
-
-
+concentrated its density / mass function is around the population mean

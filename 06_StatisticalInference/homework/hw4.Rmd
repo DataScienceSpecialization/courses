@@ -41,7 +41,7 @@ Creating Data Products
 Load the data set `mtcars` in the `datasets` R package. You want
 to test whether the MPG is $\mu_0$ or smaller using a one sided
 5% level test. ($H_0 : \mu = \mu_0$ versus $H_a : \mu < \mu_0$).
-Using that data set and a T test:
+Using that data set and a Z test:
 
 1. what is the smallest value of $\mu_0$ that you would reject for (to two decimal places)?
 
@@ -168,12 +168,12 @@ setting.
 --- &multitext
 
 Suppose that in an AB test, one advertising scheme led to an average of 10 purchases per day for a sample of 100 days, while the other led to 11 purchaces per day, also for a sample of 100 days.
-Assuming a common standard deviation of 4 purchaces per day.
+Assuming a common standard deviation of 4 purchases per day.
 Assuming that the groups are independent and that they days are iid, perform a Z test of
 equivalence. 
 
 1. What is the P-value reported to 3 digits expressed as a proportion?
-2. Do you reject the test? (O for no 1 for yes).
+2. Do you reject the test? (0 for no 1 for yes).
 
 *** .hint
 The standard error is 
@@ -298,8 +298,7 @@ innocent. Relate this property back to hypothesis tests.
 --- &multitext
 Consider the `mtcars` data set. 
 
-1. Give the p-value for a t-test for assuming 
-constant variance comparing MPG for 6 and 8 cylinder cars as a proportion to 3 decimal places.
+1. Give the p-value for a t-test comparing MPG for 6 and 8 cylinder cars assuming equal variance, as a proportion to 3 decimal places.
 2. Give the associated P-value for a z test.
 3. Give the common standard deviation estimate for MPG across cylinders to 3 decimal places.
 4. Would the t test reject at the two sided 0.05 level (0 for no 1 for yes)?

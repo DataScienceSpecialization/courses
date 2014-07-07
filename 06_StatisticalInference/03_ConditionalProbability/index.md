@@ -94,7 +94,7 @@ $$
 ## Example
 
 - A study comparing the efficacy of HIV tests, reports on an experiment which concluded that HIV antibody tests have a sensitivity of 99.7% and a specificity of 98.5%
-- Suppose that a subject, from a population with a .1% prevalence of HIV, receives a positive test result. What is the probability that this subject has HIV?
+- Suppose that a subject, from a population with a .1% prevalence of HIV, receives a positive test result. What is the positive predictive value?
 - Mathematically, we want $P(D ~|~ +)$ given the sensitivity, $P(+ ~|~ D) = .997$, the specificity, $P(- ~|~ D^c) =.985$, and the prevalence $P(D) = .001$
 
 ---
@@ -196,14 +196,14 @@ $$
 ## Example
 
 - Volume 309 of Science reports on a physician who was on trial for expert testimony in a criminal trial
-- Based on an estimated prevalence of sudden infant death syndrome of $1$ out of $8,543$, Dr Meadow testified that that the probability of a mother having two children with SIDS was $\left(\frac{1}{8,543}\right)^2$
+- Based on an estimated prevalence of sudden infant death syndrome of $1$ out of $8,543$, the physician testified that that the probability of a mother having two children with SIDS was $\left(\frac{1}{8,543}\right)^2$
 - The mother on trial was convicted of murder
 
 ---
 
 ## Example: continued
 
-- For the purposes of this class, the principal mistake was to *assume* that the probabilities of having SIDs within a family are independent
+- Relevant to this discussion, the principal mistake was to *assume* that the events of having SIDs within a family are independent
 - That is, $P(A_1 \cap A_2)$ is not necessarily equal to $P(A_1)P(A_2)$
 - Biological processes that have a believed genetic or familiar environmental component, of course, tend to be dependent within families
 - (There are many other statistical points of discussion for this case.)

@@ -72,7 +72,7 @@ one is now one third</li>
 \[
 P(A ~|~ B) = \frac{P(A \cap B)}{P(B)}
 \]</li>
-<li>Notice that if \(A\) and \(B\) are independent, then
+<li>Notice that if \(A\) and \(B\) are independent (defined later in the lecture), then
 \[
 P(A ~|~ B) = \frac{P(A) P(B)}{P(B)} = P(A)
 \]</li>
@@ -110,7 +110,9 @@ P(\mbox{one given that roll is odd})  & = & P(A ~|~ B) \\ \\
     <h2>Bayes&#39; rule</h2>
   </hgroup>
   <article data-timings="">
-    <p>\[
+    <p>Baye&#39;s rule allows us to reverse the conditioning set provided
+that we know some marginal probabilities
+\[
 P(B ~|~ A) = \frac{P(A ~|~ B) P(B)}{P(A ~|~ B) P(B) + P(A ~|~ B^c)P(B^c)}.
 \]</p>
 
@@ -291,6 +293,97 @@ the test.</li>
   <!-- Presenter Notes -->
 </slide>
 
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Independence</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Two events \(A\) and \(B\) are <strong>independent</strong> if \[P(A \cap B) = P(A)P(B)\]</li>
+<li>Equivalently if \(P(A ~|~ B) = P(A)\) </li>
+<li>Two random variables, \(X\) and \(Y\) are independent if for any two sets \(A\) and \(B\) \[P([X \in A] \cap [Y \in B]) = P(X\in A)P(Y\in B)\]</li>
+<li>If \(A\) is independent of \(B\) then 
+
+<ul>
+<li>\(A^c\) is independent of \(B\) </li>
+<li>\(A\) is independent of \(B^c\)</li>
+<li>\(A^c\) is independent of \(B^c\)</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>What is the probability of getting two consecutive heads?</li>
+<li>\(A = \{\mbox{Head on flip 1}\}\) ~ \(P(A) = .5\)</li>
+<li>\(B = \{\mbox{Head on flip 2}\}\) ~ \(P(B) = .5\)</li>
+<li>\(A \cap B = \{\mbox{Head on flips 1 and 2}\}\)</li>
+<li>\(P(A \cap B) = P(A)P(B) = .5 \times .5 = .25\) </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Volume 309 of Science reports on a physician who was on trial for expert testimony in a criminal trial</li>
+<li>Based on an estimated prevalence of sudden infant death syndrome of \(1\) out of \(8,543\), Dr Meadow testified that that the probability of a mother having two children with SIDS was \(\left(\frac{1}{8,543}\right)^2\)</li>
+<li>The mother on trial was convicted of murder</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Example: continued</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>For the purposes of this class, the principal mistake was to <em>assume</em> that the probabilities of having SIDs within a family are independent</li>
+<li>That is, \(P(A_1 \cap A_2)\) is not necessarily equal to \(P(A_1)P(A_2)\)</li>
+<li>Biological processes that have a believed genetic or familiar environmental component, of course, tend to be dependent within families</li>
+<li>(There are many other statistical points of discussion for this case.)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>IID random variables</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Random variables are said to be iid if they are independent and identically distributed
+
+<ul>
+<li>Independent: statistically unrelated from one and another</li>
+<li>Identically distributed: all having been drawn from the same population distribution</li>
+</ul></li>
+<li>iid random variables are the default model for random samples</li>
+<li>Many of the important theories of statistics are founded on assuming that variables are iid</li>
+<li>Assuming a random sample and iid will be the default starting point of inference for this class</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
     <slide class="backdrop"></slide>
   </slides>
   <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
@@ -377,6 +470,36 @@ the test.</li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=14 title='HIV example revisited'>
          14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Independence'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Example'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Example'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Example: continued'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='IID random variables'>
+         19
       </a>
     </li>
   </ul>

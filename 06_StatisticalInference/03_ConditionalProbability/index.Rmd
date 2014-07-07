@@ -32,7 +32,7 @@ mode        : selfcontained # {standalone, draft}
   $$
   P(A ~|~ B) = \frac{P(A \cap B)}{P(B)}
   $$
-- Notice that if $A$ and $B$ are independent, then
+- Notice that if $A$ and $B$ are independent (defined later in the lecture), then
   $$
   P(A ~|~ B) = \frac{P(A) P(B)}{P(B)} = P(A)
   $$
@@ -58,7 +58,8 @@ $$
 ---
 
 ## Bayes' rule
-
+Baye's rule allows us to reverse the conditioning set provided
+that we know some marginal probabilities
 $$
 P(B ~|~ A) = \frac{P(A ~|~ B) P(B)}{P(A ~|~ B) P(B) + P(A ~|~ B^c)P(B^c)}.
 $$
@@ -166,4 +167,55 @@ $$
 - $DLR_- = (1 - .997) / .985  \approx .003$
 - Therefore, the post-test odds of disease is now $.3\%$ of the pretest odds given the negative test.
 - Or, the hypothesis of disease is supported $.003$ times that of the hypothesis of absence of disease given the negative test result
+
+---
+
+## Independence
+
+- Two events $A$ and $B$ are **independent** if $$P(A \cap B) = P(A)P(B)$$
+- Equivalently if $P(A ~|~ B) = P(A)$ 
+- Two random variables, $X$ and $Y$ are independent if for any two sets $A$ and $B$ $$P([X \in A] \cap [Y \in B]) = P(X\in A)P(Y\in B)$$
+- If $A$ is independent of $B$ then 
+  - $A^c$ is independent of $B$ 
+  - $A$ is independent of $B^c$
+  - $A^c$ is independent of $B^c$
+
+
+---
+
+## Example
+
+- What is the probability of getting two consecutive heads?
+- $A = \{\mbox{Head on flip 1}\}$ ~ $P(A) = .5$
+- $B = \{\mbox{Head on flip 2}\}$ ~ $P(B) = .5$
+- $A \cap B = \{\mbox{Head on flips 1 and 2}\}$
+- $P(A \cap B) = P(A)P(B) = .5 \times .5 = .25$ 
+
+---
+
+## Example
+
+- Volume 309 of Science reports on a physician who was on trial for expert testimony in a criminal trial
+- Based on an estimated prevalence of sudden infant death syndrome of $1$ out of $8,543$, Dr Meadow testified that that the probability of a mother having two children with SIDS was $\left(\frac{1}{8,543}\right)^2$
+- The mother on trial was convicted of murder
+
+---
+
+## Example: continued
+
+- For the purposes of this class, the principal mistake was to *assume* that the probabilities of having SIDs within a family are independent
+- That is, $P(A_1 \cap A_2)$ is not necessarily equal to $P(A_1)P(A_2)$
+- Biological processes that have a believed genetic or familiar environmental component, of course, tend to be dependent within families
+- (There are many other statistical points of discussion for this case.)
+
+
+---
+## IID random variables
+
+- Random variables are said to be iid if they are independent and identically distributed
+  - Independent: statistically unrelated from one and another
+  - Identically distributed: all having been drawn from the same population distribution
+- iid random variables are the default model for random samples
+- Many of the important theories of statistics are founded on assuming that variables are iid
+- Assuming a random sample and iid will be the default starting point of inference for this class
 

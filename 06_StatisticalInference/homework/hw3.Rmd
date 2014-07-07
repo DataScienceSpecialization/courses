@@ -61,7 +61,7 @@ round(t.test(mtcars$mpg)$conf.int)
 <span class="answer">`r round(max(t.test(mtcars$mpg)$conf.int))`</span>
 
 --- &multitext
-Suppose that data of 9 paired differences has a standard error of $1$, what value would the average difference have to be to have the lower endpoint of a 95%
+Suppose that standard deviation of 9 paired differences is $1$, what value would the average difference have to be so that the lower endpoint of a 95%
 students t confidence interval touch zero?
 
 1. Give the number here to two decimal places

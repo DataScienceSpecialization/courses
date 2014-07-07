@@ -79,7 +79,7 @@ round(qt(.975, df = 8) * 1 / 3, 2)
 
 
 --- &radio
-An independent group Student's T interval is used over
+An independent group Student's T interval is used instead of
 a paired T interval when:
 
 1. The observations are paired between the groups.

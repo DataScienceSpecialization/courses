@@ -62,57 +62,6 @@
 
 <slide class="" id="slide-2" style="background:;">
   <hgroup>
-    <h2>iid Bernoulli trials</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>If several iid Bernoulli observations, say \(x_1,\ldots, x_n\), are observed the
-likelihood is 
-\[
-\prod_{i=1}^n p^{x_i} (1 - p)^{1 - x_i} = p^{\sum x_i} (1 - p)^{n - \sum x_i}
-\]</li>
-<li>Notice that the likelihood depends only on the sum of the \(x_i\)</li>
-<li>Because \(n\) is fixed and assumed known, this implies that the sample proportion \(\sum_i x_i / n\) contains all of the relevant information about \(p\)</li>
-<li>We can maximize the Bernoulli likelihood over \(p\) to obtain that \(\hat p = \sum_i x_i / n\) is the maximum likelihood estimator for \(p\)</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-3" style="background:;">
-  <hgroup>
-    <h2>Plotting all possible likelihoods for a small n</h2>
-  </hgroup>
-  <article data-timings="">
-    <pre><code>n &lt;- 5
-pvals &lt;- seq(0, 1, length = 1000)
-plot(c(0, 1), c(0, 1.2), type = &quot;n&quot;, frame = FALSE, xlab = &quot;p&quot;, ylab = &quot;likelihood&quot;)
-text((0 : n) /n, 1.1, as.character(0 : n))
-sapply(0 : n, function(x) {
-  phat &lt;- x / n
-  if (x == 0) lines(pvals,  ( (1 - pvals) / (1 - phat) )^(n-x), lwd = 3)
-  else if (x == n) lines(pvals, (pvals / phat) ^ x, lwd = 3)
-  else lines(pvals, (pvals / phat ) ^ x * ( (1 - pvals) / (1 - phat) ) ^ (n-x), lwd = 3) 
-  }
-)
-title(paste(&quot;Likelihoods for n = &quot;, n))
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-4" style="background:;">
-  <article data-timings="">
-    <p><img src="assets/fig/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-5" style="background:;">
-  <hgroup>
     <h2>Binomial trials</h2>
   </hgroup>
   <article data-timings="">
@@ -136,7 +85,7 @@ for \(x=0,\ldots,n\)</li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Choose</h2>
   </hgroup>
@@ -168,7 +117,7 @@ without replacement disregarding the order of the items</li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Example justification of the binomial likelihood</h2>
   </hgroup>
@@ -193,7 +142,7 @@ possible orders of \(6\) heads and \(4\) tails</li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -215,13 +164,13 @@ possible orders of \(6\) heads and \(4\) tails</li>
 \]</li>
 </ul>
 
-<pre><code class="r">choose(8, 7) * 0.5^8 + choose(8, 8) * 0.5^8
+<pre><code class="r">choose(8, 7) * .5 ^ 8 + choose(8, 8) * .5 ^ 8 
 </code></pre>
 
 <pre><code>## [1] 0.03516
 </code></pre>
 
-<pre><code class="r">pbinom(6, size = 8, prob = 0.5, lower.tail = FALSE)
+<pre><code class="r">pbinom(6, size = 8, prob = .5, lower.tail = FALSE)
 </code></pre>
 
 <pre><code>## [1] 0.03516
@@ -231,19 +180,7 @@ possible orders of \(6\) heads and \(4\) tails</li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-9" style="background:;">
-  <article data-timings="">
-    <pre><code class="r">plot(pvals, dbinom(7, 8, pvals)/dbinom(7, 8, 7/8), lwd = 3, frame = FALSE, type = &quot;l&quot;, 
-    xlab = &quot;p&quot;, ylab = &quot;likelihood&quot;)
-</code></pre>
-
-<p><img src="assets/fig/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>The normal distribution</h2>
   </hgroup>
@@ -264,20 +201,18 @@ If \(X\) a RV with this density then \(E[X] = \mu\) and \(Var(X) = \sigma^2\)</l
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>The standard normal distribution with reference lines</h2>
+  </hgroup>
   <article data-timings="">
-    <pre><code class="r">zvals &lt;- seq(-3, 3, length = 1000)
-plot(zvals, dnorm(zvals), type = &quot;l&quot;, lwd = 3, frame = FALSE, xlab = &quot;z&quot;, ylab = &quot;Density&quot;)
-sapply(-3:3, function(k) abline(v = k))
-</code></pre>
-
-<p><img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" /></p>
+    <p><img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>Facts about the normal density</h2>
   </hgroup>
@@ -292,7 +227,7 @@ sapply(-3:3, function(k) abline(v = k))
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>More facts about the normal density</h2>
   </hgroup>
@@ -307,7 +242,7 @@ sapply(-3:3, function(k) abline(v = k))
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Question</h2>
   </hgroup>
@@ -335,7 +270,7 @@ or \(x_0 = \mu + \sigma 1.645\)</li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>Question</h2>
   </hgroup>
@@ -357,7 +292,7 @@ P\left(\frac{X -\mu}{\sigma} > \frac{\mu + 2\sigma - \mu}{\sigma}\right)    \\ \
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>Other properties</h2>
   </hgroup>
@@ -376,7 +311,7 @@ P\left(\frac{X -\mu}{\sigma} > \frac{\mu + 2\sigma - \mu}{\sigma}\right)    \\ \
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-17" style="background:;">
+<slide class="" id="slide-13" style="background:;">
   <hgroup>
     <h2>Final thoughts on normal likelihoods</h2>
   </hgroup>
@@ -396,7 +331,7 @@ estimate</li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-18" style="background:;">
+<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>The Poisson distribution</h2>
   </hgroup>
@@ -417,7 +352,7 @@ for \(x=0,1,\ldots\)</li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-19" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>Some uses for the Poisson distribution</h2>
   </hgroup>
@@ -435,7 +370,7 @@ for \(x=0,1,\ldots\)</li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-20" style="background:;">
+<slide class="" id="slide-16" style="background:;">
   <hgroup>
     <h2>Poisson derivation</h2>
   </hgroup>
@@ -459,7 +394,7 @@ then, the number of events per unit time is Poisson with mean \(\lambda\) </li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-21" style="background:;">
+<slide class="" id="slide-17" style="background:;">
   <hgroup>
     <h2>Rates and Poisson random variables</h2>
   </hgroup>
@@ -478,7 +413,7 @@ then, the number of events per unit time is Poisson with mean \(\lambda\) </li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-22" style="background:;">
+<slide class="" id="slide-18" style="background:;">
   <hgroup>
     <h2>Poisson approximation to the binomial</h2>
   </hgroup>
@@ -501,7 +436,7 @@ is an accurate approximation to the binomial distribution</li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-23" style="background:;">
+<slide class="" id="slide-19" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -522,7 +457,7 @@ or fewer people show up for the whole time?</p>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-24" style="background:;">
+<slide class="" id="slide-20" style="background:;">
   <hgroup>
     <h2>Example, Poisson approximation to the binomial</h2>
   </hgroup>
@@ -531,13 +466,13 @@ or fewer people show up for the whole time?</p>
 
 <p>What&#39;s the probability of 2 or fewer successes?</p>
 
-<pre><code class="r">pbinom(2, size = 500, prob = 0.01)
+<pre><code class="r">pbinom(2, size = 500, prob = .01)
 </code></pre>
 
 <pre><code>## [1] 0.1234
 </code></pre>
 
-<pre><code class="r">ppois(2, lambda = 500 * 0.01)
+<pre><code class="r">ppois(2, lambda=500 * .01)
 </code></pre>
 
 <pre><code>## [1] 0.1247
@@ -559,140 +494,116 @@ or fewer people show up for the whole time?</p>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='iid Bernoulli trials'>
+        data-slide=2 title='Binomial trials'>
          2
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='Plotting all possible likelihoods for a small n'>
+        data-slide=3 title='Choose'>
          3
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title=''>
+        data-slide=4 title='Example justification of the binomial likelihood'>
          4
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Binomial trials'>
+        data-slide=5 title='Example'>
          5
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='Choose'>
+        data-slide=6 title='The normal distribution'>
          6
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=7 title='Example justification of the binomial likelihood'>
+        data-slide=7 title='The standard normal distribution with reference lines'>
          7
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title='Example'>
+        data-slide=8 title='Facts about the normal density'>
          8
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title=''>
+        data-slide=9 title='More facts about the normal density'>
          9
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=10 title='The normal distribution'>
+        data-slide=10 title='Question'>
          10
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title=''>
+        data-slide=11 title='Question'>
          11
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=12 title='Facts about the normal density'>
+        data-slide=12 title='Other properties'>
          12
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=13 title='More facts about the normal density'>
+        data-slide=13 title='Final thoughts on normal likelihoods'>
          13
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=14 title='Question'>
+        data-slide=14 title='The Poisson distribution'>
          14
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title='Question'>
+        data-slide=15 title='Some uses for the Poisson distribution'>
          15
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=16 title='Other properties'>
+        data-slide=16 title='Poisson derivation'>
          16
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=17 title='Final thoughts on normal likelihoods'>
+        data-slide=17 title='Rates and Poisson random variables'>
          17
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=18 title='The Poisson distribution'>
+        data-slide=18 title='Poisson approximation to the binomial'>
          18
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=19 title='Some uses for the Poisson distribution'>
+        data-slide=19 title='Example'>
          19
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=20 title='Poisson derivation'>
+        data-slide=20 title='Example, Poisson approximation to the binomial'>
          20
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=21 title='Rates and Poisson random variables'>
-         21
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=22 title='Poisson approximation to the binomial'>
-         22
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=23 title='Example'>
-         23
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=24 title='Example, Poisson approximation to the binomial'>
-         24
       </a>
     </li>
   </ul>

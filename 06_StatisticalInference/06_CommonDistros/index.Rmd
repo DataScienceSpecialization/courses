@@ -23,51 +23,6 @@ mode        : selfcontained # {standalone, draft}
 - The mean of a Bernoulli random variable is $p$ and the variance is $p(1 - p)$
 - If we let $X$ be a Bernoulli random variable, it is typical to call $X=1$ as a "success" and $X=0$ as a "failure"
 
----
-
-## iid Bernoulli trials
-
-- If several iid Bernoulli observations, say $x_1,\ldots, x_n$, are observed the
-likelihood is 
-$$
-  \prod_{i=1}^n p^{x_i} (1 - p)^{1 - x_i} = p^{\sum x_i} (1 - p)^{n - \sum x_i}
-$$
-- Notice that the likelihood depends only on the sum of the $x_i$
-- Because $n$ is fixed and assumed known, this implies that the sample proportion $\sum_i x_i / n$ contains all of the relevant information about $p$
-- We can maximize the Bernoulli likelihood over $p$ to obtain that $\hat p = \sum_i x_i / n$ is the maximum likelihood estimator for $p$
-
----
-## Plotting all possible likelihoods for a small n
-```
-n <- 5
-pvals <- seq(0, 1, length = 1000)
-plot(c(0, 1), c(0, 1.2), type = "n", frame = FALSE, xlab = "p", ylab = "likelihood")
-text((0 : n) /n, 1.1, as.character(0 : n))
-sapply(0 : n, function(x) {
-  phat <- x / n
-  if (x == 0) lines(pvals,  ( (1 - pvals) / (1 - phat) )^(n-x), lwd = 3)
-  else if (x == n) lines(pvals, (pvals / phat) ^ x, lwd = 3)
-  else lines(pvals, (pvals / phat ) ^ x * ( (1 - pvals) / (1 - phat) ) ^ (n-x), lwd = 3) 
-  }
-)
-title(paste("Likelihoods for n = ", n))
-```
-
----
-```{r, fig.height=6, fig.width=6, echo = FALSE, results='hide'}
-n <- 5
-pvals <- seq(0, 1, length = 1000)
-plot(c(0, 1), c(0, 1.2), type = "n", frame = FALSE, xlab = "p", ylab = "likelihood")
-text((0 : n) /n, 1.1, as.character(0 : n))
-sapply(0 : n, function(x) {
-  phat <- x / n
-  if (x == 0) lines(pvals,  ( (1 - pvals) / (1 - phat) )^(n-x), lwd = 3)
-  else if (x == n) lines(pvals, (pvals / phat) ^ x, lwd = 3)
-  else lines(pvals, (pvals / phat ) ^ x * ( (1 - pvals) / (1 - phat) ) ^ (n-x), lwd = 3) 
-  }
-)
-title(paste("Likelihoods for n = ", n))
-```
 
 ---
 
@@ -153,11 +108,6 @@ choose(8, 7) * .5 ^ 8 + choose(8, 8) * .5 ^ 8
 pbinom(6, size = 8, prob = .5, lower.tail = FALSE)
 ```
 
----
-```{r, fig.height=5, fig.width=5}
-plot(pvals, dbinom(7, 8, pvals) / dbinom(7, 8, 7/8) , 
-     lwd = 3, frame = FALSE, type = "l", xlab = "p", ylab = "likelihood")
-```
 
 ---
 
@@ -174,11 +124,14 @@ plot(pvals, dbinom(7, 8, pvals) / dbinom(7, 8, 7/8) ,
 - Standard normal RVs are often labeled $Z$
 
 ---
-```{r, fig.height=5, fig.width=5, fig.align='center', results='hide'}
-zvals <- seq(-3, 3, length = 1000)
-plot(zvals, dnorm(zvals), 
-     type = "l", lwd = 3, frame = FALSE, xlab = "z", ylab = "Density")
-sapply(-3 : 3, function(k) abline(v = k))
+## The standard normal distribution with reference lines
+```{r, fig.height=6, fig.width=6, fig.align='center', echo = FALSE}
+x <- seq(-3, 3, length = 1000)
+library(ggplot2)
+g <- ggplot(data.frame(x = x, y = dnorm(x)), 
+            aes(x = x, y = y)) + geom_line(size = 2)
+g <- g + geom_vline(xintercept = -3 : 3, size = 2)
+g
 ```
 
 ---

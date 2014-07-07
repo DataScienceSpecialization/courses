@@ -23,39 +23,6 @@ mode        : selfcontained # {standalone, draft}
 - The mean of a Bernoulli random variable is $p$ and the variance is $p(1 - p)$
 - If we let $X$ be a Bernoulli random variable, it is typical to call $X=1$ as a "success" and $X=0$ as a "failure"
 
----
-
-## iid Bernoulli trials
-
-- If several iid Bernoulli observations, say $x_1,\ldots, x_n$, are observed the
-likelihood is 
-$$
-  \prod_{i=1}^n p^{x_i} (1 - p)^{1 - x_i} = p^{\sum x_i} (1 - p)^{n - \sum x_i}
-$$
-- Notice that the likelihood depends only on the sum of the $x_i$
-- Because $n$ is fixed and assumed known, this implies that the sample proportion $\sum_i x_i / n$ contains all of the relevant information about $p$
-- We can maximize the Bernoulli likelihood over $p$ to obtain that $\hat p = \sum_i x_i / n$ is the maximum likelihood estimator for $p$
-
----
-## Plotting all possible likelihoods for a small n
-```
-n <- 5
-pvals <- seq(0, 1, length = 1000)
-plot(c(0, 1), c(0, 1.2), type = "n", frame = FALSE, xlab = "p", ylab = "likelihood")
-text((0 : n) /n, 1.1, as.character(0 : n))
-sapply(0 : n, function(x) {
-  phat <- x / n
-  if (x == 0) lines(pvals,  ( (1 - pvals) / (1 - phat) )^(n-x), lwd = 3)
-  else if (x == n) lines(pvals, (pvals / phat) ^ x, lwd = 3)
-  else lines(pvals, (pvals / phat ) ^ x * ( (1 - pvals) / (1 - phat) ) ^ (n-x), lwd = 3) 
-  }
-)
-title(paste("Likelihoods for n = ", n))
-```
-
----
-![plot of chunk unnamed-chunk-1](assets/fig/unnamed-chunk-1.png) 
-
 
 ---
 
@@ -138,7 +105,7 @@ $$\left(
 $$
 
 ```r
-choose(8, 7) * 0.5^8 + choose(8, 8) * 0.5^8
+choose(8, 7) * .5 ^ 8 + choose(8, 8) * .5 ^ 8 
 ```
 
 ```
@@ -146,22 +113,12 @@ choose(8, 7) * 0.5^8 + choose(8, 8) * 0.5^8
 ```
 
 ```r
-pbinom(6, size = 8, prob = 0.5, lower.tail = FALSE)
+pbinom(6, size = 8, prob = .5, lower.tail = FALSE)
 ```
 
 ```
 ## [1] 0.03516
 ```
-
-
----
-
-```r
-plot(pvals, dbinom(7, 8, pvals)/dbinom(7, 8, 7/8), lwd = 3, frame = FALSE, type = "l", 
-    xlab = "p", ylab = "likelihood")
-```
-
-![plot of chunk unnamed-chunk-3](assets/fig/unnamed-chunk-3.png) 
 
 
 ---
@@ -179,15 +136,8 @@ plot(pvals, dbinom(7, 8, pvals)/dbinom(7, 8, 7/8), lwd = 3, frame = FALSE, type 
 - Standard normal RVs are often labeled $Z$
 
 ---
-
-```r
-zvals <- seq(-3, 3, length = 1000)
-plot(zvals, dnorm(zvals), type = "l", lwd = 3, frame = FALSE, xlab = "z", ylab = "Density")
-sapply(-3:3, function(k) abline(v = k))
-```
-
-<img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
-
+## The standard normal distribution with reference lines
+<img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
 
 ---
 
@@ -330,7 +280,6 @@ ppois(3, lambda = 2.5 * 4)
 ## [1] 0.01034
 ```
 
-
 ---
 ## Example, Poisson approximation to the binomial
 
@@ -340,7 +289,7 @@ What's the probability of 2 or fewer successes?
 
 
 ```r
-pbinom(2, size = 500, prob = 0.01)
+pbinom(2, size = 500, prob = .01)
 ```
 
 ```
@@ -348,11 +297,10 @@ pbinom(2, size = 500, prob = 0.01)
 ```
 
 ```r
-ppois(2, lambda = 500 * 0.01)
+ppois(2, lambda=500 * .01)
 ```
 
 ```
 ## [1] 0.1247
 ```
-
 

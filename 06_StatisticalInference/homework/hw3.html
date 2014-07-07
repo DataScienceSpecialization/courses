@@ -79,7 +79,7 @@ round(t.test(mtcars$mpg)$conf.int)</code></pre>
 attr(,&quot;conf.level&quot;)
 [1] 0.95</code></pre>
 <p><span class="answer">18</span> <span class="answer">22</span></p>
-<p>— &amp;multitext Suppose that standard devition of 9 paired differences is <span class="math">\(1\)</span>, what value would the average difference have to be to have the lower endpoint of a 95% students t confidence interval touch zero?</p>
+<p>— &amp;multitext Suppose that standard deviation of 9 paired differences is <span class="math">\(1\)</span>, what value would the average difference have to be so that the lower endpoint of a 95% students t confidence interval touch zero?</p>
 <ol style="list-style-type: decimal">
 <li>Give the number here to two decimal places</li>
 </ol>
@@ -88,7 +88,7 @@ attr(,&quot;conf.level&quot;)
 <p>We want <span class="math">\(\bar x = t_{.975,8} * s / \sqrt{n}\)</span></p>
 <pre class="r"><code>round(qt(.975, df = 8) * 1 / 3, 2)</code></pre>
 <pre><code>[1] 0.77</code></pre>
-<p>— &amp;radio An independent group Student’s T interval is used over a paired T interval when:</p>
+<p>— &amp;radio An independent group Student’s T interval is used instead of a paired T interval when:</p>
 <ol style="list-style-type: decimal">
 <li>The observations are paired between the groups.</li>
 <li><em>The observations between the groups are naturally assumed to be statistically independent</em></li>

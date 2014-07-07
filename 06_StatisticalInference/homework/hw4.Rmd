@@ -41,11 +41,9 @@ Creating Data Products
 Load the data set `mtcars` in the `datasets` R package. You want
 to test whether the MPG is $\mu_0$ or smaller using a one sided
 5% level test. ($H_0 : \mu = \mu_0$ versus $H_a : \mu < \mu_0$).
-Using that data set and a Z test:
+Using that data set and a T test:
 
-1. what is the smallest value of $\mu_0$ that you would reject for?
-
-Both to two decimal places.
+1. what is the smallest value of $\mu_0$ that you would reject for (to two decimal places)?
 
 *** .hint
 This is the inversion of a one sided hypothesis test. It yields confidence

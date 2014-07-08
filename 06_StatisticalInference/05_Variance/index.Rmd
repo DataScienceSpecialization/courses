@@ -80,7 +80,7 @@ the sample mean)
 - It is also a random variable
   - It has an associate population distribution
   - Its expected value is the population variance
-  - Its distribution gets more concentrated around the population variance with mroe data
+  - Its distribution gets more concentrated around the population variance with more data
 - Its square root is the sample standard deviation
 
 
@@ -138,9 +138,9 @@ the population variance
 - The distribution of the sample variance is centered around $\sigma^2$
 - The the variance of sample mean is $\sigma^2 / n$
   - Its logical estimate is $s^2 / n$
-  - The logical estimate of the standard error is $S / \sqrt{n}$
-- $S$, the standard deviation, talks about how variable the population is
-- $S/\sqrt{n}$, the standard error, talks about how variable averages of random samples of size $n$ from the population are
+  - The logical estimate of the standard error is $s / \sqrt{n}$
+- $s$, the standard deviation, talks about how variable the population is
+- $s/\sqrt{n}$, the standard error, talks about how variable averages of random samples of size $n$ from the population are
 
 ---
 ## Simulation example

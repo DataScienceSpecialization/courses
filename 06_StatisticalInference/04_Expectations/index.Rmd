@@ -46,7 +46,7 @@ where $p(x_i) = 1/n$
 ## Example
 ### Find the center of mass of the bars
 ```{r galton, fig.height=6,fig.width=12, fig.align='center', echo = FALSE, message =FALSE, warning=FALSE}
-library(UsingR); data(galton)
+library(UsingR); data(galton); library(ggplot2)
 library(reshape2)
 longGalton <- melt(galton, measure.vars = c("child", "parent"))
 g <- ggplot(longGalton, aes(x = value)) + geom_histogram(aes(y = ..density..,  fill = variable), binwidth=1, colour = "black") + geom_density(size = 2)

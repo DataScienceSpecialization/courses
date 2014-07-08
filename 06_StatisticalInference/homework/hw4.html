@@ -63,13 +63,15 @@ Creating Data Products</li>
   <article data-timings="">
     
 <div class="quiz-text quiz-multitext well">
-  <p>Load the data set <code>mtcars</code> in the <code>datasets</code> R package. You want
-to test whether the MPG is \(\mu_0\) or smaller using a one sided
+  <p>Load the data set <code>mtcars</code> in the <code>datasets</code> R package. Assume that the data set mtcars is a random sample. Compute the mean MPG, \(\bar x,\) of this sample.</p>
+
+<p>You want
+to test whether the true MPG is \(\mu_0\) or smaller using a one sided
 5% level test. (\(H_0 : \mu = \mu_0\) versus \(H_a : \mu < \mu_0\)).
 Using that data set and a Z test:</p>
 
 <ol>
-<li>what is the smallest value of \(\mu_0\) that you would reject for (to two decimal places)?</li>
+<li class = ''>Based on the mean MPG of the sample \(\bar x,\) and by using a Z test: what is the smallest value of \(\mu_0\) that you would reject for (to two decimal places)?</li>
 </ol>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
@@ -88,9 +90,11 @@ Think about the derivation of the confidence interval.</p>
 \[
 \frac{\sqrt{n}(\bar{X} - \mu_0)}{s} = Z_{0.05}
 \]
-Or \[\mu_0 = \bar{X} - Z_{0.05} s / \sqrt{n} = \bar{X} + Z_{0.95} s / \sqrt{n}\]. Note that the quantile is negative.</p>
+Or \[\mu_0 = \bar{X} - Z_{0.05} s / \sqrt{n} = \bar{X} + Z_{0.95} s / \sqrt{n}\] Note that the quantile is negative.</p>
 
-<pre><code class="r">mn &lt;- mean(mtcars$mpg); s &lt;- sd(mtcars$mpg); z &lt;- qnorm(.05)
+<pre><code class="r">mn &lt;- mean(mtcars$mpg)
+s &lt;- sd(mtcars$mpg)
+z &lt;- qnorm(.05)
 mu0 &lt;- mn - z * s / sqrt(nrow(mtcars))
 </code></pre>
 

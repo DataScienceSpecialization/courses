@@ -38,12 +38,14 @@ Creating Data Products
 
 
 --- &multitext
-Load the data set `mtcars` in the `datasets` R package. You want
-to test whether the MPG is $\mu_0$ or smaller using a one sided
+Load the data set `mtcars` in the `datasets` R package. Assume that the data set mtcars is a random sample. Compute the mean MPG, $\bar x,$ of this sample.
+
+You want
+to test whether the true MPG is $\mu_0$ or smaller using a one sided
 5% level test. ($H_0 : \mu = \mu_0$ versus $H_a : \mu < \mu_0$).
 Using that data set and a Z test:
 
-1. what is the smallest value of $\mu_0$ that you would reject for (to two decimal places)?
+1. . Based on the mean MPG of the sample $\bar x,$ and by using a Z test: what is the smallest value of $\mu_0$ that you would reject for (to two decimal places)?
 
 *** .hint
 This is the inversion of a one sided hypothesis test. It yields confidence
@@ -55,10 +57,12 @@ We want to solve
 $$
 \frac{\sqrt{n}(\bar{X} - \mu_0)}{s} = Z_{0.05}
 $$
-Or $$\mu_0 = \bar{X} - Z_{0.05} s / \sqrt{n} = \bar{X} + Z_{0.95} s / \sqrt{n}$$. Note that the quantile is negative.
+Or $$\mu_0 = \bar{X} - Z_{0.05} s / \sqrt{n} = \bar{X} + Z_{0.95} s / \sqrt{n}$$ Note that the quantile is negative.
 
 ```{r}
-mn <- mean(mtcars$mpg); s <- sd(mtcars$mpg); z <- qnorm(.05)
+mn <- mean(mtcars$mpg)
+s <- sd(mtcars$mpg)
+z <- qnorm(.05)
 mu0 <- mn - z * s / sqrt(nrow(mtcars))
 ```
 Note, it's easy to get tripped up in this problem on signs. If you get a value

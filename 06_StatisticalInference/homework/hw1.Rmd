@@ -1,6 +1,6 @@
 ---
 title       : Homework 1 for Stat Inference
-subtitle    : Extra problems for Stat Inference
+subtitle    : (Use arrow keys to navigate)
 author      : Brian Caffo
 job         : Johns Hopkins Bloomberg School of Public Health
 framework   : io2012

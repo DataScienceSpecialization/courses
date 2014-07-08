@@ -61,7 +61,7 @@ round(t.test(mtcars$mpg)$conf.int)
 <span class="answer">`r round(max(t.test(mtcars$mpg)$conf.int))`</span>
 
 --- &multitext
-Suppose that data of 9 paired differences has a standard error of $1$, what value would the average difference have to be to have the lower endpoint of a 95%
+Suppose that standard deviation of 9 paired differences is $1$, what value would the average difference have to be so that the lower endpoint of a 95%
 students t confidence interval touch zero?
 
 1. Give the number here to two decimal places
@@ -79,7 +79,7 @@ round(qt(.975, df = 8) * 1 / 3, 2)
 
 
 --- &radio
-An independent group Student's T interval is used over
+An independent group Student's T interval is used instead of
 a paired T interval when:
 
 1. The observations are paired between the groups.
@@ -155,7 +155,7 @@ The interval was conducted subtracting 4 - 6 and was entirely above zero.
 --- &multitext
 Suppose that 18 obese subjects were randomized, 9 each, to a new diet pill and a placebo. Subjects' body mass indices (BMIs) were measured at a baseline and again after having received the treatment or placebo for four weeks. The average difference from follow-up to the baseline (followup - baseline) was 3 kg/m2 for the treated group and 1 kg/m2 for the placebo group. The corresponding standard deviations of the differences was 1.5 kg/m2 for the treatment group and 1.8 kg/m2 for the placebo group. The study aims to answer whether the change in BMI over the four week period appear to differ between the treated and placebo groups. 
 
-What is the pooled variance estimate? (to 2 decimal places)
+1. What is the pooled variance estimate? (to 2 decimal places)
 
 
 *** .hint

@@ -57,6 +57,7 @@ See WHI writing group paper JAMA 2002, Vol 288:321 - 333. for the paper and Stei
 ### Brain activation
 
 ![fMRI salmon study](fig/fmri-salmon.jpg 'fMRI salmon study')
+
 http://www.wired.com/2009/09/fmrisalmon/
 
 

@@ -223,7 +223,7 @@ c(cor(y, x), cor(yn, xn), coef(lm(yn ~ xn))[2])
 ---
 ## Plotting the fit
 * Size of points are frequencies at that X, Y combination.
-* For the red lie the child is outcome.
+* For the red line the child is outcome.
 * For the blue, the parent is the outcome  (accounting for the fact that the response is plotted on the horizontal axis).
 * Black line assumes $Cor(Y, X) = 1$ (slope is $Sd(Y)/Sd(x)$).
 * Big black dot is $(\bar X, \bar Y)$.

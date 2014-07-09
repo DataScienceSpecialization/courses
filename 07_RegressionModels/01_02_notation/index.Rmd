@@ -18,7 +18,7 @@ mode        : selfcontained # {standalone, draft}
 
 * In this module, we'll cover some basic definitions and notation used throughout the class.
 * We will try to minimize the amount of mathematics required for this class.
-* No caclculus is required. 
+* No calculus is required. 
 
 ---
 

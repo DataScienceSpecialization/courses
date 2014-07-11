@@ -1,6 +1,6 @@
 ---
 title       : Homework 3 for Stat Inference
-subtitle    : Extra problems for Stat Inference
+subtitle    : (Use the arrow keys to navigate)
 author      : Brian Caffo
 job         : Johns Hopkins Bloomberg School of Public Health
 framework   : io2012
@@ -55,35 +55,35 @@ attr(,"conf.level")
 <span class="answer">22</span>
 
 --- &multitext
-Suppose that data of 9 paired differences has a standard error of $1$, what value would the average difference have to be to have the lower endpoint of a 95%
+Suppose that standard deviation of 9 paired differences is $1$, what value would the average difference have to be so that the lower endpoint of a 95%
 students t confidence interval touch zero?
 
 1. Give the number here to two decimal places
 
 *** .hint
-The t interval is $\bar x t_{.95, 8}\pm s /sqrt{n}$
+The t interval is $\bar x \pm t_{.975, 8} * s /\sqrt{n}$
 
 *** .explanation
-<span class="answer">0.62</span>
+<span class="answer">0.77</span>
 
-We want $\bar x = t_{.95} s / sqrt{n}$
+We want $\bar x = t_{.975,8} * s / \sqrt{n}$
 
 ```r
-round(qt(.95, df = 8) * 1 / 3, 2)
+round(qt(.975, df = 8) * 1 / 3, 2)
 ```
 
 ```
-[1] 0.62
+[1] 0.77
 ```
 
 
 
 --- &radio
-An independent group Student's T interval is used over
+An independent group Student's T interval is used instead of
 a paired T interval when:
 
 1. The observations are paired between the groups.
-2. _The observations between the groups are natually assumed to be statistically independent_
+2. _The observations between the groups are naturally assumed to be statistically independent_
 3. As long as you do it correctly, either is fine.
 4. More details are needed to answer this question
 
@@ -157,7 +157,7 @@ The interval was conducted subtracting 4 - 6 and was entirely above zero.
 --- &multitext
 Suppose that 18 obese subjects were randomized, 9 each, to a new diet pill and a placebo. Subjects' body mass indices (BMIs) were measured at a baseline and again after having received the treatment or placebo for four weeks. The average difference from follow-up to the baseline (followup - baseline) was 3 kg/m2 for the treated group and 1 kg/m2 for the placebo group. The corresponding standard deviations of the differences was 1.5 kg/m2 for the treatment group and 1.8 kg/m2 for the placebo group. The study aims to answer whether the change in BMI over the four week period appear to differ between the treated and placebo groups. 
 
-What is the pooled variance estimate? (to 2 decimal places)
+1. What is the pooled variance estimate? (to 2 decimal places)
 
 
 *** .hint

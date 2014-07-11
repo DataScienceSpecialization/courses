@@ -8,15 +8,14 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
+
+
 ## A famous motivating example
-
-
-
 
 <img class=center src=fig/galton.jpg height=150>
 
@@ -27,6 +26,24 @@ mode        : selfcontained # {standalone, draft}
 [http://www.nature.com/ejhg/journal/v17/n8/full/ejhg20095a.html](http://www.nature.com/ejhg/journal/v17/n8/full/ejhg20095a.html)
 
 [Predicting height: the Victorian approach beats modern genomics](http://www.wired.com/wiredscience/2009/03/predicting-height-the-victorian-approach-beats-modern-genomics/)
+
+---
+## Recent simply statistics post
+(Simply Statistics is a blog by Jeff Leek, Roger Peng and 
+Rafael Irizarry, who wrote this post, link on the image)
+
+<a href="http://simplystatistics.org/2013/01/28/data-supports-claim-that-if-kobe-stops-ball-hogging-the-lakers-will-win-more/">
+<img class=center src=http://simplystatistics.org/wp-content/uploads/2013/01/kobelakers1-1024x1024.png height=250></img>
+</a>
+
+- "Data supports claim that if Kobe stops ball hogging the Lakers will win more"
+- "Linear regression suggests that an increase of 1% in % of shots taken by Kobe results in a drop of 1.16 points (+/- 0.22)  in score differential."
+- How was it done? Do you agree with the analysis? 
+
+
+
+
+
 
 ---
 ## Questions for this class
@@ -68,7 +85,6 @@ hist(galton$parent,col="blue",breaks=100)
 
 <div class="rimage center"><img src="fig/galton.png" title="plot of chunk galton" alt="plot of chunk galton" class="plot" /></div>
 
-
 ---
 ## Finding the middle via least squares
 * Consider only the children's heights. 
@@ -106,7 +122,6 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 
 <div class="rimage center"><img src="fig/lsm.png" title="plot of chunk lsm" alt="plot of chunk lsm" class="plot" /></div>
 
-
 ---
 ### The math follows as:
 $$ 
@@ -137,12 +152,10 @@ plot(galton$parent,galton$child,pch=19,col="blue")
 
 <div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
 
-
 ---
 Size of point represents number of points at that (X, Y) combination (See the Rmd file for the code).
 
 <div class="rimage center"><img src="fig/freqGalton.png" title="plot of chunk freqGalton" alt="plot of chunk freqGalton" class="plot" /></div>
-
 
 ---
 ## Regression through the origin
@@ -197,10 +210,8 @@ I(parent - mean(parent))
                    0.646  
 ```
 
-
 ---
 ## Visualizing the best fit line
 ### Size of points are frequencies at that X, Y combination
 <div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
-
 

@@ -185,7 +185,7 @@ What is the variance expressed to 1 decimal place?
 4. 17.0
 
 *** .hint
-The variance is $E[X^2] - E[X^2]$
+The variance is $E[X^2] - E[X]^2$
 
 *** .explanation 
 

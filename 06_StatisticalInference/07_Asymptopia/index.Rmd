@@ -19,78 +19,75 @@ mode        : selfcontained # {standalone, draft}
 * Asymptotics are incredibly useful for simple statistical inference and approximations 
 * (Not covered in this class) Asymptotics often lead to nice understanding of procedures
 * Asymptotics generally give no assurances about finite sample performance
-  * The kinds of asymptotics that do are orders of magnitude more difficult to work with
 * Asymptotics form the basis for frequency interpretation of probabilities 
   (the long run proportion of times an event occurs)
-* To understand asymptotics, we need a very basic understanding of limits.
 
-
----
-## Numerical limits
-
-- Imagine a sequence
-
-  - $a_1 = .9$,
-  - $a_2 = .99$,
-  - $a_3 = .999$, ...
-
-- Clearly this sequence converges to $1$
-- Definition of a limit: For any fixed distance we can find a point in the sequence so that the sequence is closer to the limit than that distance from that point on
 
 ---
 
 ## Limits of random variables
 
-- The problem is harder for random variables
-- Consider $\bar X_n$ the sample average of the first $n$ of a collection of $iid$ observations
-
+- Fortunately, for the sample mean there's a set of powerful results
+- These results allow us to talk about the large sample distribution
+of sample means of a collection of $iid$ observations
+- The first of these results we inuitively know
+  - It says that the average limits to what its estimating, the population mean
+  - It's called the Law of Large Numbers
   - Example $\bar X_n$ could be the average of the result of $n$ coin flips (i.e. the sample proportion of heads)
+    - As we flip a fair coin over and over, it evetually converges to the
+    true probability of a head
+    The LLN forms the basis of frequency style thinking
 
-- We say that $\bar X_n$ converges in probability to a limit if for any fixed distance the  probability of $\bar X_n$ being closer (further away) than that distance from the limit converges to one (zero)
-
----
-
-## The Law of Large Numbers
-
-- Establishing that a random sequence converges to a limit is hard
-- Fortunately, we have a theorem that does all the work for us, called
-    the **Law of Large Numbers**
-- The law of large numbers states that if $X_1,\ldots X_n$ are iid from a population with mean $\mu$ and variance $\sigma^2$ then $\bar X_n$ converges in probability to $\mu$
-- (There are many variations on the LLN; we are using a particularly lazy version, my favorite kind of version)
 
 ---
 ## Law of large numbers in action
-```{r, fig.height=4, fig.width=4}
-n <- 10000; means <- cumsum(rnorm(n)) / (1  : n)
-plot(1 : n, means, type = "l", lwd = 2, 
-     frame = FALSE, ylab = "cumulative means", xlab = "sample size")
-abline(h = 0)
+```{r, fig.height=5, fig.width=5}
+n <- 10000; means <- cumsum(rnorm(n)) / (1  : n); library(ggplot2)
+g <- ggplot(data.frame(x = 1 : n, y = means), aes(x = x, y = y)) 
+g <- g + geom_hline(yintercept = 0) + geom_line(size = 2) 
+g <- g + labs(x = "Number of obs", y = "Cumulative mean")
+g
 ```
+
+
+---
+## Law of large numbers in action, coin flip
+```{r, fig.height=5, fig.width=5}
+means <- cumsum(sample(0 : 1, n , replace = TRUE)) / (1  : n)
+g <- ggplot(data.frame(x = 1 : n, y = means), aes(x = x, y = y)) 
+g <- g + geom_hline(yintercept = 0.5) + geom_line(size = 2) 
+g <- g + labs(x = "Number of obs", y = "Cumulative mean")
+g
+```
+
+
+
 ---
 ## Discussion
 - An estimator is **consistent** if it converges to what you want to estimate
-  - Consistency is neither necessary nor sufficient for one estimator to be better than another
+  - The LLN says that the sample mean of iid sample is
+  consistent for the population mean
   - Typically, good estimators are consistent; it's not too much to ask that if we go to the trouble of collecting an infinite amount of data that we get the right answer
-- The LLN basically states that the sample mean is consistent
-- The sample variance and the sample standard deviation are consistent as well
-- Recall also that the sample mean and the sample variance are unbiased as well
-- (The sample standard deviation is biased, by the way)
+- The sample variance and the sample standard deviation
+of iid random variables are consistent as well
 
 ---
 
 ## The Central Limit Theorem
 
 - The **Central Limit Theorem** (CLT) is one of the most important theorems in statistics
-- For our purposes, the CLT states that the distribution of averages of iid variables, properly normalized, becomes that of a standard normal as the sample size increases
+- For our purposes, the CLT states that the distribution of averages of iid variables (properly normalized) becomes that of a standard normal as the sample size increases
 - The CLT applies in an endless variety of settings
-- Let $X_1,\ldots,X_n$ be a collection of iid random variables with mean $\mu$ and variance $\sigma^2$
-- Let $\bar X_n$ be their sample average
-- Then $\frac{\bar X_n - \mu}{\sigma / \sqrt{n}}$ has a distribution like that of a standard normal for large $n$.
-- Remember the form
-$$\frac{\bar X_n - \mu}{\sigma / \sqrt{n}} = 
-    \frac{\mbox{Estimate} - \mbox{Mean of estimate}}{\mbox{Std. Err. of estimate}}.
-$$
-- Usually, replacing the standard error by its estimated value doesn't change the CLT
+- The result is that 
+$$\frac{\bar X_n - \mu}{\sigma / \sqrt{n}}=
+\frac{\sqrt n (\bar X_n - \mu)}{\sigma}
+= \frac{\mbox{Estimate} - \mbox{Mean of estimate}}{\mbox{Std. Err. of estimate}}$$ has a distribution like that of a standard normal for large $n$.
+- (Replacing the standard error by its estimated value doesn't change the CLT)
+- The useful way to think about the CLT is that 
+$\bar X_n$ is approximately
+$N(\mu, \sigma^2 / n)$
+
+
 
 ---
 
@@ -101,28 +98,32 @@ $$
 - Then note that $\mu = E[X_i] = 3.5$
 - $Var(X_i) = 2.92$ 
 - SE $\sqrt{2.92 / n} = 1.71 / \sqrt{n}$
-- Standardized mean
-$$
-    \frac{\bar X_n - 3.5}{1.71/\sqrt{n}}
-$$ 
+- Lets roll $n$ dice, take their mean, subtract off 3.5,
+and divide by $1.71 / \sqrt{n}$ and repeat this over and over
+
 
 ---
-## Simulation of mean of $n$ dice
-```{r, echo = FALSE, fig.width=9, fig.height = 3}
-par(mfrow = c(1, 3))
-for (n in c(1, 2, 6)){
-  temp <- matrix(sample(1 : 6, n * 10000, replace = TRUE), ncol = n)
-  temp <- apply(temp, 1, mean)
-  temp <- (temp - 3.5) / (1.71 / sqrt(n)) 
-  dty <- density(temp)
-  plot(dty$x, dty$y, xlab = "", ylab = "density", type = "n", xlim = c(-3, 3), ylim = c(0, .5))
-  title(paste("sample mean of", n, "obs"))
-  lines(seq(-3, 3, length = 100), dnorm(seq(-3, 3, length = 100)), col = grey(.8), lwd = 3)
-  lines(dty$x, dty$y, lwd = 2)
-}
+## Result of our die rolling experiment
+
+```{r, echo = FALSE, fig.width=9, fig.height = 6, fig.align='center'}
+nosim <- 1000
+cfunc <- function(x, n) sqrt(n) * (mean(x) - 3.5) / 1.71
+dat <- data.frame(
+  x = c(apply(matrix(sample(1 : 6, nosim * 10, replace = TRUE), 
+                     nosim), 1, cfunc, 10),
+        apply(matrix(sample(1 : 6, nosim * 20, replace = TRUE), 
+                     nosim), 1, cfunc, 20),
+        apply(matrix(sample(1 : 6, nosim * 30, replace = TRUE), 
+                     nosim), 1, cfunc, 30)
+        ),
+  size = factor(rep(c(10, 20, 30), rep(nosim, 3))))
+g <- ggplot(dat, aes(x = x, fill = size)) + geom_histogram(alpha = .20, binwidth=.3, colour = "black", aes(y = ..density..)) 
+g <- g + stat_function(fun = dnorm, size = 2)
+g + facet_grid(. ~ size)
 ```
----
 
+
+---
 ## Coin CLT
 
  - Let $X_i$ be the $0$ or $1$ result of the $i^{th}$ flip of a possibly unfair coin
@@ -134,57 +135,76 @@ $$
     \frac{\hat p - p}{\sqrt{p(1-p)/n}}
 $$
 will be approximately normally distributed
+- Let's flip a coin $n$ times, take the sample proportion
+of heads, subtract off .5 and multiply the result by
+$2 \sqrt{n}$ (divide by $1/(2 \sqrt{n})$)
 
 ---
-
-```{r, echo = FALSE, fig.width=7.5, fig.height = 5}
-par(mfrow = c(2, 3))
-for (n in c(1, 10, 20)){
-  temp <- matrix(sample(0 : 1, n * 10000, replace = TRUE), ncol = n)
-  temp <- apply(temp, 1, mean)
-  temp <- (temp - .5) * 2 * sqrt(n)
-  dty <- density(temp)
-  plot(dty$x, dty$y, xlab = "", ylab = "density", type = "n", xlim = c(-3, 3), ylim = c(0, .5))
-  title(paste("sample mean of", n, "obs"))
-  lines(seq(-3, 3, length = 100), dnorm(seq(-3, 3, length = 100)), col = grey(.8), lwd = 3)
-  lines(dty$x, dty$y, lwd = 2)
-}
-for (n in c(1, 10, 20)){
-  temp <- matrix(sample(0 : 1, n * 10000, replace = TRUE, prob = c(.9, .1)), ncol = n)
-  temp <- apply(temp, 1, mean)
-  temp <- (temp - .1) / sqrt(.1 * .9 / n)
-  dty <- density(temp)
-  plot(dty$x, dty$y, xlab = "", ylab = "density", type = "n", xlim = c(-3, 3), ylim = c(0, .5))
-  title(paste("sample mean of", n, "obs"))
-  lines(seq(-3, 3, length = 100), dnorm(seq(-3, 3, length = 100)), col = grey(.8), lwd = 3)
-  lines(dty$x, dty$y, lwd = 2)
-}
+## Simulation results
+```{r, echo = FALSE, fig.width=9, fig.height = 6, fig.align='center'}
+nosim <- 1000
+cfunc <- function(x, n) 2 * sqrt(n) * (mean(x) - 0.5) 
+dat <- data.frame(
+  x = c(apply(matrix(sample(0:1, nosim * 10, replace = TRUE), 
+                     nosim), 1, cfunc, 10),
+        apply(matrix(sample(0:1, nosim * 20, replace = TRUE), 
+                     nosim), 1, cfunc, 20),
+        apply(matrix(sample(0:1, nosim * 30, replace = TRUE), 
+                     nosim), 1, cfunc, 30)
+        ),
+  size = factor(rep(c(10, 20, 30), rep(nosim, 3))))
+g <- ggplot(dat, aes(x = x, fill = size)) + geom_histogram(binwidth=.3, colour = "black", aes(y = ..density..)) 
+g <- g + stat_function(fun = dnorm, size = 2)
+g + facet_grid(. ~ size)
 ```
 
 ---
+## Simulation results, $p = 0.9$
+```{r, echo = FALSE, fig.width=9, fig.height = 6, fig.align='center'}
+nosim <- 1000
+cfunc <- function(x, n) sqrt(n) * (mean(x) - 0.9) / sqrt(.1 * .9)
+dat <- data.frame(
+  x = c(apply(matrix(sample(0:1, prob = c(.1,.9), nosim * 10, replace = TRUE), 
+                     nosim), 1, cfunc, 10),
+        apply(matrix(sample(0:1, prob = c(.1,.9), nosim * 20, replace = TRUE), 
+                     nosim), 1, cfunc, 20),
+        apply(matrix(sample(0:1, prob = c(.1,.9), nosim * 30, replace = TRUE), 
+                     nosim), 1, cfunc, 30)
+        ),
+  size = factor(rep(c(10, 20, 30), rep(nosim, 3))))
+g <- ggplot(dat, aes(x = x, fill = size)) + geom_histogram(binwidth=.3, colour = "black", aes(y = ..density..)) 
+g <- g + stat_function(fun = dnorm, size = 2)
+g + facet_grid(. ~ size)
+```
 
-## CLT in practice
+---
+## Galton's quincunx 
 
-- In practice the CLT is mostly useful as an approximation
-$$
-    P\left( \frac{\bar X_n - \mu}{\sigma / \sqrt{n}} \leq z \right) \approx \Phi(z).  
-$$
-- Recall $1.96$ is a good approximation to the $.975^{th}$ quantile of the standard normal
-- Consider
-$$
-    \begin{eqnarray*}
-      .95 & \approx & P\left( -1.96 \leq \frac{\bar X_n - \mu}{\sigma / \sqrt{n}} \leq 1.96 \right)\\ \\
-      & =       & P\left(\bar X_n +1.96 \sigma/\sqrt{n} \geq \mu \geq \bar X_n - 1.96\sigma/\sqrt{n} \right),\\
-    \end{eqnarray*}
-$$
+http://en.wikipedia.org/wiki/Bean_machine#mediaviewer/File:Quincunx_(Galton_Box)_-_Galton_1889_diagram.png
+
+<img src="fig/quincunx.png" height="450"></img>
 
 ---
 
 ## Confidence intervals
 
-- Therefore, according to the CLT, the probability that the random interval $$\bar X_n \pm z_{1-\alpha/2}\sigma / \sqrt{n}$$ contains $\mu$ is approximately 100$(1-\alpha)$%, where $z_{1-\alpha/2}$ is the $1-\alpha/2$ quantile of the standard normal distribution
-- This is called a $100(1 - \alpha)$% **confidence interval** for $\mu$
-- We can replace the unknown $\sigma$ with $s$
+- According to the CLT, the sample mean, $\bar X$, 
+is approximately normal with mean $\mu$ and sd $\sigma / \sqrt{n}$
+- $\bar X + 2 s/\sqrt{n}$ is pretty far out in the tail
+(only 2.5% of a normal being larger than 2 sds in the tail)
+- Similarly, $\bar X - 2 s/\sqrt{n}$ is pretty far in the left tail (only 2.5% chance of a normal being smaller than 2 sds in the tail)
+- The quantity $\bar X \pm 2 s/\sqrt{n}$ is called
+a 95% interval for $\mu$
+- The 95% refers to the fact that if one were to repeatly
+get samples of size $n$, about 95% of the intervals obtained
+would contain $\mu$
+- If you want a different confidence level, you pick
+the normal quantile that gives you 100 minus the level
+that you want in either tail
+  - 90% interval you want (100 - 90) / 2 = 5% in each tail 
+  - So you want the 95th percentail
+- The 97.5th quantile is 1.96 (so I rounded to 2 above)
+
 
 ---
 ## Give a confidence interval for the average height of sons
@@ -204,12 +224,9 @@ $$
     \hat p \pm z_{1 - \alpha/2}  \sqrt{\frac{p(1 - p)}{n}}
 $$
 - Replacing $p$ by $\hat p$ in the standard error results in what is called a Wald confidence interval for $p$
-- Also note that $p(1-p) \leq 1/4$ for $0 \leq p \leq 1$
-- Let $\alpha = .05$ so that $z_{1 -\alpha/2} = 1.96 \approx 2$ then
-$$
-    2  \sqrt{\frac{p(1 - p)}{n}} \leq 2 \sqrt{\frac{1}{4n}} = \frac{1}{\sqrt{n}} 
-$$
-- Therefore $\hat p \pm \frac{1}{\sqrt{n}}$ is a quick CI estimate for $p$
+- For 95% intervals
+$$\hat p \pm \frac{1}{\sqrt{n}}$$ 
+is a quick CI estimate for $p$
 
 ---
 ## Example
@@ -217,39 +234,173 @@ $$
   56 intent to vote for you. 
   * Can you relax? Do you have this race in the bag?
   * Without access to a computer or calculator, how precise is this estimate?
-* `1/sqrt(100)=.1` so a back of the envelope calculation gives an approximate 95% interval of `(0.46, 0.66)`
+* `1/sqrt(100)=0.1` so a back of the envelope calculation gives an approximate 95% interval of `(0.46, 0.66)`
   * Not enough for you to relax, better go do more campaigning!
 * Rough guidelines, 100 for 1 decimal place, 10,000 for 2, 1,000,000 for 3.
 ```{r}
 round(1 / sqrt(10 ^ (1 : 6)), 3)
 ```
+
+
+
 ---
+## Binomial interval
+
+```{r}
+.56 + c(-1, 1) * qnorm(.975) * sqrt(.56 * .44 / 100)
+binom.test(56, 100)$conf.int
+```
+
+---
+
+## Simulation
+
+```{r}
+n <- 20; pvals <- seq(.1, .9, by = .05); nosim <- 1000
+coverage <- sapply(pvals, function(p){
+  phats <- rbinom(nosim, prob = p, size = n) / n
+  ll <- phats - qnorm(.975) * sqrt(phats * (1 - phats) / n)
+  ul <- phats + qnorm(.975) * sqrt(phats * (1 - phats) / n)
+  mean(ll < p & ul > p)
+})
+
+```
+
+
+---
+## Plot of the results (not so good)
+```{r, echo=FALSE, fig.align='center', fig.height=6, fig.width=6}
+ggplot(data.frame(pvals, coverage), aes(x = pvals, y = coverage)) + geom_line(size = 2) + geom_hline(yintercept = 0.95) + ylim(.75, 1.0)
+````
+
+---
+## What's happening?
+- It's only for true values of $p$ around 0.5 that the interval is giving the coverage it claims
+- $n$ isn't large enough for the CLT to be applicable
+for the other values
+- Quick fix, form the interval with 
+$$
+\frac{X + 2}{n + 4}
+$$
+- (Add two successes and failures, Agresti/Coull interval)
+
+---
+## Simulation
+First let's show that coverage gets better with $n$
+
+```{r}
+n <- 100; pvals <- seq(.1, .9, by = .05); nosim <- 1000
+coverage2 <- sapply(pvals, function(p){
+  phats <- rbinom(nosim, prob = p, size = n) / n
+  ll <- phats - qnorm(.975) * sqrt(phats * (1 - phats) / n)
+  ul <- phats + qnorm(.975) * sqrt(phats * (1 - phats) / n)
+  mean(ll < p & ul > p)
+})
+
+```
+
+---
+## Plot of coverage for $n=100$
+```{r, fig.align='center', fig.height=6, fig.width=6, echo=FALSE}
+ggplot(data.frame(pvals, coverage), aes(x = pvals, y = coverage2)) + geom_line(size = 2) + geom_hline(yintercept = 0.95)+ ylim(.75, 1.0)
+```
+
+---
+## Simulation
+Now let's look at $n=20$ but adding 2 successes and failures
+```{r}
+n <- 20; pvals <- seq(.1, .9, by = .05); nosim <- 1000
+coverage <- sapply(pvals, function(p){
+  phats <- (rbinom(nosim, prob = p, size = n) + 2) / (n + 4)
+  ll <- phats - qnorm(.975) * sqrt(phats * (1 - phats) / n)
+  ul <- phats + qnorm(.975) * sqrt(phats * (1 - phats) / n)
+  mean(ll < p & ul > p)
+})
+```
+
+
+---
+## Adding 2 successes and 2 failures
+(It's a little conservative)
+```{r, fig.align='center', fig.height=6, fig.width=6, echo=FALSE}
+ggplot(data.frame(pvals, coverage), aes(x = pvals, y = coverage)) + geom_line(size = 2) + geom_hline(yintercept = 0.95)+ ylim(.75, 1.0)
+````
+
+---
+
 ## Poisson interval
 * A nuclear pump failed 5 times out of 94.32 days, give a 95% confidence interval for the failure rate per day?
 * $X \sim Poisson(\lambda t)$.
 * Estimate $\hat \lambda = X/t$
 * $Var(\hat \lambda) = \lambda / t$ 
-$$
-\frac{\hat \lambda - \lambda}{\sqrt{\hat \lambda / t}} 
-= 
-\frac{X - t \lambda}{\sqrt{X}} 
-\rightarrow N(0,1)
-$$
-* This isn't the best interval.
-  * There are better asymptotic intervals.
-  * You can get an exact CI in this case.
+* $\hat \lambda / t$ is our variance estimate
 
 ---
-### R code
+## R code
 ```{r}
 x <- 5; t <- 94.32; lambda <- x / t
 round(lambda + c(-1, 1) * qnorm(.975) * sqrt(lambda / t), 3)
 poisson.test(x, T = 94.32)$conf
 ```
 
+
 ---
-## In the regression class
+## Simulating the Poisson coverage rate
+Let's see how this interval performs for lambda
+values near what we're estimating
 ```{r}
-exp(confint(glm(x ~ 1 + offset(log(t)), family = poisson(link = log))))
+lambdavals <- seq(0.005, 0.10, by = .01); nosim <- 1000
+t <- 100
+coverage <- sapply(lambdavals, function(lambda){
+  lhats <- rpois(nosim, lambda = lambda * t) / t
+  ll <- lhats - qnorm(.975) * sqrt(lhats / t)
+  ul <- lhats + qnorm(.975) * sqrt(lhats / t)
+  mean(ll < lambda & ul > lambda)
+})
 ```
 
+
+
+---
+## Covarage
+(Gets really bad for small values of lambda)
+```{r, fig.align='center', fig.height=6, fig.width=6, echo=FALSE}
+ggplot(data.frame(lambdavals, coverage), aes(x = lambdavals, y = coverage)) + geom_line(size = 2) + geom_hline(yintercept = 0.95)+ylim(0, 1.0)
+````
+
+
+
+---
+## What if we increase t to 1000?
+```{r, fig.align='center', fig.height=6, fig.width=6, echo=FALSE}
+lambdavals <- seq(0.005, 0.10, by = .01); nosim <- 1000
+t <- 1000
+coverage <- sapply(lambdavals, function(lambda){
+  lhats <- rpois(nosim, lambda = lambda * t) / t
+  ll <- lhats - qnorm(.975) * sqrt(lhats / t)
+  ul <- lhats + qnorm(.975) * sqrt(lhats / t)
+  mean(ll < lambda & ul > lambda)
+})
+ggplot(data.frame(lambdavals, coverage), aes(x = lambdavals, y = coverage)) + geom_line(size = 2) + geom_hline(yintercept = 0.95) + ylim(0, 1.0)
+```
+
+
+---
+## Summary
+- The LLN states that averages of iid samples 
+converge to the population means that they are estimating
+- The CLT states that averages are approximately normal, with
+distributions
+  - centered at the population mean 
+  - with standard deviation equal to the standard error of the mean
+  - CLT gives no guarantee that $n$ is large enough
+- Taking the mean and adding and subtracting the relevant
+normal quantile yields a confidence interval for the mean
+  - Adding and subtracting 2 ses works for 95% intervals
+- Confidence intervals get wider as the coverage increases
+(why?)
+- Confidence intervals get narrower with less variability or
+larger sample sizes
+- The Poisson and binomial case have exact intervals that
+don't require the CLT
+  - But a quick fix for small sample size binomial calculations is to add 2 successes and failures

@@ -18,7 +18,7 @@ mode        : selfcontained # {standalone, draft}
 
 * In this module, we'll cover some basic definitions and notation used throughout the class.
 * We will try to minimize the amount of mathematics required for this class.
-* No caclculus is required. 
+* No calculus is required. 
 
 ---
 
@@ -81,7 +81,7 @@ $$
 have empirical mean zero and empirical standard deviation 1. 
 * The process of centering then scaling the data is called "normalizing" the data. 
 * Normalized data are centered at 0 and have units equal to standard deviations of the original data. 
-* Example, a value of 2 form normalized data means that data point
+* Example, a value of 2 from normalized data means that data point
 was two standard deviations larger than the mean.
 
 ---

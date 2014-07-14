@@ -135,14 +135,12 @@ and was the cousin of Charles Darwin.</li>
 </slide>
 
 <slide class="" id="slide-5" style="background:;">
-  <hgroup>
-    <h2>Code</h2>
-  </hgroup>
   <article data-timings="">
-    <pre><code class="r">library(UsingR); data(galton)
-par(mfrow=c(1,2))
-hist(galton$child,col=&quot;blue&quot;,breaks=100)
-hist(galton$parent,col=&quot;blue&quot;,breaks=100)
+    <pre><code class="r">library(UsingR); data(galton); library(reshape); long &lt;- melt(galton)
+g &lt;- ggplot(long, aes(x = value, fill = variable)) 
+g &lt;- g + geom_histogram(colour = &quot;black&quot;, binwidth=1) 
+g &lt;- g + facet_grid(. ~ variable)
+g
 </code></pre>
 
 <div class="rimage center"><img src="fig/galton.png" title="plot of chunk galton" alt="plot of chunk galton" class="plot" /></div>
@@ -165,7 +163,7 @@ hist(galton$parent,col=&quot;blue&quot;,breaks=100)
 that minimizes \[\sum_{i=1}^n (Y_i - \mu)^2\]</li>
 </ul></li>
 <li>This is physical center of mass of the histrogram.</li>
-<li>You might have guessed that the answer \(\mu = \bar X\).</li>
+<li>You might have guessed that the answer \(\mu = \bar Y\).</li>
 </ul>
 
   </article>
@@ -181,11 +179,11 @@ that minimizes \[\sum_{i=1}^n (Y_i - \mu)^2\]</li>
 
 <pre><code>library(manipulate)
 myHist &lt;- function(mu){
-  hist(galton$child,col=&quot;blue&quot;,breaks=100)
-  lines(c(mu, mu), c(0, 150),col=&quot;red&quot;,lwd=5)
-  mse &lt;- mean((galton$child - mu)^2)
-  text(63, 150, paste(&quot;mu = &quot;, mu))
-  text(63, 140, paste(&quot;MSE = &quot;, round(mse, 2)))
+    mse &lt;- mean((galton$child - mu)^2)
+    g &lt;- ggplot(galton, aes(x = child)) + geom_histogram(fill = &quot;salmon&quot;, colour = &quot;black&quot;, binwidth=1)
+    g &lt;- g + geom_vline(xintercept = mu, size = 3)
+    g &lt;- g + ggtitle(paste(&quot;mu = &quot;, mu, &quot;, MSE = &quot;, round(mse, 2), sep = &quot;&quot;))
+    g
 }
 manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 </code></pre>
@@ -196,15 +194,15 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 
 <slide class="" id="slide-8" style="background:;">
   <hgroup>
-    <h2>The least squares estimate is the empirical mean</h2>
+    <h2>The least squares est. is the empirical mean</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">  hist(galton$child,col=&quot;blue&quot;,breaks=100)
-  meanChild &lt;- mean(galton$child)
-  lines(rep(meanChild,100),seq(0,150,length=100),col=&quot;red&quot;,lwd=5)
+    <pre><code class="r">g &lt;- ggplot(galton, aes(x = child)) + geom_histogram(fill = &quot;salmon&quot;, colour = &quot;black&quot;, binwidth=1)
+g &lt;- g + geom_vline(xintercept = mean(galton$child), size = 3)
+g
 </code></pre>
 
-<div class="rimage center"><img src="fig/lsm.png" title="plot of chunk lsm" alt="plot of chunk lsm" class="plot" /></div>
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
@@ -212,7 +210,7 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 
 <slide class="" id="slide-9" style="background:;">
   <hgroup>
-    <h3>The math follows as:</h3>
+    <h3>The math (not required for the class) follows as:</h3>
   </hgroup>
   <article data-timings="">
     <p>\[ 
@@ -242,10 +240,10 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
     <h2>Comparing childrens&#39; heights and their parents&#39; heights</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">plot(galton$parent,galton$child,pch=19,col=&quot;blue&quot;)
+    <pre><code class="r">ggplot(galton, aes(x = parent, y = child)) + geom_point()
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
@@ -283,23 +281,22 @@ and children&#39;s heights</li>
 
 <slide class="" id="slide-13" style="background:;">
   <article data-timings="">
-    <pre><code>myPlot &lt;- function(beta){
-  y &lt;- galton$child - mean(galton$child)
-  x &lt;- galton$parent - mean(galton$parent)
-  freqData &lt;- as.data.frame(table(x, y))
-  names(freqData) &lt;- c(&quot;child&quot;, &quot;parent&quot;, &quot;freq&quot;)
-  plot(
-    as.numeric(as.vector(freqData$parent)), 
-    as.numeric(as.vector(freqData$child)),
-    pch = 21, col = &quot;black&quot;, bg = &quot;lightblue&quot;,
-    cex = .15 * freqData$freq, 
-    xlab = &quot;parent&quot;, 
-    ylab = &quot;child&quot;
-    )
-  abline(0, beta, lwd = 3)
-  points(0, 0, cex = 2, pch = 19)
-  mse &lt;- mean( (y - beta * x)^2 )
-  title(paste(&quot;beta = &quot;, beta, &quot;mse = &quot;, round(mse, 3)))
+    <pre><code class="r">y &lt;- galton$child - mean(galton$child)
+x &lt;- galton$parent - mean(galton$parent)
+freqData &lt;- as.data.frame(table(x, y))
+names(freqData) &lt;- c(&quot;child&quot;, &quot;parent&quot;, &quot;freq&quot;)
+freqData$child &lt;- as.numeric(as.character(freqData$child))
+freqData$parent &lt;- as.numeric(as.character(freqData$parent))
+myPlot &lt;- function(beta){
+    g &lt;- ggplot(filter(freqData, freq &gt; 0), aes(x = parent, y = child))
+    g &lt;- g  + scale_size(range = c(2, 20), guide = &quot;none&quot; )
+    g &lt;- g + geom_point(colour=&quot;grey50&quot;, aes(size = freq+20, show_guide = FALSE))
+    g &lt;- g + geom_point(aes(colour=freq, size = freq))
+    g &lt;- g + scale_colour_gradient(low = &quot;lightblue&quot;, high=&quot;white&quot;)                     
+    g &lt;- g + geom_abline(intercept = 0, slope = beta, size = 3)
+    mse &lt;- mean( (y - beta * x) ^2 )
+    g &lt;- g + ggtitle(paste(&quot;beta = &quot;, beta, &quot;mse = &quot;, round(mse, 3)))
+    g
 }
 manipulate(myPlot(beta), beta = slider(0.6, 1.2, step = 0.02))
 </code></pre>
@@ -333,13 +330,8 @@ I(parent - mean(parent))
 </slide>
 
 <slide class="" id="slide-15" style="background:;">
-  <hgroup>
-    <h2>Visualizing the best fit line</h2>
-  </hgroup>
   <article data-timings="">
-    <h3>Size of points are frequencies at that X, Y combination</h3>
-
-<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+    <div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
@@ -375,7 +367,7 @@ I(parent - mean(parent))
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Code'>
+        data-slide=5 title=''>
          5
       </a>
     </li>
@@ -393,13 +385,13 @@ I(parent - mean(parent))
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title='The least squares estimate is the empirical mean'>
+        data-slide=8 title='The least squares est. is the empirical mean'>
          8
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title='The math follows as:'>
+        data-slide=9 title='The math (not required for the class) follows as:'>
          9
       </a>
     </li>
@@ -435,7 +427,7 @@ I(parent - mean(parent))
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title='Visualizing the best fit line'>
+        data-slide=15 title=''>
          15
       </a>
     </li>

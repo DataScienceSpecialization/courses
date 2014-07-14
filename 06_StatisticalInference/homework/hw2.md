@@ -135,9 +135,9 @@ round(qnorm(.05, mean = 100, sd = 10, lower.tail = FALSE), 3)
 
 ---  &multitext
 Suppose that the number of web hits to a particular site are approximately normally
-distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. Imagine taking a random sample of 50 days. 
+distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. 
 
-1. What number of web hits would
+2. Imagine taking a random sample of 50 days. What number of web hits would
 be the point so that only 5% of averages of 50 days of web traffic have more hits? 
 Express your answer to 3 decimal places. 
 
@@ -172,7 +172,7 @@ You don't believe that your friend can discern good wine from cheap. Assuming
 that you're right, in a blind test where you randomize 6 paired varieties (Merlot,
 Chianti, ...) of cheap and expensive wines
 
-1. what is the change that she gets 5 or 6 right expressed as a percentage
+what is the change that she gets 5 or 6 right expressed as a percentage
 to one decimal place?
 
 *** .hint
@@ -198,7 +198,7 @@ Consider a uniform distribution. If we were to sample 100 draws from a
 a uniform distribution (which has mean 0.5, and variance 1/12) and take their
 mean, $\bar X$
 
-1. what is the approximate probability of getting as large as 0.51 or larger expressed to 3 decimal places?
+what is the approximate probability of getting as large as 0.51 or larger expressed to 3 decimal places?
 
 *** .hint
 Use the central limit theorem that says $\bar X \sim N(\mu, \sigma^2/n)$
@@ -239,7 +239,7 @@ individual draws were taken from.
 
 If you roll ten standard dice, take their average, then repeat this process over and over and construct a histogram, 
 
-1. what would be its variance expressed to 3 decimal places?
+2. what would be its variance expressed to 3 decimal places?
 
 *** .hint
 $$Var(\bar X) = \sigma^2 /n$$
@@ -261,8 +261,7 @@ mean((1 : 6 - 3.5)^2)
 
 --- &multitext
 The number of web hits to a site is Poisson with mean 16.5 per day. 
-
-1. What is the probability of getting 20 or fewer in 2 days expressed
+What is the probability of getting 20 or fewer in 2 days expressed
 as a percentage to one decimal place?
 
 *** .hint

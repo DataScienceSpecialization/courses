@@ -69,24 +69,6 @@ $$\left(
 
 ---
 
-## Example justification of the binomial likelihood
-
-- Consider the probability of getting $6$ heads out of $10$ coin flips from a coin with success probability $p$ 
-- The probability of getting $6$ heads and $4$ tails in any specific order is
-  $$
-  p^6(1-p)^4
-  $$
-- There are 
-$$\left(
-\begin{array}{c}
-  10 \\ 6
-\end{array}
-\right)
-$$
-possible orders of $6$ heads and $4$ tails
-
----
-
 ## Example
 
 - Suppose a friend has $8$ children (oh my!), $7$ of which are girls and none are twins
@@ -120,7 +102,6 @@ pbinom(6, size = 8, prob = .5, lower.tail = FALSE)
   If $X$ a RV with this density then $E[X] = \mu$ and $Var(X) = \sigma^2$
 - We write $X\sim \mbox{N}(\mu, \sigma^2)$
 - When $\mu = 0$ and $\sigma = 1$ the resulting distribution is called **the standard normal distribution**
-- The standard normal density function is labeled $\phi$
 - Standard normal RVs are often labeled $Z$
 
 ---
@@ -156,17 +137,10 @@ g
 
 - What is the $95^{th}$ percentile of a $N(\mu, \sigma^2)$ distribution? 
   - Quick answer in R `qnorm(.95, mean = mu, sd = sd)`
-- We want the point $x_0$ so that $P(X \leq x_0) = .95$
-$$
-  \begin{eqnarray*}
-    P(X \leq x_0) & = & P\left(\frac{X - \mu}{\sigma} \leq \frac{x_0 - \mu}{\sigma}\right) \\ \\
-                  & = & P\left(Z \leq \frac{x_0 - \mu}{\sigma}\right) =  .95
-  \end{eqnarray*}
-$$
-- Therefore
-  $$\frac{x_0 - \mu}{\sigma} = 1.645$$
-  or $x_0 = \mu + \sigma 1.645$
-- In general $x_0 = \mu + \sigma z_0$ where $z_0$ is the appropriate standard normal quantile
+- Or, because you have the standard normal quantiles memorized
+and you know that 1.645 is the 95th percentile you know that the answer has to be
+$$\mu + \sigma 1.645$$
+- (In general $\mu + \sigma z_0$ where $z_0$ is the appropriate standard normal quantile)
 
 ---
 
@@ -184,28 +158,52 @@ P\left(\frac{X -\mu}{\sigma} > \frac{\mu + 2\sigma - \mu}{\sigma}\right)    \\ \
 $$
 
 ---
+## Example
 
-## Other properties
-
-- The normal distribution is symmetric and peaked about its mean (therefore the mean, median and mode are all equal)
-- A constant times a normally distributed random variable is also normally distributed (what is the mean and variance?)
-- Sums of normally distributed random variables are again normally distributed even if the variables are dependent (what is the mean and variance?)
-- Sample means of normally distributed random variables are again normally distributed (with what mean and variance?)
-- The square of a *standard normal* random variable follows what is called **chi-squared** distribution 
-- The exponent of a normally distributed random variables follows what is called the **log-normal** distribution 
-- As we will see later, many random variables, properly normalized, *limit* to a normal distribution
+Assume that the number of daily ad clicks for a company 
+is (approximately) normally distributed with a mean of 1020 and a standard
+deviation of 50. What's the probability of getting
+more than  1,160 clicks in a day?
 
 ---
 
-## Final thoughts on normal likelihoods
-- The MLE for $\mu$ is $\bar X$.
-- The MLE for $\sigma^2$ is
-  $$
-  \frac{\sum_{i=1}^n (X_i - \bar X)^2}{n}
-  $$
-  (Which is the biased version of the sample variance.)
-- The MLE of $\sigma$ is simply the square root of this
-  estimate
+## Example
+
+Assume that the number of daily ad clicks for a company 
+is (approximately) normally distributed with a mean of 1020 and a standard
+deviation of 50. What's the probability of getting
+more than  1,160 clicks in a day?
+
+It's not very likely, 1,160 is `r (1160 - 1020) / 50` standard
+deviations from the mean 
+```{r}
+pnorm(1160, mean = 1020, sd = 50, lower.tail = FALSE)
+pnorm(2.8, lower.tail = FALSE)
+```
+
+---
+
+## Example
+
+Assume that the number of daily ad clicks for a company 
+is (approximately) normally distributed with a mean of 1020 and a standard
+deviation of 50. What number of daily ad clicks would represent
+the one where 75% of days have fewer clicks (assuming
+days are independent and identically distributed)?
+
+---
+
+## Example
+
+Assume that the number of daily ad clicks for a company 
+is (approximately) normally distributed with a mean of 1020 and a standard
+deviation of 50. What number of daily ad clicks would represent
+the one where 75% of days have fewer clicks (assuming
+days are independent and identically distributed)?
+
+```{r}
+qnorm(0.75, mean = 1020, sd = 50)
+```
 
 ---
 ## The Poisson distribution

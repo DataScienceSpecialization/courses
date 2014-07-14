@@ -46,9 +46,9 @@ $$
 $$
 \tilde X_i = X_i - \bar X.
 $$
-The the mean of the $\tilde X_i$ is 0.
+The mean of the $\tilde X_i$ is 0.
 * This process is called "centering" the random variables.
-* The mean is a measure of central tendancy of the data.
+* The mean is a measure of central tendency of the data.
 * Recall from the previous lecture that the mean is 
   the least squares solution for minimizing
   $$
@@ -74,7 +74,7 @@ produces an unbiased estimate.)
 ---
 ## Normalization
 
-* The the data defined by
+* The data defined by
 $$
 Z_i = \frac{X_i - \bar X}{s}
 $$

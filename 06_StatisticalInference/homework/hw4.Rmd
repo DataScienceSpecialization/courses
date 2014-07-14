@@ -209,7 +209,7 @@ $\alpha = 1 - Conf. Level$._
 $2 \alpha = 1 - Conf. Level$.
 3. All of the values of the hypothesized mean for which we would reject with 
 $\alpha = 1 - Conf. Level$.
-4. All of the values of the hypothesized mean for which we would fail to reject with 
+4. All of the values of the hypothesized mean for which we would reject with 
 $2 \alpha = 1 - Conf. Level$.
 
 *** .hint

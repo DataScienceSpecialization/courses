@@ -124,7 +124,7 @@ $$\hat \beta_1 = \frac{\sum_{i=1^n} Y_i X_i}{\sum_{i=1}^n X_i^2}.$$
 * If we define $\mu_i = \beta_0$ then $\hat \beta_0 = \bar Y$.
   * If we only look at horizontal lines, the least squares estimate of the intercept of that line is the average of the outcomes.
 * If we define $\mu_i = X_i \beta_1$ then $\hat \beta_1 = \frac{\sum_{i=1}^n Y_i X_i}{\sum_{i=1}^n X_i^2}$
-  * If we only look at lines through the origin, we get the estimated slope is the cross product of the X and Ys divided by the cross product of the Xs with themselves.
+  * If we only look at lines through the origin, the estimated slope is the cross product of the X and Ys divided by the cross product of the Xs with themselves.
 * What about when $\mu_i = \beta_0 + \beta_1 X_i$? That is, we don't want to restrict ourselves to horizontal lines or lines through the origin.
 
 ---

@@ -13,74 +13,15 @@ url:
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
-## Confidence intervals
+## T Confidence intervals
 
 - In the previous, we discussed creating a confidence interval using the CLT
-- In this lecture, we discuss some methods for small samples, notably Gosset's $t$ distribution
-- To discuss the $t$ distribution we must discuss the Chi-squared distribution
-- Throughout we use the following general procedure for creating CIs
-
-  a. Create a **Pivot** or statistic that does not depend on the parameter of interest
-  
-  b. Solve the probability that the pivot lies between bounds for the parameter
-
----
-
-## The Chi-squared distribution
-
-- Suppose that $S^2$ is the sample variance from a collection of iid $N(\mu,\sigma^2)$ data; then 
-$$
-    \frac{(n - 1) S^2}{\sigma^2} \sim \chi^2_{n-1}
-$$
-which reads: follows a Chi-squared distribution with $n-1$ degrees of freedom
-- The Chi-squared distribution is skewed and has support on $0$ to $\infty$
-- The mean of the Chi-squared is its degrees of freedom 
-- The variance of the Chi-squared distribution is twice the degrees of freedom
-
----
-
-## Confidence interval for the variance
-
-Note that if $\chi^2_{n-1, \alpha}$ is the $\alpha$ quantile of the
-Chi-squared distribution then
-
-$$
-\begin{eqnarray*}
-  1 - \alpha & = & P \left( \chi^2_{n-1, \alpha/2} \leq  \frac{(n - 1) S^2}{\sigma^2} \leq  \chi^2_{n-1,1 - \alpha/2} \right) \\ \\
-& = &  P\left(\frac{(n-1)S^2}{\chi^2_{n-1,1-\alpha/2}} \leq \sigma^2 \leq 
-\frac{(n-1)S^2}{\chi^2_{n-1,\alpha/2}} \right) \\
-\end{eqnarray*}
-$$
-So that 
-$$
-\left[\frac{(n-1)S^2}{\chi^2_{n-1,1-\alpha/2}}, \frac{(n-1)S^2}{\chi^2_{n-1,\alpha/2}}\right]
-$$
-is a $100(1-\alpha)\%$ confidence interval for $\sigma^2$
-
----
-
-## Notes about this interval
-
-- This interval relies heavily on the assumed normality
-- Square-rooting the endpoints yields a CI for $\sigma$
-
----
-## Example
-### Confidence interval for the standard deviation of sons' heights from Galton's data
-
-```r
-library(UsingR)
-data(father.son)
-x <- father.son$sheight
-s <- sd(x)
-n <- length(x)
-round(sqrt((n - 1) * s^2/qchisq(c(0.975, 0.025), n - 1)), 3)
-```
-
-```
-## [1] 2.701 2.939
-```
-
+  - They took the form $Est \pm Z SE_{EST}$
+- In this lecture, we discuss some methods for small samples, notably Gosset's $t$ distribution and $t$ confidence intervals
+- These are some of the handiest of intervals
+- If you want a rule between whether to use a $t$ interval
+or normal interval, just always use the $t$ interval
+- We'll cover the one and two group versions
 
 ---
 
@@ -89,27 +30,14 @@ round(sqrt((n - 1) * s^2/qchisq(c(0.975, 0.025), n - 1)), 3)
 - Invented by William Gosset (under the pseudonym "Student") in 1908
 - Has thicker tails than the normal
 - Is indexed by a degrees of freedom; gets more like a standard normal as df gets larger
-- Is obtained as 
-$$
-\frac{Z}{\sqrt{\frac{\chi^2}{df}}}
-$$
-where $Z$ and $\chi^2$ are independent standard normals and
-Chi-squared distributions respectively
-
----
-
-## Result
-
-- Suppose that $(X_1,\ldots,X_n)$ are iid $N(\mu,\sigma^2)$, then:
-  a. $\frac{\bar X - \mu}{\sigma / \sqrt{n}}$ is standard normal
-  b. $\sqrt{\frac{(n - 1) S^2}{\sigma^2 (n - 1)}} = S / \sigma$ is the square root of a Chi-squared divided by its df
-
-- Therefore 
+- It assumes that the underlying data are iid 
+Gaussian with the result that
 $$
 \frac{\frac{\bar X - \mu}{\sigma /\sqrt{n}}}{S/\sigma}  
 = \frac{\bar X - \mu}{S/\sqrt{n}}
 $$
-    follows Gosset's $t$ distribution with $n-1$ degrees of freedom
+follows Gosset's $t$ distribution with $n-1$ degrees of freedom
+- (If we replaced $s$ by $\sigma$ the statistic would be exactly standard normal)
 
 ---
 
@@ -167,18 +95,14 @@ head(sleep)
 ## 6   3.4     1  6
 ```
 
-
 ---
 ## Results
 
 ```r
-g1 <- sleep$extra[1:10]
-g2 <- sleep$extra[11:20]
+g1 <- sleep$extra[1 : 10]; g2 <- sleep$extra[11 : 20]
 difference <- g2 - g1
-mn <- mean(difference)
-s <- sd(difference)
-n <- 10
-mn + c(-1, 1) * qt(0.975, n - 1) * s/sqrt(n)
+mn <- mean(difference); s <- sd(difference); n <- 10
+mn + c(-1, 1) * qt(.975, n-1) * s / sqrt(n)
 ```
 
 ```
@@ -194,7 +118,6 @@ t.test(difference)$conf.int
 ## attr(,"conf.level")
 ## [1] 0.95
 ```
-
 
 
 

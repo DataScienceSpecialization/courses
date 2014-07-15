@@ -45,18 +45,20 @@
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
   <hgroup>
-    <h2>Confidence intervals</h2>
+    <h2>T Confidence intervals</h2>
   </hgroup>
   <article data-timings="">
     <ul>
-<li>In the previous, we discussed creating a confidence interval using the CLT</li>
-<li>In this lecture, we discuss some methods for small samples, notably Gosset&#39;s \(t\) distribution</li>
-<li>To discuss the \(t\) distribution we must discuss the Chi-squared distribution</li>
-<li><p>Throughout we use the following general procedure for creating CIs</p>
+<li>In the previous, we discussed creating a confidence interval using the CLT
 
-<p>a. Create a <strong>Pivot</strong> or statistic that does not depend on the parameter of interest</p>
-
-<p>b. Solve the probability that the pivot lies between bounds for the parameter</p></li>
+<ul>
+<li>They took the form \(Est \pm Z SE_{EST}\)</li>
+</ul></li>
+<li>In this lecture, we discuss some methods for small samples, notably Gosset&#39;s \(t\) distribution and \(t\) confidence intervals</li>
+<li>These are some of the handiest of intervals</li>
+<li>If you want a rule between whether to use a \(t\) interval
+or normal interval, just always use the \(t\) interval</li>
+<li>We&#39;ll cover the one and two group versions</li>
 </ul>
 
   </article>
@@ -65,87 +67,6 @@
 
 <slide class="" id="slide-2" style="background:;">
   <hgroup>
-    <h2>The Chi-squared distribution</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>Suppose that \(S^2\) is the sample variance from a collection of iid \(N(\mu,\sigma^2)\) data; then 
-\[
-\frac{(n - 1) S^2}{\sigma^2} \sim \chi^2_{n-1}
-\]
-which reads: follows a Chi-squared distribution with \(n-1\) degrees of freedom</li>
-<li>The Chi-squared distribution is skewed and has support on \(0\) to \(\infty\)</li>
-<li>The mean of the Chi-squared is its degrees of freedom </li>
-<li>The variance of the Chi-squared distribution is twice the degrees of freedom</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-3" style="background:;">
-  <hgroup>
-    <h2>Confidence interval for the variance</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>Note that if \(\chi^2_{n-1, \alpha}\) is the \(\alpha\) quantile of the
-Chi-squared distribution then</p>
-
-<p>\[
-\begin{eqnarray*}
-  1 - \alpha & = & P \left( \chi^2_{n-1, \alpha/2} \leq  \frac{(n - 1) S^2}{\sigma^2} \leq  \chi^2_{n-1,1 - \alpha/2} \right) \\ \\
-& = &  P\left(\frac{(n-1)S^2}{\chi^2_{n-1,1-\alpha/2}} \leq \sigma^2 \leq 
-\frac{(n-1)S^2}{\chi^2_{n-1,\alpha/2}} \right) \\
-\end{eqnarray*}
-\]
-So that 
-\[
-\left[\frac{(n-1)S^2}{\chi^2_{n-1,1-\alpha/2}}, \frac{(n-1)S^2}{\chi^2_{n-1,\alpha/2}}\right]
-\]
-is a \(100(1-\alpha)\%\) confidence interval for \(\sigma^2\)</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-4" style="background:;">
-  <hgroup>
-    <h2>Notes about this interval</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>This interval relies heavily on the assumed normality</li>
-<li>Square-rooting the endpoints yields a CI for \(\sigma\)</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-5" style="background:;">
-  <hgroup>
-    <h2>Example</h2>
-  </hgroup>
-  <article data-timings="">
-    <h3>Confidence interval for the standard deviation of sons&#39; heights from Galton&#39;s data</h3>
-
-<pre><code class="r">library(UsingR)
-data(father.son)
-x &lt;- father.son$sheight
-s &lt;- sd(x)
-n &lt;- length(x)
-round(sqrt((n - 1) * s^2/qchisq(c(0.975, 0.025), n - 1)), 3)
-</code></pre>
-
-<pre><code>## [1] 2.701 2.939
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-6" style="background:;">
-  <hgroup>
     <h2>Gosset&#39;s \(t\) distribution</h2>
   </hgroup>
   <article data-timings="">
@@ -153,40 +74,21 @@ round(sqrt((n - 1) * s^2/qchisq(c(0.975, 0.025), n - 1)), 3)
 <li>Invented by William Gosset (under the pseudonym &quot;Student&quot;) in 1908</li>
 <li>Has thicker tails than the normal</li>
 <li>Is indexed by a degrees of freedom; gets more like a standard normal as df gets larger</li>
-<li>Is obtained as 
-\[
-\frac{Z}{\sqrt{\frac{\chi^2}{df}}}
-\]
-where \(Z\) and \(\chi^2\) are independent standard normals and
-Chi-squared distributions respectively</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-7" style="background:;">
-  <hgroup>
-    <h2>Result</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li><p>Suppose that \((X_1,\ldots,X_n)\) are iid \(N(\mu,\sigma^2)\), then:
-a. \(\frac{\bar X - \mu}{\sigma / \sqrt{n}}\) is standard normal
-b. \(\sqrt{\frac{(n - 1) S^2}{\sigma^2 (n - 1)}} = S / \sigma\) is the square root of a Chi-squared divided by its df</p></li>
-<li><p>Therefore 
+<li>It assumes that the underlying data are iid 
+Gaussian with the result that
 \[
 \frac{\frac{\bar X - \mu}{\sigma /\sqrt{n}}}{S/\sigma}  
 = \frac{\bar X - \mu}{S/\sqrt{n}}
 \]
-follows Gosset&#39;s \(t\) distribution with \(n-1\) degrees of freedom</p></li>
+follows Gosset&#39;s \(t\) distribution with \(n-1\) degrees of freedom</li>
+<li>(If we replaced \(s\) by \(\sigma\) the statistic would be exactly standard normal)</li>
 </ul>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Confidence intervals for the mean</h2>
   </hgroup>
@@ -209,7 +111,7 @@ follows Gosset&#39;s \(t\) distribution with \(n-1\) degrees of freedom</p></li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Note&#39;s about the \(t\) interval</h2>
   </hgroup>
@@ -229,7 +131,7 @@ follows Gosset&#39;s \(t\) distribution with \(n-1\) degrees of freedom</p></li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>Sleep data</h2>
   </hgroup>
@@ -243,7 +145,7 @@ groups rather than paired.</p>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>The data</h2>
   </hgroup>
@@ -265,18 +167,15 @@ head(sleep)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>Results</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">g1 &lt;- sleep$extra[1:10]
-g2 &lt;- sleep$extra[11:20]
+    <pre><code class="r">g1 &lt;- sleep$extra[1 : 10]; g2 &lt;- sleep$extra[11 : 20]
 difference &lt;- g2 - g1
-mn &lt;- mean(difference)
-s &lt;- sd(difference)
-n &lt;- 10
-mn + c(-1, 1) * qt(0.975, n - 1) * s/sqrt(n)
+mn &lt;- mean(difference); s &lt;- sd(difference); n &lt;- 10
+mn + c(-1, 1) * qt(.975, n-1) * s / sqrt(n)
 </code></pre>
 
 <pre><code>## [1] 0.7001 2.4599
@@ -300,74 +199,44 @@ mn + c(-1, 1) * qt(0.975, n - 1) * s/sqrt(n)
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Confidence intervals'>
+        data-slide=1 title='T Confidence intervals'>
          1
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='The Chi-squared distribution'>
+        data-slide=2 title='Gosset&#39;s \(t\) distribution'>
          2
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='Confidence interval for the variance'>
+        data-slide=3 title='Confidence intervals for the mean'>
          3
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='Notes about this interval'>
+        data-slide=4 title='Note&#39;s about the \(t\) interval'>
          4
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Example'>
+        data-slide=5 title='Sleep data'>
          5
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='Gosset&#39;s \(t\) distribution'>
+        data-slide=6 title='The data'>
          6
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=7 title='Result'>
+        data-slide=7 title='Results'>
          7
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title='Confidence intervals for the mean'>
-         8
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title='Note&#39;s about the \(t\) interval'>
-         9
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=10 title='Sleep data'>
-         10
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title='The data'>
-         11
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=12 title='Results'>
-         12
       </a>
     </li>
   </ul>

@@ -92,9 +92,11 @@ The LLN forms the basis of frequency style thinking</li>
     <h2>Law of large numbers in action</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">n &lt;- 10000; means &lt;- cumsum(rnorm(n)) / (1  : n); library(ggplot2)
-g &lt;- ggplot(data.frame(x = 1 : n, y = means), aes(x = x, y = y)) 
-g &lt;- g + geom_hline(yintercept = 0) + geom_line(size = 2) 
+    <pre><code class="r">n &lt;- 10000
+means &lt;- cumsum(rnorm(n))/(1:n)
+library(ggplot2)
+g &lt;- ggplot(data.frame(x = 1:n, y = means), aes(x = x, y = y))
+g &lt;- g + geom_hline(yintercept = 0) + geom_line(size = 2)
 g &lt;- g + labs(x = &quot;Number of obs&quot;, y = &quot;Cumulative mean&quot;)
 g
 </code></pre>
@@ -110,9 +112,9 @@ g
     <h2>Law of large numbers in action, coin flip</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">means &lt;- cumsum(sample(0 : 1, n , replace = TRUE)) / (1  : n)
-g &lt;- ggplot(data.frame(x = 1 : n, y = means), aes(x = x, y = y)) 
-g &lt;- g + geom_hline(yintercept = 0.5) + geom_line(size = 2) 
+    <pre><code class="r">means &lt;- cumsum(sample(0:1, n, replace = TRUE))/(1:n)
+g &lt;- ggplot(data.frame(x = 1:n, y = means), aes(x = x, y = y))
+g &lt;- g + geom_hline(yintercept = 0.5) + geom_line(size = 2)
 g &lt;- g + labs(x = &quot;Number of obs&quot;, y = &quot;Cumulative mean&quot;)
 g
 </code></pre>
@@ -267,23 +269,26 @@ of heads, subtract off .5 and multiply the result by
     <ul>
 <li>According to the CLT, the sample mean, \(\bar X\), 
 is approximately normal with mean \(\mu\) and sd \(\sigma / \sqrt{n}\)</li>
-<li>\(\bar X + 2 s/\sqrt{n}\) is pretty far out in the tail
+<li>\(\mu + 2 \sigma /\sqrt{n}\) is pretty far out in the tail
 (only 2.5% of a normal being larger than 2 sds in the tail)</li>
-<li>Similarly, \(\bar X - 2 s/\sqrt{n}\) is pretty far in the left tail (only 2.5% chance of a normal being smaller than 2 sds in the tail)</li>
-<li>The quantity \(\bar X \pm 2 s/\sqrt{n}\) is called
+<li>Similarly, \(\mu - 2 \sigma /\sqrt{n}\) is pretty far in the left tail (only 2.5% chance of a normal being smaller than 2 sds in the tail)</li>
+<li>So the probability \(\bar X\) is bigger than \(\mu + 2 \sigma / \sqrt{n}\)
+or smaller than \(\mu - 2 \sigma / \sqrt{n}\) is 5%
+
+<ul>
+<li>Or equivalently, the probability of being between these limits is 95%</li>
+</ul></li>
+<li>The quantity \(\bar X \pm 2 \sigma /\sqrt{n}\) is called
 a 95% interval for \(\mu\)</li>
 <li>The 95% refers to the fact that if one were to repeatly
 get samples of size \(n\), about 95% of the intervals obtained
 would contain \(\mu\)</li>
-<li>If you want a different confidence level, you pick
-the normal quantile that gives you 100 minus the level
-that you want in either tail
+<li>The 97.5th quantile is 1.96 (so I rounded to 2 above)</li>
+<li>90% interval you want (100 - 90) / 2 = 5% in each tail 
 
 <ul>
-<li>90% interval you want (100 - 90) / 2 = 5% in each tail </li>
-<li>So you want the 95th percentail</li>
+<li>So you want the 95th percentile (1.645)</li>
 </ul></li>
-<li>The 97.5th quantile is 1.96 (so I rounded to 2 above)</li>
 </ul>
 
   </article>
@@ -297,8 +302,10 @@ that you want in either tail
   <article data-timings="">
     <p>in Galton&#39;s data</p>
 
-<pre><code class="r">library(UsingR);data(father.son); x &lt;- father.son$sheight
-(mean(x) + c(-1, 1) * qnorm(.975) * sd(x) / sqrt(length(x))) / 12
+<pre><code class="r">library(UsingR)
+data(father.son)
+x &lt;- father.son$sheight
+(mean(x) + c(-1, 1) * qnorm(0.975) * sd(x)/sqrt(length(x)))/12
 </code></pre>
 
 <pre><code>## [1] 5.710 5.738
@@ -350,7 +357,7 @@ is a quick CI estimate for \(p\)</li>
 <li>Rough guidelines, 100 for 1 decimal place, 10,000 for 2, 1,000,000 for 3.</li>
 </ul>
 
-<pre><code class="r">round(1 / sqrt(10 ^ (1 : 6)), 3)
+<pre><code class="r">round(1/sqrt(10^(1:6)), 3)
 </code></pre>
 
 <pre><code>## [1] 0.316 0.100 0.032 0.010 0.003 0.001
@@ -365,7 +372,7 @@ is a quick CI estimate for \(p\)</li>
     <h2>Binomial interval</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">.56 + c(-1, 1) * qnorm(.975) * sqrt(.56 * .44 / 100)
+    <pre><code class="r">0.56 + c(-1, 1) * qnorm(0.975) * sqrt(0.56 * 0.44/100)
 </code></pre>
 
 <pre><code>## [1] 0.4627 0.6573
@@ -388,12 +395,14 @@ is a quick CI estimate for \(p\)</li>
     <h2>Simulation</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">n &lt;- 20; pvals &lt;- seq(.1, .9, by = .05); nosim &lt;- 1000
-coverage &lt;- sapply(pvals, function(p){
-  phats &lt;- rbinom(nosim, prob = p, size = n) / n
-  ll &lt;- phats - qnorm(.975) * sqrt(phats * (1 - phats) / n)
-  ul &lt;- phats + qnorm(.975) * sqrt(phats * (1 - phats) / n)
-  mean(ll &lt; p &amp; ul &gt; p)
+    <pre><code class="r">n &lt;- 20
+pvals &lt;- seq(0.1, 0.9, by = 0.05)
+nosim &lt;- 1000
+coverage &lt;- sapply(pvals, function(p) {
+    phats &lt;- rbinom(nosim, prob = p, size = n)/n
+    ll &lt;- phats - qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    ul &lt;- phats + qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    mean(ll &lt; p &amp; ul &gt; p)
 })
 </code></pre>
 
@@ -418,9 +427,8 @@ coverage &lt;- sapply(pvals, function(p){
   </hgroup>
   <article data-timings="">
     <ul>
-<li>It&#39;s only for true values of \(p\) around 0.5 that the interval is giving the coverage it claims</li>
 <li>\(n\) isn&#39;t large enough for the CLT to be applicable
-for the other values</li>
+for many of the values of \(p\)</li>
 <li>Quick fix, form the interval with 
 \[
 \frac{X + 2}{n + 4}
@@ -439,12 +447,14 @@ for the other values</li>
   <article data-timings="">
     <p>First let&#39;s show that coverage gets better with \(n\)</p>
 
-<pre><code class="r">n &lt;- 100; pvals &lt;- seq(.1, .9, by = .05); nosim &lt;- 1000
-coverage2 &lt;- sapply(pvals, function(p){
-  phats &lt;- rbinom(nosim, prob = p, size = n) / n
-  ll &lt;- phats - qnorm(.975) * sqrt(phats * (1 - phats) / n)
-  ul &lt;- phats + qnorm(.975) * sqrt(phats * (1 - phats) / n)
-  mean(ll &lt; p &amp; ul &gt; p)
+<pre><code class="r">n &lt;- 100
+pvals &lt;- seq(0.1, 0.9, by = 0.05)
+nosim &lt;- 1000
+coverage2 &lt;- sapply(pvals, function(p) {
+    phats &lt;- rbinom(nosim, prob = p, size = n)/n
+    ll &lt;- phats - qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    ul &lt;- phats + qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    mean(ll &lt; p &amp; ul &gt; p)
 })
 </code></pre>
 
@@ -470,12 +480,14 @@ coverage2 &lt;- sapply(pvals, function(p){
   <article data-timings="">
     <p>Now let&#39;s look at \(n=20\) but adding 2 successes and failures</p>
 
-<pre><code class="r">n &lt;- 20; pvals &lt;- seq(.1, .9, by = .05); nosim &lt;- 1000
-coverage &lt;- sapply(pvals, function(p){
-  phats &lt;- (rbinom(nosim, prob = p, size = n) + 2) / (n + 4)
-  ll &lt;- phats - qnorm(.975) * sqrt(phats * (1 - phats) / n)
-  ul &lt;- phats + qnorm(.975) * sqrt(phats * (1 - phats) / n)
-  mean(ll &lt; p &amp; ul &gt; p)
+<pre><code class="r">n &lt;- 20
+pvals &lt;- seq(0.1, 0.9, by = 0.05)
+nosim &lt;- 1000
+coverage &lt;- sapply(pvals, function(p) {
+    phats &lt;- (rbinom(nosim, prob = p, size = n) + 2)/(n + 4)
+    ll &lt;- phats - qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    ul &lt;- phats + qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    mean(ll &lt; p &amp; ul &gt; p)
 })
 </code></pre>
 
@@ -517,8 +529,10 @@ coverage &lt;- sapply(pvals, function(p){
     <h2>R code</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">x &lt;- 5; t &lt;- 94.32; lambda &lt;- x / t
-round(lambda + c(-1, 1) * qnorm(.975) * sqrt(lambda / t), 3)
+    <pre><code class="r">x &lt;- 5
+t &lt;- 94.32
+lambda &lt;- x/t
+round(lambda + c(-1, 1) * qnorm(0.975) * sqrt(lambda/t), 3)
 </code></pre>
 
 <pre><code>## [1] 0.007 0.099
@@ -544,13 +558,14 @@ round(lambda + c(-1, 1) * qnorm(.975) * sqrt(lambda / t), 3)
     <p>Let&#39;s see how this interval performs for lambda
 values near what we&#39;re estimating</p>
 
-<pre><code class="r">lambdavals &lt;- seq(0.005, 0.10, by = .01); nosim &lt;- 1000
+<pre><code class="r">lambdavals &lt;- seq(0.005, 0.1, by = 0.01)
+nosim &lt;- 1000
 t &lt;- 100
-coverage &lt;- sapply(lambdavals, function(lambda){
-  lhats &lt;- rpois(nosim, lambda = lambda * t) / t
-  ll &lt;- lhats - qnorm(.975) * sqrt(lhats / t)
-  ul &lt;- lhats + qnorm(.975) * sqrt(lhats / t)
-  mean(ll &lt; lambda &amp; ul &gt; lambda)
+coverage &lt;- sapply(lambdavals, function(lambda) {
+    lhats &lt;- rpois(nosim, lambda = lambda * t)/t
+    ll &lt;- lhats - qnorm(0.975) * sqrt(lhats/t)
+    ul &lt;- lhats + qnorm(0.975) * sqrt(lhats/t)
+    mean(ll &lt; lambda &amp; ul &gt; lambda)
 })
 </code></pre>
 
@@ -598,10 +613,10 @@ distributions
 <li>CLT gives no guarantee that \(n\) is large enough</li>
 </ul></li>
 <li>Taking the mean and adding and subtracting the relevant
-normal quantile yields a confidence interval for the mean
+normal quantile times the SE yields a confidence interval for the mean
 
 <ul>
-<li>Adding and subtracting 2 ses works for 95% intervals</li>
+<li>Adding and subtracting 2 SEs works for 95% intervals</li>
 </ul></li>
 <li>Confidence intervals get wider as the coverage increases
 (why?)</li>

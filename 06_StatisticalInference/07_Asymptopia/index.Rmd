@@ -190,20 +190,20 @@ http://en.wikipedia.org/wiki/Bean_machine#mediaviewer/File:Quincunx_(Galton_Box)
 
 - According to the CLT, the sample mean, $\bar X$, 
 is approximately normal with mean $\mu$ and sd $\sigma / \sqrt{n}$
-- $\bar X + 2 s/\sqrt{n}$ is pretty far out in the tail
+- $\mu + 2 \sigma /\sqrt{n}$ is pretty far out in the tail
 (only 2.5% of a normal being larger than 2 sds in the tail)
-- Similarly, $\bar X - 2 s/\sqrt{n}$ is pretty far in the left tail (only 2.5% chance of a normal being smaller than 2 sds in the tail)
-- The quantity $\bar X \pm 2 s/\sqrt{n}$ is called
+- Similarly, $\mu - 2 \sigma /\sqrt{n}$ is pretty far in the left tail (only 2.5% chance of a normal being smaller than 2 sds in the tail)
+- So the probability $\bar X$ is bigger than $\mu + 2 \sigma / \sqrt{n}$
+or smaller than $\mu - 2 \sigma / \sqrt{n}$ is 5%
+    - Or equivalently, the probability of being between these limits is 95%
+- The quantity $\bar X \pm 2 \sigma /\sqrt{n}$ is called
 a 95% interval for $\mu$
 - The 95% refers to the fact that if one were to repeatly
 get samples of size $n$, about 95% of the intervals obtained
 would contain $\mu$
-- If you want a different confidence level, you pick
-the normal quantile that gives you 100 minus the level
-that you want in either tail
-  - 90% interval you want (100 - 90) / 2 = 5% in each tail 
-  - So you want the 95th percentail
 - The 97.5th quantile is 1.96 (so I rounded to 2 above)
+- 90% interval you want (100 - 90) / 2 = 5% in each tail 
+  - So you want the 95th percentile (1.645)
 
 
 ---
@@ -275,9 +275,8 @@ ggplot(data.frame(pvals, coverage), aes(x = pvals, y = coverage)) + geom_line(si
 
 ---
 ## What's happening?
-- It's only for true values of $p$ around 0.5 that the interval is giving the coverage it claims
 - $n$ isn't large enough for the CLT to be applicable
-for the other values
+for many of the values of $p$
 - Quick fix, form the interval with 
 $$
 \frac{X + 2}{n + 4}
@@ -395,8 +394,8 @@ distributions
   - with standard deviation equal to the standard error of the mean
   - CLT gives no guarantee that $n$ is large enough
 - Taking the mean and adding and subtracting the relevant
-normal quantile yields a confidence interval for the mean
-  - Adding and subtracting 2 ses works for 95% intervals
+normal quantile times the SE yields a confidence interval for the mean
+  - Adding and subtracting 2 SEs works for 95% intervals
 - Confidence intervals get wider as the coverage increases
 (why?)
 - Confidence intervals get narrower with less variability or

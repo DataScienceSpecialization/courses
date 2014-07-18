@@ -43,9 +43,11 @@ of sample means of a collection of $iid$ observations
 ## Law of large numbers in action
 
 ```r
-n <- 10000; means <- cumsum(rnorm(n)) / (1  : n); library(ggplot2)
-g <- ggplot(data.frame(x = 1 : n, y = means), aes(x = x, y = y)) 
-g <- g + geom_hline(yintercept = 0) + geom_line(size = 2) 
+n <- 10000
+means <- cumsum(rnorm(n))/(1:n)
+library(ggplot2)
+g <- ggplot(data.frame(x = 1:n, y = means), aes(x = x, y = y))
+g <- g + geom_hline(yintercept = 0) + geom_line(size = 2)
 g <- g + labs(x = "Number of obs", y = "Cumulative mean")
 g
 ```
@@ -53,18 +55,20 @@ g
 ![plot of chunk unnamed-chunk-1](assets/fig/unnamed-chunk-1.png) 
 
 
+
 ---
 ## Law of large numbers in action, coin flip
 
 ```r
-means <- cumsum(sample(0 : 1, n , replace = TRUE)) / (1  : n)
-g <- ggplot(data.frame(x = 1 : n, y = means), aes(x = x, y = y)) 
-g <- g + geom_hline(yintercept = 0.5) + geom_line(size = 2) 
+means <- cumsum(sample(0:1, n, replace = TRUE))/(1:n)
+g <- ggplot(data.frame(x = 1:n, y = means), aes(x = x, y = y))
+g <- g + geom_hline(yintercept = 0.5) + geom_line(size = 2)
 g <- g + labs(x = "Number of obs", y = "Cumulative mean")
 g
 ```
 
 ![plot of chunk unnamed-chunk-2](assets/fig/unnamed-chunk-2.png) 
+
 
 
 
@@ -114,6 +118,7 @@ and divide by $1.71 / \sqrt{n}$ and repeat this over and over
 <img src="assets/fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
 
 
+
 ---
 ## Coin CLT
 
@@ -134,9 +139,11 @@ $2 \sqrt{n}$ (divide by $1/(2 \sqrt{n})$)
 ## Simulation results
 <img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
 
+
 ---
 ## Simulation results, $p = 0.9$
 <img src="assets/fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
+
 
 ---
 ## Galton's quincunx 
@@ -151,20 +158,20 @@ http://en.wikipedia.org/wiki/Bean_machine#mediaviewer/File:Quincunx_(Galton_Box)
 
 - According to the CLT, the sample mean, $\bar X$, 
 is approximately normal with mean $\mu$ and sd $\sigma / \sqrt{n}$
-- $\bar X + 2 s/\sqrt{n}$ is pretty far out in the tail
+- $\mu + 2 \sigma /\sqrt{n}$ is pretty far out in the tail
 (only 2.5% of a normal being larger than 2 sds in the tail)
-- Similarly, $\bar X - 2 s/\sqrt{n}$ is pretty far in the left tail (only 2.5% chance of a normal being smaller than 2 sds in the tail)
-- The quantity $\bar X \pm 2 s/\sqrt{n}$ is called
+- Similarly, $\mu - 2 \sigma /\sqrt{n}$ is pretty far in the left tail (only 2.5% chance of a normal being smaller than 2 sds in the tail)
+- So the probability $\bar X$ is bigger than $\mu + 2 \sigma / \sqrt{n}$
+or smaller than $\mu - 2 \sigma / \sqrt{n}$ is 5%
+    - Or equivalently, the probability of being between these limits is 95%
+- The quantity $\bar X \pm 2 \sigma /\sqrt{n}$ is called
 a 95% interval for $\mu$
 - The 95% refers to the fact that if one were to repeatly
 get samples of size $n$, about 95% of the intervals obtained
 would contain $\mu$
-- If you want a different confidence level, you pick
-the normal quantile that gives you 100 minus the level
-that you want in either tail
-  - 90% interval you want (100 - 90) / 2 = 5% in each tail 
-  - So you want the 95th percentail
 - The 97.5th quantile is 1.96 (so I rounded to 2 above)
+- 90% interval you want (100 - 90) / 2 = 5% in each tail 
+  - So you want the 95th percentile (1.645)
 
 
 ---
@@ -172,13 +179,16 @@ that you want in either tail
 in Galton's data
 
 ```r
-library(UsingR);data(father.son); x <- father.son$sheight
-(mean(x) + c(-1, 1) * qnorm(.975) * sd(x) / sqrt(length(x))) / 12
+library(UsingR)
+data(father.son)
+x <- father.son$sheight
+(mean(x) + c(-1, 1) * qnorm(0.975) * sd(x)/sqrt(length(x)))/12
 ```
 
 ```
 ## [1] 5.710 5.738
 ```
+
 
 ---
 
@@ -205,7 +215,7 @@ is a quick CI estimate for $p$
 * Rough guidelines, 100 for 1 decimal place, 10,000 for 2, 1,000,000 for 3.
 
 ```r
-round(1 / sqrt(10 ^ (1 : 6)), 3)
+round(1/sqrt(10^(1:6)), 3)
 ```
 
 ```
@@ -214,12 +224,13 @@ round(1 / sqrt(10 ^ (1 : 6)), 3)
 
 
 
+
 ---
 ## Binomial interval
 
 
 ```r
-.56 + c(-1, 1) * qnorm(.975) * sqrt(.56 * .44 / 100)
+0.56 + c(-1, 1) * qnorm(0.975) * sqrt(0.56 * 0.44/100)
 ```
 
 ```
@@ -236,31 +247,35 @@ binom.test(56, 100)$conf.int
 ## [1] 0.95
 ```
 
+
 ---
 
 ## Simulation
 
 
 ```r
-n <- 20; pvals <- seq(.1, .9, by = .05); nosim <- 1000
-coverage <- sapply(pvals, function(p){
-  phats <- rbinom(nosim, prob = p, size = n) / n
-  ll <- phats - qnorm(.975) * sqrt(phats * (1 - phats) / n)
-  ul <- phats + qnorm(.975) * sqrt(phats * (1 - phats) / n)
-  mean(ll < p & ul > p)
+n <- 20
+pvals <- seq(0.1, 0.9, by = 0.05)
+nosim <- 1000
+coverage <- sapply(pvals, function(p) {
+    phats <- rbinom(nosim, prob = p, size = n)/n
+    ll <- phats - qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    ul <- phats + qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    mean(ll < p & ul > p)
 })
 ```
+
 
 
 ---
 ## Plot of the results (not so good)
 <img src="assets/fig/unnamed-chunk-10.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
 
+
 ---
 ## What's happening?
-- It's only for true values of $p$ around 0.5 that the interval is giving the coverage it claims
 - $n$ isn't large enough for the CLT to be applicable
-for the other values
+for many of the values of $p$
 - Quick fix, form the interval with 
 $$
 \frac{X + 2}{n + 4}
@@ -273,38 +288,46 @@ First let's show that coverage gets better with $n$
 
 
 ```r
-n <- 100; pvals <- seq(.1, .9, by = .05); nosim <- 1000
-coverage2 <- sapply(pvals, function(p){
-  phats <- rbinom(nosim, prob = p, size = n) / n
-  ll <- phats - qnorm(.975) * sqrt(phats * (1 - phats) / n)
-  ul <- phats + qnorm(.975) * sqrt(phats * (1 - phats) / n)
-  mean(ll < p & ul > p)
+n <- 100
+pvals <- seq(0.1, 0.9, by = 0.05)
+nosim <- 1000
+coverage2 <- sapply(pvals, function(p) {
+    phats <- rbinom(nosim, prob = p, size = n)/n
+    ll <- phats - qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    ul <- phats + qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    mean(ll < p & ul > p)
 })
 ```
+
 
 ---
 ## Plot of coverage for $n=100$
 <img src="assets/fig/unnamed-chunk-12.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
+
 
 ---
 ## Simulation
 Now let's look at $n=20$ but adding 2 successes and failures
 
 ```r
-n <- 20; pvals <- seq(.1, .9, by = .05); nosim <- 1000
-coverage <- sapply(pvals, function(p){
-  phats <- (rbinom(nosim, prob = p, size = n) + 2) / (n + 4)
-  ll <- phats - qnorm(.975) * sqrt(phats * (1 - phats) / n)
-  ul <- phats + qnorm(.975) * sqrt(phats * (1 - phats) / n)
-  mean(ll < p & ul > p)
+n <- 20
+pvals <- seq(0.1, 0.9, by = 0.05)
+nosim <- 1000
+coverage <- sapply(pvals, function(p) {
+    phats <- (rbinom(nosim, prob = p, size = n) + 2)/(n + 4)
+    ll <- phats - qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    ul <- phats + qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    mean(ll < p & ul > p)
 })
 ```
+
 
 
 ---
 ## Adding 2 successes and 2 failures
 (It's a little conservative)
 <img src="assets/fig/unnamed-chunk-14.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" style="display: block; margin: auto;" />
+
 
 ---
 
@@ -319,8 +342,10 @@ coverage <- sapply(pvals, function(p){
 ## R code
 
 ```r
-x <- 5; t <- 94.32; lambda <- x / t
-round(lambda + c(-1, 1) * qnorm(.975) * sqrt(lambda / t), 3)
+x <- 5
+t <- 94.32
+lambda <- x/t
+round(lambda + c(-1, 1) * qnorm(0.975) * sqrt(lambda/t), 3)
 ```
 
 ```
@@ -338,21 +363,24 @@ poisson.test(x, T = 94.32)$conf
 ```
 
 
+
 ---
 ## Simulating the Poisson coverage rate
 Let's see how this interval performs for lambda
 values near what we're estimating
 
 ```r
-lambdavals <- seq(0.005, 0.10, by = .01); nosim <- 1000
+lambdavals <- seq(0.005, 0.1, by = 0.01)
+nosim <- 1000
 t <- 100
-coverage <- sapply(lambdavals, function(lambda){
-  lhats <- rpois(nosim, lambda = lambda * t) / t
-  ll <- lhats - qnorm(.975) * sqrt(lhats / t)
-  ul <- lhats + qnorm(.975) * sqrt(lhats / t)
-  mean(ll < lambda & ul > lambda)
+coverage <- sapply(lambdavals, function(lambda) {
+    lhats <- rpois(nosim, lambda = lambda * t)/t
+    ll <- lhats - qnorm(0.975) * sqrt(lhats/t)
+    ul <- lhats + qnorm(0.975) * sqrt(lhats/t)
+    mean(ll < lambda & ul > lambda)
 })
 ```
+
 
 
 
@@ -363,9 +391,11 @@ coverage <- sapply(lambdavals, function(lambda){
 
 
 
+
 ---
 ## What if we increase t to 1000?
 <img src="assets/fig/unnamed-chunk-18.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" style="display: block; margin: auto;" />
+
 
 
 ---
@@ -378,8 +408,8 @@ distributions
   - with standard deviation equal to the standard error of the mean
   - CLT gives no guarantee that $n$ is large enough
 - Taking the mean and adding and subtracting the relevant
-normal quantile yields a confidence interval for the mean
-  - Adding and subtracting 2 ses works for 95% intervals
+normal quantile times the SE yields a confidence interval for the mean
+  - Adding and subtracting 2 SEs works for 95% intervals
 - Confidence intervals get wider as the coverage increases
 (why?)
 - Confidence intervals get narrower with less variability or

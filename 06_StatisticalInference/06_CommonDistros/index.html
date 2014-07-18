@@ -139,13 +139,13 @@ without replacement disregarding the order of the items</li>
 \]</li>
 </ul>
 
-<pre><code class="r">choose(8, 7) * .5 ^ 8 + choose(8, 8) * .5 ^ 8 
+<pre><code class="r">choose(8, 7) * 0.5^8 + choose(8, 8) * 0.5^8
 </code></pre>
 
 <pre><code>## [1] 0.03516
 </code></pre>
 
-<pre><code class="r">pbinom(6, size = 8, prob = .5, lower.tail = FALSE)
+<pre><code class="r">pbinom(6, size = 8, prob = 0.5, lower.tail = FALSE)
 </code></pre>
 
 <pre><code>## [1] 0.03516
@@ -191,11 +191,10 @@ If \(X\) a RV with this density then \(E[X] = \mu\) and \(Var(X) = \sigma^2\)</l
     <h2>Facts about the normal density</h2>
   </hgroup>
   <article data-timings="">
-    <ul>
-<li>If \(X \sim \mbox{N}(\mu,\sigma^2)\) the \(Z = \frac{X -\mu}{\sigma}\) is standard normal</li>
-<li>If \(Z\) is standard normal \[X = \mu + \sigma Z \sim \mbox{N}(\mu, \sigma^2)\]</li>
-<li>The non-standard normal density is \[\phi\{(x - \mu) / \sigma\}/\sigma\]</li>
-</ul>
+    <p>If \(X \sim \mbox{N}(\mu,\sigma^2)\) then 
+\[Z = \frac{X -\mu}{\sigma} \sim N(0, 1)\] </p>
+
+<p>If \(Z\) is standard normal \[X = \mu + \sigma Z \sim \mbox{N}(\mu, \sigma^2)\]</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -243,16 +242,7 @@ and you know that 1.645 is the 95th percentile you know that the answer has to b
   </hgroup>
   <article data-timings="">
     <ul>
-<li>What is the probability that a \(\mbox{N}(\mu,\sigma^2)\) RV is 2 standard deviations above the mean?</li>
-<li>We want to know
-\[
-\begin{eqnarray*}
-P(X > \mu + 2\sigma) & = & 
-P\left(\frac{X -\mu}{\sigma} > \frac{\mu + 2\sigma - \mu}{\sigma}\right)    \\ \\
-& = & P(Z \geq 2 ) \\ \\ 
-& \approx & 2.5\%
-\end{eqnarray*}
-\]</li>
+<li>What is the probability that a \(\mbox{N}(\mu,\sigma^2)\) RV is larger than \(x\)?</li>
 </ul>
 
   </article>
@@ -365,10 +355,8 @@ for \(x=0,1,\ldots\)</li>
   </hgroup>
   <article data-timings="">
     <ul>
-<li>Modeling event/time data</li>
-<li>Modeling radioactive decay</li>
-<li>Modeling survival data</li>
-<li>Modeling unbounded count data </li>
+<li>Modeling count data<br></li>
+<li>Modeling event-time or survival data</li>
 <li>Modeling contingency tables</li>
 <li>Approximating binomials when \(n\) is large and \(p\) is small</li>
 </ul>
@@ -378,30 +366,6 @@ for \(x=0,1,\ldots\)</li>
 </slide>
 
 <slide class="" id="slide-17" style="background:;">
-  <hgroup>
-    <h2>Poisson derivation</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>\(\lambda\) is the mean number of events per unit time</li>
-<li>Let \(h\) be very small </li>
-<li>Suppose we assume that 
-
-<ul>
-<li>Prob. of an event in an interval of length \(h\) is \(\lambda h\)
-while the prob. of more than one event is negligible</li>
-<li>Whether or not an event occurs in one small interval
-does not impact whether or not an event occurs in another
-small interval
-then, the number of events per unit time is Poisson with mean \(\lambda\) </li>
-</ul></li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-18" style="background:;">
   <hgroup>
     <h2>Rates and Poisson random variables</h2>
   </hgroup>
@@ -420,30 +384,7 @@ then, the number of events per unit time is Poisson with mean \(\lambda\) </li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-19" style="background:;">
-  <hgroup>
-    <h2>Poisson approximation to the binomial</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>When \(n\) is large and \(p\) is small the Poisson distribution
-is an accurate approximation to the binomial distribution</li>
-<li>Notation
-
-<ul>
-<li>\(\lambda = n p\)</li>
-<li>\(X \sim \mbox{Binomial}(n, p)\), \(\lambda = n p\) and</li>
-<li>\(n\) gets large </li>
-<li>\(p\) gets small</li>
-<li>\(\lambda\) stays constant</li>
-</ul></li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-20" style="background:;">
+<slide class="" id="slide-18" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
@@ -464,7 +405,29 @@ or fewer people show up for the whole time?</p>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-21" style="background:;">
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Poisson approximation to the binomial</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>When \(n\) is large and \(p\) is small the Poisson distribution
+is an accurate approximation to the binomial distribution</li>
+<li>Notation
+
+<ul>
+<li>\(X \sim \mbox{Binomial}(n, p)\)</li>
+<li>\(\lambda = n p\)</li>
+<li>\(n\) gets large </li>
+<li>\(p\) gets small</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-20" style="background:;">
   <hgroup>
     <h2>Example, Poisson approximation to the binomial</h2>
   </hgroup>
@@ -473,13 +436,13 @@ or fewer people show up for the whole time?</p>
 
 <p>What&#39;s the probability of 2 or fewer successes?</p>
 
-<pre><code class="r">pbinom(2, size = 500, prob = .01)
+<pre><code class="r">pbinom(2, size = 500, prob = 0.01)
 </code></pre>
 
 <pre><code>## [1] 0.1234
 </code></pre>
 
-<pre><code class="r">ppois(2, lambda=500 * .01)
+<pre><code class="r">ppois(2, lambda = 500 * 0.01)
 </code></pre>
 
 <pre><code>## [1] 0.1247
@@ -591,13 +554,13 @@ or fewer people show up for the whole time?</p>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=17 title='Poisson derivation'>
+        data-slide=17 title='Rates and Poisson random variables'>
          17
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=18 title='Rates and Poisson random variables'>
+        data-slide=18 title='Example'>
          18
       </a>
     </li>
@@ -609,14 +572,8 @@ or fewer people show up for the whole time?</p>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=20 title='Example'>
+        data-slide=20 title='Example, Poisson approximation to the binomial'>
          20
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=21 title='Example, Poisson approximation to the binomial'>
-         21
       </a>
     </li>
   </ul>

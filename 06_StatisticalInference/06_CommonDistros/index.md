@@ -87,7 +87,7 @@ $$\left(
 $$
 
 ```r
-choose(8, 7) * .5 ^ 8 + choose(8, 8) * .5 ^ 8 
+choose(8, 7) * 0.5^8 + choose(8, 8) * 0.5^8
 ```
 
 ```
@@ -95,12 +95,13 @@ choose(8, 7) * .5 ^ 8 + choose(8, 8) * .5 ^ 8
 ```
 
 ```r
-pbinom(6, size = 8, prob = .5, lower.tail = FALSE)
+pbinom(6, size = 8, prob = 0.5, lower.tail = FALSE)
 ```
 
 ```
 ## [1] 0.03516
 ```
+
 
 
 ---
@@ -117,16 +118,19 @@ pbinom(6, size = 8, prob = .5, lower.tail = FALSE)
 - Standard normal RVs are often labeled $Z$
 
 ---
-## The standard normal distribution with reference lines
+## The standard normal distribution with reference lines 
 <img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
+
 
 ---
 
 ## Facts about the normal density
 
-- If $X \sim \mbox{N}(\mu,\sigma^2)$ the $Z = \frac{X -\mu}{\sigma}$ is standard normal
-- If $Z$ is standard normal $$X = \mu + \sigma Z \sim \mbox{N}(\mu, \sigma^2)$$
-- The non-standard normal density is $$\phi\{(x - \mu) / \sigma\}/\sigma$$
+If $X \sim \mbox{N}(\mu,\sigma^2)$ then 
+$$Z = \frac{X -\mu}{\sigma} \sim N(0, 1)$$ 
+
+
+If $Z$ is standard normal $$X = \mu + \sigma Z \sim \mbox{N}(\mu, \sigma^2)$$
 
 ---
 
@@ -151,16 +155,7 @@ $$\mu + \sigma 1.645$$
 
 ## Question
 
-- What is the probability that a $\mbox{N}(\mu,\sigma^2)$ RV is 2 standard deviations above the mean?
-- We want to know
-$$
-  \begin{eqnarray*}
-  P(X > \mu + 2\sigma) & = & 
-P\left(\frac{X -\mu}{\sigma} > \frac{\mu + 2\sigma - \mu}{\sigma}\right)    \\ \\
-& = & P(Z \geq 2 ) \\ \\ 
-& \approx & 2.5\%
-  \end{eqnarray*}
-$$
+- What is the probability that a $\mbox{N}(\mu,\sigma^2)$ RV is larger than $x$?
 
 ---
 ## Example
@@ -198,6 +193,7 @@ pnorm(2.8, lower.tail = FALSE)
 ## [1] 0.002555
 ```
 
+
 ---
 
 ## Example
@@ -227,6 +223,7 @@ qnorm(0.75, mean = 1020, sd = 50)
 ## [1] 1054
 ```
 
+
 ---
 ## The Poisson distribution
 * Used to model counts
@@ -241,24 +238,10 @@ for $x=0,1,\ldots$
 
 ---
 ## Some uses for the Poisson distribution
-* Modeling event/time data
-* Modeling radioactive decay
-* Modeling survival data
-* Modeling unbounded count data 
+* Modeling count data  
+* Modeling event-time or survival data
 * Modeling contingency tables
 * Approximating binomials when $n$ is large and $p$ is small
-
----
-## Poisson derivation
-* $\lambda$ is the mean number of events per unit time
-* Let $h$ be very small 
-* Suppose we assume that 
-  * Prob. of an event in an interval of length $h$ is $\lambda h$
-    while the prob. of more than one event is negligible
-  * Whether or not an event occurs in one small interval
-    does not impact whether or not an event occurs in another
-    small interval
-then, the number of events per unit time is Poisson with mean $\lambda$ 
 
 ---
 ## Rates and Poisson random variables
@@ -266,17 +249,6 @@ then, the number of events per unit time is Poisson with mean $\lambda$
 * $X \sim Poisson(\lambda t)$ where 
   * $\lambda = E[X / t]$ is the expected count per unit of time
   * $t$ is the total monitoring time
-
----
-## Poisson approximation to the binomial
-* When $n$ is large and $p$ is small the Poisson distribution
-  is an accurate approximation to the binomial distribution
-* Notation
-  * $\lambda = n p$
-  * $X \sim \mbox{Binomial}(n, p)$, $\lambda = n p$ and
-  * $n$ gets large 
-  * $p$ gets small
-  * $\lambda$ stays constant
 
 ---
 ## Example
@@ -295,6 +267,18 @@ ppois(3, lambda = 2.5 * 4)
 ## [1] 0.01034
 ```
 
+
+---
+## Poisson approximation to the binomial
+* When $n$ is large and $p$ is small the Poisson distribution
+  is an accurate approximation to the binomial distribution
+* Notation
+  * $X \sim \mbox{Binomial}(n, p)$
+  * $\lambda = n p$
+  * $n$ gets large 
+  * $p$ gets small
+
+
 ---
 ## Example, Poisson approximation to the binomial
 
@@ -304,7 +288,7 @@ What's the probability of 2 or fewer successes?
 
 
 ```r
-pbinom(2, size = 500, prob = .01)
+pbinom(2, size = 500, prob = 0.01)
 ```
 
 ```
@@ -312,10 +296,11 @@ pbinom(2, size = 500, prob = .01)
 ```
 
 ```r
-ppois(2, lambda=500 * .01)
+ppois(2, lambda = 500 * 0.01)
 ```
 
 ```
 ## [1] 0.1247
 ```
+
 

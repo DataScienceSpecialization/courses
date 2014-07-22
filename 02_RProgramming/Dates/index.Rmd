@@ -92,10 +92,11 @@ p$sec
 
 ## Times in R
 
-Finally, there is the `strptime` function in case your dates are written in a different format
+Finally, there is the `strptime` function in case your dates are
+written in a different format
 
 ```r
-datestring <- c("January 10, 2012 10:40", "December 9, 2011
+datestring <- c("January 10, 2012 10:40", "December 9, 2011 9:10")
 x <- strptime(datestring, "%B %d, %Y %H:%M")
 x
 ## [1] "2012-01-10 10:40:00" "2011-12-09 09:10:00"

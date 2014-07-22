@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -92,14 +92,25 @@ p$sec
 
 ## Times in R
 
-Finally, there is the `strptime` function in case your dates are written in a different format
+Finally, there is the `strptime` function in case your dates are
+written in a different format
+
 
 ```r
-datestring <- c("January 10, 2012 10:40", "December 9, 2011
+datestring <- c("January 10, 2012 10:40", "December 9, 2011 9:10")
 x <- strptime(datestring, "%B %d, %Y %H:%M")
 x
-## [1] "2012-01-10 10:40:00" "2011-12-09 09:10:00"
+```
+
+```
+## [1] "2012-01-10 10:40:00 EST" "2011-12-09 09:10:00 EST"
+```
+
+```r
 class(x)
+```
+
+```
 ## [1] "POSIXlt" "POSIXt"
 ```
 I can _never_ remember the formatting strings. Check `?strptime` for details.

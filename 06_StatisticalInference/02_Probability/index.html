@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Probability</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Probability">
+  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Probability</h1>
+    <h2>Statistical Inference</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Probability</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>In these slides we will cover the basics of probability at low enough level
+to have a basic understanding for the rest of the series</li>
+<li>For a more complete treatment see the class Mathematical Biostatistics Boot Camp 1
+
+<ul>
+<li>Youtube: <a href="http://www.youtube.com/playlist?list=PLpl-gQkQivXhk6qSyiNj51qamjAtZISJ-">www.youtube.com/playlist?list=PLpl-gQkQivXhk6qSyiNj51qamjAtZISJ-</a></li>
+<li>Coursera: <a href="http://www.coursera.org/course/biostats">www.coursera.org/course/biostats</a></li>
+<li>Git: <a href="http://github.com/bcaffo/Caffo-Coursera">http://github.com/bcaffo/Caffo-Coursera</a></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Probability</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Given a random experiment (say rolling a die) a probability measure is a population quantity
+that summarizes the randomness.</p>
+
+<p>Specifically, probability takes a possible outcome from the expertiment and:</p>
+
+<ul>
+<li>assigns it a number between 0 and 1 </li>
+<li>so that the probability that something occurs is 1 (the die must be rolled)
+and </li>
+<li>so that the probability of the union of any two sets of outcomes that have nothing in common (mutually exclusive)
+is the sum of their respective probabilities.</li>
+</ul>
+
+<p>The Russian mathematician Kolmogorov formalized these rules.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Rules probability must follow</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The probability that nothing occurs is 0</li>
+<li>The probability that something occurs is 1</li>
+<li>The probability of something is 1 minus the probability that the opposite occurs</li>
+<li>The probability of at least one of 
+two (or more) things that can not simultaneously occur (mutually exclusive) 
+is the sum of their
+respective probabilities</li>
+<li>If an event A implies the occurrence of event B, then the probability of A
+occurring is less than the probability that B occurs</li>
+<li>For any two events the probability that at least one occurs is the sum of their
+probabilities minus their intersection.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The National Sleep Foundation (<a href="http://www.sleepfoundation.org/">www.sleepfoundation.org</a>) reports that around 3% of the American population has sleep apnea. They also report that around 10% of the North American and European population has restless leg syndrome. Does this imply that 13% of people will have at least one sleep problems of these sorts?</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Example continued</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Answer: No, the events can simultaneously occur and so 
+are not mutually exclusive. To elaborate let:</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>If you want to see the mathematics</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\[
+\begin{eqnarray*}
+    A_1 & = & \{\mbox{Person has sleep apnea}\} \\
+    A_2 & = & \{\mbox{Person has RLS}\} 
+  \end{eqnarray*}
+\]</p>
+
+<p>Then </p>
+
+<p>\[
+\begin{eqnarray*}
+    P(A_1 \cup A_2 ) & = & P(A_1) + P(A_2) - P(A_1 \cap A_2) \\
+   & = & 0.13 - \mbox{Probability of having both}
+  \end{eqnarray*}
+\]
+Likely, some fraction of the population has both.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Going further</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Probability calculus is useful for understanding the rules that probabilities
+must follow. </p>
+
+<p>However, we need ways to model and think about probabilities for
+numeric outcomes of experiments (broadly defined). </p>
+
+<p>Densities and mass functions for random variables are the best starting point for this.</p>
+
+<p>Remember, everything we&#39;re talking about up to at this point is a population quantity 
+not a statement about what occurs in the data.  </p>
+
+<ul>
+<li>We&#39;re going with this is: use the data to estimate properties of the population.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Random variables</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>A <strong>random variable</strong> is a numerical outcome of an experiment.</li>
+<li>The random variables that we study will come in two varieties,
+<strong>discrete</strong> or <strong>continuous</strong>.</li>
+<li>Discrete random variable are random variables that take on only a
+countable number of possibilities and we talk about the probability that they
+take specific values</li>
+<li>Continuous random variable can conceptually take any value on the real line or some subset of the real line and we talk about the probability that they line within
+some range</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Examples of variables that can be thought of as random variables</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Experiments that we use for intuition and building context</p>
+
+<ul>
+<li>The \((0-1)\) outcome of the flip of a coin</li>
+<li>The outcome from the roll of a die</li>
+</ul>
+
+<p>Specific instances of treating variables as if random</p>
+
+<ul>
+<li>The web site traffic on a given day</li>
+<li>The BMI of a subject four years after a baseline measurement</li>
+<li>The hypertension status of a subject randomly drawn from a population</li>
+<li>The number of people who click on an ad </li>
+<li>Intelligence quotients for a sample of children</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>PMF</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>A probability mass function evaluated at a value corresponds to the
+probability that a random variable takes that value. To be a valid
+pmf a function, \(p\), must satisfy</p>
+
+<ol>
+<li>It must always be larger than or equal to 0.</li>
+<li>The sum of the possible values that the random variable can take has to add up to one.</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Let \(X\) be the result of a coin flip where \(X=0\) represents
+tails and \(X = 1\) represents heads.
+\[
+p(x) = (1/2)^{x} (1/2)^{1-x} ~~\mbox{ for }~~x = 0,1
+\]
+Suppose that we do not know whether or not the coin is fair; Let
+\(\theta\) be the probability of a head expressed as a proportion
+(between 0 and 1).
+\[
+p(x) = \theta^{x} (1 - \theta)^{1-x} ~~\mbox{ for }~~x = 0,1
+\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>PDF</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>A probability density function (pdf), is a function associated with
+a continuous random variable </p>
+
+<p><em>Areas under pdfs correspond to probabilities for that random variable</em></p>
+
+<p>To be a valid pdf, a function must satisfy</p>
+
+<ol>
+<li><p>It must be larger than or equal to zero everywhere.</p></li>
+<li><p>The total area under it must be one.</p></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Suppose that the proportion of help calls that get addressed in
+a random day by a help line is given by
+\[
+f(x) = \left\{\begin{array}{ll}
+    2 x & \mbox{ for }& 0< x < 1 \\
+    0                 & \mbox{ otherwise} 
+\end{array} \right. 
+\]</p>
+
+<p>Is this a mathematically valid density?</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">x &lt;- c(-0.5, 0, 1, 1, 1.5)
+y &lt;- c(0, 0, 2, 0, 0)
+plot(x, y, lwd = 3, frame = FALSE, type = &quot;l&quot;)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Example continued</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>What is the probability that 75% or fewer of calls get addressed?</p>
+
+<p><img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">1.5 * 0.75/2
+</code></pre>
+
+<pre><code>## [1] 0.5625
+</code></pre>
+
+<pre><code class="r">pbeta(0.75, 2, 1)
+</code></pre>
+
+<pre><code>## [1] 0.5625
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>CDF and survival function</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Certain areas are so useful, we give them names</h3>
+
+<ul>
+<li>The <strong>cumulative distribution function</strong> (CDF) of a random variable, \(X\), returns the probability that the random variable is less than or equal to the value \(x\)
+\[
+F(x) = P(X \leq x)
+\]
+(This definition applies regardless of whether \(X\) is discrete or continuous.)</li>
+<li>The <strong>survival function</strong> of a random variable \(X\) is defined as the probability
+that the random variable is greater than the value \(x\)
+\[
+S(x) = P(X > x)
+\]</li>
+<li>Notice that \(S(x) = 1 - F(x)\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>What are the survival function and CDF from the density considered before?</p>
+
+<p>For \(1 \geq x \geq 0\)
+\[
+F(x) = P(X \leq x) = \frac{1}{2} Base \times Height = \frac{1}{2} (x) \times (2 x) = x^2
+\]</p>
+
+<p>\[
+S(x) = 1 - x^2
+\]</p>
+
+<pre><code class="r">pbeta(c(0.4, 0.5, 0.6), 2, 1)
+</code></pre>
+
+<pre><code>## [1] 0.16 0.25 0.36
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Quantiles</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>You&#39;ve heard of sample quantiles. If you were the 95th percentile on an exam, you know
+that 95% of people scored worse than you and 5% scored better. 
+These are sample quantities. Here we define their population analogs.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Definition</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The  \(\alpha^{th}\) <strong>quantile</strong> of a distribution with distribution function \(F\) is the point \(x_\alpha\) so that
+\[
+F(x_\alpha) = \alpha
+\]</p>
+
+<ul>
+<li>A <strong>percentile</strong> is simply a quantile with \(\alpha\) expressed as a percent</li>
+<li>The <strong>median</strong> is the \(50^{th}\) percentile</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>For example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The \(95^{th}\) percentile of a distribution is the point so that:</p>
+
+<ul>
+<li>the probability that a random variable drawn from the population is less is 95%</li>
+<li>the probability that a random variable drawn from the population is more is 5%</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>What is the median of the distribution that we were working with before?</p>
+
+<ul>
+<li>We want to solve \(0.5 = F(x) = x^2\)</li>
+<li>Resulting in the solution </li>
+</ul>
+
+<pre><code class="r">sqrt(0.5)
+</code></pre>
+
+<pre><code>## [1] 0.7071
+</code></pre>
+
+<ul>
+<li>Therefore, about 0.7071 of calls being answered on a random day is the median.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Example continued</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>R can approximate quantiles for you for common distributions</p>
+
+<pre><code class="r">qbeta(0.5, 2, 1)
+</code></pre>
+
+<pre><code>## [1] 0.7071
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>You might be wondering at this point &quot;I&#39;ve heard of a median before, it didn&#39;t require integration. Where&#39;s the data?&quot;</li>
+<li>We&#39;re referring to are <strong>population quantities</strong>. Therefore, the median being
+discussed is the <strong>population median</strong>.</li>
+<li>A probability model connects the data to the population using assumptions.</li>
+<li>Therefore the median we&#39;re discussing is the <strong>estimand</strong>, the sample median will be the <strong>estimator</strong></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Probability'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Probability'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Rules probability must follow'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Example'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Example continued'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='If you want to see the mathematics'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Going further'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Random variables'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Examples of variables that can be thought of as random variables'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='PMF'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Example'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='PDF'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Example'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title=''>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Example continued'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title=''>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='CDF and survival function'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Example'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Quantiles'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Definition'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='For example'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='Example'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='Example continued'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='Summary'>
+         24
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

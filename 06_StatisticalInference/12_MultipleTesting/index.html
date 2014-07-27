@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multiple testing</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Multiple testing">
+  <meta name="author" content="Brian Caffo, Jeffrey Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Multiple testing</h1>
+    <h2>Statistical Inference</h2>
+    <p>Brian Caffo, Jeffrey Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Key ideas</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Hypothesis testing/significance analysis is commonly overused</li>
+<li>Correcting for multiple testing avoids false positives or discoveries</li>
+<li>Two key components
+
+<ul>
+<li>Error measure</li>
+<li>Correction</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Three eras of statistics</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><strong>The age of Quetelet and his successors, in which huge census-level data sets were brought to bear on simple but important questions</strong>: Are there more male than female births? Is the rate of insanity rising?</p>
+
+<p>The classical period of Pearson, Fisher, Neyman, Hotelling, and their successors, intellectual giants who <strong>developed a theory of optimal inference capable of wringing every drop of information out of a scientific experiment</strong>. The questions dealt with still tended to be simple Is treatment A better than treatment B? </p>
+
+<p><strong>The era of scientific mass production</strong>, in which new technologies typified by the microarray allow a single team of scientists to produce data sets of a size Quetelet would envy. But now the flood of data is accompanied by a deluge of questions, perhaps thousands of estimates or hypothesis tests that the statistician is charged with answering together; not at all what the classical masters had in mind. Which variables matter among the thousands measured? How do you relate unrelated information?</p>
+
+<p><a href="http://www-stat.stanford.edu/%7Eckirby/brad/papers/2010LSIexcerpt.pdf">http://www-stat.stanford.edu/~ckirby/brad/papers/2010LSIexcerpt.pdf</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Reasons for multiple testing</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=fig/datasources.png height=450></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Why correct for multiple tests?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=fig/jellybeans1.png height=450></p>
+
+<p><a href="http://xkcd.com/882/">http://xkcd.com/882/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Why correct for multiple tests?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=fig/jellybeans2.png height=400></p>
+
+<p><a href="http://xkcd.com/882/">http://xkcd.com/882/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Types of errors</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Suppose you are testing a hypothesis that a parameter \(\beta\) equals zero versus the alternative that it does not equal zero. These are the possible outcomes. 
+</br></br></p>
+
+<table><thead>
+<tr>
+<th></th>
+<th>\(\beta=0\)</th>
+<th>\(\beta\neq0\)</th>
+<th>Hypotheses</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Claim \(\beta=0\)</td>
+<td>\(U\)</td>
+<td>\(T\)</td>
+<td>\(m-R\)</td>
+</tr>
+<tr>
+<td>Claim \(\beta\neq 0\)</td>
+<td>\(V\)</td>
+<td>\(S\)</td>
+<td>\(R\)</td>
+</tr>
+<tr>
+<td>Claims</td>
+<td>\(m_0\)</td>
+<td>\(m-m_0\)</td>
+<td>\(m\)</td>
+</tr>
+</tbody></table>
+
+<p></br></br></p>
+
+<p><strong>Type I error or false positive (\(V\))</strong> Say that the parameter does not equal zero when it does</p>
+
+<p><strong>Type II error or false negative (\(T\))</strong> Say that the parameter equals zero when it doesn&#39;t </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Error rates</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><strong>False positive rate</strong> - The rate at which false results (\(\beta = 0\)) are called significant: \(E\left[\frac{V}{m_0}\right]\)*</p>
+
+<p><strong>Family wise error rate (FWER)</strong> - The probability of at least one false positive \({\rm Pr}(V \geq 1)\)</p>
+
+<p><strong>False discovery rate (FDR)</strong> - The rate at which claims of significance are false \(E\left[\frac{V}{R}\right]\)</p>
+
+<ul>
+<li>The false positive rate is closely related to the type I error rate <a href="http://en.wikipedia.org/wiki/False_positive_rate">http://en.wikipedia.org/wiki/False_positive_rate</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Controlling the false positive rate</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>If P-values are correctly calculated calling all \(P < \alpha\) significant will control the false positive rate at level \(\alpha\) on average. </p>
+
+<p><redtext>Problem</redtext>: Suppose that you perform 10,000 tests and \(\beta = 0\) for all of them. </p>
+
+<p>Suppose that you call all \(P < 0.05\) significant. </p>
+
+<p>The expected number of false positives is: \(10,000 \times 0.05 = 500\)  false positives. </p>
+
+<p><strong>How do we avoid so many false positives?</strong></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Controlling family-wise error rate (FWER)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The <a href="http://en.wikipedia.org/wiki/Bonferroni_correction">Bonferroni correction</a> is the oldest multiple testing correction. </p>
+
+<p><strong>Basic idea</strong>: </p>
+
+<ul>
+<li>Suppose you do \(m\) tests</li>
+<li>You want to control FWER at level \(\alpha\) so \(Pr(V \geq 1) < \alpha\)</li>
+<li>Calculate P-values normally</li>
+<li>Set \(\alpha_{fwer} = \alpha/m\)</li>
+<li>Call all \(P\)-values less than \(\alpha_{fwer}\) significant</li>
+</ul>
+
+<p><strong>Pros</strong>: Easy to calculate, conservative
+<strong>Cons</strong>: May be very conservative</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Controlling false discovery rate (FDR)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This is the most popular correction when performing <em>lots</em> of tests say in genomics, imaging, astronomy, or other signal-processing disciplines. </p>
+
+<p><strong>Basic idea</strong>: </p>
+
+<ul>
+<li>Suppose you do \(m\) tests</li>
+<li>You want to control FDR at level \(\alpha\) so \(E\left[\frac{V}{R}\right]\)</li>
+<li>Calculate P-values normally</li>
+<li>Order the P-values from smallest to largest \(P_{(1)},...,P_{(m)}\)</li>
+<li>Call any \(P_{(i)} \leq \alpha \times \frac{i}{m}\) significant</li>
+</ul>
+
+<p><strong>Pros</strong>: Still pretty easy to calculate, less conservative (maybe much less)</p>
+
+<p><strong>Cons</strong>: Allows for more false positives, may behave strangely under dependence</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Example with 10 P-values</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img class=center src=fig/example10pvals.png height=450></p>
+
+<p>Controlling all error rates at \(\alpha = 0.20\)</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Adjusted P-values</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>One approach is to adjust the threshold \(\alpha\)</li>
+<li>A different approach is to calculate &quot;adjusted p-values&quot;</li>
+<li>They <em>are not p-values</em> anymore</li>
+<li>But they can be used directly without adjusting \(\alpha\)</li>
+</ul>
+
+<p><strong>Example</strong>: </p>
+
+<ul>
+<li>Suppose P-values are \(P_1,\ldots,P_m\)</li>
+<li>You could adjust them by taking \(P_i^{fwer} = \max{m \times P_i,1}\) for each P-value.</li>
+<li>Then if you call all \(P_i^{fwer} < \alpha\) significant you will control the FWER. </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Case study I: no true positives</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">set.seed(1010093)
+pValues &lt;- rep(NA, 1000)
+for (i in 1:1000) {
+    y &lt;- rnorm(20)
+    x &lt;- rnorm(20)
+    pValues[i] &lt;- summary(lm(y ~ x))$coeff[2, 4]
+}
+
+# Controls false positive rate
+sum(pValues &lt; 0.05)
+</code></pre>
+
+<pre><code>## [1] 51
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Case study I: no true positives</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r"># Controls FWER
+sum(p.adjust(pValues, method = &quot;bonferroni&quot;) &lt; 0.05)
+</code></pre>
+
+<pre><code>## [1] 0
+</code></pre>
+
+<pre><code class="r"># Controls FDR
+sum(p.adjust(pValues, method = &quot;BH&quot;) &lt; 0.05)
+</code></pre>
+
+<pre><code>## [1] 0
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Case study II: 50% true positives</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">set.seed(1010093)
+pValues &lt;- rep(NA, 1000)
+for (i in 1:1000) {
+    x &lt;- rnorm(20)
+    # First 500 beta=0, last 500 beta=2
+    if (i &lt;= 500) {
+        y &lt;- rnorm(20)
+    } else {
+        y &lt;- rnorm(20, mean = 2 * x)
+    }
+    pValues[i] &lt;- summary(lm(y ~ x))$coeff[2, 4]
+}
+trueStatus &lt;- rep(c(&quot;zero&quot;, &quot;not zero&quot;), each = 500)
+table(pValues &lt; 0.05, trueStatus)
+</code></pre>
+
+<pre><code>##        trueStatus
+##         not zero zero
+##   FALSE        0  476
+##   TRUE       500   24
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Case study II: 50% true positives</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r"># Controls FWER
+table(p.adjust(pValues, method = &quot;bonferroni&quot;) &lt; 0.05, trueStatus)
+</code></pre>
+
+<pre><code>##        trueStatus
+##         not zero zero
+##   FALSE       23  500
+##   TRUE       477    0
+</code></pre>
+
+<pre><code class="r"># Controls FDR
+table(p.adjust(pValues, method = &quot;BH&quot;) &lt; 0.05, trueStatus)
+</code></pre>
+
+<pre><code>##        trueStatus
+##         not zero zero
+##   FALSE        0  487
+##   TRUE       500   13
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Case study II: 50% true positives</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><strong>P-values versus adjusted P-values</strong></p>
+
+<pre><code class="r">par(mfrow = c(1, 2))
+plot(pValues, p.adjust(pValues, method = &quot;bonferroni&quot;), pch = 19)
+plot(pValues, p.adjust(pValues, method = &quot;BH&quot;), pch = 19)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Notes and resources</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><strong>Notes</strong>:</p>
+
+<ul>
+<li>Multiple testing is an entire subfield</li>
+<li>A basic Bonferroni/BH correction is usually enough</li>
+<li>If there is strong dependence between tests there may be problems
+
+<ul>
+<li>Consider method=&quot;BY&quot;</li>
+</ul></li>
+</ul>
+
+<p><strong>Further resources</strong>:</p>
+
+<ul>
+<li><a href="http://www.amazon.com/Multiple-Procedures-Applications-Genomics-Statistics/dp/0387493166/ref=sr_1_2/102-3292576-129059?ie=UTF8&amp;s=books&amp;qid=1187394873&amp;sr=1-2">Multiple testing procedures with applications to genomics</a></li>
+<li><a href="http://www.pnas.org/content/100/16/9440.full">Statistical significance for genome-wide studies</a></li>
+<li><a href="http://ies.ed.gov/ncee/pubs/20084018/app_b.asp">Introduction to multiple testing</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Key ideas'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Three eras of statistics'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Reasons for multiple testing'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Why correct for multiple tests?'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Why correct for multiple tests?'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Types of errors'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Error rates'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Controlling the false positive rate'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Controlling family-wise error rate (FWER)'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Controlling false discovery rate (FDR)'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Example with 10 P-values'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Adjusted P-values'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Case study I: no true positives'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Case study I: no true positives'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Case study II: 50% true positives'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Case study II: 50% true positives'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Case study II: 50% true positives'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Notes and resources'>
+         18
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

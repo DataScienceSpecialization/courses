@@ -1,6 +1,6 @@
 ---
 title       : Homework 1 for Stat Inference
-subtitle    : Extra problems for Stat Inference
+subtitle    : (Use arrow keys to navigate)
 author      : Brian Caffo
 job         : Johns Hopkins Bloomberg School of Public Health
 framework   : io2012
@@ -25,27 +25,27 @@ Creating Data Products
 
 --- &radio
 
-Consider influenza epidemics for two parent heterosexual families. Suppose that the probability is 15% that at least one of the parents has contracted the disease. The probability that the father has contracted influenza is 6% while that the mother contracted the disease is 5%. What is the probability that both contracted influenza expressed as a whole number percentage?
+Consider influenza epidemics for two parent heterosexual families. Suppose that the probability is 15% that at least one of the parents has contracted the disease. The probability that the father has contracted influenza is 10% while that the mother contracted the disease is 9%. What is the probability that both contracted influenza expressed as a whole number percentage?
 
 1. 15%
-2. 6%
-3. 5%
-4. _2%_
+2. 10%
+3. 9%
+4. _4%_
 
 *** .hint
-$A = Father$, $P(A) = .06$, $B = Mother$, $P(B) = .05$ 
+$A = Father$, $P(A) = .10$, $B = Mother$, $P(B) = .09$ 
 $P(A\cup B) = .15$, 
 
 *** .explanation
-$P(A\cup B) = P(A) + P(B) - 2 P(AB)$ thus
-$$.15 = .06 + .05 - 2 P(AB)$$
+$P(A\cup B) = P(A) + P(B) - P(AB)$ thus
+$$.15 = .10 + .09 - P(AB)$$
 
 ```r
-(0.15 - .06 - .05) / 2
+.10 + .09 - .15
 ```
 
 ```
-[1] 0.02
+[1] 0.04
 ```
 
 
@@ -55,7 +55,7 @@ A random variable, $X$, is uniform, a box from $0$ to $1$ of height $1$. (So tha
 
 1. 1.00
 2. 0.75
-3. 0.50
+3. _0.50_
 4. 0.25
 
 *** .hint
@@ -75,7 +75,7 @@ You are playing a game with a friend where you flip a coin and if it comes up he
 4. $-X \frac{d}{1 + d} - Y \frac{1}{1+d} $
 
 *** .hint
-The probability that you win on a given round is given by $p / (1 - p) = d$ which implies
+The odds that you win on a given round is given by $p / (1 - p) = d$ which implies
 that $p = d / (1 + d)$.
 
 *** .explanation
@@ -85,7 +85,7 @@ $$
 $$
 
 --- &radio
-A random variable takes the value -4 with probabability .2 and 1 with proabability .8. What
+A random variable takes the value -4 with probability .2 and 1 with probability .8. What
 is the variance of this random variable?
 
 1. 0
@@ -185,7 +185,7 @@ What is the variance expressed to 1 decimal place?
 4. 17.0
 
 *** .hint
-The variance is $E[X^2] - E[X^2]$
+The variance is $E[X^2] - E[X]^2$
 
 *** .explanation 
 

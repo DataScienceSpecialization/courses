@@ -40,7 +40,7 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 ---
 ## Regression to the mean
 * These phenomena are all examples of so-called regression to the mean
-* Invented by Francis Galton in the paper "Regression towvards mediocrity in hereditary stature" The Journal of the Anthropological Institute of Great Britain and Ireland , Vol. 15, (1886).
+* Invented by Francis Galton in the paper "Regression towards mediocrity in hereditary stature" The Journal of the Anthropological Institute of Great Britain and Ireland , Vol. 15, (1886).
 * Think of it this way, imagine if you simulated pairs of random normals
   * The largest first ones would be the largest by chance, and the probability that there are smaller for the second simulation is high.
   * In other words  $P(Y < x | X = x)$ gets bigger as $x$ heads into the very large values.

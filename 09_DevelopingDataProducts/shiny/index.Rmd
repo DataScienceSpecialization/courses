@@ -57,7 +57,7 @@ diabetesRisk <- function(glucose) glucose / 200
 - `install.packages("shiny")`
 - `libray(shiny)`
 - Great tutorial at 
-[http://rstudio.github.io/shiny/tutorial/](http://rstudio.github.io/shiny/tutorial/)
+[http://shiny.rstudio.com/tutorial/](http://shiny.rstudio.com/tutorial/)
 - Basically, this lecture is walking through that tutorial offering some of our insights
 - Note, some of the proposed interactive plotting uses of Shiny could be handled by the very simple `manipulate` function [rstudio manipulate](http://www.rstudio.com/ide/docs/advanced/manipulate)
 - Also, `rCharts` is will be covered in a different lecture.

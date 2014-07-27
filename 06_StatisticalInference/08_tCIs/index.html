@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>T Confidence Intervals</title>
+  <meta charset="utf-8">
+  <meta name="description" content="T Confidence Intervals">
+  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>T Confidence Intervals</h1>
+    <h2>Statistical Inference</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>T Confidence intervals</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>In the previous, we discussed creating a confidence interval using the CLT
+
+<ul>
+<li>They took the form \(Est \pm ZQ \times SE_{Est}\)</li>
+</ul></li>
+<li>In this lecture, we discuss some methods for small samples, notably Gosset&#39;s \(t\) distribution and \(t\) confidence intervals
+
+<ul>
+<li>They are of the form \(Est \pm TQ \times SE_{Est}\)</li>
+</ul></li>
+<li>These are some of the handiest of intervals</li>
+<li>If you want a rule between whether to use a \(t\) interval
+or normal interval, just always use the \(t\) interval</li>
+<li>We&#39;ll cover the one and two group versions</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Gosset&#39;s \(t\) distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Invented by William Gosset (under the pseudonym &quot;Student&quot;) in 1908</li>
+<li>Has thicker tails than the normal</li>
+<li>Is indexed by a degrees of freedom; gets more like a standard normal as df gets larger</li>
+<li>It assumes that the underlying data are iid 
+Gaussian with the result that
+\[
+\frac{\bar X - \mu}{S/\sqrt{n}}
+\]
+follows Gosset&#39;s \(t\) distribution with \(n-1\) degrees of freedom</li>
+<li>(If we replaced \(s\) by \(\sigma\) the statistic would be exactly standard normal)</li>
+<li>Interval is \(\bar X \pm t_{n-1} S/\sqrt{n}\) where \(t_{n-1}\)
+is the relevant quantile</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Code for manipulate</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">k &lt;- 1000
+xvals &lt;- seq(-5, 5, length = k)
+myplot &lt;- function(df){
+  d &lt;- data.frame(y = c(dnorm(xvals), dt(xvals, df)),
+                  x = xvals,
+                  dist = factor(rep(c(&quot;Normal&quot;, &quot;T&quot;), c(k,k))))
+  g &lt;- ggplot(d, aes(x = x, y = y)) 
+  g &lt;- g + geom_line(size = 2, aes(colour = dist))
+  g
+}
+manipulate(myplot(mu), mu = slider(1, 20, step = 1))  
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Easier to see</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">pvals &lt;- seq(.5, .99, by = .01)
+myplot2 &lt;- function(df){
+  d &lt;- data.frame(n= qnorm(pvals),t=qt(pvals, df),
+                  p = pvals)
+  g &lt;- ggplot(d, aes(x= n, y = t))
+  g &lt;- g + geom_abline(size = 2, col = &quot;lightblue&quot;)
+  g &lt;- g + geom_line(size = 2, col = &quot;black&quot;)
+  g &lt;- g + geom_vline(xintercept = qnorm(0.975))
+  g &lt;- g + geom_hline(yintercept = qt(0.975, df))
+  g
+}
+manipulate(myplot2(df), df = slider(1, 20, step = 1))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Note&#39;s about the \(t\) interval</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The \(t\) interval technically assumes that the data are iid normal, though it is robust to this assumption</li>
+<li>It works well whenever the distribution of the data is roughly symmetric and mound shaped</li>
+<li>Paired observations are often analyzed using the \(t\) interval by taking differences</li>
+<li>For large degrees of freedom, \(t\) quantiles become the same as standard normal quantiles; therefore this interval converges to the same interval as the CLT yielded</li>
+<li>For skewed distributions, the spirit of the \(t\) interval assumptions are violated
+
+<ul>
+<li>Also, for skewed distributions, it doesn&#39;t make a lot of sense to center the interval at the mean</li>
+<li>In this case, consider taking logs or using a different summary like the median</li>
+</ul></li>
+<li>For highly discrete data, like binary, other intervals are available</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Sleep data</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>In R typing <code>data(sleep)</code> brings up the sleep data originally
+analyzed in Gosset&#39;s Biometrika paper, which shows the increase in
+hours for 10 patients on two soporific drugs. R treats the data as two
+groups rather than paired.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>The data</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">data(sleep)
+head(sleep)
+</code></pre>
+
+<pre><code>##   extra group ID
+## 1   0.7     1  1
+## 2  -1.6     1  2
+## 3  -0.2     1  3
+## 4  -1.2     1  4
+## 5  -0.1     1  5
+## 6   3.4     1  6
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Plotting the data</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Results</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">g1 &lt;- sleep$extra[1 : 10]; g2 &lt;- sleep$extra[11 : 20]
+difference &lt;- g2 - g1
+mn &lt;- mean(difference); s &lt;- sd(difference); n &lt;- 10
+</code></pre>
+
+<pre><code class="r">mn + c(-1, 1) * qt(.975, n-1) * s / sqrt(n)
+t.test(difference)
+t.test(g2, g1, paired = TRUE)
+t.test(extra ~ I(relevel(group, 2)), paired = TRUE, data = sleep)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>The results</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>(After a little formatting)</p>
+
+<pre><code>##        [,1] [,2]
+## [1,] 0.7001 2.46
+## [2,] 0.7001 2.46
+## [3,] 0.7001 2.46
+## [4,] 0.7001 2.46
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Independent group \(t\) confidence intervals</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Suppose that we want to compare the mean blood pressure between two groups in a randomized trial; those who received the treatment to those who received a placebo</li>
+<li>We cannot use the paired t test because the groups are independent and may have different sample sizes</li>
+<li>We now present methods for comparing independent groups</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Confidence interval</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Therefore a \((1 - \alpha)\times 100\%\) confidence interval for \(\mu_y - \mu_x\) is 
+\[
+\bar Y - \bar X \pm t_{n_x + n_y - 2, 1 - \alpha/2}S_p\left(\frac{1}{n_x} + \frac{1}{n_y}\right)^{1/2}
+\]</li>
+<li>The pooled variance estimator is \[S_p^2 = \{(n_x - 1) S_x^2 + (n_y - 1) S_y^2\}/(n_x + n_y - 2)\] </li>
+<li>Remember this interval is assuming a constant variance across the two groups</li>
+<li>If there is some doubt, assume a different variance per group, which we will discuss later</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Based on Rosner, Fundamentals of Biostatistics</h3>
+
+<p>(Really a very good reference book)</p>
+
+<ul>
+<li>Comparing SBP for 8 oral contraceptive users versus 21 controls</li>
+<li>\(\bar X_{OC} = 132.86\) mmHg with \(s_{OC} = 15.34\) mmHg</li>
+<li>\(\bar X_{C} = 127.44\) mmHg with \(s_{C} = 18.23\) mmHg</li>
+<li>Pooled variance estimate</li>
+</ul>
+
+<pre><code class="r">sp &lt;- sqrt((7 * 15.34^2 + 20 * 18.23^2) / (8 + 21 - 2))
+132.86 - 127.44 + c(-1, 1) * qt(.975, 27) * sp * (1 / 8 + 1 / 21)^.5
+</code></pre>
+
+<pre><code>## [1] -9.521 20.361
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Mistakenly treating the sleep data as grouped</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">n1 &lt;- length(g1); n2 &lt;- length(g2)
+sp &lt;- sqrt( ((n1 - 1) * sd(x1)^2 + (n2-1) * sd(x2)^2) / (n1 + n2-2))
+md &lt;- mean(g2) - mean(g1)
+semd &lt;- sp * sqrt(1 / n1 + 1/n2)
+rbind(
+md + c(-1, 1) * qt(.975, n1 + n2 - 2) * semd,  
+t.test(g2, g1, paired = FALSE, var.equal = TRUE)$conf,
+t.test(g2, g1, paired = TRUE)$conf
+)
+</code></pre>
+
+<pre><code>##         [,1]  [,2]
+## [1,] -0.2039 3.364
+## [2,] -0.2039 3.364
+## [3,]  0.7001 2.460
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Grouped versus independent</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-10.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2><code>ChickWeight</code> data in R</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(datasets); data(ChickWeight); library(reshape2)
+##define weight gain or loss
+wideCW &lt;- dcast(ChickWeight, Diet + Chick ~ Time, value.var = &quot;weight&quot;)
+names(wideCW)[-(1 : 2)] &lt;- paste(&quot;time&quot;, names(wideCW)[-(1 : 2)], sep = &quot;&quot;)
+library(dplyr)
+wideCW &lt;- mutate(wideCW,
+  gain = time21 - time0
+)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Plotting the raw data</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-12.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Weight gain by diet</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-13.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Let&#39;s do a t interval</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">wideCW14 &lt;- subset(wideCW, Diet %in% c(1, 4))
+rbind(
+t.test(gain ~ Diet, paired = FALSE, var.equal = TRUE, data = wideCW14)$conf,
+t.test(gain ~ Diet, paired = FALSE, var.equal = FALSE, data = wideCW14)$conf
+)
+</code></pre>
+
+<pre><code>##        [,1]   [,2]
+## [1,] -108.1 -14.81
+## [2,] -104.7 -18.30
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Unequal variances</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Under unequal variances
+\[
+\bar Y - \bar X \pm t_{df} \times \left(\frac{s_x^2}{n_x} + \frac{s_y^2}{n_y}\right)^{1/2}
+\]
+where \(t_{df}\) is calculated with degrees of freedom
+\[
+df=    \frac{\left(S_x^2 / n_x + S_y^2/n_y\right)^2}
+{\left(\frac{S_x^2}{n_x}\right)^2 / (n_x - 1) +
+  \left(\frac{S_y^2}{n_y}\right)^2 / (n_y - 1)}
+\]
+will be approximately a 95% interval</li>
+<li>This works really well
+
+<ul>
+<li>So when in doubt, just assume unequal variances</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Comparing SBP for 8 oral contraceptive users versus 21 controls</li>
+<li>\(\bar X_{OC} = 132.86\) mmHg with \(s_{OC} = 15.34\) mmHg</li>
+<li>\(\bar X_{C} = 127.44\) mmHg with \(s_{C} = 18.23\) mmHg</li>
+<li>\(df=15.04\), \(t_{15.04, .975} = 2.13\)</li>
+<li>Interval
+\[
+132.86 - 127.44 \pm 2.13 \left(\frac{15.34^2}{8} + \frac{18.23^2}{21} \right)^{1/2}
+= [-8.91, 19.75]
+\]</li>
+<li>In R, <code>t.test(..., var.equal = FALSE)</code></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Comparing other kinds of data</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>For binomial data, there&#39;s lots of ways to compare two groups
+
+<ul>
+<li>Relative risk, risk difference, odds ratio.</li>
+<li>Chi-squared tests, normal approximations, exact tests.</li>
+</ul></li>
+<li>For count data, there&#39;s also Chi-squared tests and exact tests.</li>
+<li>We&#39;ll leave the discussions for comparing groups of data for binary
+and count data until covering glms in the regression class.</li>
+<li>In addition, Mathematical Biostatistics Boot Camp 2 covers many special
+cases relevant to biostatistics.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='T Confidence intervals'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Gosset&#39;s \(t\) distribution'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Code for manipulate'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Easier to see'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Note&#39;s about the \(t\) interval'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Sleep data'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='The data'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Plotting the data'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Results'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='The results'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Independent group \(t\) confidence intervals'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Confidence interval'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Example'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Mistakenly treating the sleep data as grouped'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Grouped versus independent'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='<code>ChickWeight</code> data in R'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Plotting the raw data'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Weight gain by diet'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Let&#39;s do a t interval'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Unequal variances'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='Example'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='Comparing other kinds of data'>
+         22
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

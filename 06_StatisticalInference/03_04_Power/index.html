@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Power</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Power">
+  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Power</h1>
+    <h2>Statistical Inference</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Power</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Power is the probability of rejecting the null hypothesis when it is false</li>
+<li>Ergo, power (as it&#39;s name would suggest) is a good thing; you want more power</li>
+<li>A type II error (a bad thing, as its name would suggest) is failing to reject the null hypothesis when it&#39;s false; the probability of a type II error is usually called \(\beta\)</li>
+<li>Note Power  \(= 1 - \beta\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Notes</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Consider our previous example involving RDI</li>
+<li>\(H_0: \mu = 30\) versus \(H_a: \mu > 30\)</li>
+<li>Then power is 
+\[P\left(\frac{\bar X - 30}{s /\sqrt{n}} > t_{1-\alpha,n-1} ~|~ \mu = \mu_a \right)\]</li>
+<li>Note that this is a function that depends on the specific value of \(\mu_a\)!</li>
+<li>Notice as \(\mu_a\) approaches \(30\) the power approaches \(\alpha\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Calculating power for Gaussian data</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Assume that \(n\) is large and that we know \(\sigma\)
+\[
+\begin{align}
+1 -\beta & = 
+P\left(\frac{\bar X - 30}{\sigma /\sqrt{n}} > z_{1-\alpha} ~|~ \mu = \mu_a \right)\\
+& = P\left(\frac{\bar X - \mu_a + \mu_a - 30}{\sigma /\sqrt{n}} > z_{1-\alpha} ~|~ \mu = \mu_a \right)\\ \\
+& = P\left(\frac{\bar X - \mu_a}{\sigma /\sqrt{n}} > z_{1-\alpha} - \frac{\mu_a - 30}{\sigma /\sqrt{n}} ~|~ \mu = \mu_a \right)\\ \\
+& = P\left(Z > z_{1-\alpha} - \frac{\mu_a - 30}{\sigma /\sqrt{n}} ~|~ \mu = \mu_a \right)\\ \\
+\end{align}
+\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Example continued</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li> Suppose that we wanted to detect a increase in mean RDI
+of at least 2 events / hour (above 30). </li>
+<li>Assume normality and that the sample in question will have a standard deviation of \(4\);</li>
+<li>What would be the power if we took a sample size of \(16\)?
+
+<ul>
+<li>\(Z_{1-\alpha} = 1.645\) </li>
+<li>\(\frac{\mu_a - 30}{\sigma /\sqrt{n}} = 2 / (4 /\sqrt{16}) = 2\) </li>
+<li>\(P(Z > 1.645 - 2) = P(Z > -0.355) = 64\%\)</li>
+</ul></li>
+</ul>
+
+<pre><code class="r">pnorm(-0.355, lower.tail = FALSE)
+</code></pre>
+
+<pre><code>## [1] 0.6387
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Note</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Consider \(H_0 : \mu = \mu_0\) and \(H_a : \mu > \mu_0\) with \(\mu = \mu_a\) under \(H_a\).</li>
+<li>Under \(H_0\) the statistic \(Z = \frac{\sqrt{n}(\bar X - \mu_0)}{\sigma}\) is \(N(0, 1)\)</li>
+<li>Under \(H_a\) \(Z\) is \(N\left( \frac{\sqrt{n}(\mu_a - \mu_0)}{\sigma}, 1\right)\)</li>
+<li>We reject if \(Z > Z_{1-\alpha}\)</li>
+</ul>
+
+<pre><code>sigma &lt;- 10; mu_0 = 0; mu_a = 2; n &lt;- 100; alpha = .05
+plot(c(-3, 6),c(0, dnorm(0)), type = &quot;n&quot;, frame = FALSE, xlab = &quot;Z value&quot;, ylab = &quot;&quot;)
+xvals &lt;- seq(-3, 6, length = 1000)
+lines(xvals, dnorm(xvals), type = &quot;l&quot;, lwd = 3)
+lines(xvals, dnorm(xvals, mean = sqrt(n) * (mu_a - mu_0) / sigma), lwd =3)
+abline(v = qnorm(1 - alpha))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Question</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>When testing \(H_a : \mu > \mu_0\), notice if power is \(1 - \beta\), then 
+\[1 - \beta = P\left(Z > z_{1-\alpha} - \frac{\mu_a - \mu_0}{\sigma /\sqrt{n}} ~|~ \mu = \mu_a \right) = P(Z > z_{\beta})\]</li>
+<li>This yields the equation
+\[z_{1-\alpha} - \frac{\sqrt{n}(\mu_a - \mu_0)}{\sigma} = z_{\beta}\]</li>
+<li>Unknowns: \(\mu_a\), \(\sigma\), \(n\), \(\beta\)</li>
+<li>Knowns: \(\mu_0\), \(\alpha\)</li>
+<li>Specify any 3 of the unknowns and you can solve for the remainder</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Notes</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The calculation for \(H_a:\mu < \mu_0\) is similar</li>
+<li>For \(H_a: \mu \neq \mu_0\) calculate the one sided power using
+\(\alpha / 2\) (this is only approximately right, it excludes the probability of
+getting a large TS in the opposite direction of the truth)</li>
+<li>Power goes up as \(\alpha\) gets larger</li>
+<li>Power of a one sided test is greater than the power of the
+associated two sided test</li>
+<li>Power goes up as \(\mu_1\) gets further away from \(\mu_0\)</li>
+<li>Power goes up as \(n\) goes up</li>
+<li>Power doesn&#39;t need \(\mu_a\), \(\sigma\) and \(n\), instead only \(\frac{\sqrt{n}(\mu_a - \mu_0)}{\sigma}\)
+
+<ul>
+<li>The quantity \(\frac{\mu_a - \mu_0}{\sigma}\) is called the effect size, the difference in the means in standard deviation units.</li>
+<li>Being unit free, it has some hope of interpretability across settings</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>T-test power</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li> Consider calculating power for a Gossett&#39;s \(T\) test for our example</li>
+<li> The power is
+\[
+P\left(\frac{\bar X - \mu_0}{S /\sqrt{n}} > t_{1-\alpha, n-1} ~|~ \mu = \mu_a \right)
+\]</li>
+<li>Calcuting this requires the non-central t distribution.</li>
+<li><code>power.t.test</code> does this very well
+
+<ul>
+<li>Omit one of the arguments and it solves for it</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">power.t.test(n = 16, delta = 2/4, sd = 1, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$power
+</code></pre>
+
+<pre><code>## [1] 0.604
+</code></pre>
+
+<pre><code class="r">power.t.test(n = 16, delta = 2, sd = 4, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$power
+</code></pre>
+
+<pre><code>## [1] 0.604
+</code></pre>
+
+<pre><code class="r">power.t.test(n = 16, delta = 100, sd = 200, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$power
+</code></pre>
+
+<pre><code>## [1] 0.604
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">power.t.test(power = 0.8, delta = 2/4, sd = 1, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$n
+</code></pre>
+
+<pre><code>## [1] 26.14
+</code></pre>
+
+<pre><code class="r">power.t.test(power = 0.8, delta = 2, sd = 4, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$n
+</code></pre>
+
+<pre><code>## [1] 26.14
+</code></pre>
+
+<pre><code class="r">power.t.test(power = 0.8, delta = 100, sd = 200, type = &quot;one.sample&quot;, alt = &quot;one.sided&quot;)$n
+</code></pre>
+
+<pre><code>## [1] 26.14
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Power'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Notes'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Calculating power for Gaussian data'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Example continued'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Note'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title=''>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Question'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Notes'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='T-test power'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Example'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Example'>
+         11
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

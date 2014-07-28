@@ -1,4 +1,3 @@
-<<<<<<< HEAD:06_StatisticalInference/01_01_Introduction/index.md
 ---
 title       : Introduction to statistical inference
 subtitle    : Statistical inference
@@ -319,4 +318,4 @@ addressing missing data.
   2. The classical development of study design in agriculture broadly covers design and design principles.
   3. The industrial quality control literature covers design thoroughly.
 
->>>>>>> devel:06_StatisticalInference/01_Introduction/index.md
+>>>>>>> devel:06_StatisticalInference/01_Introduction/index.Rmd

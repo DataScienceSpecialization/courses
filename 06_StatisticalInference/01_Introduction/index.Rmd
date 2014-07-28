@@ -1,4 +1,3 @@
-<<<<<<< HEAD:06_StatisticalInference/01_01_Introduction/index.Rmd
 ---
 title       : Introduction to statistical inference
 subtitle    : Statistical inference

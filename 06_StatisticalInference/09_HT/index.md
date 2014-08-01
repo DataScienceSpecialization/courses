@@ -49,19 +49,19 @@ $H_a$ | $H_0$ | Type II error |
 ## Discussion
 * Consider a court of law; the null hypothesis is that the
   defendant is innocent
-* We require evidence to reject the null hypothesis (convict)
-* If we require little evidence, then we would increase the
+* We require a standard on the available evidence to reject the null hypothesis (convict)
+* If we set a low standard, then we would increase the
   percentage of innocent people convicted (type I errors); however we
   would also increase the percentage of guilty people convicted
   (correctly rejecting the null)
-* If we require a lot of evidence, then we increase the the
+* If we set a high standard, then we increase the the
   percentage of innocent people let free (correctly accepting the
   null) while we would also increase the percentage of guilty people
   let free (type II errors)
 
 ---
 ## Example
-* Consider our example again
+* Consider our sleep example again
 * A reasonable strategy would reject the null hypothesis if
   $\bar X$ was larger than some constant, say $C$
 * Typically, $C$ is chosen so that the probability of a Type I
@@ -72,7 +72,7 @@ $H_a$ | $H_0$ | Type II error |
 ## Example continued
 - Standard error of the mean $10 / \sqrt{100} = 1$
 - Under $H_0$ $\bar X \sim N(30, 1)$ 
-- We want to chose $C$ so that the $P(X > C; H_0)$ is 
+- We want to chose $C$ so that the $P(\bar X > C; H_0)$ is 
 5%
 - The 95th percentile of a normal distribution is 1.645
 standard deviations from the mean

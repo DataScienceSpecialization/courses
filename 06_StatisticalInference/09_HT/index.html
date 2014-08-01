@@ -135,12 +135,12 @@ mean RDI was \(32\) events / hour with a standard deviation of \(10\) events / h
     <ul>
 <li>Consider a court of law; the null hypothesis is that the
 defendant is innocent</li>
-<li>We require evidence to reject the null hypothesis (convict)</li>
-<li>If we require little evidence, then we would increase the
+<li>We require a standard on the available evidence to reject the null hypothesis (convict)</li>
+<li>If we set a low standard, then we would increase the
 percentage of innocent people convicted (type I errors); however we
 would also increase the percentage of guilty people convicted
 (correctly rejecting the null)</li>
-<li>If we require a lot of evidence, then we increase the the
+<li>If we set a high standard, then we increase the the
 percentage of innocent people let free (correctly accepting the
 null) while we would also increase the percentage of guilty people
 let free (type II errors)</li>
@@ -156,7 +156,7 @@ let free (type II errors)</li>
   </hgroup>
   <article data-timings="">
     <ul>
-<li>Consider our example again</li>
+<li>Consider our sleep example again</li>
 <li>A reasonable strategy would reject the null hypothesis if
 \(\bar X\) was larger than some constant, say \(C\)</li>
 <li>Typically, \(C\) is chosen so that the probability of a Type I
@@ -173,17 +173,23 @@ error, \(\alpha\), is \(.05\) (or some other relevant constant)</li>
     <h2>Example continued</h2>
   </hgroup>
   <article data-timings="">
-    <p>\[
-\begin{align}
-0.05  & =  P\left(\bar X \geq C ~|~ \mu = 30 \right) \\
-      & =  P\left(\frac{\bar X - 30}{10 / \sqrt{100}} \geq \frac{C - 30}{10/\sqrt{100}} ~|~ \mu = 30\right) \\
-      & =  P\left(Z \geq \frac{C - 30}{1}\right) \\
-\end{align}
-\]</p>
+    <ul>
+<li>Standard error of the mean \(10 / \sqrt{100} = 1\)</li>
+<li>Under \(H_0\) \(\bar X \sim N(30, 1)\) </li>
+<li>We want to chose \(C\) so that the \(P(\bar X > C; H_0)\) is 
+5%</li>
+<li>The 95th percentile of a normal distribution is 1.645
+standard deviations from the mean</li>
+<li>If \(C = 30 + 1 \times 1.645 = 31.645\)
 
 <ul>
-<li>Hence \((C - 30) / 1 = 1.645\) implying \(C = 31.645\)</li>
-<li>Since our mean is \(32\) we reject the null hypothesis</li>
+<li>Then the probability that a \(N(30, 1)\) is larger
+than it is 5%</li>
+<li>So the rule &quot;Reject \(H_0\) when \(\bar X \geq 31.645\)&quot;
+has the property that the probability of rejection
+is 5% when \(H_0\) is true (for the \(\mu_0\), \(\sigma\)
+and \(n\) given)</li>
+</ul></li>
 </ul>
 
   </article>
@@ -227,7 +233,7 @@ is greater than \(1.645\)</li>
 <li>Reject the null hypothesis when 
 
 <ul>
-<li>\(TS \leq -Z_{1 - \alpha}\)</li>
+<li>\(TS \leq Z_{\alpha} = -Z_{1 - \alpha}\)</li>
 <li>\(|TS| \geq Z_{1 - \alpha / 2}\)</li>
 <li>\(TS \geq Z_{1 - \alpha}\)</li>
 </ul></li>
@@ -285,11 +291,17 @@ with the normal quantiles replaced by the appropriate Student&#39;s \(T\) quanti
   <article data-timings="">
     <ul>
 <li>Consider our example again. Suppose that \(n= 16\) (rather than
-\(100\)). Then consider that
+\(100\))</li>
+<li>The statistic
 \[
-.05 = P\left(\frac{\bar X - 30}{s / \sqrt{16}} \geq t_{1-\alpha, 15} ~|~ \mu = 30 \right)
-\]</li>
-<li>So that our test statistic is now $\sqrt{16}(32 - 30) / 10 = 0.8 $, while the critical value is \(t_{1-\alpha, 15} = 1.75\). </li>
+\frac{\bar X - 30}{s / \sqrt{16}}
+\]
+follows a \(T\) distribution with 15 df under \(H_0\)</li>
+<li>Under \(H_0\), the probability that it is larger
+that the 95th percentile of the \(T\) distribution is 5%</li>
+<li>The 95th percentile of the T distribution with 15
+df is 1.7531 (obtained via <code>qt(.95, 15)</code>)</li>
+<li>So that our test statistic is now $\sqrt{16}(32 - 30) / 10 = 0.8 $</li>
 <li>We now fail to reject.</li>
 </ul>
 
@@ -303,18 +315,23 @@ with the normal quantiles replaced by the appropriate Student&#39;s \(T\) quanti
   </hgroup>
   <article data-timings="">
     <ul>
-<li>Suppose that we would reject the null hypothesis if in fact the 
-mean was too large or too small</li>
-<li>That is, we want to test the alternative \(H_a : \mu \neq 30\)
-(doesn&#39;t make a lot of sense in our setting)</li>
-<li>Then note
-\[
-\alpha = P\left(\left. \left|\frac{\bar X - 30}{s /\sqrt{16}}\right| > t_{1-\alpha/2,15} ~\right|~ \mu = 30\right)
-\]</li>
-<li>That is we will reject if the test statistic, \(0.8\), is either
-too large or too small, but the critical value is calculated using
-\(\alpha / 2\)</li>
-<li>In our example the critical value is \(2.13\), so we fail to reject.</li>
+<li>Suppose that we would reject the null hypothesis if in fact the  mean was too large or too small</li>
+<li>That is, we want to test the alternative \(H_a : \mu \neq 30\)</li>
+<li>We will reject if the test statistic, \(0.8\), is either too large or too small</li>
+<li>Then we want the probability of rejecting under the
+null to be 5%, split equally as 2.5% in the upper
+tail and 2.5% in the lower tail</li>
+<li>Thus we reject if our test statistic is larger
+than <code>qt(.975, 15)</code> or smaller than <code>qt(.025, 15)</code>
+
+<ul>
+<li>This is the same as saying: reject if the
+absolute value of our statistic is larger than
+<code>qt(0.975, 15)</code> = 2.1314</li>
+<li>So we fail to reject the two sided test as well</li>
+<li>(If you fail to reject the one sided test, you
+know that you will fail to reject the two sided)</li>
+</ul></li>
 </ul>
 
   </article>
@@ -326,22 +343,21 @@ too large or too small, but the critical value is calculated using
     <h2>T test in R</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">library(UsingR)
-data(father.son)
+    <pre><code class="r">library(UsingR); data(father.son)
 t.test(father.son$sheight - father.son$fheight)
 </code></pre>
 
-<pre><code>## 
-##  One Sample t-test
-## 
-## data:  father.son$sheight - father.son$fheight
-## t = 11.79, df = 1077, p-value &lt; 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  0.831 1.163
-## sample estimates:
-## mean of x 
-##     0.997
+<pre><code>&gt; 
+&gt;   One Sample t-test
+&gt; 
+&gt; data:  father.son$sheight - father.son$fheight
+&gt; t = 11.79, df = 1077, p-value &lt; 2.2e-16
+&gt; alternative hypothesis: true mean is not equal to 0
+&gt; 95 percent confidence interval:
+&gt;  0.831 1.163
+&gt; sample estimates:
+&gt; mean of x 
+&gt;     0.997
 </code></pre>
 
   </article>
@@ -365,6 +381,71 @@ contains \(\mu_0\), then we <em>fail  to</em> reject \(H_0\)</li>
 </slide>
 
 <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Two group intervals</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>First, now you know how to do two group T tests
+since we already covered indepedent group T intervals</li>
+<li>Rejection rules are the same </li>
+<li>Test \(H_0 : \mu_1 = \mu_2\)</li>
+<li>Let&#39;s just go through an example</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2><code>chickWeight</code> data</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Recall that we reformatted this data</p>
+
+<pre><code class="r">library(datasets); data(ChickWeight); library(reshape2)
+##define weight gain or loss
+wideCW &lt;- dcast(ChickWeight, Diet + Chick ~ Time, value.var = &quot;weight&quot;)
+names(wideCW)[-(1 : 2)] &lt;- paste(&quot;time&quot;, names(wideCW)[-(1 : 2)], sep = &quot;&quot;)
+library(dplyr)
+wideCW &lt;- mutate(wideCW,
+  gain = time21 - time0
+)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h3>Unequal variance T test comparing diets 1 and 4</h3>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">wideCW14 &lt;- subset(wideCW, Diet %in% c(1, 4))
+t.test(gain ~ Diet, paired = FALSE, 
+       var.equal = TRUE, data = wideCW14)
+</code></pre>
+
+<pre><code>&gt;  
+&gt;   Two Sample t-test
+&gt;  
+&gt;  data:  gain by Diet
+&gt;  t = -2.725, df = 23, p-value = 0.01207
+&gt;  alternative hypothesis: true difference in means is not equal to 0
+&gt;  95 percent confidence interval:
+&gt;   -108.15  -14.81
+&gt;  sample estimates:
+&gt;  mean in group 1 mean in group 4 
+&gt;            136.2           197.7
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
   <hgroup>
     <h2>Exact binomial test</h2>
   </hgroup>
@@ -426,7 +507,7 @@ contains \(\mu_0\), then we <em>fail  to</em> reject \(H_0\)</li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-19" style="background:;">
   <hgroup>
     <h2>Notes</h2>
   </hgroup>
@@ -541,14 +622,32 @@ contains \(\mu_0\), then we <em>fail  to</em> reject \(H_0\)</li>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title='Exact binomial test'>
+        data-slide=15 title='Two group intervals'>
          15
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=16 title='Notes'>
+        data-slide=16 title='<code>chickWeight</code> data'>
          16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Unequal variance T test comparing diets 1 and 4'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Exact binomial test'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Notes'>
+         19
       </a>
     </li>
   </ul>

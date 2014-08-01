@@ -49,19 +49,19 @@ $H_a$ | $H_0$ | Type II error |
 ## Discussion
 * Consider a court of law; the null hypothesis is that the
   defendant is innocent
-* We require evidence to reject the null hypothesis (convict)
-* If we require little evidence, then we would increase the
+* We require a standard on the available evidence to reject the null hypothesis (convict)
+* If we set a low standard, then we would increase the
   percentage of innocent people convicted (type I errors); however we
   would also increase the percentage of guilty people convicted
   (correctly rejecting the null)
-* If we require a lot of evidence, then we increase the the
+* If we set a high standard, then we increase the the
   percentage of innocent people let free (correctly accepting the
   null) while we would also increase the percentage of guilty people
   let free (type II errors)
 
 ---
 ## Example
-* Consider our example again
+* Consider our sleep example again
 * A reasonable strategy would reject the null hypothesis if
   $\bar X$ was larger than some constant, say $C$
 * Typically, $C$ is chosen so that the probability of a Type I
@@ -70,18 +70,20 @@ $H_a$ | $H_0$ | Type II error |
 
 ---
 ## Example continued
+- Standard error of the mean $10 / \sqrt{100} = 1$
+- Under $H_0$ $\bar X \sim N(30, 1)$ 
+- We want to chose $C$ so that the $P(\bar X > C; H_0)$ is 
+5%
+- The 95th percentile of a normal distribution is 1.645
+standard deviations from the mean
+- If $C = 30 + 1 \times 1.645 = 31.645$
+  - Then the probability that a $N(30, 1)$ is larger
+    than it is 5%
+  - So the rule "Reject $H_0$ when $\bar X \geq 31.645$"
+    has the property that the probability of rejection
+    is 5% when $H_0$ is true (for the $\mu_0$, $\sigma$
+    and $n$ given)
 
-
-$$
-\begin{align}
-0.05  & =  P\left(\bar X \geq C ~|~ \mu = 30 \right) \\
-      & =  P\left(\frac{\bar X - 30}{10 / \sqrt{100}} \geq \frac{C - 30}{10/\sqrt{100}} ~|~ \mu = 30\right) \\
-      & =  P\left(Z \geq \frac{C - 30}{1}\right) \\
-\end{align}
-$$
-
-* Hence $(C - 30) / 1 = 1.645$ implying $C = 31.645$
-* Since our mean is $32$ we reject the null hypothesis
 
 ---
 ## Discussion
@@ -102,7 +104,7 @@ $$
   * $H_3: \mu > \mu_0$ 
 * Test statistic $ TS = \frac{\bar{X} - \mu_0}{S / \sqrt{n}} $
 * Reject the null hypothesis when 
-  * $TS \leq -Z_{1 - \alpha}$
+  * $TS \leq Z_{\alpha} = -Z_{1 - \alpha}$
   * $|TS| \geq Z_{1 - \alpha / 2}$
   * $TS \geq Z_{1 - \alpha}$
 
@@ -132,51 +134,57 @@ $$
 ---
 ## Example reconsidered
 - Consider our example again. Suppose that $n= 16$ (rather than
-$100$). Then consider that
+$100$)
+- The statistic
 $$
-.05 = P\left(\frac{\bar X - 30}{s / \sqrt{16}} \geq t_{1-\alpha, 15} ~|~ \mu = 30 \right)
+\frac{\bar X - 30}{s / \sqrt{16}}
 $$
-- So that our test statistic is now $\sqrt{16}(32 - 30) / 10 = 0.8 $, while the critical value is $t_{1-\alpha, 15} = 1.75$. 
+follows a $T$ distribution with 15 df under $H_0$
+- Under $H_0$, the probability that it is larger
+that the 95th percentile of the $T$ distribution is 5%
+- The 95th percentile of the T distribution with 15
+df is 1.7531 (obtained via `qt(.95, 15)`)
+- So that our test statistic is now $\sqrt{16}(32 - 30) / 10 = 0.8 $
 - We now fail to reject.
 
 ---
 ## Two sided tests
-* Suppose that we would reject the null hypothesis if in fact the 
-  mean was too large or too small
+* Suppose that we would reject the null hypothesis if in fact the  mean was too large or too small
 * That is, we want to test the alternative $H_a : \mu \neq 30$
-  (doesn't make a lot of sense in our setting)
-* Then note
-$$
- \alpha = P\left(\left. \left|\frac{\bar X - 30}{s /\sqrt{16}}\right| > t_{1-\alpha/2,15} ~\right|~ \mu = 30\right)
-$$
-* That is we will reject if the test statistic, $0.8$, is either
-  too large or too small, but the critical value is calculated using
-  $\alpha / 2$
-* In our example the critical value is $2.13$, so we fail to reject.
+* We will reject if the test statistic, $0.8$, is either too large or too small
+* Then we want the probability of rejecting under the
+null to be 5%, split equally as 2.5% in the upper
+tail and 2.5% in the lower tail
+* Thus we reject if our test statistic is larger
+than `qt(.975, 15)` or smaller than `qt(.025, 15)`
+  * This is the same as saying: reject if the
+  absolute value of our statistic is larger than
+  `qt(0.975, 15)` = 2.1314
+  * So we fail to reject the two sided test as well
+  * (If you fail to reject the one sided test, you
+  know that you will fail to reject the two sided)
 
 ---
 ## T test in R
 
 ```r
-library(UsingR)
-data(father.son)
+library(UsingR); data(father.son)
 t.test(father.son$sheight - father.son$fheight)
 ```
 
 ```
-## 
-## 	One Sample t-test
-## 
-## data:  father.son$sheight - father.son$fheight
-## t = 11.79, df = 1077, p-value < 2.2e-16
-## alternative hypothesis: true mean is not equal to 0
-## 95 percent confidence interval:
-##  0.831 1.163
-## sample estimates:
-## mean of x 
-##     0.997
+> 
+> 	One Sample t-test
+> 
+> data:  father.son$sheight - father.son$fheight
+> t = 11.79, df = 1077, p-value < 2.2e-16
+> alternative hypothesis: true mean is not equal to 0
+> 95 percent confidence interval:
+>  0.831 1.163
+> sample estimates:
+> mean of x 
+>     0.997
 ```
-
 
 ---
 ## Connections with confidence intervals
@@ -184,6 +192,54 @@ t.test(father.son$sheight - father.son$fheight)
 * Take the set of all possible values for which you fail to reject $H_0$, this set is a $(1-\alpha)100\%$ confidence interval for $\mu$
 * The same works in reverse; if a $(1-\alpha)100\%$ interval
   contains $\mu_0$, then we *fail  to* reject $H_0$
+
+---
+## Two group intervals
+- First, now you know how to do two group T tests
+since we already covered indepedent group T intervals
+- Rejection rules are the same 
+- Test $H_0 : \mu_1 = \mu_2$
+- Let's just go through an example
+
+---
+## `chickWeight` data
+Recall that we reformatted this data
+
+```r
+library(datasets); data(ChickWeight); library(reshape2)
+##define weight gain or loss
+wideCW <- dcast(ChickWeight, Diet + Chick ~ Time, value.var = "weight")
+names(wideCW)[-(1 : 2)] <- paste("time", names(wideCW)[-(1 : 2)], sep = "")
+library(dplyr)
+wideCW <- mutate(wideCW,
+  gain = time21 - time0
+)
+```
+
+---
+### Unequal variance T test comparing diets 1 and 4
+
+```r
+wideCW14 <- subset(wideCW, Diet %in% c(1, 4))
+t.test(gain ~ Diet, paired = FALSE, 
+       var.equal = TRUE, data = wideCW14)
+```
+
+```
+>  
+>  	Two Sample t-test
+>  
+>  data:  gain by Diet
+>  t = -2.725, df = 23, p-value = 0.01207
+>  alternative hypothesis: true difference in means is not equal to 0
+>  95 percent confidence interval:
+>   -108.15  -14.81
+>  sample estimates:
+>  mean in group 1 mean in group 4 
+>            136.2           197.7
+```
+
+
 
 ---
 ## Exact binomial test

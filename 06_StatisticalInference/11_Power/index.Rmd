@@ -16,7 +16,7 @@ mode        : selfcontained # {standalone, draft}
 
 ## Power
 - Power is the probability of rejecting the null hypothesis when it is false
-- Ergo, power (as it's name would suggest) is a good thing; you want more power
+- Ergo, power (as its name would suggest) is a good thing; you want more power
 - A type II error (a bad thing, as its name would suggest) is failing to reject the null hypothesis when it's false; the probability of a type II error is usually called $\beta$
 - Note Power  $= 1 - \beta$
 

@@ -40,6 +40,7 @@ Creating Data Products
 
 --- &radio
 
+<<<<<<< HEAD
 Consider influenza epidemics for two parent heterosexual families. Suppose that the probability is 15% that at least one of the parents has contracted the disease. The probability that the father has contracted influenza is 10% while that the mother contracted the disease is 9%. What is the probability that both contracted influenza expressed as a whole number percentage?
 
 1. 15%
@@ -56,6 +57,24 @@ $P(A\cup B) = P(A) + P(B) - P(AB)$ thus
 $$.15 = .10 + .09 - P(AB)$$
 ```{r}
 .10 + .09 - .15
+=======
+Consider influenza epidemics for two parent heterosexual families. Suppose that the probability is 15% that at least one of the parents has contracted the disease. The probability that the father has contracted influenza is 6% while that the mother contracted the disease is 5%. What is the probability that both contracted influenza expressed as a whole number percentage?
+
+1. 15%
+2. 6%
+3. 5%
+4. _2%_
+
+*** .hint
+$A = Father$, $P(A) = .06$, $B = Mother$, $P(B) = .05$ 
+$P(A\cup B) = .15$, 
+
+*** .explanation
+$P(A\cup B) = P(A) + P(B) - 2 P(AB)$ thus
+$$.15 = .06 + .05 - 2 P(AB)$$
+```{r}
+(0.15 - .06 - .05) / 2
+>>>>>>> 1125e7d02597aa72ba764ce21ea3618c1ee3cd20
 ```
 
 ---  &radio
@@ -84,7 +103,11 @@ You are playing a game with a friend where you flip a coin and if it comes up he
 4. $-X \frac{d}{1 + d} - Y \frac{1}{1+d} $
 
 *** .hint
+<<<<<<< HEAD
 The odds that you win on a given round is given by $p / (1 - p) = d$ which implies
+=======
+The probability that you win on a given round is given by $p / (1 - p) = d$ which implies
+>>>>>>> 1125e7d02597aa72ba764ce21ea3618c1ee3cd20
 that $p = d / (1 + d)$.
 
 *** .explanation

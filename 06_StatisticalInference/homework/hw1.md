@@ -25,6 +25,7 @@ Creating Data Products
 
 --- &radio
 
+<<<<<<< HEAD
 Consider influenza epidemics for two parent heterosexual families. Suppose that the probability is 15% that at least one of the parents has contracted the disease. The probability that the father has contracted influenza is 10% while that the mother contracted the disease is 9%. What is the probability that both contracted influenza expressed as a whole number percentage?
 
 1. 15%
@@ -46,6 +47,29 @@ $$.15 = .10 + .09 - P(AB)$$
 
 ```
 [1] 0.04
+=======
+Consider influenza epidemics for two parent heterosexual families. Suppose that the probability is 15% that at least one of the parents has contracted the disease. The probability that the father has contracted influenza is 6% while that the mother contracted the disease is 5%. What is the probability that both contracted influenza expressed as a whole number percentage?
+
+1. 15%
+2. 6%
+3. 5%
+4. _2%_
+
+*** .hint
+$A = Father$, $P(A) = .06$, $B = Mother$, $P(B) = .05$ 
+$P(A\cup B) = .15$, 
+
+*** .explanation
+$P(A\cup B) = P(A) + P(B) - 2 P(AB)$ thus
+$$.15 = .06 + .05 - 2 P(AB)$$
+
+```r
+(0.15 - .06 - .05) / 2
+```
+
+```
+[1] 0.02
+>>>>>>> 1125e7d02597aa72ba764ce21ea3618c1ee3cd20
 ```
 
 
@@ -55,7 +79,11 @@ A random variable, $X$, is uniform, a box from $0$ to $1$ of height $1$. (So tha
 
 1. 1.00
 2. 0.75
+<<<<<<< HEAD
 3. _0.50_
+=======
+3. 0.50
+>>>>>>> 1125e7d02597aa72ba764ce21ea3618c1ee3cd20
 4. 0.25
 
 *** .hint
@@ -75,7 +103,11 @@ You are playing a game with a friend where you flip a coin and if it comes up he
 4. $-X \frac{d}{1 + d} - Y \frac{1}{1+d} $
 
 *** .hint
+<<<<<<< HEAD
 The odds that you win on a given round is given by $p / (1 - p) = d$ which implies
+=======
+The probability that you win on a given round is given by $p / (1 - p) = d$ which implies
+>>>>>>> 1125e7d02597aa72ba764ce21ea3618c1ee3cd20
 that $p = d / (1 + d)$.
 
 *** .explanation
@@ -85,7 +117,11 @@ $$
 $$
 
 --- &radio
+<<<<<<< HEAD
 A random variable takes the value -4 with probability .2 and 1 with probability .8. What
+=======
+A random variable takes the value -4 with probabability .2 and 1 with proabability .8. What
+>>>>>>> 1125e7d02597aa72ba764ce21ea3618c1ee3cd20
 is the variance of this random variable?
 
 1. 0

@@ -63,6 +63,7 @@ Creating Data Products</li>
   <article data-timings="">
     
 <div class="quiz quiz-single well ">
+<<<<<<< HEAD
   <p>Consider influenza epidemics for two parent heterosexual families. Suppose that the probability is 15% that at least one of the parents has contracted the disease. The probability that the father has contracted influenza is 10% while that the mother contracted the disease is 9%. What is the probability that both contracted influenza expressed as a whole number percentage?</p>
 
 <ol>
@@ -70,6 +71,15 @@ Creating Data Products</li>
 <li>10%</li>
 <li>9%</li>
 <li><em>4%</em></li>
+=======
+  <p>Consider influenza epidemics for two parent heterosexual families. Suppose that the probability is 15% that at least one of the parents has contracted the disease. The probability that the father has contracted influenza is 6% while that the mother contracted the disease is 5%. What is the probability that both contracted influenza expressed as a whole number percentage?</p>
+
+<ol>
+<li>15%</li>
+<li>6%</li>
+<li>5%</li>
+<li><em>2%</em></li>
+>>>>>>> 1125e7d02597aa72ba764ce21ea3618c1ee3cd20
 </ol>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
@@ -78,11 +88,16 @@ Creating Data Products</li>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
   <div class="quiz-hint">
+<<<<<<< HEAD
   <p>\(A = Father\), \(P(A) = .10\), \(B = Mother\), \(P(B) = .09\) 
+=======
+  <p>\(A = Father\), \(P(A) = .06\), \(B = Mother\), \(P(B) = .05\) 
+>>>>>>> 1125e7d02597aa72ba764ce21ea3618c1ee3cd20
 \(P(A\cup B) = .15\), </p>
 
 </div>
 <div class="quiz-explanation">
+<<<<<<< HEAD
   <p>\(P(A\cup B) = P(A) + P(B) - P(AB)\) thus
 \[.15 = .10 + .09 - P(AB)\]</p>
 
@@ -90,6 +105,15 @@ Creating Data Products</li>
 </code></pre>
 
 <pre><code>[1] 0.04
+=======
+  <p>\(P(A\cup B) = P(A) + P(B) - 2 P(AB)\) thus
+\[.15 = .06 + .05 - 2 P(AB)\]</p>
+
+<pre><code class="r">(0.15 - .06 - .05) / 2
+</code></pre>
+
+<pre><code>[1] 0.02
+>>>>>>> 1125e7d02597aa72ba764ce21ea3618c1ee3cd20
 </code></pre>
 
 </div>
@@ -107,7 +131,11 @@ Creating Data Products</li>
 <ol>
 <li>1.00</li>
 <li>0.75</li>
+<<<<<<< HEAD
 <li><em>0.50</em></li>
+=======
+<li>0.50</li>
+>>>>>>> 1125e7d02597aa72ba764ce21ea3618c1ee3cd20
 <li>0.25</li>
 </ol>
 
@@ -149,7 +177,11 @@ We want \(.5 = P(X\leq x) = x\).</p>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
   <div class="quiz-hint">
+<<<<<<< HEAD
   <p>The odds that you win on a given round is given by \(p / (1 - p) = d\) which implies
+=======
+  <p>The probability that you win on a given round is given by \(p / (1 - p) = d\) which implies
+>>>>>>> 1125e7d02597aa72ba764ce21ea3618c1ee3cd20
 that \(p = d / (1 + d)\).</p>
 
 </div>
@@ -333,7 +365,11 @@ x &lt;- 2 : 5
   <button class="quiz-clear btn btn-danger">Clear</button>
   
   <div class="quiz-hint">
+<<<<<<< HEAD
   <p>The variance is \(E[X^2] - (E[X])^2\)</p>
+=======
+  <p>The variance is \(E[X^2] - E[X^2]\)</p>
+>>>>>>> 1125e7d02597aa72ba764ce21ea3618c1ee3cd20
 
 </div>
 <div class="quiz-explanation">
@@ -447,4 +483,8 @@ x &lt;- 2 : 5
   <script>hljs.initHighlightingOnLoad();</script>
   <!-- DONE LOADING HIGHLIGHTER JS FILES -->
    
+<<<<<<< HEAD
   </html>
+=======
+  </html>
+>>>>>>> 1125e7d02597aa72ba764ce21ea3618c1ee3cd20

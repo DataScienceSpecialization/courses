@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 quiz:
   css: css/demo.css
   js: [js/jquery.quiz.js, js/mustache.min.js, js/quiz-app.js]
+=======
+quiz:
+  css: css/demo.css
+  js: [js/jquery.quiz.js, js/mustache.min.js, js/quiz-app.js]
+>>>>>>> 1125e7d02597aa72ba764ce21ea3618c1ee3cd20

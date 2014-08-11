@@ -124,11 +124,9 @@ data(father.son)
 x &lt;- father.son$sheight
 n &lt;- length(x)
 theta &lt;- median(x)
-jk &lt;- sapply(1 : n,
-             function(i) median(x[-i])
-             )
+jk &lt;- sapply(1:n, function(i) median(x[-i]))
 thetaBar &lt;- mean(jk)
-biasEst &lt;- (n - 1) * (thetaBar - theta) 
+biasEst &lt;- (n - 1) * (thetaBar - theta)
 seEst &lt;- sqrt((n - 1) * mean((jk - thetaBar)^2))
 </code></pre>
 
@@ -138,13 +136,13 @@ seEst &lt;- sqrt((n - 1) * mean((jk - thetaBar)^2))
 
 <slide class="" id="slide-6" style="background:;">
   <hgroup>
-    <h2>Example</h2>
+    <h2>Example test</h2>
   </hgroup>
   <article data-timings="">
     <pre><code class="r">c(biasEst, seEst)
 </code></pre>
 
-<pre><code>[1] 0.0000 0.1014
+<pre><code>## [1] 0.0000 0.1014
 </code></pre>
 
 <pre><code class="r">library(bootstrap)
@@ -152,7 +150,7 @@ temp &lt;- jackknife(x, median)
 c(temp$jack.bias, temp$jack.se)
 </code></pre>
 
-<pre><code>[1] 0.0000 0.1014
+<pre><code>## [1] 0.0000 0.1014
 </code></pre>
 
   </article>
@@ -279,22 +277,19 @@ c(temp$jack.bias, temp$jack.se)
   </hgroup>
   <article data-timings="">
     <pre><code class="r">B &lt;- 1000
-resamples &lt;- matrix(sample(x,
-                           n * B,
-                           replace = TRUE),
-                    B, n)
+resamples &lt;- matrix(sample(x, n * B, replace = TRUE), B, n)
 medians &lt;- apply(resamples, 1, median)
 sd(medians)
 </code></pre>
 
-<pre><code>[1] 0.08546
+<pre><code>## [1] 0.08834
 </code></pre>
 
-<pre><code class="r">quantile(medians, c(.025, .975))
+<pre><code class="r">quantile(medians, c(0.025, 0.975))
 </code></pre>
 
-<pre><code> 2.5% 97.5% 
-68.43 68.82 
+<pre><code>##  2.5% 97.5% 
+## 68.41 68.82
 </code></pre>
 
   </article>
@@ -309,7 +304,7 @@ sd(medians)
     <pre><code class="r">hist(medians)
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
+<p><img src="assets/fig/unnamed-chunk-4.png" alt="plot of chunk unnamed-chunk-4"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -344,7 +339,7 @@ sd(medians)
 boxplot(count ~ spray, data = InsectSprays)
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+<p><img src="assets/fig/unnamed-chunk-5.png" alt="plot of chunk unnamed-chunk-5"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -425,22 +420,22 @@ one could also use a t-statistic </li>
     <h2>Permutation test for pesticide data</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">subdata &lt;- InsectSprays[InsectSprays$spray %in% c(&quot;B&quot;, &quot;C&quot;),]
+    <pre><code class="r">subdata &lt;- InsectSprays[InsectSprays$spray %in% c(&quot;B&quot;, &quot;C&quot;), ]
 y &lt;- subdata$count
 group &lt;- as.character(subdata$spray)
 testStat &lt;- function(w, g) mean(w[g == &quot;B&quot;]) - mean(w[g == &quot;C&quot;])
 observedStat &lt;- testStat(y, group)
-permutations &lt;- sapply(1 : 10000, function(i) testStat(y, sample(group)))
+permutations &lt;- sapply(1:10000, function(i) testStat(y, sample(group)))
 observedStat
 </code></pre>
 
-<pre><code>[1] 13.25
+<pre><code>## [1] 13.25
 </code></pre>
 
 <pre><code class="r">mean(permutations &gt; observedStat)
 </code></pre>
 
-<pre><code>[1] 0
+<pre><code>## [1] 0
 </code></pre>
 
   </article>
@@ -452,7 +447,7 @@ observedStat
     <h2>Histogram of permutations</h2>
   </hgroup>
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+    <p><img src="assets/fig/unnamed-chunk-7.png" alt="plot of chunk unnamed-chunk-7"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -494,7 +489,7 @@ observedStat
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='Example'>
+        data-slide=6 title='Example test'>
          6
       </a>
     </li>

@@ -1,0 +1,25 @@
+---
+layout: slide
+---
+
+<div class='row-fluid'>
+  <div class='span6'>
+    {{{ slide.content }}}
+  </div>
+  <div class='span6'>
+    {{{ slide.question.html }}}
+    <textarea rows="{{{ slide.rows }}}" style="width:95%" class='submitCompare'
+      placeholder='Type your answer (at least 140 characters)'>
+</textarea>
+    <a class='btn btn-success submitCompare' data-title='{{{ slide.answer.html }}}'>
+      Submit and Compare
+    </a>
+    <a class='btn btn-danger clearSubmitCompare'>Clear</a>
+    {{# slide.blocks }}
+    <div class="{{class}}" style="display:none;">
+      {{{ html }}}
+    </div>
+    {{/ slide.blocks }}
+  </div>
+</div>
+

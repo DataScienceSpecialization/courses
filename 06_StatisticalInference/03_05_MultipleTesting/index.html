@@ -293,18 +293,18 @@
   </hgroup>
   <article data-timings="">
     <pre><code class="r">set.seed(1010093)
-pValues &lt;- rep(NA,1000)
-for(i in 1:1000){
-  y &lt;- rnorm(20)
-  x &lt;- rnorm(20)
-  pValues[i] &lt;- summary(lm(y ~ x))$coeff[2,4]
+pValues &lt;- rep(NA, 1000)
+for (i in 1:1000) {
+    y &lt;- rnorm(20)
+    x &lt;- rnorm(20)
+    pValues[i] &lt;- summary(lm(y ~ x))$coeff[2, 4]
 }
 
 # Controls false positive rate
 sum(pValues &lt; 0.05)
 </code></pre>
 
-<pre><code>[1] 51
+<pre><code>## [1] 51
 </code></pre>
 
   </article>
@@ -316,18 +316,18 @@ sum(pValues &lt; 0.05)
     <h2>Case study I: no true positives</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r"># Controls FWER 
-sum(p.adjust(pValues,method=&quot;bonferroni&quot;) &lt; 0.05)
+    <pre><code class="r"># Controls FWER
+sum(p.adjust(pValues, method = &quot;bonferroni&quot;) &lt; 0.05)
 </code></pre>
 
-<pre><code>[1] 0
+<pre><code>## [1] 0
 </code></pre>
 
-<pre><code class="r"># Controls FDR 
-sum(p.adjust(pValues,method=&quot;BH&quot;) &lt; 0.05)
+<pre><code class="r"># Controls FDR
+sum(p.adjust(pValues, method = &quot;BH&quot;) &lt; 0.05)
 </code></pre>
 
-<pre><code>[1] 0
+<pre><code>## [1] 0
 </code></pre>
 
   </article>
@@ -340,21 +340,25 @@ sum(p.adjust(pValues,method=&quot;BH&quot;) &lt; 0.05)
   </hgroup>
   <article data-timings="">
     <pre><code class="r">set.seed(1010093)
-pValues &lt;- rep(NA,1000)
-for(i in 1:1000){
-  x &lt;- rnorm(20)
-  # First 500 beta=0, last 500 beta=2
-  if(i &lt;= 500){y &lt;- rnorm(20)}else{ y &lt;- rnorm(20,mean=2*x)}
-  pValues[i] &lt;- summary(lm(y ~ x))$coeff[2,4]
+pValues &lt;- rep(NA, 1000)
+for (i in 1:1000) {
+    x &lt;- rnorm(20)
+    # First 500 beta=0, last 500 beta=2
+    if (i &lt;= 500) {
+        y &lt;- rnorm(20)
+    } else {
+        y &lt;- rnorm(20, mean = 2 * x)
+    }
+    pValues[i] &lt;- summary(lm(y ~ x))$coeff[2, 4]
 }
-trueStatus &lt;- rep(c(&quot;zero&quot;,&quot;not zero&quot;),each=500)
+trueStatus &lt;- rep(c(&quot;zero&quot;, &quot;not zero&quot;), each = 500)
 table(pValues &lt; 0.05, trueStatus)
 </code></pre>
 
-<pre><code>       trueStatus
-        not zero zero
-  FALSE        0  476
-  TRUE       500   24
+<pre><code>##        trueStatus
+##         not zero zero
+##   FALSE        0  476
+##   TRUE       500   24
 </code></pre>
 
   </article>
@@ -366,24 +370,24 @@ table(pValues &lt; 0.05, trueStatus)
     <h2>Case study II: 50% true positives</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r"># Controls FWER 
-table(p.adjust(pValues,method=&quot;bonferroni&quot;) &lt; 0.05,trueStatus)
+    <pre><code class="r"># Controls FWER
+table(p.adjust(pValues, method = &quot;bonferroni&quot;) &lt; 0.05, trueStatus)
 </code></pre>
 
-<pre><code>       trueStatus
-        not zero zero
-  FALSE       23  500
-  TRUE       477    0
+<pre><code>##        trueStatus
+##         not zero zero
+##   FALSE       23  500
+##   TRUE       477    0
 </code></pre>
 
-<pre><code class="r"># Controls FDR 
-table(p.adjust(pValues,method=&quot;BH&quot;) &lt; 0.05,trueStatus)
+<pre><code class="r"># Controls FDR
+table(p.adjust(pValues, method = &quot;BH&quot;) &lt; 0.05, trueStatus)
 </code></pre>
 
-<pre><code>       trueStatus
-        not zero zero
-  FALSE        0  487
-  TRUE       500   13
+<pre><code>##        trueStatus
+##         not zero zero
+##   FALSE        0  487
+##   TRUE       500   13
 </code></pre>
 
   </article>
@@ -397,12 +401,12 @@ table(p.adjust(pValues,method=&quot;BH&quot;) &lt; 0.05,trueStatus)
   <article data-timings="">
     <p><strong>P-values versus adjusted P-values</strong></p>
 
-<pre><code class="r">par(mfrow=c(1,2))
-plot(pValues,p.adjust(pValues,method=&quot;bonferroni&quot;),pch=19)
-plot(pValues,p.adjust(pValues,method=&quot;BH&quot;),pch=19)
+<pre><code class="r">par(mfrow = c(1, 2))
+plot(pValues, p.adjust(pValues, method = &quot;bonferroni&quot;), pch = 19)
+plot(pValues, p.adjust(pValues, method = &quot;BH&quot;), pch = 19)
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+<p><img src="assets/fig/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
 
   </article>
   <!-- Presenter Notes -->

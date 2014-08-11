@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Homework 1 for Stat Inference</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Homework 1 for Stat Inference">
+  <meta name="author" content="Brian Caffo">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="libraries/widgets/quiz/css/demo.css"></link>
+<link rel=stylesheet href="libraries/widgets/bootstrap/css/bootstrap.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Homework 1 for Stat Inference</h1>
+    <h2>Extra problems for Stat Inference</h2>
+    <p>Brian Caffo<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>About these slides</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>These are some practice problems for Statistical Inference Quiz 1</li>
+<li>They were created using slidify interactive which you will learn in 
+Creating Data Products</li>
+<li>Please help improve this with pull requests here
+(<a href="https://github.com/bcaffo/courses">https://github.com/bcaffo/courses</a>)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>Consider influenza epidemics for two parent heterosexual families. Suppose that the probability is 15% that at least one of the parents has contracted the disease. The probability that the father has contracted influenza is 10% while that the mother contracted the disease is 9%. What is the probability that both contracted influenza expressed as a whole number percentage?</p>
+
+<ol>
+<li>15%</li>
+<li>10%</li>
+<li>9%</li>
+<li><em>4%</em></li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>\(A = Father\), \(P(A) = .10\), \(B = Mother\), \(P(B) = .09\) 
+\(P(A\cup B) = .15\), </p>
+
+</div>
+<div class="quiz-explanation">
+  <p>\(P(A\cup B) = P(A) + P(B) - P(AB)\) thus
+\[.15 = .10 + .09 - P(AB)\]</p>
+
+<pre><code class="r">.10 + .09 - .15
+</code></pre>
+
+<pre><code>[1] 0.04
+</code></pre>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>A random variable, \(X\), is uniform, a box from \(0\) to \(1\) of height \(1\). (So that it&#39;s density is \(f(x) = 1\) for \(0\leq x \leq 1\).) What is it&#39;s median expressed to two decimal places? </p></p>
+
+<ol>
+<li>1.00</li>
+<li>0.75</li>
+<li><em>0.50</em></li>
+<li>0.25</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>The median is the point so that 50% of the density lies below it.</p>
+
+</div>
+<div class="quiz-explanation">
+  <p>This density looks like a box. So, notice that \(P(X \leq x) = width\times height = x\).
+We want \(.5 = P(X\leq x) = x\).</p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>You are playing a game with a friend where you flip a coin and if it comes up heads you give her  \(X\) dollars and if it comes up tails she gives you \(Y\) dollars. The odds that the coin is heads in \(d\). What is your expected earnings?</p>
+
+<ol>
+<li><em>$-X \frac{d}{1 + d} + Y \frac{1}{1+d} $</em></li>
+<li>$X \frac{d}{1 + d} + Y \frac{1}{1+d} $</li>
+<li>$X \frac{d}{1 + d} - Y \frac{1}{1+d} $</li>
+<li>$-X \frac{d}{1 + d} - Y \frac{1}{1+d} $</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>The odds that you win on a given round is given by \(p / (1 - p) = d\) which implies
+that \(p = d / (1 + d)\).</p>
+
+</div>
+<div class="quiz-explanation">
+  <p>You lose \(X\) with probability \(p = d/(1 +d)\) and you win \(Y\) with probability \(1-p = 1/(1 + d)\). So your answer is
+\[
+-X \frac{d}{1 + d} + Y \frac{1}{1+d} 
+\]</p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>A random variable takes the value -4 with probabability .2 and 1 with proabability .8. What
+is the variance of this random variable?</p>
+
+<ol>
+<li>0</li>
+<li><em>4</em></li>
+<li>8</li>
+<li>16</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>This random variable has mean 0. The variance would be given by \(E[X^2]\) then.</p>
+
+</div>
+<div class="quiz-explanation">
+  <p>\[E[X] = 0\]
+\[
+Var(X) = E[X^2] = (-4)^2 * .2 + (1)^2 * .8
+\]</p>
+
+<pre><code class="r">-4 * .2 + 1 * .8
+</code></pre>
+
+<pre><code>[1] 0
+</code></pre>
+
+<pre><code class="r">(-4)^2 * .2 + (1)^2 * .8
+</code></pre>
+
+<pre><code>[1] 4
+</code></pre>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>If \(\bar X\) and \(\bar Y\) are comprised of \(n\) iid random variables arising from distributions
+having  means \(\mu_x\) and \(\mu_y\), respectively and common variance \(\sigma^2\)
+what is the variance \(\bar X - \bar Y\)?</p>
+
+<ol>
+<li>0</li>
+<li><em>\(2\sigma^2/n\)</em></li>
+<li>\(\mu_x\) - \(\mu_y\)</li>
+<li>\(2\sigma^2\)</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>Remember that \(Var(\bar X) = Var(\bar Y) = \sigma^2 / n\). </p>
+
+</div>
+<div class="quiz-explanation">
+  <p>\[
+Var(\bar X - \bar Y) = Var(\bar X) + Var(\bar Y) = \sigma^2 / n + \sigma^2 / n
+\]</p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>Let \(X\) be a random variable having standard deviation \(\sigma\). What can
+be said about \(X /\sigma\)?</p>
+
+<ol>
+<li>Nothing</li>
+<li><em>It must have variance 1.</em></li>
+<li>It must have mean 0.</li>
+<li>It must have variance 0.</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>\(Var(aX) = a^2 Var(X)\)</p>
+
+</div>
+<div class="quiz-explanation">
+  <p>\[Var(X / \sigma) = Var(X) / \sigma^2 = 1\]</p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>If a continuous density that never touches the horizontal axis is symmetric about zero, can we say that its associated median is zero?</p>
+
+<ol>
+<li><em>Yes</em></li>
+<li>No.</li>
+<li>It can not be determined given the information given.</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-explanation">
+  <p>This is a surprisingly hard problem. The easy explanation is that 50% of the probability
+is below 0 and 50% is above so yes. However, it is predicated on the density not being
+a flat line at 0 around 0. That&#39;s why the caveat that it never touches the horizontal axis
+is important.</p>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <article data-timings="">
+    
+<div class="quiz quiz-single well ">
+  <p>Consider the following pmf given in R</p>
+
+<pre><code class="r">p &lt;- c(.1, .2, .3, .4)
+x &lt;- 2 : 5 
+</code></pre>
+
+<p>What is the variance expressed to 1 decimal place?</p>
+
+<ol>
+<li><em>1.0</em></li>
+<li>4.0</li>
+<li>6.0</li>
+<li>17.0</li>
+</ol>
+
+  <button class="quiz-submit btn btn-primary">Submit</button>
+  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
+  <button class="quiz-show-answer btn btn-success">Show Answer</button>
+  <button class="quiz-clear btn btn-danger">Clear</button>
+  
+  <div class="quiz-hint">
+  <p>The variance is \(E[X^2] - (E[X])^2\)</p>
+
+</div>
+<div class="quiz-explanation">
+  <pre><code class="r">sum(x ^ 2 * p) - sum(x * p) ^ 2
+</code></pre>
+
+<pre><code>[1] 1
+</code></pre>
+
+</div>
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='About these slides'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title=''>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title=''>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title=''>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title=''>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title=''>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title=''>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title=''>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title=''>
+         9
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  <script src="libraries/widgets/quiz/js/jquery.quiz.js"></script>
+<script src="libraries/widgets/quiz/js/mustache.min.js"></script>
+<script src="libraries/widgets/quiz/js/quiz-app.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootstrap.min.js"></script>
+<script src="libraries/widgets/bootstrap/js/bootbox.min.js"></script>
+
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<script>  
+  $(function (){ 
+    $("#example").popover(); 
+    $("[rel='tooltip']").tooltip(); 
+  });  
+  </script>  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

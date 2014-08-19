@@ -55,7 +55,7 @@ diabetesRisk <- function(glucose) glucose / 200
 - Make sure you have the latest release of R installed
 - If on windows, make sure that you have Rtools installed
 - `install.packages("shiny")`
-- `libray(shiny)`
+- `library(shiny)`
 - Great tutorial at 
 [http://shiny.rstudio.com/tutorial/](http://shiny.rstudio.com/tutorial/)
 - Basically, this lecture is walking through that tutorial offering some of our insights

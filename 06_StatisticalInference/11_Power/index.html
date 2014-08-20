@@ -50,7 +50,7 @@
   <article data-timings="">
     <ul>
 <li>Power is the probability of rejecting the null hypothesis when it is false</li>
-<li>Ergo, power (as it&#39;s name would suggest) is a good thing; you want more power</li>
+<li>Ergo, power (as its name would suggest) is a good thing; you want more power</li>
 <li>A type II error (a bad thing, as its name would suggest) is failing to reject the null hypothesis when it&#39;s false; the probability of a type II error is usually called \(\beta\)</li>
 <li>Note Power  \(= 1 - \beta\)</li>
 </ul>
@@ -68,7 +68,7 @@
 <li>Consider our previous example involving RDI</li>
 <li>\(H_0: \mu = 30\) versus \(H_a: \mu > 30\)</li>
 <li>Then power is 
-\[P\left(\frac{\bar X - 30}{s /\sqrt{n}} > t_{1-\alpha,n-1} ~|~ \mu = \mu_a \right)\]</li>
+\[P\left(\frac{\bar X - 30}{s /\sqrt{n}} > t_{1-\alpha,n-1} ~;~ \mu = \mu_a \right)\]</li>
 <li>Note that this is a function that depends on the specific value of \(\mu_a\)!</li>
 <li>Notice as \(\mu_a\) approaches \(30\) the power approaches \(\alpha\)</li>
 </ul>
@@ -82,16 +82,21 @@
     <h2>Calculating power for Gaussian data</h2>
   </hgroup>
   <article data-timings="">
-    <p>Assume that \(n\) is large and that we know \(\sigma\)
-\[
-\begin{align}
-1 -\beta & = 
-P\left(\frac{\bar X - 30}{\sigma /\sqrt{n}} > z_{1-\alpha} ~|~ \mu = \mu_a \right)\\
-& = P\left(\frac{\bar X - \mu_a + \mu_a - 30}{\sigma /\sqrt{n}} > z_{1-\alpha} ~|~ \mu = \mu_a \right)\\ \\
-& = P\left(\frac{\bar X - \mu_a}{\sigma /\sqrt{n}} > z_{1-\alpha} - \frac{\mu_a - 30}{\sigma /\sqrt{n}} ~|~ \mu = \mu_a \right)\\ \\
-& = P\left(Z > z_{1-\alpha} - \frac{\mu_a - 30}{\sigma /\sqrt{n}} ~|~ \mu = \mu_a \right)\\ \\
-\end{align}
-\]</p>
+    <ul>
+<li>We reject if \(\frac{\bar X - 30}{\sigma /\sqrt{n}} > z_{1-\alpha}\)<br>
+
+<ul>
+<li>Equivalently if \(\bar X > 30 + Z_{1-\alpha} \frac{\sigma}{\sqrt{n}}\)</li>
+</ul></li>
+<li>Under \(H_0 : \bar X \sim N(\mu_0, \sigma^2 / n)\)</li>
+<li>Under \(H_a : \bar X \sim N(\mu_a, \sigma^2 / n)\)</li>
+<li>So we want </li>
+</ul>
+
+<pre><code class="r">alpha = 0.05
+z = qnorm(1 - alpha)
+pnorm(mu0 + z * sigma/sqrt(n), mean = mua, sd = sigma/sqrt(n), lower.tail = FALSE)
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -103,22 +108,24 @@ P\left(\frac{\bar X - 30}{\sigma /\sqrt{n}} > z_{1-\alpha} ~|~ \mu = \mu_a \righ
   </hgroup>
   <article data-timings="">
     <ul>
-<li> Suppose that we wanted to detect a increase in mean RDI
-of at least 2 events / hour (above 30). </li>
-<li>Assume normality and that the sample in question will have a standard deviation of \(4\);</li>
-<li>What would be the power if we took a sample size of \(16\)?
-
-<ul>
-<li>\(Z_{1-\alpha} = 1.645\) </li>
-<li>\(\frac{\mu_a - 30}{\sigma /\sqrt{n}} = 2 / (4 /\sqrt{16}) = 2\) </li>
-<li>\(P(Z > 1.645 - 2) = P(Z > -0.355) = 64\%\)</li>
-</ul></li>
+<li>\(\mu_a = 32\), \(\mu_0 = 30\), \(n =16\), \(\sigma = 4\)</li>
 </ul>
 
-<pre><code class="r">pnorm(-0.355, lower.tail = FALSE)
+<pre><code class="r">mu0 = 30
+mua = 32
+sigma = 4
+n = 16
+z = qnorm(1 - alpha)
+pnorm(mu0 + z * sigma/sqrt(n), mean = mu0, sd = sigma/sqrt(n), lower.tail = FALSE)
 </code></pre>
 
-<pre><code>## [1] 0.6387
+<pre><code>## [1] 0.05
+</code></pre>
+
+<pre><code class="r">pnorm(mu0 + z * sigma/sqrt(n), mean = mua, sd = sigma/sqrt(n), lower.tail = FALSE)
+</code></pre>
+
+<pre><code>## [1] 0.6388
 </code></pre>
 
   </article>
@@ -127,31 +134,37 @@ of at least 2 events / hour (above 30). </li>
 
 <slide class="" id="slide-5" style="background:;">
   <hgroup>
-    <h2>Note</h2>
+    <h2>Plotting the power curve</h2>
   </hgroup>
   <article data-timings="">
-    <ul>
-<li>Consider \(H_0 : \mu = \mu_0\) and \(H_a : \mu > \mu_0\) with \(\mu = \mu_a\) under \(H_a\).</li>
-<li>Under \(H_0\) the statistic \(Z = \frac{\sqrt{n}(\bar X - \mu_0)}{\sigma}\) is \(N(0, 1)\)</li>
-<li>Under \(H_a\) \(Z\) is \(N\left( \frac{\sqrt{n}(\mu_a - \mu_0)}{\sigma}, 1\right)\)</li>
-<li>We reject if \(Z > Z_{1-\alpha}\)</li>
-</ul>
-
-<pre><code>sigma &lt;- 10; mu_0 = 0; mu_a = 2; n &lt;- 100; alpha = .05
-plot(c(-3, 6),c(0, dnorm(0)), type = &quot;n&quot;, frame = FALSE, xlab = &quot;Z value&quot;, ylab = &quot;&quot;)
-xvals &lt;- seq(-3, 6, length = 1000)
-lines(xvals, dnorm(xvals), type = &quot;l&quot;, lwd = 3)
-lines(xvals, dnorm(xvals, mean = sqrt(n) * (mu_a - mu_0) / sigma), lwd =3)
-abline(v = qnorm(1 - alpha))
-</code></pre>
+    <p><img src="assets/fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
 <slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Graphical Depiction of Power</h2>
+  </hgroup>
   <article data-timings="">
-    <p><img src="assets/fig/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
+    <pre><code class="r">library(manipulate)
+mu0 = 30
+myplot &lt;- function(sigma, mua, n, alpha) {
+    g = ggplot(data.frame(mu = c(27, 36)), aes(x = mu))
+    g = g + stat_function(fun = dnorm, geom = &quot;line&quot;, args = list(mean = mu0, 
+        sd = sigma/sqrt(n)), size = 2, col = &quot;red&quot;)
+    g = g + stat_function(fun = dnorm, geom = &quot;line&quot;, args = list(mean = mua, 
+        sd = sigma/sqrt(n)), size = 2, col = &quot;blue&quot;)
+    xitc = mu0 + qnorm(1 - alpha) * sigma/sqrt(n)
+    g = g + geom_vline(xintercept = xitc, size = 3)
+    g
+}
+manipulate(myplot(sigma, mua, n, alpha), sigma = slider(1, 10, step = 1, initial = 4), 
+    mua = slider(30, 35, step = 1, initial = 32), n = slider(1, 50, step = 1, 
+        initial = 16), alpha = slider(0.01, 0.1, step = 0.01, initial = 0.05))
+
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -310,13 +323,13 @@ P\left(\frac{\bar X - \mu_0}{S /\sqrt{n}} > t_{1-\alpha, n-1} ~|~ \mu = \mu_a \r
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Note'>
+        data-slide=5 title='Plotting the power curve'>
          5
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title=''>
+        data-slide=6 title='Graphical Depiction of Power'>
          6
       </a>
     </li>

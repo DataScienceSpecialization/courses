@@ -25,61 +25,84 @@ mode        : selfcontained # {standalone, draft}
 - Consider our previous example involving RDI
 - $H_0: \mu = 30$ versus $H_a: \mu > 30$
 - Then power is 
-$$P\left(\frac{\bar X - 30}{s /\sqrt{n}} > t_{1-\alpha,n-1} ~|~ \mu = \mu_a \right)$$
+$$P\left(\frac{\bar X - 30}{s /\sqrt{n}} > t_{1-\alpha,n-1} ~;~ \mu = \mu_a \right)$$
 - Note that this is a function that depends on the specific value of $\mu_a$!
 - Notice as $\mu_a$ approaches $30$ the power approaches $\alpha$
 
 
 ---
 ## Calculating power for Gaussian data
-Assume that $n$ is large and that we know $\sigma$
-$$
-\begin{align}
-1 -\beta & = 
-P\left(\frac{\bar X - 30}{\sigma /\sqrt{n}} > z_{1-\alpha} ~|~ \mu = \mu_a \right)\\
-& = P\left(\frac{\bar X - \mu_a + \mu_a - 30}{\sigma /\sqrt{n}} > z_{1-\alpha} ~|~ \mu = \mu_a \right)\\ \\
-& = P\left(\frac{\bar X - \mu_a}{\sigma /\sqrt{n}} > z_{1-\alpha} - \frac{\mu_a - 30}{\sigma /\sqrt{n}} ~|~ \mu = \mu_a \right)\\ \\
-& = P\left(Z > z_{1-\alpha} - \frac{\mu_a - 30}{\sigma /\sqrt{n}} ~|~ \mu = \mu_a \right)\\ \\
-\end{align}
-$$
+- We reject if $\frac{\bar X - 30}{\sigma /\sqrt{n}} > z_{1-\alpha}$    
+    - Equivalently if $\bar X > 30 + Z_{1-\alpha} \frac{\sigma}{\sqrt{n}}$
+- Under $H_0 : \bar X \sim N(\mu_0, \sigma^2 / n)$
+- Under $H_a : \bar X \sim N(\mu_a, \sigma^2 / n)$
+- So we want 
+```{r, echo=TRUE,eval=FALSE}
+alpha = 0.05
+z = qnorm(1 - alpha)
+pnorm(mu0 + z * sigma / sqrt(n), mean = mua, sd = sigma / sqrt(n), 
+      lower.tail = FALSE)
+```
 
 ---
 ## Example continued
--  Suppose that we wanted to detect a increase in mean RDI
-  of at least 2 events / hour (above 30). 
-- Assume normality and that the sample in question will have a standard deviation of $4$;
-- What would be the power if we took a sample size of $16$?
-  - $Z_{1-\alpha} = 1.645$ 
-  - $\frac{\mu_a - 30}{\sigma /\sqrt{n}} = 2 / (4 /\sqrt{16}) = 2$ 
-  - $P(Z > 1.645 - 2) = P(Z > -0.355) = 64\%$
-```{r}
-pnorm(-0.355, lower.tail = FALSE)
+- $\mu_a = 32$, $\mu_0 = 30$, $n =16$, $\sigma = 4$
+```{r, echo=TRUE,eval=TRUE}
+mu0 = 30; mua = 32; sigma = 4; n = 16
+z = qnorm(1 - alpha)
+pnorm(mu0 + z * sigma / sqrt(n), mean = mu0, sd = sigma / sqrt(n), 
+      lower.tail = FALSE)
+pnorm(mu0 + z * sigma / sqrt(n), mean = mua, sd = sigma / sqrt(n), 
+      lower.tail = FALSE)
 ```
 
 ---
-## Note 
-- Consider $H_0 : \mu = \mu_0$ and $H_a : \mu > \mu_0$ with $\mu = \mu_a$ under $H_a$.
-- Under $H_0$ the statistic $Z = \frac{\sqrt{n}(\bar X - \mu_0)}{\sigma}$ is $N(0, 1)$
-- Under $H_a$ $Z$ is $N\left( \frac{\sqrt{n}(\mu_a - \mu_0)}{\sigma}, 1\right)$
-- We reject if $Z > Z_{1-\alpha}$
+##  Plotting the power curve
 
+```{r, fig.align='center', fig.height=6, fig.width=12, echo=FALSE}
+library(ggplot2)
+nseq = c(8, 16, 32, 64, 128)
+mua = seq(30, 35, by = 0.1)
+power = sapply(nseq, function(n)
+    pnorm(mu0 + z * sigma / sqrt(n), mean = mua, sd = sigma / sqrt(n), 
+          lower.tail = FALSE)
+    )
+colnames(power) <- paste("n", nseq, sep = "")
+d <- data.frame(mua, power)
+library(reshape2)
+d2 <- melt(d, id.vars = "mua")
+names(d2) <- c("mua", "n", "power")    
+g <- ggplot(d2, 
+            aes(x = mua, y = power, col = n)) + geom_line(size = 2)
+g            
 ```
-sigma <- 10; mu_0 = 0; mu_a = 2; n <- 100; alpha = .05
-plot(c(-3, 6),c(0, dnorm(0)), type = "n", frame = FALSE, xlab = "Z value", ylab = "")
-xvals <- seq(-3, 6, length = 1000)
-lines(xvals, dnorm(xvals), type = "l", lwd = 3)
-lines(xvals, dnorm(xvals, mean = sqrt(n) * (mu_a - mu_0) / sigma), lwd =3)
-abline(v = qnorm(1 - alpha))
-```
+
 
 ---
-```{r, fig.height=5, fig.width=5, echo = FALSE}
-sigma <- 10; mu_0 = 0; mu_a = 2; n <- 100; alpha = .05
-plot(c(-3, 6),c(0, dnorm(0)), type = "n", frame = FALSE, xlab = "Z value", ylab = "")
-xvals <- seq(-3, 6, length = 1000)
-lines(xvals, dnorm(xvals), type = "l", lwd = 3)
-lines(xvals, dnorm(xvals, mean = sqrt(n) * (mu_a - mu_0) / sigma), lwd =3)
-abline(v = qnorm(1 - alpha))
+## Graphical Depiction of Power
+```{r, echo = TRUE, eval=FALSE}
+library(manipulate)
+mu0 = 30
+myplot <- function(sigma, mua, n, alpha){
+    g = ggplot(data.frame(mu = c(27, 36)), aes(x = mu))
+    g = g + stat_function(fun=dnorm, geom = "line", 
+                          args = list(mean = mu0, sd = sigma / sqrt(n)), 
+                          size = 2, col = "red")
+    g = g + stat_function(fun=dnorm, geom = "line", 
+                          args = list(mean = mua, sd = sigma / sqrt(n)), 
+                          size = 2, col = "blue")
+    xitc = mu0 + qnorm(1 - alpha) * sigma / sqrt(n)
+    g = g + geom_vline(xintercept=xitc, size = 3)
+    g
+}
+manipulate(
+    myplot(sigma, mua, n, alpha),
+    sigma = slider(1, 10, step = 1, initial = 4),
+    mua = slider(30, 35, step = 1, initial = 32),
+    n = slider(1, 50, step = 1, initial = 16),
+    alpha = slider(0.01, 0.1, step = 0.01, initial = 0.05)
+    )
+
 ```
 
 

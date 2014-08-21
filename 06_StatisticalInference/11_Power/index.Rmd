@@ -109,9 +109,8 @@ manipulate(
 ---
 ## Question
 - When testing $H_a : \mu > \mu_0$, notice if power is $1 - \beta$, then 
-$$1 - \beta = P\left(Z > z_{1-\alpha} - \frac{\mu_a - \mu_0}{\sigma /\sqrt{n}} ~|~ \mu = \mu_a \right) = P(Z > z_{\beta})$$
-- This yields the equation
-$$z_{1-\alpha} - \frac{\sqrt{n}(\mu_a - \mu_0)}{\sigma} = z_{\beta}$$
+$$1 - \beta = P\left(\bar X > \mu_0 + z_{1-\alpha} \frac{\sigma}{\sqrt{n}} ; \mu = \mu_a \right)$$
+- where $\bar X \sim N(\mu_a, \sigma^2 / n)$
 - Unknowns: $\mu_a$, $\sigma$, $n$, $\beta$
 - Knowns: $\mu_0$, $\alpha$
 - Specify any 3 of the unknowns and you can solve for the remainder
@@ -136,7 +135,7 @@ $$z_{1-\alpha} - \frac{\sqrt{n}(\mu_a - \mu_0)}{\sigma} = z_{\beta}$$
 -  Consider calculating power for a Gossett's $T$ test for our example
 -  The power is
   $$
-  P\left(\frac{\bar X - \mu_0}{S /\sqrt{n}} > t_{1-\alpha, n-1} ~|~ \mu = \mu_a \right)
+  P\left(\frac{\bar X - \mu_0}{S /\sqrt{n}} > t_{1-\alpha, n-1} ~;~ \mu = \mu_a \right)
   $$
 - Calcuting this requires the non-central t distribution.
 - `power.t.test` does this very well

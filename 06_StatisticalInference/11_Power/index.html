@@ -177,9 +177,8 @@ manipulate(myplot(sigma, mua, n, alpha), sigma = slider(1, 10, step = 1, initial
   <article data-timings="">
     <ul>
 <li>When testing \(H_a : \mu > \mu_0\), notice if power is \(1 - \beta\), then 
-\[1 - \beta = P\left(Z > z_{1-\alpha} - \frac{\mu_a - \mu_0}{\sigma /\sqrt{n}} ~|~ \mu = \mu_a \right) = P(Z > z_{\beta})\]</li>
-<li>This yields the equation
-\[z_{1-\alpha} - \frac{\sqrt{n}(\mu_a - \mu_0)}{\sigma} = z_{\beta}\]</li>
+\[1 - \beta = P\left(\bar X > \mu_0 + z_{1-\alpha} \frac{\sigma}{\sqrt{n}} ; \mu = \mu_a \right)\]</li>
+<li>where \(\bar X \sim N(\mu_a, \sigma^2 / n)\)</li>
 <li>Unknowns: \(\mu_a\), \(\sigma\), \(n\), \(\beta\)</li>
 <li>Knowns: \(\mu_0\), \(\alpha\)</li>
 <li>Specify any 3 of the unknowns and you can solve for the remainder</li>
@@ -225,7 +224,7 @@ associated two sided test</li>
 <li> Consider calculating power for a Gossett&#39;s \(T\) test for our example</li>
 <li> The power is
 \[
-P\left(\frac{\bar X - \mu_0}{S /\sqrt{n}} > t_{1-\alpha, n-1} ~|~ \mu = \mu_a \right)
+P\left(\frac{\bar X - \mu_0}{S /\sqrt{n}} > t_{1-\alpha, n-1} ~;~ \mu = \mu_a \right)
 \]</li>
 <li>Calcuting this requires the non-central t distribution.</li>
 <li><code>power.t.test</code> does this very well

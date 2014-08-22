@@ -13,10 +13,10 @@ url:
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
-
+  
 ## P-values
 
-* Most common measure of "statistical significance"
+* Most common measure of statistical significance
 * Their ubiquity, along with concern over their interpretation and use
   makes them controversial among statisticians
   * [http://warnercnr.colostate.edu/~anderson/thompson1.html](http://warnercnr.colostate.edu/~anderson/thompson1.html)
@@ -43,20 +43,21 @@ __Approach__:
 
 ---
 ## P-values
-* The P-value is the probability under the null hypothesis of obtaining evidence as extreme or more extreme than would be observed by chance alone
+* The P-value is the probability under the null hypothesis of obtaining evidence as extreme or more extreme than that obtained
 * If the P-value is small, then either $H_0$ is true and we have observed a rare event or $H_0$ is false
-*  In our example the $T$ statistic was $0.8$. 
-  * What's the probability of getting a $T$ statistic as large as $0.8$?
+*  Suppos that you get a $T$ statistic of $2.5$ for 15 df testing $H_0:\mu = \mu_0$
+versus $H_a : \mu > \mu_0$. 
+  * What's the probability of getting a $T$ statistic as large as $2.5$?
 
 ```r
-pt(0.8, 15, lower.tail = FALSE)
+pt(2.5, 15, lower.tail = FALSE)
 ```
 
 ```
-## [1] 0.2181
+## [1] 0.01225
 ```
 
-* Therefore, the probability of seeing evidence as extreme or more extreme than that actually obtained under $H_0$ is 0.2181
+* Therefore, the probability of seeing evidence as extreme or more extreme than that actually obtained under $H_0$ is 0.0123
 
 ---
 ## The attained significance level

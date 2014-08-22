@@ -49,7 +49,7 @@
   </hgroup>
   <article data-timings="">
     <ul>
-<li>Most common measure of &quot;statistical significance&quot;</li>
+<li>Most common measure of statistical significance</li>
 <li>Their ubiquity, along with concern over their interpretation and use
 makes them controversial among statisticians
 
@@ -97,23 +97,24 @@ makes them controversial among statisticians
   </hgroup>
   <article data-timings="">
     <ul>
-<li>The P-value is the probability under the null hypothesis of obtaining evidence as extreme or more extreme than would be observed by chance alone</li>
+<li>The P-value is the probability under the null hypothesis of obtaining evidence as extreme or more extreme than that obtained</li>
 <li>If the P-value is small, then either \(H_0\) is true and we have observed a rare event or \(H_0\) is false</li>
-<li> In our example the \(T\) statistic was \(0.8\). 
+<li> Suppos that you get a \(T\) statistic of \(2.5\) for 15 df testing \(H_0:\mu = \mu_0\)
+versus \(H_a : \mu > \mu_0\). 
 
 <ul>
-<li>What&#39;s the probability of getting a \(T\) statistic as large as \(0.8\)?</li>
+<li>What&#39;s the probability of getting a \(T\) statistic as large as \(2.5\)?</li>
 </ul></li>
 </ul>
 
-<pre><code class="r">pt(0.8, 15, lower.tail = FALSE)
+<pre><code class="r">pt(2.5, 15, lower.tail = FALSE)
 </code></pre>
 
-<pre><code>## [1] 0.2181
+<pre><code>## [1] 0.01225
 </code></pre>
 
 <ul>
-<li>Therefore, the probability of seeing evidence as extreme or more extreme than that actually obtained under \(H_0\) is 0.2181</li>
+<li>Therefore, the probability of seeing evidence as extreme or more extreme than that actually obtained under \(H_0\) is 0.0123</li>
 </ul>
 
   </article>

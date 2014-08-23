@@ -1,6 +1,6 @@
 ---
 title       : Homework 4 for Stat Inference
-subtitle    : Extra problems for Stat Inference
+subtitle    : (Use arrow keys to navigate)
 author      : Brian Caffo
 job         : Johns Hopkins Bloomberg School of Public Health
 framework   : io2012
@@ -24,14 +24,14 @@ Creating Data Products
 
 
 --- &multitext
-Load the data set `mtcars` in the `datasets` R package. You want
-to test whether the MPG is $\mu_0$ or smaller using a one sided
+Load the data set `mtcars` in the `datasets` R package. Assume that the data set mtcars is a random sample. Compute the mean MPG, $\bar x,$ of this sample.
+
+You want
+to test whether the true MPG is $\mu_0$ or smaller using a one sided
 5% level test. ($H_0 : \mu = \mu_0$ versus $H_a : \mu < \mu_0$).
 Using that data set and a Z test:
 
-1. what is the smallest value of $\mu_0$ that you would reject for?
-
-Both to two decimal places.
+1. . Based on the mean MPG of the sample $\bar x,$ and by using a Z test: what is the smallest value of $\mu_0$ that you would reject for (to two decimal places)?
 
 *** .hint
 This is the inversion of a one sided hypothesis test. It yields confidence
@@ -43,11 +43,13 @@ We want to solve
 $$
 \frac{\sqrt{n}(\bar{X} - \mu_0)}{s} = Z_{0.05}
 $$
-Or $$\mu_0 = \bar{X} - Z_{0.05} s / \sqrt{n} = \bar{X} + Z_{0.95} s / \sqrt{n}$$. Note that the quantile is negative.
+Or $$\mu_0 = \bar{X} - Z_{0.05} s / \sqrt{n} = \bar{X} + Z_{0.95} s / \sqrt{n}$$ Note that the quantile is negative.
 
 
 ```r
-mn <- mean(mtcars$mpg); s <- sd(mtcars$mpg); z <- qnorm(.05)
+mn <- mean(mtcars$mpg)
+s <- sd(mtcars$mpg)
+z <- qnorm(.05)
 mu0 <- mn - z * s / sqrt(nrow(mtcars))
 ```
 
@@ -170,12 +172,12 @@ setting.
 --- &multitext
 
 Suppose that in an AB test, one advertising scheme led to an average of 10 purchases per day for a sample of 100 days, while the other led to 11 purchaces per day, also for a sample of 100 days.
-Assuming a common standard deviation of 4 purchaces per day.
+Assuming a common standard deviation of 4 purchases per day.
 Assuming that the groups are independent and that they days are iid, perform a Z test of
 equivalence. 
 
 1. What is the P-value reported to 3 digits expressed as a proportion?
-2. Do you reject the test? (O for no 1 for yes).
+2. Do you reject the test? (0 for no 1 for yes).
 
 *** .hint
 The standard error is 
@@ -209,7 +211,7 @@ $\alpha = 1 - Conf. Level$._
 $2 \alpha = 1 - Conf. Level$.
 3. All of the values of the hypothesized mean for which we would reject with 
 $\alpha = 1 - Conf. Level$.
-4. All of the values of the hypothesized mean for which we would fail to reject with 
+4. All of the values of the hypothesized mean for which we would reject with 
 $2 \alpha = 1 - Conf. Level$.
 
 *** .hint
@@ -306,8 +308,7 @@ innocent. Relate this property back to hypothesis tests.
 --- &multitext
 Consider the `mtcars` data set. 
 
-1. Give the p-value for a t-test for assuming 
-constant variance comparing MPG for 6 and 8 cylinder cars as a proportion to 3 decimal places.
+1. Give the p-value for a t-test comparing MPG for 6 and 8 cylinder cars assuming equal variance, as a proportion to 3 decimal places.
 2. Give the associated P-value for a z test.
 3. Give the common standard deviation estimate for MPG across cylinders to 3 decimal places.
 4. Would the t test reject at the two sided 0.05 level (0 for no 1 for yes)?

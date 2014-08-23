@@ -1,6 +1,6 @@
 ---
 title       : Homework 1 for Stat Inference
-subtitle    : Extra problems for Stat Inference
+subtitle    : (Use arrow keys to navigate)
 author      : Brian Caffo
 job         : Johns Hopkins Bloomberg School of Public Health
 framework   : io2012
@@ -60,7 +60,7 @@ $$.15 = .10 + .09 - P(AB)$$
 
 ---  &radio
 
-A random variable, $X$, is uniform, a box from $0$ to $1$ of height $1$. (So that it's density is $f(x) = 1$ for $0\leq x \leq 1$.) What is it's median expressed to two decimal places? </p>
+A random variable, $X$, is uniform, a box from $0$ to $1$ of height $1$. (So that its density is $f(x) = 1$ for $0\leq x \leq 1$.) What is its median expressed to two decimal places? </p>
 
 1. 1.00
 2. 0.75
@@ -179,7 +179,7 @@ What is the variance expressed to 1 decimal place?
 4. 17.0
 
 *** .hint
-The variance is $E[X^2] - E[X^2]$
+The variance is $E[X^2] - E[X]^2$
 
 *** .explanation 
 ```{r}

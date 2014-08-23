@@ -34,7 +34,7 @@
         <slide class="title-slide segue nobackground">
   <hgroup class="auto-fadein">
     <h1>Homework 4 for Stat Inference</h1>
-    <h2>Extra problems for Stat Inference</h2>
+    <h2>(Use arrow keys to navigate)</h2>
     <p>Brian Caffo<br/>Johns Hopkins Bloomberg School of Public Health</p>
   </hgroup>
   <article></article>  
@@ -63,16 +63,16 @@ Creating Data Products</li>
   <article data-timings="">
     
 <div class="quiz-text quiz-multitext well">
-  <p>Load the data set <code>mtcars</code> in the <code>datasets</code> R package. You want
-to test whether the MPG is \(\mu_0\) or smaller using a one sided
+  <p>Load the data set <code>mtcars</code> in the <code>datasets</code> R package. Assume that the data set mtcars is a random sample. Compute the mean MPG, \(\bar x,\) of this sample.</p>
+
+<p>You want
+to test whether the true MPG is \(\mu_0\) or smaller using a one sided
 5% level test. (\(H_0 : \mu = \mu_0\) versus \(H_a : \mu < \mu_0\)).
 Using that data set and a Z test:</p>
 
 <ol>
-<li>what is the smallest value of \(\mu_0\) that you would reject for?</li>
+<li class = ''>Based on the mean MPG of the sample \(\bar x,\) and by using a Z test: what is the smallest value of \(\mu_0\) that you would reject for (to two decimal places)?</li>
 </ol>
-
-<p>Both to two decimal places.</p>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
   <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
@@ -90,9 +90,11 @@ Think about the derivation of the confidence interval.</p>
 \[
 \frac{\sqrt{n}(\bar{X} - \mu_0)}{s} = Z_{0.05}
 \]
-Or \[\mu_0 = \bar{X} - Z_{0.05} s / \sqrt{n} = \bar{X} + Z_{0.95} s / \sqrt{n}\]. Note that the quantile is negative.</p>
+Or \[\mu_0 = \bar{X} - Z_{0.05} s / \sqrt{n} = \bar{X} + Z_{0.95} s / \sqrt{n}\] Note that the quantile is negative.</p>
 
-<pre><code class="r">mn &lt;- mean(mtcars$mpg); s &lt;- sd(mtcars$mpg); z &lt;- qnorm(.05)
+<pre><code class="r">mn &lt;- mean(mtcars$mpg)
+s &lt;- sd(mtcars$mpg)
+z &lt;- qnorm(.05)
 mu0 &lt;- mn - z * s / sqrt(nrow(mtcars))
 </code></pre>
 
@@ -273,13 +275,13 @@ setting.</p>
     
 <div class="quiz-text quiz-multitext well">
   <p>Suppose that in an AB test, one advertising scheme led to an average of 10 purchases per day for a sample of 100 days, while the other led to 11 purchaces per day, also for a sample of 100 days.
-Assuming a common standard deviation of 4 purchaces per day.
+Assuming a common standard deviation of 4 purchases per day.
 Assuming that the groups are independent and that they days are iid, perform a Z test of
 equivalence. </p>
 
 <ol>
 <li>What is the P-value reported to 3 digits expressed as a proportion?</li>
-<li>Do you reject the test? (O for no 1 for yes).</li>
+<li>Do you reject the test? (0 for no 1 for yes).</li>
 </ol>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
@@ -325,7 +327,7 @@ The answer to 2 is <span class="answer">0</span></p>
 \(2 \alpha = 1 - Conf. Level\).</li>
 <li>All of the values of the hypothesized mean for which we would reject with 
 \(\alpha = 1 - Conf. Level\).</li>
-<li>All of the values of the hypothesized mean for which we would fail to reject with 
+<li>All of the values of the hypothesized mean for which we would reject with 
 \(2 \alpha = 1 - Conf. Level\).</li>
 </ol>
 
@@ -478,8 +480,7 @@ innocent. Relate this property back to hypothesis tests.</p>
   <p>Consider the <code>mtcars</code> data set. </p>
 
 <ol>
-<li>Give the p-value for a t-test for assuming 
-constant variance comparing MPG for 6 and 8 cylinder cars as a proportion to 3 decimal places.</li>
+<li>Give the p-value for a t-test comparing MPG for 6 and 8 cylinder cars assuming equal variance, as a proportion to 3 decimal places.</li>
 <li>Give the associated P-value for a z test.</li>
 <li>Give the common standard deviation estimate for MPG across cylinders to 3 decimal places.</li>
 <li>Would the t test reject at the two sided 0.05 level (0 for no 1 for yes)?</li>

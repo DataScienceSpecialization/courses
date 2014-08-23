@@ -103,7 +103,7 @@ is the least squares line.
 * Consider forcing $\beta_0 = 0$ and thus $\hat \beta_0=0$; 
 that is, only considering lines through the origin
 * The solution works out to be
-$$\hat \beta_1 = \frac{\sum_{i=1^n} Y_i X_i}{\sum_{i=1}^n X_i^2}.$$
+$$\hat \beta_1 = \frac{\sum_{i=1}^n Y_i X_i}{\sum_{i=1}^n X_i^2}.$$
 
 ---
 ## Let's show it
@@ -123,8 +123,8 @@ $$\hat \beta_1 = \frac{\sum_{i=1^n} Y_i X_i}{\sum_{i=1}^n X_i^2}.$$
 ## Recapping what we know
 * If we define $\mu_i = \beta_0$ then $\hat \beta_0 = \bar Y$.
   * If we only look at horizontal lines, the least squares estimate of the intercept of that line is the average of the outcomes.
-* If we define $\mu_i = X_i \beta_1$ then $\hat \beta_1 = \frac{\sum_{i=1^n} Y_i X_i}{\sum_{i=1}^n X_i^2}$
-  * If we only look at lines through the origin, we get the estimated slope is the cross product of the X and Ys divided by the cross product of the Xs with themselves.
+* If we define $\mu_i = X_i \beta_1$ then $\hat \beta_1 = \frac{\sum_{i=1}^n Y_i X_i}{\sum_{i=1}^n X_i^2}$
+  * If we only look at lines through the origin, the estimated slope is the cross product of the X and Ys divided by the cross product of the Xs with themselves.
 * What about when $\mu_i = \beta_0 + \beta_1 X_i$? That is, we don't want to restrict ourselves to horizontal lines or lines through the origin.
 
 ---
@@ -132,7 +132,7 @@ $$\hat \beta_1 = \frac{\sum_{i=1^n} Y_i X_i}{\sum_{i=1}^n X_i^2}.$$
 $$\begin{align} \
 \sum_{i=1}^n (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) 
 = & \sum_{i=1}^n (Y_i - \hat\beta_0 - \hat\beta_1 X_i) (\hat \beta_0 + \hat \beta_1 X_i - \beta_0 - \beta_1 X_i) \\
-= & (\hat \beta_0 - \beta_0) \sum_{i=1}^n (Y_i - \hat\beta_0 - \hat \beta_1 X_i) + (\beta_1 - \beta_1)\sum_{i=1}^n (Y_i - \hat\beta_0 - \hat \beta_1 X_i)X_i\\
+= & (\hat \beta_0 - \beta_0) \sum_{i=1}^n (Y_i - \hat\beta_0 - \hat \beta_1 X_i) + (\hat \beta_1 - \beta_1)\sum_{i=1}^n (Y_i - \hat\beta_0 - \hat \beta_1 X_i)X_i\\
 \end{align} $$
 Note that 
 
@@ -215,7 +215,7 @@ c(cor(y, x), cor(yn, xn), coef(lm(yn ~ xn))[2])
 ---
 ## Plotting the fit
 * Size of points are frequencies at that X, Y combination.
-* For the red lie the child is outcome.
+* For the red line the child is outcome.
 * For the blue, the parent is the outcome  (accounting for the fact that the response is plotted on the horizontal axis).
 * Black line assumes $Cor(Y, X) = 1$ (slope is $Sd(Y)/Sd(x)$).
 * Big black dot is $(\bar X, \bar Y)$.
@@ -228,7 +228,7 @@ abline(mean(y) - mean(x) * cor(y, x) * sd(y) / sd(x),
   sd(y) / sd(x) * cor(y, x), 
   lwd = 3, col = "red")
 abline(mean(y) - mean(x) * sd(y) / sd(x) / cor(y, x), 
-  sd(y) cor(y, x) / sd(x), 
+  sd(y) / cor(y, x) / sd(x), 
   lwd = 3, col = "blue")
 abline(mean(y) - mean(x) * sd(y) / sd(x), 
   sd(y) / sd(x), 

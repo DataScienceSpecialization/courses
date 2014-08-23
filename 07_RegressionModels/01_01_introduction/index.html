@@ -8,51 +8,46 @@
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
     media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../libraries/frameworks/io2012/js/slides" 
-    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-    <link rel="stylesheet" href = "../../assets/css/custom.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
-<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
-<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+  
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
     
     <!-- LOGO SLIDE -->
-    <!-- END LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Introduction to regression</h1>
+    <h2>Regression</h2>
+    <p>Brian Caffo, Jeff Leek and Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
     
 
-    <!-- TITLE SLIDE -->
-    <!-- Should I move this to a Local Layout File? -->
-    <slide class="title-slide segue nobackground">
-      <aside class="gdbar">
-        <img src="../../assets/img/bloomberg_shield.png">
-      </aside>
-      <hgroup class="auto-fadein">
-        <h1>Introduction to regression</h1>
-        <h2>Regression</h2>
-        <p>Brian Caffo, Jeff Leek and Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
-      </hgroup>
-          </slide>
-
     <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
+    <slide class="" id="slide-1" style="background:;">
   <hgroup>
     <h2>A famous motivating example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p><img class=center src=fig/galton.jpg height=150></p>
 
 <h3>(Perhaps surprisingly, this example is still relevant)</h3>
@@ -67,11 +62,33 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-2" style="background:;">
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Recent simply statistics post</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>(Simply Statistics is a blog by Jeff Leek, Roger Peng and 
+Rafael Irizarry, who wrote this post, link on the image)</p>
+
+<p><a href="http://simplystatistics.org/2013/01/28/data-supports-claim-that-if-kobe-stops-ball-hogging-the-lakers-will-win-more/">
+<img class=center src=http://simplystatistics.org/wp-content/uploads/2013/01/kobelakers1-1024x1024.png height=250></img>
+</a></p>
+
+<ul>
+<li>&quot;Data supports claim that if Kobe stops ball hogging the Lakers will win more&quot;</li>
+<li>&quot;Linear regression suggests that an increase of 1% in % of shots taken by Kobe results in a drop of 1.16 points (+/- 0.22)  in score differential.&quot;</li>
+<li>How was it done? Do you agree with the analysis? </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Questions for this class</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Consider trying to answer the following kinds of questions:
 
@@ -93,11 +110,11 @@ tall, but a little shorter than their parents and why children of very short par
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Galton&#39;s Data</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Let&#39;s look at the data first, used by Francis Galton in 1885. </li>
 <li>Galton was a statistician who invented the term and concepts
@@ -117,15 +134,13 @@ and was the cousin of Charles Darwin.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-4" style="background:;">
-  <hgroup>
-    <h2>Code</h2>
-  </hgroup>
-  <article>
-    <pre><code class="r">library(UsingR); data(galton)
-par(mfrow=c(1,2))
-hist(galton$child,col=&quot;blue&quot;,breaks=100)
-hist(galton$parent,col=&quot;blue&quot;,breaks=100)
+<slide class="" id="slide-5" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">library(UsingR); data(galton); library(reshape); long &lt;- melt(galton)
+g &lt;- ggplot(long, aes(x = value, fill = variable)) 
+g &lt;- g + geom_histogram(colour = &quot;black&quot;, binwidth=1) 
+g &lt;- g + facet_grid(. ~ variable)
+g
 </code></pre>
 
 <div class="rimage center"><img src="fig/galton.png" title="plot of chunk galton" alt="plot of chunk galton" class="plot" /></div>
@@ -134,11 +149,11 @@ hist(galton$parent,col=&quot;blue&quot;,breaks=100)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Finding the middle via least squares</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Consider only the children&#39;s heights. 
 
@@ -148,27 +163,27 @@ hist(galton$parent,col=&quot;blue&quot;,breaks=100)
 that minimizes \[\sum_{i=1}^n (Y_i - \mu)^2\]</li>
 </ul></li>
 <li>This is physical center of mass of the histrogram.</li>
-<li>You might have guessed that the answer \(\mu = \bar X\).</li>
+<li>You might have guessed that the answer \(\mu = \bar Y\).</li>
 </ul>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>Experiment</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <h3>Use R studio&#39;s manipulate to see what value of \(\mu\) minimizes the sum of the squared deviations.</h3>
 
 <pre><code>library(manipulate)
 myHist &lt;- function(mu){
-  hist(galton$child,col=&quot;blue&quot;,breaks=100)
-  lines(c(mu, mu), c(0, 150),col=&quot;red&quot;,lwd=5)
-  mse &lt;- mean((galton$child - mu)^2)
-  text(63, 150, paste(&quot;mu = &quot;, mu))
-  text(63, 140, paste(&quot;MSE = &quot;, round(mse, 2)))
+    mse &lt;- mean((galton$child - mu)^2)
+    g &lt;- ggplot(galton, aes(x = child)) + geom_histogram(fill = &quot;salmon&quot;, colour = &quot;black&quot;, binwidth=1)
+    g &lt;- g + geom_vline(xintercept = mu, size = 3)
+    g &lt;- g + ggtitle(paste(&quot;mu = &quot;, mu, &quot;, MSE = &quot;, round(mse, 2), sep = &quot;&quot;))
+    g
 }
 manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 </code></pre>
@@ -177,27 +192,27 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
-    <h2>The least squares estimate is the empirical mean</h2>
+    <h2>The least squares est. is the empirical mean</h2>
   </hgroup>
-  <article>
-    <pre><code class="r">  hist(galton$child,col=&quot;blue&quot;,breaks=100)
-  meanChild &lt;- mean(galton$child)
-  lines(rep(meanChild,100),seq(0,150,length=100),col=&quot;red&quot;,lwd=5)
+  <article data-timings="">
+    <pre><code class="r">g &lt;- ggplot(galton, aes(x = child)) + geom_histogram(fill = &quot;salmon&quot;, colour = &quot;black&quot;, binwidth=1)
+g &lt;- g + geom_vline(xintercept = mean(galton$child), size = 3)
+g
 </code></pre>
 
-<div class="rimage center"><img src="fig/lsm.png" title="plot of chunk lsm" alt="plot of chunk lsm" class="plot" /></div>
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
-    <h3>The math follows as:</h3>
+    <h3>The math (not required for the class) follows as:</h3>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>\[ 
 \begin{align} 
 \sum_{i=1}^n (Y_i - \mu)^2 & = \
@@ -220,25 +235,22 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Comparing childrens&#39; heights and their parents&#39; heights</h2>
   </hgroup>
-  <article>
-    <pre><code class="r">plot(galton$parent,galton$child,pch=19,col=&quot;blue&quot;)
+  <article data-timings="">
+    <pre><code class="r">ggplot(galton, aes(x = parent, y = child)) + geom_point()
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-10" style="background:;">
-  <hgroup>
-    
-  </hgroup>
-  <article>
+<slide class="" id="slide-11" style="background:;">
+  <article data-timings="">
     <p>Size of point represents number of points at that (X, Y) combination (See the Rmd file for the code).</p>
 
 <div class="rimage center"><img src="fig/freqGalton.png" title="plot of chunk freqGalton" alt="plot of chunk freqGalton" class="plot" /></div>
@@ -247,11 +259,11 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>Regression through the origin</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Suppose that \(X_i\) are the parents&#39; heights.</li>
 <li>Consider picking the slope \(\beta\) that minimizes \[\sum_{i=1}^n (Y_i - X_i \beta)^2\]</li>
@@ -267,28 +279,24 @@ and children&#39;s heights</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-12" style="background:;">
-  <hgroup>
-    
-  </hgroup>
-  <article>
-    <pre><code>myPlot &lt;- function(beta){
-  y &lt;- galton$child - mean(galton$child)
-  x &lt;- galton$parent - mean(galton$parent)
-  freqData &lt;- as.data.frame(table(x, y))
-  names(freqData) &lt;- c(&quot;child&quot;, &quot;parent&quot;, &quot;freq&quot;)
-  plot(
-    as.numeric(as.vector(freqData$parent)), 
-    as.numeric(as.vector(freqData$child)),
-    pch = 21, col = &quot;black&quot;, bg = &quot;lightblue&quot;,
-    cex = .15 * freqData$freq, 
-    xlab = &quot;parent&quot;, 
-    ylab = &quot;child&quot;
-    )
-  abline(0, beta, lwd = 3)
-  points(0, 0, cex = 2, pch = 19)
-  mse &lt;- mean( (y - beta * x)^2 )
-  title(paste(&quot;beta = &quot;, beta, &quot;mse = &quot;, round(mse, 3)))
+<slide class="" id="slide-13" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">y &lt;- galton$child - mean(galton$child)
+x &lt;- galton$parent - mean(galton$parent)
+freqData &lt;- as.data.frame(table(x, y))
+names(freqData) &lt;- c(&quot;child&quot;, &quot;parent&quot;, &quot;freq&quot;)
+freqData$child &lt;- as.numeric(as.character(freqData$child))
+freqData$parent &lt;- as.numeric(as.character(freqData$parent))
+myPlot &lt;- function(beta){
+    g &lt;- ggplot(filter(freqData, freq &gt; 0), aes(x = parent, y = child))
+    g &lt;- g  + scale_size(range = c(2, 20), guide = &quot;none&quot; )
+    g &lt;- g + geom_point(colour=&quot;grey50&quot;, aes(size = freq+20, show_guide = FALSE))
+    g &lt;- g + geom_point(aes(colour=freq, size = freq))
+    g &lt;- g + scale_colour_gradient(low = &quot;lightblue&quot;, high=&quot;white&quot;)                     
+    g &lt;- g + geom_abline(intercept = 0, slope = beta, size = 3)
+    mse &lt;- mean( (y - beta * x) ^2 )
+    g &lt;- g + ggtitle(paste(&quot;beta = &quot;, beta, &quot;mse = &quot;, round(mse, 3)))
+    g
 }
 manipulate(myPlot(beta), beta = slider(0.6, 1.2, step = 0.02))
 </code></pre>
@@ -297,11 +305,11 @@ manipulate(myPlot(beta), beta = slider(0.6, 1.2, step = 0.02))
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>The solution</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <h3>In the next few lectures we&#39;ll talk about why this is the solution</h3>
 
 <pre><code class="r">lm(I(child - mean(child))~ I(parent - mean(parent)) - 1, data = galton)
@@ -321,14 +329,9 @@ I(parent - mean(parent))
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-14" style="background:;">
-  <hgroup>
-    <h2>Visualizing the best fit line</h2>
-  </hgroup>
-  <article>
-    <h3>Size of points are frequencies at that X, Y combination</h3>
-
-<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+<slide class="" id="slide-15" style="background:;">
+  <article data-timings="">
+    <div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
@@ -336,34 +339,125 @@ I(parent - mean(parent))
 
     <slide class="backdrop"></slide>
   </slides>
-
-  <!--[if IE]>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='A famous motivating example'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Recent simply statistics post'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Questions for this class'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Galton&#39;s Data'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title=''>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Finding the middle via least squares'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Experiment'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='The least squares est. is the empirical mean'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='The math (not required for the class) follows as:'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Comparing childrens&#39; heights and their parents&#39; heights'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title=''>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Regression through the origin'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title=''>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='The solution'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title=''>
+         15
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
     <script 
       src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
 </body>
-<!-- Grab CDN jQuery, fall back to local if offline -->
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
-<!-- Load Javascripts for Widgets -->
-<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> -->
-<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
 </script>
 <!-- LOAD HIGHLIGHTER JS FILES -->
-<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- DONE LOADING HIGHLIGHTER JS FILES -->
-</html>
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

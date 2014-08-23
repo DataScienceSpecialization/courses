@@ -1,0 +1,304 @@
+\documentclass[aspectratio=169]{beamer}
+\mode<presentation>
+%\usetheme{Warsaw}
+%\usetheme{Goettingen}
+\usetheme{Hannover}
+%\useoutertheme{default}
+
+%\useoutertheme{infolines}
+\useoutertheme{sidebar}
+\usecolortheme{dolphin}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+%test
+%some bold math symbosl
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\brho}{\boldsymbol{\rho}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bW}{\mathbf{W}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\bH}{\mathbf{H}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bolde}{\mathbf{e}}
+\newcommand{\bx}{\mathbf{x}}
+
+\newcommand{\cpp}[1]{\texttt{#1}}
+
+\title{Mathematical Biostatistics Boot Camp 2: Lecture 1, Hypothesis Testing}
+\author{Brian Caffo}
+\date{\today}
+\institute[Department of Biostatistics]{
+  Department of Biostatistics \\
+  Johns Hopkins Bloomberg School of Public Health\\
+  Johns Hopkins University
+}
+
+
+%\logo{\includegraphics[height=0.5cm]{Logo_PPT.pdf}}
+
+\begin{document}
+\frame{\titlepage}
+
+%\section{Table of contents}
+\frame{
+  \frametitle{Table of contents}
+  \tableofcontents
+}
+
+
+\section{Hypothesis testing}
+\begin{frame}\frametitle{Hypothesis Testing}
+\begin{itemize}
+\item Hypothesis testing is concerned with making decisions using data
+\item A null hypothesis is specified that represents the status quo,
+  usually labeled $H_0$
+\item The null hypothesis is assumed true and statistical evidence is required
+  to reject it in favor of a research or alternative hypothesis 
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Example}
+\begin{itemize}
+\item A respiratory disturbance index of more than $30$ events / hour, say, is 
+  considered evidence of severe sleep disordered breathing (SDB).
+\item Suppose that in a sample of $100$ overweight subjects with other
+  risk factors for sleep disordered breathing at a sleep clinic, the
+  mean RDI was $32$ events / hour with a standard deviation of $10$ events / hour.
+\item We might want to test the hypothesis that 
+  \begin{itemize}
+  \item $H_0 : \mu = 30$
+  \item $H_a : \mu > 30$
+  \end{itemize}
+  where $\mu$ is the population mean RDI.
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Hypothesis testing}
+\begin{itemize}
+\item The alternative hypotheses are typically of the form $<$, $>$ or $\neq$
+\item Note that there are four possible outcomes of our statistical decision
+  process
+\begin{center}
+  \begin{tabular}{lccc}
+      & \multicolumn{2}{c}{Decision} \\
+Truth & $H_0$ & $H_a$ \\ \hline
+$H_0$ & Correctly accept null & Type I error \\
+$H_a$ & Type II error & Correctly reject null  \\ \hline
+  \end{tabular}
+\end{center}
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Discussion}
+\begin{itemize}
+\item Consider a court of law; the null hypothesis is that the
+  defendant is innocent
+\item We require evidence to reject the null hypothesis (convict)
+\item If we require little evidence, then we would increase the
+  percentage of innocent people convicted (type I errors); however we
+  would also increase the percentage of guilty people convicted
+  (correctly rejecting the null)
+\item If we require a lot of evidence, then we increase the the
+  percentage of innocent people let free (correctly accepting the
+  null) while we would also increase the percentage of guilty people
+  let free (type II errors)
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Example}
+\begin{itemize}
+\item Consider our example again
+\item A reasonable strategy would reject the null hypothesis if
+  $\bar X$ was larger than some constant, say $C$
+\item Typically, $C$ is chosen so that the probability of a Type I
+  error, $\alpha$, is $.05$ (or some other relevant constant)
+\item $\alpha$ = Type I error rate = Probability of rejecting the null hypothesis
+  when, in fact, the null hypothesis is correct
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Continued}
+\begin{itemize}
+\item Note that 
+  \begin{eqnarray*}
+    .05 & = & P\left(\bar X \geq C ~|~ \mu = 30 \right) \\ \\
+        & = & P\left(\frac{\bar X - 30}{10 / \sqrt{100}} \geq \frac{C - 30}{10/\sqrt{100}} ~|~ \mu = 30\right) \\ \\
+        & = & P\left(Z \geq \frac{C - 30}{1}\right)
+  \end{eqnarray*}
+\item Hence $(C - 30) / 1 = 1.645$ implying $C = 31.645$
+\item Since our mean is $32$ we reject the null hypothesis
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Discussion}
+\begin{itemize}
+\item In general we don't convert $C$ back to the original scale
+\item We would just reject because the Z-score; which is how many
+  standard errors the sample mean is above the hypothesized mean
+  $$
+  \frac{32 - 30}{10 / \sqrt{100}} = 2
+  $$
+  is greater than $1.645$
+\end{itemize}
+
+\section{General rules}
+\end{frame}
+\begin{frame}\frametitle{General rule}
+\begin{itemize}
+\item The $Z$ test for $H_0:\mu = \mu_0$ versus 
+  \begin{itemize}
+  \item $H_1: \mu < \mu_0$
+  \item $H_2: \mu \neq \mu_0$
+  \item $H_3: \mu > \mu_0$ 
+  \end{itemize}
+ \item Test statistic $ TS = \frac{\bar{X} - \mu_0}{S / \sqrt{n}} $
+ \item Reject the null hypothesis when 
+  \begin{enumerate}[$H_1:$]
+  \item $TS \leq -Z_{1 - \alpha}$
+  \item $|TS| \geq Z_{1 - \alpha / 2}$
+  \item $TS \geq Z_{1 - \alpha}$
+  \end{enumerate}
+\end{itemize}
+
+\end{frame}
+\begin{frame}\frametitle{Notes}
+\begin{itemize}
+\item We have fixed $\alpha$ to be low, so if we reject $H_0$ (either
+  our model is wrong) or there is a low probability that we have made
+  an error
+\item We have not fixed the probability of a type II error, $\beta$;
+  therefore we tend to say ``Fail to reject $H_0$'' rather than
+  accepting $H_0$
+\item Statistical significance is no the same as scientific
+  significance
+\item The region of TS values for which you reject $H_0$ is called the
+  rejection region
+\end{itemize}
+\end{frame}
+
+\section{Notes}
+\begin{frame}\frametitle{More notes}
+\begin{itemize}
+\item The $Z$ test requires the assumptions of the CLT and for $n$ to be large enough
+  for it to apply
+\item If $n$ is small, then a Gossett's $T$ test is performed exactly in the same way,
+  with the normal quantiles replaced by the appropriate Student's $T$ quantiles and
+  $n-1$ df
+\item The probability of rejecting the null hypothesis when it is false is called {\bf power}
+\item Power is a used a lot to calculate sample sizes for experiments
+\end{itemize}
+\end{frame} 
+
+
+\begin{frame}\frametitle{Example reconsidered}
+Consider our example again. Suppose that $n= 16$ (rather than
+$100$). Then consider that \\
+$$
+.05 = P\left(\frac{\bar X - 30}{s / \sqrt{16}} \geq t_{1-\alpha, 15} ~|~ \mu = 30 \right)
+$$ \ \\
+So that our test statistic is now $\sqrt{16}(32 - 30) / 10 = 0.8 $, while the critical
+value is $t_{1-\alpha, 15} = 1.75$. We now fail to reject.
+\end{frame}
+
+\section{Two sided tests}
+\begin{frame}\frametitle{Two sided tests}
+\begin{itemize}
+\item Suppose that we would reject the null hypothesis if in fact the 
+  mean was too large or too small
+\item That is, we want to test the alternative $H_a : \mu \neq 30$
+  (doesn't make a lot of sense in our setting)
+\item Then note
+  \begin{eqnarray*}
+\alpha = P\left(\left. \left|\frac{\bar X - 30}{s /\sqrt{16}}\right| > t_{1-\alpha/2,15} ~\right|~ \mu = 30\right)
+  \end{eqnarray*}
+\item That is we will reject if the test statistic, $0.8$, is either
+  too large or too small, but the critical value is calculated using
+  $\alpha / 2$
+\item In our example the critical value is $2.13$, so we fail to reject.
+\end{itemize}
+\end{frame}
+
+\section{Confidence intervals}
+\begin{frame}\frametitle{Connections with confidence intervals}
+\begin{itemize}
+\item Consider testing $H_0: \mu = \mu_0$ versus $H_a: \mu \neq \mu_0$
+\item Take the set of all possible values for which you fail to reject $H_0$, this
+  set is a $(1-\alpha)100\%$ confidence interval for $\mu$
+\item The same works in reverse; if a $(1-\alpha)100\%$ interval
+  contains $\mu_0$, then we {\bf fail  to} reject $H_0$
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Proof}
+\begin{itemize}
+\item Consider that we do not reject $H_0$ if
+  $$\left| \frac{\bar X - \mu_0}{s /\sqrt{n}} \right| \leq t_{1-\alpha/2, n-1}$$
+implying
+  $$
+  \left|\bar X - \mu_0 \right| \leq t_{1-\alpha/2, n-1} s /\sqrt{n}
+  $$
+implying
+  $$
+  \bar X - t_{1-\alpha/2, n-1} s /\sqrt{n} < \mu_0 
+  < \bar X + t_{1-\alpha/2, n-1} s /\sqrt{n} 
+  $$
+\end{itemize}
+\end{frame}
+
+\section{P-values}
+\begin{frame}\frametitle{P-values}
+\begin{itemize}
+\item Notice that we rejected the one sided test when $\alpha = 0.05$, would we reject
+  if $\alpha = 0.01$, how about $0.001$?
+\item The smallest value for alpha that you still reject the null hypothesis is called the {\bf attained significance level}
+\item This is equivalent, but philosophically a little different from, the {\bf P-value}
+\item The P-value is the probability under the null hypothesis of
+  obtaining evidence as extreme or more extreme than would be observed
+  by chance alone
+\item If the P-value is small, then either $H_0$ is true and we have
+  observed a rare event or $H_0$ is false
+\end{itemize}
+\end{frame} 
+
+\begin{frame}[fragile]\frametitle{Example} 
+In our example the $T$ statistic was $0.8$. What's the probability of getting
+a $T$ statistic as large as $0.8$?
+\begin{verbatim}
+pt(0.8, 15, lower.tail = FALSE) ##works out to be 0.22
+\end{verbatim}
+Therefore, the probability of seeing evidence as extreme or more
+extreme than that actually obtained is $0.22$
+\end{frame}
+
+\begin{frame}\frametitle{Notes}
+\begin{itemize}
+\item By reporting a P-value the reader can perform the hypothesis
+  test at whatever $\alpha$ level he or she choses
+\item If the P-value is less than $\alpha$ you reject the null hypothesis 
+\item For two sided hypothesis test, double the smaller of the two one
+  sided hypothesis test Pvalues
+\item Don't just report P-values, give CIs too!
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Criticisms of the P-value}
+\begin{itemize}
+\item P-values only consider significance, unlike CIs
+\item It is difficult with a P-value or result of a hypothesis test to
+  distinguish practical significance from statistical significance
+\item Absolute measures of the rareness of an event are not good
+  measures of the evidence for or against a hypothesis
+\item P-values have become abusively used
+\end{itemize}
+\end{frame}
+
+
+\end{document}
+

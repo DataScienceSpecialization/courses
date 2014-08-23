@@ -13,7 +13,6 @@ url:
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
-
 ## Statistical inference defined
 
 Statistical inference is the process of drawing formal conclusions from
@@ -53,12 +52,11 @@ See WHI writing group paper JAMA 2002, Vol 288:321 - 333. for the paper and Stei
 
 ---
 
-## Motivating example 
-### Brain activation
+## Motivating example: ECMO
 
-![fMRI salmon study](fig/fmri-salmon.jpg 'fMRI salmon study')
-http://www.wired.com/2009/09/fmrisalmon/
+In 1985 a group at a major neonatal intensive care center published the results of a trial comparing a standard treatment and a promising new extracorporeal membrane oxygenation treatment (ECMO) for newborn infants with severe respiratory failure. **Ethical considerations lead to a statistical randomization scheme whereby one infant received the control therapy, thereby opening the study to sample-size based criticisms.**
 
+For a review and statistical discussion, see Royall Statistical Science 1991, Vol 6, No. 1, 52-88
 
 ---
 
@@ -88,7 +86,7 @@ a population quantity (the proportion of people who will
   noise ("What is the slope for Hooke's law?")
 4. Determine the impact of a policy? ("If we reduce polution levels,
   will asthma rates decline?")
-5. Talk about the probability that something occurs.
+
 
 ---
 ## Example tools of the trade 
@@ -158,3 +156,5 @@ addressing missing data.
   2. The classical development of study design in agriculture broadly covers design and design principles.
   3. The industrial quality control literature covers design thoroughly.
 
+---
+## Test page

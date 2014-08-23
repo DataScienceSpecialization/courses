@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Expected values</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Expected values">
+  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Expected values</h1>
+    <h2>Statistical Inference</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Expected values</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Expected values are useful cor characterizing a distribution</li>
+<li>The mean is a characterization of its center</li>
+<li>The variance and standard deviation are characterizations of
+how spread out it is</li>
+<li>Our sample expected values (the sample mean and variance) will
+estimate the population versions</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>The population mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The <strong>expected value</strong> or <strong>mean</strong> of a random variable is the center of its distribution</li>
+<li>For discrete random variable \(X\) with PMF \(p(x)\), it is defined as follows
+\[
+E[X] = \sum_x xp(x).
+\]
+where the sum is taken over the possible values of \(x\)</li>
+<li>\(E[X]\) represents the center of mass of a collection of locations and weights, \(\{x, p(x)\}\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>The sample mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The sample mean estimates this population mean</li>
+<li>The center of mass of the data is the empirical mean
+\[
+\bar X = \sum_{i=1}^n x_i p(x_i)
+\]
+where \(p(x_i) = 1/n\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Find the center of mass of the bars</h3>
+
+<p><img src="assets/fig/galton.png" title="plot of chunk galton" alt="plot of chunk galton" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Using manipulate</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>library(manipulate)
+myHist &lt;- function(mu){
+    g &lt;- ggplot(galton, aes(x = child))
+    g &lt;- g + geom_histogram(fill = &quot;salmon&quot;, 
+      binwidth=1, aes(y = ..density..), colour = &quot;black&quot;)
+    g &lt;- g + geom_density(size = 2)
+    g &lt;- g + geom_vline(xintercept = mu, size = 2)
+    mse &lt;- round(mean((galton$child - mu)^2), 3)  
+    g &lt;- g + labs(title = paste(&#39;mu = &#39;, mu, &#39; MSE = &#39;, mse))
+    g
+}
+manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>The center of mass is the empirical mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/lsm.png" title="plot of chunk lsm" alt="plot of chunk lsm" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Example of a population mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Suppose a coin is flipped and \(X\) is declared \(0\) or \(1\) corresponding to a head or a tail, respectively</li>
+<li>What is the expected value of \(X\)? 
+\[
+E[X] = .5 \times 0 + .5 \times 1 = .5
+\]</li>
+<li>Note, if thought about geometrically, this answer is obvious; if two equal weights are spaced at 0 and 1, the center of mass will be \(.5\)</li>
+</ul>
+
+<p><img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>What about a biased coin?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Suppose that a random variable, \(X\), is so that
+\(P(X=1) = p\) and \(P(X=0) = (1 - p)\)</li>
+<li>(This is a biased coin when \(p\neq 0.5\))</li>
+<li>What is its expected value?
+\[
+E[X] = 0 * (1 - p) + 1 * p = p
+\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Suppose that a die is rolled and \(X\) is the number face up</li>
+<li>What is the expected value of \(X\)?
+\[
+E[X] = 1 \times \frac{1}{6} + 2 \times \frac{1}{6} +
+3 \times \frac{1}{6} + 4 \times \frac{1}{6} +
+5 \times \frac{1}{6} + 6 \times \frac{1}{6} = 3.5
+\]</li>
+<li>Again, the geometric argument makes this answer obvious without calculation.</li>
+</ul>
+
+<p><img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Continuous random variables</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>For a continuous random variable, \(X\), with density, \(f\), the expected value is again exactly the center of mass of the density</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Consider a density where \(f(x) = 1\) for \(x\) between zero and one</li>
+<li>(Is this a valid density?)</li>
+<li>Suppose that \(X\) follows this density; what is its expected value?<br>
+<img src="assets/fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" /></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Facts about expected values</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Recall that expected values are properties of distributions</li>
+<li>Note the average of random variables is itself a random variable
+and its associated distribution has an expected value</li>
+<li>The center of this distribution is the same as that of the original distribution</li>
+<li>Therefore, the expected value of the <strong>sample mean</strong> is the population mean that it&#39;s trying to estimate</li>
+<li>When the expected value of an estimator is what its trying to estimate, we say that the estimator is <strong>unbiased</strong></li>
+<li>Let&#39;s try a simulation experiment</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Simulation experiment</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Simulating normals with mean 0 and variance 1 versus averages
+of 10 normals from the same population</p>
+
+<p><img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Averages of x die rolls</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Averages of x coin flips</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Sumarizing what we know</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Expected values are properties of distributions</li>
+<li>The population mean is the center of mass of population</li>
+<li>The sample mean is the center of mass of the observed data</li>
+<li>The sample mean is an estimate of the population mean</li>
+<li>The sample mean is unbiased 
+
+<ul>
+<li>The population mean of its distribution is the mean that it&#39;s
+trying to estimate</li>
+</ul></li>
+<li>The more data that goes into the sample mean, the more 
+concentrated its density / mass function is around the population mean</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Expected values'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='The population mean'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='The sample mean'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Example'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Using manipulate'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='The center of mass is the empirical mean'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Example of a population mean'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='What about a biased coin?'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Example'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Continuous random variables'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Example'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Facts about expected values'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Simulation experiment'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Averages of x die rolls'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Averages of x coin flips'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Sumarizing what we know'>
+         16
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

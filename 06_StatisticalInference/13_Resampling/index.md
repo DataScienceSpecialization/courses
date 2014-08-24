@@ -23,14 +23,22 @@ mode        : selfcontained # {standalone, draft}
 ---
 ## Sample of 50 die rolls
 
-<img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
 
+```
+## Error: there is no package called 'gridExtra'
+```
+
+```
+## Error: could not find function "grid.arrange"
+```
 
 
 ---
 ## What if we only had one sample?
-<img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
 
+```
+## Error: could not find function "grid.arrange"
+```
 
 
 ---
@@ -38,19 +46,73 @@ mode        : selfcontained # {standalone, draft}
 
 ```r
 library(UsingR)
+```
+
+```
+## Loading required package: MASS
+## Loading required package: HistData
+## Loading required package: Hmisc
+## Loading required package: grid
+## Loading required package: lattice
+## Loading required package: survival
+## Loading required package: splines
+## Loading required package: Formula
+## 
+## Attaching package: 'Hmisc'
+## 
+## The following objects are masked from 'package:base':
+## 
+##     format.pval, round.POSIXt, trunc.POSIXt, units
+## 
+## Loading required package: aplpack
+## Loading required package: tcltk
+## Loading required package: quantreg
+## Loading required package: SparseM
+## 
+## Attaching package: 'SparseM'
+## 
+## The following object is masked from 'package:base':
+## 
+##     backsolve
+## 
+## 
+## Attaching package: 'quantreg'
+## 
+## The following object is masked from 'package:Hmisc':
+## 
+##     latex
+## 
+## The following object is masked from 'package:survival':
+## 
+##     untangle.specials
+## 
+## 
+## Attaching package: 'UsingR'
+## 
+## The following object is masked from 'package:survival':
+## 
+##     cancer
+## 
+## The following object is masked from 'package:ggplot2':
+## 
+##     movies
+```
+
+```r
 data(father.son)
 x <- father.son$sheight
 n <- length(x)
 B <- 10000
-resamples <- matrix(sample(x, n * B, replace = TRUE), B, n)
+resamples <- matrix(sample(x,
+                           n * B,
+                           replace = TRUE),
+                    B, n)
 resampledMedians <- apply(resamples, 1, median)
 ```
-
 
 ---
 ## A plot of the histrogram of the resamples
 <img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
-
 
 ---
 
@@ -98,24 +160,26 @@ resampledMedians <- apply(resamples, 1, median)
 
 ```r
 B <- 10000
-resamples <- matrix(sample(x, n * B, replace = TRUE), B, n)
+resamples <- matrix(sample(x,
+                           n * B,
+                           replace = TRUE),
+                    B, n)
 medians <- apply(resamples, 1, median)
 sd(medians)
 ```
 
 ```
-## [1] 0.08473
+## [1] 0.08424
 ```
 
 ```r
-quantile(medians, c(0.025, 0.975))
+quantile(medians, c(.025, .975))
 ```
 
 ```
 ##  2.5% 97.5% 
-## 68.43 68.82
+## 68.43 68.81
 ```
-
 
 ---
 ## Histogram of bootstrap resamples
@@ -128,7 +192,6 @@ g
 ```
 
 <img src="assets/fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
-
 
 ---
 
@@ -144,27 +207,21 @@ g
 - Consider comparing two independent groups.
 - Example, comparing sprays B and C
 
-
-```r
-data(InsectSprays)
-boxplot(count ~ spray, data = InsectSprays)
-```
-
-![plot of chunk unnamed-chunk-7](assets/fig/unnamed-chunk-7.png) 
-
+<img src="assets/fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
 
 ---
 ## Permutation tests
 -  Consider the null hypothesis that the distribution of the observations from each group is the same
 -  Then, the group labels are irrelevant
--  We then discard the group levels and permute the combined data
--  Split the permuted data into two groups with $n_A$ and $n_B$
-  observations (say by always treating the first $n_A$ observations as
-  the first group)
--  Evaluate the probability of getting a statistic as large or
-  large than the one observed
--  An example statistic would be the difference in the averages between the two groups;
-  one could also use a t-statistic 
+- Consider a data frome with count and spray
+- Permute the spray (group) labels 
+- Recalculate the statistic
+  - Mean difference in counts
+  - Geometric means
+  - T statistic
+- Calculate the percentage of simulations where
+the simulated statistic was more extreme (toward
+the alternative) than the observed
 
 ---
 ## Variations on permutation testing
@@ -182,15 +239,15 @@ Raw data | | ordinary permutation test
 - Permutation tests work very well in multivariate settings
 
 ---
-## Permutation test for pesticide data
+## Permutation test B v C
 
 ```r
-subdata <- InsectSprays[InsectSprays$spray %in% c("B", "C"), ]
+subdata <- InsectSprays[InsectSprays$spray %in% c("B", "C"),]
 y <- subdata$count
 group <- as.character(subdata$spray)
 testStat <- function(w, g) mean(w[g == "B"]) - mean(w[g == "C"])
 observedStat <- testStat(y, group)
-permutations <- sapply(1:10000, function(i) testStat(y, sample(group)))
+permutations <- sapply(1 : 10000, function(i) testStat(y, sample(group)))
 observedStat
 ```
 
@@ -206,10 +263,6 @@ mean(permutations > observedStat)
 ## [1] 0
 ```
 
-
 ---
-## Histogram of permutations
-![plot of chunk unnamed-chunk-9](assets/fig/unnamed-chunk-9.png) 
-
-
-
+## Histogram of permutations B v C
+<img src="assets/fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />

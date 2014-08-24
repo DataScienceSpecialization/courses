@@ -63,7 +63,11 @@
     <h2>Sample of 50 die rolls</h2>
   </hgroup>
   <article data-timings="">
-    <p><img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" /></p>
+    <pre><code>## Error: there is no package called &#39;gridExtra&#39;
+</code></pre>
+
+<pre><code>## Error: could not find function &quot;grid.arrange&quot;
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -74,7 +78,8 @@
     <h2>What if we only had one sample?</h2>
   </hgroup>
   <article data-timings="">
-    <p><img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" /></p>
+    <pre><code>## Error: could not find function &quot;grid.arrange&quot;
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -86,11 +91,65 @@
   </hgroup>
   <article data-timings="">
     <pre><code class="r">library(UsingR)
-data(father.son)
+</code></pre>
+
+<pre><code>## Loading required package: MASS
+## Loading required package: HistData
+## Loading required package: Hmisc
+## Loading required package: grid
+## Loading required package: lattice
+## Loading required package: survival
+## Loading required package: splines
+## Loading required package: Formula
+## 
+## Attaching package: &#39;Hmisc&#39;
+## 
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     format.pval, round.POSIXt, trunc.POSIXt, units
+## 
+## Loading required package: aplpack
+## Loading required package: tcltk
+## Loading required package: quantreg
+## Loading required package: SparseM
+## 
+## Attaching package: &#39;SparseM&#39;
+## 
+## The following object is masked from &#39;package:base&#39;:
+## 
+##     backsolve
+## 
+## 
+## Attaching package: &#39;quantreg&#39;
+## 
+## The following object is masked from &#39;package:Hmisc&#39;:
+## 
+##     latex
+## 
+## The following object is masked from &#39;package:survival&#39;:
+## 
+##     untangle.specials
+## 
+## 
+## Attaching package: &#39;UsingR&#39;
+## 
+## The following object is masked from &#39;package:survival&#39;:
+## 
+##     cancer
+## 
+## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     movies
+</code></pre>
+
+<pre><code class="r">data(father.son)
 x &lt;- father.son$sheight
 n &lt;- length(x)
 B &lt;- 10000
-resamples &lt;- matrix(sample(x, n * B, replace = TRUE), B, n)
+resamples &lt;- matrix(sample(x,
+                           n * B,
+                           replace = TRUE),
+                    B, n)
 resampledMedians &lt;- apply(resamples, 1, median)
 </code></pre>
 
@@ -177,19 +236,22 @@ resampledMedians &lt;- apply(resamples, 1, median)
   </hgroup>
   <article data-timings="">
     <pre><code class="r">B &lt;- 10000
-resamples &lt;- matrix(sample(x, n * B, replace = TRUE), B, n)
+resamples &lt;- matrix(sample(x,
+                           n * B,
+                           replace = TRUE),
+                    B, n)
 medians &lt;- apply(resamples, 1, median)
 sd(medians)
 </code></pre>
 
-<pre><code>## [1] 0.08473
+<pre><code>## [1] 0.08424
 </code></pre>
 
-<pre><code class="r">quantile(medians, c(0.025, 0.975))
+<pre><code class="r">quantile(medians, c(.025, .975))
 </code></pre>
 
 <pre><code>##  2.5% 97.5% 
-## 68.43 68.82
+## 68.43 68.81
 </code></pre>
 
   </article>
@@ -237,11 +299,7 @@ g
 <li>Example, comparing sprays B and C</li>
 </ul>
 
-<pre><code class="r">data(InsectSprays)
-boxplot(count ~ spray, data = InsectSprays)
-</code></pre>
-
-<p><img src="assets/fig/unnamed-chunk-7.png" alt="plot of chunk unnamed-chunk-7"> </p>
+<p><img src="assets/fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -255,14 +313,18 @@ boxplot(count ~ spray, data = InsectSprays)
     <ul>
 <li> Consider the null hypothesis that the distribution of the observations from each group is the same</li>
 <li> Then, the group labels are irrelevant</li>
-<li> We then discard the group levels and permute the combined data</li>
-<li> Split the permuted data into two groups with \(n_A\) and \(n_B\)
-observations (say by always treating the first \(n_A\) observations as
-the first group)</li>
-<li> Evaluate the probability of getting a statistic as large or
-large than the one observed</li>
-<li> An example statistic would be the difference in the averages between the two groups;
-one could also use a t-statistic </li>
+<li>Consider a data frome with count and spray</li>
+<li>Permute the spray (group) labels </li>
+<li>Recalculate the statistic
+
+<ul>
+<li>Mean difference in counts</li>
+<li>Geometric means</li>
+<li>T statistic</li>
+</ul></li>
+<li>Calculate the percentage of simulations where
+the simulated statistic was more extreme (toward
+the alternative) than the observed</li>
 </ul>
 
   </article>
@@ -319,15 +381,15 @@ one could also use a t-statistic </li>
 
 <slide class="" id="slide-15" style="background:;">
   <hgroup>
-    <h2>Permutation test for pesticide data</h2>
+    <h2>Permutation test B v C</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">subdata &lt;- InsectSprays[InsectSprays$spray %in% c(&quot;B&quot;, &quot;C&quot;), ]
+    <pre><code class="r">subdata &lt;- InsectSprays[InsectSprays$spray %in% c(&quot;B&quot;, &quot;C&quot;),]
 y &lt;- subdata$count
 group &lt;- as.character(subdata$spray)
 testStat &lt;- function(w, g) mean(w[g == &quot;B&quot;]) - mean(w[g == &quot;C&quot;])
 observedStat &lt;- testStat(y, group)
-permutations &lt;- sapply(1:10000, function(i) testStat(y, sample(group)))
+permutations &lt;- sapply(1 : 10000, function(i) testStat(y, sample(group)))
 observedStat
 </code></pre>
 
@@ -346,10 +408,10 @@ observedStat
 
 <slide class="" id="slide-16" style="background:;">
   <hgroup>
-    <h2>Histogram of permutations</h2>
+    <h2>Histogram of permutations B v C</h2>
   </hgroup>
   <article data-timings="">
-    <p><img src="assets/fig/unnamed-chunk-9.png" alt="plot of chunk unnamed-chunk-9"> </p>
+    <p><img src="assets/fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -445,13 +507,13 @@ observedStat
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title='Permutation test for pesticide data'>
+        data-slide=15 title='Permutation test B v C'>
          15
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=16 title='Histogram of permutations'>
+        data-slide=16 title='Histogram of permutations B v C'>
          16
       </a>
     </li>

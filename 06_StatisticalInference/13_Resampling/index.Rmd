@@ -162,23 +162,26 @@ g
 - Consider comparing two independent groups.
 - Example, comparing sprays B and C
 
-```{r, fig.height=4, fig.width=4}
+```{r, fig.height=6, fig.width=8, echo=FALSE, fig.align='center'}
 data(InsectSprays)
-boxplot(count ~ spray, data = InsectSprays)
+g = ggplot(InsectSprays, aes(spray, count, fill = spray))
+g = g + geom_boxplot()
+g
 ```
 
 ---
 ## Permutation tests
 -  Consider the null hypothesis that the distribution of the observations from each group is the same
 -  Then, the group labels are irrelevant
--  We then discard the group levels and permute the combined data
--  Split the permuted data into two groups with $n_A$ and $n_B$
-  observations (say by always treating the first $n_A$ observations as
-  the first group)
--  Evaluate the probability of getting a statistic as large or
-  large than the one observed
--  An example statistic would be the difference in the averages between the two groups;
-  one could also use a t-statistic 
+- Consider a data frome with count and spray
+- Permute the spray (group) labels 
+- Recalculate the statistic
+  - Mean difference in counts
+  - Geometric means
+  - T statistic
+- Calculate the percentage of simulations where
+the simulated statistic was more extreme (toward
+the alternative) than the observed
 
 ---
 ## Variations on permutation testing
@@ -196,7 +199,7 @@ Raw data | | ordinary permutation test
 - Permutation tests work very well in multivariate settings
 
 ---
-## Permutation test for pesticide data
+## Permutation test B v C
 ```{r}
 subdata <- InsectSprays[InsectSprays$spray %in% c("B", "C"),]
 y <- subdata$count
@@ -209,9 +212,11 @@ mean(permutations > observedStat)
 ```
 
 ---
-## Histogram of permutations
-```{r, echo= FALSE, fig.width=5, fig.height=5}
-hist(permutations)
+## Histogram of permutations B v C
+```{r, echo= FALSE, fig.width=6, fig.height=6, fig.align='center'}
+g = ggplot(data.frame(permutations = permutations),
+           aes(permutations))
+g = g + geom_histogram(fill = "lightblue", color = "black", binwidth = 1)
+g = g + geom_vline(xintercept = observedStat, size = 2)
+g
 ```
-
-

@@ -12,114 +12,6 @@ url:
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
-
----
-
-## The jackknife
-
-- The jackknife is a tool for estimating standard errors  and the bias of estimators 
-- As its name suggests, the jackknife is a small, handy tool; in contrast to the bootstrap, which is then the moral equivalent of a giant workshop full of tools
-- Both the jackknife and the bootstrap involve *resampling* data; that is, repeatedly creating new data sets from the original data
-
----
-
-## The jackknife
-
-- The jackknife deletes each observation and calculates an estimate based on the remaining $n-1$ of them
-- It uses this collection of estimates to do things like estimate the bias and the standard error
-- Note that estimating the bias and having a standard error are not needed for things like sample means, which we know are unbiased estimates of population means and what their standard errors are
-
----
-
-## The jackknife
-
-- We'll consider the jackknife for univariate data
-- Let $X_1,\ldots,X_n$ be a collection of data used to estimate a parameter $\theta$
-- Let $\hat \theta$ be the estimate based on the full data set
-- Let $\hat \theta_{i}$ be the estimate of $\theta$ obtained by *deleting observation $i$*
-- Let $\bar \theta = \frac{1}{n}\sum_{i=1}^n \hat \theta_{i}$
-
----
-
-## Continued
-
-- Then, the jackknife estimate of the bias is
-   $$
-   (n - 1) \left(\bar \theta - \hat \theta\right)
-   $$
-   (how far the average delete-one estimate is from the actual estimate)
-- The jackknife estimate of the standard error is
-   $$
-   \left[\frac{n-1}{n}\sum_{i=1}^n (\hat \theta_i - \bar\theta )^2\right]^{1/2}
-   $$
-(the deviance of the delete-one estimates from the average delete-one estimate)
-
----
-
-## Example
-### We want to estimate the bias and standard error of the median
-
-
-```r
-library(UsingR)
-data(father.son)
-x <- father.son$sheight
-n <- length(x)
-theta <- median(x)
-jk <- sapply(1:n, function(i) median(x[-i]))
-thetaBar <- mean(jk)
-biasEst <- (n - 1) * (thetaBar - theta)
-seEst <- sqrt((n - 1) * mean((jk - thetaBar)^2))
-```
-
-
----
-
-## Example test
-
-
-```r
-c(biasEst, seEst)
-```
-
-```
-## [1] 0.0000 0.1014
-```
-
-```r
-library(bootstrap)
-temp <- jackknife(x, median)
-c(temp$jack.bias, temp$jack.se)
-```
-
-```
-## [1] 0.0000 0.1014
-```
-
-
----
-
-## Example
-
-- Both methods (of course) yield an estimated bias of 0 and a se of 0.1014
-- Odd little fact: the jackknife estimate of the bias for the median is always $0$ when the number of observations is even
-- It has been shown that the jackknife is a linear approximation to the bootstrap
-- Generally do not use the jackknife for sample quantiles like the median; as it has been shown to have some poor properties
-
----
-
-## Pseudo observations
-
-- Another interesting way to think about the jackknife uses pseudo observations
-- Let
-$$
-      \mbox{Pseudo Obs} = n \hat \theta - (n - 1) \hat \theta_{i}
-$$
-- Think of these as ``whatever observation $i$ contributes to the estimate of $\theta$''
-- Note when $\hat \theta$ is the sample mean, the pseudo observations are the data themselves
-- Then the sample standard error of these observations is the previous jackknife estimated standard error.
-- The mean of these observations is a bias-corrected estimate of $\theta$
-
 ---
 
 ## The bootstrap
@@ -129,6 +21,39 @@ $$
 - The bootstrap procedure follows from the so called bootstrap principle
 
 ---
+## Sample of 50 die rolls
+
+<img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
+
+
+
+---
+## What if we only had one sample?
+<img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
+
+
+
+---
+## Consider a data set
+
+```r
+library(UsingR)
+data(father.son)
+x <- father.son$sheight
+n <- length(x)
+B <- 10000
+resamples <- matrix(sample(x, n * B, replace = TRUE), B, n)
+resampledMedians <- apply(resamples, 1, median)
+```
+
+
+---
+## A plot of the histrogram of the resamples
+<img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
+
+
+---
+
 
 ## The bootstrap principle
 
@@ -147,6 +72,7 @@ $$
 
 - Calculate the statistic for each simulated data set
 - Use the simulated statistics to either define a confidence interval or take the standard deviation to calculate a standard error
+
 
 ---
 ## Nonparametric bootstrap algorithm example
@@ -171,14 +97,14 @@ $$
 
 
 ```r
-B <- 1000
+B <- 10000
 resamples <- matrix(sample(x, n * B, replace = TRUE), B, n)
 medians <- apply(resamples, 1, median)
 sd(medians)
 ```
 
 ```
-## [1] 0.08834
+## [1] 0.08473
 ```
 
 ```r
@@ -187,7 +113,7 @@ quantile(medians, c(0.025, 0.975))
 
 ```
 ##  2.5% 97.5% 
-## 68.41 68.82
+## 68.43 68.82
 ```
 
 
@@ -196,10 +122,12 @@ quantile(medians, c(0.025, 0.975))
 
 
 ```r
-hist(medians)
+g = ggplot(data.frame(medians = medians), aes(x = medians))
+g = g + geom_histogram(color = "black", fill = "lightblue", binwidth = 0.05)
+g
 ```
 
-![plot of chunk unnamed-chunk-4](assets/fig/unnamed-chunk-4.png) 
+<img src="assets/fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" />
 
 
 ---
@@ -222,7 +150,7 @@ data(InsectSprays)
 boxplot(count ~ spray, data = InsectSprays)
 ```
 
-![plot of chunk unnamed-chunk-5](assets/fig/unnamed-chunk-5.png) 
+![plot of chunk unnamed-chunk-7](assets/fig/unnamed-chunk-7.png) 
 
 
 ---
@@ -281,7 +209,7 @@ mean(permutations > observedStat)
 
 ---
 ## Histogram of permutations
-![plot of chunk unnamed-chunk-7](assets/fig/unnamed-chunk-7.png) 
+![plot of chunk unnamed-chunk-9](assets/fig/unnamed-chunk-9.png) 
 
 
 

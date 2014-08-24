@@ -45,157 +45,6 @@
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
   <hgroup>
-    <h2>The jackknife</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>The jackknife is a tool for estimating standard errors  and the bias of estimators </li>
-<li>As its name suggests, the jackknife is a small, handy tool; in contrast to the bootstrap, which is then the moral equivalent of a giant workshop full of tools</li>
-<li>Both the jackknife and the bootstrap involve <em>resampling</em> data; that is, repeatedly creating new data sets from the original data</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-2" style="background:;">
-  <hgroup>
-    <h2>The jackknife</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>The jackknife deletes each observation and calculates an estimate based on the remaining \(n-1\) of them</li>
-<li>It uses this collection of estimates to do things like estimate the bias and the standard error</li>
-<li>Note that estimating the bias and having a standard error are not needed for things like sample means, which we know are unbiased estimates of population means and what their standard errors are</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-3" style="background:;">
-  <hgroup>
-    <h2>The jackknife</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>We&#39;ll consider the jackknife for univariate data</li>
-<li>Let \(X_1,\ldots,X_n\) be a collection of data used to estimate a parameter \(\theta\)</li>
-<li>Let \(\hat \theta\) be the estimate based on the full data set</li>
-<li>Let \(\hat \theta_{i}\) be the estimate of \(\theta\) obtained by <em>deleting observation \(i\)</em></li>
-<li>Let \(\bar \theta = \frac{1}{n}\sum_{i=1}^n \hat \theta_{i}\)</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-4" style="background:;">
-  <hgroup>
-    <h2>Continued</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>Then, the jackknife estimate of the bias is
-\[
-(n - 1) \left(\bar \theta - \hat \theta\right)
-\]
-(how far the average delete-one estimate is from the actual estimate)</li>
-<li>The jackknife estimate of the standard error is
-\[
-\left[\frac{n-1}{n}\sum_{i=1}^n (\hat \theta_i - \bar\theta )^2\right]^{1/2}
-\]
-(the deviance of the delete-one estimates from the average delete-one estimate)</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-5" style="background:;">
-  <hgroup>
-    <h2>Example</h2>
-  </hgroup>
-  <article data-timings="">
-    <h3>We want to estimate the bias and standard error of the median</h3>
-
-<pre><code class="r">library(UsingR)
-data(father.son)
-x &lt;- father.son$sheight
-n &lt;- length(x)
-theta &lt;- median(x)
-jk &lt;- sapply(1:n, function(i) median(x[-i]))
-thetaBar &lt;- mean(jk)
-biasEst &lt;- (n - 1) * (thetaBar - theta)
-seEst &lt;- sqrt((n - 1) * mean((jk - thetaBar)^2))
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-6" style="background:;">
-  <hgroup>
-    <h2>Example test</h2>
-  </hgroup>
-  <article data-timings="">
-    <pre><code class="r">c(biasEst, seEst)
-</code></pre>
-
-<pre><code>## [1] 0.0000 0.1014
-</code></pre>
-
-<pre><code class="r">library(bootstrap)
-temp &lt;- jackknife(x, median)
-c(temp$jack.bias, temp$jack.se)
-</code></pre>
-
-<pre><code>## [1] 0.0000 0.1014
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-7" style="background:;">
-  <hgroup>
-    <h2>Example</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>Both methods (of course) yield an estimated bias of 0 and a se of 0.1014</li>
-<li>Odd little fact: the jackknife estimate of the bias for the median is always \(0\) when the number of observations is even</li>
-<li>It has been shown that the jackknife is a linear approximation to the bootstrap</li>
-<li>Generally do not use the jackknife for sample quantiles like the median; as it has been shown to have some poor properties</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-8" style="background:;">
-  <hgroup>
-    <h2>Pseudo observations</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>Another interesting way to think about the jackknife uses pseudo observations</li>
-<li>Let
-\[
-  \mbox{Pseudo Obs} = n \hat \theta - (n - 1) \hat \theta_{i}
-\]</li>
-<li>Think of these as ``whatever observation \(i\) contributes to the estimate of \(\theta\)&#39;&#39;</li>
-<li>Note when \(\hat \theta\) is the sample mean, the pseudo observations are the data themselves</li>
-<li>Then the sample standard error of these observations is the previous jackknife estimated standard error.</li>
-<li>The mean of these observations is a bias-corrected estimate of \(\theta\)</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-9" style="background:;">
-  <hgroup>
     <h2>The bootstrap</h2>
   </hgroup>
   <article data-timings="">
@@ -209,7 +58,58 @@ c(temp$jack.bias, temp$jack.se)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Sample of 50 die rolls</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>What if we only had one sample?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Consider a data set</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(UsingR)
+data(father.son)
+x &lt;- father.son$sheight
+n &lt;- length(x)
+B &lt;- 10000
+resamples &lt;- matrix(sample(x, n * B, replace = TRUE), B, n)
+resampledMedians &lt;- apply(resamples, 1, median)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>A plot of the histrogram of the resamples</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>The bootstrap principle</h2>
   </hgroup>
@@ -223,7 +123,7 @@ c(temp$jack.bias, temp$jack.se)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>The bootstrap in practice</h2>
   </hgroup>
@@ -244,7 +144,7 @@ c(temp$jack.bias, temp$jack.se)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>Nonparametric bootstrap algorithm example</h2>
   </hgroup>
@@ -271,46 +171,48 @@ c(temp$jack.bias, temp$jack.se)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>Example code</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">B &lt;- 1000
+    <pre><code class="r">B &lt;- 10000
 resamples &lt;- matrix(sample(x, n * B, replace = TRUE), B, n)
 medians &lt;- apply(resamples, 1, median)
 sd(medians)
 </code></pre>
 
-<pre><code>## [1] 0.08834
+<pre><code>## [1] 0.08473
 </code></pre>
 
 <pre><code class="r">quantile(medians, c(0.025, 0.975))
 </code></pre>
 
 <pre><code>##  2.5% 97.5% 
-## 68.41 68.82
+## 68.43 68.82
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Histogram of bootstrap resamples</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">hist(medians)
+    <pre><code class="r">g = ggplot(data.frame(medians = medians), aes(x = medians))
+g = g + geom_histogram(color = &quot;black&quot;, fill = &quot;lightblue&quot;, binwidth = 0.05)
+g
 </code></pre>
 
-<p><img src="assets/fig/unnamed-chunk-4.png" alt="plot of chunk unnamed-chunk-4"> </p>
+<p><img src="assets/fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" /></p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>Notes on the bootstrap</h2>
   </hgroup>
@@ -325,7 +227,7 @@ sd(medians)
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>Group comparisons</h2>
   </hgroup>
@@ -339,13 +241,13 @@ sd(medians)
 boxplot(count ~ spray, data = InsectSprays)
 </code></pre>
 
-<p><img src="assets/fig/unnamed-chunk-5.png" alt="plot of chunk unnamed-chunk-5"> </p>
+<p><img src="assets/fig/unnamed-chunk-7.png" alt="plot of chunk unnamed-chunk-7"> </p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-17" style="background:;">
+<slide class="" id="slide-13" style="background:;">
   <hgroup>
     <h2>Permutation tests</h2>
   </hgroup>
@@ -367,7 +269,7 @@ one could also use a t-statistic </li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-18" style="background:;">
+<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>Variations on permutation testing</h2>
   </hgroup>
@@ -415,7 +317,7 @@ one could also use a t-statistic </li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-19" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>Permutation test for pesticide data</h2>
   </hgroup>
@@ -442,12 +344,12 @@ observedStat
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-20" style="background:;">
+<slide class="" id="slide-16" style="background:;">
   <hgroup>
     <h2>Histogram of permutations</h2>
   </hgroup>
   <article data-timings="">
-    <p><img src="assets/fig/unnamed-chunk-7.png" alt="plot of chunk unnamed-chunk-7"> </p>
+    <p><img src="assets/fig/unnamed-chunk-9.png" alt="plot of chunk unnamed-chunk-9"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -459,122 +361,98 @@ observedStat
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='The jackknife'>
+        data-slide=1 title='The bootstrap'>
          1
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='The jackknife'>
+        data-slide=2 title='Sample of 50 die rolls'>
          2
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='The jackknife'>
+        data-slide=3 title='What if we only had one sample?'>
          3
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='Continued'>
+        data-slide=4 title='Consider a data set'>
          4
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Example'>
+        data-slide=5 title='A plot of the histrogram of the resamples'>
          5
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='Example test'>
+        data-slide=6 title='The bootstrap principle'>
          6
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=7 title='Example'>
+        data-slide=7 title='The bootstrap in practice'>
          7
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title='Pseudo observations'>
+        data-slide=8 title='Nonparametric bootstrap algorithm example'>
          8
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title='The bootstrap'>
+        data-slide=9 title='Example code'>
          9
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=10 title='The bootstrap principle'>
+        data-slide=10 title='Histogram of bootstrap resamples'>
          10
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title='The bootstrap in practice'>
+        data-slide=11 title='Notes on the bootstrap'>
          11
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=12 title='Nonparametric bootstrap algorithm example'>
+        data-slide=12 title='Group comparisons'>
          12
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=13 title='Example code'>
+        data-slide=13 title='Permutation tests'>
          13
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=14 title='Histogram of bootstrap resamples'>
+        data-slide=14 title='Variations on permutation testing'>
          14
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title='Notes on the bootstrap'>
+        data-slide=15 title='Permutation test for pesticide data'>
          15
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=16 title='Group comparisons'>
+        data-slide=16 title='Histogram of permutations'>
          16
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=17 title='Permutation tests'>
-         17
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=18 title='Variations on permutation testing'>
-         18
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=19 title='Permutation test for pesticide data'>
-         19
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=20 title='Histogram of permutations'>
-         20
       </a>
     </li>
   </ul>

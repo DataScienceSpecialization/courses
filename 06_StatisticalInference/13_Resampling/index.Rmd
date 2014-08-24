@@ -12,101 +12,6 @@ url:
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
-
----
-
-## The jackknife
-
-- The jackknife is a tool for estimating standard errors  and the bias of estimators 
-- As its name suggests, the jackknife is a small, handy tool; in contrast to the bootstrap, which is then the moral equivalent of a giant workshop full of tools
-- Both the jackknife and the bootstrap involve *resampling* data; that is, repeatedly creating new data sets from the original data
-
----
-
-## The jackknife
-
-- The jackknife deletes each observation and calculates an estimate based on the remaining $n-1$ of them
-- It uses this collection of estimates to do things like estimate the bias and the standard error
-- Note that estimating the bias and having a standard error are not needed for things like sample means, which we know are unbiased estimates of population means and what their standard errors are
-
----
-
-## The jackknife
-
-- We'll consider the jackknife for univariate data
-- Let $X_1,\ldots,X_n$ be a collection of data used to estimate a parameter $\theta$
-- Let $\hat \theta$ be the estimate based on the full data set
-- Let $\hat \theta_{i}$ be the estimate of $\theta$ obtained by *deleting observation $i$*
-- Let $\bar \theta = \frac{1}{n}\sum_{i=1}^n \hat \theta_{i}$
-
----
-
-## Continued
-
-- Then, the jackknife estimate of the bias is
-   $$
-   (n - 1) \left(\bar \theta - \hat \theta\right)
-   $$
-   (how far the average delete-one estimate is from the actual estimate)
-- The jackknife estimate of the standard error is
-   $$
-   \left[\frac{n-1}{n}\sum_{i=1}^n (\hat \theta_i - \bar\theta )^2\right]^{1/2}
-   $$
-(the deviance of the delete-one estimates from the average delete-one estimate)
-
----
-
-## Example
-### We want to estimate the bias and standard error of the median
-
-```{r, results='hide'}
-library(UsingR)
-data(father.son)
-x <- father.son$sheight
-n <- length(x)
-theta <- median(x)
-jk <- sapply(1 : n,
-             function(i) median(x[-i])
-             )
-thetaBar <- mean(jk)
-biasEst <- (n - 1) * (thetaBar - theta) 
-seEst <- sqrt((n - 1) * mean((jk - thetaBar)^2))
-```
-
----
-
-## Example test
-
-```{r}
-c(biasEst, seEst)
-library(bootstrap)
-temp <- jackknife(x, median)
-c(temp$jack.bias, temp$jack.se)
-```
-
----
-
-## Example
-
-- Both methods (of course) yield an estimated bias of `r temp$jack.bias` and a se of `r temp$jack.se`
-- Odd little fact: the jackknife estimate of the bias for the median is always $0$ when the number of observations is even
-- It has been shown that the jackknife is a linear approximation to the bootstrap
-- Generally do not use the jackknife for sample quantiles like the median; as it has been shown to have some poor properties
-
----
-
-## Pseudo observations
-
-- Another interesting way to think about the jackknife uses pseudo observations
-- Let
-$$
-      \mbox{Pseudo Obs} = n \hat \theta - (n - 1) \hat \theta_{i}
-$$
-- Think of these as ``whatever observation $i$ contributes to the estimate of $\theta$''
-- Note when $\hat \theta$ is the sample mean, the pseudo observations are the data themselves
-- Then the sample standard error of these observations is the previous jackknife estimated standard error.
-- The mean of these observations is a bias-corrected estimate of $\theta$
-
 ---
 
 ## The bootstrap
@@ -116,6 +21,72 @@ $$
 - The bootstrap procedure follows from the so called bootstrap principle
 
 ---
+## Sample of 50 die rolls
+
+```{r, echo = FALSE, fig.width=12, fig.height = 6, fig.align='center'}
+library(ggplot2)
+library(gridExtra)
+nosim <- 1000
+
+cfunc <- function(x, n) mean(x)
+g1 = ggplot(data.frame(y = rep(1/6, 6), x = 1 : 6), aes(y = y, x = x))
+g1 = g1 + geom_bar(stat = "identity", fill = "lightblue", colour = "black")
+
+dat <- data.frame(x = apply(matrix(sample(1 : 6, nosim * 50, replace = TRUE), 
+                     nosim), 1, mean))
+g2 <- ggplot(dat, aes(x = x)) + geom_histogram(binwidth=.2, colour = "black", fill = "salmon", aes(y = ..density..)) 
+
+grid.arrange(g1, g2, ncol = 2)
+
+```
+
+
+---
+## What if we only had one sample?
+```{r, echo = FALSE, fig.width=9, fig.height = 6, fig.align='center'}
+n = 50
+B = 1000
+## our data
+x = sample(1 : 6, n, replace = TRUE)
+## bootstrap resamples
+resamples = matrix(sample(x,
+                           n * B,
+                           replace = TRUE),
+                    B, n)
+resampledMeans = apply(resamples, 1, mean)
+g1 <- ggplot(as.data.frame(prop.table(table(x))), aes(x = x, y = Freq)) + geom_bar(colour = "black", fill = "lightblue", stat = "identity") 
+g2 <- ggplot(data.frame(x = resampledMeans), aes(x = x)) + geom_histogram(binwidth=.2, colour = "black", fill = "salmon", aes(y = ..density..)) 
+grid.arrange(g1, g2, ncol = 2)
+```
+
+
+---
+## Consider a data set
+```{r}
+library(UsingR)
+data(father.son)
+x <- father.son$sheight
+n <- length(x)
+B <- 10000
+resamples <- matrix(sample(x,
+                           n * B,
+                           replace = TRUE),
+                    B, n)
+resampledMedians <- apply(resamples, 1, median)
+```
+
+---
+## A plot of the histrogram of the resamples
+```{r, fig.align='center', fig.height=6, fig.width=6, echo=FALSE, warning=FALSE}
+g = ggplot(data.frame(x = resampledMedians), aes(x = x)) 
+g = g + geom_density(size = 2, fill = "red")
+#g = g + geom_histogram(alpha = .20, binwidth=.3, colour = "black", fill = "blue", aes(y = ..density..)) 
+g = g + geom_vline(xintercept = median(x), size = 2)
+g
+```
+
+---
+
 
 ## The bootstrap principle
 
@@ -134,6 +105,7 @@ $$
 
 - Calculate the statistic for each simulated data set
 - Use the simulated statistics to either define a confidence interval or take the standard deviation to calculate a standard error
+
 
 ---
 ## Nonparametric bootstrap algorithm example
@@ -157,7 +129,7 @@ $$
 ## Example code
 
 ```{r}
-B <- 1000
+B <- 10000
 resamples <- matrix(sample(x,
                            n * B,
                            replace = TRUE),
@@ -170,8 +142,10 @@ quantile(medians, c(.025, .975))
 ---
 ## Histogram of bootstrap resamples
 
-```{r, fig.height=5, fig.width=5}
-hist(medians)
+```{r, fig.height=6, fig.width=6, echo=TRUE,fig.align='center', warning=FALSE}
+g = ggplot(data.frame(medians = medians), aes(x = medians))
+g = g + geom_histogram(color = "black", fill = "lightblue", binwidth = 0.05)
+g
 ```
 
 ---

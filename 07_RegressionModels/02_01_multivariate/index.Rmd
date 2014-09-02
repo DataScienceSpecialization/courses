@@ -185,7 +185,7 @@ $$
 ## We can tidy it up a bit more, though
 Note that
 $$
-X_k  = e_{i,X_k|X_p} + \frac{\sum_{i=1}^n X_{ik} X_{ip}}{\sum_{i=1}^n X_{ip^2}} X_p
+X_k  = e_{i,X_k|X_p} + \frac{\sum_{i=1}^n X_{ik} X_{ip}}{\sum_{i=1}^n X_{ip}^2} X_p
 $$
 and $\sum_{i=1}^n e_{i,X_j | X_p} X_{ip} = 0$.
 Thus 

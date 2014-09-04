@@ -40,20 +40,6 @@ $$
 * Note, $Var(Y_i ~|~ X_i = x_i) = \sigma^2$.
 * Likelihood equivalent model specification is that the $Y_i$ are independent $N(\mu_i, \sigma^2)$.
 
----
-## Likelihood
-$$
-{\cal L}(\beta, \sigma)
-= \prod_{i=1}^n \left\{(2 \pi \sigma^2)^{-1/2}\exp\left(-\frac{1}{2\sigma^2}(y_i - \mu_i)^2 \right) \right\}
-$$
-so that twice the negative log (base e) likelihood is
-$$
--2 \log\{ {\cal L}(\beta, \sigma) \}
-= \frac{1}{\sigma^2} \sum_{i=1}^n (y_i - \mu_i)^2 + n\log(\sigma^2)
-$$
-Discussion
-* Maximizing the likelihood is the same as minimizing -2 log likelihood
-* The least squares estimate for $\mu_i = \beta_0 + \beta_1 x_i$ is exactly the maximimum likelihood estimate (regardless of $\sigma$)
 
 ---
 ## Recap

@@ -214,7 +214,7 @@ since the variance of the sampling distribution of the mean is $\sigma^2/10$
 where $\sigma^2$ is the variance of a single die roll, which is 
 
 ```{r}
-mean((1 : 6 - 3.5)^2)
+mean((1 : 6 - 3.5)^2 / 10)
 ```
 
 --- &multitext

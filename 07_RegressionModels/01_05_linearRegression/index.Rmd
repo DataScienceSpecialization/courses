@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -114,24 +114,30 @@ in carats (standard measure of diamond mass, 0.2 $g$). To get the data use `libr
 Plotting the fitted regression line and data
 ```
 data(diamond)
-plot(diamond$carat, diamond$price,  
-     xlab = "Mass (carats)", 
-     ylab = "Price (SIN $)", 
-     bg = "lightblue", 
-     col = "black", cex = 1.1, pch = 21,frame = FALSE)
-abline(lm(price ~ carat, data = diamond), lwd = 2)
+library(ggplot2)
+g = ggplot(diamond, aes(x = carat, y = price),
+)
+g = g + xlab("Mass (carats)")
+g = g + ylab("Pice (SIN $)")
+g = g + geom_point(size = 6, colour = "black", alpha=0.2)
+g = g + geom_point(size = 5, colour = "blue", alpha=0.2)
+g = g + geom_smooth(method = "lm", colour = "black")
+g
 ```
 
 ---
 ## The plot
 ```{r, echo = FALSE, fig.height=5,fig.width=5}
 data(diamond)
-plot(diamond$carat, diamond$price,  
-     xlab = "Mass (carats)", 
-     ylab = "Price (SIN $)", 
-     bg = "lightblue", 
-     col = "black", cex = 1.1, pch = 21,frame = FALSE)
-abline(lm(price ~ carat, data = diamond), lwd = 2)
+library(ggplot2)
+g = ggplot(diamond, aes(x = carat, y = price),
+)
+g = g + xlab("Mass (carats)")
+g = g + ylab("Pice (SIN $)")
+g = g + geom_point(size = 6, colour = "black", alpha=0.2)
+g = g + geom_point(size = 5, colour = "blue", alpha=0.2)
+g = g + geom_smooth(method = "lm", colour = "black")
+g
 ```
 
 ---

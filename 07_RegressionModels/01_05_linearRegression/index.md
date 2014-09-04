@@ -8,13 +8,12 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 
 ---
-
 
 ## Basic regression model with additive Gaussian errors.
 * Least squares is an estimation tool, how do we do inference?
@@ -27,20 +26,6 @@ $$
 * Note, $Var(Y_i ~|~ X_i = x_i) = \sigma^2$.
 * Likelihood equivalent model specification is that the $Y_i$ are independent $N(\mu_i, \sigma^2)$.
 
----
-## Likelihood
-$$
-{\cal L}(\beta, \sigma)
-= \prod_{i=1}^n \left\{(2 \pi \sigma^2)^{-1/2}\exp\left(-\frac{1}{2\sigma^2}(y_i - \mu_i)^2 \right) \right\}
-$$
-so that the twice the negative log (base e) likelihood is
-$$
--2 \log\{ {\cal L}(\beta, \sigma) \}
-= \frac{1}{\sigma^2} \sum_{i=1}^n (y_i - \mu_i)^2 + n\log(\sigma^2)
-$$
-Discussion
-* Maximizing the likelihood is the same as minimizing -2 log likelihood
-* The least squares estimate for $\mu_i = \beta_0 + \beta_1 x_i$ is exactly the maximimum likelihood estimate (regardless of $\sigma$)
 
 ---
 ## Recap
@@ -63,7 +48,7 @@ Y_i = \beta_0 + \beta_1 X_i + \epsilon_i
 = \beta_0 + a \beta_1 + \beta_1 (X_i - a) + \epsilon_i
 = \tilde \beta_0 + \beta_1 (X_i - a) + \epsilon_i
 $$
-So, shifting you $X$ values by value $a$ changes the intercept, but not the slope. 
+So, shifting your $X$ values by value $a$ changes the intercept, but not the slope. 
 * Often $a$ is set to $\bar X$ so that the intercept is interpretted as the expected response at the average $X$ value.
 
 ---
@@ -109,24 +94,26 @@ for $\mu_i$ expressed as points on a line
 ---
 ## Example
 ### `diamond` data set from `UsingR` 
-Data is diamond prices (Signapore dollars) and diamond weight
+Data is diamond prices (Singapore dollars) and diamond weight
 in carats (standard measure of diamond mass, 0.2 $g$). To get the data use `library(UsingR); data(diamond)`
 
 Plotting the fitted regression line and data
 ```
 data(diamond)
-plot(diamond$carat, diamond$price,  
-     xlab = "Mass (carats)", 
-     ylab = "Price (SIN $)", 
-     bg = "lightblue", 
-     col = "black", cex = 1.1, pch = 21,frame = FALSE)
-abline(lm(price ~ carat, data = diamond), lwd = 2)
+library(ggplot2)
+g = ggplot(diamond, aes(x = carat, y = price),
+)
+g = g + xlab("Mass (carats)")
+g = g + ylab("Pice (SIN $)")
+g = g + geom_point(size = 6, colour = "black", alpha=0.2)
+g = g + geom_point(size = 5, colour = "blue", alpha=0.2)
+g = g + geom_smooth(method = "lm", colour = "black")
+g
 ```
 
 ---
 ## The plot
 <div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
-
 
 ---
 ## Fitting the linear regression model
@@ -140,7 +127,6 @@ coef(fit)
 (Intercept)       carat 
      -259.6      3721.0 
 ```
-
 
 * We estimate an expected 3721.02 (SIN) dollar increase in price for every carat increase in mass of diamond.
 * The intercept -259.63 is the expected price
@@ -158,7 +144,6 @@ coef(fit2)
            (Intercept) I(carat - mean(carat)) 
                  500.1                 3721.0 
 ```
-
 
 Thus $500.1 is the expected price for 
 the average sized diamond of the data (0.2042 carats).
@@ -181,7 +166,6 @@ coef(fit3)
        -259.6         372.1 
 ```
 
-
 ---
 ## Predicting the price of a diamond
 
@@ -203,10 +187,8 @@ predict(fit, newdata = data.frame(carat = newx))
  335.7  745.1 1005.5 
 ```
 
-
 ---
 Predicted values at the observed Xs (red)
 and at the new Xs (lines)
 <div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
-
 

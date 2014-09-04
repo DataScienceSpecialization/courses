@@ -58,7 +58,7 @@ model.predict <- function(df) {
 yhat.config  <- c(
         username="rdpeng@gmail.com",
         apikey="90d2a80bb532cabb2387aa51ac4553cc",
-        env="http://sandbox.yhathq.com/"
+        env="http://cloud.yhathq.com/"
 )
 
 yhat.deploy("pollutant")
@@ -76,4 +76,5 @@ yhat.config  <- c(
 )
 df <- data.frame(lon = c(-76.6167, -118.25), lat = c(39.2833, 34.05),
                  radius = 20)
+df <- data.frame(lon = -76.6167, lat = 39.2833, radius = 50)
 yhat.predict("pollutant", df)

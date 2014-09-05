@@ -161,6 +161,7 @@ ggplot(galton, aes(x = parent, y = child)) + geom_point()
 Size of point represents number of points at that (X, Y) combination (See the Rmd file for the code).
 
 ```{r freqGalton, dependson="galton",fig.height=6,fig.width=7,echo=FALSE}
+library(dplyr)
 freqData <- as.data.frame(table(galton$child, galton$parent))
 names(freqData) <- c("child", "parent", "freq")
 freqData$child <- as.numeric(as.character(freqData$child))

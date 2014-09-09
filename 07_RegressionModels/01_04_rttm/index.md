@@ -17,7 +17,6 @@ mode        : selfcontained # {standalone, draft}
 
 
 
-
 ## A historically famous idea, Regression to the Mean
 * Why is it that the children of tall parents tend to be tall, but not as tall as their parents? 
 * Why do children of short parents tend to be short, but not as short as their parents?
@@ -43,8 +42,13 @@ mode        : selfcontained # {standalone, draft}
 * Notice if $X$ is the outcome and you create a plot where $X$ is the horizontal axis, the slope of the least squares line that you plot is $1/Cor(Y, X)$. 
 
 ---
+<<<<<<< HEAD
 <div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
 
+=======
+## Plot of the results
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+>>>>>>> 3e5b14bbb8f101fc2a8573beb037d5f1b6f6fe47
 
 ---
 ## Discussion

@@ -56,13 +56,19 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 * Notice if $X$ is the outcome and you create a plot where $X$ is the horizontal axis, the slope of the least squares line that you plot is $1/Cor(Y, X)$. 
 
 ---
+<<<<<<< HEAD
 ```{r, fig.height=6,fig.width=6,echo=FALSE}
+=======
+## Plot of the results
+```{r, fig.height=6,fig.width=6,echo=FALSE, fig.align='center'}
+>>>>>>> 3e5b14bbb8f101fc2a8573beb037d5f1b6f6fe47
 library(UsingR)
 data(father.son)
 y <- (father.son$sheight - mean(father.son$sheight)) / sd(father.son$sheight)
 x <- (father.son$fheight - mean(father.son$fheight)) / sd(father.son$fheight)
 rho <- cor(x, y)
 library(ggplot2)
+<<<<<<< HEAD
 g = ggplot(data.frame(x = x, y = y), aes(x = x, y = y))
 g = g + geom_point(size = 6, colour = "black", alpha = 0.2)
 g = g + geom_point(size = 4, colour = "salmon", alpha = 0.2)
@@ -72,6 +78,18 @@ g = g + geom_vline(xintercept = 0)
 g = g + geom_hline(yintercept = 0)
 g = g + geom_abline(intercept = 0, slope = rho, size = 2)
 g = g + geom_abline(intercept = 0, slope = 1 / rho, size = 2)
+=======
+g = ggplot(data.frame(x, y), aes(x = x, y = y))
+g = g + geom_point(size = 5, alpha = .2, colour = "black")
+g = g + geom_point(size = 4, alpha = .2, colour = "red")
+g = g + geom_vline(xintercept = 0)
+g = g + geom_hline(yintercept = 0)
+g = g + geom_abline(position = "identity")
+g = g + geom_abline(intercept = 0, slope = rho, size = 2)
+g = g + geom_abline(intercept = 0, slope = 1 / rho, size = 2)
+g = g + xlab("Father's height, normalized")
+g = g + ylab("Son's height, normalized")
+>>>>>>> 3e5b14bbb8f101fc2a8573beb037d5f1b6f6fe47
 g
 ```
 

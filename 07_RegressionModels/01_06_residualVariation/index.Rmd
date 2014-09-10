@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -29,6 +29,26 @@ knit_hooks$set(inline = function(x) {
 })
 knit_hooks$set(plot = knitr:::hook_plot_html)
 ```
+## Motivating example
+### `diamond` data set from `UsingR` 
+Data is diamond prices (Singapore dollars) and diamond weight
+in carats (standard measure of diamond mass, 0.2 $g$). To get the data use `library(UsingR); data(diamond)`
+
+---
+```{r, echo = FALSE, fig.height=6,fig.width=6}
+library(UsingR)
+data(diamond)
+library(ggplot2)
+g = ggplot(diamond, aes(x = carat, y = price))
+g = g + xlab("Mass (carats)")
+g = g + ylab("Price (SIN $)")
+g = g + geom_smooth(method = "lm", colour = "black")
+g = g + geom_point(size = 7, colour = "black", alpha=0.5)
+g = g + geom_point(size = 5, colour = "blue", alpha=0.2)
+g
+```
+---
+
 ## Residuals
 * Model $Y_i = \beta_0 + \beta_1 X_i + \epsilon_i$ where $\epsilon_i \sim N(0, \sigma^2)$.
 * Observed outcome $i$ is $Y_i$ at predictor value $X_i$
@@ -77,7 +97,7 @@ plot(diamond$carat, diamond$price,
      xlab = "Mass (carats)", 
      ylab = "Price (SIN $)", 
      bg = "lightblue", 
-     col = "black", cex = 1.1, pch = 21,frame = FALSE)
+     col = "black", cex = 2, pch = 21,frame = FALSE)
 abline(fit, lwd = 2)
 for (i in 1 : n) 
   lines(c(x[i], x[i]), c(y[i], yhat[i]), col = "red" , lwd = 2)
@@ -86,11 +106,11 @@ for (i in 1 : n)
 ---
 ## Residuals versus X
 ```{r, echo = FALSE, fig.height=5, fig.width=5}
-plot(diamond$carat, e,  
+plot(x, e,  
      xlab = "Mass (carats)", 
      ylab = "Residuals (SIN $)", 
      bg = "lightblue", 
-     col = "black", cex = 1.1, pch = 21,frame = FALSE)
+     col = "black", cex = 2, pch = 21,frame = FALSE)
 abline(h = 0, lwd = 2)
 for (i in 1 : n) 
   lines(c(x[i], x[i]), c(e[i], 0), col = "red" , lwd = 2)
@@ -98,29 +118,78 @@ for (i in 1 : n)
 
 ---
 ## Non-linear data
-```{r, echo = TRUE, fig.height=5, fig.width=5}
-x <- runif(100, -3, 3); y <- x + sin(x) + rnorm(100, sd = .2); 
-plot(x, y); abline(lm(y ~ x))
+```{r, echo = FALSE, fig.height=5, fig.width=5}
+x = runif(100, -3, 3); y = x + sin(x) + rnorm(100, sd = .2); 
+library(ggplot2)
+g = ggplot(data.frame(x = x, y = y), aes(x = x, y = y))
+g = g + geom_smooth(method = "lm", colour = "black")
+g = g + geom_point(size = 7, colour = "black", alpha = 0.4)
+g = g + geom_point(size = 5, colour = "red", alpha = 0.4)
+g
 ```
 
 ---
-```{r, echo = TRUE, fig.height=5, fig.width=5}
-plot(x, resid(lm(y ~ x))); 
-abline(h = 0)
+## Residual plot
+```{r, echo = FALSE, fig.height=5, fig.width=5}
+g = ggplot(data.frame(x = x, y = resid(lm(y ~ x))), 
+           aes(x = x, y = y))
+g = g + geom_hline(yintercept = 0, size = 2); 
+g = g + geom_point(size = 7, colour = "black", alpha = 0.4)
+g = g + geom_point(size = 5, colour = "red", alpha = 0.4)
+g = g + xlab("X") + ylab("Residual")
+g
 ```
 
 ---
 ## Heteroskedasticity
-```{r, echo = TRUE, fig.height=4.5, fig.width=4.5}
+```{r, echo = FALSE, fig.height=4.5, fig.width=4.5}
 x <- runif(100, 0, 6); y <- x + rnorm(100,  mean = 0, sd = .001 * x); 
-plot(x, y); abline(lm(y ~ x))
+g = ggplot(data.frame(x = x, y = y), aes(x = x, y = y))
+g = g + geom_smooth(method = "lm", colour = "black")
+g = g + geom_point(size = 7, colour = "black", alpha = 0.4)
+g = g + geom_point(size = 5, colour = "red", alpha = 0.4)
+g
 ```
 
 ---
 ## Getting rid of the blank space can be helpful
-```{r, echo = TRUE, fig.height=4.5, fig.width=4.5}
-plot(x, resid(lm(y ~ x))); 
-abline(h = 0)
+```{r, echo = FALSE, fig.height=4.5, fig.width=4.5}
+g = ggplot(data.frame(x = x, y = resid(lm(y ~ x))), 
+           aes(x = x, y = y))
+g = g + geom_hline(yintercept = 0, size = 2); 
+g = g + geom_point(size = 7, colour = "black", alpha = 0.4)
+g = g + geom_point(size = 5, colour = "red", alpha = 0.4)
+g = g + xlab("X") + ylab("Residual")
+g
+```
+
+---
+## Diamond data residual plot
+
+```{r, echo = FALSE, fig.height=4.5, fig.width=4.5}
+diamond$e <- resid(lm(price ~ carat, data = diamond))
+g = ggplot(diamond, aes(x = carat, y = e))
+g = g + xlab("Mass (carats)")
+g = g + ylab("Residual price (SIN $)")
+g = g + geom_hline(yintercept = 0, size = 2)
+g = g + geom_point(size = 7, colour = "black", alpha=0.5)
+g = g + geom_point(size = 5, colour = "blue", alpha=0.2)
+g
+```
+
+---
+## Diamond data residual plot
+
+```{r, echo = FALSE, fig.height=4.5, fig.width=4.5}
+e = c(resid(lm(price ~ 1, data = diamond)),
+      resid(lm(price ~ carat, data = diamond)))
+fit = factor(c(rep("Itc", nrow(diamond)),
+               rep("Itc, slope", nrow(diamond))))
+g = ggplot(data.frame(e = e, fit = fit), aes(y = e, x = fit, fill = fit))
+g = g + geom_dotplot(binaxis = "y", size = 2, stackdir = "center", binwidth = 20)
+g = g + xlab("Fitting approach")
+g = g + ylab("Residual price")
+g
 ```
 
 ---

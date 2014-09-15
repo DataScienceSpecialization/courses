@@ -175,6 +175,9 @@ max(abs(e -(y - yhat)))
 </slide>
 
 <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Residual plot</h2>
+  </hgroup>
   <article data-timings="">
     <div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
 
@@ -206,6 +209,28 @@ max(abs(e -(y - yhat)))
 
 <slide class="" id="slide-12" style="background:;">
   <hgroup>
+    <h2>Diamond data residual plot</h2>
+  </hgroup>
+  <article data-timings="">
+    <div class="rimage center"><img src="fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Diamond data residual plot</h2>
+  </hgroup>
+  <article data-timings="">
+    <div class="rimage center"><img src="fig/unnamed-chunk-10.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
     <h2>Estimating residual variation</h2>
   </hgroup>
   <article data-timings="">
@@ -224,7 +249,7 @@ the average squared residual. </li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>Diamond example</h2>
   </hgroup>
@@ -247,72 +272,47 @@ summary(fit)$sigma
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-14" style="background:;">
-  <hgroup>
-    <h2>Summarizing variation</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>\[
-\begin{align}
-\sum_{i=1}^n (Y_i - \bar Y)^2 
-& = \sum_{i=1}^n (Y_i - \hat Y_i + \hat Y_i - \bar Y)^2 \\
-& = \sum_{i=1}^n (Y_i - \hat Y_i)^2 + 
-2 \sum_{i=1}^n  (Y_i - \hat Y_i)(\hat Y_i - \bar Y) + 
-\sum_{i=1}^n  (\hat Y_i - \bar Y)^2 \\
-\end{align}
-\]</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-15" style="background:;">
-  <hgroup>
-    <h2>Summarizing variation</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>\[
-\sum_{i=1}^n (Y_i - \bar Y)^2 
-= \sum_{i=1}^n (Y_i - \hat Y_i)^2 + \sum_{i=1}^n  (\hat Y_i - \bar Y)^2 
-\]</p>
-
-<p>Or </p>
-
-<p>Total Variation = Residual Variation + Regression Variation</p>
-
-<p>Define the percent of total varation described by the model as
-\[
-R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
-= 1 - \frac{\sum_{i=1}^n  (Y_i - \hat Y_i)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
-\]</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
 <slide class="" id="slide-16" style="background:;">
   <hgroup>
-    <h2>Relation between \(R^2\) and \(r\) (the correlation)</h2>
+    <h2>Summarizing variation</h2>
   </hgroup>
   <article data-timings="">
-    <p>Recall that \((\hat Y_i - \bar Y) = \hat \beta_1  (X_i - \bar X)\)
-so that
+    <ul>
+<li>The total variability in our response is the variability around an intercept
+(think mean only regression) \(\sum_{i=1}^n (Y_i - \bar Y)^2\)</li>
+<li>The regression variability is the variability that is explained by adding the
+predictor \(\sum_{i=1}^n  (\hat Y_i - \bar Y)^2\)</li>
+<li>The error variability is what&#39;s leftover around the regression line
+\(\sum_{i=1}^n (Y_i - \hat Y_i)^2\)</li>
+<li>Neat fact
 \[
-R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
-= \hat \beta_1^2  \frac{\sum_{i=1}^n(X_i - \bar X)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
-= Cor(Y, X)^2
-\]
-Since, recall, 
-\[
-\hat \beta_1 = Cor(Y, X)\frac{Sd(Y)}{Sd(X)}
-\]
-So, \(R^2\) is literally \(r\) squared.</p>
+\sum_{i=1}^n (Y_i - \bar Y)^2 
+= \sum_{i=1}^n (Y_i - \hat Y_i)^2 + \sum_{i=1}^n  (\hat Y_i - \bar Y)^2 
+\]</li>
+</ul>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
 <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>R squared</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>R squared is the percentage of the total variability that is explained
+by the linear relationship with the predictor
+\[
+R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
+\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
   <hgroup>
     <h2>Some facts about \(R^2\)</h2>
   </hgroup>
@@ -340,12 +340,57 @@ So, \(R^2\) is literally \(r\) squared.</p>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-18" style="background:;">
+<slide class="" id="slide-19" style="background:;">
   <hgroup>
     <h2><code>data(anscombe);example(anscombe)</code></h2>
   </hgroup>
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-10.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" class="plot" /></div>
+    <div class="rimage center"><img src="fig/unnamed-chunk-12.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>How to derive R squared (Not required!)</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>For those that are interested</h3>
+
+<p>\[
+\begin{align}
+\sum_{i=1}^n (Y_i - \bar Y)^2 
+& = \sum_{i=1}^n (Y_i - \hat Y_i + \hat Y_i - \bar Y)^2 \\
+& = \sum_{i=1}^n (Y_i - \hat Y_i)^2 + 
+2 \sum_{i=1}^n  (Y_i - \hat Y_i)(\hat Y_i - \bar Y) + 
+\sum_{i=1}^n  (\hat Y_i - \bar Y)^2 \\
+\end{align}
+\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>The relation between R squared and r</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>(Again not required)</h3>
+
+<p>Recall that \((\hat Y_i - \bar Y) = \hat \beta_1  (X_i - \bar X)\)
+so that
+\[
+R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
+= \hat \beta_1^2  \frac{\sum_{i=1}^n(X_i - \bar X)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
+= Cor(Y, X)^2
+\]
+Since, recall, 
+\[
+\hat \beta_1 = Cor(Y, X)\frac{Sd(Y)}{Sd(X)}
+\]
+So, \(R^2\) is literally \(r\) squared.</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -405,7 +450,7 @@ So, \(R^2\) is literally \(r\) squared.</p>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title=''>
+        data-slide=9 title='Residual plot'>
          9
       </a>
     </li>
@@ -423,44 +468,62 @@ So, \(R^2\) is literally \(r\) squared.</p>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=12 title='Estimating residual variation'>
+        data-slide=12 title='Diamond data residual plot'>
          12
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=13 title='Diamond example'>
+        data-slide=13 title='Diamond data residual plot'>
          13
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=14 title='Summarizing variation'>
+        data-slide=14 title='Estimating residual variation'>
          14
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title='Summarizing variation'>
+        data-slide=15 title='Diamond example'>
          15
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=16 title='Relation between \(R^2\) and \(r\) (the correlation)'>
+        data-slide=16 title='Summarizing variation'>
          16
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=17 title='Some facts about \(R^2\)'>
+        data-slide=17 title='R squared'>
          17
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=18 title='<code>data(anscombe);example(anscombe)</code>'>
+        data-slide=18 title='Some facts about \(R^2\)'>
          18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='<code>data(anscombe);example(anscombe)</code>'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='How to derive R squared (Not required!)'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='The relation between R squared and r'>
+         21
       </a>
     </li>
   </ul>

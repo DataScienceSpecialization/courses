@@ -214,61 +214,26 @@ sqrt(sum(resid(fit)^2) / (n - 2))
 
 ---
 ## Summarizing variation
-$$
-\begin{align}
-\sum_{i=1}^n (Y_i - \bar Y)^2 
-& = \sum_{i=1}^n (Y_i - \hat Y_i + \hat Y_i - \bar Y)^2 \\
-& = \sum_{i=1}^n (Y_i - \hat Y_i)^2 + 
-2 \sum_{i=1}^n  (Y_i - \hat Y_i)(\hat Y_i - \bar Y) + 
-\sum_{i=1}^n  (\hat Y_i - \bar Y)^2 \\
-\end{align}
-$$
 
-****
-### Scratch work
-$(Y_i - \hat Y_i) = \{Y_i - (\bar Y - \hat \beta_1 \bar X) - \hat \beta_1 X_i\} = (Y_i - \bar Y) - \hat \beta_1 (X_i - \bar X)$
-
-$(\hat Y_i - \bar Y) = (\bar Y - \hat \beta_1 \bar X - \hat \beta_1 X_i - \bar Y )
-= \hat \beta_1  (X_i - \bar X)$
-
-$\sum_{i=1}^n  (Y_i - \hat Y_i)(\hat Y_i - \bar Y) 
-= \sum_{i=1}^n  \{(Y_i - \bar Y) - \hat \beta_1 (X_i - \bar X))\}\{\hat \beta_1  (X_i - \bar X)\}$
-
-$=\hat \beta_1 \sum_{i=1}^n (Y_i - \bar Y)(X_i - \bar X) -\hat\beta_1^2\sum_{i=1}^n (X_i - \bar X)^2$
-
-$= \hat \beta_1^2 \sum_{i=1}^n (X_i - \bar X)^2-\hat\beta_1^2\sum_{i=1}^n (X_i - \bar X)^2 = 0$
-
----
-## Summarizing variation
+- The total variability in our response is the variability around an intercept
+(think mean only regression) $\sum_{i=1}^n (Y_i - \bar Y)^2$
+- The regression variability is the variability that is explained by adding the
+predictor $\sum_{i=1}^n  (\hat Y_i - \bar Y)^2$
+- The error variability is what's leftover around the regression line
+$\sum_{i=1}^n (Y_i - \hat Y_i)^2$
+- Neat fact
 $$
 \sum_{i=1}^n (Y_i - \bar Y)^2 
 = \sum_{i=1}^n (Y_i - \hat Y_i)^2 + \sum_{i=1}^n  (\hat Y_i - \bar Y)^2 
 $$
 
-Or 
-
-Total Variation = Residual Variation + Regression Variation
-
-Define the percent of total varation described by the model as
-$$
-R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
-= 1 - \frac{\sum_{i=1}^n  (Y_i - \hat Y_i)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
-$$
-
 ---
-## Relation between $R^2$ and $r$ (the correlation)
-Recall that $(\hat Y_i - \bar Y) = \hat \beta_1  (X_i - \bar X)$
-so that
+## R squared
+- R squared is the percentage of the total variability that is explained
+by the linear relationship with the predictor
 $$
 R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
-= \hat \beta_1^2  \frac{\sum_{i=1}^n(X_i - \bar X)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
-= Cor(Y, X)^2
 $$
-Since, recall, 
-$$
-\hat \beta_1 = Cor(Y, X)\frac{Sd(Y)}{Sd(X)}
-$$
-So, $R^2$ is literally $r$ squared.
 
 ---
 ## Some facts about $R^2$
@@ -309,4 +274,49 @@ for(i in 1:4) {
 mtext("Anscombe's 4 Regression data sets", outer = TRUE, cex = 1.5)
 par(op)
 ```
+
+---
+## How to derive R squared (Not required!)
+### For those that are interested
+$$
+\begin{align}
+\sum_{i=1}^n (Y_i - \bar Y)^2 
+& = \sum_{i=1}^n (Y_i - \hat Y_i + \hat Y_i - \bar Y)^2 \\
+& = \sum_{i=1}^n (Y_i - \hat Y_i)^2 + 
+2 \sum_{i=1}^n  (Y_i - \hat Y_i)(\hat Y_i - \bar Y) + 
+\sum_{i=1}^n  (\hat Y_i - \bar Y)^2 \\
+\end{align}
+$$
+
+****
+### Scratch work
+$(Y_i - \hat Y_i) = \{Y_i - (\bar Y - \hat \beta_1 \bar X) - \hat \beta_1 X_i\} = (Y_i - \bar Y) - \hat \beta_1 (X_i - \bar X)$
+
+$(\hat Y_i - \bar Y) = (\bar Y - \hat \beta_1 \bar X - \hat \beta_1 X_i - \bar Y )
+= \hat \beta_1  (X_i - \bar X)$
+
+$\sum_{i=1}^n  (Y_i - \hat Y_i)(\hat Y_i - \bar Y) 
+= \sum_{i=1}^n  \{(Y_i - \bar Y) - \hat \beta_1 (X_i - \bar X))\}\{\hat \beta_1  (X_i - \bar X)\}$
+
+$=\hat \beta_1 \sum_{i=1}^n (Y_i - \bar Y)(X_i - \bar X) -\hat\beta_1^2\sum_{i=1}^n (X_i - \bar X)^2$
+
+$= \hat \beta_1^2 \sum_{i=1}^n (X_i - \bar X)^2-\hat\beta_1^2\sum_{i=1}^n (X_i - \bar X)^2 = 0$
+
+
+---
+## The relation between R squared and r
+### (Again not required)
+Recall that $(\hat Y_i - \bar Y) = \hat \beta_1  (X_i - \bar X)$
+so that
+$$
+R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
+= \hat \beta_1^2  \frac{\sum_{i=1}^n(X_i - \bar X)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
+= Cor(Y, X)^2
+$$
+Since, recall, 
+$$
+\hat \beta_1 = Cor(Y, X)\frac{Sd(Y)}{Sd(X)}
+$$
+So, $R^2$ is literally $r$ squared.
+
 

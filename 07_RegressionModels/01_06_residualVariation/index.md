@@ -96,6 +96,7 @@ max(abs(e - (y - coef(fit)[1] - coef(fit)[2] * x)))
 
 
 ---
+## Residual plot
 <div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
 
 
@@ -107,6 +108,18 @@ max(abs(e - (y - coef(fit)[1] - coef(fit)[2] * x)))
 ---
 ## Getting rid of the blank space can be helpful
 <div class="rimage center"><img src="fig/unnamed-chunk-8.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" class="plot" /></div>
+
+
+---
+## Diamond data residual plot
+
+<div class="rimage center"><img src="fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" class="plot" /></div>
+
+
+---
+## Diamond data residual plot
+
+<div class="rimage center"><img src="fig/unnamed-chunk-10.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" class="plot" /></div>
 
 
 ---
@@ -144,6 +157,48 @@ sqrt(sum(resid(fit)^2) / (n - 2))
 
 ---
 ## Summarizing variation
+
+- The total variability in our response is the variability around an intercept
+(think mean only regression) $\sum_{i=1}^n (Y_i - \bar Y)^2$
+- The regression variability is the variability that is explained by adding the
+predictor $\sum_{i=1}^n  (\hat Y_i - \bar Y)^2$
+- The error variability is what's leftover around the regression line
+$\sum_{i=1}^n (Y_i - \hat Y_i)^2$
+- Neat fact
+$$
+\sum_{i=1}^n (Y_i - \bar Y)^2 
+= \sum_{i=1}^n (Y_i - \hat Y_i)^2 + \sum_{i=1}^n  (\hat Y_i - \bar Y)^2 
+$$
+
+---
+## R squared
+- R squared is the percentage of the total variability that is explained
+by the linear relationship with the predictor
+$$
+R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
+$$
+
+---
+## Some facts about $R^2$
+* $R^2$ is the percentage of variation explained by the regression model.
+* $0 \leq R^2 \leq 1$
+* $R^2$ is the sample correlation squared.
+* $R^2$ can be a misleading summary of model fit. 
+  * Deleting data can inflate $R^2$.
+  * (For later.) Adding terms to a regression model always increases $R^2$.
+* Do `example(anscombe)` to see the following data.
+  * Basically same mean and variance of X and Y.
+  * Identical correlations (hence same $R^2$ ).
+  * Same linear regression relationship.
+
+---
+## `data(anscombe);example(anscombe)`
+<div class="rimage center"><img src="fig/unnamed-chunk-12.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" class="plot" /></div>
+
+
+---
+## How to derive R squared (Not required!)
+### For those that are interested
 $$
 \begin{align}
 \sum_{i=1}^n (Y_i - \bar Y)^2 
@@ -168,25 +223,10 @@ $=\hat \beta_1 \sum_{i=1}^n (Y_i - \bar Y)(X_i - \bar X) -\hat\beta_1^2\sum_{i=1
 
 $= \hat \beta_1^2 \sum_{i=1}^n (X_i - \bar X)^2-\hat\beta_1^2\sum_{i=1}^n (X_i - \bar X)^2 = 0$
 
----
-## Summarizing variation
-$$
-\sum_{i=1}^n (Y_i - \bar Y)^2 
-= \sum_{i=1}^n (Y_i - \hat Y_i)^2 + \sum_{i=1}^n  (\hat Y_i - \bar Y)^2 
-$$
-
-Or 
-
-Total Variation = Residual Variation + Regression Variation
-
-Define the percent of total varation described by the model as
-$$
-R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
-= 1 - \frac{\sum_{i=1}^n  (Y_i - \hat Y_i)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
-$$
 
 ---
-## Relation between $R^2$ and $r$ (the correlation)
+## The relation between R squared and r
+### (Again not required)
 Recall that $(\hat Y_i - \bar Y) = \hat \beta_1  (X_i - \bar X)$
 so that
 $$
@@ -199,22 +239,5 @@ $$
 \hat \beta_1 = Cor(Y, X)\frac{Sd(Y)}{Sd(X)}
 $$
 So, $R^2$ is literally $r$ squared.
-
----
-## Some facts about $R^2$
-* $R^2$ is the percentage of variation explained by the regression model.
-* $0 \leq R^2 \leq 1$
-* $R^2$ is the sample correlation squared.
-* $R^2$ can be a misleading summary of model fit. 
-  * Deleting data can inflate $R^2$.
-  * (For later.) Adding terms to a regression model always increases $R^2$.
-* Do `example(anscombe)` to see the following data.
-  * Basically same mean and variance of X and Y.
-  * Identical correlations (hence same $R^2$ ).
-  * Same linear regression relationship.
-
----
-## `data(anscombe);example(anscombe)`
-<div class="rimage center"><img src="fig/unnamed-chunk-10.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" class="plot" /></div>
 
 

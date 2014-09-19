@@ -1,4 +1,4 @@
----
+l---
 title       : Multivariable regression examples
 subtitle    : Regression Models
 author      : Brian Caffo, Jeff Leek and Roger Peng

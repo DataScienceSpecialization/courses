@@ -126,14 +126,20 @@ $$
 ## Plotting the prediction intervals
 ```{r, fig.height=5, fig.width==5, echo = FALSE, results='hide'}
 library(ggplot2)
-p1 = data.frame(predict(fit, newdata, interval = ("confidence")))
-p2 = data.frame(predict(fit, newdata, interval = ("prediction")))
-g = ggplot(data.frame(x = x, y = y),aes(x = x, y = y), 
-            frame=FALSE,xlab="Carat",ylab="Dollars",pch=21,col="black", bg="lightblue", cex=2)
-g = g + geom_point(size = 3)
-g = g + geom_ribbon(data = p1, aes(ymin = lwr, ymax = upr, fill = 'confidence'), alpha = 0.2) 
-g = g + geom_ribbon(data = p2, aes(ymin = lwr, ymax = upr, fill = 'prediction'), alpha = 0.2) 
-g = g + scale_fill_manual('Interval', values = c('salmon', 'blue'))
+newx = data.frame(x = seq(min(x), max(x), length = 100))
+p1 = data.frame(predict(fit, newdata= newx,interval = ("confidence")))
+p2 = data.frame(predict(fit, newdata = newx,interval = ("prediction")))
+p1$interval = "confidence"
+p2$interval = "prediction"
+p1$x = newx$x
+p2$x = newx$x
+dat = rbind(p1, p2)
+names(dat)[1] = "y"
+
+g = ggplot(dat, aes(x = x, y = y))
+g = g + geom_ribbon(aes(ymin = lwr, ymax = upr, fill = interval), alpha = 0.2) 
+g = g + geom_line()
+g = g + geom_point(data = data.frame(x = x, y=y), aes(x = x, y = y), size = 4)
 g
 ```
 

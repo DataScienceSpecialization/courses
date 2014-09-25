@@ -44,11 +44,19 @@
 
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
-  <hgroup>
-    <h2>Multivariable regression analyses</h2>
-  </hgroup>
   <article data-timings="">
-    <ul>
+    <pre><code>## Error: object &#39;opts_chunk&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<h2>Multivariable regression analyses</h2>
+
+<ul>
 <li>If I were to present evidence of a relationship between 
 breath mint useage (mints per day, X) and pulmonary function
 (measured in FEV), you would be skeptical.
@@ -220,21 +228,21 @@ ex = resid(lm(x ~ x2 + x3))
 sum(ey * ex) / sum(ex ^ 2)
 </code></pre>
 
-<pre><code>[1] 0.9988
+<pre><code>## [1] 1.009
 </code></pre>
 
 <pre><code class="r">coef(lm(ey ~ ex - 1))
 </code></pre>
 
-<pre><code>    ex 
-0.9988 
+<pre><code>##    ex 
+## 1.009
 </code></pre>
 
 <pre><code class="r">coef(lm(y ~ x + x2 + x3)) 
 </code></pre>
 
-<pre><code>(Intercept)           x          x2          x3 
-     1.0084      0.9988      0.9981      1.0121 
+<pre><code>## (Intercept)           x          x2          x3 
+##      1.0202      1.0090      0.9787      1.0064
 </code></pre>
 
   </article>
@@ -249,7 +257,7 @@ sum(ey * ex) / sum(ex ^ 2)
     <p>\[E[Y | X_1 = x_1, \ldots, X_p = x_p] = \sum_{k=1}^p x_{k} \beta_k\]</p>
 
 <p>\[
-E[Y | X_1 = x_1 + 1, \ldots, X_p = x_p] = (x_1 + 1) \beta_1 + \sum_{k=1}^p x_{k} \beta_k
+E[Y | X_1 = x_1 + 1, \ldots, X_p = x_p] = (x_1 + 1) \beta_1 + \sum_{k=2}^p x_{k} \beta_k
 \]</p>
 
 <p>\[
@@ -315,7 +323,7 @@ follows a \(T\) distribution with \(n-p\) degrees of freedom.</li>
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Multivariable regression analyses'>
+        data-slide=1 title=''>
          1
       </a>
     </li>

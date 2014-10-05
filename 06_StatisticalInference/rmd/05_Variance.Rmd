@@ -1,0 +1,239 @@
+---
+title       : The variance
+subtitle    : Statistical Inference
+author      : Brian Caffo, Jeff Leek, Roger Peng
+job         : Johns Hopkins Bloomberg School of Public Health
+logo        : bloomberg_shield.png
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+url:
+  lib: ../../librariesNew
+  assets: ../../assets
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+---
+
+## The variance
+
+- The variance of a random variable is a measure of *spread*
+- If $X$ is a random variable with mean $\mu$, the variance of $X$ is defined as
+
+$$
+Var(X) = E[(X - \mu)^2] = E[X^2] - E[X]^2
+$$ 
+
+- The expected (squared) distance from the mean
+- Densities with a higher variance are more spread out than densities with a lower variance
+- The square root of the variance is called the **standard deviation**
+- The standard deviation has the same units as $X$
+
+---
+
+## Example
+
+- What's the variance from the result of a toss of a die? 
+
+  - $E[X] = 3.5$ 
+  - $E[X^2] = 1 ^ 2 \times \frac{1}{6} + 2 ^ 2 \times \frac{1}{6} + 3 ^ 2 \times \frac{1}{6} + 4 ^ 2 \times \frac{1}{6} + 5 ^ 2 \times \frac{1}{6} + 6 ^ 2 \times \frac{1}{6} = 15.17$ 
+
+- $Var(X) = E[X^2] - E[X]^2 \approx 2.92$
+
+---
+
+## Example
+
+- What's the variance from the result of the toss of a coin with probability of heads (1) of $p$? 
+
+  - $E[X] = 0 \times (1 - p) + 1 \times p = p$
+  - $E[X^2] = E[X] = p$ 
+
+$$Var(X) = E[X^2] - E[X]^2 = p - p^2 = p(1 - p)$$
+
+
+---
+## Distributions with increasing variance
+```{r, echo = FALSE, fig.height = 6, fig.width = 8, fig.align='center'}
+library(ggplot2)
+xvals <- seq(-10, 10, by = .01)
+dat <- data.frame(
+    y = c(
+        dnorm(xvals, mean = 0, sd = 1),
+        dnorm(xvals, mean = 0, sd = 2),
+        dnorm(xvals, mean = 0, sd = 3),
+        dnorm(xvals, mean = 0, sd = 4)
+    ),
+    x = rep(xvals, 4),
+    factor = factor(rep(1 : 4, rep(length(xvals), 4)))
+)
+ggplot(dat, aes(x = x, y = y, color = factor)) + geom_line(size = 2)    
+```
+
+---
+## The sample variance 
+- The sample variance is 
+$$
+S^2 = \frac{\sum_{i=1} (X_i - \bar X)^2}{n-1}
+$$
+(almost, but not quite, the average squared deviation from
+the sample mean)
+- It is also a random variable
+  - It has an associate population distribution
+  - Its expected value is the population variance
+  - Its distribution gets more concentrated around the population variance with more data
+- Its square root is the sample standard deviation
+
+
+---
+## Simulation experiment
+### Simulating from a population with variance 1
+
+```{r, fig.height=6, figh.width=6, fig.align='center', echo = FALSE}
+library(ggplot2)
+nosim <- 10000; 
+dat <- data.frame(
+    x = c(apply(matrix(rnorm(nosim * 10), nosim), 1, var),
+          apply(matrix(rnorm(nosim * 20), nosim), 1, var),
+          apply(matrix(rnorm(nosim * 30), nosim), 1, var)),
+    n = factor(rep(c("10", "20", "30"), c(nosim, nosim, nosim))) 
+    )
+ggplot(dat, aes(x = x, fill = n)) + geom_density(size = 2, alpha = .2) + geom_vline(xintercept = 1, size = 2) 
+
+```
+
+---
+## Variances of x die rolls
+```{r, fig.align='center',fig.height=5, fig.width=10, echo = FALSE, warning=FALSE, error=FALSE, message=FALSE}  
+dat <- data.frame(
+  x = c(apply(matrix(sample(1 : 6, nosim * 10, replace = TRUE), 
+                     nosim), 1, var),
+        apply(matrix(sample(1 : 6, nosim * 20, replace = TRUE), 
+                     nosim), 1, var),
+        apply(matrix(sample(1 : 6, nosim * 30, replace = TRUE), 
+                     nosim), 1, var)
+        ),
+  size = factor(rep(c(10, 20, 30), rep(nosim, 3))))
+g <- ggplot(dat, aes(x = x, fill = size)) + geom_histogram(alpha = .20, binwidth=.3, colour = "black") 
+g <- g + geom_vline(xintercept = 2.92, size = 2)
+g + facet_grid(. ~ size)
+```
+
+
+---
+
+## Recall the mean
+- Recall that the average of random sample from a population 
+is itself a random variable
+- We know that this distribution is centered around the population
+mean, $E[\bar X] = \mu$
+- We also know what its variance is $Var(\bar X) = \sigma^2 / n$
+- This is very useful, since we don't have repeat sample means 
+to get its variance; now we know how it relates to
+the population variance
+- We call the standard deviation of a statistic a standard error
+
+---
+## To summarize
+- The sample variance, $S^2$, estimates the population variance, $\sigma^2$
+- The distribution of the sample variance is centered around $\sigma^2$
+- The the variance of sample mean is $\sigma^2 / n$
+  - Its logical estimate is $s^2 / n$
+  - The logical estimate of the standard error is $s / \sqrt{n}$
+- $s$, the standard deviation, talks about how variable the population is
+- $s/\sqrt{n}$, the standard error, talks about how variable averages of random samples of size $n$ from the population are
+
+---
+## Simulation example
+Standard normals have variance 1; means of $n$ standard normals
+have standard deviation $1/\sqrt{n}$
+
+```{r}
+nosim <- 1000
+n <- 10
+sd(apply(matrix(rnorm(nosim * n), nosim), 1, mean))
+1 / sqrt(n)
+```
+
+
+---
+## Simulation example
+Standard uniforms have variance $1/12$; means of 
+random samples of $n$ uniforms have sd $1/\sqrt{12 \times n}$
+
+
+```{r}
+nosim <- 1000
+n <- 10
+sd(apply(matrix(runif(nosim * n), nosim), 1, mean))
+1 / sqrt(12 * n)
+```
+
+
+---
+## Simulation example
+Poisson(4) have variance $4$; means of 
+random samples of $n$ Poisson(4) have sd $2/\sqrt{n}$
+
+
+```{r}
+nosim <- 1000
+n <- 10
+sd(apply(matrix(rpois(nosim * n, 4), nosim), 1, mean))
+2 / sqrt(n)
+```
+
+
+---
+## Simulation example
+Fair coin flips have variance $0.25$; means of 
+random samples of $n$ coin flips have sd $1 / (2 \sqrt{n})$
+
+
+```{r}
+nosim <- 1000
+n <- 10
+sd(apply(matrix(sample(0 : 1, nosim * n, replace = TRUE),
+                nosim), 1, mean))
+1 / (2 * sqrt(n))
+```
+
+---
+## Data example
+```{r}
+library(UsingR); data(father.son); 
+x <- father.son$sheight
+n<-length(x)
+```
+
+---
+## Plot of the son's heights
+```{r, fig.height=6, fig.width=6, echo=FALSE, fig.align='center'}
+g <- ggplot(data = father.son, aes(x = sheight)) 
+g <- g + geom_histogram(aes(y = ..density..), fill = "lightblue", binwidth=1, colour = "black")
+g <- g + geom_density(size = 2, colour = "black")
+g
+```
+
+---
+## Let's interpret these numbers
+```{r}
+round(c(var(x), var(x) / n, sd(x), sd(x) / sqrt(n)),2)
+```
+
+```{r, echo = FALSE, fig.height=4, fig.width=4,fig.align='center'}
+g
+```
+
+
+---
+## Summarizing what we know about variances
+- The sample variance estimates the population variance
+- The distribution of the sample variance is centered at
+what its estimating
+- It gets more concentrated around the population variance with larger sample sizes
+- The variance of the sample mean is the population variance
+divided by $n$
+  - The square root is the standard error
+- It turns out that we can say a lot about the distribution of
+averages from random samples, 
+even though we only get one to look at in a given data set

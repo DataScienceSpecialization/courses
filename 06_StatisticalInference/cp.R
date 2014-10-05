@@ -7,7 +7,7 @@
 overwrite = FALSE
 
 ## Get the directory names (they all start with 0)
-dirNames <- dir(pattern = "^0")
+dirNames <- dir(pattern = "^[0-1][0-9]_[a-zA-Z]")
 
 ## Loop over them and copy the files
 sapply(dirNames, function(x) 

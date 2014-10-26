@@ -1,0 +1,136 @@
+---
+title: "Machine learning exercise"
+author: "me"
+date: "Sunday, October 26, 2014"
+output: html_document
+---
+### Task objective
+- Predicting the manner in which the exercise was done for 20 observations based on the measured variables while exercising
+### Data for modeling
+-  Training data set is provided with 19662 observations
+
+- Training date is from the source 
+(https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv)
+
+### Data screening
+As the objective of the exercise is to predict for 20 test cases, variables that are 'NA's in these cases need not be included in the model to predict the outcome
+
+- Out of 160 variables 101 features are of this type and are identified and removed from the training set
+- Six more variables that are not performance based and not required for analysis are also removed
+- Final observations selected for developing the model are 53.
+- R script included at the end may be referred for the code
+
+
+### Model creation
+- Model is developed with 'randomForest' package available in R library
+- This is the robust package that is economical in memory utilization and processing time and gives excellent results
+
+### Model analysis
+Results of the model, including confusion matrix is presented in Table - 1 below
+
+ randomForest(formula = classe ~ ., data = train_set  
+     Type of random forest: classification
+     
+      Number of trees: 500 
+      
+No. of variables tried at each split: 7 
+
+        OOB estimate of  error rate: 0.52%
+  
+***Confusion matrix:***
+
+        A    B    C    D    E   class.error
+      
+    A 3902    4    0    0    0  0.001024066
+  
+    B   12 2642    4    0    0  0.006019564 
+  
+    C    0   14 2381    1    0  0.006260434 
+  
+    D    0    0   26 2225    1  0.011989343 
+  
+    E    0    0    4    6 2515  0.003960396 
+  
+  
+  ***Table  - 1: Model summary***
+  
+- Table - 1 show out of sample error of 0.52 %  and very low class errors in the confusion martix
+
+- These results show that the model is reliable for predictions
+
+### Testing the model
+- using the model prediction on 30 % testing set segregated for this purpose is done
+- on these 5885 observations results show 28 errors and this is 0.48 %.
+
+### Prediction for 20 test cases
+
+Prediction for 20 test cases gives the results shown in Table - 2
+
+      1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+      
+      B  A  B  A  A  E  D  B  A  A  B  C  B  A  E  E  A  B  B  B
+      
+***Table - 2 Prediction for 20 test cases***
+      
+### Result traceability
+Complete R code is presented below to trace the results
+
+```{r,echo=TRUE,eval=FALSE }
+library(ggplot2)
+library(caret)
+library(randomForest)
+library(data.table)
+# Reading training and testing csv files
+read.csv("pml-training.csv")->training
+read.csv("pml-testing.csv")-> testing
+# creating data tables for the above two files   
+dt_training<-data.table(training)
+dt_testing<- data.table(testing)
+
+#objective is to predict the outcoe for 20 test cases in testing file
+#Accordingly from testing data table NA value columns are selected and removed
+# These features wereseklected from training data set forodel building
+#No of features thus reduced from from 160 to just 59 variables
+#creating a logical vector of all features that shows not required features as TRUE
+not_req <- apply(testing, 2, function(var) length(unique(var)) == 1)
+#creating test_req table that contain only valid features (59 varibales)
+test_req<- testing[, !not_req]
+
+#creating feature names vector that are not required in the model
+test_notreq<-colnames(testing[, not_req])
+
+#selecting 59 columns (required columns for model building) only from training and testing sets
+n<- sum(not_req)
+for (i in 1:n){  dt_training[,test_notreq[[i]] := NULL]}
+for (i in 1:n){  dt_testing[,test_notreq[[i]] := NULL]}
+# By inspection following six variables that are not required in the model are removed
+#Final variables or features for odel building are 53
+dt_training[,X:= NULL]
+dt_training[,user_name:= NULL]
+dt_training[,raw_timestamp_part_1:= NULL]
+dt_training[,raw_timestamp_part_2:= NULL]
+dt_training[,cvtd_timestamp:= NULL]
+dt_training[,num_window:= NULL]
+#Preparing training and testing sets from training data with 70% in training
+set.seed(1111)
+inTrain<-createDataPartition(y=dt_training$classe,p =0.7,list=FALSE)
+train_set<-data.frame(dt_training)[inTrain,]
+test_set<-data.frame(dt_training)[-inTrain,]
+#clearing unwanted data to free memory
+rm(training,dt_training)
+# Building model with randoForest package with train_set ( 70 %)
+mod<- randomForest(classe~.,data=train_set)
+#out of saple error
+#Random Forest resly gives Out of Bag error of 0.52 % for the model
+# Predicting for test set ( 30 % observations)
+mod_predict <- predict(mod,test_set)
+
+model_test<- data.frame(pre=mod_predict,act=test_set$classe)
+model_error<- ((sum(model_test$pre != model_test$act))/nrow(model_test))*100
+print(paste("Modeling error by testig on Trainign set", round(model_error,2),"%"))
+
+#Building prediction for 20 testing data given in the assignment
+reslt <-predict(mod,test_req)
+print(paste("predictd values: "))
+print(reslt)
+```

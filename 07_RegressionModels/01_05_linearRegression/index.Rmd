@@ -93,7 +93,7 @@ Y_i = \beta_0 + \beta_1 X_i + \epsilon_i
 = \beta_0 + \tilde \beta_1 (X_i a) + \epsilon_i
 $$
 * Therefore, multiplication of $X$ by a factor $a$ results in dividing the coefficient by a factor of $a$. 
-* Example: $X$ is height in $m$ and $Y$ is weight in $kg$. Then $\beta_1$ is $kg/m$. Converting $X$ to $cm$ implies multiplying $X$ by $100 cm/m$. To get $\beta_1$ in the right units, we have to divide by $100 cm /m$ to get it to have the right units. 
+* Example: $X$ is height in $m$ and $Y$ is mass in $kg$. Then $\beta_1$ is $kg/m$. Converting $X$ to $cm$ implies multiplying $X$ by $100 cm/m$. To get $\beta_1$ in the right units, we have to divide by $100 cm /m$ to get it to have the right units. 
 $$
 X m \times \frac{100cm}{m} = (100 X) cm
 ~~\mbox{and}~~
@@ -122,7 +122,7 @@ for $\mu_i$ expressed as points on a line
 ---
 ## Example
 ### `diamond` data set from `UsingR` 
-Data is diamond prices (Signapore dollars) and diamond weight
+Data is diamond prices (Signapore dollars) and diamond mass
 in carats (standard measure of diamond mass, 0.2 $g$). To get the data use `library(UsingR); data(diamond)`
 
 Plotting the fitted regression line and data

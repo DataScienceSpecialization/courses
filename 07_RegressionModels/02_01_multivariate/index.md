@@ -14,7 +14,17 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
+```
+## Error: object 'opts_chunk' not found
+```
 
+```
+## Error: object 'knit_hooks' not found
+```
+
+```
+## Error: object 'knit_hooks' not found
+```
 ## Multivariable regression analyses
 * If I were to present evidence of a relationship between 
 breath mint useage (mints per day, X) and pulmonary function
@@ -111,7 +121,7 @@ sum(ey * ex) / sum(ex ^ 2)
 ```
 
 ```
-[1] 0.9988
+## [1] 1.009
 ```
 
 ```r
@@ -119,8 +129,8 @@ coef(lm(ey ~ ex - 1))
 ```
 
 ```
-    ex 
-0.9988 
+##    ex 
+## 1.009
 ```
 
 ```r
@@ -128,17 +138,16 @@ coef(lm(y ~ x + x2 + x3))
 ```
 
 ```
-(Intercept)           x          x2          x3 
-     1.0084      0.9988      0.9981      1.0121 
+## (Intercept)           x          x2          x3 
+##      1.0202      1.0090      0.9787      1.0064
 ```
-
 
 ---
 ## Interpretation of the coeficients
 $$E[Y | X_1 = x_1, \ldots, X_p = x_p] = \sum_{k=1}^p x_{k} \beta_k$$
 
 $$
-E[Y | X_1 = x_1 + 1, \ldots, X_p = x_p] = (x_1 + 1) \beta_1 + \sum_{k=1}^p x_{k} \beta_k
+E[Y | X_1 = x_1 + 1, \ldots, X_p = x_p] = (x_1 + 1) \beta_1 + \sum_{k=2}^p x_{k} \beta_k
 $$
 
 $$

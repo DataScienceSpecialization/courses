@@ -30,11 +30,11 @@ mode        : selfcontained # {standalone, draft}
 - Fortunately, for the sample mean there's a set of powerful results
 - These results allow us to talk about the large sample distribution
 of sample means of a collection of $iid$ observations
-- The first of these results we inuitively know
-  - It says that the average limits to what its estimating, the population mean
+- The first of these results we intuitively know
+  - It says that the average limits to what it's estimating, the population mean
   - It's called the Law of Large Numbers
   - Example $\bar X_n$ could be the average of the result of $n$ coin flips (i.e. the sample proportion of heads)
-    - As we flip a fair coin over and over, it evetually converges to the
+    - As we flip a fair coin over and over, it eventually converges to the
     true probability of a head
     The LLN forms the basis of frequency style thinking
 

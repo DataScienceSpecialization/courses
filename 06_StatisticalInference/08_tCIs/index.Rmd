@@ -44,6 +44,7 @@ is the relevant quantile
 ---
 ## Code for manipulate
 ```{r, echo=TRUE,eval=FALSE}
+library(ggplot2); library(manipulate)
 k <- 1000
 xvals <- seq(-5, 5, length = k)
 myplot <- function(df){

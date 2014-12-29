@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -102,8 +102,6 @@ Similarly, subsetting a single column or a single row will give you a vector, no
 ## Subsetting Lists
 
 ```r
-￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼￼6/14
-Subsetting Lists
 > x <- list(foo = 1:4, bar = 0.6)
 > x[1]
 $foo

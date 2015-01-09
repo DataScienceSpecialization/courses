@@ -55,8 +55,8 @@ attr(,"conf.level")
 <span class="answer">22</span>
 
 --- &multitext
-Suppose that standard deviation of 9 paired differences is $1$, what value would the average difference have to be so that the lower endpoint of a 95%
-students t confidence interval touch zero?
+Suppose that standard deviation of 9 paired differences is $1$. What value would the average difference have to be so that the lower endpoint of a 95%
+students t confidence interval touches zero?
 
 1. Give the number here to two decimal places
 

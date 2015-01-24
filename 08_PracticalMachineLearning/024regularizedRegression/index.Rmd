@@ -152,7 +152,7 @@ http://www.cbcb.umd.edu/~hcorrada/PracticalML/
 
 * Constrain only $\lambda$ coefficients to be nonzero. 
 
-* Selection problem is after chosing $\lambda$ figure out which $p - \lambda$ coefficients to make nonzero
+* Selection problem is after chosing $\lambda$ figure out which $p - \lambda$ coefficients to make zero
 
 http://www.biostat.jhsph.edu/~ririzarr/Teaching/649/
 http://www.cbcb.umd.edu/~hcorrada/PracticalML/
@@ -181,11 +181,11 @@ where $PRSS$ is a penalized form of the sum of squares. Things that are commonly
 
 Solve:
 
-$$ \sum_{i=1}^N \left(y_i - \beta_0 + \sum_{j=1}^p x_{ij}\beta_j \right)^2 + \lambda \sum_{j=1}^p \beta_j^2$$
+$$ \sum_{i=1}^N \left(y_i - \beta_0 - \sum_{j=1}^p x_{ij}\beta_j \right)^2 + \lambda \sum_{j=1}^p \beta_j^2$$
 
 equivalent to solving
 
-$\sum_{i=1}^N \left(y_i - \beta_0 + \sum_{j=1}^p x_{ij}\beta_j \right)^2$ subject to $\sum_{j=1}^p \beta_j^2 \leq s$ where $s$ is inversely proportional to $\lambda$ 
+$\sum_{i=1}^N \left(y_i - \beta_0 - \sum_{j=1}^p x_{ij}\beta_j \right)^2$ subject to $\sum_{j=1}^p \beta_j^2 \leq s$ where $s$ is inversely proportional to $\lambda$ 
 
 
 Inclusion of $\lambda$ makes the problem non-singular even if $X^TX$ is not invertible.
@@ -217,11 +217,11 @@ http://www.cbcb.umd.edu/~hcorrada/PracticalML/
 
 ## Lasso 
 
-$\sum_{i=1}^N \left(y_i - \beta_0 + \sum_{j=1}^p x_{ij}\beta_j \right)^2$ subject to $\sum_{j=1}^p |\beta_j| \leq s$ 
+$\sum_{i=1}^N \left(y_i - \beta_0 - \sum_{j=1}^p x_{ij}\beta_j \right)^2$ subject to $\sum_{j=1}^p |\beta_j| \leq s$ 
 
 also has a lagrangian form 
 
-$$ \sum_{i=1}^N \left(y_i - \beta_0 + \sum_{j=1}^p x_{ij}\beta_j \right)^2 + \lambda \sum_{j=1}^p |\beta_j|$$
+$$ \sum_{i=1}^N \left(y_i - \beta_0 - \sum_{j=1}^p x_{ij}\beta_j \right)^2 + \lambda \sum_{j=1}^p |\beta_j|$$
 
 For orthonormal design matrices (not the norm!) this has a closed form solution
 

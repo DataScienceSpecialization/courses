@@ -123,7 +123,7 @@ what is the variance $\bar X - \bar Y$?
 
 1. 0
 2. _$2\sigma^2/n$_
-3. $\mu_x$ - $\mu_y$
+3. $\mu_x - \mu_y$
 4. $2\sigma^2$
 
 *** .hint

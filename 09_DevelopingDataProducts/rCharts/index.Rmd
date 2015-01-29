@@ -37,7 +37,7 @@ runif(1)
 - rCharts is a way to create interactive javascript visualizations using R
 - So
   - You don't have to learn complex tools, like D3
-  - You simply work in R learning a minimal amount of new syntaxt
+  - You simply work in R learning a minimal amount of new syntax
 - rCharts was written by Ramnath Vaidyanathan (friend of the Data Science Series), who also wrote slidify, the framework we use for all of the lectures in the class
 - This lecture is basically going through
   (http://ramnathv.github.io/rCharts/)

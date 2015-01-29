@@ -89,7 +89,7 @@ $$\sum_{i=1}^n y_i \eta_i =
 \sum_{k=1}^p \beta_k\sum_{i=1}^n X_{ik} y_i
 $$
 Thus if we don't need the full data, only $\sum_{i=1}^n X_{ik} y_i$. This simplification is a consequence of chosing so-called 'canonical' link functions.
-* (This has to be derived). All models acheive their maximum at the root of the so called normal equations
+* (This has to be derived). All models achieve their maximum at the root of the so called normal equations
 $$
 0=\sum_{i=1}^n \frac{(Y_i - \mu_i)}{Var(Y_i)}W_i
 $$

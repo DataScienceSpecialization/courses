@@ -1,0 +1,33 @@
+A quick introduction to ggvis
+===
+author: Brian Caffo
+date: 7/30/2014
+
+===
+
+A first basic example
+===
+
+```{r, echo=TRUE, eval=FALSE}
+install.packages("ggvis")
+```
+
+
+A first basic example
+========================================================
+
+```{r}
+library(ggvis)
+library(dplyr)
+mtcars %>% ggvis(~wt, ~mpg) %>% layer_points()
+mtcars %>% 
+  ggvis(~wt, ~mpg) %>% 
+  layer_points(fill = ~factor(cyl))
+```
+
+Slide With Plot
+========================================================
+
+```{r, echo=FALSE}
+plot(cars)
+```

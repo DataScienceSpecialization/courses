@@ -14,7 +14,6 @@ mode        : selfcontained # {standalone, draft}
 ---
 
 
-
 ## About these slides
 - These are some practice problems for Statistical Inference Quiz 2
 - They were created using slidify interactive which you will learn in 
@@ -65,7 +64,6 @@ round(pnorm(93, mean = 100, sd = 10) * 100)
 ```
 
 
-
 --- &radio
 Suppose 5% of housing projects have issues with asbestos. The sensitivity of a test
 for asbestos is 93% and the specificity is 88%. What is the probability that a 
@@ -96,7 +94,6 @@ $$
 ```
 [1] 0.9958
 ```
-
 
 
 
@@ -132,7 +129,6 @@ round(qnorm(.05, mean = 100, sd = 10, lower.tail = FALSE), 3)
 ```
 
 
-
 ---  &multitext
 Suppose that the number of web hits to a particular site are approximately normally
 distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. 
@@ -165,21 +161,19 @@ round(qnorm(.05, mean = 100, sd = 10 / sqrt(50), lower.tail = FALSE), 3)
 [1] 102.3
 ```
 
-
 --- &multitext
 
 You don't believe that your friend can discern good wine from cheap. Assuming
 that you're right, in a blind test where you randomize 6 paired varieties (Merlot,
 Chianti, ...) of cheap and expensive wines
 
-what is the change that she gets 5 or 6 right expressed as a percentage
+1. What is the change that she gets 5 or 6 right expressed as a percentage
 to one decimal place?
 
 *** .hint
 Let $p=.5$ and $X$ be binomial
 
 *** .explanation
-
 <span class="answer">10.9</span>
 
 
@@ -191,20 +185,18 @@ round(pbinom(4, prob = .5, size = 6, lower.tail = FALSE) * 100, 1)
 [1] 10.9
 ```
 
-
 --- &multitext
 
 Consider a uniform distribution. If we were to sample 100 draws from a 
 a uniform distribution (which has mean 0.5, and variance 1/12) and take their
 mean, $\bar X$
 
-what is the approximate probability of getting as large as 0.51 or larger expressed to 3 decimal places?
+1. What is the approximate probability of getting as large as 0.51 or larger expressed to 3 decimal places?
 
 *** .hint
 Use the central limit theorem that says $\bar X \sim N(\mu, \sigma^2/n)$
 
 *** .explanation
-
 <span class="answer"> 0.365</span>
 
 
@@ -215,7 +207,6 @@ round(pnorm(.51, mean = 0.5, sd = sqrt(1 / 12 / 100), lower.tail = FALSE), 3)
 ```
 [1] 0.365
 ```
-
 
 
 --- &multitext
@@ -251,17 +242,17 @@ where $\sigma^2$ is the variance of a single die roll, which is
 
 
 ```r
-mean((1 : 6 - 3.5)^2)
+mean((1 : 6 - 3.5)^2 / 10)
 ```
 
 ```
-[1] 2.917
+[1] 0.2917
 ```
-
 
 --- &multitext
 The number of web hits to a site is Poisson with mean 16.5 per day. 
-What is the probability of getting 20 or fewer in 2 days expressed
+
+1. What is the probability of getting 20 or fewer in 2 days expressed
 as a percentage to one decimal place?
 
 *** .hint
@@ -278,7 +269,6 @@ round(ppois(20, lambda = 16.5 * 2) * 100, 1)
 ```
 [1] 1
 ```
-
 
 
 

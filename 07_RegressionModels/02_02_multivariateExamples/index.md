@@ -15,31 +15,25 @@ mode        : selfcontained # {standalone, draft}
 ---
 
 
-## Swiss fertility data
-
-```r
-library(datasets); data(swiss); require(stats); require(graphics)
-pairs(swiss, panel = panel.smooth, main = "Swiss data", col = 3 + (swiss$Catholic > 50))
-```
-
-<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
-
-
----
-## `?swiss`
-### Description
+## Data set for discussion
+### `require(datasets); data(swiss); ?swiss`
 Standardized fertility measure and socio-economic indicators for each of 47 French-speaking provinces of Switzerland at about 1888.
 
 A data frame with 47 observations on 6 variables, each of which is in percent, i.e., in [0, 100].
 
-* [,1]   Fertility	Ig, ‘ common standardized fertility measure’
-* [,2]	 Agriculture	 % of males involved in agriculture as occupation
-* [,3]	 Examination	 % draftees receiving highest mark on army examination
-* [,4]	 Education	 % education beyond primary school for draftees.
-* [,5]	 Catholic	 % ‘catholic’ (as opposed to ‘protestant’).
-* [,6]	 Infant.Mortality	 live births who live less than 1 year.
+* [,1]   Fertility          a common standardized fertility measure
+* [,2]   Agriculture        % of males involved in agriculture as occupation
+* [,3]	 Examination        % draftees receiving highest mark on army examination
+* [,4]	 Education          % education beyond primary school for draftees
+* [,5]	 Catholic           % catholic (as opposed to protestant)
+* [,6]	 Infant.Mortality   live births who live less than 1 year
 
-All variables but ‘Fertility’ give proportions of the population.
+All variables but Fertility give proportions of the population.
+
+---
+
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+
 
 
 ---
@@ -61,7 +55,7 @@ Infant.Mortality   1.0770    0.38172   2.822 7.336e-03
 ## Example interpretation
 * Agriculture is expressed in percentages (0 - 100)
 * Estimate is -0.1721.
-* We estimate an expected 0.17 decrease in standardized fertility for every 1\% increase in percentage of males involved in agriculture in holding the remaining variables constant.
+* Our models estimates an expected 0.17 decrease in standardized fertility for every 1% increase in percentage of males involved in agriculture in holding the remaining variables constant.
 * The t-test for $H_0: \beta_{Agri} = 0$ versus $H_a: \beta_{Agri} \neq 0$ is  significant.
 * Interestingly, the unadjusted estimate is 
 
@@ -86,8 +80,8 @@ summary(lm(y ~ x1))$coef
 
 ```
             Estimate Std. Error t value  Pr(>|t|)
-(Intercept)    1.618      1.200   1.349 1.806e-01
-x1            95.854      2.058  46.579 1.153e-68
+(Intercept)    1.454      1.079   1.348 1.807e-01
+x1            96.793      1.862  51.985 3.707e-73
 ```
 
 ```r
@@ -95,10 +89,10 @@ summary(lm(y ~ x1 + x2))$coef
 ```
 
 ```
-              Estimate Std. Error   t value   Pr(>|t|)
-(Intercept)  0.0003683  0.0020141    0.1829  8.553e-01
-x1          -1.0215256  0.0166372  -61.4001  1.922e-79
-x2           1.0001909  0.0001681 5950.1818 1.369e-271
+             Estimate Std. Error  t value   Pr(>|t|)
+(Intercept)  0.001933  0.0017709    1.092  2.777e-01
+x1          -1.020506  0.0163560  -62.393  4.211e-80
+x2           1.000133  0.0001643 6085.554 1.544e-272
 ```
 
 
@@ -107,8 +101,12 @@ x2           1.0001909  0.0001681 5950.1818 1.369e-271
 
 
 ---
+<div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
+
+
+---
 ## Back to this data set
-* The sign reverses itself with the inclusion of Examination and Education, but of which are negatively correlated with Agriculture.
+* The sign reverses itself with the inclusion of Examination and Education.
 * The percent of males in the province working in agriculture is negatively related to educational attainment (correlation of -0.6395) and Education and Examination (correlation of 0.6984) are obviously measuring similar things. 
   * Is the positive marginal an artifact for not having accounted for, say, Education level? (Education does have a stronger effect, by the way.)
 * At the minimum, anyone claiming that provinces that are more agricultural have higher fertility rates would immediately be open to criticism.
@@ -167,7 +165,7 @@ where each $X_{i1}$ is binary so that it is a 1 if measurement $i$ is in a group
 
 ---
 ## Insect Sprays
-<div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+<div class="rimage center"><img src="fig/unnamed-chunk-8.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" class="plot" /></div>
 
 
 ---
@@ -214,24 +212,20 @@ I(1 * (spray == "F"))   2.1667      1.601  1.3532 1.806e-01
 ## What if we include all 6?
 
 ```r
-lm(count ~ 
+summary(lm(count ~ 
    I(1 * (spray == 'B')) + I(1 * (spray == 'C')) +  
    I(1 * (spray == 'D')) + I(1 * (spray == 'E')) +
-   I(1 * (spray == 'F')) + I(1 * (spray == 'A')), data = InsectSprays)
+   I(1 * (spray == 'F')) + I(1 * (spray == 'A')), data = InsectSprays))$coef
 ```
 
 ```
-
-Call:
-lm(formula = count ~ I(1 * (spray == "B")) + I(1 * (spray == 
-    "C")) + I(1 * (spray == "D")) + I(1 * (spray == "E")) + I(1 * 
-    (spray == "F")) + I(1 * (spray == "A")), data = InsectSprays)
-
-Coefficients:
-          (Intercept)  I(1 * (spray == "B"))  I(1 * (spray == "C"))  I(1 * (spray == "D"))  
-               14.500                  0.833                -12.417                 -9.583  
-I(1 * (spray == "E"))  I(1 * (spray == "F"))  I(1 * (spray == "A"))  
-              -11.000                  2.167                     NA  
+                      Estimate Std. Error t value  Pr(>|t|)
+(Intercept)            14.5000      1.132 12.8074 1.471e-19
+I(1 * (spray == "B"))   0.8333      1.601  0.5205 6.045e-01
+I(1 * (spray == "C")) -12.4167      1.601 -7.7550 7.267e-11
+I(1 * (spray == "D"))  -9.5833      1.601 -5.9854 9.817e-08
+I(1 * (spray == "E")) -11.0000      1.601 -6.8702 2.754e-09
+I(1 * (spray == "F"))   2.1667      1.601  1.3532 1.806e-01
 ```
 
 
@@ -253,24 +247,22 @@ sprayF   16.667      1.132  14.721 1.573e-22
 ```
 
 ```r
-unique(ave(InsectSprays$count, InsectSprays$spray))
+library(dplyr)
+summarise(group_by(InsectSprays, spray), mn = mean(count))
 ```
 
 ```
-[1] 14.500 15.333  2.083  4.917  3.500 16.667
+Source: local data frame [6 x 2]
+
+  spray     mn
+1     A 14.500
+2     B 15.333
+3     C  2.083
+4     D  4.917
+5     E  3.500
+6     F 16.667
 ```
 
-
----
-## Summary
-* If we treat Spray as a factor, R includes an intercept and omits the alphabetically first level of the factor.
-  * All t-tests are for comparisons of Sprays versus Spray A.
-  * Emprirical mean for A is the intercept.
-  * Other group means are the itc plus their coefficient. 
-* If we omit an intercept, then it includes terms for all levels of the factor. 
-  * Group means are the coefficients. 
-  * Tests are tests of whether the groups are different than zero. (Are the expected counts zero for that spray.)
-* If we want comparisons between, Spray B and C, say we could refit the model with C (or B) as the reference level. 
 
 ---
 ## Reordering the levels
@@ -290,28 +282,16 @@ spray2E        1.417      1.601  0.8848 3.795e-01
 spray2F       14.583      1.601  9.1083 2.794e-13
 ```
 
-
 ---
-## Doing it manually
-Equivalently 
-$$Var(\hat \beta_B - \hat \beta_C) = Var(\hat \beta_B) + Var(\hat \beta_C) - 2 Cov(\hat \beta_B, \hat \beta_C)$$
-
-```r
-fit <- lm(count ~ spray, data = InsectSprays) #A is ref
-bbmbc <- coef(fit)[2] - coef(fit)[3] #B - C
-temp <- summary(fit) 
-se <- temp$sigma * sqrt(temp$cov.unscaled[2, 2] + temp$cov.unscaled[3,3] - 2 *temp$cov.unscaled[2,3])
-t <- (bbmbc) / se
-p <- pt(-abs(t), df = fit$df)
-out <- c(bbmbc, se, t, p)
-names(out) <- c("B - C", "SE", "T", "P")
-round(out, 3)
-```
-
-```
- B - C     SE      T      P 
-13.250  1.601  8.276  0.000 
-```
+## Summary
+* If we treat Spray as a factor, R includes an intercept and omits the alphabetically first level of the factor.
+  * All t-tests are for comparisons of Sprays versus Spray A.
+  * Emprirical mean for A is the intercept.
+  * Other group means are the itc plus their coefficient. 
+* If we omit an intercept, then it includes terms for all levels of the factor. 
+  * Group means are the coefficients. 
+  * Tests are tests of whether the groups are different than zero. (Are the expected counts zero for that spray.)
+* If we want comparisons between, Spray B and C, say we could refit the model with C (or B) as the reference level. 
 
 
 ---
@@ -325,279 +305,95 @@ round(out, 3)
 
 ---
 
-## Example - Millenium Development Goal 1
-
-[http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf](http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf)
-
-[http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*](http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*)
-
----
-
-## WHO childhood hunger data
-
+## Recall the `swiss` data set
 
 
 ```r
-#download.file("http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*","hunger.csv",method="curl")
-hunger <- read.csv("hunger.csv")
-hunger <- hunger[hunger$Sex!="Both sexes",]
-head(hunger)
+library(datasets); data(swiss)
+head(swiss)
 ```
 
 ```
-                               Indicator Data.Source PUBLISH.STATES Year            WHO.region
-1 Children aged <5 years underweight (%) NLIS_310044      Published 1986                Africa
-2 Children aged <5 years underweight (%) NLIS_310233      Published 1990              Americas
-3 Children aged <5 years underweight (%) NLIS_312902      Published 2005              Americas
-5 Children aged <5 years underweight (%) NLIS_312522      Published 2002 Eastern Mediterranean
-6 Children aged <5 years underweight (%) NLIS_312955      Published 2008                Africa
-8 Children aged <5 years underweight (%) NLIS_312963      Published 2008                Africa
-        Country    Sex Display.Value Numeric Low High Comments
-1       Senegal   Male          19.3    19.3  NA   NA       NA
-2      Paraguay   Male           2.2     2.2  NA   NA       NA
-3     Nicaragua   Male           5.3     5.3  NA   NA       NA
-5        Jordan Female           3.2     3.2  NA   NA       NA
-6 Guinea-Bissau Female          17.0    17.0  NA   NA       NA
-8         Ghana   Male          15.7    15.7  NA   NA       NA
+             Fertility Agriculture Examination Education Catholic Infant.Mortality
+Courtelary        80.2        17.0          15        12     9.96             22.2
+Delemont          83.1        45.1           6         9    84.84             22.2
+Franches-Mnt      92.5        39.7           5         5    93.40             20.2
+Moutier           85.8        36.5          12         7    33.77             20.3
+Neuveville        76.9        43.5          17        15     5.16             20.6
+Porrentruy        76.1        35.3           9         7    90.57             26.6
 ```
 
 
 ---
-
-## Plot percent hungry versus time
-
+## Create a binary variable
 
 ```r
-lm1 <- lm(hunger$Numeric ~ hunger$Year)
-plot(hunger$Year,hunger$Numeric,pch=19,col="blue")
+library(dplyr); 
+swiss = mutate(swiss, CatholicBin = 1 * (Catholic > 50))
 ```
-
-<div class="rimage center"><img src="fig/unnamed-chunk-14.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" class="plot" /></div>
 
 
 ---
-
-## Remember the linear model
-
-$$Hu_i = b_0 + b_1 Y_i + e_i$$
-
-$b_0$ = percent hungry at Year 0
-
-$b_1$ = decrease in percent hungry per year
-
-$e_i$ = everything we didn't measure
-
----
-
-## Add the linear model
-
-
-```r
-lm1 <- lm(hunger$Numeric ~ hunger$Year)
-plot(hunger$Year,hunger$Numeric,pch=19,col="blue")
-lines(hunger$Year,lm1$fitted,lwd=3,col="darkgrey")
-```
-
-<div class="rimage center"><img src="fig/unnamed-chunk-15.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" class="plot" /></div>
-
-
-
----
-
-## Color by male/female
-
-
-```r
-plot(hunger$Year,hunger$Numeric,pch=19)
-points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex=="Male")*1+1))
-```
-
+## Plot the data 
 <div class="rimage center"><img src="fig/unnamed-chunk-16.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" class="plot" /></div>
 
 
 ---
- 
-## Now two lines
-
-$$HuF_i = bf_0 + bf_1 YF_i + ef_i$$
-
-$bf_0$ = percent of girls hungry at Year 0
-
-$bf_1$ = decrease in percent of girls hungry per year
-
-$ef_i$ = everything we didn't measure 
-
-
-$$HuM_i = bm_0 + bm_1 YM_i + em_i$$
-
-$bm_0$ = percent of boys hungry at Year 0
-
-$bm_1$ = decrease in percent of boys hungry per year
-
-$em_i$ = everything we didn't measure 
-
-
-
----
-
-## Color by male/female
-
+## No effect of religion
 
 ```r
-lmM <- lm(hunger$Numeric[hunger$Sex=="Male"] ~ hunger$Year[hunger$Sex=="Male"])
-lmF <- lm(hunger$Numeric[hunger$Sex=="Female"] ~ hunger$Year[hunger$Sex=="Female"])
-plot(hunger$Year,hunger$Numeric,pch=19)
-points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex=="Male")*1+1))
-lines(hunger$Year[hunger$Sex=="Male"],lmM$fitted,col="black",lwd=3)
-lines(hunger$Year[hunger$Sex=="Female"],lmF$fitted,col="red",lwd=3)
+summary(lm(Fertility ~ Agriculture, data = swiss))$coef
 ```
 
-<div class="rimage center"><img src="fig/unnamed-chunk-17.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" class="plot" /></div>
-
+```
+            Estimate Std. Error t value  Pr(>|t|)
+(Intercept)  60.3044    4.25126  14.185 3.216e-18
+Agriculture   0.1942    0.07671   2.532 1.492e-02
+```
 
 
 ---
-
-## Two lines, same slope
-
-$$Hu_i = b_0 + b_1 \mathbb{1}(Sex_i="Male") + b_2 Y_i + e^*_i$$
-
-$b_0$ - percent hungry at year zero for females
-
-$b_0 + b_1$ - percent hungry at year zero for males
-
-$b_2$ - change in percent hungry (for either males or females) in one year
-
-$e^*_i$ - everything we didn't measure
-
----
-
-## Two lines, same slope in R
-
-
+## Parallel lines
 
 ```r
-lmBoth <- lm(hunger$Numeric ~ hunger$Year + hunger$Sex)
-plot(hunger$Year,hunger$Numeric,pch=19)
-points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex=="Male")*1+1))
-abline(c(lmBoth$coeff[1],lmBoth$coeff[2]),col="red",lwd=3)
-abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] ),col="black",lwd=3)
+summary(lm(Fertility ~ Agriculture + factor(CatholicBin), data = swiss))$coef
 ```
 
-<div class="rimage center"><img src="fig/unnamed-chunk-18.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" class="plot" /></div>
+```
+                     Estimate Std. Error t value  Pr(>|t|)
+(Intercept)           60.8322     4.1059  14.816 1.032e-18
+Agriculture            0.1242     0.0811   1.531 1.329e-01
+factor(CatholicBin)1   7.8843     3.7484   2.103 4.118e-02
+```
 
 
 ---
-
-## Two lines, different slopes (interactions)
-
-$$Hu_i = b_0 + b_1 \mathbb{1}(Sex_i="Male") + b_2 Y_i + b_3 \mathbb{1}(Sex_i="Male")\times Y_i + e^+_i$$
-
-$b_0$ - percent hungry at year zero for females
-
-$b_0 + b_1$ - percent hungry at year zero for males
-
-$b_2$ - change in percent hungry (females) in one year
-
-$b_2 + b_3$ - change in percent hungry (males) in one year
-
-$e^+_i$ - everything we didn't measure
-
----
-
-## Two lines, different slopes in R
-
-
+## Lines with different slopes and intercepts
 
 ```r
-lmBoth <- lm(hunger$Numeric ~ hunger$Year + hunger$Sex + hunger$Sex*hunger$Year)
-plot(hunger$Year,hunger$Numeric,pch=19)
-points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex=="Male")*1+1))
-abline(c(lmBoth$coeff[1],lmBoth$coeff[2]),col="red",lwd=3)
-abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] +lmBoth$coeff[4]),col="black",lwd=3)
+summary(lm(Fertility ~ Agriculture * factor(CatholicBin), data = swiss))$coef
 ```
 
-<div class="rimage center"><img src="fig/lmBothChunk.png" title="plot of chunk lmBothChunk" alt="plot of chunk lmBothChunk" class="plot" /></div>
-
+```
+                                 Estimate Std. Error t value  Pr(>|t|)
+(Intercept)                      62.04993    4.78916 12.9563 1.919e-16
+Agriculture                       0.09612    0.09881  0.9727 3.361e-01
+factor(CatholicBin)1              2.85770   10.62644  0.2689 7.893e-01
+Agriculture:factor(CatholicBin)1  0.08914    0.17611  0.5061 6.153e-01
+```
 
 
 ---
-
-## Two lines, different slopes in R
-
-
+## Just to show you it can be done
 
 ```r
-summary(lmBoth)
+summary(lm(Fertility ~ Agriculture + Agriculture : factor(CatholicBin), data = swiss))$coef
 ```
 
 ```
-
-Call:
-lm(formula = hunger$Numeric ~ hunger$Year + hunger$Sex + hunger$Sex * 
-    hunger$Year)
-
-Residuals:
-   Min     1Q Median     3Q    Max 
--25.91 -11.25  -1.85   7.09  46.15 
-
-Coefficients:
-                           Estimate Std. Error t value Pr(>|t|)    
-(Intercept)                603.5058   171.0552    3.53  0.00044 ***
-hunger$Year                 -0.2934     0.0855   -3.43  0.00062 ***
-hunger$SexMale              61.9477   241.9086    0.26  0.79795    
-hunger$Year:hunger$SexMale  -0.0300     0.1209   -0.25  0.80402    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 13.2 on 944 degrees of freedom
-Multiple R-squared:  0.0318,	Adjusted R-squared:  0.0287 
-F-statistic: 10.3 on 3 and 944 DF,  p-value: 1.06e-06
+                                 Estimate Std. Error t value  Pr(>|t|)
+(Intercept)                      62.63037    4.22989 14.8066 1.057e-18
+Agriculture                       0.08539    0.08945  0.9546 3.450e-01
+Agriculture:factor(CatholicBin)1  0.13340    0.06199  2.1520 3.693e-02
 ```
-
-
----
-## Interpretting a continuous interaction
-$$
-E[Y_i | X_{1i}=x_1, X_{2i}=x_2] = \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \beta_3 x_{1}x_{2}
-$$
-Holding $X_2$ constant we have
-$$
-E[Y_i | X_{1i}=x_1+1, X_{2i}=x_2]-E[Y_i | X_{1i}=x_1, X_{2i}=x_2]
-= \beta_1 + \beta_3 x_{2} 
-$$
-And thus the expected change in $Y$ per unit change in $X_1$ holding all else constant is not constant. $\beta_1$ is the slope when $x_{2} = 0$. Note further that:
-$$
-E[Y_i | X_{1i}=x_1+1, X_{2i}=x_2+1]-E[Y_i | X_{1i}=x_1, X_{2i}=x_2+1]
-$$
-$$
--E[Y_i | X_{1i}=x_1+1, X_{2i}=x_2]-E[Y_i | X_{1i}=x_1, X_{2i}=x_2]
-$$
-$$
-=\beta_3  
-$$
-Thus, $\beta_3$ is the change in the expected change in $Y$ per unit change in $X_1$, per unit change in $X_2$.
-
-Or, the change in the slope relating $X_1$ and $Y$ per unit change in $X_2$.
-
----
-
-## Example
-
-$$Hu_i = b_0 + b_1 In_i + b_2 Y_i + b_3 In_i \times Y_i + e^+_i$$
-
-$b_0$ - percent hungry at year zero for children with whose parents have no income
-
-$b_1$ - change in percent hungry for each dollar of income in year zero
-
-$b_2$ - change in percent hungry in one year for children whose parents have no income
-
-$b_3$ - increased change in percent hungry by year for each dollar of income  - e.g. if income is $10,000, then change in percent hungry in one year will be
-
-$$b_2 + 1e4 \times b_3$$
-
-$e^+_i$ - everything we didn't measure
-
-__Lot's of care/caution needed!__
-
 

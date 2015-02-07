@@ -30,11 +30,11 @@ mode        : selfcontained # {standalone, draft}
 - Fortunately, for the sample mean there's a set of powerful results
 - These results allow us to talk about the large sample distribution
 of sample means of a collection of $iid$ observations
-- The first of these results we inuitively know
-  - It says that the average limits to what its estimating, the population mean
+- The first of these results we intuitively know
+  - It says that the average limits to what it's estimating, the population mean
   - It's called the Law of Large Numbers
   - Example $\bar X_n$ could be the average of the result of $n$ coin flips (i.e. the sample proportion of heads)
-    - As we flip a fair coin over and over, it evetually converges to the
+    - As we flip a fair coin over and over, it eventually converges to the
     true probability of a head
     The LLN forms the basis of frequency style thinking
 
@@ -98,7 +98,7 @@ $N(\mu, \sigma^2 / n)$
 - Then note that $\mu = E[X_i] = 3.5$
 - $Var(X_i) = 2.92$ 
 - SE $\sqrt{2.92 / n} = 1.71 / \sqrt{n}$
-- Lets roll $n$ dice, take their mean, subtract off 3.5,
+- Let's roll $n$ dice, take their mean, subtract off 3.5,
 and divide by $1.71 / \sqrt{n}$ and repeat this over and over
 
 
@@ -126,7 +126,7 @@ g + facet_grid(. ~ size)
 ---
 ## Coin CLT
 
- - Let $X_i$ be the $0$ or $1$ result of the $i^{th}$ flip of a possibly unfair coin
+- Let $X_i$ be the $0$ or $1$ result of the $i^{th}$ flip of a possibly unfair coin
 - The sample proportion, say $\hat p$, is the average of the coin flips
 - $E[X_i] = p$ and $Var(X_i) = p(1-p)$
 - Standard error of the mean is $\sqrt{p(1-p)/n}$
@@ -198,7 +198,7 @@ or smaller than $\mu - 2 \sigma / \sqrt{n}$ is 5%
     - Or equivalently, the probability of being between these limits is 95%
 - The quantity $\bar X \pm 2 \sigma /\sqrt{n}$ is called
 a 95% interval for $\mu$
-- The 95% refers to the fact that if one were to repeatly
+- The 95% refers to the fact that if one were to repeatedly
 get samples of size $n$, about 95% of the intervals obtained
 would contain $\mu$
 - The 97.5th quantile is 1.96 (so I rounded to 2 above)

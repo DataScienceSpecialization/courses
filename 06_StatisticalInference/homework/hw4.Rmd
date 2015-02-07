@@ -250,7 +250,7 @@ The answer is <span class="answer">`r round(power, 3)`</span>
 --- &multitext
 Researchers would like to conduct a study of healthy adults to detect a four year mean brain volume loss of .01 mm3. Assume that the standard deviation of four year volume loss in this population is .04 mm3. 
 
-1. What is necessary sample size for the study for a 5% one sided test versus a null hypothesis of no volume loss to acheive 80% power? (Always round up)
+1. What is necessary sample size for the study for a 5% one sided test versus a null hypothesis of no volume loss to achieve 80% power? (Always round up)
 
 
 
@@ -304,7 +304,7 @@ Consider the `mtcars` data set.
 
 1. Give the p-value for a t-test comparing MPG for 6 and 8 cylinder cars assuming equal variance, as a proportion to 3 decimal places.
 2. Give the associated P-value for a z test.
-3. Give the common standard deviation estimate for MPG across cylinders to 3 decimal places.
+3. Give the common (pooled) standard deviation estimate for MPG across cylinders to 3 decimal places.
 4. Would the t test reject at the two sided 0.05 level (0 for no 1 for yes)?
 
 

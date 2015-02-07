@@ -26,7 +26,7 @@ Creating Data Products
 
 --- &multitext
 Load the data set `mtcars` in the `datasets` R package. Calculate a 
-95% confidence interval to the nearest MPG.
+95% confidence interval to the nearest MPG for the variable `mpg`.
 
 1. What is the lower endpoint of the interval?
 2. What is the upper endpoint of the interval?
@@ -55,8 +55,8 @@ attr(,"conf.level")
 <span class="answer">22</span>
 
 --- &multitext
-Suppose that standard deviation of 9 paired differences is $1$, what value would the average difference have to be so that the lower endpoint of a 95%
-students t confidence interval touch zero?
+Suppose that standard deviation of 9 paired differences is $1$. What value would the average difference have to be so that the lower endpoint of a 95%
+students t confidence interval touches zero?
 
 1. Give the number here to two decimal places
 

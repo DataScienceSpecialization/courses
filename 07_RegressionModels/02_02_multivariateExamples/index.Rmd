@@ -1,4 +1,4 @@
-l---
+---
 title       : Multivariable regression examples
 subtitle    : Regression Models
 author      : Brian Caffo, Jeff Leek and Roger Peng
@@ -29,27 +29,28 @@ knit_hooks$set(inline = function(x) {
 knit_hooks$set(plot = knitr:::hook_plot_html)
 runif(1)
 ```
-## Swiss fertility data
-```{r, fig.height=4.5, fig.width=4.5}
-library(datasets); data(swiss); require(stats); require(graphics)
-pairs(swiss, panel = panel.smooth, main = "Swiss data", col = 3 + (swiss$Catholic > 50))
-```
-
----
-## `?swiss`
-### Description
+## Data set for discussion
+### `require(datasets); data(swiss); ?swiss`
 Standardized fertility measure and socio-economic indicators for each of 47 French-speaking provinces of Switzerland at about 1888.
 
 A data frame with 47 observations on 6 variables, each of which is in percent, i.e., in [0, 100].
 
-* [,1]   Fertility	Ig, ‘ common standardized fertility measure’
-* [,2]	 Agriculture	 % of males involved in agriculture as occupation
-* [,3]	 Examination	 % draftees receiving highest mark on army examination
-* [,4]	 Education	 % education beyond primary school for draftees.
-* [,5]	 Catholic	 % ‘catholic’ (as opposed to ‘protestant’).
-* [,6]	 Infant.Mortality	 live births who live less than 1 year.
+* [,1]   Fertility          a common standardized fertility measure
+* [,2]   Agriculture        % of males involved in agriculture as occupation
+* [,3]	 Examination        % draftees receiving highest mark on army examination
+* [,4]	 Education          % education beyond primary school for draftees
+* [,5]	 Catholic           % catholic (as opposed to protestant)
+* [,6]	 Infant.Mortality   live births who live less than 1 year
 
-All variables but ‘Fertility’ give proportions of the population.
+All variables but Fertility give proportions of the population.
+
+---
+
+```{r, fig.height=6, fig.width=10, echo = FALSE}
+require(datasets); data(swiss); require(GGally); require(ggplot2)
+g = ggpairs(swiss, lower = list(continuous = "smooth"),params = c(method = "loess"))
+g
+```
 
 
 ---
@@ -63,7 +64,7 @@ summary(lm(Fertility ~ . , data = swiss))$coefficients
 ## Example interpretation
 * Agriculture is expressed in percentages (0 - 100)
 * Estimate is -0.1721.
-* We estimate an expected 0.17 decrease in standardized fertility for every 1\% increase in percentage of males involved in agriculture in holding the remaining variables constant.
+* Our models estimates an expected 0.17 decrease in standardized fertility for every 1% increase in percentage of males involved in agriculture in holding the remaining variables constant.
 * The t-test for $H_0: \beta_{Agri} = 0$ versus $H_a: \beta_{Agri} \neq 0$ is  significant.
 * Interestingly, the unadjusted estimate is 
 ```{r}
@@ -80,18 +81,24 @@ summary(lm(y ~ x1 + x2))$coef
 
 ---
 ```{r, echo = FALSE, fig.height=5, fig.width=10, results = 'show'}
-par(mfrow = c(1, 2))
-plot(x1, y, pch=21,col="black",bg=topo.colors(n)[x2], frame = FALSE, cex = 1.5)
-title('Unadjusted, color is X2')
-abline(lm(y ~ x1), lwd = 2)
-plot(resid(lm(x1 ~ x2)), resid(lm(y ~ x2)), pch = 21, col = "black", bg = "lightblue", frame = FALSE, cex = 1.5)
-title('Adjusted')
-abline(0, coef(lm(y ~ x1 + x2))[2], lwd = 2)
+dat = data.frame(y = y, x1 = x1, x2 = x2, ey = resid(lm(y ~ x2)), ex1 = resid(lm(x1 ~ x2)))
+library(ggplot2)
+g = ggplot(dat, aes(y = y, x = x1, colour = x2))
+g = g + geom_point(colour="grey50", size = 5) + geom_smooth(method = lm, se = FALSE, colour = "black") 
+g = g + geom_point(size = 4) 
+g
+```
+
+---
+```{r, echo = FALSE, fig.height=5, fig.width=10, results = 'show'}
+g2 = ggplot(dat, aes(y = ey, x = ex1, colour = x2))  
+g2 = g2 + geom_point(colour="grey50", size = 5) + geom_smooth(method = lm, se = FALSE, colour = "black") + geom_point(size = 4) 
+g2
 ```
 
 ---
 ## Back to this data set
-* The sign reverses itself with the inclusion of Examination and Education, but of which are negatively correlated with Agriculture.
+* The sign reverses itself with the inclusion of Examination and Education.
 * The percent of males in the province working in agriculture is negatively related to educational attainment (correlation of `r cor(swiss$Agriculture, swiss$Education)`) and Education and Examination (correlation of `r cor(swiss$Education, swiss$Examination)`) are obviously measuring similar things. 
   * Is the positive marginal an artifact for not having accounted for, say, Education level? (Education does have a stronger effect, by the way.)
 * At the minimum, anyone claiming that provinces that are more agricultural have higher fertility rates would immediately be open to criticism.
@@ -137,11 +144,12 @@ where each $X_{i1}$ is binary so that it is a 1 if measurement $i$ is in a group
 ---
 ## Insect Sprays
 ```{r, echo = FALSE, fig.height=5, fig.width=5}
-require(datasets);data(InsectSprays)
-require(stats); require(graphics)
-boxplot(count ~ spray, data = InsectSprays,
-        xlab = "Type of spray", ylab = "Insect count",
-        main = "InsectSprays data", varwidth = TRUE, col = "lightgray")
+require(datasets);data(InsectSprays); require(stats); require(ggplot2)
+g = ggplot(data = InsectSprays, aes(y = count, x = spray, fill  = spray))
+g = g + geom_violin(colour = "black", size = 2)
+g = g + xlab("Type of spray") + ylab("Insect count")
+g
+
 ```
 
 ---
@@ -163,19 +171,26 @@ summary(lm(count ~
 ---
 ## What if we include all 6?
 ```{r, echo= TRUE}
-lm(count ~ 
+summary(lm(count ~ 
    I(1 * (spray == 'B')) + I(1 * (spray == 'C')) +  
    I(1 * (spray == 'D')) + I(1 * (spray == 'E')) +
-   I(1 * (spray == 'F')) + I(1 * (spray == 'A')), data = InsectSprays)
+   I(1 * (spray == 'F')) + I(1 * (spray == 'A')), data = InsectSprays))$coef
 ```
 
 ---
 ## What if we omit the intercept?
 ```{r, echo= TRUE}
 summary(lm(count ~ spray - 1, data = InsectSprays))$coef
-unique(ave(InsectSprays$count, InsectSprays$spray))
+library(dplyr)
+summarise(group_by(InsectSprays, spray), mn = mean(count))
 ```
 
+---
+## Reordering the levels
+```{r}
+spray2 <- relevel(InsectSprays$spray, "C")
+summary(lm(count ~ spray2, data = InsectSprays))$coef
+```
 ---
 ## Summary
 * If we treat Spray as a factor, R includes an intercept and omits the alphabetically first level of the factor.
@@ -187,28 +202,6 @@ unique(ave(InsectSprays$count, InsectSprays$spray))
   * Tests are tests of whether the groups are different than zero. (Are the expected counts zero for that spray.)
 * If we want comparisons between, Spray B and C, say we could refit the model with C (or B) as the reference level. 
 
----
-## Reordering the levels
-```{r}
-spray2 <- relevel(InsectSprays$spray, "C")
-summary(lm(count ~ spray2, data = InsectSprays))$coef
-```
-
----
-## Doing it manually
-Equivalently 
-$$Var(\hat \beta_B - \hat \beta_C) = Var(\hat \beta_B) + Var(\hat \beta_C) - 2 Cov(\hat \beta_B, \hat \beta_C)$$
-```{r}
-fit <- lm(count ~ spray, data = InsectSprays) #A is ref
-bbmbc <- coef(fit)[2] - coef(fit)[3] #B - C
-temp <- summary(fit) 
-se <- temp$sigma * sqrt(temp$cov.unscaled[2, 2] + temp$cov.unscaled[3,3] - 2 *temp$cov.unscaled[2,3])
-t <- (bbmbc) / se
-p <- pt(-abs(t), df = fit$df)
-out <- c(bbmbc, se, t, p)
-names(out) <- c("B - C", "SE", "T", "P")
-round(out, 3)
-```
 
 ---
 ## Other thoughts on this data
@@ -221,210 +214,81 @@ round(out, 3)
 
 ---
 
-## Example - Millenium Development Goal 1
+## Recall the `swiss` data set
 
-[http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf](http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf)
-
-[http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*](http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*)
-
----
-
-## WHO childhood hunger data
-
-
-```{r whoDataLoad}
-#download.file("http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*","hunger.csv",method="curl")
-hunger <- read.csv("hunger.csv")
-hunger <- hunger[hunger$Sex!="Both sexes",]
-head(hunger)
+```{r}
+library(datasets); data(swiss)
+head(swiss)
 ```
 
 ---
-
-## Plot percent hungry versus time
-
-```{r, dependson="whoDataLoad",fig.height=4,fig.width=4}
-lm1 <- lm(hunger$Numeric ~ hunger$Year)
-plot(hunger$Year,hunger$Numeric,pch=19,col="blue")
+## Create a binary variable
+```{r}
+library(dplyr); 
+swiss = mutate(swiss, CatholicBin = 1 * (Catholic > 50))
 ```
 
 ---
-
-## Remember the linear model
-
-$$Hu_i = b_0 + b_1 Y_i + e_i$$
-
-$b_0$ = percent hungry at Year 0
-
-$b_1$ = decrease in percent hungry per year
-
-$e_i$ = everything we didn't measure
+## Plot the data 
+```{r, fig.height=5, fig.width=8, echo = FALSE}
+g = ggplot(swiss, aes(x = Agriculture, y = Fertility, colour = factor(CatholicBin)))
+g = g + geom_point(size = 6, colour = "black") + geom_point(size = 4)
+g = g + xlab("% in Agriculture") + ylab("Fertility")
+g
+```
 
 ---
+## No effect of religion
+```{r, echo = TRUE}
+summary(lm(Fertility ~ Agriculture, data = swiss))$coef
+```
 
-## Add the linear model
-
-```{r, dependson="whoDataLoad",fig.height=4,fig.width=4}
-lm1 <- lm(hunger$Numeric ~ hunger$Year)
-plot(hunger$Year,hunger$Numeric,pch=19,col="blue")
-lines(hunger$Year,lm1$fitted,lwd=3,col="darkgrey")
+---
+## The associated fitted line
+```{r, echo = FALSE, fig.width=8, fig.height=5}
+fit = lm(Fertility ~ Agriculture, data = swiss)
+g1 = g
+g1 = g1 + geom_abline(intercept = coef(fit)[1], slope = coef(fit)[2], size = 2)
+g1
 ```
 
 
 ---
-
-## Color by male/female
-
-```{r, dependson="whoDataLoad",fig.height=4,fig.width=4}
-plot(hunger$Year,hunger$Numeric,pch=19)
-points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex=="Male")*1+1))
+## Parallel lines
+```{r, echo = TRUE}
+summary(lm(Fertility ~ Agriculture + factor(CatholicBin), data = swiss))$coef
 ```
 
 ---
- 
-## Now two lines
-
-$$HuF_i = bf_0 + bf_1 YF_i + ef_i$$
-
-$bf_0$ = percent of girls hungry at Year 0
-
-$bf_1$ = decrease in percent of girls hungry per year
-
-$ef_i$ = everything we didn't measure 
-
-
-$$HuM_i = bm_0 + bm_1 YM_i + em_i$$
-
-$bm_0$ = percent of boys hungry at Year 0
-
-$bm_1$ = decrease in percent of boys hungry per year
-
-$em_i$ = everything we didn't measure 
-
-
-
----
-
-## Color by male/female
-
-```{r, dependson="whoDataLoad",fig.height=3.5,fig.width=4}
-lmM <- lm(hunger$Numeric[hunger$Sex=="Male"] ~ hunger$Year[hunger$Sex=="Male"])
-lmF <- lm(hunger$Numeric[hunger$Sex=="Female"] ~ hunger$Year[hunger$Sex=="Female"])
-plot(hunger$Year,hunger$Numeric,pch=19)
-points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex=="Male")*1+1))
-lines(hunger$Year[hunger$Sex=="Male"],lmM$fitted,col="black",lwd=3)
-lines(hunger$Year[hunger$Sex=="Female"],lmF$fitted,col="red",lwd=3)
+## Fitted lines
+```{r, echo = FALSE, fig.width=5, fig.height=4}
+fit = lm(Fertility ~ Agriculture + factor(CatholicBin), data = swiss)
+g1 = g
+g1 = g1 + geom_abline(intercept = coef(fit)[1], slope = coef(fit)[2], size = 2)
+g1 = g1 + geom_abline(intercept = coef(fit)[1] + coef(fit)[3], slope = coef(fit)[2], size = 2)
+g1
 ```
 
 
 ---
-
-## Two lines, same slope
-
-$$Hu_i = b_0 + b_1 \mathbb{1}(Sex_i="Male") + b_2 Y_i + e^*_i$$
-
-$b_0$ - percent hungry at year zero for females
-
-$b_0 + b_1$ - percent hungry at year zero for males
-
-$b_2$ - change in percent hungry (for either males or females) in one year
-
-$e^*_i$ - everything we didn't measure
-
----
-
-## Two lines, same slope in R
-
-
-```{r, dependson="whoDataLoad",fig.height=4,fig.width=4}
-lmBoth <- lm(hunger$Numeric ~ hunger$Year + hunger$Sex)
-plot(hunger$Year,hunger$Numeric,pch=19)
-points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex=="Male")*1+1))
-abline(c(lmBoth$coeff[1],lmBoth$coeff[2]),col="red",lwd=3)
-abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] ),col="black",lwd=3)
+## Lines with different slopes and intercepts
+```{r, echo = TRUE}
+summary(lm(Fertility ~ Agriculture * factor(CatholicBin), data = swiss))$coef
 ```
 
 ---
-
-## Two lines, different slopes (interactions)
-
-$$Hu_i = b_0 + b_1 \mathbb{1}(Sex_i="Male") + b_2 Y_i + b_3 \mathbb{1}(Sex_i="Male")\times Y_i + e^+_i$$
-
-$b_0$ - percent hungry at year zero for females
-
-$b_0 + b_1$ - percent hungry at year zero for males
-
-$b_2$ - change in percent hungry (females) in one year
-
-$b_2 + b_3$ - change in percent hungry (males) in one year
-
-$e^+_i$ - everything we didn't measure
-
----
-
-## Two lines, different slopes in R
-
-
-```{r lmBothChunk, dependson="whoDataLoad",fig.height=4,fig.width=4}
-lmBoth <- lm(hunger$Numeric ~ hunger$Year + hunger$Sex + hunger$Sex*hunger$Year)
-plot(hunger$Year,hunger$Numeric,pch=19)
-points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex=="Male")*1+1))
-abline(c(lmBoth$coeff[1],lmBoth$coeff[2]),col="red",lwd=3)
-abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] +lmBoth$coeff[4]),col="black",lwd=3)
-```
-
-
----
-
-## Two lines, different slopes in R
-
-
-```{r, dependson="lmBothChunk",fig.height=4,fig.width=4}
-summary(lmBoth)
+## Fitted lines
+```{r, echo = FALSE, fig.width=5, fig.height=4}
+fit = lm(Fertility ~ Agriculture * factor(CatholicBin), data = swiss)
+g1 = g
+g1 = g1 + geom_abline(intercept = coef(fit)[1], slope = coef(fit)[2], size = 2)
+g1 = g1 + geom_abline(intercept = coef(fit)[1] + coef(fit)[3], 
+                          slope = coef(fit)[2] + coef(fit)[4], size = 2)
+g1
 ```
 
 ---
-## Interpretting a continuous interaction
-$$
-E[Y_i | X_{1i}=x_1, X_{2i}=x_2] = \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \beta_3 x_{1}x_{2}
-$$
-Holding $X_2$ constant we have
-$$
-E[Y_i | X_{1i}=x_1+1, X_{2i}=x_2]-E[Y_i | X_{1i}=x_1, X_{2i}=x_2]
-= \beta_1 + \beta_3 x_{2} 
-$$
-And thus the expected change in $Y$ per unit change in $X_1$ holding all else constant is not constant. $\beta_1$ is the slope when $x_{2} = 0$. Note further that:
-$$
-E[Y_i | X_{1i}=x_1+1, X_{2i}=x_2+1]-E[Y_i | X_{1i}=x_1, X_{2i}=x_2+1]
-$$
-$$
--E[Y_i | X_{1i}=x_1+1, X_{2i}=x_2]-E[Y_i | X_{1i}=x_1, X_{2i}=x_2]
-$$
-$$
-=\beta_3  
-$$
-Thus, $\beta_3$ is the change in the expected change in $Y$ per unit change in $X_1$, per unit change in $X_2$.
-
-Or, the change in the slope relating $X_1$ and $Y$ per unit change in $X_2$.
-
----
-
-## Example
-
-$$Hu_i = b_0 + b_1 In_i + b_2 Y_i + b_3 In_i \times Y_i + e^+_i$$
-
-$b_0$ - percent hungry at year zero for children with whose parents have no income
-
-$b_1$ - change in percent hungry for each dollar of income in year zero
-
-$b_2$ - change in percent hungry in one year for children whose parents have no income
-
-$b_3$ - increased change in percent hungry by year for each dollar of income  - e.g. if income is $10,000, then change in percent hungry in one year will be
-
-$$b_2 + 1e4 \times b_3$$
-
-$e^+_i$ - everything we didn't measure
-
-__Lot's of care/caution needed!__
-
-
+## Just to show you it can be done
+```{r, echo = TRUE}
+summary(lm(Fertility ~ Agriculture + Agriculture : factor(CatholicBin), data = swiss))$coef
+```

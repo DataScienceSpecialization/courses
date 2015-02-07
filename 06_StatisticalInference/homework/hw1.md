@@ -67,7 +67,7 @@ We want $.5 = P(X\leq x) = x$.
 
 --- &radio
 
-You are playing a game with a friend where you flip a coin and if it comes up heads you give her  $X$ dollars and if it comes up tails she gives you $Y$ dollars. The odds that the coin is heads in $d$. What is your expected earnings?
+You are playing a game with a friend where you flip a coin and if it comes up heads you give her  $X$ dollars and if it comes up tails she gives you $Y$ dollars. The odds that the coin is heads is $d$. What is your expected earnings?
 
 1. _$-X \frac{d}{1 + d} + Y \frac{1}{1+d} $_
 2. $X \frac{d}{1 + d} + Y \frac{1}{1+d} $
@@ -75,7 +75,7 @@ You are playing a game with a friend where you flip a coin and if it comes up he
 4. $-X \frac{d}{1 + d} - Y \frac{1}{1+d} $
 
 *** .hint
-The odds that you win on a given round is given by $p / (1 - p) = d$ which implies
+The odds that you lose on a given round is given by $p / (1 - p) = d$ which implies
 that $p = d / (1 + d)$.
 
 *** .explanation

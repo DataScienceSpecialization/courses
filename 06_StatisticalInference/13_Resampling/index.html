@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Resampled inference</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Resampled inference">
+  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Resampled inference</h1>
+    <h2>Statistical Inference</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>The bootstrap</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The bootstrap is a tremendously useful tool for constructing confidence intervals and calculating standard errors for difficult statistics</li>
+<li>For example, how would one derive a confidence interval for the median?</li>
+<li>The bootstrap procedure follows from the so called bootstrap principle</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Sample of 50 die rolls</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>## Error: there is no package called &#39;gridExtra&#39;
+</code></pre>
+
+<pre><code>## Error: could not find function &quot;grid.arrange&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>What if we only had one sample?</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>## Error: could not find function &quot;grid.arrange&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Consider a data set</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(UsingR)
+</code></pre>
+
+<pre><code>## Loading required package: MASS
+## Loading required package: HistData
+## Loading required package: Hmisc
+## Loading required package: grid
+## Loading required package: lattice
+## Loading required package: survival
+## Loading required package: splines
+## Loading required package: Formula
+## 
+## Attaching package: &#39;Hmisc&#39;
+## 
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     format.pval, round.POSIXt, trunc.POSIXt, units
+## 
+## Loading required package: aplpack
+## Loading required package: tcltk
+## Loading required package: quantreg
+## Loading required package: SparseM
+## 
+## Attaching package: &#39;SparseM&#39;
+## 
+## The following object is masked from &#39;package:base&#39;:
+## 
+##     backsolve
+## 
+## 
+## Attaching package: &#39;quantreg&#39;
+## 
+## The following object is masked from &#39;package:Hmisc&#39;:
+## 
+##     latex
+## 
+## The following object is masked from &#39;package:survival&#39;:
+## 
+##     untangle.specials
+## 
+## 
+## Attaching package: &#39;UsingR&#39;
+## 
+## The following object is masked from &#39;package:survival&#39;:
+## 
+##     cancer
+## 
+## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     movies
+</code></pre>
+
+<pre><code class="r">data(father.son)
+x &lt;- father.son$sheight
+n &lt;- length(x)
+B &lt;- 10000
+resamples &lt;- matrix(sample(x,
+                           n * B,
+                           replace = TRUE),
+                    B, n)
+resampledMedians &lt;- apply(resamples, 1, median)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>A plot of the histrogram of the resamples</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>The bootstrap principle</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Suppose that I have a statistic that estimates some population parameter, but I don&#39;t know its sampling distribution</li>
+<li>The bootstrap principle suggests using the distribution defined by the data to approximate its sampling distribution</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>The bootstrap in practice</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>In practice, the bootstrap principle is always carried out using simulation</li>
+<li>We will cover only a few aspects of bootstrap resampling</li>
+<li><p>The general procedure follows by first simulating complete data sets from the observed data with replacement</p>
+
+<ul>
+<li>This is approximately drawing from the sampling distribution of that statistic, at least as far as the data is able to approximate the true population distribution</li>
+</ul></li>
+<li><p>Calculate the statistic for each simulated data set</p></li>
+<li><p>Use the simulated statistics to either define a confidence interval or take the standard deviation to calculate a standard error</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Nonparametric bootstrap algorithm example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>Bootstrap procedure for calculating confidence interval for the median from a data set of \(n\) observations</p>
+
+<p>i. Sample \(n\) observations <strong>with replacement</strong> from the observed data resulting in one simulated complete data set</p>
+
+<p>ii. Take the median of the simulated data set</p>
+
+<p>iii. Repeat these two steps \(B\) times, resulting in \(B\) simulated medians</p>
+
+<p>iv. These medians are approximately drawn from the sampling distribution of the median of \(n\) observations; therefore we can</p>
+
+<ul>
+<li>Draw a histogram of them</li>
+<li>Calculate their standard deviation to estimate the standard error of the median</li>
+<li>Take the \(2.5^{th}\) and \(97.5^{th}\) percentiles as a confidence interval for the median</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Example code</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">B &lt;- 10000
+resamples &lt;- matrix(sample(x,
+                           n * B,
+                           replace = TRUE),
+                    B, n)
+medians &lt;- apply(resamples, 1, median)
+sd(medians)
+</code></pre>
+
+<pre><code>## [1] 0.08424
+</code></pre>
+
+<pre><code class="r">quantile(medians, c(.025, .975))
+</code></pre>
+
+<pre><code>##  2.5% 97.5% 
+## 68.43 68.81
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Histogram of bootstrap resamples</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">g = ggplot(data.frame(medians = medians), aes(x = medians))
+g = g + geom_histogram(color = &quot;black&quot;, fill = &quot;lightblue&quot;, binwidth = 0.05)
+g
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Notes on the bootstrap</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The bootstrap is non-parametric</li>
+<li>Better percentile bootstrap confidence intervals correct for bias</li>
+<li>There are lots of variations on bootstrap procedures; the book &quot;An Introduction to the Bootstrap&quot;&quot; by Efron and Tibshirani is a great place to start for both bootstrap and jackknife information</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Group comparisons</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Consider comparing two independent groups.</li>
+<li>Example, comparing sprays B and C</li>
+</ul>
+
+<p><img src="assets/fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Permutation tests</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li> Consider the null hypothesis that the distribution of the observations from each group is the same</li>
+<li> Then, the group labels are irrelevant</li>
+<li>Consider a data frome with count and spray</li>
+<li>Permute the spray (group) labels </li>
+<li>Recalculate the statistic
+
+<ul>
+<li>Mean difference in counts</li>
+<li>Geometric means</li>
+<li>T statistic</li>
+</ul></li>
+<li>Calculate the percentage of simulations where
+the simulated statistic was more extreme (toward
+the alternative) than the observed</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Variations on permutation testing</h2>
+  </hgroup>
+  <article data-timings="">
+    <table><thead>
+<tr>
+<th>Data type</th>
+<th>Statistic</th>
+<th>Test name</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Ranks</td>
+<td>rank sum</td>
+<td>rank sum test</td>
+</tr>
+<tr>
+<td>Binary</td>
+<td>hypergeometric prob</td>
+<td>Fisher&#39;s exact test</td>
+</tr>
+<tr>
+<td>Raw data</td>
+<td></td>
+<td>ordinary permutation test</td>
+</tr>
+</tbody></table>
+
+<ul>
+<li>Also, so-called <em>randomization tests</em> are exactly permutation tests, with a different motivation.</li>
+<li>For matched data, one can randomize the signs
+
+<ul>
+<li>For ranks, this results in the signed rank test</li>
+</ul></li>
+<li>Permutation strategies work for regression as well
+
+<ul>
+<li>Permuting a regressor of interest</li>
+</ul></li>
+<li>Permutation tests work very well in multivariate settings</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Permutation test B v C</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">subdata &lt;- InsectSprays[InsectSprays$spray %in% c(&quot;B&quot;, &quot;C&quot;),]
+y &lt;- subdata$count
+group &lt;- as.character(subdata$spray)
+testStat &lt;- function(w, g) mean(w[g == &quot;B&quot;]) - mean(w[g == &quot;C&quot;])
+observedStat &lt;- testStat(y, group)
+permutations &lt;- sapply(1 : 10000, function(i) testStat(y, sample(group)))
+observedStat
+</code></pre>
+
+<pre><code>## [1] 13.25
+</code></pre>
+
+<pre><code class="r">mean(permutations &gt; observedStat)
+</code></pre>
+
+<pre><code>## [1] 0
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Histogram of permutations B v C</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='The bootstrap'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Sample of 50 die rolls'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='What if we only had one sample?'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Consider a data set'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='A plot of the histrogram of the resamples'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='The bootstrap principle'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='The bootstrap in practice'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Nonparametric bootstrap algorithm example'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Example code'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Histogram of bootstrap resamples'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Notes on the bootstrap'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Group comparisons'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Permutation tests'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Variations on permutation testing'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Permutation test B v C'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Histogram of permutations B v C'>
+         16
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

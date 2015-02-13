@@ -8,13 +8,23 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 
 ---
 
+
+## Motivating example
+### `diamond` data set from `UsingR` 
+Data is diamond prices (Singapore dollars) and diamond weight
+in carats (standard measure of diamond mass, 0.2 $g$). To get the data use `library(UsingR); data(diamond)`
+
+---
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+
+---
 
 ## Residuals
 * Model $Y_i = \beta_0 + \beta_1 X_i + \epsilon_i$ where $\epsilon_i \sim N(0, \sigma^2)$.
@@ -72,55 +82,44 @@ max(abs(e - (y - coef(fit)[1] - coef(fit)[2] * x)))
 
 ---
 ## Residuals are the signed length of the red lines
-<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
-
-
----
-## Residuals versus X
 <div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
 
 
 ---
-## Non-linear data
-
-```r
-x <- runif(100, -3, 3); y <- x + sin(x) + rnorm(100, sd = .2); 
-plot(x, y); abline(lm(y ~ x))
-```
-
+## Residuals versus X
 <div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
 
 
 ---
-
-```r
-plot(x, resid(lm(y ~ x))); 
-abline(h = 0)
-```
-
+## Non-linear data
 <div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
 
 
 ---
-## Heteroskedasticity
-
-```r
-x <- runif(100, 0, 6); y <- x + rnorm(100,  mean = 0, sd = .001 * x); 
-plot(x, y); abline(lm(y ~ x))
-```
-
+## Residual plot
 <div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
 
 
 ---
-## Getting rid of the blank space can be helpful
-
-```r
-plot(x, resid(lm(y ~ x))); 
-abline(h = 0)
-```
-
+## Heteroskedasticity
 <div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+
+
+---
+## Getting rid of the blank space can be helpful
+<div class="rimage center"><img src="fig/unnamed-chunk-8.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" class="plot" /></div>
+
+
+---
+## Diamond data residual plot
+
+<div class="rimage center"><img src="fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" class="plot" /></div>
+
+
+---
+## Diamond data residual plot
+
+<div class="rimage center"><img src="fig/unnamed-chunk-10.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" class="plot" /></div>
 
 
 ---
@@ -158,6 +157,48 @@ sqrt(sum(resid(fit)^2) / (n - 2))
 
 ---
 ## Summarizing variation
+
+- The total variability in our response is the variability around an intercept
+(think mean only regression) $\sum_{i=1}^n (Y_i - \bar Y)^2$
+- The regression variability is the variability that is explained by adding the
+predictor $\sum_{i=1}^n  (\hat Y_i - \bar Y)^2$
+- The error variability is what's leftover around the regression line
+$\sum_{i=1}^n (Y_i - \hat Y_i)^2$
+- Neat fact
+$$
+\sum_{i=1}^n (Y_i - \bar Y)^2 
+= \sum_{i=1}^n (Y_i - \hat Y_i)^2 + \sum_{i=1}^n  (\hat Y_i - \bar Y)^2 
+$$
+
+---
+## R squared
+- R squared is the percentage of the total variability that is explained
+by the linear relationship with the predictor
+$$
+R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
+$$
+
+---
+## Some facts about $R^2$
+* $R^2$ is the percentage of variation explained by the regression model.
+* $0 \leq R^2 \leq 1$
+* $R^2$ is the sample correlation squared.
+* $R^2$ can be a misleading summary of model fit. 
+  * Deleting data can inflate $R^2$.
+  * (For later.) Adding terms to a regression model always increases $R^2$.
+* Do `example(anscombe)` to see the following data.
+  * Basically same mean and variance of X and Y.
+  * Identical correlations (hence same $R^2$ ).
+  * Same linear regression relationship.
+
+---
+## `data(anscombe);example(anscombe)`
+<div class="rimage center"><img src="fig/unnamed-chunk-12.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" class="plot" /></div>
+
+
+---
+## How to derive R squared (Not required!)
+### For those that are interested
 $$
 \begin{align}
 \sum_{i=1}^n (Y_i - \bar Y)^2 
@@ -182,30 +223,15 @@ $=\hat \beta_1 \sum_{i=1}^n (Y_i - \bar Y)(X_i - \bar X) -\hat\beta_1^2\sum_{i=1
 
 $= \hat \beta_1^2 \sum_{i=1}^n (X_i - \bar X)^2-\hat\beta_1^2\sum_{i=1}^n (X_i - \bar X)^2 = 0$
 
----
-## Summarizing variation
-$$
-\sum_{i=1}^n (Y_i - \bar Y)^2 
-= \sum_{i=1}^n (Y_i - \hat Y_i)^2 + \sum_{i=1}^n  (\hat Y_i - \bar Y)^2 
-$$
-
-Or 
-
-Total Variation = Residual Variation + Regression Variation
-
-Define the percent of total varation described by the model as
-$$
-R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
-= 1 - \frac{\sum_{i=1}^n  (Y_i - \hat Y_i)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
-$$
 
 ---
-## Relation between $R^2$ and $r$ (the corrrelation)
+## The relation between R squared and r
+### (Again not required)
 Recall that $(\hat Y_i - \bar Y) = \hat \beta_1  (X_i - \bar X)$
 so that
 $$
 R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
-= \hat \beta_1^2  \frac{\sum_{i=1}^n(X_i - \bar X)}{\sum_{i=1}^n (Y_i - \bar Y)^2}
+= \hat \beta_1^2  \frac{\sum_{i=1}^n(X_i - \bar X)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
 = Cor(Y, X)^2
 $$
 Since, recall, 
@@ -213,22 +239,5 @@ $$
 \hat \beta_1 = Cor(Y, X)\frac{Sd(Y)}{Sd(X)}
 $$
 So, $R^2$ is literally $r$ squared.
-
----
-## Some facts about $R^2$
-* $R^2$ is the percentage of variation explained by the regression model.
-* $0 \leq R^2 \leq 1$
-* $R^2$ is the sample correlation squared.
-* $R^2$ can be a misleading summary of model fit. 
-  * Deleting data can inflate $R^2$.
-  * (For later.) Adding terms to a regression model always increases $R^2$.
-* Do `example(anscombe)` to see the following data.
-  * Basically same mean and variance of X and Y.
-  * Identical correlations (hence same $R^2$ ).
-  * Same linear regression relationship.
-
----
-## `data(anscombe);example(anscombe)`
-<div class="rimage center"><img src="fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" class="plot" /></div>
 
 

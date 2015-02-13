@@ -45,40 +45,33 @@
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
   <hgroup>
-    <h2>Swiss fertility data</h2>
+    <h2>Data set for discussion</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">library(datasets); data(swiss); require(stats); require(graphics)
-pairs(swiss, panel = panel.smooth, main = &quot;Swiss data&quot;, col = 3 + (swiss$Catholic &gt; 50))
-</code></pre>
-
-<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-2" style="background:;">
-  <hgroup>
-    <h2><code>?swiss</code></h2>
-  </hgroup>
-  <article data-timings="">
-    <h3>Description</h3>
+    <h3><code>require(datasets); data(swiss); ?swiss</code></h3>
 
 <p>Standardized fertility measure and socio-economic indicators for each of 47 French-speaking provinces of Switzerland at about 1888.</p>
 
 <p>A data frame with 47 observations on 6 variables, each of which is in percent, i.e., in [0, 100].</p>
 
 <ul>
-<li>[,1]   Fertility  Ig, ‘ common standardized fertility measure’</li>
-<li>[,2]   Agriculture     % of males involved in agriculture as occupation</li>
-<li>[,3]   Examination     % draftees receiving highest mark on army examination</li>
-<li>[,4]   Education   % education beyond primary school for draftees.</li>
-<li>[,5]   Catholic    % ‘catholic’ (as opposed to ‘protestant’).</li>
-<li>[,6]   Infant.Mortality    live births who live less than 1 year.</li>
+<li>[,1]   Fertility          a common standardized fertility measure</li>
+<li>[,2]   Agriculture        % of males involved in agriculture as occupation</li>
+<li>[,3]   Examination        % draftees receiving highest mark on army examination</li>
+<li>[,4]   Education          % education beyond primary school for draftees</li>
+<li>[,5]   Catholic           % catholic (as opposed to protestant)</li>
+<li>[,6]   Infant.Mortality   live births who live less than 1 year</li>
 </ul>
 
-<p>All variables but ‘Fertility’ give proportions of the population.</p>
+<p>All variables but Fertility give proportions of the population.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <article data-timings="">
+    <div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
@@ -112,7 +105,7 @@ Infant.Mortality   1.0770    0.38172   2.822 7.336e-03
     <ul>
 <li>Agriculture is expressed in percentages (0 - 100)</li>
 <li>Estimate is -0.1721.</li>
-<li>We estimate an expected 0.17 decrease in standardized fertility for every 1\% increase in percentage of males involved in agriculture in holding the remaining variables constant.</li>
+<li>Our models estimates an expected 0.17 decrease in standardized fertility for every 1% increase in percentage of males involved in agriculture in holding the remaining variables constant.</li>
 <li>The t-test for \(H_0: \beta_{Agri} = 0\) versus \(H_a: \beta_{Agri} \neq 0\) is  significant.</li>
 <li>Interestingly, the unadjusted estimate is </li>
 </ul>
@@ -138,17 +131,17 @@ summary(lm(y ~ x1))$coef
 </code></pre>
 
 <pre><code>            Estimate Std. Error t value  Pr(&gt;|t|)
-(Intercept)    1.618      1.200   1.349 1.806e-01
-x1            95.854      2.058  46.579 1.153e-68
+(Intercept)    1.454      1.079   1.348 1.807e-01
+x1            96.793      1.862  51.985 3.707e-73
 </code></pre>
 
 <pre><code class="r">summary(lm(y ~ x1 + x2))$coef
 </code></pre>
 
-<pre><code>              Estimate Std. Error   t value   Pr(&gt;|t|)
-(Intercept)  0.0003683  0.0020141    0.1829  8.553e-01
-x1          -1.0215256  0.0166372  -61.4001  1.922e-79
-x2           1.0001909  0.0001681 5950.1818 1.369e-271
+<pre><code>             Estimate Std. Error  t value   Pr(&gt;|t|)
+(Intercept)  0.001933  0.0017709    1.092  2.777e-01
+x1          -1.020506  0.0163560  -62.393  4.211e-80
+x2           1.000133  0.0001643 6085.554 1.544e-272
 </code></pre>
 
   </article>
@@ -164,12 +157,20 @@ x2           1.0001909  0.0001681 5950.1818 1.369e-271
 </slide>
 
 <slide class="" id="slide-7" style="background:;">
+  <article data-timings="">
+    <div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>Back to this data set</h2>
   </hgroup>
   <article data-timings="">
     <ul>
-<li>The sign reverses itself with the inclusion of Examination and Education, but of which are negatively correlated with Agriculture.</li>
+<li>The sign reverses itself with the inclusion of Examination and Education.</li>
 <li>The percent of males in the province working in agriculture is negatively related to educational attainment (correlation of -0.6395) and Education and Examination (correlation of 0.6984) are obviously measuring similar things. 
 
 <ul>
@@ -182,7 +183,7 @@ x2           1.0001909  0.0001681 5950.1818 1.369e-271
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>What if we include an unnecessary variable?</h2>
   </hgroup>
@@ -210,7 +211,7 @@ Infant.Mortality                 z
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Dummy variables are smart</h2>
   </hgroup>
@@ -232,7 +233,7 @@ where each \(X_{i1}\) is binary so that it is a 1 if measurement \(i\) is in a g
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>More than 2 levels</h2>
   </hgroup>
@@ -255,18 +256,18 @@ where each \(X_{i1}\) is binary so that it is a 1 if measurement \(i\) is in a g
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>Insect Sprays</h2>
   </hgroup>
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+    <div class="rimage center"><img src="fig/unnamed-chunk-8.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-13" style="background:;">
   <hgroup>
     <h2>Linear model fit, group A is the reference</h2>
   </hgroup>
@@ -287,7 +288,7 @@ sprayF        2.1667      1.601  1.3532 1.806e-01
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>Hard coding the dummy variables</h2>
   </hgroup>
@@ -312,35 +313,31 @@ I(1 * (spray == &quot;F&quot;))   2.1667      1.601  1.3532 1.806e-01
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>What if we include all 6?</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">lm(count ~ 
+    <pre><code class="r">summary(lm(count ~ 
    I(1 * (spray == &#39;B&#39;)) + I(1 * (spray == &#39;C&#39;)) +  
    I(1 * (spray == &#39;D&#39;)) + I(1 * (spray == &#39;E&#39;)) +
-   I(1 * (spray == &#39;F&#39;)) + I(1 * (spray == &#39;A&#39;)), data = InsectSprays)
+   I(1 * (spray == &#39;F&#39;)) + I(1 * (spray == &#39;A&#39;)), data = InsectSprays))$coef
 </code></pre>
 
-<pre><code>
-Call:
-lm(formula = count ~ I(1 * (spray == &quot;B&quot;)) + I(1 * (spray == 
-    &quot;C&quot;)) + I(1 * (spray == &quot;D&quot;)) + I(1 * (spray == &quot;E&quot;)) + I(1 * 
-    (spray == &quot;F&quot;)) + I(1 * (spray == &quot;A&quot;)), data = InsectSprays)
-
-Coefficients:
-          (Intercept)  I(1 * (spray == &quot;B&quot;))  I(1 * (spray == &quot;C&quot;))  I(1 * (spray == &quot;D&quot;))  
-               14.500                  0.833                -12.417                 -9.583  
-I(1 * (spray == &quot;E&quot;))  I(1 * (spray == &quot;F&quot;))  I(1 * (spray == &quot;A&quot;))  
-              -11.000                  2.167                     NA  
+<pre><code>                      Estimate Std. Error t value  Pr(&gt;|t|)
+(Intercept)            14.5000      1.132 12.8074 1.471e-19
+I(1 * (spray == &quot;B&quot;))   0.8333      1.601  0.5205 6.045e-01
+I(1 * (spray == &quot;C&quot;)) -12.4167      1.601 -7.7550 7.267e-11
+I(1 * (spray == &quot;D&quot;))  -9.5833      1.601 -5.9854 9.817e-08
+I(1 * (spray == &quot;E&quot;)) -11.0000      1.601 -6.8702 2.754e-09
+I(1 * (spray == &quot;F&quot;))   2.1667      1.601  1.3532 1.806e-01
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-16" style="background:;">
   <hgroup>
     <h2>What if we omit the intercept?</h2>
   </hgroup>
@@ -357,37 +354,20 @@ sprayE    3.500      1.132   3.091 2.917e-03
 sprayF   16.667      1.132  14.721 1.573e-22
 </code></pre>
 
-<pre><code class="r">unique(ave(InsectSprays$count, InsectSprays$spray))
+<pre><code class="r">library(dplyr)
+summarise(group_by(InsectSprays, spray), mn = mean(count))
 </code></pre>
 
-<pre><code>[1] 14.500 15.333  2.083  4.917  3.500 16.667
+<pre><code>Source: local data frame [6 x 2]
+
+  spray     mn
+1     A 14.500
+2     B 15.333
+3     C  2.083
+4     D  4.917
+5     E  3.500
+6     F 16.667
 </code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-16" style="background:;">
-  <hgroup>
-    <h2>Summary</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
-<li>If we treat Spray as a factor, R includes an intercept and omits the alphabetically first level of the factor.
-
-<ul>
-<li>All t-tests are for comparisons of Sprays versus Spray A.</li>
-<li>Emprirical mean for A is the intercept.</li>
-<li>Other group means are the itc plus their coefficient. </li>
-</ul></li>
-<li>If we omit an intercept, then it includes terms for all levels of the factor. 
-
-<ul>
-<li>Group means are the coefficients. </li>
-<li>Tests are tests of whether the groups are different than zero. (Are the expected counts zero for that spray.)</li>
-</ul></li>
-<li>If we want comparisons between, Spray B and C, say we could refit the model with C (or B) as the reference level. </li>
-</ul>
 
   </article>
   <!-- Presenter Notes -->
@@ -417,26 +397,25 @@ spray2F       14.583      1.601  9.1083 2.794e-13
 
 <slide class="" id="slide-18" style="background:;">
   <hgroup>
-    <h2>Doing it manually</h2>
+    <h2>Summary</h2>
   </hgroup>
   <article data-timings="">
-    <p>Equivalently 
-\[Var(\hat \beta_B - \hat \beta_C) = Var(\hat \beta_B) + Var(\hat \beta_C) - 2 Cov(\hat \beta_B, \hat \beta_C)\]</p>
+    <ul>
+<li>If we treat Spray as a factor, R includes an intercept and omits the alphabetically first level of the factor.
 
-<pre><code class="r">fit &lt;- lm(count ~ spray, data = InsectSprays) #A is ref
-bbmbc &lt;- coef(fit)[2] - coef(fit)[3] #B - C
-temp &lt;- summary(fit) 
-se &lt;- temp$sigma * sqrt(temp$cov.unscaled[2, 2] + temp$cov.unscaled[3,3] - 2 *temp$cov.unscaled[2,3])
-t &lt;- (bbmbc) / se
-p &lt;- pt(-abs(t), df = fit$df)
-out &lt;- c(bbmbc, se, t, p)
-names(out) &lt;- c(&quot;B - C&quot;, &quot;SE&quot;, &quot;T&quot;, &quot;P&quot;)
-round(out, 3)
-</code></pre>
+<ul>
+<li>All t-tests are for comparisons of Sprays versus Spray A.</li>
+<li>Emprirical mean for A is the intercept.</li>
+<li>Other group means are the itc plus their coefficient. </li>
+</ul></li>
+<li>If we omit an intercept, then it includes terms for all levels of the factor. 
 
-<pre><code> B - C     SE      T      P 
-13.250  1.601  8.276  0.000 
-</code></pre>
+<ul>
+<li>Group means are the coefficients. </li>
+<li>Tests are tests of whether the groups are different than zero. (Are the expected counts zero for that spray.)</li>
+</ul></li>
+<li>If we want comparisons between, Spray B and C, say we could refit the model with C (or B) as the reference level. </li>
+</ul>
 
   </article>
   <!-- Presenter Notes -->
@@ -468,12 +447,21 @@ round(out, 3)
 
 <slide class="" id="slide-20" style="background:;">
   <hgroup>
-    <h2>Example - Millenium Development Goal 1</h2>
+    <h2>Recall the <code>swiss</code> data set</h2>
   </hgroup>
   <article data-timings="">
-    <p><a href="http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf">http://www.un.org/millenniumgoals/pdf/MDG_FS_1_EN.pdf</a></p>
+    <pre><code class="r">library(datasets); data(swiss)
+head(swiss)
+</code></pre>
 
-<p><a href="http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&amp;filter=COUNTRY:*;SEX:*">http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&amp;filter=COUNTRY:<em>;SEX:</em></a></p>
+<pre><code>             Fertility Agriculture Examination Education Catholic Infant.Mortality
+Courtelary        80.2        17.0          15        12     9.96             22.2
+Delemont          83.1        45.1           6         9    84.84             22.2
+Franches-Mnt      92.5        39.7           5         5    93.40             20.2
+Moutier           85.8        36.5          12         7    33.77             20.3
+Neuveville        76.9        43.5          17        15     5.16             20.6
+Porrentruy        76.1        35.3           9         7    90.57             26.6
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -481,29 +469,11 @@ round(out, 3)
 
 <slide class="" id="slide-21" style="background:;">
   <hgroup>
-    <h2>WHO childhood hunger data</h2>
+    <h2>Create a binary variable</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">#download.file(&quot;http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&amp;filter=COUNTRY:*;SEX:*&quot;,&quot;hunger.csv&quot;,method=&quot;curl&quot;)
-hunger &lt;- read.csv(&quot;hunger.csv&quot;)
-hunger &lt;- hunger[hunger$Sex!=&quot;Both sexes&quot;,]
-head(hunger)
-</code></pre>
-
-<pre><code>                               Indicator Data.Source PUBLISH.STATES Year            WHO.region
-1 Children aged &lt;5 years underweight (%) NLIS_310044      Published 1986                Africa
-2 Children aged &lt;5 years underweight (%) NLIS_310233      Published 1990              Americas
-3 Children aged &lt;5 years underweight (%) NLIS_312902      Published 2005              Americas
-5 Children aged &lt;5 years underweight (%) NLIS_312522      Published 2002 Eastern Mediterranean
-6 Children aged &lt;5 years underweight (%) NLIS_312955      Published 2008                Africa
-8 Children aged &lt;5 years underweight (%) NLIS_312963      Published 2008                Africa
-        Country    Sex Display.Value Numeric Low High Comments
-1       Senegal   Male          19.3    19.3  NA   NA       NA
-2      Paraguay   Male           2.2     2.2  NA   NA       NA
-3     Nicaragua   Male           5.3     5.3  NA   NA       NA
-5        Jordan Female           3.2     3.2  NA   NA       NA
-6 Guinea-Bissau Female          17.0    17.0  NA   NA       NA
-8         Ghana   Male          15.7    15.7  NA   NA       NA
+    <pre><code class="r">library(dplyr); 
+swiss = mutate(swiss, CatholicBin = 1 * (Catholic &gt; 50))
 </code></pre>
 
   </article>
@@ -512,14 +482,10 @@ head(hunger)
 
 <slide class="" id="slide-22" style="background:;">
   <hgroup>
-    <h2>Plot percent hungry versus time</h2>
+    <h2>Plot the data</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">lm1 &lt;- lm(hunger$Numeric ~ hunger$Year)
-plot(hunger$Year,hunger$Numeric,pch=19,col=&quot;blue&quot;)
-</code></pre>
-
-<div class="rimage center"><img src="fig/unnamed-chunk-14.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" class="plot" /></div>
+    <div class="rimage center"><img src="fig/unnamed-chunk-16.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
@@ -527,16 +493,16 @@ plot(hunger$Year,hunger$Numeric,pch=19,col=&quot;blue&quot;)
 
 <slide class="" id="slide-23" style="background:;">
   <hgroup>
-    <h2>Remember the linear model</h2>
+    <h2>No effect of religion</h2>
   </hgroup>
   <article data-timings="">
-    <p>\[Hu_i = b_0 + b_1 Y_i + e_i\]</p>
+    <pre><code class="r">summary(lm(Fertility ~ Agriculture, data = swiss))$coef
+</code></pre>
 
-<p>\(b_0\) = percent hungry at Year 0</p>
-
-<p>\(b_1\) = decrease in percent hungry per year</p>
-
-<p>\(e_i\) = everything we didn&#39;t measure</p>
+<pre><code>            Estimate Std. Error t value  Pr(&gt;|t|)
+(Intercept)  60.3044    4.25126  14.185 3.216e-18
+Agriculture   0.1942    0.07671   2.532 1.492e-02
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -544,15 +510,17 @@ plot(hunger$Year,hunger$Numeric,pch=19,col=&quot;blue&quot;)
 
 <slide class="" id="slide-24" style="background:;">
   <hgroup>
-    <h2>Add the linear model</h2>
+    <h2>Parallel lines</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">lm1 &lt;- lm(hunger$Numeric ~ hunger$Year)
-plot(hunger$Year,hunger$Numeric,pch=19,col=&quot;blue&quot;)
-lines(hunger$Year,lm1$fitted,lwd=3,col=&quot;darkgrey&quot;)
+    <pre><code class="r">summary(lm(Fertility ~ Agriculture + factor(CatholicBin), data = swiss))$coef
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-15.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" class="plot" /></div>
+<pre><code>                     Estimate Std. Error t value  Pr(&gt;|t|)
+(Intercept)           60.8322     4.1059  14.816 1.032e-18
+Agriculture            0.1242     0.0811   1.531 1.329e-01
+factor(CatholicBin)1   7.8843     3.7484   2.103 4.118e-02
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -560,14 +528,18 @@ lines(hunger$Year,lm1$fitted,lwd=3,col=&quot;darkgrey&quot;)
 
 <slide class="" id="slide-25" style="background:;">
   <hgroup>
-    <h2>Color by male/female</h2>
+    <h2>Lines with different slopes and intercepts</h2>
   </hgroup>
   <article data-timings="">
-    <pre><code class="r">plot(hunger$Year,hunger$Numeric,pch=19)
-points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex==&quot;Male&quot;)*1+1))
+    <pre><code class="r">summary(lm(Fertility ~ Agriculture * factor(CatholicBin), data = swiss))$coef
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-16.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" class="plot" /></div>
+<pre><code>                                 Estimate Std. Error t value  Pr(&gt;|t|)
+(Intercept)                      62.04993    4.78916 12.9563 1.919e-16
+Agriculture                       0.09612    0.09881  0.9727 3.361e-01
+factor(CatholicBin)1              2.85770   10.62644  0.2689 7.893e-01
+Agriculture:factor(CatholicBin)1  0.08914    0.17611  0.5061 6.153e-01
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
@@ -575,210 +547,17 @@ points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex==&quot;Male&quot;)*1+1
 
 <slide class="" id="slide-26" style="background:;">
   <hgroup>
-    <h2>Now two lines</h2>
+    <h2>Just to show you it can be done</h2>
   </hgroup>
   <article data-timings="">
-    <p>\[HuF_i = bf_0 + bf_1 YF_i + ef_i\]</p>
-
-<p>\(bf_0\) = percent of girls hungry at Year 0</p>
-
-<p>\(bf_1\) = decrease in percent of girls hungry per year</p>
-
-<p>\(ef_i\) = everything we didn&#39;t measure </p>
-
-<p>\[HuM_i = bm_0 + bm_1 YM_i + em_i\]</p>
-
-<p>\(bm_0\) = percent of boys hungry at Year 0</p>
-
-<p>\(bm_1\) = decrease in percent of boys hungry per year</p>
-
-<p>\(em_i\) = everything we didn&#39;t measure </p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-27" style="background:;">
-  <hgroup>
-    <h2>Color by male/female</h2>
-  </hgroup>
-  <article data-timings="">
-    <pre><code class="r">lmM &lt;- lm(hunger$Numeric[hunger$Sex==&quot;Male&quot;] ~ hunger$Year[hunger$Sex==&quot;Male&quot;])
-lmF &lt;- lm(hunger$Numeric[hunger$Sex==&quot;Female&quot;] ~ hunger$Year[hunger$Sex==&quot;Female&quot;])
-plot(hunger$Year,hunger$Numeric,pch=19)
-points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex==&quot;Male&quot;)*1+1))
-lines(hunger$Year[hunger$Sex==&quot;Male&quot;],lmM$fitted,col=&quot;black&quot;,lwd=3)
-lines(hunger$Year[hunger$Sex==&quot;Female&quot;],lmF$fitted,col=&quot;red&quot;,lwd=3)
+    <pre><code class="r">summary(lm(Fertility ~ Agriculture + Agriculture : factor(CatholicBin), data = swiss))$coef
 </code></pre>
 
-<div class="rimage center"><img src="fig/unnamed-chunk-17.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" class="plot" /></div>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-28" style="background:;">
-  <hgroup>
-    <h2>Two lines, same slope</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>\[Hu_i = b_0 + b_1 \mathbb{1}(Sex_i="Male") + b_2 Y_i + e^*_i\]</p>
-
-<p>\(b_0\) - percent hungry at year zero for females</p>
-
-<p>\(b_0 + b_1\) - percent hungry at year zero for males</p>
-
-<p>\(b_2\) - change in percent hungry (for either males or females) in one year</p>
-
-<p>\(e^*_i\) - everything we didn&#39;t measure</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-29" style="background:;">
-  <hgroup>
-    <h2>Two lines, same slope in R</h2>
-  </hgroup>
-  <article data-timings="">
-    <pre><code class="r">lmBoth &lt;- lm(hunger$Numeric ~ hunger$Year + hunger$Sex)
-plot(hunger$Year,hunger$Numeric,pch=19)
-points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex==&quot;Male&quot;)*1+1))
-abline(c(lmBoth$coeff[1],lmBoth$coeff[2]),col=&quot;red&quot;,lwd=3)
-abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] ),col=&quot;black&quot;,lwd=3)
+<pre><code>                                 Estimate Std. Error t value  Pr(&gt;|t|)
+(Intercept)                      62.63037    4.22989 14.8066 1.057e-18
+Agriculture                       0.08539    0.08945  0.9546 3.450e-01
+Agriculture:factor(CatholicBin)1  0.13340    0.06199  2.1520 3.693e-02
 </code></pre>
-
-<div class="rimage center"><img src="fig/unnamed-chunk-18.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" class="plot" /></div>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-30" style="background:;">
-  <hgroup>
-    <h2>Two lines, different slopes (interactions)</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>\[Hu_i = b_0 + b_1 \mathbb{1}(Sex_i="Male") + b_2 Y_i + b_3 \mathbb{1}(Sex_i="Male")\times Y_i + e^+_i\]</p>
-
-<p>\(b_0\) - percent hungry at year zero for females</p>
-
-<p>\(b_0 + b_1\) - percent hungry at year zero for males</p>
-
-<p>\(b_2\) - change in percent hungry (females) in one year</p>
-
-<p>\(b_2 + b_3\) - change in percent hungry (males) in one year</p>
-
-<p>\(e^+_i\) - everything we didn&#39;t measure</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-31" style="background:;">
-  <hgroup>
-    <h2>Two lines, different slopes in R</h2>
-  </hgroup>
-  <article data-timings="">
-    <pre><code class="r">lmBoth &lt;- lm(hunger$Numeric ~ hunger$Year + hunger$Sex + hunger$Sex*hunger$Year)
-plot(hunger$Year,hunger$Numeric,pch=19)
-points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex==&quot;Male&quot;)*1+1))
-abline(c(lmBoth$coeff[1],lmBoth$coeff[2]),col=&quot;red&quot;,lwd=3)
-abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] +lmBoth$coeff[4]),col=&quot;black&quot;,lwd=3)
-</code></pre>
-
-<div class="rimage center"><img src="fig/lmBothChunk.png" title="plot of chunk lmBothChunk" alt="plot of chunk lmBothChunk" class="plot" /></div>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-32" style="background:;">
-  <hgroup>
-    <h2>Two lines, different slopes in R</h2>
-  </hgroup>
-  <article data-timings="">
-    <pre><code class="r">summary(lmBoth)
-</code></pre>
-
-<pre><code>
-Call:
-lm(formula = hunger$Numeric ~ hunger$Year + hunger$Sex + hunger$Sex * 
-    hunger$Year)
-
-Residuals:
-   Min     1Q Median     3Q    Max 
--25.91 -11.25  -1.85   7.09  46.15 
-
-Coefficients:
-                           Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)                603.5058   171.0552    3.53  0.00044 ***
-hunger$Year                 -0.2934     0.0855   -3.43  0.00062 ***
-hunger$SexMale              61.9477   241.9086    0.26  0.79795    
-hunger$Year:hunger$SexMale  -0.0300     0.1209   -0.25  0.80402    
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-
-Residual standard error: 13.2 on 944 degrees of freedom
-Multiple R-squared:  0.0318,    Adjusted R-squared:  0.0287 
-F-statistic: 10.3 on 3 and 944 DF,  p-value: 1.06e-06
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-33" style="background:;">
-  <hgroup>
-    <h2>Interpretting a continuous interaction</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>\[
-E[Y_i | X_{1i}=x_1, X_{2i}=x_2] = \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \beta_3 x_{1}x_{2}
-\]
-Holding \(X_2\) constant we have
-\[
-E[Y_i | X_{1i}=x_1+1, X_{2i}=x_2]-E[Y_i | X_{1i}=x_1, X_{2i}=x_2]
-= \beta_1 + \beta_3 x_{2} 
-\]
-And thus the expected change in \(Y\) per unit change in \(X_1\) holding all else constant is not constant. \(\beta_1\) is the slope when \(x_{2} = 0\). Note further that:
-\[
-E[Y_i | X_{1i}=x_1+1, X_{2i}=x_2+1]-E[Y_i | X_{1i}=x_1, X_{2i}=x_2+1]
-\]
-\[
--E[Y_i | X_{1i}=x_1+1, X_{2i}=x_2]-E[Y_i | X_{1i}=x_1, X_{2i}=x_2]
-\]
-\[
-=\beta_3  
-\]
-Thus, \(\beta_3\) is the change in the expected change in \(Y\) per unit change in \(X_1\), per unit change in \(X_2\).</p>
-
-<p>Or, the change in the slope relating \(X_1\) and \(Y\) per unit change in \(X_2\).</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-34" style="background:;">
-  <hgroup>
-    <h2>Example</h2>
-  </hgroup>
-  <article data-timings="">
-    <p>\[Hu_i = b_0 + b_1 In_i + b_2 Y_i + b_3 In_i \times Y_i + e^+_i\]</p>
-
-<p>\(b_0\) - percent hungry at year zero for children with whose parents have no income</p>
-
-<p>\(b_1\) - change in percent hungry for each dollar of income in year zero</p>
-
-<p>\(b_2\) - change in percent hungry in one year for children whose parents have no income</p>
-
-<p>\(b_3\) - increased change in percent hungry by year for each dollar of income  - e.g. if income is $10,000, then change in percent hungry in one year will be</p>
-
-<p>\[b_2 + 1e4 \times b_3\]</p>
-
-<p>\(e^+_i\) - everything we didn&#39;t measure</p>
-
-<p><strong>Lot&#39;s of care/caution needed!</strong></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -790,13 +569,13 @@ Thus, \(\beta_3\) is the change in the expected change in \(Y\) per unit change 
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Swiss fertility data'>
+        data-slide=1 title='Data set for discussion'>
          1
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='<code>?swiss</code>'>
+        data-slide=2 title=''>
          2
       </a>
     </li>
@@ -826,61 +605,61 @@ Thus, \(\beta_3\) is the change in the expected change in \(Y\) per unit change 
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=7 title='Back to this data set'>
+        data-slide=7 title=''>
          7
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title='What if we include an unnecessary variable?'>
+        data-slide=8 title='Back to this data set'>
          8
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title='Dummy variables are smart'>
+        data-slide=9 title='What if we include an unnecessary variable?'>
          9
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=10 title='More than 2 levels'>
+        data-slide=10 title='Dummy variables are smart'>
          10
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title='Insect Sprays'>
+        data-slide=11 title='More than 2 levels'>
          11
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=12 title='Linear model fit, group A is the reference'>
+        data-slide=12 title='Insect Sprays'>
          12
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=13 title='Hard coding the dummy variables'>
+        data-slide=13 title='Linear model fit, group A is the reference'>
          13
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=14 title='What if we include all 6?'>
+        data-slide=14 title='Hard coding the dummy variables'>
          14
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title='What if we omit the intercept?'>
+        data-slide=15 title='What if we include all 6?'>
          15
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=16 title='Summary'>
+        data-slide=16 title='What if we omit the intercept?'>
          16
       </a>
     </li>
@@ -892,7 +671,7 @@ Thus, \(\beta_3\) is the change in the expected change in \(Y\) per unit change 
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=18 title='Doing it manually'>
+        data-slide=18 title='Summary'>
          18
       </a>
     </li>
@@ -904,92 +683,44 @@ Thus, \(\beta_3\) is the change in the expected change in \(Y\) per unit change 
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=20 title='Example - Millenium Development Goal 1'>
+        data-slide=20 title='Recall the <code>swiss</code> data set'>
          20
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=21 title='WHO childhood hunger data'>
+        data-slide=21 title='Create a binary variable'>
          21
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=22 title='Plot percent hungry versus time'>
+        data-slide=22 title='Plot the data'>
          22
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=23 title='Remember the linear model'>
+        data-slide=23 title='No effect of religion'>
          23
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=24 title='Add the linear model'>
+        data-slide=24 title='Parallel lines'>
          24
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=25 title='Color by male/female'>
+        data-slide=25 title='Lines with different slopes and intercepts'>
          25
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=26 title='Now two lines'>
+        data-slide=26 title='Just to show you it can be done'>
          26
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=27 title='Color by male/female'>
-         27
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=28 title='Two lines, same slope'>
-         28
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=29 title='Two lines, same slope in R'>
-         29
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=30 title='Two lines, different slopes (interactions)'>
-         30
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=31 title='Two lines, different slopes in R'>
-         31
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=32 title='Two lines, different slopes in R'>
-         32
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=33 title='Interpretting a continuous interaction'>
-         33
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=34 title='Example'>
-         34
       </a>
     </li>
   </ul>

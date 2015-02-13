@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>A trip to Asymptopia</title>
+  <meta charset="utf-8">
+  <meta name="description" content="A trip to Asymptopia">
+  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>A trip to Asymptopia</h1>
+    <h2>Statistical Inference</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Asymptotics</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Asymptotics is the term for the behavior of statistics as the sample size (or some other relevant quantity) limits to infinity (or some other relevant number)</li>
+<li>(Asymptopia is my name for the land of asymptotics, where everything works out well and there&#39;s no messes. The land of infinite data is nice that way.)</li>
+<li>Asymptotics are incredibly useful for simple statistical inference and approximations </li>
+<li>(Not covered in this class) Asymptotics often lead to nice understanding of procedures</li>
+<li>Asymptotics generally give no assurances about finite sample performance</li>
+<li>Asymptotics form the basis for frequency interpretation of probabilities 
+(the long run proportion of times an event occurs)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Limits of random variables</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Fortunately, for the sample mean there&#39;s a set of powerful results</li>
+<li>These results allow us to talk about the large sample distribution
+of sample means of a collection of \(iid\) observations</li>
+<li>The first of these results we inuitively know
+
+<ul>
+<li>It says that the average limits to what its estimating, the population mean</li>
+<li>It&#39;s called the Law of Large Numbers</li>
+<li>Example \(\bar X_n\) could be the average of the result of \(n\) coin flips (i.e. the sample proportion of heads)</li>
+<li>As we flip a fair coin over and over, it evetually converges to the
+true probability of a head
+The LLN forms the basis of frequency style thinking</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Law of large numbers in action</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">n &lt;- 10000
+means &lt;- cumsum(rnorm(n))/(1:n)
+library(ggplot2)
+g &lt;- ggplot(data.frame(x = 1:n, y = means), aes(x = x, y = y))
+g &lt;- g + geom_hline(yintercept = 0) + geom_line(size = 2)
+g &lt;- g + labs(x = &quot;Number of obs&quot;, y = &quot;Cumulative mean&quot;)
+g
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Law of large numbers in action, coin flip</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">means &lt;- cumsum(sample(0:1, n, replace = TRUE))/(1:n)
+g &lt;- ggplot(data.frame(x = 1:n, y = means), aes(x = x, y = y))
+g &lt;- g + geom_hline(yintercept = 0.5) + geom_line(size = 2)
+g &lt;- g + labs(x = &quot;Number of obs&quot;, y = &quot;Cumulative mean&quot;)
+g
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-2.png" alt="plot of chunk unnamed-chunk-2"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Discussion</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>An estimator is <strong>consistent</strong> if it converges to what you want to estimate
+
+<ul>
+<li>The LLN says that the sample mean of iid sample is
+consistent for the population mean</li>
+<li>Typically, good estimators are consistent; it&#39;s not too much to ask that if we go to the trouble of collecting an infinite amount of data that we get the right answer</li>
+</ul></li>
+<li>The sample variance and the sample standard deviation
+of iid random variables are consistent as well</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>The Central Limit Theorem</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The <strong>Central Limit Theorem</strong> (CLT) is one of the most important theorems in statistics</li>
+<li>For our purposes, the CLT states that the distribution of averages of iid variables (properly normalized) becomes that of a standard normal as the sample size increases</li>
+<li>The CLT applies in an endless variety of settings</li>
+<li>The result is that 
+\[\frac{\bar X_n - \mu}{\sigma / \sqrt{n}}=
+\frac{\sqrt n (\bar X_n - \mu)}{\sigma}
+= \frac{\mbox{Estimate} - \mbox{Mean of estimate}}{\mbox{Std. Err. of estimate}}\] has a distribution like that of a standard normal for large \(n\).</li>
+<li>(Replacing the standard error by its estimated value doesn&#39;t change the CLT)</li>
+<li>The useful way to think about the CLT is that 
+\(\bar X_n\) is approximately
+\(N(\mu, \sigma^2 / n)\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Simulate a standard normal random variable by rolling \(n\) (six sided)</li>
+<li>Let \(X_i\) be the outcome for die \(i\)</li>
+<li>Then note that \(\mu = E[X_i] = 3.5\)</li>
+<li>\(Var(X_i) = 2.92\) </li>
+<li>SE \(\sqrt{2.92 / n} = 1.71 / \sqrt{n}\)</li>
+<li>Lets roll \(n\) dice, take their mean, subtract off 3.5,
+and divide by \(1.71 / \sqrt{n}\) and repeat this over and over</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Result of our die rolling experiment</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Coin CLT</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Let \(X_i\) be the \(0\) or \(1\) result of the \(i^{th}\) flip of a possibly unfair coin
+
+<ul>
+<li>The sample proportion, say \(\hat p\), is the average of the coin flips</li>
+<li>\(E[X_i] = p\) and \(Var(X_i) = p(1-p)\)</li>
+<li>Standard error of the mean is \(\sqrt{p(1-p)/n}\)</li>
+<li>Then
+\[
+\frac{\hat p - p}{\sqrt{p(1-p)/n}}
+\]
+will be approximately normally distributed</li>
+<li>Let&#39;s flip a coin \(n\) times, take the sample proportion
+of heads, subtract off .5 and multiply the result by
+\(2 \sqrt{n}\) (divide by \(1/(2 \sqrt{n})\))</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Simulation results</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Simulation results, \(p = 0.9\)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Galton&#39;s quincunx</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><a href="http://en.wikipedia.org/wiki/Bean_machine#mediaviewer/File:Quincunx_(Galton_Box)_-_Galton_1889_diagram.png">http://en.wikipedia.org/wiki/Bean_machine#mediaviewer/File:Quincunx_(Galton_Box)_-_Galton_1889_diagram.png</a></p>
+
+<p><img src="fig/quincunx.png" height="450"></img></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Confidence intervals</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>According to the CLT, the sample mean, \(\bar X\), 
+is approximately normal with mean \(\mu\) and sd \(\sigma / \sqrt{n}\)</li>
+<li>\(\mu + 2 \sigma /\sqrt{n}\) is pretty far out in the tail
+(only 2.5% of a normal being larger than 2 sds in the tail)</li>
+<li>Similarly, \(\mu - 2 \sigma /\sqrt{n}\) is pretty far in the left tail (only 2.5% chance of a normal being smaller than 2 sds in the tail)</li>
+<li>So the probability \(\bar X\) is bigger than \(\mu + 2 \sigma / \sqrt{n}\)
+or smaller than \(\mu - 2 \sigma / \sqrt{n}\) is 5%
+
+<ul>
+<li>Or equivalently, the probability of being between these limits is 95%</li>
+</ul></li>
+<li>The quantity \(\bar X \pm 2 \sigma /\sqrt{n}\) is called
+a 95% interval for \(\mu\)</li>
+<li>The 95% refers to the fact that if one were to repeatly
+get samples of size \(n\), about 95% of the intervals obtained
+would contain \(\mu\)</li>
+<li>The 97.5th quantile is 1.96 (so I rounded to 2 above)</li>
+<li>90% interval you want (100 - 90) / 2 = 5% in each tail 
+
+<ul>
+<li>So you want the 95th percentile (1.645)</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Give a confidence interval for the average height of sons</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>in Galton&#39;s data</p>
+
+<pre><code class="r">library(UsingR)
+data(father.son)
+x &lt;- father.son$sheight
+(mean(x) + c(-1, 1) * qnorm(0.975) * sd(x)/sqrt(length(x)))/12
+</code></pre>
+
+<pre><code>## [1] 5.710 5.738
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Sample proportions</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>In the event that each \(X_i\) is \(0\) or \(1\) with common success probability \(p\) then \(\sigma^2 = p(1 - p)\)</li>
+<li>The interval takes the form
+\[
+\hat p \pm z_{1 - \alpha/2}  \sqrt{\frac{p(1 - p)}{n}}
+\]</li>
+<li>Replacing \(p\) by \(\hat p\) in the standard error results in what is called a Wald confidence interval for \(p\)</li>
+<li>For 95% intervals
+\[\hat p \pm \frac{1}{\sqrt{n}}\] 
+is a quick CI estimate for \(p\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Your campaign advisor told you that in a random sample of 100 likely voters,
+56 intent to vote for you. 
+
+<ul>
+<li>Can you relax? Do you have this race in the bag?</li>
+<li>Without access to a computer or calculator, how precise is this estimate?</li>
+</ul></li>
+<li><code>1/sqrt(100)=0.1</code> so a back of the envelope calculation gives an approximate 95% interval of <code>(0.46, 0.66)</code>
+
+<ul>
+<li>Not enough for you to relax, better go do more campaigning!</li>
+</ul></li>
+<li>Rough guidelines, 100 for 1 decimal place, 10,000 for 2, 1,000,000 for 3.</li>
+</ul>
+
+<pre><code class="r">round(1/sqrt(10^(1:6)), 3)
+</code></pre>
+
+<pre><code>## [1] 0.316 0.100 0.032 0.010 0.003 0.001
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Binomial interval</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">0.56 + c(-1, 1) * qnorm(0.975) * sqrt(0.56 * 0.44/100)
+</code></pre>
+
+<pre><code>## [1] 0.4627 0.6573
+</code></pre>
+
+<pre><code class="r">binom.test(56, 100)$conf.int
+</code></pre>
+
+<pre><code>## [1] 0.4572 0.6592
+## attr(,&quot;conf.level&quot;)
+## [1] 0.95
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Simulation</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">n &lt;- 20
+pvals &lt;- seq(0.1, 0.9, by = 0.05)
+nosim &lt;- 1000
+coverage &lt;- sapply(pvals, function(p) {
+    phats &lt;- rbinom(nosim, prob = p, size = n)/n
+    ll &lt;- phats - qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    ul &lt;- phats + qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    mean(ll &lt; p &amp; ul &gt; p)
+})
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Plot of the results (not so good)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-10.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>What&#39;s happening?</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>\(n\) isn&#39;t large enough for the CLT to be applicable
+for many of the values of \(p\)</li>
+<li>Quick fix, form the interval with 
+\[
+\frac{X + 2}{n + 4}
+\]</li>
+<li>(Add two successes and failures, Agresti/Coull interval)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Simulation</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>First let&#39;s show that coverage gets better with \(n\)</p>
+
+<pre><code class="r">n &lt;- 100
+pvals &lt;- seq(0.1, 0.9, by = 0.05)
+nosim &lt;- 1000
+coverage2 &lt;- sapply(pvals, function(p) {
+    phats &lt;- rbinom(nosim, prob = p, size = n)/n
+    ll &lt;- phats - qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    ul &lt;- phats + qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    mean(ll &lt; p &amp; ul &gt; p)
+})
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Plot of coverage for \(n=100\)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-12.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Simulation</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Now let&#39;s look at \(n=20\) but adding 2 successes and failures</p>
+
+<pre><code class="r">n &lt;- 20
+pvals &lt;- seq(0.1, 0.9, by = 0.05)
+nosim &lt;- 1000
+coverage &lt;- sapply(pvals, function(p) {
+    phats &lt;- (rbinom(nosim, prob = p, size = n) + 2)/(n + 4)
+    ll &lt;- phats - qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    ul &lt;- phats + qnorm(0.975) * sqrt(phats * (1 - phats)/n)
+    mean(ll &lt; p &amp; ul &gt; p)
+})
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>Adding 2 successes and 2 failures</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>(It&#39;s a little conservative)
+<img src="assets/fig/unnamed-chunk-14.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-25" style="background:;">
+  <hgroup>
+    <h2>Poisson interval</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>A nuclear pump failed 5 times out of 94.32 days, give a 95% confidence interval for the failure rate per day?</li>
+<li>\(X \sim Poisson(\lambda t)\).</li>
+<li>Estimate \(\hat \lambda = X/t\)</li>
+<li>\(Var(\hat \lambda) = \lambda / t\) </li>
+<li>\(\hat \lambda / t\) is our variance estimate</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-26" style="background:;">
+  <hgroup>
+    <h2>R code</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">x &lt;- 5
+t &lt;- 94.32
+lambda &lt;- x/t
+round(lambda + c(-1, 1) * qnorm(0.975) * sqrt(lambda/t), 3)
+</code></pre>
+
+<pre><code>## [1] 0.007 0.099
+</code></pre>
+
+<pre><code class="r">poisson.test(x, T = 94.32)$conf
+</code></pre>
+
+<pre><code>## [1] 0.01721 0.12371
+## attr(,&quot;conf.level&quot;)
+## [1] 0.95
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-27" style="background:;">
+  <hgroup>
+    <h2>Simulating the Poisson coverage rate</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Let&#39;s see how this interval performs for lambda
+values near what we&#39;re estimating</p>
+
+<pre><code class="r">lambdavals &lt;- seq(0.005, 0.1, by = 0.01)
+nosim &lt;- 1000
+t &lt;- 100
+coverage &lt;- sapply(lambdavals, function(lambda) {
+    lhats &lt;- rpois(nosim, lambda = lambda * t)/t
+    ll &lt;- lhats - qnorm(0.975) * sqrt(lhats/t)
+    ul &lt;- lhats + qnorm(0.975) * sqrt(lhats/t)
+    mean(ll &lt; lambda &amp; ul &gt; lambda)
+})
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-28" style="background:;">
+  <hgroup>
+    <h2>Covarage</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>(Gets really bad for small values of lambda)
+<img src="assets/fig/unnamed-chunk-17.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-29" style="background:;">
+  <hgroup>
+    <h2>What if we increase t to 1000?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-18.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-30" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The LLN states that averages of iid samples 
+converge to the population means that they are estimating</li>
+<li>The CLT states that averages are approximately normal, with
+distributions
+
+<ul>
+<li>centered at the population mean </li>
+<li>with standard deviation equal to the standard error of the mean</li>
+<li>CLT gives no guarantee that \(n\) is large enough</li>
+</ul></li>
+<li>Taking the mean and adding and subtracting the relevant
+normal quantile times the SE yields a confidence interval for the mean
+
+<ul>
+<li>Adding and subtracting 2 SEs works for 95% intervals</li>
+</ul></li>
+<li>Confidence intervals get wider as the coverage increases
+(why?)</li>
+<li>Confidence intervals get narrower with less variability or
+larger sample sizes</li>
+<li>The Poisson and binomial case have exact intervals that
+don&#39;t require the CLT
+
+<ul>
+<li>But a quick fix for small sample size binomial calculations is to add 2 successes and failures</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Asymptotics'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Limits of random variables'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Law of large numbers in action'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Law of large numbers in action, coin flip'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Discussion'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='The Central Limit Theorem'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Example'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Result of our die rolling experiment'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Coin CLT'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Simulation results'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Simulation results, \(p = 0.9\)'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Galton&#39;s quincunx'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Confidence intervals'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Give a confidence interval for the average height of sons'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Sample proportions'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Example'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Binomial interval'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Simulation'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Plot of the results (not so good)'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='What&#39;s happening?'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='Simulation'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='Plot of coverage for \(n=100\)'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='Simulation'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='Adding 2 successes and 2 failures'>
+         24
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=25 title='Poisson interval'>
+         25
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=26 title='R code'>
+         26
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=27 title='Simulating the Poisson coverage rate'>
+         27
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=28 title='Covarage'>
+         28
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=29 title='What if we increase t to 1000?'>
+         29
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=30 title='Summary'>
+         30
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

@@ -84,7 +84,7 @@ shinyServer(
 ---
 ## Try it
 * type `runApp()` 
-* Notice hitting refresh incriments `y` but enterting values in the textbox does not
+* Notice hitting refresh increments `y` but enterting values in the textbox does not
 * Notice `x` is always 1
 * Watch how it updated `text1` and `text2` as needed.
 * Doesn't add 1 to text1 every time a new `text2` is input.

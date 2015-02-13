@@ -8,12 +8,11 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
-
 
 ## Recall our model and fitted values
 * Consider the model
@@ -29,7 +28,7 @@ $$
 ---
 ## Review
 * Statistics like $\frac{\hat \theta - \theta}{\hat \sigma_{\hat \theta}}$ often have the following properties.
-    1. Is normally distributed and has a finite sample Student's T distribution if the estimated variance is replaced with a sample estimate (under normality assumptions).
+    1. Is normally distributed and has a finite sample Student's T distribution if the  variance is replaced with a sample estimate (under normality assumptions).
     3. Can be used to test $H_0 : \theta = \theta_0$ versus $H_a : \theta >, <, \neq \theta_0$.
     4. Can be used to create a confidence interval for $\theta$ via $\hat \theta \pm Q_{1-\alpha/2} \hat \sigma_{\hat \theta}$
     where $Q_{1-\alpha/2}$ is the relevant quantile from either a normal or T distribution.
@@ -38,18 +37,6 @@ very similarily to what you saw in your inference class.
 * We won't cover asymptotics for regression analysis, but suffice it to say that under assumptions 
 on the ways in which the $X$ values are collected, the iid sampling model, and mean model, 
 the normal results hold to create intervals and confidence intervals
-
----
-## Standard errors (conditioned on X)
-$$
-\begin{align}
-Var(\hat \beta_1) & =
-Var\left(\frac{\sum_{i=1}^n (Y_i - \bar Y) (X_i - \bar X)}{\sum_{i=1}^n (X_i - \bar X)^2}\right) \\
-& = \frac{Var\left(\sum_{i=1}^n Y_i (X_i - \bar X) \right) }{\left(\sum_{i=1}^n (X_i - \bar X)^2 \right)^2} \\
-& = \frac{\sum_{i=1}^n \sigma^2(X_i - \bar X)^2}{\left(\sum_{i=1}^n (X_i - \bar X)^2 \right)^2} \\
-& = \frac{\sigma^2}{\sum_{i=1}^n (X_i - \bar X)^2} \\
-\end{align}
-$$
 
 ---
 ## Results
@@ -85,7 +72,6 @@ colnames(coefTable) <- c("Estimate", "Std. Error", "t value", "P(>|t|)")
 rownames(coefTable) <- c("(Intercept)", "x")
 ```
 
-
 ---
 ## Example continued
 
@@ -111,7 +97,6 @@ summary(fit)$coefficients
 x             3721.0      81.79   45.50 6.751e-40
 ```
 
-
 ---
 ## Getting a confidence interval
 
@@ -125,13 +110,12 @@ sumCoef[1,1] + c(-1, 1) * qt(.975, df = fit$df) * sumCoef[1, 2]
 ```
 
 ```r
-sumCoef[2,1] + c(-1, 1) * qt(.975, df = fit$df) * sumCoef[2, 2]
+(sumCoef[2,1] + c(-1, 1) * qt(.975, df = fit$df) * sumCoef[2, 2]) / 10
 ```
 
 ```
-[1] 3556 3886
+[1] 355.6 388.6
 ```
-
 With 95% confidence, we estimate that a 0.1 carat increase in
 diamond size results in a 355.6 to 388.6 increase in price in (Singapore) dollars.
 
@@ -151,26 +135,10 @@ $$
 * Line at $x_0$ se, $\hat \sigma\sqrt{\frac{1}{n} +  \frac{(x_0 - \bar X)^2}{\sum_{i=1}^n (X_i - \bar X)^2}}$
 * Prediction interval se at $x_0$, $\hat \sigma\sqrt{1 + \frac{1}{n} + \frac{(x_0 - \bar X)^2}{\sum_{i=1}^n (X_i - \bar X)^2}}$
 
----
-## Plotting the prediction intervals
-
-```
-plot(x, y, frame=FALSE,xlab="Carat",ylab="Dollars",pch=21,col="black", bg="lightblue", cex=2)
-abline(fit, lwd = 2)
-xVals <- seq(min(x), max(x), by = .01)
-yVals <- beta0 + beta1 * xVals
-se1 <- sigma * sqrt(1 / n + (xVals - mean(x))^2/ssx)
-se2 <- sigma * sqrt(1 + 1 / n + (xVals - mean(x))^2/ssx)
-lines(xVals, yVals + 2 * se1)
-lines(xVals, yVals - 2 * se1)
-lines(xVals, yVals + 2 * se2)
-lines(xVals, yVals - 2 * se2)
-```
 
 ---
 ## Plotting the prediction intervals
 <div class="rimage center"><img src="fig/fig.width==5.png" title="plot of chunk fig.width==5" alt="plot of chunk fig.width==5" class="plot" /></div>
-
 
 ---
 ## Discussion
@@ -187,23 +155,7 @@ lines(xVals, yVals - 2 * se2)
 
 ## In R
 ```
-newdata <- data.frame(x = xVals)
-p1 <- predict(fit, newdata, interval = ("confidence"))
-p2 <- predict(fit, newdata, interval = ("prediction"))
-plot(x, y, frame=FALSE,xlab="Carat",ylab="Dollars",pch=21,col="black", bg="lightblue", cex=2)
-abline(fit, lwd = 2)
-lines(xVals, p1[,2]); lines(xVals, p1[,3])
-lines(xVals, p2[,2]); lines(xVals, p2[,3])
-```
 
----
----
-## In R
-
-<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
-
-
-  
   
   
   

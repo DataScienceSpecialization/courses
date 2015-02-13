@@ -8,51 +8,46 @@
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
     media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../libraries/frameworks/io2012/js/slides" 
-    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-    <link rel="stylesheet" href = "../../assets/css/custom.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
-<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
-<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+  
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
     
     <!-- LOGO SLIDE -->
-    <!-- END LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Least squares estimation of regression lines</h1>
+    <h2>Regression via least squares</h2>
+    <p>Brian Caffo, Jeff Leek and Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
     
 
-    <!-- TITLE SLIDE -->
-    <!-- Should I move this to a Local Layout File? -->
-    <slide class="title-slide segue nobackground">
-      <aside class="gdbar">
-        <img src="../../assets/img/bloomberg_shield.png">
-      </aside>
-      <hgroup class="auto-fadein">
-        <h1>Least squares estimation of regression lines</h1>
-        <h2>Regression via least squares</h2>
-        <p>Brian Caffo, Jeff Leek and Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
-      </hgroup>
-          </slide>
-
     <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
+    <slide class="" id="slide-1" style="background:;">
   <hgroup>
     <h2>General least squares for linear equations</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>Consider again the parent and child height data from Galton</p>
 
 <div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
@@ -61,11 +56,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-2" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
     <h2>Fitting the best line</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Let \(Y_i\) be the \(i^{th}\) child&#39;s height and \(X_i\) be the 
 \(i^{th}\) (average over the pair of) parents&#39; heights. </li>
@@ -78,190 +73,17 @@
 \[
 \sum_{i=1}^n \{Y_i - (\beta_0 + \beta_1 X_i)\}^2
 \]</li>
-<li>How do we do it?</li>
 </ul>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
-    <h2>Let&#39;s solve this problem generally</h2>
+    <h2>Results</h2>
   </hgroup>
-  <article>
-    <ul>
-<li>Let \(\mu_i = \beta_0 + \beta_1 X_i\) and our estimates be
-\(\hat \mu_i = \hat \beta_0 + \hat \beta_1 X_i\). </li>
-<li>We want to minimize
-\[ \dagger \sum_{i=1}^n (Y_i - \mu_i)^2 = \sum_{i=1}^n (Y_i - \hat \mu_i) ^ 2 + 2 \sum_{i=1}^n (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) + \sum_{i=1}^n (\hat \mu_i - \mu_i)^2\]</li>
-<li>Suppose that \[\sum_{i=1}^n (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) = 0\] then
-\[ \dagger 
-=\sum_{i=1}^n (Y_i - \hat \mu_i) ^ 2  + \sum_{i=1}^n (\hat \mu_i - \mu_i)^2\geq \sum_{i=1}^n (Y_i - \hat \mu_i) ^ 2\]</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-4" style="background:;">
-  <hgroup>
-    <h2>Mean only regression</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>So we know that if:
-\[ \sum_{i=1}^n (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) = 0\]
-where \(\mu_i = \beta_0 + \beta_1 X_i\) and \(\hat \mu_i = \hat \beta_0 + \hat \beta_1 X_i\) then the line 
-\[Y = \hat \beta_0 + \hat \beta_1 X\]
-is the least squares line.</li>
-<li>Consider forcing \(\beta_1 = 0\) and thus \(\hat \beta_1=0\); 
-that is, only considering horizontal lines</li>
-<li>The solution works out to be
-\[\hat \beta_0 = \bar Y.\]</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-5" style="background:;">
-  <hgroup>
-    <h2>Let&#39;s show it</h2>
-  </hgroup>
-  <article>
-    <p>\[\begin{align} \
-\sum_{i=1}^n (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) 
-= & \sum_{i=1}^n (Y_i - \hat \beta_0) (\hat \beta_0 - \beta_0) \\
-= & (\hat \beta_0 - \beta_0) \sum_{i=1}^n (Y_i   - \hat \beta_0) \
-\end{align} \]</p>
-
-<p>Thus, this will equal 0 if \(\sum_{i=1}^n (Y_i  - \hat \beta_0)
-= n\bar Y - n \hat \beta_0=0\)</p>
-
-<p>Thus \(\hat \beta_0 = \bar Y.\)</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-6" style="background:;">
-  <hgroup>
-    <h2>Regression through the origin</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>Recall that if:
-\[ \sum_{i=1}^n (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) = 0\]
-where \(\mu_i = \beta_0 + \beta_1 X_i\) and \(\hat \mu_i = \hat \beta_0 + \hat \beta_1 X_i\) then the line 
-\[Y = \hat \beta_0 + \hat \beta_1 X\]
-is the least squares line.</li>
-<li>Consider forcing \(\beta_0 = 0\) and thus \(\hat \beta_0=0\); 
-that is, only considering lines through the origin</li>
-<li>The solution works out to be
-\[\hat \beta_1 = \frac{\sum_{i=1^n} Y_i X_i}{\sum_{i=1}^n X_i^2}.\]</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-7" style="background:;">
-  <hgroup>
-    <h2>Let&#39;s show it</h2>
-  </hgroup>
-  <article>
-    <p>\[\begin{align} \
-\sum_{i=1}^n (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) 
-= & \sum_{i=1}^n (Y_i - \hat \beta_1 X_i) (\hat \beta_1 X_i - \beta_1 X_i) \\
-= & (\hat \beta_1 - \beta_1) \sum_{i=1}^n (Y_i X_i  - \hat \beta_1 X_i ^2) \
-\end{align} \]</p>
-
-<p>Thus, this will equal 0 if \(\sum_{i=1}^n (Y_i X_i  - \hat \beta_1 X_i ^2) = \sum_{i=1}^n Y_i X_i - \hat \beta_1 \sum_{i=1}^n X_i^2 =0\)</p>
-
-<p>Thus
-\[\hat \beta_1 = \frac{\sum_{i=1^n} Y_i X_i}{\sum_{i=1}^n X_i^2}.\]</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-8" style="background:;">
-  <hgroup>
-    <h2>Recapping what we know</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>If we define \(\mu_i = \beta_0\) then \(\hat \beta_0 = \bar Y\).
-
-<ul>
-<li>If we only look at horizontal lines, the least squares estimate of the intercept of that line is the average of the outcomes.</li>
-</ul></li>
-<li>If we define \(\mu_i = X_i \beta_1\) then \(\hat \beta_1 = \frac{\sum_{i=1^n} Y_i X_i}{\sum_{i=1}^n X_i^2}\)
-
-<ul>
-<li>If we only look at lines through the origin, we get the estimated slope is the cross product of the X and Ys divided by the cross product of the Xs with themselves.</li>
-</ul></li>
-<li>What about when \(\mu_i = \beta_0 + \beta_1 X_i\)? That is, we don&#39;t want to restrict ourselves to horizontal lines or lines through the origin.</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-9" style="background:;">
-  <hgroup>
-    <h2>Let&#39;s figure it out</h2>
-  </hgroup>
-  <article>
-    <p>\[\begin{align} \
-\sum_{i=1}^n (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) 
-= & \sum_{i=1}^n (Y_i - \hat\beta_0 - \hat\beta_1 X_i) (\hat \beta_0 + \hat \beta_1 X_i - \beta_0 - \beta_1 X_i) \\
-= & (\hat \beta_0 - \beta_0) \sum_{i=1}^n (Y_i - \hat\beta_0 - \hat \beta_1 X_i) + (\beta_1 - \beta_1)\sum_{i=1}^n (Y_i - \hat\beta_0 - \hat \beta_1 X_i)X_i\\
-\end{align} \]
-Note that </p>
-
-<p>\[0=\sum_{i=1}^n (Y_i - \hat\beta_0 - \hat \beta_1 X_i) = n \bar Y - n \hat \beta_0 - n \hat \beta_1 \bar X ~~\mbox{implies that}~~\hat \beta_0 = \bar Y - \hat \beta_1 \bar X \]</p>
-
-<p>Then
-\[\sum_{i=1}^n (Y_i  - \hat\beta_0 - \hat \beta_1 X_i) X_i =  \sum_{i=1}^n (Y_i  - \bar Y + \hat \beta_1 \bar X - \hat \beta_1 X_i)X_i\]</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-10" style="background:;">
-  <hgroup>
-    <h2>Continued</h2>
-  </hgroup>
-  <article>
-    <p>\[=\sum_{i=1}^n \{(Y_i  - \bar Y) - \hat \beta_1 (X_i - \bar X) \}X_i\]
-And thus
-\[ \sum_{i=1}^n (Y_i  - \bar Y)X_i - \hat \beta_1 \sum_{i=1}^n
-(X_i - \bar X) X_i = 0.\]
-So we arrive at
-\[
-\hat \beta_1 =
-\frac{\sum_{i=1}^n \{(Y_i  - \bar Y)X_i}{\sum_{i=1}^n
-(X_i - \bar X) X_i} = 
-\frac{\sum_{i=1}^n (Y_i  - \bar Y)(X_i - \bar X)}{\sum_{i=1}^n
-(X_i - \bar X) (X_i - \bar X)}
-= Cor(Y, X) \frac{Sd(Y)}{Sd(X)}.
-\]
-And recall
-\[
-\hat \beta_0 = \bar Y - \hat \beta_1 \bar X.
-\]</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-11" style="background:;">
-  <hgroup>
-    <h2>Consequences</h2>
-  </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>The least squares model fit to the line \(Y = \beta_0 + \beta_1 X\) through the data pairs \((X_i, Y_i)\) with \(Y_i\) as the outcome obtains the line \(Y = \hat \beta_0 + \hat \beta_1 X\) where
 \[\hat \beta_1 = Cor(Y, X) \frac{Sd(Y)}{Sd(X)} ~~~ \hat \beta_0 = \bar Y - \hat \beta_1 \bar X\]</li>
@@ -277,11 +99,11 @@ And recall
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Revisiting Galton&#39;s data</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <h3>Double check our calculations using R</h3>
 
 <pre><code class="r">y &lt;- galton$child
@@ -300,11 +122,11 @@ rbind(c(beta0, beta1), coef(lm(y ~ x)))
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>Revisiting Galton&#39;s data</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <h3>Reversing the outcome/predictor relationship</h3>
 
 <pre><code class="r">beta1 &lt;- cor(y, x) *  sd(x) / sd(y)
@@ -321,11 +143,11 @@ rbind(c(beta0, beta1), coef(lm(x ~ y)))
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Revisiting Galton&#39;s data</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <h3>Regression through the origin yields an equivalent slope if you center the data first</h3>
 
 <pre><code class="r">yc &lt;- y - mean(y)
@@ -342,11 +164,11 @@ c(beta1, coef(lm(y ~ x))[2])
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>Revisiting Galton&#39;s data</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <h3>Normalizing variables results in the slope being the correlation</h3>
 
 <pre><code class="r">yn &lt;- (y - mean(y))/sd(y)
@@ -362,51 +184,8 @@ c(cor(y, x), cor(yn, xn), coef(lm(yn ~ xn))[2])
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-16" style="background:;">
-  <hgroup>
-    <h2>Plotting the fit</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>Size of points are frequencies at that X, Y combination.</li>
-<li>For the red lie the child is outcome.</li>
-<li>For the blue, the parent is the outcome  (accounting for the fact that the response is plotted on the horizontal axis).</li>
-<li>Black line assumes \(Cor(Y, X) = 1\) (slope is \(Sd(Y)/Sd(x)\)).</li>
-<li>Big black dot is \((\bar X, \bar Y)\).</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-17" style="background:;">
-  <hgroup>
-    
-  </hgroup>
-  <article>
-    <p>The code to add the lines</p>
-
-<pre><code>abline(mean(y) - mean(x) * cor(y, x) * sd(y) / sd(x), 
-  sd(y) / sd(x) * cor(y, x), 
-  lwd = 3, col = &quot;red&quot;)
-abline(mean(y) - mean(x) * sd(y) / sd(x) / cor(y, x), 
-  sd(y) cor(y, x) / sd(x), 
-  lwd = 3, col = &quot;blue&quot;)
-abline(mean(y) - mean(x) * sd(y) / sd(x), 
-  sd(y) / sd(x), 
-  lwd = 2)
-points(mean(x), mean(y), cex = 2, pch = 19)
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-18" style="background:;">
-  <hgroup>
-    
-  </hgroup>
-  <article>
+<slide class="" id="slide-8" style="background:;">
+  <article data-timings="">
     <div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
 
   </article>
@@ -415,34 +194,83 @@ points(mean(x), mean(y), cex = 2, pch = 19)
 
     <slide class="backdrop"></slide>
   </slides>
-
-  <!--[if IE]>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='General least squares for linear equations'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Fitting the best line'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Results'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Revisiting Galton&#39;s data'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Revisiting Galton&#39;s data'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Revisiting Galton&#39;s data'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Revisiting Galton&#39;s data'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title=''>
+         8
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
     <script 
       src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
 </body>
-<!-- Grab CDN jQuery, fall back to local if offline -->
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
-<!-- Load Javascripts for Widgets -->
-<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> -->
-<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
 </script>
 <!-- LOAD HIGHLIGHTER JS FILES -->
-<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- DONE LOADING HIGHLIGHTER JS FILES -->
-</html>
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

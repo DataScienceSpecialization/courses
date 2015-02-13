@@ -8,52 +8,55 @@
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
     media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../libraries/frameworks/io2012/js/slides" 
-    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-    <link rel="stylesheet" href = "../../assets/css/custom.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
-<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
-<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+  
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
     
     <!-- LOGO SLIDE -->
-    <!-- END LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Multivariable regression</h1>
+    <h2></h2>
+    <p>Brian Caffo, Roger Peng and Jeff Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
     
 
-    <!-- TITLE SLIDE -->
-    <!-- Should I move this to a Local Layout File? -->
-    <slide class="title-slide segue nobackground">
-      <aside class="gdbar">
-        <img src="../../assets/img/bloomberg_shield.png">
-      </aside>
-      <hgroup class="auto-fadein">
-        <h1>Multivariable regression</h1>
-        <h2></h2>
-        <p>Brian Caffo, Roger Peng and Jeff Leek<br/>Johns Hopkins Bloomberg School of Public Health</p>
-      </hgroup>
-          </slide>
-
     <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
-  <hgroup>
-    <h2>Multivariable regression analyses</h2>
-  </hgroup>
-  <article>
-    <ul>
+    <slide class="" id="slide-1" style="background:;">
+  <article data-timings="">
+    <pre><code>## Error: object &#39;opts_chunk&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<h2>Multivariable regression analyses</h2>
+
+<ul>
 <li>If I were to present evidence of a relationship between 
 breath mint useage (mints per day, X) and pulmonary function
 (measured in FEV), you would be skeptical.
@@ -69,11 +72,11 @@ breath mint useage (mints per day, X) and pulmonary function
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-2" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
     <h2>Multivariable regression analyses</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>An insurance company is interested in how last year&#39;s claims can predict a person&#39;s time in the hospital this year. 
 
@@ -94,11 +97,11 @@ the purpose of prediction?</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>The linear model</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>The general linear model extends simple linear regression (SLR)
 by adding terms linearly into the model.
@@ -127,51 +130,17 @@ predictor variables.)</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>How to get estimates</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
-<li>The real way requires linear algebra. We&#39;ll go over an intuitive development instead. </li>
 <li>Recall that the LS estimate for regression through the origin, \(E[Y_i]=X_{1i}\beta_1\), was \(\sum X_i Y_i / \sum X_i^2\).</li>
 <li>Let&#39;s consider two regressors, \(E[Y_i] = X_{1i}\beta_1 + X_{2i}\beta_2 = \mu_i\). </li>
-<li>Also, recall, that if \(\hat \mu_i\) satisfies
+<li>Least squares tries to minimize
 \[
-\sum_{i=1} (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) = 0
-\]
-for all possible values of \(\mu_i\), then we&#39;ve found the LS estimates.</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-5" style="background:;">
-  <hgroup>
-    
-  </hgroup>
-  <article>
-    <p>\[
-\sum_{i=1}^n (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) = \sum_{i=1}^n (Y_i - \hat \beta_1 X_{1i} - \hat \beta_2 X_{2i})
-\left\{X_{1i}(\hat \beta_1 - \beta_1) + X_{2i}(\hat \beta_2 - \beta_2) \right\}
-\]</p>
-
-<ul>
-<li>Thus we need 
-
-<ol>
-<li>\(\sum_{i=1}^n (Y_i - \hat \beta_1 X_{1i} - \hat \beta_2 X_{2i}) X_{1i} = 0\) </li>
-<li> \(\sum_{i=1}^n (Y_i - \hat \beta_1 X_{1i} - \hat \beta_2 X_{2i}) X_{2i} = 0\)</li>
-</ol></li>
-<li>Hold \(\hat \beta_1\) fixed in 2. and solve and we get that
-\[
-\hat \beta_2 = \frac{\sum_{i=1} (Y_i - X_{1i}\hat \beta_1)X_{2i}}{\sum_{i=1}^n X_{2i}^2}
-\]</li>
-<li>Plugging this into 1. we get that
-\[
-0 = \sum_{i=1}^n \left\{Y_i - \frac{\sum_j X_{2j}Y_j}{\sum_j X_{2j}^2}X_{2i} + 
-\beta_1 \left(X_{1i} - \frac{\sum_j X_{2j}X_{1j}}{\sum_j X_{2j}^2} X_{2i}\right)\right\} X_{1i}
+\sum_{i=1}^n (Y_i - X_{1i} \beta_1 - X_{2i} \beta_2)^2
 \]</li>
 </ul>
 
@@ -179,61 +148,11 @@ for all possible values of \(\mu_i\), then we&#39;ve found the LS estimates.</li
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
-    <h2>Continued</h2>
+    <h2>Result</h2>
   </hgroup>
-  <article>
-    <ul>
-<li>Re writing  this we get
-\[
-0 = \sum_{i=1}^n \left\{ e_{i, Y | X_2} - \hat \beta_1 e_{i, X_1 | X_2} 
-\right\} X_{1i} 
-\]
-where \(e_{i, a | b} = a_i -  \frac{\sum_{j=1}^n a_j b_j }{\sum_{i=1}^n b_j^2} b_i\) is the residual when regressing \(b\) from \(a\) without an intercept.</li>
-<li>We get the solution
-\[
-\hat \beta_1 = \frac{\sum_{i=1}^n e_{i, Y | X_2} e_{i, X_1 | X_2}}{\sum_{i=1}^n e_{i, X_1 | X_2} X_1}
-\]</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-7" style="background:;">
-  <hgroup>
-    
-  </hgroup>
-  <article>
-    <ul>
-<li>But note that 
-\[
-\sum_{i=1}^n e_{i, X_1 | X_2}^2 
-= \sum_{i=1}^n e_{i, X_1 | X_2} \left(X_{1i} - \frac{\sum_j X_{2j}X_{1j}}{\sum_j X_{2j}^2} X_{2i}\right)
-\]
-\[
-= \sum_{i=1}^n e_{i, X_1 | X_2} X_{1i} - \frac{\sum_j X_{2j}X_{1j}}{\sum_j X_{2j}^2} \sum_{i=1}^n e_{i, X_1 | X_2} X_{2i}
-\]
-But \(\sum_{i=1}^n e_{i, X_1 | X_2} X_{2i} = 0\). So we get that
-\[
-\sum_{i=1}^n e_{i, X_1 | X_2}^2  = \sum_{i=1}^n e_{i, X_1 | X_2} X_{1i}
-\]
-Thus we get that
-\[
-\hat \beta_1 = \frac{\sum_{i=1}^n e_{i, Y | X_2} e_{i, X_1 | X_2}}{\sum_{i=1}^n e_{i, X_1 | X_2}^2}
-\]</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-8" style="background:;">
-  <hgroup>
-    <h2>Summing up fitting with two regressors</h2>
-  </hgroup>
-  <article>
+  <article data-timings="">
     <p>\[\hat \beta_1 = \frac{\sum_{i=1}^n e_{i, Y | X_2} e_{i, X_1 | X_2}}{\sum_{i=1}^n e_{i, X_1 | X_2}^2}\]</p>
 
 <ul>
@@ -249,17 +168,23 @@ from both the regressor and response.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Example with two variables, simple linear regression</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>\(Y_{i} = \beta_1 X_{1i} + \beta_2 X_{2i}\) where  \(X_{2i} = 1\) is an intercept term.</li>
-<li>Then  \(\frac{\sum_j X_{2j}X_{1j}}{\sum_j X_{2j}^2}X_{2i} = 
-\frac{\sum_j X_{1j}}{n} = \bar X_1\). </li>
-<li>\(e_{i, X_1 | X_2} = X_{1i} - \bar X_1\).</li>
-<li>Simiarly \(e_{i, Y | X_2} = Y_i - \bar Y\).</li>
+<li>Notice the fitted coefficient of \(X_{2i}\) on \(Y_{i}\) is \(\bar Y\)
+
+<ul>
+<li>The residuals \(e_{i, Y | X_2} = Y_i - \bar Y\)</li>
+</ul></li>
+<li>Notice the fitted coefficient of \(X_{2i}\) on \(X_{1i}\) is \(\bar X_1\)
+
+<ul>
+<li>The residuals \(e_{i, X_1 | X_2}= X_{1i} - \bar X_1\)</li>
+</ul></li>
 <li>Thus
 \[
 \hat \beta_1 = \frac{\sum_{i=1}^n e_{i, Y | X_2} e_{i, X_1 | X_2}}{\sum_{i=1}^n e_{i, X_1 | X_2}^2} = \frac{\sum_{i=1}^n (X_i - \bar X)(Y_i - \bar Y)}{\sum_{i=1}^n (X_i - \bar X)^2}
@@ -271,18 +196,16 @@ from both the regressor and response.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
     <h2>The general case</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
-<li>The equations
+<li>Least squares solutions have to minimize
 \[
-\sum_{i=1}^n (Y_i - X_{1i}\hat \beta_1 - \ldots - X_{ip}\hat \beta_p) X_k = 0
-\]
-for \(k = 1, \ldots, p\) yields \(p\) equations with \(p\) unknowns.</li>
-<li>Solving them yields the least squares estimates. (With obtaining a good, fast, general solution requiring some knowledge of linear algebra.)</li>
+\sum_{i=1}^n (Y_i - X_{1i}\beta_1 - \ldots - X_{pi}\beta_p)^2
+\]</li>
 <li>The least squares estimate for the coefficient of a multivariate regression model is exactly regression through the origin with the linear relationships with the other regressors removed from both the regressor and outcome by taking residuals. </li>
 <li>In this sense, multivariate regression &quot;adjusts&quot; a coefficient for the linear impact of the other variables. </li>
 </ul>
@@ -291,166 +214,55 @@ for \(k = 1, \ldots, p\) yields \(p\) equations with \(p\) unknowns.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-11" style="background:;">
-  <hgroup>
-    <h2>Fitting LS equations</h2>
-  </hgroup>
-  <article>
-    <p>Just so I don&#39;t leave you hanging, let&#39;s show a way to get estimates. Recall the equations:
-\[
-\sum_{i=1}^n (Y_i - X_{1i}\hat \beta_1 - \ldots - X_{ip}\hat \beta_p) X_k = 0
-\]
-If I hold \(\hat \beta_1, \ldots, \hat \beta_{p-1}\) fixed then
-we get that
-\[
-\hat \beta_p = \frac{\sum_{i=1}^n (Y_i - X_{1i}\hat \beta_1 - \ldots - X_{i,p-1}\hat \beta_{p-1}) X_{ip} }{\sum_{i=1}^n X_{ip}^2}
-\]
-Plugging this back into the equations, we wind up with 
-\[
-\sum_{i=1}^n (e_{i,Y|X_p} - e_{i, X_{1} | X_p} \hat \beta_1 - \ldots - e_{i, X_{p-1} | X_{p}} \hat \beta_{p-1}) X_k = 0
-\]</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-12" style="background:;">
-  <hgroup>
-    <h2>We can tidy it up a bit more, though</h2>
-  </hgroup>
-  <article>
-    <p>Note that
-\[
-X_k  = e_{i,X_k|X_p} + \frac{\sum_{i=1}^n X_{ik} X_{ip}}{\sum_{i=1}^n X_{ip^2}} X_p
-\]
-and \(\sum_{i=1}^n e_{i,X_j | X_p} X_{ip} = 0\).
-Thus 
-\[
-\sum_{i=1}^n (e_{i,Y|X_p} - e_{i, X_{1} | X_p} \hat \beta_1 - \ldots - e_{i, X_{p-1} | X_{p}} \hat \beta_{p-1}) X_k = 0
-\]
-is equal to
-\[
-\sum_{i=1}^n (e_{i,Y|X_p} - e_{i, X_{1} | X_p} \hat \beta_1 - \ldots - e_{i, X_{p-1} | X_{p}} \hat \beta_{p-1}) e_{i,X_k|X_p} = 0
-\]</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-13" style="background:;">
-  <hgroup>
-    <h2>To sum up</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>We&#39;ve reduced \(p\) LS equations and \(p\) unknowns to \(p-1\) LS equations and \(p-1\) unknowns.
-
-<ul>
-<li>Every variable has been replaced by its residual with \(X_p\). </li>
-<li>This process can then be iterated until only Y and one
-variable remains. </li>
-</ul></li>
-<li>Think of it as follows. If we want an adjusted relationship between y and x, keep taking residuals over confounders and do regression through the origin.
-
-<ul>
-<li>The order that you do the confounders doesn&#39;t matter.</li>
-<li>(It can&#39;t because our choice of doing \(p\) first 
-was arbitrary.)</li>
-</ul></li>
-<li>This isn&#39;t a terribly efficient way to get estimates. But, it&#39;s nice conceputally, as it shows how regression estimates are adjusted for the linear relationship with other variables.</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>Demonstration that it works using an example</h2>
   </hgroup>
-  <article>
-    <h3>Linear model with two variables and an intercept</h3>
+  <article data-timings="">
+    <h3>Linear model with two variables</h3>
 
-<pre><code class="r">n &lt;- 100; x &lt;- rnorm(n); x2 &lt;- rnorm(n); x3 &lt;- rnorm(n)
-y &lt;- x + x2 + x3 + rnorm(n, sd = .1)
-e &lt;- function(a, b) a -  sum( a * b ) / sum( b ^ 2) * b
-ey &lt;- e(e(y, x2), e(x3, x2))
-ex &lt;- e(e(x, x2), e(x3, x2))
+<pre><code class="r">n = 100; x = rnorm(n); x2 = rnorm(n); x3 = rnorm(n)
+y = 1 + x + x2 + x3 + rnorm(n, sd = .1)
+ey = resid(lm(y ~ x2 + x3))
+ex = resid(lm(x ~ x2 + x3))
 sum(ey * ex) / sum(ex ^ 2)
 </code></pre>
 
-<pre><code>[1] 1.004
+<pre><code>## [1] 1.009
 </code></pre>
 
-<pre><code class="r">coef(lm(y ~ x + x2 + x3 - 1)) #the -1 removes the intercept term
+<pre><code class="r">coef(lm(ey ~ ex - 1))
 </code></pre>
 
-<pre><code>     x     x2     x3 
-1.0040 0.9899 1.0078 
+<pre><code>##    ex 
+## 1.009
+</code></pre>
+
+<pre><code class="r">coef(lm(y ~ x + x2 + x3)) 
+</code></pre>
+
+<pre><code>## (Intercept)           x          x2          x3 
+##      1.0202      1.0090      0.9787      1.0064
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
-    <h2>Showing that order doesn&#39;t matter</h2>
+    <h2>Interpretation of the coeficients</h2>
   </hgroup>
-  <article>
-    <pre><code class="r">ey &lt;- e(e(y, x3), e(x2, x3))
-ex &lt;- e(e(x, x3), e(x2, x3))
-sum(ey * ex) / sum(ex ^ 2)
-</code></pre>
+  <article data-timings="">
+    <p>\[E[Y | X_1 = x_1, \ldots, X_p = x_p] = \sum_{k=1}^p x_{k} \beta_k\]</p>
 
-<pre><code>[1] 1.004
-</code></pre>
+<p>\[
+E[Y | X_1 = x_1 + 1, \ldots, X_p = x_p] = (x_1 + 1) \beta_1 + \sum_{k=2}^p x_{k} \beta_k
+\]</p>
 
-<pre><code class="r">coef(lm(y ~ x + x2 + x3 - 1)) #the -1 removes the intercept term
-</code></pre>
-
-<pre><code>     x     x2     x3 
-1.0040 0.9899 1.0078 
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-16" style="background:;">
-  <hgroup>
-    <h2>Residuals again</h2>
-  </hgroup>
-  <article>
-    <pre><code class="r">ey &lt;- resid(lm(y ~ x2 + x3 - 1))
-ex &lt;- resid(lm(x ~ x2 + x3 - 1))
-sum(ey * ex) / sum(ex ^ 2)
-</code></pre>
-
-<pre><code>[1] 1.004
-</code></pre>
-
-<pre><code class="r">coef(lm(y ~ x + x2 + x3 - 1)) #the -1 removes the intercept term
-</code></pre>
-
-<pre><code>     x     x2     x3 
-1.0040 0.9899 1.0078 
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-17" style="background:;">
-  <hgroup>
-    <h2>Interpretation of the coeficient</h2>
-  </hgroup>
-  <article>
-    <p>\[E[Y | X_1 = x_1, \ldots, X_p = x_p] = \sum_{k=1}^p x_{k} \beta_k\]
-So that
-\[
+<p>\[
 E[Y | X_1 = x_1 + 1, \ldots, X_p = x_p]  - E[Y | X_1 = x_1, \ldots, X_p = x_p]\]
-\[= (x_1 + 1) \beta_1 + \sum_{k=2}^p x_{k}+ \sum_{k=1}^p x_{k} \beta_k = \beta_1 \]
+\[= (x_1 + 1) \beta_1 + \sum_{k=2}^p x_{k} \beta_k + \sum_{k=1}^p x_{k} \beta_k = \beta_1 \]
 So that the interpretation of a multivariate regression coefficient is the expected change in the response per unit change in the regressor, holding all of the other regressors fixed.</p>
 
 <p>In the next lecture, we&#39;ll do examples and go over context-specific
@@ -460,11 +272,11 @@ interpretations.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-18" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Fitted values, residuals and residual variation</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <p>All of our SLR quantities can be extended to linear models</p>
 
 <ul>
@@ -483,11 +295,11 @@ follows a \(T\) distribution with \(n-p\) degrees of freedom.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-19" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>Linear models</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Linear models are the single most important applied statistical and machine learning techniqe, <em>by far</em>.</li>
 <li>Some amazing things that you can accomplish with linear models
@@ -507,34 +319,101 @@ follows a \(T\) distribution with \(n-p\) degrees of freedom.</li>
 
     <slide class="backdrop"></slide>
   </slides>
-
-  <!--[if IE]>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title=''>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Multivariable regression analyses'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='The linear model'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='How to get estimates'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Result'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Example with two variables, simple linear regression'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='The general case'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Demonstration that it works using an example'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Interpretation of the coeficients'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Fitted values, residuals and residual variation'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Linear models'>
+         11
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
     <script 
       src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
 </body>
-<!-- Grab CDN jQuery, fall back to local if offline -->
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
-<!-- Load Javascripts for Widgets -->
-<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> -->
-<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
 </script>
 <!-- LOAD HIGHLIGHTER JS FILES -->
-<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- DONE LOADING HIGHLIGHTER JS FILES -->
-</html>
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

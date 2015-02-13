@@ -8,51 +8,46 @@
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
     media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../libraries/frameworks/io2012/js/slides" 
-    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-    <link rel="stylesheet" href = "../../assets/css/custom.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
-<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
-<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+  
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
     
     <!-- LOGO SLIDE -->
-    <!-- END LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Statistical linear regression models</h1>
+    <h2></h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
     
 
-    <!-- TITLE SLIDE -->
-    <!-- Should I move this to a Local Layout File? -->
-    <slide class="title-slide segue nobackground">
-      <aside class="gdbar">
-        <img src="../../assets/img/bloomberg_shield.png">
-      </aside>
-      <hgroup class="auto-fadein">
-        <h1>Statistical linear regression models</h1>
-        <h2></h2>
-        <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
-      </hgroup>
-          </slide>
-
     <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
+    <slide class="" id="slide-1" style="background:;">
   <hgroup>
     <h2>Basic regression model with additive Gaussian errors.</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Least squares is an estimation tool, how do we do inference?</li>
 <li>Consider developing a probabilistic model for linear regression
@@ -62,43 +57,17 @@ Y_i = \beta_0 + \beta_1 X_i + \epsilon_{i}
 <li>Here the \(\epsilon_{i}\) are assumed iid \(N(0, \sigma^2)\). </li>
 <li>Note, \(E[Y_i ~|~ X_i = x_i] = \mu_i = \beta_0 + \beta_1 x_i\)</li>
 <li>Note, \(Var(Y_i ~|~ X_i = x_i) = \sigma^2\).</li>
-<li>Likelihood equivalent model specification is that the \(Y_i\) are independent \(N(\mu_i, \sigma^2)\).</li>
 </ul>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-2" style="background:;">
-  <hgroup>
-    <h2>Likelihood</h2>
-  </hgroup>
-  <article>
-    <p>\[
-{\cal L}(\beta, \sigma)
-= \prod_{i=1}^n \left\{(2 \pi \sigma^2)^{-1/2}\exp\left(-\frac{1}{2\sigma^2}(y_i - \mu_i)^2 \right) \right\}
-\]
-so that the twice the negative log (base e) likelihood is
-\[
--2 \log\{ {\cal L}(\beta, \sigma) \}
-= \frac{1}{\sigma^2} \sum_{i=1}^n (y_i - \mu_i)^2 + n\log(\sigma^2)
-\]
-Discussion</p>
-
-<ul>
-<li>Maximizing the likelihood is the same as minimizing -2 log likelihood</li>
-<li>The least squares estimate for \(\mu_i = \beta_0 + \beta_1 x_i\) is exactly the maximimum likelihood estimate (regardless of \(\sigma\))</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
     <h2>Recap</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Model \(Y_i =  \mu_i + \epsilon_i = \beta_0 + \beta_1 X_i + \epsilon_i\) where \(\epsilon_i\) are iid \(N(0, \sigma^2)\)</li>
 <li>ML estimates of \(\beta_0\) and \(\beta_1\) are the least squares estimates
@@ -111,11 +80,11 @@ Discussion</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Interpretting regression coefficients, the itc</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>\(\beta_0\) is the expected value of the response when the predictor is 0
 \[
@@ -128,7 +97,7 @@ Y_i = \beta_0 + \beta_1 X_i + \epsilon_i
 = \beta_0 + a \beta_1 + \beta_1 (X_i - a) + \epsilon_i
 = \tilde \beta_0 + \beta_1 (X_i - a) + \epsilon_i
 \]
-So, shifting you \(X\) values by value \(a\) changes the intercept, but not the slope. </li>
+So, shifting your \(X\) values by value \(a\) changes the intercept, but not the slope. </li>
 <li>Often \(a\) is set to \(\bar X\) so that the intercept is interpretted as the expected response at the average \(X\) value.</li>
 </ul>
 
@@ -136,11 +105,11 @@ So, shifting you \(X\) values by value \(a\) changes the intercept, but not the 
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Interpretting regression coefficients, the slope</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>\(\beta_1\) is the expected change in response for a 1 unit change in the predictor
 \[
@@ -167,74 +136,53 @@ X m \times \frac{100cm}{m} = (100 X) cm
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-6" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>Using regression coeficients for prediction</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>If we would like to guess the outcome at a particular
 value of the predictor, say \(X\), the regression model guesses
 \[
 \hat \beta_0 + \hat \beta_1 X
 \]</li>
-<li>Note that at the observed value of $X$s, we obtain the
-predictions
-\[
-\hat \mu_i = \hat Y_i = \hat \beta_0 + \hat \beta_1 X_i
-\]</li>
-<li>Remember that least squares minimizes 
-\[
-\sum_{i=1}^n (Y_i - \mu_i)
-\]
-for \(\mu_i\) expressed as points on a line</li>
 </ul>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Example</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <h3><code>diamond</code> data set from <code>UsingR</code></h3>
 
-<p>Data is diamond prices (Signapore dollars) and diamond weight
+<p>Data is diamond prices (Singapore dollars) and diamond weight
 in carats (standard measure of diamond mass, 0.2 \(g\)). To get the data use <code>library(UsingR); data(diamond)</code></p>
-
-<p>Plotting the fitted regression line and data</p>
-
-<pre><code>data(diamond)
-plot(diamond$carat, diamond$price,  
-     xlab = &quot;Mass (carats)&quot;, 
-     ylab = &quot;Price (SIN $)&quot;, 
-     bg = &quot;lightblue&quot;, 
-     col = &quot;black&quot;, cex = 1.1, pch = 21,frame = FALSE)
-abline(lm(price ~ carat, data = diamond), lwd = 2)
-</code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-8" style="background:;">
+<slide class="" id="slide-7" style="background:;">
   <hgroup>
-    <h2>The plot</h2>
+    <h2>Plot of the data</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-9" style="background:;">
+<slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>Fitting the linear regression model</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">fit &lt;- lm(price ~ carat, data = diamond)
 coef(fit)
 </code></pre>
@@ -253,11 +201,11 @@ of a 0 carat diamond.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>Getting a more interpretable intercept</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">fit2 &lt;- lm(price ~ I(carat - mean(carat)), data = diamond)
 coef(fit2)
 </code></pre>
@@ -273,11 +221,11 @@ the average sized diamond of the data (0.2042 carats).</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Changing scale</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>A one carat increase in a diamond is pretty big, what about
 changing units to 1/10th of a carat? </li>
@@ -301,11 +249,11 @@ coef(fit3)
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>Predicting the price of a diamond</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <pre><code class="r">newx &lt;- c(0.16, 0.27, 0.34)
 coef(fit)[1] + coef(fit)[2] * newx
 </code></pre>
@@ -324,11 +272,8 @@ coef(fit)[1] + coef(fit)[2] * newx
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-13" style="background:;">
-  <hgroup>
-    
-  </hgroup>
-  <article>
+<slide class="" id="slide-12" style="background:;">
+  <article data-timings="">
     <p>Predicted values at the observed Xs (red)
 and at the new Xs (lines)</p>
 
@@ -340,34 +285,107 @@ and at the new Xs (lines)</p>
 
     <slide class="backdrop"></slide>
   </slides>
-
-  <!--[if IE]>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Basic regression model with additive Gaussian errors.'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Recap'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Interpretting regression coefficients, the itc'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Interpretting regression coefficients, the slope'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Using regression coeficients for prediction'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Example'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Plot of the data'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Fitting the linear regression model'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Getting a more interpretable intercept'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Changing scale'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Predicting the price of a diamond'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title=''>
+         12
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
     <script 
       src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
 </body>
-<!-- Grab CDN jQuery, fall back to local if offline -->
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
-<!-- Load Javascripts for Widgets -->
-<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> -->
-<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
 </script>
 <!-- LOAD HIGHLIGHTER JS FILES -->
-<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- DONE LOADING HIGHLIGHTER JS FILES -->
-</html>
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

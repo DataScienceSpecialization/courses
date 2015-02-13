@@ -8,14 +8,13 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 
 ---
-
-```{r setup, cache = FALSE, echo = FALSE, message = FALSE, warning = FALSE, tidy = FALSE}
+````{r setup, cache = FALSE, echo = FALSE, message = FALSE, warning = FALSE, tidy = FALSE, results='hide', error=FALSE}
 # make this an external chunk that can be included in any file
 options(width = 100)
 opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
@@ -29,21 +28,26 @@ knit_hooks$set(inline = function(x) {
   }
 })
 knit_hooks$set(plot = knitr:::hook_plot_html)
+runif(1)
 ```
 
 ## General least squares for linear equations
 Consider again the parent and child height data from Galton
 
-```{r, fig.height=5, fig.width=5, echo=FALSE}
+```{r, fig.height=5, fig.width=8, echo=FALSE}
 library(UsingR)
 data(galton)
+library(dplyr); library(ggplot2)
 freqData <- as.data.frame(table(galton$child, galton$parent))
 names(freqData) <- c("child", "parent", "freq")
-plot(as.numeric(as.vector(freqData$parent)), 
-     as.numeric(as.vector(freqData$child)),
-     pch = 21, col = "black", bg = "lightblue",
-     cex = .05 * freqData$freq, 
-     xlab = "parent", ylab = "child")
+freqData$child <- as.numeric(as.character(freqData$child))
+freqData$parent <- as.numeric(as.character(freqData$parent))
+g <- ggplot(filter(freqData, freq > 0), aes(x = parent, y = child))
+g <- g  + scale_size(range = c(2, 20), guide = "none" )
+g <- g + geom_point(colour="grey50", aes(size = freq+20, show_guide = FALSE))
+g <- g + geom_point(aes(colour=freq, size = freq))
+g <- g + scale_colour_gradient(low = "lightblue", high="white")  
+g
 ```
 
 ---
@@ -56,113 +60,9 @@ $i^{th}$ (average over the pair of) parents' heights.
   $$
   \sum_{i=1}^n \{Y_i - (\beta_0 + \beta_1 X_i)\}^2
   $$
-* How do we do it?
 
 ---
-## Let's solve this problem generally
-* Let $\mu_i = \beta_0 + \beta_1 X_i$ and our estimates be
-$\hat \mu_i = \hat \beta_0 + \hat \beta_1 X_i$. 
-* We want to minimize
-$$ \dagger \sum_{i=1}^n (Y_i - \mu_i)^2 = \sum_{i=1}^n (Y_i - \hat \mu_i) ^ 2 + 2 \sum_{i=1}^n (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) + \sum_{i=1}^n (\hat \mu_i - \mu_i)^2$$
-* Suppose that $$\sum_{i=1}^n (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) = 0$$ then
-$$ \dagger 
-=\sum_{i=1}^n (Y_i - \hat \mu_i) ^ 2  + \sum_{i=1}^n (\hat \mu_i - \mu_i)^2\geq \sum_{i=1}^n (Y_i - \hat \mu_i) ^ 2$$
-
----
-## Mean only regression
-* So we know that if:
-$$ \sum_{i=1}^n (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) = 0$$
-where $\mu_i = \beta_0 + \beta_1 X_i$ and $\hat \mu_i = \hat \beta_0 + \hat \beta_1 X_i$ then the line 
-$$Y = \hat \beta_0 + \hat \beta_1 X$$
-is the least squares line.
-* Consider forcing $\beta_1 = 0$ and thus $\hat \beta_1=0$; 
-that is, only considering horizontal lines
-* The solution works out to be
-$$\hat \beta_0 = \bar Y.$$
-
----
-## Let's show it
-$$\begin{align} \
-\sum_{i=1}^n (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) 
-= & \sum_{i=1}^n (Y_i - \hat \beta_0) (\hat \beta_0 - \beta_0) \\
-= & (\hat \beta_0 - \beta_0) \sum_{i=1}^n (Y_i   - \hat \beta_0) \
-\end{align} $$
-
-Thus, this will equal 0 if $\sum_{i=1}^n (Y_i  - \hat \beta_0)
-= n\bar Y - n \hat \beta_0=0$
-
-Thus $\hat \beta_0 = \bar Y.$
-
----
-## Regression through the origin
-* Recall that if:
-$$ \sum_{i=1}^n (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) = 0$$
-where $\mu_i = \beta_0 + \beta_1 X_i$ and $\hat \mu_i = \hat \beta_0 + \hat \beta_1 X_i$ then the line 
-$$Y = \hat \beta_0 + \hat \beta_1 X$$
-is the least squares line.
-* Consider forcing $\beta_0 = 0$ and thus $\hat \beta_0=0$; 
-that is, only considering lines through the origin
-* The solution works out to be
-$$\hat \beta_1 = \frac{\sum_{i=1^n} Y_i X_i}{\sum_{i=1}^n X_i^2}.$$
-
----
-## Let's show it
-$$\begin{align} \
-\sum_{i=1}^n (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) 
-= & \sum_{i=1}^n (Y_i - \hat \beta_1 X_i) (\hat \beta_1 X_i - \beta_1 X_i) \\
-= & (\hat \beta_1 - \beta_1) \sum_{i=1}^n (Y_i X_i  - \hat \beta_1 X_i ^2) \
-\end{align} $$
-
-Thus, this will equal 0 if $\sum_{i=1}^n (Y_i X_i  - \hat \beta_1 X_i ^2) = \sum_{i=1}^n Y_i X_i - \hat \beta_1 \sum_{i=1}^n X_i^2 =0$
-
-Thus
-$$\hat \beta_1 = \frac{\sum_{i=1^n} Y_i X_i}{\sum_{i=1}^n X_i^2}.$$
-
-
----
-## Recapping what we know
-* If we define $\mu_i = \beta_0$ then $\hat \beta_0 = \bar Y$.
-  * If we only look at horizontal lines, the least squares estimate of the intercept of that line is the average of the outcomes.
-* If we define $\mu_i = X_i \beta_1$ then $\hat \beta_1 = \frac{\sum_{i=1^n} Y_i X_i}{\sum_{i=1}^n X_i^2}$
-  * If we only look at lines through the origin, we get the estimated slope is the cross product of the X and Ys divided by the cross product of the Xs with themselves.
-* What about when $\mu_i = \beta_0 + \beta_1 X_i$? That is, we don't want to restrict ourselves to horizontal lines or lines through the origin.
-
----
-## Let's figure it out
-$$\begin{align} \
-\sum_{i=1}^n (Y_i - \hat \mu_i) (\hat \mu_i - \mu_i) 
-= & \sum_{i=1}^n (Y_i - \hat\beta_0 - \hat\beta_1 X_i) (\hat \beta_0 + \hat \beta_1 X_i - \beta_0 - \beta_1 X_i) \\
-= & (\hat \beta_0 - \beta_0) \sum_{i=1}^n (Y_i - \hat\beta_0 - \hat \beta_1 X_i) + (\beta_1 - \beta_1)\sum_{i=1}^n (Y_i - \hat\beta_0 - \hat \beta_1 X_i)X_i\\
-\end{align} $$
-Note that 
-
-$$0=\sum_{i=1}^n (Y_i - \hat\beta_0 - \hat \beta_1 X_i) = n \bar Y - n \hat \beta_0 - n \hat \beta_1 \bar X ~~\mbox{implies that}~~\hat \beta_0 = \bar Y - \hat \beta_1 \bar X $$
-
-Then
-$$\sum_{i=1}^n (Y_i  - \hat\beta_0 - \hat \beta_1 X_i) X_i =  \sum_{i=1}^n (Y_i  - \bar Y + \hat \beta_1 \bar X - \hat \beta_1 X_i)X_i$$
-
----
-## Continued
-$$=\sum_{i=1}^n \{(Y_i  - \bar Y) - \hat \beta_1 (X_i - \bar X) \}X_i$$
-And thus
-$$ \sum_{i=1}^n (Y_i  - \bar Y)X_i - \hat \beta_1 \sum_{i=1}^n
-(X_i - \bar X) X_i = 0.$$
-So we arrive at
-$$
-\hat \beta_1 =
-\frac{\sum_{i=1}^n \{(Y_i  - \bar Y)X_i}{\sum_{i=1}^n
-(X_i - \bar X) X_i} = 
-\frac{\sum_{i=1}^n (Y_i  - \bar Y)(X_i - \bar X)}{\sum_{i=1}^n
-(X_i - \bar X) (X_i - \bar X)}
-= Cor(Y, X) \frac{Sd(Y)}{Sd(X)}.
-$$
-And recall
-$$
-\hat \beta_0 = \bar Y - \hat \beta_1 \bar X.
-$$
-
----
-## Consequences
+## Results
 * The least squares model fit to the line $Y = \beta_0 + \beta_1 X$ through the data pairs $(X_i, Y_i)$ with $Y_i$ as the outcome obtains the line $Y = \hat \beta_0 + \hat \beta_1 X$ where
   $$\hat \beta_1 = Cor(Y, X) \frac{Sd(Y)}{Sd(X)} ~~~ \hat \beta_0 = \bar Y - \hat \beta_1 \bar X$$
 * $\hat \beta_1$ has the units of $Y / X$, $\hat \beta_0$ has the units of $Y$.
@@ -171,6 +71,7 @@ $$
 * The slope is the same one you would get if you centered the data,
 $(X_i - \bar X, Y_i - \bar Y)$, and did regression through the origin.
 * If you normalized the data, $\{ \frac{X_i - \bar X}{Sd(X)}, \frac{Y_i - \bar Y}{Sd(Y)}\}$, the slope is $Cor(Y, X)$.
+
 
 ---
 ## Revisiting Galton's data
@@ -211,42 +112,15 @@ xn <- (x - mean(x))/sd(x)
 c(cor(y, x), cor(yn, xn), coef(lm(yn ~ xn))[2])
 ```
 
-
----
-## Plotting the fit
-* Size of points are frequencies at that X, Y combination.
-* For the red lie the child is outcome.
-* For the blue, the parent is the outcome  (accounting for the fact that the response is plotted on the horizontal axis).
-* Black line assumes $Cor(Y, X) = 1$ (slope is $Sd(Y)/Sd(x)$).
-* Big black dot is $(\bar X, \bar Y)$.
-
----
-The code to add the lines
-
-```
-abline(mean(y) - mean(x) * cor(y, x) * sd(y) / sd(x), 
-  sd(y) / sd(x) * cor(y, x), 
-  lwd = 3, col = "red")
-abline(mean(y) - mean(x) * sd(y) / sd(x) / cor(y, x), 
-  sd(y) cor(y, x) / sd(x), 
-  lwd = 3, col = "blue")
-abline(mean(y) - mean(x) * sd(y) / sd(x), 
-  sd(y) / sd(x), 
-  lwd = 2)
-points(mean(x), mean(y), cex = 2, pch = 19)
-```
-
 ---
 ```{r, fig.height=6,fig.width=6,echo=FALSE}
-freqData <- as.data.frame(table(galton$child, galton$parent))
-names(freqData) <- c("child", "parent", "freq")
-plot(as.numeric(as.vector(freqData$parent)), 
-     as.numeric(as.vector(freqData$child)),
-     pch = 21, col = "black", bg = "lightblue",
-     cex = .05 * freqData$freq, 
-     xlab = "parent", ylab = "child", xlim = c(62, 74), ylim = c(62, 74))
-abline(mean(y) - mean(x) * cor(y, x) * sd(y) / sd(x), sd(y) / sd(x) * cor(y, x), lwd = 3, col = "red")
-abline(mean(y) - mean(x) * sd(y) / sd(x) / cor(y, x), sd(y) / sd(x) / cor(y, x), lwd = 3, col = "blue")
-abline(mean(y) - mean(x) * sd(y) / sd(x), sd(y) / sd(x), lwd = 2)
-points(mean(x), mean(y), cex = 2, pch = 19)
+g <- ggplot(filter(freqData, freq > 0), aes(x = parent, y = child))
+g <- g  + scale_size(range = c(2, 20), guide = "none" )
+g <- g + geom_point(colour="grey50", aes(size = freq+20, show_guide = FALSE))
+g <- g + geom_point(aes(colour=freq, size = freq))
+g <- g + scale_colour_gradient(low = "lightblue", high="white")  
+g <- g + geom_smooth(method="lm", formula=y~x)
+g
 ```
+
+

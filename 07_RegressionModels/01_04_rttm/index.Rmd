@@ -1,14 +1,14 @@
 ---
 title       : Historical side note, Regression to Mediocrity
-subtitle    : Regression to the mean
-author      : Brian Caffo, Jeff Leek, Roger Peng PhD
+subtitle    : Regression
+author      : Brian Caffo, Jeff Leek and Roger Peng
 job         : Johns Hopkins Bloomberg School of Public Health
 logo        : bloomberg_shield.png
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -56,41 +56,41 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 * Notice if $X$ is the outcome and you create a plot where $X$ is the horizontal axis, the slope of the least squares line that you plot is $1/Cor(Y, X)$. 
 
 ---
-## Normalizing the data and setting plotting parameters
-```{r, echo = TRUE}
+<<<<<<< HEAD
+```{r, fig.height=6,fig.width=6,echo=FALSE}
+=======
+## Plot of the results
+```{r, fig.height=6,fig.width=6,echo=FALSE, fig.align='center'}
+>>>>>>> 3e5b14bbb8f101fc2a8573beb037d5f1b6f6fe47
 library(UsingR)
 data(father.son)
 y <- (father.son$sheight - mean(father.son$sheight)) / sd(father.son$sheight)
 x <- (father.son$fheight - mean(father.son$fheight)) / sd(father.son$fheight)
 rho <- cor(x, y)
-myPlot <- function(x, y) {
-  plot(x, y, 
-       xlab = "Father's height, normalized",
-       ylab = "Son's height, normalized",
-       xlim = c(-3, 3), ylim = c(-3, 3),
-       bg = "lightblue", col = "black", cex = 1.1, pch = 21, 
-       frame = FALSE)
-}
-```
-
----
-## Plot the data, code
-```
-myPlot(x, y)
-abline(0, 1) # if there were perfect correlation
-abline(0, rho, lwd = 2) # father predicts son
-abline(0, 1 / rho, lwd = 2) # son predicts father, son on vertical axis
-abline(h = 0); abline(v = 0) # reference lines for no relathionship
-```
-
----
-## Plot the data, results
-```{r, fig.height=6,fig.width=6,echo=FALSE}
-myPlot(x, y)
-abline(0, 1)
-abline(0, rho, lwd = 2)
-abline(0, 1 / rho, lwd = 2)
-abline(h = 0); abline(v = 0) 
+library(ggplot2)
+<<<<<<< HEAD
+g = ggplot(data.frame(x = x, y = y), aes(x = x, y = y))
+g = g + geom_point(size = 6, colour = "black", alpha = 0.2)
+g = g + geom_point(size = 4, colour = "salmon", alpha = 0.2)
+g = g + xlim(-4, 4) + ylim(-4, 4)
+g = g + geom_abline(intercept = 0, slope = 1)
+g = g + geom_vline(xintercept = 0)
+g = g + geom_hline(yintercept = 0)
+g = g + geom_abline(intercept = 0, slope = rho, size = 2)
+g = g + geom_abline(intercept = 0, slope = 1 / rho, size = 2)
+=======
+g = ggplot(data.frame(x, y), aes(x = x, y = y))
+g = g + geom_point(size = 5, alpha = .2, colour = "black")
+g = g + geom_point(size = 4, alpha = .2, colour = "red")
+g = g + geom_vline(xintercept = 0)
+g = g + geom_hline(yintercept = 0)
+g = g + geom_abline(position = "identity")
+g = g + geom_abline(intercept = 0, slope = rho, size = 2)
+g = g + geom_abline(intercept = 0, slope = 1 / rho, size = 2)
+g = g + xlab("Father's height, normalized")
+g = g + ylab("Son's height, normalized")
+>>>>>>> 3e5b14bbb8f101fc2a8573beb037d5f1b6f6fe47
+g
 ```
 
 ---

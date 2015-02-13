@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>P-values</title>
+  <meta charset="utf-8">
+  <meta name="description" content="P-values">
+  <meta name="author" content="Brian Caffo, Jeffrey Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>P-values</h1>
+    <h2>Statistical inference</h2>
+    <p>Brian Caffo, Jeffrey Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>P-values</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Most common measure of statistical significance</li>
+<li>Their ubiquity, along with concern over their interpretation and use
+makes them controversial among statisticians
+
+<ul>
+<li><a href="http://warnercnr.colostate.edu/%7Eanderson/thompson1.html">http://warnercnr.colostate.edu/~anderson/thompson1.html</a></li>
+<li>Also see <em>Statistical Evidence: A Likelihood Paradigm</em> by Richard Royall </li>
+<li><em>Toward Evidence-Based Medical Statistics. 1: The P Value Fallacy</em> by Steve Goodman</li>
+<li>The hilariously titled: <em>The Earth is Round (p &lt; .05)</em> by Cohen.</li>
+</ul></li>
+<li>Some positive comments
+
+<ul>
+<li><a href="http://simplystatistics.org/2012/01/06/p-values-and-hypothesis-testing-get-a-bad-rap-but-we/">simply statistics</a></li>
+<li><a href="http://normaldeviate.wordpress.com/2013/03/14/double-misunderstandings-about-p-values/">normal deviate</a></li>
+<li><a href="http://errorstatistics.com/2013/06/14/p-values-cant-be-trusted-except-when-used-to-argue-that-p-values-cant-be-trusted/">Error statistics</a></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>What is a P-value?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><strong>Idea</strong>: Suppose nothing is going on - how unusual is it to see the estimate we got?</p>
+
+<p><strong>Approach</strong>: </p>
+
+<ol>
+<li>Define the hypothetical distribution of a data summary (statistic) when &quot;nothing is going on&quot; (<em>null hypothesis</em>)</li>
+<li>Calculate the summary/statistic with the data we have (<em>test statistic</em>)</li>
+<li>Compare what we calculated to our hypothetical distribution and see if the value is &quot;extreme&quot; (<em>p-value</em>)</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>P-values</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The P-value is the probability under the null hypothesis of obtaining evidence as extreme or more extreme than that obtained</li>
+<li>If the P-value is small, then either \(H_0\) is true and we have observed a rare event or \(H_0\) is false</li>
+<li> Suppos that you get a \(T\) statistic of \(2.5\) for 15 df testing \(H_0:\mu = \mu_0\)
+versus \(H_a : \mu > \mu_0\). 
+
+<ul>
+<li>What&#39;s the probability of getting a \(T\) statistic as large as \(2.5\)?</li>
+</ul></li>
+</ul>
+
+<pre><code class="r">pt(2.5, 15, lower.tail = FALSE)
+</code></pre>
+
+<pre><code>## [1] 0.01225
+</code></pre>
+
+<ul>
+<li>Therefore, the probability of seeing evidence as extreme or more extreme than that actually obtained under \(H_0\) is 0.0123</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>The attained significance level</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Our test statistic was \(2\) for \(H_0 : \mu_0  = 30\) versus \(H_a:\mu > 30\).</li>
+<li>Notice that we rejected the one sided test when \(\alpha = 0.05\), would we reject if \(\alpha = 0.01\), how about \(0.001\)?</li>
+<li>The smallest value for alpha that you still reject the null hypothesis is called the <em>attained significance level</em></li>
+<li>This is equivalent, but philosophically a little different from, the <em>P-value</em></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Notes</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>By reporting a P-value the reader can perform the hypothesis
+test at whatever \(\alpha\) level he or she choses</li>
+<li>If the P-value is less than \(\alpha\) you reject the null hypothesis </li>
+<li>For two sided hypothesis test, double the smaller of the two one
+sided hypothesis test Pvalues</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Revisiting an earlier example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Suppose a friend has \(8\) children, \(7\) of which are girls and none are twins</li>
+<li>If each gender has an independent \(50\)% probability for each birth, what&#39;s the probability of getting \(7\) or more girls out of \(8\) births?</li>
+</ul>
+
+<pre><code class="r">choose(8, 7) * 0.5^8 + choose(8, 8) * 0.5^8
+</code></pre>
+
+<pre><code>## [1] 0.03516
+</code></pre>
+
+<pre><code class="r">pbinom(6, size = 8, prob = 0.5, lower.tail = FALSE)
+</code></pre>
+
+<pre><code>## [1] 0.03516
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Poisson example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Suppose that a hospital has an infection rate of 10 infections per 100 person/days at risk (rate of 0.1) during the last monitoring period.</li>
+<li>Assume that an infection rate of 0.05 is an important benchmark. </li>
+<li>Given the model, could the observed rate being larger than 0.05 be attributed to chance?</li>
+<li>Under \(H_0: \lambda = 0.05\) so that \(\lambda_0 100 = 5\)</li>
+<li>Consider \(H_a: \lambda > 0.05\).</li>
+</ul>
+
+<pre><code class="r">ppois(9, 5, lower.tail = FALSE)
+</code></pre>
+
+<pre><code>## [1] 0.03183
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='P-values'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='What is a P-value?'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='P-values'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='The attained significance level'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Notes'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Revisiting an earlier example'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Poisson example'>
+         7
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

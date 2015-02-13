@@ -8,13 +8,11 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
-## A famous motivating example
-
 ```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F, results='hide'}
 # make this an external chunk that can be included in any file
 options(width = 100)
@@ -32,6 +30,8 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 runif(1)
 ```
 
+## A famous motivating example
+
 <img class=center src=fig/galton.jpg height=150>
 
 ### (Perhaps surprisingly, this example is still relevant)
@@ -41,6 +41,24 @@ runif(1)
 [http://www.nature.com/ejhg/journal/v17/n8/full/ejhg20095a.html](http://www.nature.com/ejhg/journal/v17/n8/full/ejhg20095a.html)
 
 [Predicting height: the Victorian approach beats modern genomics](http://www.wired.com/wiredscience/2009/03/predicting-height-the-victorian-approach-beats-modern-genomics/)
+
+---
+## Recent simply statistics post
+(Simply Statistics is a blog by Jeff Leek, Roger Peng and 
+Rafael Irizarry, who wrote this post, link on the image)
+
+<a href="http://simplystatistics.org/2013/01/28/data-supports-claim-that-if-kobe-stops-ball-hogging-the-lakers-will-win-more/">
+<img class=center src=http://simplystatistics.org/wp-content/uploads/2013/01/kobelakers1-1024x1024.png height=250></img>
+</a>
+
+- "Data supports claim that if Kobe stops ball hogging the Lakers will win more"
+- "Linear regression suggests that an increase of 1% in % of shots taken by Kobe results in a drop of 1.16 points (+/- 0.22)  in score differential."
+- How was it done? Do you agree with the analysis? 
+
+
+
+
+
 
 ---
 ## Questions for this class
@@ -70,13 +88,12 @@ runif(1)
   * Overplotting is an issue from discretization.
 
 ---
-## Code
-
 ```{r galton,fig.height=3.5,fig.width=8}
-library(UsingR); data(galton)
-par(mfrow=c(1,2))
-hist(galton$child,col="blue",breaks=100)
-hist(galton$parent,col="blue",breaks=100)
+library(UsingR); data(galton); library(reshape); long <- melt(galton)
+g <- ggplot(long, aes(x = value, fill = variable)) 
+g <- g + geom_histogram(colour = "black", binwidth=1) 
+g <- g + facet_grid(. ~ variable)
+g
 ```
 
 ---
@@ -86,7 +103,7 @@ hist(galton$parent,col="blue",breaks=100)
   * One definition, let $Y_i$ be the height of child $i$ for $i = 1, \ldots, n = 928$, then define the middle as the value of $\mu$
   that minimizes $$\sum_{i=1}^n (Y_i - \mu)^2$$
 * This is physical center of mass of the histrogram.
-* You might have guessed that the answer $\mu = \bar X$.
+* You might have guessed that the answer $\mu = \bar Y$.
 
 
 ---
@@ -96,61 +113,67 @@ hist(galton$parent,col="blue",breaks=100)
 ```
 library(manipulate)
 myHist <- function(mu){
-  hist(galton$child,col="blue",breaks=100)
-  lines(c(mu, mu), c(0, 150),col="red",lwd=5)
-  mse <- mean((galton$child - mu)^2)
-  text(63, 150, paste("mu = ", mu))
-  text(63, 140, paste("MSE = ", round(mse, 2)))
+    mse <- mean((galton$child - mu)^2)
+    g <- ggplot(galton, aes(x = child)) + geom_histogram(fill = "salmon", colour = "black", binwidth=1)
+    g <- g + geom_vline(xintercept = mu, size = 3)
+    g <- g + ggtitle(paste("mu = ", mu, ", MSE = ", round(mse, 2), sep = ""))
+    g
 }
 manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 ```
 
 ---
-## The least squares estimate is the empirical mean
-```{r lsm, dependson="galton",fig.height=4,fig.width=4}
-  hist(galton$child,col="blue",breaks=100)
-  meanChild <- mean(galton$child)
-  lines(rep(meanChild,100),seq(0,150,length=100),col="red",lwd=5)
+## The least squares est. is the empirical mean
+```{r , fig.height=4, fig.width=4, fig.align='center'}
+g <- ggplot(galton, aes(x = child)) + geom_histogram(fill = "salmon", colour = "black", binwidth=1)
+g <- g + geom_vline(xintercept = mean(galton$child), size = 3)
+g
 ```
 
 ---
-### The math follows as:
+### The math (not required for the class) follows as:
 $$ 
 \begin{align} 
-\sum_{i=1}^n (Y_i - \mu)^2 & = \
-\sum_{i=1}^n (Y_i - \bar Y + \bar Y - \mu)^2 \\ 
-& = \sum_{i=1}^n (Y_i - \bar Y)^2 + \
-2 \sum_{i=1}^n (Y_i - \bar Y)  (\bar Y - \mu) +\
-\sum_{i=1}^n (\bar Y - \mu)^2 \\
-& = \sum_{i=1}^n (Y_i - \bar Y)^2 + \
-2 (\bar Y - \mu) \sum_{i=1}^n (Y_i - \bar Y)  +\
-\sum_{i=1}^n (\bar Y - \mu)^2 \\
-& = \sum_{i=1}^n (Y_i - \bar Y)^2 + \
-2 (\bar Y - \mu)  (\sum_{i=1}^n Y_i - n \bar Y) +\
-\sum_{i=1}^n (\bar Y - \mu)^2 \\
-& = \sum_{i=1}^n (Y_i - \bar Y)^2 + \sum_{i=1}^n (\bar Y - \mu)^2\\ 
-& \geq \sum_{i=1}^n (Y_i - \bar Y)^2 \
+\sum_{i=1}^n \left(Y_i - \mu\right)^2 & = \
+\sum_{i=1}^n \left(Y_i - \bar Y + \bar Y - \mu\right)^2 \\ 
+& = \sum_{i=1}^n \left(Y_i - \bar Y\right)^2 + \
+2 \sum_{i=1}^n \left(Y_i - \bar Y\right)  \left(\bar Y - \mu\right) +\
+\sum_{i=1}^n \left(\bar Y - \mu\right)^2 \\
+& = \sum_{i=1}^n \left(Y_i - \bar Y\right)^2 + \
+2 \left(\bar Y - \mu\right) \sum_{i=1}^n \left(Y_i - \bar Y\right) +\
+\sum_{i=1}^n \left(\bar Y - \mu\right)^2 \\
+& = \sum_{i=1}^n \left(Y_i - \bar Y\right)^2 + \
+2 \left(\bar Y - \mu\right)  \left(\left(\sum_{i=1}^n Y_i\right) -\
+ n \bar Y\right) +\
+\sum_{i=1}^n \left(\bar Y - \mu\right)^2 \\
+& = \sum_{i=1}^n \left(Y_i - \bar Y\right)^2 + \
+ \sum_{i=1}^n \left(\bar Y - \mu\right)^2\\ 
+& \geq \sum_{i=1}^n \left(Y_i - \bar Y\right)^2 \
 \end{align} 
 $$
 
 ---
 ## Comparing childrens' heights and their parents' heights
 
-```{r, dependson="galton",fig.height=4,fig.width=4}
-plot(galton$parent,galton$child,pch=19,col="blue")
+```{r, dependson="galton",fig.height=4,fig.width=4, fig.align='center'}
+ggplot(galton, aes(x = parent, y = child)) + geom_point()
 ```
 
 ---
 Size of point represents number of points at that (X, Y) combination (See the Rmd file for the code).
 
-```{r freqGalton, dependson="galton",fig.height=6,fig.width=6,echo=FALSE}
+```{r freqGalton, dependson="galton",fig.height=6,fig.width=7,echo=FALSE}
+library(dplyr)
 freqData <- as.data.frame(table(galton$child, galton$parent))
 names(freqData) <- c("child", "parent", "freq")
-plot(as.numeric(as.vector(freqData$parent)), 
-     as.numeric(as.vector(freqData$child)),
-     pch = 21, col = "black", bg = "lightblue",
-     cex = .15 * freqData$freq, 
-     xlab = "parent", ylab = "child")
+freqData$child <- as.numeric(as.character(freqData$child))
+freqData$parent <- as.numeric(as.character(freqData$parent))
+g <- ggplot(filter(freqData, freq > 0), aes(x = parent, y = child))
+g <- g  + scale_size(range = c(2, 20), guide = "none" )
+g <- g + geom_point(colour="grey50", aes(size = freq+20, show_guide = FALSE))
+g <- g + geom_point(aes(colour=freq, size = freq))
+g <- g + scale_colour_gradient(low = "lightblue", high="white")                    
+g
 ```
 
 ---
@@ -165,24 +188,23 @@ of the points to the line
 and children's heights
 
 ---
-```
+```{r, echo = TRUE, eval = FALSE}
+y <- galton$child - mean(galton$child)
+x <- galton$parent - mean(galton$parent)
+freqData <- as.data.frame(table(x, y))
+names(freqData) <- c("child", "parent", "freq")
+freqData$child <- as.numeric(as.character(freqData$child))
+freqData$parent <- as.numeric(as.character(freqData$parent))
 myPlot <- function(beta){
-  y <- galton$child - mean(galton$child)
-  x <- galton$parent - mean(galton$parent)
-  freqData <- as.data.frame(table(x, y))
-  names(freqData) <- c("child", "parent", "freq")
-  plot(
-    as.numeric(as.vector(freqData$parent)), 
-    as.numeric(as.vector(freqData$child)),
-    pch = 21, col = "black", bg = "lightblue",
-    cex = .15 * freqData$freq, 
-    xlab = "parent", 
-    ylab = "child"
-    )
-  abline(0, beta, lwd = 3)
-  points(0, 0, cex = 2, pch = 19)
-  mse <- mean( (y - beta * x)^2 )
-  title(paste("beta = ", beta, "mse = ", round(mse, 3)))
+    g <- ggplot(filter(freqData, freq > 0), aes(x = parent, y = child))
+    g <- g  + scale_size(range = c(2, 20), guide = "none" )
+    g <- g + geom_point(colour="grey50", aes(size = freq+20, show_guide = FALSE))
+    g <- g + geom_point(aes(colour=freq, size = freq))
+    g <- g + scale_colour_gradient(low = "lightblue", high="white")                     
+    g <- g + geom_abline(intercept = 0, slope = beta, size = 3)
+    mse <- mean( (y - beta * x) ^2 )
+    g <- g + ggtitle(paste("beta = ", beta, "mse = ", round(mse, 3)))
+    g
 }
 manipulate(myPlot(beta), beta = slider(0.6, 1.2, step = 0.02))
 ```
@@ -195,17 +217,18 @@ lm(I(child - mean(child))~ I(parent - mean(parent)) - 1, data = galton)
 ```
 
 ---
-## Visualizing the best fit line
-### Size of points are frequencies at that X, Y combination
-```{r, fig.height=5,fig.width=5,echo=FALSE}
+```{r, fig.height=6,fig.width=7,echo=FALSE}
 freqData <- as.data.frame(table(galton$child, galton$parent))
 names(freqData) <- c("child", "parent", "freq")
-plot(as.numeric(as.vector(freqData$parent)), 
-     as.numeric(as.vector(freqData$child)),
-     pch = 21, col = "black", bg = "lightblue",
-     cex = .05 * freqData$freq, 
-     xlab = "parent", ylab = "child")
+freqData$child <- as.numeric(as.character(freqData$child))
+freqData$parent <- as.numeric(as.character(freqData$parent))
+g <- ggplot(filter(freqData, freq > 0), aes(x = parent, y = child))
+g <- g  + scale_size(range = c(2, 20), guide = "none" )
+g <- g + geom_point(colour="grey50", aes(size = freq+20, show_guide = FALSE))
+g <- g + geom_point(aes(colour=freq, size = freq))
+g <- g + scale_colour_gradient(low = "lightblue", high="white")                    
 lm1 <- lm(galton$child ~ galton$parent)
-lines(galton$parent,lm1$fitted,col="red",lwd=3)
+g <- g + geom_abline(intercept = coef(lm1)[1], slope = coef(lm1)[2], size = 3, colour = grey(.5))
+g
 ```
 

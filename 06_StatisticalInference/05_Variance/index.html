@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The variance</title>
+  <meta charset="utf-8">
+  <meta name="description" content="The variance">
+  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>The variance</h1>
+    <h2>Statistical Inference</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>The variance</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The variance of a random variable is a measure of <em>spread</em></li>
+<li>If \(X\) is a random variable with mean \(\mu\), the variance of \(X\) is defined as</li>
+</ul>
+
+<p>\[
+Var(X) = E[(X - \mu)^2] = E[X^2] - E[X]^2
+\] </p>
+
+<ul>
+<li>The expected (squared) distance from the mean</li>
+<li>Densities with a higher variance are more spread out than densities with a lower variance</li>
+<li>The square root of the variance is called the <strong>standard deviation</strong></li>
+<li>The standard deviation has the same units as \(X\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>What&#39;s the variance from the result of a toss of a die? </p>
+
+<ul>
+<li>\(E[X] = 3.5\) </li>
+<li>\(E[X^2] = 1 ^ 2 \times \frac{1}{6} + 2 ^ 2 \times \frac{1}{6} + 3 ^ 2 \times \frac{1}{6} + 4 ^ 2 \times \frac{1}{6} + 5 ^ 2 \times \frac{1}{6} + 6 ^ 2 \times \frac{1}{6} = 15.17\) </li>
+</ul></li>
+<li><p>\(Var(X) = E[X^2] - E[X]^2 \approx 2.92\)</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>What&#39;s the variance from the result of the toss of a coin with probability of heads (1) of \(p\)? </p>
+
+<ul>
+<li>\(E[X] = 0 \times (1 - p) + 1 \times p = p\)</li>
+<li>\(E[X^2] = E[X] = p\) </li>
+</ul></li>
+</ul>
+
+<p>\[Var(X) = E[X^2] - E[X]^2 = p - p^2 = p(1 - p)\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Distributions with increasing variance</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>The sample variance</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The sample variance is 
+\[
+S^2 = \frac{\sum_{i=1} (X_i - \bar X)^2}{n-1}
+\]
+(almost, but not quite, the average squared deviation from
+the sample mean)</li>
+<li>It is also a random variable
+
+<ul>
+<li>It has an associate population distribution</li>
+<li>Its expected value is the population variance</li>
+<li>Its distribution gets more concentrated around the population variance with mroe data</li>
+</ul></li>
+<li>Its square root is the sample standard deviation</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Simulation experiment</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Simulating from a population with variance 1</h3>
+
+<p><img src="assets/fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Variances of x die rolls</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Recall the mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Recall that the average of random sample from a population 
+is itself a random variable</li>
+<li>We know that this distribution is centered around the population
+mean, \(E[\bar X] = \mu\)</li>
+<li>We also know what its variance is \(Var(\bar X) = \sigma^2 / n\)</li>
+<li>This is very useful, since we don&#39;t have repeat sample means 
+to get its variance; now we know how it relates to
+the population variance</li>
+<li>We call the standard deviation of a statistic a standard error</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>To summarize</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The sample variance, \(S^2\), estimates the population variance, \(\sigma^2\)</li>
+<li>The distribution of the sample variance is centered around \(\sigma^2\)</li>
+<li>The the variance of sample mean is \(\sigma^2 / n\)
+
+<ul>
+<li>Its logical estimate is \(s^2 / n\)</li>
+<li>The logical estimate of the standard error is \(S / \sqrt{n}\)</li>
+</ul></li>
+<li>\(S\), the standard deviation, talks about how variable the population is</li>
+<li>\(S/\sqrt{n}\), the standard error, talks about how variable averages of random samples of size \(n\) from the population are</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Simulation example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Standard normals have variance 1; means of \(n\) standard normals
+have standard deviation \(1/\sqrt{n}\)</p>
+
+<pre><code class="r">nosim &lt;- 1000
+n &lt;- 10
+sd(apply(matrix(rnorm(nosim * n), nosim), 1, mean))
+</code></pre>
+
+<pre><code>## [1] 0.3156
+</code></pre>
+
+<pre><code class="r">1 / sqrt(n)
+</code></pre>
+
+<pre><code>## [1] 0.3162
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Simulation example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Standard uniforms have variance \(1/12\); means of 
+random samples of \(n\) uniforms have sd \(1/\sqrt{12 \times n}\)</p>
+
+<pre><code class="r">nosim &lt;- 1000
+n &lt;- 10
+sd(apply(matrix(runif(nosim * n), nosim), 1, mean))
+</code></pre>
+
+<pre><code>## [1] 0.09017
+</code></pre>
+
+<pre><code class="r">1 / sqrt(12 * n)
+</code></pre>
+
+<pre><code>## [1] 0.09129
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Simulation example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Poisson(4) have variance \(4\); means of 
+random samples of \(n\) Poisson(4) have sd \(2/\sqrt{n}\)</p>
+
+<pre><code class="r">nosim &lt;- 1000
+n &lt;- 10
+sd(apply(matrix(rpois(nosim * n, 4), nosim), 1, mean))
+</code></pre>
+
+<pre><code>## [1] 0.6219
+</code></pre>
+
+<pre><code class="r">2 / sqrt(n)
+</code></pre>
+
+<pre><code>## [1] 0.6325
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Simulation example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Fair coin flips have variance \(0.25\); means of 
+random samples of \(n\) coin flips have sd \(1 / (2 \sqrt{n})\)</p>
+
+<pre><code class="r">nosim &lt;- 1000
+n &lt;- 10
+sd(apply(matrix(sample(0 : 1, nosim * n, replace = TRUE),
+                nosim), 1, mean))
+</code></pre>
+
+<pre><code>## [1] 0.1587
+</code></pre>
+
+<pre><code class="r">1 / (2 * sqrt(n))
+</code></pre>
+
+<pre><code>## [1] 0.1581
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Data example</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(UsingR); data(father.son); 
+x &lt;- father.son$sheight
+n&lt;-length(x)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Plot of the son&#39;s heights</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Let&#39;s interpret these numbers</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">round(c(var(x), var(x) / n, sd(x), sd(x) / sqrt(n)),2)
+</code></pre>
+
+<pre><code>## [1] 7.92 0.01 2.81 0.09
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-11.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Summarizing what we know about variances</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The sample variance estimates the population variance</li>
+<li>The distribution of the sample variance is centered at
+what its estimating</li>
+<li>It gets more concentrated around the population variance with larger sample sizes</li>
+<li>The variance of the sample mean is the population variance
+divided by \(n\)
+
+<ul>
+<li>The square root is the standard error</li>
+</ul></li>
+<li>It turns out that we can say a lot about the distribution of
+averages from random samples, 
+even though we only get one to look at in a given data set</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='The variance'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Example'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Example'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Distributions with increasing variance'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='The sample variance'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Simulation experiment'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Variances of x die rolls'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Recall the mean'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='To summarize'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Simulation example'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Simulation example'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Simulation example'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Simulation example'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Data example'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Plot of the son&#39;s heights'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Let&#39;s interpret these numbers'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Summarizing what we know about variances'>
+         17
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

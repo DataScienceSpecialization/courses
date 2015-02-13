@@ -4,55 +4,55 @@
   <title>Historical side note, Regression to Mediocrity</title>
   <meta charset="utf-8">
   <meta name="description" content="Historical side note, Regression to Mediocrity">
-  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng PhD">
+  <meta name="author" content="Brian Caffo, Jeff Leek and Roger Peng">
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
     media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/tomorrow.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../libraries/frameworks/io2012/js/slides" 
-    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
   </script>
   
-    <link rel="stylesheet" href = "../../assets/css/custom.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
-<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
-<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+  
 
 </head>
 <body style="opacity: 0">
   <slides class="layout-widescreen">
     
     <!-- LOGO SLIDE -->
-    <!-- END LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Historical side note, Regression to Mediocrity</h1>
+<<<<<<< HEAD
+    <h2>Regression</h2>
+    <p>Brian Caffo, Jeff Leek and Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+=======
+    <h2>Regression to the mean</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng PhD<br/>Johns Hopkins Bloomberg School of Public Health</p>
+>>>>>>> 3e5b14bbb8f101fc2a8573beb037d5f1b6f6fe47
+  </hgroup>
+  <article></article>  
+</slide>
     
 
-    <!-- TITLE SLIDE -->
-    <!-- Should I move this to a Local Layout File? -->
-    <slide class="title-slide segue nobackground">
-      <aside class="gdbar">
-        <img src="../../assets/img/bloomberg_shield.png">
-      </aside>
-      <hgroup class="auto-fadein">
-        <h1>Historical side note, Regression to Mediocrity</h1>
-        <h2>Regression to the mean</h2>
-        <p>Brian Caffo, Jeff Leek, Roger Peng PhD<br/>Johns Hopkins Bloomberg School of Public Health</p>
-      </hgroup>
-          </slide>
-
     <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
+    <slide class="" id="slide-1" style="background:;">
   <hgroup>
     <h2>A historically famous idea, Regression to the Mean</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Why is it that the children of tall parents tend to be tall, but not as tall as their parents? </li>
 <li>Why do children of short parents tend to be short, but not as short as their parents?</li>
@@ -64,14 +64,14 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-2" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
     <h2>Regression to the mean</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>These phenomena are all examples of so-called regression to the mean</li>
-<li>Invented by Francis Galton in the paper &quot;Regression towvards mediocrity in hereditary stature&quot; The Journal of the Anthropological Institute of Great Britain and Ireland , Vol. 15, (1886).</li>
+<li>Invented by Francis Galton in the paper &quot;Regression towards mediocrity in hereditary stature&quot; The Journal of the Anthropological Institute of Great Britain and Ireland , Vol. 15, (1886).</li>
 <li>Think of it this way, imagine if you simulated pairs of random normals
 
 <ul>
@@ -90,11 +90,11 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-3" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Regression to the mean</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>Suppose that we normalize \(X\) (child&#39;s height) and \(Y\) (parent&#39;s height) so that they both have mean 0 and variance 1. </li>
 <li>Then, recall, our regression line passes through \((0, 0)\) (the mean of the X and Y).</li>
@@ -106,62 +106,25 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-4" style="background:;">
+<<<<<<< HEAD
+=======
   <hgroup>
-    <h2>Normalizing the data and setting plotting parameters</h2>
+    <h2>Plot of the results</h2>
   </hgroup>
-  <article>
-    <pre><code class="r">library(UsingR)
-data(father.son)
-y &lt;- (father.son$sheight - mean(father.son$sheight)) / sd(father.son$sheight)
-x &lt;- (father.son$fheight - mean(father.son$fheight)) / sd(father.son$fheight)
-rho &lt;- cor(x, y)
-myPlot &lt;- function(x, y) {
-  plot(x, y, 
-       xlab = &quot;Father&#39;s height, normalized&quot;,
-       ylab = &quot;Son&#39;s height, normalized&quot;,
-       xlim = c(-3, 3), ylim = c(-3, 3),
-       bg = &quot;lightblue&quot;, col = &quot;black&quot;, cex = 1.1, pch = 21, 
-       frame = FALSE)
-}
-</code></pre>
+>>>>>>> 3e5b14bbb8f101fc2a8573beb037d5f1b6f6fe47
+  <article data-timings="">
+    <div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-5" style="background:;">
-  <hgroup>
-    <h2>Plot the data, code</h2>
-  </hgroup>
-  <article>
-    <pre><code>myPlot(x, y)
-abline(0, 1) # if there were perfect correlation
-abline(0, rho, lwd = 2) # father predicts son
-abline(0, 1 / rho, lwd = 2) # son predicts father, son on vertical axis
-abline(h = 0); abline(v = 0) # reference lines for no relathionship
-</code></pre>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-6" style="background:;">
-  <hgroup>
-    <h2>Plot the data, results</h2>
-  </hgroup>
-  <article>
-    <div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-7" style="background:;">
+<slide class="" id="slide-5" style="background:;">
   <hgroup>
     <h2>Discussion</h2>
   </hgroup>
-  <article>
+  <article data-timings="">
     <ul>
 <li>If you had to predict a son&#39;s normalized height, it would be
 \(Cor(Y, X) * X_i\) </li>
@@ -178,34 +141,69 @@ abline(h = 0); abline(v = 0) # reference lines for no relathionship
 
     <slide class="backdrop"></slide>
   </slides>
-
-  <!--[if IE]>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='A historically famous idea, Regression to the Mean'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Regression to the mean'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Regression to the mean'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+<<<<<<< HEAD
+        data-slide=4 title=''>
+=======
+        data-slide=4 title='Plot of the results'>
+>>>>>>> 3e5b14bbb8f101fc2a8573beb037d5f1b6f6fe47
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Discussion'>
+         5
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
     <script 
       src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
     </script>
     <script>CFInstall.check({mode: 'overlay'});</script>
   <![endif]-->
 </body>
-<!-- Grab CDN jQuery, fall back to local if offline -->
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
-<!-- Load Javascripts for Widgets -->
-<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> -->
-<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
 </script>
 <!-- LOAD HIGHLIGHTER JS FILES -->
-<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- DONE LOADING HIGHLIGHTER JS FILES -->
-</html>
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

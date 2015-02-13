@@ -1,20 +1,19 @@
 ---
 title       : Historical side note, Regression to Mediocrity
-subtitle    : Regression to the mean
-author      : Brian Caffo, Jeff Leek, Roger Peng PhD
+subtitle    : Regression
+author      : Brian Caffo, Jeff Leek and Roger Peng
 job         : Johns Hopkins Bloomberg School of Public Health
 logo        : bloomberg_shield.png
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 
 ---
-
 
 
 
@@ -27,7 +26,7 @@ mode        : selfcontained # {standalone, draft}
 ---
 ## Regression to the mean
 * These phenomena are all examples of so-called regression to the mean
-* Invented by Francis Galton in the paper "Regression towvards mediocrity in hereditary stature" The Journal of the Anthropological Institute of Great Britain and Ireland , Vol. 15, (1886).
+* Invented by Francis Galton in the paper "Regression towards mediocrity in hereditary stature" The Journal of the Anthropological Institute of Great Britain and Ireland , Vol. 15, (1886).
 * Think of it this way, imagine if you simulated pairs of random normals
   * The largest first ones would be the largest by chance, and the probability that there are smaller for the second simulation is high.
   * In other words  $P(Y < x | X = x)$ gets bigger as $x$ heads into the very large values.
@@ -43,39 +42,13 @@ mode        : selfcontained # {standalone, draft}
 * Notice if $X$ is the outcome and you create a plot where $X$ is the horizontal axis, the slope of the least squares line that you plot is $1/Cor(Y, X)$. 
 
 ---
-## Normalizing the data and setting plotting parameters
+<<<<<<< HEAD
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
 
-```r
-library(UsingR)
-data(father.son)
-y <- (father.son$sheight - mean(father.son$sheight)) / sd(father.son$sheight)
-x <- (father.son$fheight - mean(father.son$fheight)) / sd(father.son$fheight)
-rho <- cor(x, y)
-myPlot <- function(x, y) {
-  plot(x, y, 
-       xlab = "Father's height, normalized",
-       ylab = "Son's height, normalized",
-       xlim = c(-3, 3), ylim = c(-3, 3),
-       bg = "lightblue", col = "black", cex = 1.1, pch = 21, 
-       frame = FALSE)
-}
-```
-
-
----
-## Plot the data, code
-```
-myPlot(x, y)
-abline(0, 1) # if there were perfect correlation
-abline(0, rho, lwd = 2) # father predicts son
-abline(0, 1 / rho, lwd = 2) # son predicts father, son on vertical axis
-abline(h = 0); abline(v = 0) # reference lines for no relathionship
-```
-
----
-## Plot the data, results
-<div class="rimage center"><img src="fig/unnamed-chunk-2.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" class="plot" /></div>
-
+=======
+## Plot of the results
+<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+>>>>>>> 3e5b14bbb8f101fc2a8573beb037d5f1b6f6fe47
 
 ---
 ## Discussion

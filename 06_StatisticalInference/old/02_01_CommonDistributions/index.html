@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Some Common Distributions</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Some Common Distributions">
+  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Some Common Distributions</h1>
+    <h2>Statistical Inference</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>The Bernoulli distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The <strong>Bernoulli distribution</strong> arises as the result of a binary outcome</li>
+<li>Bernoulli random variables take (only) the values 1 and 0 with probabilities of (say) \(p\) and \(1-p\) respectively</li>
+<li>The PMF for a Bernoulli random variable \(X\) is \[P(X = x) =  p^x (1 - p)^{1 - x}\]</li>
+<li>The mean of a Bernoulli random variable is \(p\) and the variance is \(p(1 - p)\)</li>
+<li>If we let \(X\) be a Bernoulli random variable, it is typical to call \(X=1\) as a &quot;success&quot; and \(X=0\) as a &quot;failure&quot;</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>iid Bernoulli trials</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>If several iid Bernoulli observations, say \(x_1,\ldots, x_n\), are observed the
+likelihood is 
+\[
+\prod_{i=1}^n p^{x_i} (1 - p)^{1 - x_i} = p^{\sum x_i} (1 - p)^{n - \sum x_i}
+\]</li>
+<li>Notice that the likelihood depends only on the sum of the \(x_i\)</li>
+<li>Because \(n\) is fixed and assumed known, this implies that the sample proportion \(\sum_i x_i / n\) contains all of the relevant information about \(p\)</li>
+<li>We can maximize the Bernoulli likelihood over \(p\) to obtain that \(\hat p = \sum_i x_i / n\) is the maximum likelihood estimator for \(p\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Plotting all possible likelihoods for a small n</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code>n &lt;- 5
+pvals &lt;- seq(0, 1, length = 1000)
+plot(c(0, 1), c(0, 1.2), type = &quot;n&quot;, frame = FALSE, xlab = &quot;p&quot;, ylab = &quot;likelihood&quot;)
+text((0 : n) /n, 1.1, as.character(0 : n))
+sapply(0 : n, function(x) {
+  phat &lt;- x / n
+  if (x == 0) lines(pvals,  ( (1 - pvals) / (1 - phat) )^(n-x), lwd = 3)
+  else if (x == n) lines(pvals, (pvals / phat) ^ x, lwd = 3)
+  else lines(pvals, (pvals / phat ) ^ x * ( (1 - pvals) / (1 - phat) ) ^ (n-x), lwd = 3) 
+  }
+)
+title(paste(&quot;Likelihoods for n = &quot;, n))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Binomial trials</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The <em>binomial random variables</em> are obtained as the sum of iid Bernoulli trials</li>
+<li>In specific, let \(X_1,\ldots,X_n\) be iid Bernoulli\((p)\); then \(X = \sum_{i=1}^n X_i\) is a binomial random variable</li>
+<li>The binomial mass function is
+\[
+P(X = x) = 
+\left(
+\begin{array}{c}
+n \\ x
+\end{array}
+\right)
+p^x(1 - p)^{n-x}
+\]
+for \(x=0,\ldots,n\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Choose</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Recall that the notation 
+\[\left(
+\begin{array}{c}
+  n \\ x
+\end{array}
+\right) = \frac{n!}{x!(n-x)!}
+\] (read &quot;\(n\) choose \(x\)&quot;) counts the number of ways of selecting \(x\) items out of \(n\)
+without replacement disregarding the order of the items</li>
+</ul>
+
+<p>\[\left(
+    \begin{array}{c}
+      n \\ 0
+    \end{array}
+  \right) =
+\left(
+    \begin{array}{c}
+      n \\ n
+    \end{array}
+  \right) =  1
+  \] </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Example justification of the binomial likelihood</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Consider the probability of getting \(6\) heads out of \(10\) coin flips from a coin with success probability \(p\) </li>
+<li>The probability of getting \(6\) heads and \(4\) tails in any specific order is
+\[
+p^6(1-p)^4
+\]</li>
+<li>There are 
+\[\left(
+\begin{array}{c}
+10 \\ 6
+\end{array}
+\right)
+\]
+possible orders of \(6\) heads and \(4\) tails</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Suppose a friend has \(8\) children (oh my!), \(7\) of which are girls and none are twins</li>
+<li>If each gender has an independent \(50\)% probability for each birth, what&#39;s the probability of getting \(7\) or more girls out of \(8\) births?
+\[\left(
+\begin{array}{c}
+8 \\ 7
+\end{array}
+\right) .5^{7}(1-.5)^{1}
++
+\left(
+\begin{array}{c}
+8 \\ 8
+\end{array}
+\right) .5^{8}(1-.5)^{0} \approx 0.04
+\]</li>
+</ul>
+
+<pre><code class="r">choose(8, 7) * 0.5^8 + choose(8, 8) * 0.5^8
+</code></pre>
+
+<pre><code>## [1] 0.03516
+</code></pre>
+
+<pre><code class="r">pbinom(6, size = 8, prob = 0.5, lower.tail = FALSE)
+</code></pre>
+
+<pre><code>## [1] 0.03516
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">plot(pvals, dbinom(7, 8, pvals)/dbinom(7, 8, 7/8), lwd = 3, frame = FALSE, type = &quot;l&quot;, 
+    xlab = &quot;p&quot;, ylab = &quot;likelihood&quot;)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>The normal distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>A random variable is said to follow a <strong>normal</strong> or <strong>Gaussian</strong> distribution with mean \(\mu\) and variance \(\sigma^2\) if the associated density is
+\[
+(2\pi \sigma^2)^{-1/2}e^{-(x - \mu)^2/2\sigma^2}
+\]
+If \(X\) a RV with this density then \(E[X] = \mu\) and \(Var(X) = \sigma^2\)</li>
+<li>We write \(X\sim \mbox{N}(\mu, \sigma^2)\)</li>
+<li>When \(\mu = 0\) and \(\sigma = 1\) the resulting distribution is called <strong>the standard normal distribution</strong></li>
+<li>The standard normal density function is labeled \(\phi\)</li>
+<li>Standard normal RVs are often labeled \(Z\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <article data-timings="">
+    <pre><code class="r">zvals &lt;- seq(-3, 3, length = 1000)
+plot(zvals, dnorm(zvals), type = &quot;l&quot;, lwd = 3, frame = FALSE, xlab = &quot;z&quot;, ylab = &quot;Density&quot;)
+sapply(-3:3, function(k) abline(v = k))
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Facts about the normal density</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>If \(X \sim \mbox{N}(\mu,\sigma^2)\) the \(Z = \frac{X -\mu}{\sigma}\) is standard normal</li>
+<li>If \(Z\) is standard normal \[X = \mu + \sigma Z \sim \mbox{N}(\mu, \sigma^2)\]</li>
+<li>The non-standard normal density is \[\phi\{(x - \mu) / \sigma\}/\sigma\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>More facts about the normal density</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Approximately \(68\%\), \(95\%\) and \(99\%\)  of the normal density lies within \(1\), \(2\) and \(3\) standard deviations from the mean, respectively</li>
+<li>\(-1.28\), \(-1.645\), \(-1.96\) and \(-2.33\) are the \(10^{th}\), \(5^{th}\), \(2.5^{th}\) and \(1^{st}\) percentiles of the standard normal distribution respectively</li>
+<li>By symmetry, \(1.28\), \(1.645\), \(1.96\) and \(2.33\) are the \(90^{th}\), \(95^{th}\), \(97.5^{th}\) and \(99^{th}\) percentiles of the standard normal distribution respectively</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Question</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>What is the \(95^{th}\) percentile of a \(N(\mu, \sigma^2)\) distribution? 
+
+<ul>
+<li>Quick answer in R <code>qnorm(.95, mean = mu, sd = sd)</code></li>
+</ul></li>
+<li>We want the point \(x_0\) so that \(P(X \leq x_0) = .95\)
+\[
+\begin{eqnarray*}
+P(X \leq x_0) & = & P\left(\frac{X - \mu}{\sigma} \leq \frac{x_0 - \mu}{\sigma}\right) \\ \\
+              & = & P\left(Z \leq \frac{x_0 - \mu}{\sigma}\right) =  .95
+\end{eqnarray*}
+\]</li>
+<li>Therefore
+\[\frac{x_0 - \mu}{\sigma} = 1.645\]
+or \(x_0 = \mu + \sigma 1.645\)</li>
+<li>In general \(x_0 = \mu + \sigma z_0\) where \(z_0\) is the appropriate standard normal quantile</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Question</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>What is the probability that a \(\mbox{N}(\mu,\sigma^2)\) RV is 2 standard deviations above the mean?</li>
+<li>We want to know
+\[
+\begin{eqnarray*}
+P(X > \mu + 2\sigma) & = & 
+P\left(\frac{X -\mu}{\sigma} > \frac{\mu + 2\sigma - \mu}{\sigma}\right)    \\ \\
+& = & P(Z \geq 2 ) \\ \\ 
+& \approx & 2.5\%
+\end{eqnarray*}
+\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Other properties</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The normal distribution is symmetric and peaked about its mean (therefore the mean, median and mode are all equal)</li>
+<li>A constant times a normally distributed random variable is also normally distributed (what is the mean and variance?)</li>
+<li>Sums of normally distributed random variables are again normally distributed even if the variables are dependent (what is the mean and variance?)</li>
+<li>Sample means of normally distributed random variables are again normally distributed (with what mean and variance?)</li>
+<li>The square of a <em>standard normal</em> random variable follows what is called <strong>chi-squared</strong> distribution </li>
+<li>The exponent of a normally distributed random variables follows what is called the <strong>log-normal</strong> distribution </li>
+<li>As we will see later, many random variables, properly normalized, <em>limit</em> to a normal distribution</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Final thoughts on normal likelihoods</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The MLE for \(\mu\) is \(\bar X\).</li>
+<li>The MLE for \(\sigma^2\) is
+\[
+\frac{\sum_{i=1}^n (X_i - \bar X)^2}{n}
+\]
+(Which is the biased version of the sample variance.)</li>
+<li>The MLE of \(\sigma\) is simply the square root of this
+estimate</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>The Poisson distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Used to model counts</li>
+<li>The Poisson mass function is
+\[
+P(X = x; \lambda) = \frac{\lambda^x e^{-\lambda}}{x!}
+\]
+for \(x=0,1,\ldots\)</li>
+<li>The mean of this distribution is \(\lambda\)</li>
+<li>The variance of this distribution is \(\lambda\)</li>
+<li>Notice that \(x\) ranges from \(0\) to \(\infty\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Some uses for the Poisson distribution</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Modeling event/time data</li>
+<li>Modeling radioactive decay</li>
+<li>Modeling survival data</li>
+<li>Modeling unbounded count data </li>
+<li>Modeling contingency tables</li>
+<li>Approximating binomials when \(n\) is large and \(p\) is small</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-20" style="background:;">
+  <hgroup>
+    <h2>Poisson derivation</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>\(\lambda\) is the mean number of events per unit time</li>
+<li>Let \(h\) be very small </li>
+<li>Suppose we assume that 
+
+<ul>
+<li>Prob. of an event in an interval of length \(h\) is \(\lambda h\)
+while the prob. of more than one event is negligible</li>
+<li>Whether or not an event occurs in one small interval
+does not impact whether or not an event occurs in another
+small interval
+then, the number of events per unit time is Poisson with mean \(\lambda\) </li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-21" style="background:;">
+  <hgroup>
+    <h2>Rates and Poisson random variables</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Poisson random variables are used to model rates</li>
+<li>\(X \sim Poisson(\lambda t)\) where 
+
+<ul>
+<li>\(\lambda = E[X / t]\) is the expected count per unit of time</li>
+<li>\(t\) is the total monitoring time</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-22" style="background:;">
+  <hgroup>
+    <h2>Poisson approximation to the binomial</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>When \(n\) is large and \(p\) is small the Poisson distribution
+is an accurate approximation to the binomial distribution</li>
+<li>Notation
+
+<ul>
+<li>\(\lambda = n p\)</li>
+<li>\(X \sim \mbox{Binomial}(n, p)\), \(\lambda = n p\) and</li>
+<li>\(n\) gets large </li>
+<li>\(p\) gets small</li>
+<li>\(\lambda\) stays constant</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-23" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The number of people that show up at a bus stop is Poisson with
+a mean of \(2.5\) per hour.</p>
+
+<p>If watching the bus stop for 4 hours, what is the probability that \(3\)
+or fewer people show up for the whole time?</p>
+
+<pre><code class="r">ppois(3, lambda = 2.5 * 4)
+</code></pre>
+
+<pre><code>## [1] 0.01034
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-24" style="background:;">
+  <hgroup>
+    <h2>Example, Poisson approximation to the binomial</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>We flip a coin with success probablity \(0.01\) five hundred times. </p>
+
+<p>What&#39;s the probability of 2 or fewer successes?</p>
+
+<pre><code class="r">pbinom(2, size = 500, prob = 0.01)
+</code></pre>
+
+<pre><code>## [1] 0.1234
+</code></pre>
+
+<pre><code class="r">ppois(2, lambda = 500 * 0.01)
+</code></pre>
+
+<pre><code>## [1] 0.1247
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='The Bernoulli distribution'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='iid Bernoulli trials'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Plotting all possible likelihoods for a small n'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title=''>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Binomial trials'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Choose'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Example justification of the binomial likelihood'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Example'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title=''>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='The normal distribution'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title=''>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Facts about the normal density'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='More facts about the normal density'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Question'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Question'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Other properties'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Final thoughts on normal likelihoods'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='The Poisson distribution'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Some uses for the Poisson distribution'>
+         19
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=20 title='Poisson derivation'>
+         20
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=21 title='Rates and Poisson random variables'>
+         21
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=22 title='Poisson approximation to the binomial'>
+         22
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=23 title='Example'>
+         23
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=24 title='Example, Poisson approximation to the binomial'>
+         24
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hypothesis testing</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Hypothesis testing">
+  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Hypothesis testing</h1>
+    <h2>Statistical Inference</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Hypothesis testing</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Hypothesis testing is concerned with making decisions using data</li>
+<li>A null hypothesis is specified that represents the status quo,
+usually labeled \(H_0\)</li>
+<li>The null hypothesis is assumed true and statistical evidence is required
+to reject it in favor of a research or alternative hypothesis </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>A respiratory disturbance index of more than \(30\) events / hour, say, is 
+considered evidence of severe sleep disordered breathing (SDB).</li>
+<li>Suppose that in a sample of \(100\) overweight subjects with other
+risk factors for sleep disordered breathing at a sleep clinic, the
+mean RDI was \(32\) events / hour with a standard deviation of \(10\) events / hour.</li>
+<li>We might want to test the hypothesis that 
+
+<ul>
+<li>\(H_0 : \mu = 30\)</li>
+<li>\(H_a : \mu > 30\)</li>
+<li>where \(\mu\) is the population mean RDI.</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Hypothesis testing</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The alternative hypotheses are typically of the form \(<\), \(>\) or \(\neq\)</li>
+<li>Note that there are four possible outcomes of our statistical decision process</li>
+</ul>
+
+<table><thead>
+<tr>
+<th>Truth</th>
+<th>Decide</th>
+<th>Result</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>\(H_0\)</td>
+<td>\(H_0\)</td>
+<td>Correctly accept null</td>
+</tr>
+<tr>
+<td>\(H_0\)</td>
+<td>\(H_a\)</td>
+<td>Type I error</td>
+</tr>
+<tr>
+<td>\(H_a\)</td>
+<td>\(H_a\)</td>
+<td>Correctly reject null</td>
+</tr>
+<tr>
+<td>\(H_a\)</td>
+<td>\(H_0\)</td>
+<td>Type II error</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Discussion</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Consider a court of law; the null hypothesis is that the
+defendant is innocent</li>
+<li>We require a standard on the available evidence to reject the null hypothesis (convict)</li>
+<li>If we set a low standard, then we would increase the
+percentage of innocent people convicted (type I errors); however we
+would also increase the percentage of guilty people convicted
+(correctly rejecting the null)</li>
+<li>If we set a high standard, then we increase the the
+percentage of innocent people let free (correctly accepting the
+null) while we would also increase the percentage of guilty people
+let free (type II errors)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Consider our sleep example again</li>
+<li>A reasonable strategy would reject the null hypothesis if
+\(\bar X\) was larger than some constant, say \(C\)</li>
+<li>Typically, \(C\) is chosen so that the probability of a Type I
+error, \(\alpha\), is \(.05\) (or some other relevant constant)</li>
+<li>\(\alpha\) = Type I error rate = Probability of rejecting the null hypothesis when, in fact, the null hypothesis is correct</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Example continued</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Standard error of the mean \(10 / \sqrt{100} = 1\)</li>
+<li>Under \(H_0\) \(\bar X \sim N(30, 1)\) </li>
+<li>We want to chose \(C\) so that the \(P(\bar X > C; H_0)\) is 
+5%</li>
+<li>The 95th percentile of a normal distribution is 1.645
+standard deviations from the mean</li>
+<li>If \(C = 30 + 1 \times 1.645 = 31.645\)
+
+<ul>
+<li>Then the probability that a \(N(30, 1)\) is larger
+than it is 5%</li>
+<li>So the rule &quot;Reject \(H_0\) when \(\bar X \geq 31.645\)&quot;
+has the property that the probability of rejection
+is 5% when \(H_0\) is true (for the \(\mu_0\), \(\sigma\)
+and \(n\) given)</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Discussion</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>In general we don&#39;t convert \(C\) back to the original scale</li>
+<li>We would just reject because the Z-score; which is how many
+standard errors the sample mean is above the hypothesized mean
+\[
+\frac{32 - 30}{10 / \sqrt{100}} = 2
+\]
+is greater than \(1.645\)</li>
+<li>Or, whenever \(\sqrt{n} (\bar X - \mu_0) / s > Z_{1-\alpha}\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>General rules</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The \(Z\) test for \(H_0:\mu = \mu_0\) versus 
+
+<ul>
+<li>\(H_1: \mu < \mu_0\)</li>
+<li>\(H_2: \mu \neq \mu_0\)</li>
+<li>\(H_3: \mu > \mu_0\) </li>
+</ul></li>
+<li>Test statistic $ TS = \frac{\bar{X} - \mu_0}{S / \sqrt{n}} $</li>
+<li>Reject the null hypothesis when 
+
+<ul>
+<li>\(TS \leq Z_{\alpha} = -Z_{1 - \alpha}\)</li>
+<li>\(|TS| \geq Z_{1 - \alpha / 2}\)</li>
+<li>\(TS \geq Z_{1 - \alpha}\)</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Notes</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>We have fixed \(\alpha\) to be low, so if we reject \(H_0\) (either
+our model is wrong) or there is a low probability that we have made
+an error</li>
+<li>We have not fixed the probability of a type II error, \(\beta\);
+therefore we tend to say ``Fail to reject \(H_0\)&#39;&#39; rather than
+accepting \(H_0\)</li>
+<li>Statistical significance is no the same as scientific
+significance</li>
+<li>The region of TS values for which you reject \(H_0\) is called the
+rejection region</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>More notes</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The \(Z\) test requires the assumptions of the CLT and for \(n\) to be large enough
+for it to apply</li>
+<li>If \(n\) is small, then a Gossett&#39;s \(T\) test is performed exactly in the same way,
+with the normal quantiles replaced by the appropriate Student&#39;s \(T\) quantiles and
+\(n-1\) df</li>
+<li>The probability of rejecting the null hypothesis when it is false is called <em>power</em></li>
+<li>Power is a used a lot to calculate sample sizes for experiments</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Example reconsidered</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Consider our example again. Suppose that \(n= 16\) (rather than
+\(100\))</li>
+<li>The statistic
+\[
+\frac{\bar X - 30}{s / \sqrt{16}}
+\]
+follows a \(T\) distribution with 15 df under \(H_0\)</li>
+<li>Under \(H_0\), the probability that it is larger
+that the 95th percentile of the \(T\) distribution is 5%</li>
+<li>The 95th percentile of the T distribution with 15
+df is 1.7531 (obtained via <code>qt(.95, 15)</code>)</li>
+<li>So that our test statistic is now $\sqrt{16}(32 - 30) / 10 = 0.8 $</li>
+<li>We now fail to reject.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Two sided tests</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Suppose that we would reject the null hypothesis if in fact the  mean was too large or too small</li>
+<li>That is, we want to test the alternative \(H_a : \mu \neq 30\)</li>
+<li>We will reject if the test statistic, \(0.8\), is either too large or too small</li>
+<li>Then we want the probability of rejecting under the
+null to be 5%, split equally as 2.5% in the upper
+tail and 2.5% in the lower tail</li>
+<li>Thus we reject if our test statistic is larger
+than <code>qt(.975, 15)</code> or smaller than <code>qt(.025, 15)</code>
+
+<ul>
+<li>This is the same as saying: reject if the
+absolute value of our statistic is larger than
+<code>qt(0.975, 15)</code> = 2.1314</li>
+<li>So we fail to reject the two sided test as well</li>
+<li>(If you fail to reject the one sided test, you
+know that you will fail to reject the two sided)</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>T test in R</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">library(UsingR); data(father.son)
+t.test(father.son$sheight - father.son$fheight)
+</code></pre>
+
+<pre><code>&gt; 
+&gt;   One Sample t-test
+&gt; 
+&gt; data:  father.son$sheight - father.son$fheight
+&gt; t = 11.79, df = 1077, p-value &lt; 2.2e-16
+&gt; alternative hypothesis: true mean is not equal to 0
+&gt; 95 percent confidence interval:
+&gt;  0.831 1.163
+&gt; sample estimates:
+&gt; mean of x 
+&gt;     0.997
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Connections with confidence intervals</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Consider testing \(H_0: \mu = \mu_0\) versus \(H_a: \mu \neq \mu_0\)</li>
+<li>Take the set of all possible values for which you fail to reject \(H_0\), this set is a \((1-\alpha)100\%\) confidence interval for \(\mu\)</li>
+<li>The same works in reverse; if a \((1-\alpha)100\%\) interval
+contains \(\mu_0\), then we <em>fail  to</em> reject \(H_0\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Two group intervals</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>First, now you know how to do two group T tests
+since we already covered indepedent group T intervals</li>
+<li>Rejection rules are the same </li>
+<li>Test \(H_0 : \mu_1 = \mu_2\)</li>
+<li>Let&#39;s just go through an example</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2><code>chickWeight</code> data</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Recall that we reformatted this data</p>
+
+<pre><code class="r">library(datasets); data(ChickWeight); library(reshape2)
+##define weight gain or loss
+wideCW &lt;- dcast(ChickWeight, Diet + Chick ~ Time, value.var = &quot;weight&quot;)
+names(wideCW)[-(1 : 2)] &lt;- paste(&quot;time&quot;, names(wideCW)[-(1 : 2)], sep = &quot;&quot;)
+library(dplyr)
+wideCW &lt;- mutate(wideCW,
+  gain = time21 - time0
+)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h3>Unequal variance T test comparing diets 1 and 4</h3>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">wideCW14 &lt;- subset(wideCW, Diet %in% c(1, 4))
+t.test(gain ~ Diet, paired = FALSE, 
+       var.equal = TRUE, data = wideCW14)
+</code></pre>
+
+<pre><code>&gt;  
+&gt;   Two Sample t-test
+&gt;  
+&gt;  data:  gain by Diet
+&gt;  t = -2.725, df = 23, p-value = 0.01207
+&gt;  alternative hypothesis: true difference in means is not equal to 0
+&gt;  95 percent confidence interval:
+&gt;   -108.15  -14.81
+&gt;  sample estimates:
+&gt;  mean in group 1 mean in group 4 
+&gt;            136.2           197.7
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Exact binomial test</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Recall this problem, <em>Suppose a friend has \(8\) children, \(7\) of which are girls and none are twins</em></li>
+<li>Perform the relevant hypothesis test. \(H_0 : p = 0.5\) \(H_a : p > 0.5\)
+
+<ul>
+<li>What is the relevant rejection region so that the probability of rejecting is (less than) 5%?</li>
+</ul></li>
+</ul>
+
+<table><thead>
+<tr>
+<th>Rejection region</th>
+<th>Type I error rate</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>[0 : 8]</td>
+<td>1</td>
+</tr>
+<tr>
+<td>[1 : 8]</td>
+<td>0.9961</td>
+</tr>
+<tr>
+<td>[2 : 8]</td>
+<td>0.9648</td>
+</tr>
+<tr>
+<td>[3 : 8]</td>
+<td>0.8555</td>
+</tr>
+<tr>
+<td>[4 : 8]</td>
+<td>0.6367</td>
+</tr>
+<tr>
+<td>[5 : 8]</td>
+<td>0.3633</td>
+</tr>
+<tr>
+<td>[6 : 8]</td>
+<td>0.1445</td>
+</tr>
+<tr>
+<td>[7 : 8]</td>
+<td>0.0352</td>
+</tr>
+<tr>
+<td>[8 : 8]</td>
+<td>0.0039</td>
+</tr>
+</tbody></table>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>Notes</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>It&#39;s impossible to get an exact 5% level test for this case due to the discreteness of the binomial. 
+
+<ul>
+<li>The closest is the rejection region [7 : 8]</li>
+<li>Any alpha level lower than 0.0039 is not attainable.</li>
+</ul></li>
+<li>For larger sample sizes, we could do a normal approximation, but you already knew this.</li>
+<li>Two sided test isn&#39;t obvious. 
+
+<ul>
+<li>Given a way to do two sided tests, we could take the set of values of \(p_0\) for which we fail to reject to get an exact binomial confidence interval (called the Clopper/Pearson interval, BTW)</li>
+</ul></li>
+<li>For these problems, people always create a P-value (next lecture) rather than computing the rejection region.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Hypothesis testing'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Example'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Hypothesis testing'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Discussion'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Example'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Example continued'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Discussion'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='General rules'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Notes'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='More notes'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Example reconsidered'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Two sided tests'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='T test in R'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Connections with confidence intervals'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Two group intervals'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='<code>chickWeight</code> data'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Unequal variance T test comparing diets 1 and 4'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Exact binomial test'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='Notes'>
+         19
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

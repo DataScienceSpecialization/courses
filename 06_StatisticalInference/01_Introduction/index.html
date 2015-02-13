@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Introduction to statistical inference</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Introduction to statistical inference">
+  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Introduction to statistical inference</h1>
+    <h2>Statistical inference</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Statistical inference defined</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Statistical inference is the process of drawing formal conclusions from
+data. </p>
+
+<p>In our class, we wil define formal statistical inference as settings where one wants to infer facts about a population using noisy
+statistical data where uncertainty must be accounted for.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Motivating example: who&#39;s going to win the election?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>In every major election, pollsters would like to know, ahead of the
+actual election, who&#39;s going to win. Here, the target of
+estimation (the estimand) is clear, the percentage of people in 
+a particular group (city, state, county, country or other electoral
+grouping) who will vote for each candidate.</p>
+
+<p>We can not poll everyone. Even if we could, some polled 
+may change their vote by the time the election occurs.
+How do we collect a reasonable subset of data and quantify the
+uncertainty in the process to produce a good guess at who will win?</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Motivating example: is hormone replacement therapy effective?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>A large clinical trial (the Women’s Health Initiative) published results in 2002 that contradicted prior evidence on the efficacy of hormone replacement therapy for post menopausal women and suggested a negative impact of HRT for several key health outcomes. <strong>Based on a statistically based protocol, the study was stopped early due an excess number of negative events.</strong></p>
+
+<p>Here&#39;s there&#39;s two inferential problems. </p>
+
+<ol>
+<li>Is HRT effective?</li>
+<li>How long should we continue the trial in the presence of contrary
+evidence?</li>
+</ol>
+
+<p>See WHI writing group paper JAMA 2002, Vol 288:321 - 333. for the paper and Steinkellner et al. Menopause 2012, Vol 19:616 621 for adiscussion of the long term impacts</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Motivating example</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Brain activation</h3>
+
+<p><img src="fig/fmri-salmon.jpg" alt="fMRI salmon study" title="fMRI salmon study"></p>
+
+<p><a href="http://www.wired.com/2009/09/fmrisalmon/">http://www.wired.com/2009/09/fmrisalmon/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Summary</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>These examples illustrate many of the difficulties of trying
+to use data to create general conclusions about a population.</li>
+<li>Paramount among our concerns are:
+
+<ul>
+<li>Is the sample representative of the population that we&#39;d like to draw inferences about?</li>
+<li>Are there known and observed, known and unobserved or unknown and unobserved variables that contaminate our conclusions?</li>
+<li>Is there systematic bias created by missing data or the design or conduct of the study?</li>
+<li>What randomness exists in the data and how do we use or adjust for it? Here randomness can either be explicit via randomization
+or random sampling, or implicit as the aggregation of many complex uknown processes.</li>
+<li>Are we trying to estimate an underlying mechanistic model of phenomena under study?</li>
+</ul></li>
+<li>Statistical inference requires navigating the set of assumptions and
+tools and subsequently thinking about how to draw conclusions from data.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Example goals of inference</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Estimate and quantify the uncertainty of an estimate of 
+a population quantity (the proportion of people who will
+vote for a candidate).</li>
+<li>Determine whether a population quantity 
+is a benchmark value (&quot;is the treatment effective?&quot;).</li>
+<li>Infer a mechanistic relationship when quantities are measured with
+noise (&quot;What is the slope for Hooke&#39;s law?&quot;)</li>
+<li>Determine the impact of a policy? (&quot;If we reduce polution levels,
+will asthma rates decline?&quot;)</li>
+<li>Talk about the probability that something occurs.</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Example tools of the trade</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Randomization: concerned with balancing unobserved variables that may confound inferences of interest</li>
+<li>Random sampling: concerned with obtaining data that is representative 
+of the population of interest</li>
+<li>Sampling models: concerned with creating a model for the sampling
+process, the most common is so called &quot;iid&quot;.</li>
+<li>Hypothesis testing: concerned with decision making in the presence of uncertainty</li>
+<li>Confidence intervals: concerned with quantifying uncertainty in 
+estimation</li>
+<li>Probability models: a formal connection between the data and a population of interest. Often probability models are assumed or are
+approximated.</li>
+<li>Study design: the process of designing an experiment to minimize biases and variability.</li>
+<li>Nonparametric bootstrapping: the process of using the data to,
+with minimal probability model assumptions, create inferences.</li>
+<li>Permutation, randomization and exchangeability testing: the process 
+of using data permutations to perform inferences.</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Different thinking about probability leads to different styles of inference</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>We won&#39;t spend too much time talking about this, but there are several different
+styles of inference. Two broad categories that get discussed a lot are:</p>
+
+<ol>
+<li>Frequency probability: is the long run proportion of
+times an event occurs in independent, identically distributed 
+repetitions.</li>
+<li>Frequency inference: uses frequency interpretations of probabilities
+to control error rates. Answers questions like &quot;What should I decide
+given my data controlling the long run proportion of mistakes I make at
+a tolerable level.&quot;</li>
+<li>Bayesian probability: is the probability calculus of beliefs, given that beliefs follow certain rules.</li>
+<li>Bayesian inference: the use of Bayesian probability representation
+of beliefs to perform inference. Answers questions like &quot;Given my subjective beliefs and the objective information from the data, what
+should I believe now?&quot;</li>
+</ol>
+
+<p>Data scientists tend to fall within shades of gray of these and various other schools of inference. </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>In this class</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>In this class, we will primarily focus on basic sampling models, 
+basic probability models and frequency style analyses
+to create standard inferences. </li>
+<li>Being data scientists,  we will also consider some inferential strategies that  rely heavily on the observed data, such as permutation testing
+and bootstrapping.</li>
+<li>As probability modeling will be our starting point, we first build
+up basic probability.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Where to learn more on the topics not covered</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Explicit use of random sampling in inferences: look in references
+on &quot;finite population statistics&quot;. Used heavily in polling and
+sample surveys.</li>
+<li>Explicit use of randomization in inferences: look in references
+on &quot;causal inference&quot; especially in clinical trials.</li>
+<li>Bayesian probability and Bayesian statistics: look for basic itroductory books (there are many).</li>
+<li>Missing data: well covered in biostatistics and econometric
+references; look for references to &quot;multiple imputation&quot;, a popular tool for
+addressing missing data.</li>
+<li>Study design: consider looking in the subject matter area that
+you are interested in; some examples with rich histories in design:
+
+<ol>
+<li>The epidemiological literature is very focused on using study design to investigate public health.</li>
+<li>The classical development of study design in agriculture broadly covers design and design principles.</li>
+<li>The industrial quality control literature covers design thoroughly.</li>
+</ol></li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Statistical inference defined'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Motivating example: who&#39;s going to win the election?'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Motivating example: is hormone replacement therapy effective?'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Motivating example'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Summary'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Example goals of inference'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Example tools of the trade'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Different thinking about probability leads to different styles of inference'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='In this class'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Where to learn more on the topics not covered'>
+         10
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

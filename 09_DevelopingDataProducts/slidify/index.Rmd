@@ -19,7 +19,7 @@ mode        : selfcontained # {standalone, draft}
 
 - Slidify was created by [Ramnath Vaidyanathan](https://github.com/ramnathv) in order to streamline the process of creating and publishing `R` driven presentations.
 
-- Slidify is an almagamation of other technologies including knitr, Markdown, and several javascript libaries for HTML5 presentations.
+- Slidify is an amalgamation of other technologies including knitr, Markdown, and several javascript libaries for HTML5 presentations.
 
 - Slidify is infinitely extendable and customizable, yet it is easy to use!
 

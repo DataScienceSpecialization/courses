@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Conditional Probability</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Conditional Probability">
+  <meta name="author" content="Brian Caffo, Jeff Leek, Roger Peng">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="../../librariesNew/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="../../librariesNew/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../librariesNew/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="../../librariesNew/frameworks/io2012/js/slides" 
+    src="../../librariesNew/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="../../assets/img/bloomberg_shield.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Conditional Probability</h1>
+    <h2>Statistical Inference</h2>
+    <p>Brian Caffo, Jeff Leek, Roger Peng<br/>Johns Hopkins Bloomberg School of Public Health</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Conditional probability, motivation</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The probability of getting a one when rolling a (standard) die
+is usually assumed to be one sixth</li>
+<li>Suppose you were given the extra information that the die roll
+was an odd number (hence 1, 3 or 5)</li>
+<li><em>conditional on this new information</em>, the probability of a
+one is now one third</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Conditional probability, definition</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Let \(B\) be an event so that \(P(B) > 0\)</li>
+<li>Then the conditional probability of an event \(A\) given that \(B\) has occurred is
+\[
+P(A ~|~ B) = \frac{P(A \cap B)}{P(B)}
+\]</li>
+<li>Notice that if \(A\) and \(B\) are independent (defined later in the lecture), then
+\[
+P(A ~|~ B) = \frac{P(A) P(B)}{P(B)} = P(A)
+\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Consider our die roll example</li>
+<li>\(B = \{1, 3, 5\}\)</li>
+<li>\(A = \{1\}\)
+\[
+\begin{eqnarray*}
+P(\mbox{one given that roll is odd})  & = & P(A ~|~ B) \\ \\
+& = & \frac{P(A \cap B)}{P(B)} \\ \\
+& = & \frac{P(A)}{P(B)} \\ \\ 
+& = & \frac{1/6}{3/6} = \frac{1}{3}
+\end{eqnarray*}
+\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Bayes&#39; rule</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Baye&#39;s rule allows us to reverse the conditioning set provided
+that we know some marginal probabilities
+\[
+P(B ~|~ A) = \frac{P(A ~|~ B) P(B)}{P(A ~|~ B) P(B) + P(A ~|~ B^c)P(B^c)}.
+\]</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Diagnostic tests</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Let \(+\) and \(-\) be the events that the result of a diagnostic test is positive or negative respectively</li>
+<li>Let \(D\) and \(D^c\) be the event that the subject of the test has or does not have the disease respectively </li>
+<li>The <strong>sensitivity</strong> is the probability that the test is positive given that the subject actually has the disease, \(P(+ ~|~ D)\)</li>
+<li>The <strong>specificity</strong> is the probability that the test is negative given that the subject does not have the disease, \(P(- ~|~ D^c)\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>More definitions</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The <strong>positive predictive value</strong> is the probability that the subject has the  disease given that the test is positive, \(P(D ~|~ +)\)</li>
+<li>The <strong>negative predictive value</strong> is the probability that the subject does not have the disease given that the test is negative, \(P(D^c ~|~ -)\)</li>
+<li>The <strong>prevalence of the disease</strong> is the marginal probability of disease, \(P(D)\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>More definitions</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The <strong>diagnostic likelihood ratio of a positive test</strong>, labeled \(DLR_+\), is \(P(+ ~|~ D) / P(+ ~|~ D^c)\), which is the \[sensitivity / (1 - specificity)\]</li>
+<li>The <strong>diagnostic likelihood ratio of a negative test</strong>, labeled \(DLR_-\), is \(P(- ~|~ D) / P(- ~|~ D^c)\), which is the \[(1 - sensitivity) / specificity\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>A study comparing the efficacy of HIV tests, reports on an experiment which concluded that HIV antibody tests have a sensitivity of 99.7% and a specificity of 98.5%</li>
+<li>Suppose that a subject, from a population with a .1% prevalence of HIV, receives a positive test result. What is the positive predictive value?</li>
+<li>Mathematically, we want \(P(D ~|~ +)\) given the sensitivity, \(P(+ ~|~ D) = .997\), the specificity, \(P(- ~|~ D^c) =.985\), and the prevalence \(P(D) = .001\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Using Bayes&#39; formula</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>\[
+\begin{eqnarray*}
+  P(D ~|~ +) & = &\frac{P(+~|~D)P(D)}{P(+~|~D)P(D) + P(+~|~D^c)P(D^c)}\\ \\
+ & = & \frac{P(+~|~D)P(D)}{P(+~|~D)P(D) + \{1-P(-~|~D^c)\}\{1 - P(D)\}} \\ \\
+ & = & \frac{.997\times .001}{.997 \times .001 + .015 \times .999}\\ \\
+ & = & .062
+\end{eqnarray*}
+\]</p>
+
+<ul>
+<li>In this population a positive test result only suggests a 6% probability that the subject has the disease </li>
+<li>(The positive predictive value is 6% for this test)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>More on this example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The low positive predictive value is due to low prevalence of disease and the somewhat modest specificity</li>
+<li>Suppose it was known that the subject was an intravenous drug user and routinely had intercourse with an HIV infected partner</li>
+<li>Notice that the evidence implied by a positive test result does not change because of the prevalence of disease in the subject&#39;s population, only our interpretation of that evidence changes</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Likelihood ratios</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Using Bayes rule, we have
+\[
+P(D ~|~ +) = \frac{P(+~|~D)P(D)}{P(+~|~D)P(D) + P(+~|~D^c)P(D^c)} 
+\]
+and
+\[
+P(D^c ~|~ +) = \frac{P(+~|~D^c)P(D^c)}{P(+~|~D)P(D) + P(+~|~D^c)P(D^c)}.
+\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Likelihood ratios</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Therefore
+\[
+\frac{P(D ~|~ +)}{P(D^c ~|~ +)} = \frac{P(+~|~D)}{P(+~|~D^c)}\times \frac{P(D)}{P(D^c)}
+\]
+ie
+\[
+\mbox{post-test odds of }D = DLR_+\times\mbox{pre-test odds of }D
+\]</li>
+<li>Similarly, \(DLR_-\) relates the decrease in the odds of the
+disease after a negative test result to the odds of disease prior to
+the test.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>HIV example revisited</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Suppose a subject has a positive HIV test</li>
+<li>\(DLR_+ = .997 / (1 - .985) \approx 66\)</li>
+<li>The result of the positive test is that the odds of disease is now 66 times the pretest odds</li>
+<li>Or, equivalently, the hypothesis of disease is 66 times more supported by the data than the hypothesis of no disease</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>HIV example revisited</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Suppose that a subject has a negative test result </li>
+<li>\(DLR_- = (1 - .997) / .985  \approx .003\)</li>
+<li>Therefore, the post-test odds of disease is now \(.3\%\) of the pretest odds given the negative test.</li>
+<li>Or, the hypothesis of disease is supported \(.003\) times that of the hypothesis of absence of disease given the negative test result</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Independence</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Two events \(A\) and \(B\) are <strong>independent</strong> if \[P(A \cap B) = P(A)P(B)\]</li>
+<li>Equivalently if \(P(A ~|~ B) = P(A)\) </li>
+<li>Two random variables, \(X\) and \(Y\) are independent if for any two sets \(A\) and \(B\) \[P([X \in A] \cap [Y \in B]) = P(X\in A)P(Y\in B)\]</li>
+<li>If \(A\) is independent of \(B\) then 
+
+<ul>
+<li>\(A^c\) is independent of \(B\) </li>
+<li>\(A\) is independent of \(B^c\)</li>
+<li>\(A^c\) is independent of \(B^c\)</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>What is the probability of getting two consecutive heads?</li>
+<li>\(A = \{\mbox{Head on flip 1}\}\) ~ \(P(A) = .5\)</li>
+<li>\(B = \{\mbox{Head on flip 2}\}\) ~ \(P(B) = .5\)</li>
+<li>\(A \cap B = \{\mbox{Head on flips 1 and 2}\}\)</li>
+<li>\(P(A \cap B) = P(A)P(B) = .5 \times .5 = .25\) </li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Volume 309 of Science reports on a physician who was on trial for expert testimony in a criminal trial</li>
+<li>Based on an estimated prevalence of sudden infant death syndrome of \(1\) out of \(8,543\), the physician testified that that the probability of a mother having two children with SIDS was \(\left(\frac{1}{8,543}\right)^2\)</li>
+<li>The mother on trial was convicted of murder</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Example: continued</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Relevant to this discussion, the principal mistake was to <em>assume</em> that the events of having SIDs within a family are independent</li>
+<li>That is, \(P(A_1 \cap A_2)\) is not necessarily equal to \(P(A_1)P(A_2)\)</li>
+<li>Biological processes that have a believed genetic or familiar environmental component, of course, tend to be dependent within families</li>
+<li>(There are many other statistical points of discussion for this case.)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-19" style="background:;">
+  <hgroup>
+    <h2>IID random variables</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Random variables are said to be iid if they are independent and identically distributed
+
+<ul>
+<li>Independent: statistically unrelated from one and another</li>
+<li>Identically distributed: all having been drawn from the same population distribution</li>
+</ul></li>
+<li>iid random variables are the default model for random samples</li>
+<li>Many of the important theories of statistics are founded on assuming that variables are iid</li>
+<li>Assuming a random sample and iid will be the default starting point of inference for this class</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Conditional probability, motivation'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Conditional probability, definition'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Example'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Bayes&#39; rule'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Diagnostic tests'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='More definitions'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='More definitions'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Example'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Using Bayes&#39; formula'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='More on this example'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Likelihood ratios'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Likelihood ratios'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='HIV example revisited'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='HIV example revisited'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Independence'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Example'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Example'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Example: continued'>
+         18
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=19 title='IID random variables'>
+         19
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../librariesNew/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="../../librariesNew/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

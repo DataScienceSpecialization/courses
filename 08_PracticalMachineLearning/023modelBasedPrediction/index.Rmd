@@ -16,6 +16,8 @@ mode        : selfcontained # {standalone, draft}
 
 
 ```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+library(knitr)
+library(caret)
 # make this an external chunk that can be included in any file
 options(width = 100)
 opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, cache=TRUE,tidy = F, cache.path = '.cache/', fig.path = 'fig/')
@@ -87,7 +89,7 @@ http://statweb.stanford.edu/~tibs/ElemStatLearn/
 
 $$log \frac{Pr(Y = k | X=x)}{Pr(Y = j | X=x)}$$
 $$ = log \frac{f_k(x)}{f_j(x)} + log \frac{\pi_k}{\pi_j}$$
-$$ = log \frac{\pi_k}{\pi_j} - \frac{1}{2}(\mu_k + \mu_j)^T \Sigma^{-1}(\mu_k + \mu_j)$$
+$$ = log \frac{\pi_k}{\pi_j} - \frac{1}{2}(\mu_k^T \Sigma^{-1}\mu_k - \mu_j^T \Sigma^{-1}\mu_j)$$
 $$ + x^T \Sigma^{-1} (\mu_k - \mu_j)$$
 
 http://statweb.stanford.edu/~tibs/ElemStatLearn/

@@ -5,7 +5,7 @@ author      : Brian Caffo
 job         : Johns Hopkins Bloomberg School of Public Health
 framework   : io2012
 highlighter : highlight.js  
-hitheme     : tomorrow       
+hitheme     : tomorrow
 url:
     lib: ../../librariesNew #Remove new if using old slidify
     assets: ../../assets
@@ -16,7 +16,7 @@ mode        : selfcontained # {standalone, draft}
 
 ## About these slides
 - These are some practice problems for Statistical Inference Quiz 2
-- They were created using slidify interactive which you will learn in 
+- They were created using slidify interactive which you will learn in
 Creating Data Products
 - Please help improve this with pull requests here
 (https://github.com/bcaffo/courses)
@@ -25,7 +25,7 @@ Creating Data Products
 The probability that a manuscript gets accepted to a journal is 12% (say). However,
 given that a revision is asked for, the probability that it gets accepted
 is 90%. Is it possible that the probability that a manuscript has a revision
-asked for is 20%? 
+asked for is 20%?
 
 1. Yeah, that's totally possible.
 2. _No, it's not possible._
@@ -66,7 +66,7 @@ round(pnorm(93, mean = 100, sd = 10) * 100)
 
 --- &radio
 Suppose 5% of housing projects have issues with asbestos. The sensitivity of a test
-for asbestos is 93% and the specificity is 88%. What is the probability that a 
+for asbestos is 93% and the specificity is 88%. What is the probability that a
 housing project has no asbestos given a negative test expressed as a percentage
 to the nearest percentage point?
 
@@ -78,7 +78,7 @@ to the nearest percentage point?
 6. _100%_
 
 *** .hint
-$A = asbestos$, $T_+ = tests positive$, $T_- = tests negative$. 
+$A = asbestos$, $T_+ = tests positive$, $T_- = tests negative$.
 $P(T_+ | A) = .93$, $P(T_- | A^c) = .88$, $P(A) = .05$.
 
 *** .explanation
@@ -99,7 +99,7 @@ $$
 
 ---  &multitext
 Suppose that the number of web hits to a particular site are approximately normally
-distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. 
+distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day.
 
 1. What number of web hits per day represents the number so that only
 5% of days have more hits? Express your answer to 3 decimal places.
@@ -131,11 +131,11 @@ round(qnorm(.05, mean = 100, sd = 10, lower.tail = FALSE), 3)
 
 ---  &multitext
 Suppose that the number of web hits to a particular site are approximately normally
-distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. 
+distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day.
 
 2. Imagine taking a random sample of 50 days. What number of web hits would
-be the point so that only 5% of averages of 50 days of web traffic have more hits? 
-Express your answer to 3 decimal places. 
+be the point so that only 5% of averages of 50 days of web traffic have more hits?
+Express your answer to 3 decimal places.
 
 *** .hint
 Let $\bar X$ be the average number of hits per day for 50 randomly sampled days.
@@ -143,7 +143,7 @@ $X$ is $N(100, 10^2 / 50)$.
 
 *** .explanation
 <span class="answer">102.326</span>
- 
+
 
 ```r
 round(qnorm(.95, mean = 100, sd = 10 / sqrt(50) ), 3)
@@ -187,7 +187,7 @@ round(pbinom(4, prob = .5, size = 6, lower.tail = FALSE) * 100, 1)
 
 --- &multitext
 
-Consider a uniform distribution. If we were to sample 100 draws from a 
+Consider a uniform distribution. If we were to sample 100 draws from a
 a uniform distribution (which has mean 0.5, and variance 1/12) and take their
 mean, $\bar X$
 
@@ -211,7 +211,7 @@ round(pnorm(.51, mean = 0.5, sd = sqrt(1 / 12 / 100), lower.tail = FALSE), 3)
 
 --- &multitext
 
-If you roll ten standard dice, take their average, then repeat this process over and over and construct a histogram, 
+If you roll ten standard dice, take their average, then repeat this process over and over and construct a histogram,
 
 1. what would it be centered at?
 
@@ -228,7 +228,7 @@ individual draws were taken from.
 
 --- &multitext
 
-If you roll ten standard dice, take their average, then repeat this process over and over and construct a histogram, 
+If you roll ten standard dice, take their average, then repeat this process over and over and construct a histogram,
 
 2. what would be its variance expressed to 3 decimal places?
 
@@ -236,9 +236,9 @@ If you roll ten standard dice, take their average, then repeat this process over
 $$Var(\bar X) = \sigma^2 /n$$
 
 *** .explanation
-The answer will be <span class="answer">0.292</span> 
+The answer will be <span class="answer">0.292</span>
 since the variance of the sampling distribution of the mean is $\sigma^2/10$
-where $\sigma^2$ is the variance of a single die roll, which is 
+where $\sigma^2$ is the variance of a single die roll, which is
 
 
 ```r
@@ -250,7 +250,7 @@ mean((1 : 6 - 3.5)^2 / 10)
 ```
 
 --- &multitext
-The number of web hits to a site is Poisson with mean 16.5 per day. 
+The number of web hits to a site is Poisson with mean 16.5 per day.
 
 1. What is the probability of getting 20 or fewer in 2 days expressed
 as a percentage to one decimal place?
@@ -269,6 +269,3 @@ round(ppois(20, lambda = 16.5 * 2) * 100, 1)
 ```
 [1] 1
 ```
-
-
-

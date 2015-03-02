@@ -5,7 +5,7 @@ author      : Brian Caffo
 job         : Johns Hopkins Bloomberg School of Public Health
 framework   : io2012
 highlighter : highlight.js  
-hitheme     : tomorrow       
+hitheme     : tomorrow
 #url:
 #    lib: ../../librariesNew #Remove new if using old slidify
 #    assets: ../../assets
@@ -32,7 +32,7 @@ runif(1)
 
 ## About these slides
 - These are some practice problems for Statistical Inference Quiz 1
-- They were created using slidify interactive which you will learn in 
+- They were created using slidify interactive which you will learn in
 Creating Data Products
 - Please help improve this with pull requests here
 (https://github.com/bcaffo/courses)
@@ -41,6 +41,7 @@ Creating Data Products
 --- &radio
 
 Consider influenza epidemics for two parent heterosexual families. Suppose that the probability is 15% that at least one of the parents has contracted the disease. The probability that the father has contracted influenza is 10% while that the mother contracted the disease is 9%. What is the probability that both contracted influenza expressed as a whole number percentage?
+[Watch a video solution](https://www.youtube.com/watch?v=CvnmoCuIN08&index=1&list=PLpl-gQkQivXhHOcVeU3bSJg78zaDYbP9L)
 
 1. 15%
 2. 10%
@@ -48,8 +49,8 @@ Consider influenza epidemics for two parent heterosexual families. Suppose that 
 4. _4%_
 
 *** .hint
-$A = Father$, $P(A) = .10$, $B = Mother$, $P(B) = .09$ 
-$P(A\cup B) = .15$, 
+$A = Father$, $P(A) = .10$, $B = Mother$, $P(B) = .09$
+$P(A\cup B) = .15$,
 
 *** .explanation
 $P(A\cup B) = P(A) + P(B) - P(AB)$ thus
@@ -60,7 +61,8 @@ $$.15 = .10 + .09 - P(AB)$$
 
 ---  &radio
 
-A random variable, $X$, is uniform, a box from $0$ to $1$ of height $1$. (So that its density is $f(x) = 1$ for $0\leq x \leq 1$.) What is its median expressed to two decimal places? </p>
+A random variable, $X$, is uniform, a box from $0$ to $1$ of height $1$. (So that its density is $f(x) = 1$ for $0\leq x \leq 1$.) What is its median expressed to two decimal places?
+[Watch a video solution.](https://www.youtube.com/watch?v=UXcarD-1xAM&index=2&list=PLpl-gQkQivXhHOcVeU3bSJg78zaDYbP9L)</p>
 
 1. 1.00
 2. 0.75
@@ -76,7 +78,7 @@ We want $.5 = P(X\leq x) = x$.
 
 --- &radio
 
-You are playing a game with a friend where you flip a coin and if it comes up heads you give her  $X$ dollars and if it comes up tails she gives you $Y$ dollars. The odds that the coin is heads is $d$. What is your expected earnings?
+You are playing a game with a friend where you flip a coin and if it comes up heads you give her  $X$ dollars and if it comes up tails she gives you $Y$ dollars. The odds that the coin is heads is $d$. What is your expected earnings? [Watch a video solution.](https://www.youtube.com/watch?v=5J88Zq0q81o&list=PLpl-gQkQivXhHOcVeU3bSJg78zaDYbP9L&index=3)
 
 1. _$-X \frac{d}{1 + d} + Y \frac{1}{1+d} $_
 2. $X \frac{d}{1 + d} + Y \frac{1}{1+d} $
@@ -90,12 +92,12 @@ that $p = d / (1 + d)$.
 *** .explanation
 You lose $X$ with probability $p = d/(1 +d)$ and you win $Y$ with probability $1-p = 1/(1 + d)$. So your answer is
 $$
--X \frac{d}{1 + d} + Y \frac{1}{1+d} 
+-X \frac{d}{1 + d} + Y \frac{1}{1+d}
 $$
 
 --- &radio
 A random variable takes the value -4 with probability .2 and 1 with probability .8. What
-is the variance of this random variable?
+is the variance of this random variable? [Watch a video solution.](https://www.youtube.com/watch?v=Em-xJeQO1rc&index=4&list=PLpl-gQkQivXhHOcVeU3bSJg78zaDYbP9L)
 
 1. 0
 2. _4_
@@ -119,7 +121,7 @@ $$
 --- &radio
 If $\bar X$ and $\bar Y$ are comprised of $n$ iid random variables arising from distributions
 having  means $\mu_x$ and $\mu_y$, respectively and common variance $\sigma^2$
-what is the variance $\bar X - \bar Y$?
+what is the variance $\bar X - \bar Y$? [Watch a video solution of this problem.](https://www.youtube.com/watch?v=7zJhPzX6jns&list=PLpl-gQkQivXhHOcVeU3bSJg78zaDYbP9L&index=5)
 
 1. 0
 2. _$2\sigma^2/n$_
@@ -127,16 +129,16 @@ what is the variance $\bar X - \bar Y$?
 4. $2\sigma^2$
 
 *** .hint
-Remember that $Var(\bar X) = Var(\bar Y) = \sigma^2 / n$. 
+Remember that $Var(\bar X) = Var(\bar Y) = \sigma^2 / n$.
 
-*** .explanation 
+*** .explanation
 $$
 Var(\bar X - \bar Y) = Var(\bar X) + Var(\bar Y) = \sigma^2 / n + \sigma^2 / n
 $$
 
 --- &radio
 Let $X$ be a random variable having standard deviation $\sigma$. What can
-be said about $X /\sigma$?
+be said about $X /\sigma$? [Watch a video solution of this problem.](https://www.youtube.com/watch?v=0WUj18_BUPA&list=PLpl-gQkQivXhHOcVeU3bSJg78zaDYbP9L&index=6)
 
 1. Nothing
 2. _It must have variance 1._
@@ -151,7 +153,7 @@ $$Var(X / \sigma) = Var(X) / \sigma^2 = 1$$
 
 
 --- &radio
-If a continuous density that never touches the horizontal axis is symmetric about zero, can we say that its associated median is zero?
+If a continuous density that never touches the horizontal axis is symmetric about zero, can we say that its associated median is zero? [Watch a video solution.](https://www.youtube.com/watch?v=sn48CGH_TXI&list=PLpl-gQkQivXhHOcVeU3bSJg78zaDYbP9L&index=7)
 
 1. _Yes_
 2. No.
@@ -169,9 +171,9 @@ is important.
 Consider the following pmf given in R
 ```{r}
 p <- c(.1, .2, .3, .4)
-x <- 2 : 5 
+x <- 2 : 5
 ```
-What is the variance expressed to 1 decimal place?
+What is the variance expressed to 1 decimal place? [Watch a solution to this problem.](https://www.youtube.com/watch?v=sn48CGH_TXI&list=PLpl-gQkQivXhHOcVeU3bSJg78zaDYbP9L&index=7)
 
 1. _1.0_
 2. 4.0
@@ -181,7 +183,7 @@ What is the variance expressed to 1 decimal place?
 *** .hint
 The variance is $E[X^2] - E[X]^2$
 
-*** .explanation 
+*** .explanation
 ```{r}
 sum(x ^ 2 * p) - sum(x * p) ^ 2
 ```

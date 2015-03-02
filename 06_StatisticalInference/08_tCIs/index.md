@@ -45,36 +45,38 @@ is the relevant quantile
 ## Code for manipulate
 
 ```r
+library(ggplot2)
+library(manipulate)
 k <- 1000
 xvals <- seq(-5, 5, length = k)
-myplot <- function(df){
-  d <- data.frame(y = c(dnorm(xvals), dt(xvals, df)),
-                  x = xvals,
-                  dist = factor(rep(c("Normal", "T"), c(k,k))))
-  g <- ggplot(d, aes(x = x, y = y)) 
-  g <- g + geom_line(size = 2, aes(colour = dist))
-  g
+myplot <- function(df) {
+    d <- data.frame(y = c(dnorm(xvals), dt(xvals, df)), x = xvals, dist = factor(rep(c("Normal", 
+        "T"), c(k, k))))
+    g <- ggplot(d, aes(x = x, y = y))
+    g <- g + geom_line(size = 2, aes(colour = dist))
+    g
 }
-manipulate(myplot(mu), mu = slider(1, 20, step = 1))  
+manipulate(myplot(mu), mu = slider(1, 20, step = 1))
 ```
+
 
 ---
 ## Easier to see
 
 ```r
-pvals <- seq(.5, .99, by = .01)
-myplot2 <- function(df){
-  d <- data.frame(n= qnorm(pvals),t=qt(pvals, df),
-                  p = pvals)
-  g <- ggplot(d, aes(x= n, y = t))
-  g <- g + geom_abline(size = 2, col = "lightblue")
-  g <- g + geom_line(size = 2, col = "black")
-  g <- g + geom_vline(xintercept = qnorm(0.975))
-  g <- g + geom_hline(yintercept = qt(0.975, df))
-  g
+pvals <- seq(0.5, 0.99, by = 0.01)
+myplot2 <- function(df) {
+    d <- data.frame(n = qnorm(pvals), t = qt(pvals, df), p = pvals)
+    g <- ggplot(d, aes(x = n, y = t))
+    g <- g + geom_abline(size = 2, col = "lightblue")
+    g <- g + geom_line(size = 2, col = "black")
+    g <- g + geom_vline(xintercept = qnorm(0.975))
+    g <- g + geom_hline(yintercept = qt(0.975, df))
+    g
 }
 manipulate(myplot2(df), df = slider(1, 20, step = 1))
 ```
+
 
 ---
 
@@ -116,25 +118,37 @@ head(sleep)
 ## 6   3.4     1  6
 ```
 
+
 ---
 ## Plotting the data
+
+```
+## Warning: package 'ggplot2' was built under R version 3.1.1
+```
+
 <img src="assets/fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
+
 
 ---
 ## Results
 
 ```r
-g1 <- sleep$extra[1 : 10]; g2 <- sleep$extra[11 : 20]
+g1 <- sleep$extra[1:10]
+g2 <- sleep$extra[11:20]
 difference <- g2 - g1
-mn <- mean(difference); s <- sd(difference); n <- 10
+mn <- mean(difference)
+s <- sd(difference)
+n <- 10
 ```
 
+
 ```r
-mn + c(-1, 1) * qt(.975, n-1) * s / sqrt(n)
+mn + c(-1, 1) * qt(0.975, n - 1) * s/sqrt(n)
 t.test(difference)
 t.test(g2, g1, paired = TRUE)
 t.test(extra ~ I(relevel(group, 2)), paired = TRUE, data = sleep)
 ```
+
 
 ---
 ## The results
@@ -147,6 +161,7 @@ t.test(extra ~ I(relevel(group, 2)), paired = TRUE, data = sleep)
 ## [3,] 0.7001 2.46
 ## [4,] 0.7001 2.46
 ```
+
 
 ---
 
@@ -179,8 +194,8 @@ $$
 - Pooled variance estimate
 
 ```r
-sp <- sqrt((7 * 15.34^2 + 20 * 18.23^2) / (8 + 21 - 2))
-132.86 - 127.44 + c(-1, 1) * qt(.975, 27) * sp * (1 / 8 + 1 / 21)^.5
+sp <- sqrt((7 * 15.34^2 + 20 * 18.23^2)/(8 + 21 - 2))
+132.86 - 127.44 + c(-1, 1) * qt(0.975, 27) * sp * (1/8 + 1/21)^0.5
 ```
 
 ```
@@ -188,46 +203,71 @@ sp <- sqrt((7 * 15.34^2 + 20 * 18.23^2) / (8 + 21 - 2))
 ```
 
 
+
 ---
 ## Mistakenly treating the sleep data as grouped
 
 ```r
-n1 <- length(g1); n2 <- length(g2)
-sp <- sqrt( ((n1 - 1) * sd(x1)^2 + (n2-1) * sd(x2)^2) / (n1 + n2-2))
-md <- mean(g2) - mean(g1)
-semd <- sp * sqrt(1 / n1 + 1/n2)
-rbind(
-md + c(-1, 1) * qt(.975, n1 + n2 - 2) * semd,  
-t.test(g2, g1, paired = FALSE, var.equal = TRUE)$conf,
-t.test(g2, g1, paired = TRUE)$conf
-)
+n1 <- length(g1)
+n2 <- length(g2)
+sp <- sqrt(((n1 - 1) * sd(x1)^2 + (n2 - 1) * sd(x2)^2)/(n1 + n2 - 2))
 ```
 
 ```
-##         [,1]  [,2]
-## [1,] -0.2039 3.364
-## [2,] -0.2039 3.364
-## [3,]  0.7001 2.460
+## Error: object 'x1' not found
 ```
+
+```r
+md <- mean(g2) - mean(g1)
+semd <- sp * sqrt(1/n1 + 1/n2)
+rbind(md + c(-1, 1) * qt(0.975, n1 + n2 - 2) * semd, t.test(g2, g1, paired = FALSE, 
+    var.equal = TRUE)$conf, t.test(g2, g1, paired = TRUE)$conf)
+```
+
+```
+##          [,1]   [,2]
+## [1,] -14.8873 18.047
+## [2,]  -0.2039  3.364
+## [3,]   0.7001  2.460
+```
+
 
 ---
 ## Grouped versus independent
 <img src="assets/fig/unnamed-chunk-10.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
+
 
 ---
 
 ## `ChickWeight` data in R
 
 ```r
-library(datasets); data(ChickWeight); library(reshape2)
-##define weight gain or loss
+library(datasets)
+data(ChickWeight)
+library(reshape2)
+## define weight gain or loss
 wideCW <- dcast(ChickWeight, Diet + Chick ~ Time, value.var = "weight")
-names(wideCW)[-(1 : 2)] <- paste("time", names(wideCW)[-(1 : 2)], sep = "")
+names(wideCW)[-(1:2)] <- paste("time", names(wideCW)[-(1:2)], sep = "")
 library(dplyr)
-wideCW <- mutate(wideCW,
-  gain = time21 - time0
-)
 ```
+
+```
+## 
+## Attaching package: 'dplyr'
+## 
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+## 
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
+wideCW <- mutate(wideCW, gain = time21 - time0)
+```
+
 
 ---
 ## Plotting the raw data
@@ -236,19 +276,19 @@ wideCW <- mutate(wideCW,
 
 
 
+
 ---
 ## Weight gain by diet
 <img src="assets/fig/unnamed-chunk-13.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" style="display: block; margin: auto;" />
+
 
 ---
 ## Let's do a t interval
 
 ```r
 wideCW14 <- subset(wideCW, Diet %in% c(1, 4))
-rbind(
-t.test(gain ~ Diet, paired = FALSE, var.equal = TRUE, data = wideCW14)$conf,
-t.test(gain ~ Diet, paired = FALSE, var.equal = FALSE, data = wideCW14)$conf
-)
+rbind(t.test(gain ~ Diet, paired = FALSE, var.equal = TRUE, data = wideCW14)$conf, 
+    t.test(gain ~ Diet, paired = FALSE, var.equal = FALSE, data = wideCW14)$conf)
 ```
 
 ```
@@ -256,6 +296,7 @@ t.test(gain ~ Diet, paired = FALSE, var.equal = FALSE, data = wideCW14)$conf
 ## [1,] -108.1 -14.81
 ## [2,] -104.7 -18.30
 ```
+
 
 
 ---

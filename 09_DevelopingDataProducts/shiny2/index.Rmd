@@ -92,7 +92,7 @@ shinyServer(
 
 ---
 ## Reactive expressions
-* Sometimes to speed up your app, you want reactive operations (those operations that depend on widget input values) to be performed outside of a `render*`1 statement
+* Sometimes to speed up your app, you want reactive operations (those operations that depend on widget input values) to be performed outside of a `render*` statement
 * For example, you want to do some code that gets reused in several 
 `render*` statements and don't want to recalculate it for each
 * The `reactive` function is made for this purpose

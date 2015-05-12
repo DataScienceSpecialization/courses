@@ -242,6 +242,8 @@ $$\frac{-b \pm \sqrt{b^2 - 4 a c}}{2a}$$
 ---
 ## Rmd syntax 
 
+--- &radio
+
 \#\# Question 1
 
 What is 1 + 1?

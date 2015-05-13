@@ -85,7 +85,7 @@ author("first_deck")
 
 ## Getting to know `index.Rmd` : `YAML`
 
-- `index.Rmd` is the R Markdown document which you will use to compose the conent of your presentation.
+- `index.Rmd` is the R Markdown document which you will use to compose the content of your presentation.
 - The first part of an `index.Rmd` file is a bit of `YAML` code which will look like this:
 
 ```YAML

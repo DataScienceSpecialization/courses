@@ -74,7 +74,7 @@ Calling a point an outlier is vague.
   * `hatvalues` - measures of leverage
   * `dffits` - change in the predicted response when the $i^{th}$ point is deleted in fitting the model.
   * `dfbetas` - change in individual coefficients when the $i^{th}$ point is deleted in fitting the model.
-  * `cooks.distance` - overall change in teh coefficients when the $i^{th}$ point is deleted.
+  * `cooks.distance` - overall change in the coefficients when the $i^{th}$ point is deleted.
   * `resid` - returns the ordinary residuals
   * `resid(fit) / (1 - hatvalues(fit))` where `fit` is the linear model fit returns the PRESS residuals, i.e. the leave one out cross validation residuals - the difference in the response and the predicted response at data point $i$, where it was not included in the model fitting.
 

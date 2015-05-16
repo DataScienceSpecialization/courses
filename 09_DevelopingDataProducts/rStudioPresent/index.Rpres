@@ -31,7 +31,7 @@ Authoring content
     - (`alt-f` then `f` then `p` if you want key strokes)
     - Use basically the same R markdown format for authoring as slidify/knitr
         - Single quotes for inline code
-        - Tripple qutoes for block code
+        - Triple quotes for block code
         - Same options for code evaluation, caching, hiding etcetera
 
 Compiling and tools

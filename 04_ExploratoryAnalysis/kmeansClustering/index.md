@@ -8,7 +8,7 @@ framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow   # 
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -60,16 +60,14 @@ mode        : selfcontained # {standalone, draft}
 
 
 ```r
-set.seed(1234)
-par(mar = c(0, 0, 0, 0))
-x <- rnorm(12, mean = rep(1:3, each = 4), sd = 0.2)
-y <- rnorm(12, mean = rep(c(1, 2, 1), each = 4), sd = 0.2)
-plot(x, y, col = "blue", pch = 19, cex = 2)
-text(x + 0.05, y + 0.05, labels = as.character(1:12))
+set.seed(1234); par(mar=c(0,0,0,0))
+x <- rnorm(12,mean=rep(1:3,each=4),sd=0.2)
+y <- rnorm(12,mean=rep(c(1,2,1),each=4),sd=0.2)
+plot(x,y,col="blue",pch=19,cex=2)
+text(x+0.05,y+0.05,labels=as.character(1:12))
 ```
 
-![plot of chunk createData](figure/createData.png) 
-
+![plot of chunk createData](assets/fig/createData-1.png) 
 
 
 ---
@@ -77,30 +75,26 @@ text(x + 0.05, y + 0.05, labels = as.character(1:12))
 ## K-means clustering -  starting centroids
 
 
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1.png) 
-
+![plot of chunk unnamed-chunk-1](assets/fig/unnamed-chunk-1-1.png) 
 
 ---
 
 ## K-means clustering -  assign to closest centroid
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
-
+![plot of chunk unnamed-chunk-2](assets/fig/unnamed-chunk-2-1.png) 
 
 ---
 
 ## K-means clustering -  recalculate centroids
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
-
+![plot of chunk unnamed-chunk-3](assets/fig/unnamed-chunk-3-1.png) 
 
 
 ---
 
 ## K-means clustering -  reassign values
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
-
+![plot of chunk unnamed-chunk-4](assets/fig/unnamed-chunk-4-1.png) 
 
 
 
@@ -108,8 +102,7 @@ text(x + 0.05, y + 0.05, labels = as.character(1:12))
 
 ## K-means clustering -  update centroids
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
-
+![plot of chunk unnamed-chunk-5](assets/fig/unnamed-chunk-5-1.png) 
 
 
 ---
@@ -120,8 +113,8 @@ text(x + 0.05, y + 0.05, labels = as.character(1:12))
 
 
 ```r
-dataFrame <- data.frame(x, y)
-kmeansObj <- kmeans(dataFrame, centers = 3)
+dataFrame <- data.frame(x,y)
+kmeansObj <- kmeans(dataFrame,centers=3)
 names(kmeansObj)
 ```
 
@@ -139,20 +132,18 @@ kmeansObj$cluster
 ##  [1] 3 3 3 3 1 1 1 1 2 2 2 2
 ```
 
-
 ---
 
 ## `kmeans()`
 
 
 ```r
-par(mar = rep(0.2, 4))
-plot(x, y, col = kmeansObj$cluster, pch = 19, cex = 2)
-points(kmeansObj$centers, col = 1:3, pch = 3, cex = 3, lwd = 3)
+par(mar=rep(0.2,4))
+plot(x,y,col=kmeansObj$cluster,pch=19,cex=2)
+points(kmeansObj$centers,col=1:3,pch=3,cex=3,lwd=3)
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
-
+![plot of chunk unnamed-chunk-6](assets/fig/unnamed-chunk-6-1.png) 
 
 ---
 
@@ -161,15 +152,14 @@ points(kmeansObj$centers, col = 1:3, pch = 3, cex = 3, lwd = 3)
 
 ```r
 set.seed(1234)
-dataMatrix <- as.matrix(dataFrame)[sample(1:12), ]
-kmeansObj2 <- kmeans(dataMatrix, centers = 3)
-par(mfrow = c(1, 2), mar = c(2, 4, 0.1, 0.1))
-image(t(dataMatrix)[, nrow(dataMatrix):1], yaxt = "n")
-image(t(dataMatrix)[, order(kmeansObj$cluster)], yaxt = "n")
+dataMatrix <- as.matrix(dataFrame)[sample(1:12),]
+kmeansObj <- kmeans(dataMatrix,centers=3)
+par(mfrow=c(1,2), mar = c(2, 4, 0.1, 0.1))
+image(t(dataMatrix)[,nrow(dataMatrix):1],yaxt="n")
+image(t(dataMatrix)[,order(kmeansObj$cluster)],yaxt="n")
 ```
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7.png) 
-
+![plot of chunk unnamed-chunk-7](assets/fig/unnamed-chunk-7-1.png) 
 
 
 

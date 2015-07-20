@@ -15,15 +15,78 @@ mode        : selfcontained # {standalone, draft}
 
 ---
 
+```
+## Error: object 'opts_chunk' not found
+```
 
+```
+## Error: object 'knit_hooks' not found
+```
+
+```
+## Error: object 'knit_hooks' not found
+```
 ## Motivating example
 ### `diamond` data set from `UsingR` 
 Data is diamond prices (Singapore dollars) and diamond weight
 in carats (standard measure of diamond mass, 0.2 $g$). To get the data use `library(UsingR); data(diamond)`
 
 ---
-<div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
 
+```
+## Loading required package: MASS
+## Loading required package: HistData
+## Loading required package: Hmisc
+## Loading required package: grid
+## Loading required package: lattice
+## Loading required package: survival
+## Loading required package: splines
+## Loading required package: Formula
+## 
+## Attaching package: 'Hmisc'
+## 
+## The following objects are masked from 'package:base':
+## 
+##     format.pval, round.POSIXt, trunc.POSIXt, units
+## 
+## Loading required package: aplpack
+## Loading required package: tcltk
+## Loading required package: quantreg
+## Loading required package: SparseM
+## 
+## Attaching package: 'SparseM'
+## 
+## The following object is masked from 'package:base':
+## 
+##     backsolve
+## 
+## 
+## Attaching package: 'quantreg'
+## 
+## The following object is masked from 'package:Hmisc':
+## 
+##     latex
+## 
+## The following object is masked from 'package:survival':
+## 
+##     untangle.specials
+## 
+## 
+## Attaching package: 'UsingR'
+## 
+## The following object is masked from 'package:survival':
+## 
+##     cancer
+## 
+## 
+## Attaching package: 'ggplot2'
+## 
+## The following object is masked from 'package:UsingR':
+## 
+##     movies
+```
+
+![plot of chunk unnamed-chunk-1](assets/fig/unnamed-chunk-1.png) 
 ---
 
 ## Residuals
@@ -68,7 +131,7 @@ max(abs(e -(y - yhat)))
 ```
 
 ```
-[1] 9.486e-13
+## [1] 9.486e-13
 ```
 
 ```r
@@ -76,51 +139,42 @@ max(abs(e - (y - coef(fit)[1] - coef(fit)[2] * x)))
 ```
 
 ```
-[1] 9.486e-13
+## [1] 9.486e-13
 ```
-
 
 ---
 ## Residuals are the signed length of the red lines
-<div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
-
+![plot of chunk unnamed-chunk-3](assets/fig/unnamed-chunk-3.png) 
 
 ---
 ## Residuals versus X
-<div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
-
+![plot of chunk unnamed-chunk-4](assets/fig/unnamed-chunk-4.png) 
 
 ---
 ## Non-linear data
-<div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
-
+![plot of chunk unnamed-chunk-5](assets/fig/unnamed-chunk-5.png) 
 
 ---
 ## Residual plot
-<div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
-
+![plot of chunk unnamed-chunk-6](assets/fig/unnamed-chunk-6.png) 
 
 ---
 ## Heteroskedasticity
-<div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
-
+![plot of chunk unnamed-chunk-7](assets/fig/unnamed-chunk-7.png) 
 
 ---
 ## Getting rid of the blank space can be helpful
-<div class="rimage center"><img src="fig/unnamed-chunk-8.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" class="plot" /></div>
-
-
----
-## Diamond data residual plot
-
-<div class="rimage center"><img src="fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" class="plot" /></div>
-
+![plot of chunk unnamed-chunk-8](assets/fig/unnamed-chunk-8.png) 
 
 ---
 ## Diamond data residual plot
 
-<div class="rimage center"><img src="fig/unnamed-chunk-10.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" class="plot" /></div>
+![plot of chunk unnamed-chunk-9](assets/fig/unnamed-chunk-9.png) 
 
+---
+## Diamond data residual plot
+
+![plot of chunk unnamed-chunk-10](assets/fig/unnamed-chunk-10.png) 
 
 ---
 ## Estimating residual variation
@@ -143,7 +197,7 @@ summary(fit)$sigma
 ```
 
 ```
-[1] 31.84
+## [1] 31.84
 ```
 
 ```r
@@ -151,9 +205,8 @@ sqrt(sum(resid(fit)^2) / (n - 2))
 ```
 
 ```
-[1] 31.84
+## [1] 31.84
 ```
-
 
 ---
 ## Summarizing variation
@@ -193,8 +246,7 @@ $$
 
 ---
 ## `data(anscombe);example(anscombe)`
-<div class="rimage center"><img src="fig/unnamed-chunk-12.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" class="plot" /></div>
-
+![plot of chunk unnamed-chunk-12](assets/fig/unnamed-chunk-12.png) 
 
 ---
 ## How to derive R squared (Not required!)

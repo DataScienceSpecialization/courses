@@ -44,11 +44,19 @@
 
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
-  <hgroup>
-    <h2>Motivating example</h2>
-  </hgroup>
   <article data-timings="">
-    <h3><code>diamond</code> data set from <code>UsingR</code></h3>
+    <pre><code>## Error: object &#39;opts_chunk&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<pre><code>## Error: object &#39;knit_hooks&#39; not found
+</code></pre>
+
+<h2>Motivating example</h2>
+
+<h3><code>diamond</code> data set from <code>UsingR</code></h3>
 
 <p>Data is diamond prices (Singapore dollars) and diamond weight
 in carats (standard measure of diamond mass, 0.2 \(g\)). To get the data use <code>library(UsingR); data(diamond)</code></p>
@@ -59,18 +67,63 @@ in carats (standard measure of diamond mass, 0.2 \(g\)). To get the data use <co
 
 <slide class="" id="slide-2" style="background:;">
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" class="plot" /></div>
+    <pre><code>## Loading required package: MASS
+## Loading required package: HistData
+## Loading required package: Hmisc
+## Loading required package: grid
+## Loading required package: lattice
+## Loading required package: survival
+## Loading required package: splines
+## Loading required package: Formula
+## 
+## Attaching package: &#39;Hmisc&#39;
+## 
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     format.pval, round.POSIXt, trunc.POSIXt, units
+## 
+## Loading required package: aplpack
+## Loading required package: tcltk
+## Loading required package: quantreg
+## Loading required package: SparseM
+## 
+## Attaching package: &#39;SparseM&#39;
+## 
+## The following object is masked from &#39;package:base&#39;:
+## 
+##     backsolve
+## 
+## 
+## Attaching package: &#39;quantreg&#39;
+## 
+## The following object is masked from &#39;package:Hmisc&#39;:
+## 
+##     latex
+## 
+## The following object is masked from &#39;package:survival&#39;:
+## 
+##     untangle.specials
+## 
+## 
+## Attaching package: &#39;UsingR&#39;
+## 
+## The following object is masked from &#39;package:survival&#39;:
+## 
+##     cancer
+## 
+## 
+## Attaching package: &#39;ggplot2&#39;
+## 
+## The following object is masked from &#39;package:UsingR&#39;:
+## 
+##     movies
+</code></pre>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<h2><img src="assets/fig/unnamed-chunk-1.png" alt="plot of chunk unnamed-chunk-1"> </h2>
 
-<slide class="" id="slide-3" style="background:;">
-  <hgroup>
-    <h2>Residuals</h2>
-  </hgroup>
-  <article data-timings="">
-    <ul>
+<h2>Residuals</h2>
+
+<ul>
 <li>Model \(Y_i = \beta_0 + \beta_1 X_i + \epsilon_i\) where \(\epsilon_i \sim N(0, \sigma^2)\).</li>
 <li>Observed outcome \(i\) is \(Y_i\) at predictor value \(X_i\)</li>
 <li>Predicted outcome \(i\) is \(\hat Y_i\) at predictor valuve \(X_i\) is
@@ -93,7 +146,7 @@ e_i = Y_i - \hat Y_i
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-4" style="background:;">
+<slide class="" id="slide-3" style="background:;">
   <hgroup>
     <h2>Properties of the residuals</h2>
   </hgroup>
@@ -115,7 +168,7 @@ the predictor) from systematic variation (variation explained by the regression 
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-5" style="background:;">
+<slide class="" id="slide-4" style="background:;">
   <hgroup>
     <h2>Code</h2>
   </hgroup>
@@ -128,14 +181,25 @@ yhat &lt;- predict(fit)
 max(abs(e -(y - yhat)))
 </code></pre>
 
-<pre><code>[1] 9.486e-13
+<pre><code>## [1] 9.486e-13
 </code></pre>
 
 <pre><code class="r">max(abs(e - (y - coef(fit)[1] - coef(fit)[2] * x)))
 </code></pre>
 
-<pre><code>[1] 9.486e-13
+<pre><code>## [1] 9.486e-13
 </code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Residuals are the signed length of the red lines</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -143,10 +207,10 @@ max(abs(e -(y - yhat)))
 
 <slide class="" id="slide-6" style="background:;">
   <hgroup>
-    <h2>Residuals are the signed length of the red lines</h2>
+    <h2>Residuals versus X</h2>
   </hgroup>
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-3.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" class="plot" /></div>
+    <p><img src="assets/fig/unnamed-chunk-4.png" alt="plot of chunk unnamed-chunk-4"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -154,10 +218,10 @@ max(abs(e -(y - yhat)))
 
 <slide class="" id="slide-7" style="background:;">
   <hgroup>
-    <h2>Residuals versus X</h2>
+    <h2>Non-linear data</h2>
   </hgroup>
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-4.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" class="plot" /></div>
+    <p><img src="assets/fig/unnamed-chunk-5.png" alt="plot of chunk unnamed-chunk-5"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -165,10 +229,10 @@ max(abs(e -(y - yhat)))
 
 <slide class="" id="slide-8" style="background:;">
   <hgroup>
-    <h2>Non-linear data</h2>
+    <h2>Residual plot</h2>
   </hgroup>
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-5.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" class="plot" /></div>
+    <p><img src="assets/fig/unnamed-chunk-6.png" alt="plot of chunk unnamed-chunk-6"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -176,10 +240,10 @@ max(abs(e -(y - yhat)))
 
 <slide class="" id="slide-9" style="background:;">
   <hgroup>
-    <h2>Residual plot</h2>
+    <h2>Heteroskedasticity</h2>
   </hgroup>
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-6.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" class="plot" /></div>
+    <p><img src="assets/fig/unnamed-chunk-7.png" alt="plot of chunk unnamed-chunk-7"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -187,10 +251,10 @@ max(abs(e -(y - yhat)))
 
 <slide class="" id="slide-10" style="background:;">
   <hgroup>
-    <h2>Heteroskedasticity</h2>
+    <h2>Getting rid of the blank space can be helpful</h2>
   </hgroup>
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-7.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" class="plot" /></div>
+    <p><img src="assets/fig/unnamed-chunk-8.png" alt="plot of chunk unnamed-chunk-8"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -198,10 +262,10 @@ max(abs(e -(y - yhat)))
 
 <slide class="" id="slide-11" style="background:;">
   <hgroup>
-    <h2>Getting rid of the blank space can be helpful</h2>
+    <h2>Diamond data residual plot</h2>
   </hgroup>
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-8.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" class="plot" /></div>
+    <p><img src="assets/fig/unnamed-chunk-9.png" alt="plot of chunk unnamed-chunk-9"> </p>
 
   </article>
   <!-- Presenter Notes -->
@@ -212,24 +276,13 @@ max(abs(e -(y - yhat)))
     <h2>Diamond data residual plot</h2>
   </hgroup>
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-9.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" class="plot" /></div>
+    <p><img src="assets/fig/unnamed-chunk-10.png" alt="plot of chunk unnamed-chunk-10"> </p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
 <slide class="" id="slide-13" style="background:;">
-  <hgroup>
-    <h2>Diamond data residual plot</h2>
-  </hgroup>
-  <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-10.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" class="plot" /></div>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>Estimating residual variation</h2>
   </hgroup>
@@ -249,7 +302,7 @@ the average squared residual. </li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>Diamond example</h2>
   </hgroup>
@@ -259,20 +312,20 @@ fit &lt;- lm(y ~ x)
 summary(fit)$sigma
 </code></pre>
 
-<pre><code>[1] 31.84
+<pre><code>## [1] 31.84
 </code></pre>
 
 <pre><code class="r">sqrt(sum(resid(fit)^2) / (n - 2))
 </code></pre>
 
-<pre><code>[1] 31.84
+<pre><code>## [1] 31.84
 </code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>Summarizing variation</h2>
   </hgroup>
@@ -295,7 +348,7 @@ predictor \(\sum_{i=1}^n  (\hat Y_i - \bar Y)^2\)</li>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-17" style="background:;">
+<slide class="" id="slide-16" style="background:;">
   <hgroup>
     <h2>R squared</h2>
   </hgroup>
@@ -312,7 +365,7 @@ R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-18" style="background:;">
+<slide class="" id="slide-17" style="background:;">
   <hgroup>
     <h2>Some facts about \(R^2\)</h2>
   </hgroup>
@@ -340,18 +393,18 @@ R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-19" style="background:;">
+<slide class="" id="slide-18" style="background:;">
   <hgroup>
     <h2><code>data(anscombe);example(anscombe)</code></h2>
   </hgroup>
   <article data-timings="">
-    <div class="rimage center"><img src="fig/unnamed-chunk-12.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" class="plot" /></div>
+    <p><img src="assets/fig/unnamed-chunk-12.png" alt="plot of chunk unnamed-chunk-12"> </p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-20" style="background:;">
+<slide class="" id="slide-19" style="background:;">
   <hgroup>
     <h2>How to derive R squared (Not required!)</h2>
   </hgroup>
@@ -372,7 +425,7 @@ R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-21" style="background:;">
+<slide class="" id="slide-20" style="background:;">
   <hgroup>
     <h2>The relation between R squared and r</h2>
   </hgroup>
@@ -402,7 +455,7 @@ So, \(R^2\) is literally \(r\) squared.</p>
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Motivating example'>
+        data-slide=1 title=''>
          1
       </a>
     </li>
@@ -414,55 +467,55 @@ So, \(R^2\) is literally \(r\) squared.</p>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='Residuals'>
+        data-slide=3 title='Properties of the residuals'>
          3
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='Properties of the residuals'>
+        data-slide=4 title='Code'>
          4
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Code'>
+        data-slide=5 title='Residuals are the signed length of the red lines'>
          5
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=6 title='Residuals are the signed length of the red lines'>
+        data-slide=6 title='Residuals versus X'>
          6
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=7 title='Residuals versus X'>
+        data-slide=7 title='Non-linear data'>
          7
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=8 title='Non-linear data'>
+        data-slide=8 title='Residual plot'>
          8
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=9 title='Residual plot'>
+        data-slide=9 title='Heteroskedasticity'>
          9
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=10 title='Heteroskedasticity'>
+        data-slide=10 title='Getting rid of the blank space can be helpful'>
          10
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title='Getting rid of the blank space can be helpful'>
+        data-slide=11 title='Diamond data residual plot'>
          11
       </a>
     </li>
@@ -474,56 +527,50 @@ So, \(R^2\) is literally \(r\) squared.</p>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=13 title='Diamond data residual plot'>
+        data-slide=13 title='Estimating residual variation'>
          13
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=14 title='Estimating residual variation'>
+        data-slide=14 title='Diamond example'>
          14
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title='Diamond example'>
+        data-slide=15 title='Summarizing variation'>
          15
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=16 title='Summarizing variation'>
+        data-slide=16 title='R squared'>
          16
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=17 title='R squared'>
+        data-slide=17 title='Some facts about \(R^2\)'>
          17
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=18 title='Some facts about \(R^2\)'>
+        data-slide=18 title='<code>data(anscombe);example(anscombe)</code>'>
          18
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=19 title='<code>data(anscombe);example(anscombe)</code>'>
+        data-slide=19 title='How to derive R squared (Not required!)'>
          19
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=20 title='How to derive R squared (Not required!)'>
+        data-slide=20 title='The relation between R squared and r'>
          20
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=21 title='The relation between R squared and r'>
-         21
       </a>
     </li>
   </ul>

@@ -6,9 +6,9 @@ job         : Johns Hopkins Bloomberg School of Public Health
 logo        : bloomberg_shield.png
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
-hitheme     : tomorrow      # 
+hitheme     : tomorrow      #
 url:
-  lib: ../../libraries
+  lib: ../../librariesNew
   assets: ../../assets
 widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
@@ -33,7 +33,7 @@ runif(1)
 Code for the first plot, rest omitted
 (See the git repo for the rest of the code.)
 ```
-n <- 100; t <- rep(c(0, 1), c(n/2, n/2)); x <- c(runif(n/2), runif(n/2)); 
+n <- 100; t <- rep(c(0, 1), c(n/2, n/2)); x <- c(runif(n/2), runif(n/2));
 beta0 <- 0; beta1 <- 2; tau <- 1; sigma <- .2
 y <- beta0 + x * beta1 + t * tau + rnorm(n, sd = sigma)
 plot(x, y, type = "n", frame = FALSE)
@@ -51,7 +51,7 @@ points(x[(n/2 + 1) : n], y[(n/2 + 1) : n], pch = 21, col = "black", bg = "salmon
 ---
 ## Simulation 1
 ```{r, fig.height=5, fig.width=5, echo = FALSE, results='hide'}
-n <- 100; t <- rep(c(0, 1), c(n/2, n/2)); x <- c(runif(n/2), runif(n/2)); 
+n <- 100; t <- rep(c(0, 1), c(n/2, n/2)); x <- c(runif(n/2), runif(n/2));
 beta0 <- 0; beta1 <- 2; tau <- 1; sigma <- .2
 y <- beta0 + x * beta1 + t * tau + rnorm(n, sd = sigma)
 plot(x, y, type = "n", frame = FALSE)
@@ -78,7 +78,7 @@ points(x[(n/2 + 1) : n], y[(n/2 + 1) : n], pch = 21, col = "black", bg = "salmon
 ---
 ## Simulation 2
 ```{r, fig.height=5, fig.width=5, echo = FALSE, results='hide'}
-n <- 100; t <- rep(c(0, 1), c(n/2, n/2)); x <- c(runif(n/2), 1.5 + runif(n/2)); 
+n <- 100; t <- rep(c(0, 1), c(n/2, n/2)); x <- c(runif(n/2), 1.5 + runif(n/2));
 beta0 <- 0; beta1 <- 2; tau <- 0; sigma <- .2
 y <- beta0 + x * beta1 + t * tau + rnorm(n, sd = sigma)
 plot(x, y, type = "n", frame = FALSE)
@@ -101,15 +101,15 @@ points(x[(n/2 + 1) : n], y[(n/2 + 1) : n], pch = 21, col = "black", bg = "salmon
   doesn't depend on the group variable.
   * The X variable remains related to Y holding group status constant
 * The group variable is marginally related to Y disregarding X.
-* The model would estimate no adjusted effect due to group. 
+* The model would estimate no adjusted effect due to group.
   * There isn't any data to inform the relationship between
     group and Y.
-  * This conclusion is entirely based on the model. 
+  * This conclusion is entirely based on the model.
 
 ---
 ## Simulation 3
 ```{r, fig.height=5, fig.width=5, echo = FALSE, results='hide'}
-n <- 100; t <- rep(c(0, 1), c(n/2, n/2)); x <- c(runif(n/2), .9 + runif(n/2)); 
+n <- 100; t <- rep(c(0, 1), c(n/2, n/2)); x <- c(runif(n/2), .9 + runif(n/2));
 beta0 <- 0; beta1 <- 2; tau <- -1; sigma <- .2
 y <- beta0 + x * beta1 + t * tau + rnorm(n, sd = sigma)
 plot(x, y, type = "n", frame = FALSE)
@@ -137,7 +137,7 @@ holding X fixed.
 ---
 ## Simulation 4
 ```{r, fig.height=5, fig.width=5, echo = FALSE, results='hide'}
-n <- 100; t <- rep(c(0, 1), c(n/2, n/2)); x <- c(.5 + runif(n/2), runif(n/2)); 
+n <- 100; t <- rep(c(0, 1), c(n/2, n/2)); x <- c(.5 + runif(n/2), runif(n/2));
 beta0 <- 0; beta1 <- 2; tau <- 1; sigma <- .2
 y <- beta0 + x * beta1 + t * tau + rnorm(n, sd = sigma)
 plot(x, y, type = "n", frame = FALSE)
@@ -163,7 +163,7 @@ holding X fixed.
 ---
 ## Simulation 5
 ```{r, fig.height=5, fig.width=5, echo = FALSE, results='hide'}
-n <- 100; t <- rep(c(0, 1), c(n/2, n/2)); x <- c(runif(n/2, -1, 1), runif(n/2, -1, 1)); 
+n <- 100; t <- rep(c(0, 1), c(n/2, n/2)); x <- c(runif(n/2, -1, 1), runif(n/2, -1, 1));
 beta0 <- 0; beta1 <- 2; tau <- 0; tau1 <- -4; sigma <- .2
 y <- beta0 + x * beta1 + t * tau + t * x * tau1 + rnorm(n, sd = sigma)
 plot(x, y, type = "n", frame = FALSE)
@@ -180,7 +180,7 @@ points(x[(n/2 + 1) : n], y[(n/2 + 1) : n], pch = 21, col = "black", bg = "salmon
 ---
 ## Discussion
 ### Some things to note from this simulation
-* There is no such thing as a group effect here. 
+* There is no such thing as a group effect here.
   * The impact of group reverses itself depending on X.
   * Both intercept and slope depends on group.
 * Group status and X unrelated.
@@ -190,7 +190,7 @@ points(x[(n/2 + 1) : n], y[(n/2 + 1) : n], pch = 21, col = "black", bg = "salmon
 ### Simulation 6
 ```{r, fig.height=5, fig.width=5, echo = FALSE, results='hide'}
 p <- 1
-n <- 100; x2 <- runif(n); x1 <- p * runif(n) - (1 - p) * x2 
+n <- 100; x2 <- runif(n); x1 <- p * runif(n) - (1 - p) * x2
 beta0 <- 0; beta1 <- 1; tau <- 4 ; sigma <- .01
 y <- beta0 + x1 * beta1 + tau * x2 + rnorm(n, sd = sigma)
 plot(x1, y, type = "n", frame = FALSE)
@@ -228,10 +228,9 @@ abline(lm(I(resid(lm(x1 ~ x2))) ~ I(resid(lm(y ~ x2)))), lwd = 2)
 ## Some final thoughts
 * Modeling multivariate relationships is difficult.
 * Play around with simulations to see how the
-  inclusion or exclustion of another variable can
+  inclusion or exclusion of another variable can
   change analyses.
 * The results of these analyses deal with the
 impact of variables on associations.
-  * Ascertaining mechanisms or cause are difficult subjects 
+  * Ascertaining mechanisms or cause are difficult subjects
     to be added on top of difficulty in understanding multivariate associations.
-

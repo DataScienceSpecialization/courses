@@ -1,5 +1,4 @@
 % Managing Data Frames with `dplyr`
-% Biostatistics 140.776
 %
 
 ```{r, echo=FALSE, results="hide"}
@@ -177,12 +176,12 @@ Generating summary statistics by stratum
 
 ```{r, tidy=FALSE}
 chicago <- mutate(chicago, 
-                  tempcat = factor(1 * (tmpd > 90), 
+                  tempcat = factor(1 * (tmpd > 80), 
                                    labels = c("cold", "hot")))
 hotcold <- group_by(chicago, tempcat)
 summarize(hotcold, pm25 = mean(pm25, na.rm = TRUE), 
-          o3 = max(o3tmean2, na.rm = TRUE), 
-          no2 = median(no2tmean2, na.rm = TRUE))
+          o3 = max(o3tmean2), 
+          no2 = median(no2tmean2))
 ```
 
 
@@ -207,15 +206,15 @@ chicago$year <- NULL  ## Can't use mutate to create an existing variable
 # `%>%`
 
 ```{r,tidy=FALSE,eval=FALSE}
-chicago %>% mutate(year = as.POSIXlt(date)$year + 1900) 
-	%>% group_by(year) 
+chicago %>% mutate(month = as.POSIXlt(date)$mon + 1) 
+	%>% group_by(month) 
 	%>% summarize(pm25 = mean(pm25, na.rm = TRUE), 
           o3 = max(o3tmean2, na.rm = TRUE), 
           no2 = median(no2tmean2, na.rm = TRUE))
 ```
 
 ```{r,echo=FALSE}
-chicago %>% mutate(year = as.POSIXlt(date)$year + 1900) %>% group_by(year) %>% 
+chicago %>% mutate(month = as.POSIXlt(date)$mon + 1) %>% group_by(month) %>% 
 summarize(pm25 = mean(pm25, na.rm = TRUE), o3 = max(o3tmean2, na.rm = TRUE), no2 = median(no2tmean2, na.rm = TRUE))
 
 ```

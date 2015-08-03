@@ -36,7 +36,7 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 
 * Used for storing large data sets
 * Supports storing a range of data types
-* Heirarchical data format
+* Hierarchical data format
 * _groups_ containing zero or more data sets and metadata
   * Have a _group header_ with group name and list of attributes
   * Have a _group symbol table_ with a list of objects in group

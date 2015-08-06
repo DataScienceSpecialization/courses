@@ -1,59 +1,171 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Organizing a Data Analysis</title>
-  <meta charset="utf-8">
-  <meta name="description" content="Organizing a Data Analysis">
-  <meta name="author" content="Roger D. Peng, Associate Professor of Biostatistics">
-  <meta name="generator" content="slidify" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/default.css" media="all" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/phone.css" 
-    media="only screen and (max-device-width: 480px)" >
-  <link rel="stylesheet" href="../../libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="../../libraries/highlighters/highlight.js/css/zenburn.css" />
-  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
-  <script data-main="../../libraries/frameworks/io2012/js/slides" 
-    src="../../libraries/frameworks/io2012/js/require-1.0.8.min.js">
-  </script>
-  
-    <link rel="stylesheet" href = "../../assets/css/custom.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BACKUP.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.BASE.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.LOCAL.546.css">
-<link rel="stylesheet" href = "../../assets/css/custom.css.orig">
-<link rel="stylesheet" href = "../../assets/css/custom.css.REMOTE.546.css">
-<link rel="stylesheet" href = "../../assets/css/ribbons.css">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Data analysis files</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
 
 </head>
-<body style="opacity: 0">
-  <slides class="layout-widescreen">
-    
-    <!-- LOGO SLIDE -->
-    <!-- END LOGO SLIDE -->
-    
 
-    <!-- TITLE SLIDE -->
-    <!-- Should I move this to a Local Layout File? -->
-    <slide class="title-slide segue nobackground">
-      <aside class="gdbar">
-        <img src="../../assets/img/bloomberg_shield.png">
-      </aside>
-      <hgroup class="auto-fadein">
-        <h1>Organizing a Data Analysis</h1>
-        <h2></h2>
-        <p>Roger D. Peng, Associate Professor of Biostatistics<br/>Johns Hopkins Bloomberg School of Public Health</p>
-      </hgroup>
-          </slide>
+<body>
+<h2>Data analysis files</h2>
 
-    <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
-  <hgroup>
-    <h2>Data analysis files</h2>
-  </hgroup>
-  <article>
-    <ul>
+<ul>
 <li>Data
 
 <ul>
@@ -81,32 +193,22 @@
 </ul></li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<hr/>
 
-      <slide class="" id="slide-2" style="background:;">
-  <hgroup>
-    <h2>Raw Data</h2>
-  </hgroup>
-  <article>
-    <p><img class=center src=../../assets/img/medicalrecord.png height='400'/></p>
+<h2>Raw Data</h2>
+
+<p><img class=center src=../../assets/img/medicalrecord.png height='400'/></p>
 
 <ul>
 <li>Should be stored in your analysis folder</li>
 <li>If accessed from the web, include url, description, and date accessed in README</li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<hr/>
 
-      <slide class="" id="slide-3" style="background:;">
-  <hgroup>
-    <h2>Processed data</h2>
-  </hgroup>
-  <article>
-    <p><img class=center src=../../assets/img/excel.png height='400'/></p>
+<h2>Processed data</h2>
+
+<p><img class=center src=../../assets/img/excel.png height='400'/></p>
 
 <ul>
 <li>Processed data should be named so it is easy to see which script generated the data. </li>
@@ -114,32 +216,22 @@
 <li>Processed data should be <a href="http://vita.had.co.nz/papers/tidy-data.pdf">tidy</a></li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<hr/>
 
-      <slide class="" id="slide-4" style="background:;">
-  <hgroup>
-    <h2>Exploratory figures</h2>
-  </hgroup>
-  <article>
-    <p><img class=center src=../../assets/img/example10.png height='400'/></p>
+<h2>Exploratory figures</h2>
+
+<p><img class=center src=../../assets/img/example10.png height='400'/></p>
 
 <ul>
 <li>Figures made during the course of your analysis, not necessarily part of your final report.</li>
-<li>They do not need to be &quot;pretty&quot;</li>
+<li>They do not need to be &ldquo;pretty&rdquo;</li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<hr/>
 
-      <slide class="" id="slide-5" style="background:;">
-  <hgroup>
-    <h2>Final Figures</h2>
-  </hgroup>
-  <article>
-    <p><img class=center src=../../assets/img/figure1final.png height='400'/></p>
+<h2>Final Figures</h2>
+
+<p><img class=center src=../../assets/img/figure1final.png height='400'/></p>
 
 <ul>
 <li>Usually a small subset of the original figures</li>
@@ -147,16 +239,11 @@
 <li>Possibly multiple panels</li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<hr/>
 
-      <slide class="" id="slide-6" style="background:;">
-  <hgroup>
-    <h2>Raw scripts</h2>
-  </hgroup>
-  <article>
-    <p><img class=center src=../../assets/img/rawcode.png height='350'/></p>
+<h2>Raw scripts</h2>
+
+<p><img class=center src=../../assets/img/rawcode.png height='350'/></p>
 
 <ul>
 <li>May be less commented (but comments help you!)</li>
@@ -164,16 +251,11 @@
 <li>May include analyses that are later discarded</li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<hr/>
 
-      <slide class="" id="slide-7" style="background:;">
-  <hgroup>
-    <h2>Final scripts</h2>
-  </hgroup>
-  <article>
-    <p><img class=center src=../../assets/img/finalscript2.png height='300'/></p>
+<h2>Final scripts</h2>
+
+<p><img class=center src=../../assets/img/finalscript2.png height='300'/></p>
 
 <ul>
 <li>Clearly commented
@@ -186,16 +268,11 @@
 <li>Only analyses that appear in the final write-up</li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<hr/>
 
-      <slide class="" id="slide-8" style="background:;">
-  <hgroup>
-    <h2>R markdown files</h2>
-  </hgroup>
-  <article>
-    <p><img class=center src=../../assets/img/rmd.png height='400'/></p>
+<h2>R markdown files</h2>
+
+<p><img class=center src=../../assets/img/rmd.png height='400'/></p>
 
 <ul>
 <li><a href="http://www.rstudio.com/ide/docs/authoring/using_markdown">R markdown</a> files can be used to generate reproducible reports</li>
@@ -203,33 +280,23 @@
 <li>Very easy to create in <a href="http://www.rstudio.com/">Rstudio</a></li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<hr/>
 
-      <slide class="" id="slide-9" style="background:;">
-  <hgroup>
-    <h2>Readme files</h2>
-  </hgroup>
-  <article>
-    <p><img class=center src=../../assets/img/readme.png height='400'/></p>
+<h2>Readme files</h2>
+
+<p><img class=center src=../../assets/img/readme.png height='400'/></p>
 
 <ul>
 <li>Not necessary if you use R markdown</li>
 <li>Should contain step-by-step instructions for analysis</li>
-<li>Here is an example <a href="https://github.com/jtleek/swfdr/blob/master/README">https://github.com/jtleek/swfdr/blob/master/README</a></li>
+<li>Here is an example <a href="https://github.com/jtleek/swfdr/blob/master/README.md">https://github.com/jtleek/swfdr/blob/master/README.md</a></li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<hr/>
 
-      <slide class="" id="slide-10" style="background:;">
-  <hgroup>
-    <h2>Text of the document</h2>
-  </hgroup>
-  <article>
-    <p><img class=center src=../../assets/img/swfdr.png height='350'/></p>
+<h2>Text of the document</h2>
+
+<p><img class=center src=../../assets/img/swfdr.png height='350'/></p>
 
 <ul>
 <li>It should include a title, introduction (motivation), methods (statistics you used), results (including measures of uncertainty), and conclusions (including potential problems)</li>
@@ -238,56 +305,17 @@
 <li>References should be included for statistical methods</li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<hr/>
 
-      <slide class="" id="slide-11" style="background:;">
-  <hgroup>
-    <h2>Further resources</h2>
-  </hgroup>
-  <article>
-    <ul>
+<h2>Further resources</h2>
+
+<ul>
 <li>Information about a non-reproducible study that led to cancer patients being mistreated: <a href="http://simplystatistics.org/2012/02/27/the-duke-saga-starter-set/">The Duke Saga Starter Set</a></li>
 <li><a href="http://biostatistics.oxfordjournals.org/content/10/3/405.full">Reproducible research and Biostatistics</a></li>
 <li><a href="http://www.r-statistics.com/2010/09/managing-a-statistical-analysis-project-guidelines-and-best-practices/">Managing a statistical analysis project guidelines and best practices</a></li>
 <li><a href="http://projecttemplate.net/">Project template</a> - a pre-organized set of files for data analysis</li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-    <slide class="backdrop"></slide>
-  </slides>
-
-  <!--[if IE]>
-    <script 
-      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
-    </script>
-    <script>CFInstall.check({mode: 'overlay'});</script>
-  <![endif]-->
 </body>
-<!-- Grab CDN jQuery, fall back to local if offline -->
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../libraries/widgets/quiz/js/jquery-1.7.min.js"><\/script>')</script>
-<!-- Load Javascripts for Widgets -->
-<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true
-    }
-  });
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script> -->
-<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="../../libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
-</script>
-<!-- LOAD HIGHLIGHTER JS FILES -->
-<script src="../../libraries/highlighters/highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
-<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+
 </html>

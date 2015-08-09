@@ -17,6 +17,7 @@ mode        : selfcontained # {standalone, draft}
 
 ```{r setup, cache = TRUE, echo = F, message = F, warning = F, tidy = F}
 # make this an external chunk that can be included in any file
+library(knitr)
 options(width = 100)
 opts_chunk$set(message = F, error = F, warning = F, fig.align = 'center', dpi = 100, tidy = T, cache = F, cache.path = '.cache/', fig.path = 'fig/')
 
@@ -209,7 +210,7 @@ predictionTest = predict(predictionModel,testSpam)
 predictedSpam = rep("nonspam",dim(testSpam)[1])
 
 ## Classify as `spam' for those with prob > 0.5
-predictedSpam[predictionModel$fitted > 0.5] = "spam"
+predictedSpam[predictionTest > 0.5] = "spam"
 ```
 
 ---
@@ -218,10 +219,11 @@ predictedSpam[predictionModel$fitted > 0.5] = "spam"
 
 ```{r}
 ## Classification table
-table(predictedSpam,testSpam$type)
+ct <- table(predictedSpam,testSpam$type)
+ct
 
 ## Error rate
-(61+458)/(1346+458 + 61 + 449)
+sum(ct[2:3]) / sum(ct[1:4])
 ```
 
 ---

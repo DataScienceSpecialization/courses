@@ -174,21 +174,21 @@ lines(testFaith$waiting,predict(lm1,newdata=testFaith),lwd=3)
 
 ```r
 # Calculate RMSE on training
-sqrt(sum((lm1$fitted-trainFaith$eruptions)^2))
+sqrt(mean((lm1$fitted-trainFaith$eruptions)^2))
 ```
 
 ```
-[1] 5.752
+[1] 0.4914
 ```
 
 ```r
 
 # Calculate RMSE on test
-sqrt(sum((predict(lm1,newdata=testFaith)-testFaith$eruptions)^2))
+sqrt(mean((predict(lm1,newdata=testFaith)-testFaith$eruptions)^2))
 ```
 
 ```
-[1] 5.839
+[1] 0.5025
 ```
 
 

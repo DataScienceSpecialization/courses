@@ -1,0 +1,37 @@
+---
+title       : Homework 4 for Stat Inference
+subtitle    : Extra problems for Stat Inference
+author      : Brian Caffo
+job         : Johns Hopkins Bloomberg School of Public Health
+framework   : io2012
+highlighter : highlight.js  
+hitheme     : tomorrow       
+#url:
+#    lib: ../../librariesNew #Remove new if using old slidify
+#    assets: ../../assets
+widgets     : [mathjax, quiz, bootstrap]
+mode        : selfcontained # {standalone, draft}
+---
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F, results='hide'}
+# make this an external chunk that can be included in any file
+library(knitr)
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+```
+
+## About these slides
+- These are some practice problems for Statistical Inference Quiz 4
+- They were created using slidify interactive which you will learn in 
+Creating Data Products
+- Please help improve this with pull requests here
+(https://github.com/bcaffo/courses)

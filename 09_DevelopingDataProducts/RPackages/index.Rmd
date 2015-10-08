@@ -182,7 +182,7 @@ importFrom(graphics, plot)
 
 exportClasses("gpc.poly", "gpc.poly.nohole")
 
-exportMethods("show", "get.bbox", "plot", "intersect”, "union”, "setdiff", 
+exportMethods("show", "get.bbox", "plot", "intersect", "union", "setdiff", 
               "[", "append.poly", "scale.poly", "area.poly", "get.pts", 
               "coerce", "tristrip", "triangulate")
 ```

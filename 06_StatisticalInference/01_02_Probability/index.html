@@ -229,7 +229,7 @@ plot(x, y, lwd = 3, frame = FALSE, type = &quot;l&quot;)</code></pre>
 <pre><code>## [1] 0.5625</code></pre>
 <pre class="r"><code>pbeta(.75, 2, 1)</code></pre>
 <pre><code>## [1] 0.5625</code></pre>
-<p>Or, a more rigorous approach that will become useful when dealing with more complex pdf’s is to define the pdf function and use R’s built-in <code>integrate</code> method.</p>
+<p>A more generic approach that will become useful when dealing with more complex pdf’s is to define the pdf function and use R’s built-in <code>integrate</code> method.</p>
 <pre class="r"><code>PDF &lt;- function(x){
   ifelse(x &gt; 0 &amp; x &lt; 1,  
          return(2.0*x),
@@ -278,6 +278,23 @@ F(x_\alpha) = \alpha
 <li>A <strong>percentile</strong> is simply a quantile with <span class="math">\(\alpha\)</span> expressed as a percent</li>
 <li>The <strong>median</strong> is the <span class="math">\(50^{th}\)</span> percentile</li>
 </ul>
+<hr />
+</div>
+<div id="example-4" class="section level2">
+<h2>Example</h2>
+<ul>
+<li>We want to solve <span class="math">\(0.5 = F(x) = x^2\)</span></li>
+<li>Resulting in the solution</li>
+</ul>
+<pre class="r"><code>sqrt(0.5)</code></pre>
+<pre><code>## [1] 0.7071068</code></pre>
+<ul>
+<li>Therefore, about 0.7071068 of calls being answered on a random day is the median.</li>
+<li>R can approximate quantiles for you for common distributions</li>
+</ul>
+<pre class="r"><code>qbeta(0.5, 2, 1)</code></pre>
+<pre><code>## [1] 0.7071068</code></pre>
+<hr />
 </div>
 <div id="summary" class="section level2">
 <h2>Summary</h2>

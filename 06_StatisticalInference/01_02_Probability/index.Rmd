@@ -270,6 +270,7 @@ $$
 - The **median** is the $50^{th}$ percentile
 
 ---
+
 ## Example
 - We want to solve $0.5 = F(x) = x^2$
 - Resulting in the solution 

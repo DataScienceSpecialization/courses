@@ -70,7 +70,7 @@ img {
 <div id="statistical-inference-defined" class="section level2">
 <h2>Statistical inference defined</h2>
 <p>Statistical inference is the process of drawing formal conclusions from data.</p>
-<p>In our class, we wil define formal statistical inference as settings where one wants to infer facts about a population using noisy statistical data where uncertainty must be accounted for.</p>
+<p>In our class, we will define formal statistical inference as settings where one wants to infer facts about a population using noisy statistical data where uncertainty must be accounted for.</p>
 <hr />
 </div>
 <div id="motivating-example-whos-going-to-win-the-election" class="section level2">
@@ -100,14 +100,27 @@ img {
 <h2>Summary</h2>
 <ul>
 <li>These examples illustrate many of the difficulties of trying to use data to create general conclusions about a population.</li>
-<li>Paramount among our concerns are:</li>
+<li>Paramount among our concerns are:
+<ul>
 <li>Is the sample representative of the population that we’d like to draw inferences about?</li>
 <li>Are there known and observed, known and unobserved or unknown and unobserved variables that contaminate our conclusions?</li>
 <li>Is there systematic bias created by missing data or the design or conduct of the study?</li>
 <li>What randomness exists in the data and how do we use or adjust for it? Here randomness can either be explicit via randomization or random sampling, or implicit as the aggregation of many complex uknown processes.</li>
 <li>Are we trying to estimate an underlying mechanistic model of phenomena under study?</li>
+</ul></li>
 <li>Statistical inference requires navigating the set of assumptions and tools and subsequently thinking about how to draw conclusions from data.</li>
 </ul>
+<hr />
+</div>
+<div id="example-goals-of-inference" class="section level2">
+<h2>Example goals of inference</h2>
+<ol style="list-style-type: decimal">
+<li>Estimate and quantify the uncertainty of an estimate of a population quantity (the proportion of people who will vote for a candidate).</li>
+<li>Determine whether a population quantity is a benchmark value (“is the treatment effective?”).</li>
+<li>Infer a mechanistic relationship when quantities are measured with noise (“What is the slope for Hooke’s law?”)</li>
+<li>Determine the impact of a policy? (“If we reduce polution levels, will asthma rates decline?”)</li>
+</ol>
+<hr />
 </div>
 <div id="example-tools-of-the-trade" class="section level2">
 <h2>Example tools of the trade</h2>
@@ -122,6 +135,19 @@ img {
 <li>Nonparametric bootstrapping: the process of using the data to, with minimal probability model assumptions, create inferences.</li>
 <li>Permutation, randomization and exchangeability testing: the process of using data permutations to perform inferences.</li>
 </ol>
+<hr />
+</div>
+<div id="different-thinking-about-probability-leads-to-different-styles-of-inference" class="section level2">
+<h2>Different thinking about probability leads to different styles of inference</h2>
+<p>We won’t spend too much time talking about this, but there are several different styles of inference. Two broad categories that get discussed a lot are:</p>
+<ol style="list-style-type: decimal">
+<li>Frequency probability: is the long run proportion of times an event occurs in independent, identically distributed repetitions.</li>
+<li>Frequency inference: uses frequency interpretations of probabilities to control error rates. Answers questions like “What should I decide given my data controlling the long run proportion of mistakes I make at a tolerable level.”</li>
+<li>Bayesian probability: is the probability calculus of beliefs, given that beliefs follow certain rules.</li>
+<li>Bayesian inference: the use of Bayesian probability representation of beliefs to perform inference. Answers questions like “Given my subjective beliefs and the objective information from the data, what should I believe now?”</li>
+</ol>
+<p>Data scientists tend to fall within shades of gray of these and various other schools of inference.</p>
+<hr />
 </div>
 <div id="in-this-class" class="section level2">
 <h2>In this class</h2>

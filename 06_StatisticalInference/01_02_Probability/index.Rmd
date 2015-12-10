@@ -111,9 +111,9 @@ Likely, some fraction of the population has both.
   **discrete** or **continuous**.
 - Discrete random variable are random variables that take on only a
 countable number of possibilities.
-  * $P(X = k)$
+    * $P(X = k)$
 - Continuous random variable can take any value on the real line or some subset of the real line.
-  * $P(X \in A)$
+    * $P(X \in A)$
 
 ---
 

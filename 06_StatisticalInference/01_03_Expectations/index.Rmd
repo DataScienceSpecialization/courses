@@ -35,6 +35,7 @@ hist(galton$parent,col="blue",breaks=100)
 ```
 
 ---
+
 ## Using manipulate
 ```
 library(manipulate)
@@ -49,6 +50,7 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 ```
 
 ---
+
 ## The center of mass is the empirical mean
 ```{r lsm, dependson="galton",fig.height=4,fig.width=4, fig.align='center'}
   hist(galton$child,col="blue",breaks=100)
@@ -57,6 +59,7 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 ```
 
 ---
+
 ## Example
 
 - Suppose a coin is flipped and $X$ is declared $0$ or $1$ corresponding to a head or a tail, respectively
@@ -167,6 +170,8 @@ the expected (squared) distance from the mean
 - Densities with a higher variance are more spread out than densities with a lower variance
 
 ---
+
+## The variance continued
 
 - Convenient computational form
 $$

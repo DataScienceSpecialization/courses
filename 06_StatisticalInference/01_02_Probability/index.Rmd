@@ -185,6 +185,10 @@ Is this a mathematically valid density?
 
 ---
 
+## Example continued
+
+Yes. $f(x) \geq 0$ for all $x$, and the area under the pdf is $\frac{1}{2} (0.0 + 2.0) = 1.0$.
+
 ```{r, fig.height = 5, fig.width = 5, echo = TRUE, fig.align='center'}
 x <- c(-0.5, 0, 1, 1, 1.5); y <- c( 0, 0, 2, 0, 0)
 plot(x, y, lwd = 3, frame = FALSE, type = "l")

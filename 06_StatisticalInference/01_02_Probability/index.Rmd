@@ -107,7 +107,7 @@ Likely, some fraction of the population has both.
 ## Random variables
 
 - A **random variable** is a numerical outcome of an experiment.
-- The random variables that we study will come in two varieties,
+- The random variables that we study will come in one of two varieties,
   **discrete** or **continuous**.
 - Discrete random variable are random variables that take on only a
 countable number of possibilities.

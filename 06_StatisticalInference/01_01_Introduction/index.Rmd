@@ -65,12 +65,12 @@ For a review and statistical discussion, see Royall Statistical Science 1991, Vo
 - These examples illustrate many of the difficulties of trying
 to use data to create general conclusions about a population.
 - Paramount among our concerns are:
-  - Is the sample representative of the population that we'd like to draw inferences about?
-  - Are there known and observed, known and unobserved or unknown and unobserved variables that contaminate our conclusions?
-  - Is there systematic bias created by missing data or the design or conduct of the study?
-  - What randomness exists in the data and how do we use or adjust for it? Here randomness can either be explicit via randomization
+    - Is the sample representative of the population that we'd like to draw inferences about?
+    - Are there known and observed, known and unobserved or unknown and unobserved variables that contaminate our conclusions?
+    - Is there systematic bias created by missing data or the design or conduct of the study?
+    - What randomness exists in the data and how do we use or adjust for it? Here randomness can either be explicit via randomization
 or random sampling, or implicit as the aggregation of many complex uknown processes.
-  - Are we trying to estimate an underlying mechanistic model of phenomena under study?
+    - Are we trying to estimate an underlying mechanistic model of phenomena under study?
 - Statistical inference requires navigating the set of assumptions and
 tools and subsequently thinking about how to draw conclusions from data.
 

@@ -169,13 +169,14 @@ To be a valid pdf, a function $f$ must satisfy
 2. The area under $f(x)$ is one.
 
 ---
+
 ## Example
 
 Suppose that the proportion of help calls that get addressed in
 a random day by a help line is given by
 $$
 f(x) = \left\{\begin{array}{ll}
-    2 x & \mbox{ for } 1 > x > 0 \\
+    2 x & \mbox{ for } 0 < x < 1 \\
     0                 & \mbox{ otherwise} 
 \end{array} \right. 
 $$

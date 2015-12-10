@@ -229,6 +229,16 @@ plot(x, y, lwd = 3, frame = FALSE, type = &quot;l&quot;)</code></pre>
 <pre><code>## [1] 0.5625</code></pre>
 <pre class="r"><code>pbeta(.75, 2, 1)</code></pre>
 <pre><code>## [1] 0.5625</code></pre>
+<p>Or, a more rigorous approach that will become useful when dealing with more complex pdf’s is to define the pdf function and use R’s built-in <code>integrate</code> method.</p>
+<pre class="r"><code>PDF &lt;- function(x){
+  ifelse(x &gt; 0 &amp; x &lt; 1,  
+         return(2.0*x),
+         return(0)
+  )
+}
+
+integrate(f = PDF, lower = 0, upper = 0.75)</code></pre>
+<pre><code>## 0.5625 with absolute error &lt; 6.2e-15</code></pre>
 <hr />
 </div>
 <div id="cdf-and-survival-function" class="section level2">

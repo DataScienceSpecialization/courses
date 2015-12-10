@@ -210,6 +210,19 @@ polygon(c(0, .75, .75, 0), c(0, 0, 1.5, 0), lwd = 3, col = "lightblue")
 1.5 * .75 / 2
 pbeta(.75, 2, 1)
 ```
+A more generic approach that will become useful when dealing with more
+complex pdf's is to define the pdf function and use R's built-in `integrate`
+method.
+```{r}
+PDF <- function(x){
+  ifelse(x > 0 & x < 1,  
+         return(2.0*x),
+         return(0)
+  )
+}
+
+integrate(f = PDF, lower = 0, upper = 0.75)
+```
 ---
 
 ## CDF and survival function

@@ -181,9 +181,11 @@ E[X] = \mbox{the area under the function}~~~ t f(t)
 <h2>Rules about expected values</h2>
 <ul>
 <li>The expected value is a linear operator</li>
-<li>If <span class="math">\(a\)</span> and <span class="math">\(b\)</span> are not random and <span class="math">\(X\)</span> and <span class="math">\(Y\)</span> are two random variables then</li>
+<li>If <span class="math">\(a\)</span> and <span class="math">\(b\)</span> are not random and <span class="math">\(X\)</span> and <span class="math">\(Y\)</span> are two random variables then
+<ul>
 <li><span class="math">\(E[aX + b] = a E[X] + b\)</span></li>
 <li><span class="math">\(E[X + Y] = E[X] + E[Y]\)</span></li>
+</ul></li>
 </ul>
 <hr />
 </div>
@@ -228,12 +230,11 @@ E\left[ \frac{1}{n}\sum_{i=1}^n X_i\right]
 <h2>The variance</h2>
 <ul>
 <li>The variance of a random variable is a measure of <em>spread</em></li>
-<li>If <span class="math">\(X\)</span> is a random variable with mean <span class="math">\(\mu\)</span>, the variance of <span class="math">\(X\)</span> is defined as</li>
-</ul>
-<p><span class="math">\[
+<li>If <span class="math">\(X\)</span> is a random variable with mean <span class="math">\(\mu\)</span>, the <strong>variance</strong> of <span class="math">\(X\)</span> is defined as the expected (squared) distance from the mean <span class="math">\[
 Var(X) = E[(X - \mu)^2]
-\]</span></p>
-<p>the expected (squared) distance from the mean - Densities with a higher variance are more spread out than densities with a lower variance</p>
+\]</span></li>
+<li>Densities with a higher variance are more spread out than densities with a lower variance</li>
+</ul>
 <hr />
 </div>
 <div id="the-variance-continued" class="section level2">
@@ -251,9 +252,11 @@ Var(X) = E[X^2] - E[X]^2
 <div id="example-6" class="section level2">
 <h2>Example</h2>
 <ul>
-<li><p>What’s the sample variance from the result of a toss of a die?</p></li>
+<li><p>What’s the sample variance from the result of a toss of a die?</p>
+<ul>
 <li><span class="math">\(E[X] = 3.5\)</span></li>
-<li><p><span class="math">\(E[X^2] = 1 ^ 2 \times \frac{1}{6} + 2 ^ 2 \times \frac{1}{6} + 3 ^ 2 \times \frac{1}{6} + 4 ^ 2 \times \frac{1}{6} + 5 ^ 2 \times \frac{1}{6} + 6 ^ 2 \times \frac{1}{6} = 15.17\)</span></p></li>
+<li><span class="math">\(E[X^2] = 1 ^ 2 \times \frac{1}{6} + 2 ^ 2 \times \frac{1}{6} + 3 ^ 2 \times \frac{1}{6} + 4 ^ 2 \times \frac{1}{6} + 5 ^ 2 \times \frac{1}{6} + 6 ^ 2 \times \frac{1}{6} = 15.17\)</span></li>
+</ul></li>
 <li><p><span class="math">\(Var(X) = E[X^2] - E[X]^2 \approx 2.92\)</span></p></li>
 </ul>
 <hr />
@@ -261,9 +264,11 @@ Var(X) = E[X^2] - E[X]^2
 <div id="example-7" class="section level2">
 <h2>Example</h2>
 <ul>
-<li><p>What’s the sample variance from the result of the toss of a coin with probability of heads (1) of <span class="math">\(p\)</span>?</p></li>
+<li><p>What’s the sample variance from the result of the toss of a coin with probability of heads (1) of <span class="math">\(p\)</span>?</p>
+<ul>
 <li><span class="math">\(E[X] = 0 \times (1 - p) + 1 \times p = p\)</span></li>
-<li><p><span class="math">\(E[X^2] = E[X] = p\)</span></p></li>
+<li><span class="math">\(E[X^2] = E[X] = p\)</span></li>
+</ul></li>
 <li><p><span class="math">\(Var(X) = E[X^2] - E[X]^2 = p - p^2 = p(1 - p)\)</span></p></li>
 </ul>
 <hr />

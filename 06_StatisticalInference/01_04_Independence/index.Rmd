@@ -68,7 +68,7 @@ $$
 
 ## IID random variables
 
-- Random variables are said to be iid if they are independent and identically distributed
+- Random variables are said to be **iid** if they are independent and identically distributed
 - iid random variables are the default model for random samples
 - Many of the important theories of statistics are founded on assuming that variables are iid
 

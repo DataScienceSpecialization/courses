@@ -19,10 +19,9 @@ mode        : selfcontained # {standalone, draft}
 - Two events $A$ and $B$ are **independent** if $$P(A \cap B) = P(A)P(B)$$
 - Two random variables, $X$ and $Y$ are independent if for any two sets $A$ and $B$ $$P([X \in A] \cap [Y \in B]) = P(X\in A)P(Y\in B)$$
 - If $A$ is independent of $B$ then 
-
-  - $A^c$ is independent of $B$ 
-  - $A$ is independent of $B^c$
-  - $A^c$ is independent of $B^c$
+    - $A^c$ is independent of $B$ 
+    - $A$ is independent of $B^c$
+    - $A^c$ is independent of $B^c$
 
 
 ---
@@ -194,6 +193,7 @@ $$
 ---
 ## Example
 ```{r}
+library(UsingR)
 data(father.son); 
 x <- father.son$sheight
 n<-length(x)

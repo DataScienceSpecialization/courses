@@ -48,7 +48,7 @@ mode        : selfcontained # {standalone, draft}
 
 - For the purposes of this class, the principal mistake was to *assume* that the probabilities of having SIDs within a family are independent
 - That is, $P(A_1 \cap A_2)$ is not necessarily equal to $P(A_1)P(A_2)$
-- Biological processes that have a believed genetic or familiar environmental component, of course, tend to be dependent within families
+- Biological processes that have a believed genetic or familial environmental component, of course, tend to be dependent within families
 - (There are many other statistical points of discussion for this case.)
 
 ---

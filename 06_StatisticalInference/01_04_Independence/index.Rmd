@@ -77,7 +77,7 @@ $$
 
 ## Example
 
-- Suppose that we flip a biased coin with success probability $p$ $n$ times, what is the join density of the collection of outcomes?
+- If a biased coin has success probability $p$, and we flip it $n$ times, what is the join density of the collection of outcomes?
 - These random variables are iid with densities $p^{x_i} (1 - p)^{1-x_i}$ 
 - Therefore
   $$

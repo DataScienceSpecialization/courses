@@ -16,12 +16,11 @@ mode        : selfcontained # {standalone, draft}
 
 
 ## About these slides
-- These are some practice problems for Statistical Inference Quiz 1
+- These are some practice problems for Statistical Inference Quiz 2
 - They were created using slidify interactive which you will learn in 
 Creating Data Products
 - Please help improve this with pull requests here
 (https://github.com/bcaffo/courses)
-runif(1)
 
 --- &radio
 The probability that a manuscript gets accepted to a journal is 12% (say). However,
@@ -182,15 +181,15 @@ Let $p=.5$ and $X$ be binomial
 
 *** .explanation
 
-<span class="answer">89.1</span>
+<span class="answer">10.9</span>
 
 
 ```r
-round(pbinom(4, prob = .5, size = 6, lower.tail = TRUE) * 100, 1)
+round(pbinom(4, prob = .5, size = 6, lower.tail = FALSE) * 100, 1)
 ```
 
 ```
-[1] 89.1
+[1] 10.9
 ```
 
 
@@ -247,9 +246,9 @@ If you roll ten standard dice, take their average, then repeat this process over
 $$Var(\bar X) = \sigma^2 /n$$
 
 *** .explanation
-The answer will be <span class="answer">0</span> 
-since the variance of the sampling distribution of the mean is $\sigma^2/12$
-and the variance of a die roll is 
+The answer will be <span class="answer">0.292</span> 
+since the variance of the sampling distribution of the mean is $\sigma^2/10$
+where $\sigma^2$ is the variance of a single die roll, which is 
 
 
 ```r

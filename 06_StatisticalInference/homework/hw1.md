@@ -25,27 +25,27 @@ Creating Data Products
 
 --- &radio
 
-Consider influenza epidemics for two parent heterosexual families. Suppose that the probability is 15% that at least one of the parents has contracted the disease. The probability that the father has contracted influenza is 6% while that the mother contracted the disease is 5%. What is the probability that both contracted influenza expressed as a whole number percentage?
+Consider influenza epidemics for two parent heterosexual families. Suppose that the probability is 15% that at least one of the parents has contracted the disease. The probability that the father has contracted influenza is 10% while that the mother contracted the disease is 9%. What is the probability that both contracted influenza expressed as a whole number percentage?
 
 1. 15%
-2. 6%
-3. 5%
-4. _2%_
+2. 10%
+3. 9%
+4. _4%_
 
 *** .hint
-$A = Father$, $P(A) = .06$, $B = Mother$, $P(B) = .05$ 
+$A = Father$, $P(A) = .10$, $B = Mother$, $P(B) = .09$ 
 $P(A\cup B) = .15$, 
 
 *** .explanation
-$P(A\cup B) = P(A) + P(B) - 2 P(AB)$ thus
-$$.15 = .06 + .05 - 2 P(AB)$$
+$P(A\cup B) = P(A) + P(B) - P(AB)$ thus
+$$.15 = .10 + .09 - P(AB)$$
 
 ```r
-(0.15 - .06 - .05) / 2
+.10 + .09 - .15
 ```
 
 ```
-[1] 0.02
+[1] 0.04
 ```
 
 
@@ -55,7 +55,7 @@ A random variable, $X$, is uniform, a box from $0$ to $1$ of height $1$. (So tha
 
 1. 1.00
 2. 0.75
-3. 0.50
+3. _0.50_
 4. 0.25
 
 *** .hint

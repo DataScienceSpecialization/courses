@@ -322,7 +322,7 @@ no yes
  2   3
 > unclass(x)
 [1] 2 2 1 2 1
-attr(,"levels")
+attr(x,"levels")
 [1] "no"  "yes"
 ```
 

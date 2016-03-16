@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Homework 2 for Stat Inference</title>
+  <title>Homework 3 for Stat Inference</title>
   <meta charset="utf-8">
-  <meta name="description" content="Homework 2 for Stat Inference">
+  <meta name="description" content="Homework 3 for Stat Inference">
   <meta name="author" content="Brian Caffo">
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
     <!-- LOGO SLIDE -->
         <slide class="title-slide segue nobackground">
   <hgroup class="auto-fadein">
-    <h1>Homework 2 for Stat Inference</h1>
+    <h1>Homework 3 for Stat Inference</h1>
     <h2>Extra problems for Stat Inference</h2>
     <p>Brian Caffo<br/>Johns Hopkins Bloomberg School of Public Health</p>
   </hgroup>
@@ -48,7 +48,7 @@
   </hgroup>
   <article data-timings="">
     <ul>
-<li>These are some practice problems for Statistical Inference Quiz 2</li>
+<li>These are some practice problems for Statistical Inference Quiz 3</li>
 <li>They were created using slidify interactive which you will learn in 
 Creating Data Products</li>
 <li>Please help improve this with pull requests here
@@ -62,16 +62,13 @@ Creating Data Products</li>
 <slide class="" id="slide-2" style="background:;">
   <article data-timings="">
     
-<div class="quiz quiz-single well ">
-  <p>The probability that a manuscript gets accepted to a journal is 12% (say). However,
-given that a revision is asked for, the probability that it gets accepted
-is 90%. Is it possible that the probability that a manuscript has a revision
-asked for is 20%? </p>
+<div class="quiz-text quiz-multitext well">
+  <p>Load the data set <code>mtcars</code> in the <code>datasets</code> R package. Calculate a 
+95% confidence interval to the nearest MPG.</p>
 
 <ol>
-<li>Yeah, that&#39;s totally possible.</li>
-<li><em>No, it&#39;s not possible.</em></li>
-<li>It&#39;s not possible to answer this question.</li>
+<li>What is the lower endpoint of the interval?</li>
+<li>What is the upper endpoint of the interval?</li>
 </ol>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
@@ -80,12 +77,23 @@ asked for is 20%? </p>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
   <div class="quiz-hint">
-  <p>\(A = accepted\), \(B = revision\). \(P(A) = .12\), \(P(A | B) = .90\). \(P(B) = .20\)</p>
+  <p>Do <code>library(datasets)</code> and then <code>data(mtcars)</code> to get the data.
+Consider <code>t.test</code> for calculations. You may have to install
+the datasets package.</p>
 
 </div>
 <div class="quiz-explanation">
-  <p>\(P(A \cap B) = P(A | B) * P(B) = .9 \times .2 = .18\) this is larger than
-\(P(A) = .12\), which is not possible since \(A \cap B \subset A\).</p>
+  <pre><code class="r">library(datasets); data(mtcars)
+round(t.test(mtcars$mpg)$conf.int)
+</code></pre>
+
+<pre><code>[1] 18 22
+attr(,&quot;conf.level&quot;)
+[1] 0.95
+</code></pre>
+
+<p><span class="answer">18</span>
+<span class="answer">22</span></p>
 
 </div>
 </div>
@@ -96,16 +104,12 @@ asked for is 20%? </p>
 <slide class="" id="slide-3" style="background:;">
   <article data-timings="">
     
-<div class="quiz quiz-single well ">
-  <p>Suppose that the number of web hits to a particular site are approximately normally
-distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. What&#39;s the probability that a given day has fewer than 93 hits per day
-expressed as a percentage to the nearest percentage point?</p>
+<div class="quiz-text quiz-multitext well">
+  <p>Suppose that data of 9 paired differences has a standard error of \(1\), what value would the average difference have to be to have the lower endpoint of a 95%
+students t confidence interval touch zero?</p>
 
 <ol>
-<li>76%</li>
-<li><em>24%</em></li>
-<li>47%</li>
-<li>94%</li>
+<li>Give the number here to two decimal places</li>
 </ol>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
@@ -114,15 +118,18 @@ expressed as a percentage to the nearest percentage point?</p>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
   <div class="quiz-hint">
-  <p>Let \(X\) be the number of hits per day. We want \(P(X \leq 93)\) given that
-\(X\) is \(N(100, 10^2)\).</p>
+  <p>The t interval is \(\bar x t_{.95, 8}\pm s /sqrt{n}\)</p>
 
 </div>
 <div class="quiz-explanation">
-  <pre><code class="r">round(pnorm(93, mean = 100, sd = 10) * 100)
+  <p><span class="answer">0.62</span></p>
+
+<p>We want \(\bar x = t_{.95} s / sqrt{n}\)</p>
+
+<pre><code class="r">round(qt(.95, df = 8) * 1 / 3, 2)
 </code></pre>
 
-<pre><code>[1] 24
+<pre><code>[1] 0.62
 </code></pre>
 
 </div>
@@ -135,18 +142,14 @@ expressed as a percentage to the nearest percentage point?</p>
   <article data-timings="">
     
 <div class="quiz quiz-single well ">
-  <p>Suppose 5% of housing projects have issues with asbestos. The sensitivity of a test
-for asbestos is 93% and the specificity is 88%. What is the probability that a 
-housing project has no asbestos given a negative test expressed as a percentage
-to the nearest percentage point?</p>
+  <p>An independent group Student&#39;s T interval is used over
+a paired T interval when:</p>
 
 <ol>
-<li>0%</li>
-<li>5%</li>
-<li>10%</li>
-<li>20%</li>
-<li>50%</li>
-<li><em>100%</em></li>
+<li>The observations are paired between the groups.</li>
+<li><em>The observations between the groups are natually assumed to be statistically independent</em></li>
+<li>As long as you do it correctly, either is fine.</li>
+<li>More details are needed to answer this question</li>
 </ol>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
@@ -155,21 +158,11 @@ to the nearest percentage point?</p>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
   <div class="quiz-hint">
-  <p>\(A = asbestos\), \(T_+ = tests positive\), \(T_- = tests negative\). 
-\(P(T_+ | A) = .93\), \(P(T_- | A^c) = .88\), \(P(A) = .05\).</p>
+  <p>A paired interval is for paired observations.</p>
 
 </div>
 <div class="quiz-explanation">
-  <p>We want
-\[
-P(A^c | T_-) = \frac{P(T_- | A^c) P(A^c)}{P(T_- | A^c) P(A^c) + P(T_- | A) P(A)}
-\]</p>
-
-<pre><code class="r">(.88 * .95) / (.88 * .95 + .07 * .05)
-</code></pre>
-
-<pre><code>[1] 0.9958
-</code></pre>
+  <p>We can&#39;t pair them if the groups are independent of each other as well as independent within themselves.</p>
 
 </div>
 </div>
@@ -181,12 +174,13 @@ P(A^c | T_-) = \frac{P(T_- | A^c) P(A^c)}{P(T_- | A^c) P(A^c) + P(T_- | A) P(A)}
   <article data-timings="">
     
 <div class="quiz-text quiz-multitext well">
-  <p>Suppose that the number of web hits to a particular site are approximately normally
-distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. </p>
+  <p>Consider the <code>mtcars</code> dataset. Construct a 95% T interval for MPG comparing
+4 to 6 cylinder cars (subtracting in the order of 4 - 6) 
+assume a constant variance.</p>
 
 <ol>
-<li>What number of web hits per day represents the number so that only
-5% of days have more hits? Express your answer to 3 decimal places.</li>
+<li>What is the lower endpoint of the interval to 1 decimal place?</li>
+<li>What is the upper endpoint of the interval to 1 decimal place?</li>
 </ol>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
@@ -195,24 +189,18 @@ distributed with a mean of 100 hits per day and a standard deviation of 10 hits 
   <button class="quiz-clear btn btn-danger">Clear</button>
   
   <div class="quiz-hint">
-  <p>Let \(X\) be the number of hits per day. We want \(P(X \leq 93)\) given that
-\(X\) is \(N(100, 10^2)\).</p>
+  <p>Use <code>t.test</code> with <code>var.equal=TRUE</code></p>
 
 </div>
 <div class="quiz-explanation">
-  <p><span class="answer">116.449</span></p>
-
-<pre><code class="r">round(qnorm(.95, mean = 100, sd = 10), 3)
+  <pre><code class="r">m4 &lt;- mtcars$mpg[mtcars$cyl == 4]
+m6 &lt;- mtcars$mpg[mtcars$cyl == 6]
+#this does 4 - 6
+confint &lt;- as.vector(t.test(m4, m6, var.equal = TRUE)$conf.int)
 </code></pre>
 
-<pre><code>[1] 116.4
-</code></pre>
-
-<pre><code class="r">round(qnorm(.05, mean = 100, sd = 10, lower.tail = FALSE), 3)
-</code></pre>
-
-<pre><code>[1] 116.4
-</code></pre>
+<p><span class="answer">3.2</span>
+<span class="answer">10.7</span></p>
 
 </div>
 </div>
@@ -223,14 +211,15 @@ distributed with a mean of 100 hits per day and a standard deviation of 10 hits 
 <slide class="" id="slide-6" style="background:;">
   <article data-timings="">
     
-<div class="quiz-text quiz-multitext well">
-  <p>Suppose that the number of web hits to a particular site are approximately normally
-distributed with a mean of 100 hits per day and a standard deviation of 10 hits per day. Imagine taking a random sample of 50 days. </p>
+<div class="quiz quiz-single well ">
+  <p>If someone put a gun to your head and said &quot;Your confidence interval
+must contain what it&#39;s estimating or I&#39;ll pull the trigger&quot;, what would
+be the smart thing to do?</p>
 
 <ol>
-<li>What number of web hits would
-be the point so that only 5% of averages of 50 days of web traffic have more hits? 
-Express your answer to 3 decimal places. </li>
+<li><em>Make your interval as wide as possible</em></li>
+<li>Make your interval as small as possible</li>
+<li>Call the authorities</li>
 </ol>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
@@ -239,24 +228,13 @@ Express your answer to 3 decimal places. </li>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
   <div class="quiz-hint">
-  <p>Let \(\bar X\) be the average number of hits per day for 50 randomly sampled days.
-\(X\) is \(N(100, 10^2 / 50)\).</p>
+  <p>C&#39;mon. You don&#39;t need a hint</p>
 
 </div>
 <div class="quiz-explanation">
-  <p><span class="answer">102.326</span></p>
-
-<pre><code class="r">round(qnorm(.95, mean = 100, sd = 10 / sqrt(50) ), 3)
-</code></pre>
-
-<pre><code>[1] 102.3
-</code></pre>
-
-<pre><code class="r">round(qnorm(.05, mean = 100, sd = 10 / sqrt(50), lower.tail = FALSE), 3)
-</code></pre>
-
-<pre><code>[1] 102.3
-</code></pre>
+  <p>This is just an example of what happens to confidence intervals as you
+increase the confidence level. You want to be quite sure in your interval (i.e.
+have a large confidence level) and so you would increase the interval&#39;s width</p>
 
 </div>
 </div>
@@ -267,14 +245,14 @@ Express your answer to 3 decimal places. </li>
 <slide class="" id="slide-7" style="background:;">
   <article data-timings="">
     
-<div class="quiz-text quiz-multitext well">
-  <p>You don&#39;t believe that your friend can discern good wine from cheap. Assuming
-that you&#39;re right, in a blind test where you randomize 6 paired varieties (Merlot,
-Chianti, ...) of cheap and expensive wines</p>
+<div class="quiz quiz-single well ">
+  <p>Refer back to comparing MPG for 4 versus 6 cylinders. What do you conclude?</p>
 
 <ol>
-<li>what is the change that she gets 5 or 6 right expressed as a percentage
-to one decimal place?</li>
+<li>The interval is above zero, suggesting 6 is better than 4 in the terms of MPG</li>
+<li><em>The interval is above zero, suggesting 4 is better than 6 in the terms of MPG</em></li>
+<li>The interval does not tell you anything about the hypothesis test; you have to do the test.</li>
+<li>The interval contains 0 suggesting no difference.</li>
 </ol>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
@@ -283,17 +261,13 @@ to one decimal place?</li>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
   <div class="quiz-hint">
-  <p>Let \(p=.5\) and \(X\) be binomial</p>
+  <p>Refer back to the problem, consider the implications of the interval being
+larger than 0, double check the order in which things were subtracted and
+make sure the results make sense in the context of the problem.</p>
 
 </div>
 <div class="quiz-explanation">
-  <p><span class="answer">10.9</span></p>
-
-<pre><code class="r">round(pbinom(4, prob = .5, size = 6, lower.tail = FALSE) * 100, 1)
-</code></pre>
-
-<pre><code>[1] 10.9
-</code></pre>
+  <p>The interval was conducted subtracting 4 - 6 and was entirely above zero.</p>
 
 </div>
 </div>
@@ -305,13 +279,9 @@ to one decimal place?</li>
   <article data-timings="">
     
 <div class="quiz-text quiz-multitext well">
-  <p>Consider a uniform distribution. If we were to sample 100 draws from a 
-a uniform distribution (which has mean 0.5, and variance 1/12) and take their
-mean, \(\bar X\)</p>
+  <p>Suppose that 18 obese subjects were randomized, 9 each, to a new diet pill and a placebo. Subjects&#39; body mass indices (BMIs) were measured at a baseline and again after having received the treatment or placebo for four weeks. The average difference from follow-up to the baseline (followup - baseline) was 3 kg/m2 for the treated group and 1 kg/m2 for the placebo group. The corresponding standard deviations of the differences was 1.5 kg/m2 for the treatment group and 1.8 kg/m2 for the placebo group. The study aims to answer whether the change in BMI over the four week period appear to differ between the treated and placebo groups. </p>
 
-<ol>
-<li>what is the approximate probability of getting as large as 0.51 or larger expressed to 3 decimal places?</li>
-</ol>
+<p>What is the pooled variance estimate? (to 2 decimal places)</p>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
   <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
@@ -319,17 +289,20 @@ mean, \(\bar X\)</p>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
   <div class="quiz-hint">
-  <p>Use the central limit theorem that says \(\bar X \sim N(\mu, \sigma^2/n)\)</p>
+  <p>The sample sizes are equal, so the pooled variance is the average of the 
+individual variances</p>
 
 </div>
 <div class="quiz-explanation">
-  <p><span class="answer"> 0.365</span></p>
-
-<pre><code class="r">round(pnorm(.51, mean = 0.5, sd = sqrt(1 / 12 / 100), lower.tail = FALSE), 3)
+  <pre><code class="r">n1 &lt;- n2 &lt;- 9
+x1 &lt;- -3  ##treated
+x2 &lt;- 1  ##placebo
+s1 &lt;- 1.5  ##treated
+s2 &lt;- 1.8  ##placebo
+spsq &lt;- ( (n1 - 1) * s1^2 + (n2 - 1) * s2^2) / (n1 + n2 - 2)
 </code></pre>
 
-<pre><code>[1] 0.365
-</code></pre>
+<p><span class="answer">2.75</span></p>
 
 </div>
 </div>
@@ -340,11 +313,15 @@ mean, \(\bar X\)</p>
 <slide class="" id="slide-9" style="background:;">
   <article data-timings="">
     
-<div class="quiz-text quiz-multitext well">
-  <p>If you roll ten standard dice, take their average, then repeat this process over and over and construct a histogram, </p>
+<div class="quiz quiz-single well ">
+  <p>For Binomial data the maximum likelihood estimate for the probability of 
+a success is</p>
 
 <ol>
-<li>what would it be centered at?</li>
+<li><em>The proportion of successes</em></li>
+<li>The proportion of failures</li>
+<li>A shrunken version of the proportion of successes</li>
+<li>A shrunken version of the proportion of failures</li>
 </ol>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
@@ -353,13 +330,11 @@ mean, \(\bar X\)</p>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
   <div class="quiz-hint">
-  <p>\(E[X_i] = E[\bar X]\) where \(\bar X = \frac{1}{n}\sum_{i=1}^n X_i\)</p>
+  <p>Look back at the notes about likelihood.</p>
 
 </div>
 <div class="quiz-explanation">
-  <p>The answer will be  <span class="answer">3.5</span> since the mean of the
-sampling distribution of iid draws will be the population mean that the
-individual draws were taken from.</p>
+  <p>The MLE for binomial data is always the proportion of successes.</p>
 
 </div>
 </div>
@@ -370,11 +345,14 @@ individual draws were taken from.</p>
 <slide class="" id="slide-10" style="background:;">
   <article data-timings="">
     
-<div class="quiz-text quiz-multitext well">
-  <p>If you roll ten standard dice, take their average, then repeat this process over and over and construct a histogram, </p>
+<div class="quiz quiz-single well ">
+  <p>Bayesian inference requires</p>
 
 <ol>
-<li>what would be its variance expressed to 3 decimal places?</li>
+<li>A type I error rate</li>
+<li>Setting your confidence level</li>
+<li><em>Assigning a prior probability distribution</em></li>
+<li>Evaluating frequency error rates</li>
 </ol>
 
   <button class="quiz-submit btn btn-primary">Submit</button>
@@ -382,55 +360,8 @@ individual draws were taken from.</p>
   <button class="quiz-show-answer btn btn-success">Show Answer</button>
   <button class="quiz-clear btn btn-danger">Clear</button>
   
-  <div class="quiz-hint">
-  <p>\[Var(\bar X) = \sigma^2 /n\]</p>
-
-</div>
-<div class="quiz-explanation">
-  <p>The answer will be <span class="answer">0.292</span> 
-since the variance of the sampling distribution of the mean is \(\sigma^2/10\)
-where \(\sigma^2\) is the variance of a single die roll, which is </p>
-
-<pre><code class="r">mean((1 : 6 - 3.5)^2)
-</code></pre>
-
-<pre><code>[1] 2.917
-</code></pre>
-
-</div>
-</div>
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-<slide class="" id="slide-11" style="background:;">
-  <article data-timings="">
-    
-<div class="quiz-text quiz-multitext well">
-  <p>The number of web hits to a site is Poisson with mean 16.5 per day. </p>
-
-<ol>
-<li>What is the probability of getting 20 or fewer in 2 days expressed
-as a percentage to one decimal place?</li>
-</ol>
-
-  <button class="quiz-submit btn btn-primary">Submit</button>
-  <button class="quiz-toggle-hint btn btn-info">Show Hint</button>
-  <button class="quiz-show-answer btn btn-success">Show Answer</button>
-  <button class="quiz-clear btn btn-danger">Clear</button>
-  
-  <div class="quiz-hint">
-  <p>Let \(X\) be the number of hits in 2 days then \(X \sim Poisson(2\lambda)\)</p>
-
-</div>
-<div class="quiz-explanation">
-  <p><span class="answer">1</span></p>
-
-<pre><code class="r">round(ppois(20, lambda = 16.5 * 2) * 100, 1)
-</code></pre>
-
-<pre><code>[1] 1
-</code></pre>
+  <div class="quiz-explanation">
+  <p>All of the other answers discuss frequentist concepts. All Bayesian analyses requiring setting a prior.</p>
 
 </div>
 </div>
@@ -500,12 +431,6 @@ as a percentage to one decimal place?</li>
       <a href="#" target="_self" rel='tooltip' 
         data-slide=10 title=''>
          10
-      </a>
-    </li>
-    <li>
-      <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title=''>
-         11
       </a>
     </li>
   </ul>

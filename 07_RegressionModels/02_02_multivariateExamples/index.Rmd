@@ -384,7 +384,7 @@ summary(lmBoth)
 ```
 
 ---
-## Interpretting a continuous interaction
+## Interpreting a continuous interaction
 $$
 E[Y_i | X_{1i}=x_1, X_{2i}=x_2] = \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \beta_3 x_{1}x_{2}
 $$
@@ -425,6 +425,6 @@ $$b_2 + 1e4 \times b_3$$
 
 $e^+_i$ - everything we didn't measure
 
-__Lot's of care/caution needed!__
+__Lots of care/caution needed!__
 
 

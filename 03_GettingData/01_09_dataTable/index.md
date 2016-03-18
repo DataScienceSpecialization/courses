@@ -532,4 +532,4 @@ system.time(read.table(file, header=TRUE, sep="\t"))
   * [https://r-forge.r-project.org/scm/viewvc.php/pkg/NEWS?view=markup&root=datatable](https://r-forge.r-project.org/scm/viewvc.php/pkg/NEWS?view=markup&root=datatable)
 * Here is a list of differences between data.table and data.frame
   * [http://stackoverflow.com/questions/13618488/what-you-can-do-with-data-frame-that-you-cant-in-data-table](http://stackoverflow.com/questions/13618488/what-you-can-do-with-data-frame-that-you-cant-in-data-table)
-* Notes based on Raphael Gottardo's notes [https://github.com/raphg/Biostat-578/blob/master/Advanced_data_manipulation.Rpres](https://github.com/raphg/Biostat-578/blob/master/Advanced_data_manipulation.Rpres), who got them from Kevin Ushey.
+* Notes based on Raphael Gottardo's notes [https://github.com/earosenthal/biost578A/blob/master/Advanced_data_manipulation-EAR.Rpres](https://github.com/earosenthal/biost578A/blob/master/Advanced_data_manipulation-EAR.Rpres), who got them from Kevin Ushey.

@@ -124,7 +124,7 @@ plot(x,y,xaxt="n",yaxt="n",cex=3,col=c(rep("blue",8),rep("red",8)),pch=19)
 
 * __Misclassification:__ $8/16 = 0.5$
 * __Gini:__ $1 - [(8/16)^2 + (8/16)^2] = 0.5$
-* __Information:__$-[1/16 \times log2(1/16) + 15/16 \times log2(15/16)] = 1$
+* __Information:__$-[8/16 \times log2(8/16) + 8/16 \times log2(8/16)] = 1$
 
 
 

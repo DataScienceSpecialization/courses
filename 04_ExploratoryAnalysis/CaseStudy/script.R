@@ -6,19 +6,23 @@
 ## Read in data from 1999
 
 pm0 <- read.table("RD_501_88101_1999-0.txt", comment.char = "#", header = FALSE, sep = "|", na.strings = "")
+## The .txt file gives col names under "#"; not read it, deal with it later.
 dim(pm0)
 head(pm0)
-cnames <- readLines("RD_501_88101_1999-0.txt", 1)
+cnames <- readLines("RD_501_88101_1999-0.txt", 1) 
+## Upon a quick check on the data using "grep()", no RC present; so it's safe to use the 1st line for col names
 print(cnames)
-cnames <- strsplit(cnames, "|", fixed = TRUE)
-print(cnames)
-names(pm0) <- make.names(cnames[[1]])
+cnames <- strsplit(cnames, "|", fixed = TRUE)  
+print(cnames)  ## NOTE: cnames is a list; mind how to index it.
+names(pm0) <- make.names(cnames[[1]])  ## Get rid of " " so as to make names valid 
 head(pm0)
 x0 <- pm0$Sample.Value
+## Check the PM2.5 values
 class(x0)
 str(x0)
 summary(x0)
-mean(is.na(x0))  ## Are missing values important here?
+mean(is.na(x0))  ## Are missing values important here? (about 11%) 
+## NOTE: Applying mean() on logical vectors returns the proportion of TRUEs.
 
 ## Read in data from 2012
 
@@ -28,31 +32,30 @@ head(pm1)
 dim(pm1)
 x1 <- pm1$Sample.Value
 class(x1)
+mean(is.na(x1))  ## Are missing values important here? (about 5%)
 
 ## Five number summaries for both periods
 summary(x1)
 summary(x0)
-mean(is.na(x1))  ## Are missing values important here?
-
 ## Make a boxplot of both 1999 and 2012
-boxplot(x0, x1)
-boxplot(log10(x0), log10(x1))
-
+boxplot(x0, x1)  ## screwed, hard to perceive
+boxplot(log10(x0), log10(x1))  ## Returns warning message due to negative values
 ## Check negative values in 'x1'
 summary(x1)
 negative <- x1 < 0
 sum(negative, na.rm = T)
-mean(negative, na.rm = T)
+mean(negative, na.rm = T) ## about 2%
+## Explore why negative values: date related? 
 dates <- pm1$Date
 str(dates)
 dates <- as.Date(as.character(dates), "%Y%m%d")
 str(dates)
 hist(dates, "month")  ## Check what's going on in months 1--6
-
+## Negative values may be measurement errors due to low PM2.5 during cold weather (?)
 
 ## Plot a subset for one monitor at both times
 
-## Find a monitor for New York State that exists in both datasets
+## Find a monitor for New York State (State.Code = 36) that exists in both datasets
 site0 <- unique(subset(pm0, State.Code == 36, c(County.Code, Site.ID)))
 site1 <- unique(subset(pm1, State.Code == 36, c(County.Code, Site.ID)))
 site0 <- paste(site0[,1], site0[,2], sep = ".")
@@ -60,7 +63,7 @@ site1 <- paste(site1[,1], site1[,2], sep = ".")
 str(site0)
 str(site1)
 both <- intersect(site0, site1)
-print(both)
+print(both)  ## 10 moniters provide data in both 1999 and 2012 
 
 ## Find how many observations available at each monitor
 pm0$county.site <- with(pm0, paste(County.Code, Site.ID, sep = "."))

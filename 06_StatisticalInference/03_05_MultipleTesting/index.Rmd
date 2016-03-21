@@ -178,7 +178,7 @@ Controlling all error rates at $\alpha = 0.20$
 
 __Example__: 
 * Suppose P-values are $P_1,\ldots,P_m$
-* You could adjust them by taking $P_i^{fwer} = \max{m \times P_i,1}$ for each P-value.
+* You could adjust them by taking $P_i^{fwer} = \min{m \times P_i,1}$ for each P-value.
 * Then if you call all $P_i^{fwer} < \alpha$ significant you will control the FWER. 
 
 ---

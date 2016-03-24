@@ -81,7 +81,7 @@ We should forget about small efficiencies, say about 97% of the
 
 * Elapsed time may be *greater than* user time if the CPU spends a lot of time waiting around
 
-* Elapsted time may be *smaller than* the user time if your machine
+* Elapsed time may be *smaller than* the user time if your machine
   has multiple cores/processors (and is capable of using them)
   - Multi-threaded BLAS libraries (vecLib/Accelerate, ATLAS, ACML, MKL)
   - Parallel processing via the **parallel** package

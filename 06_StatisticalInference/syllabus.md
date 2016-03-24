@@ -150,11 +150,9 @@ So be warned that there are more quiz questions here than in the other classes i
 
 ## Typos
 
-* We are prone to a typo or two - please report them and we will try
-* to update the notes accordingly.  In some cases, the videos may
-* still contain typos that have been fixed in the lecture notes. The
-* lecture notes represent the most up-to-date version of the course
-* material.
+* We are prone to a typo or two - please report them and we will try to update the notes accordingly.
+* In some cases, the videos may still contain typos that have been fixed in the lecture notes.
+* The lecture notes represent the most up-to-date version of the course material.
 
 
 ---

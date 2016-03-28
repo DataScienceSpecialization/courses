@@ -7,6 +7,11 @@ https://www.coursera.org/specialization/jhudatascience/1
 
 Materials are under development and subject to change. 
 
+#### Course map
+
+The following graph describes the dependency tree of the courses in this specialization. Things further down the tree depend on knowledge in courses higher up the tree.
+
+<img src="./assets/img/JHU-Data-Science-Specialization-Dependency-Graph.png" width="90%"/>
 
 ### Contributors
 

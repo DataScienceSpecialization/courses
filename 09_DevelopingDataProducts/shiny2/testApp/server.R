@@ -1,4 +1,5 @@
 library(shiny)
+x <<- 0
 x <<- x + 1
 y <<- 0
 

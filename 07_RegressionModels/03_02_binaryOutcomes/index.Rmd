@@ -214,7 +214,7 @@ anova(logRegRavens,test="Chisq")
 * [Wikipedia on Logistic Regression](http://en.wikipedia.org/wiki/Logistic_regression)
 * [Logistic regression and glms in R](http://data.princeton.edu/R/glms.html)
 * Brian Caffo's lecture notes on: [Simpson's paradox](http://ocw.jhsph.edu/courses/MethodsInBiostatisticsII/PDFs/lecture23.pdf), [Case-control studies](http://ocw.jhsph.edu/courses/MethodsInBiostatisticsII/PDFs/lecture24.pdf)
-* [Open Intro Chapter on Logistic Regression](http://www.openintro.org/stat/down/oiStat2_08.pdf)
+* [Open Intro Chapter on Logistic Regression](http://www.openintro.org/download.php?file=os2&referrer=/stat/textbook.php)
 
 
 

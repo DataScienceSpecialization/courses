@@ -149,7 +149,7 @@ You don't believe that your friend can discern good wine from cheap. Assuming
 that you're right, in a blind test where you randomize 6 paired varieties (Merlot,
 Chianti, ...) of cheap and expensive wines
 
-1. what is the change that she gets 5 or 6 right expressed as a percentage
+1. what is the chance that she gets 5 or 6 right expressed as a percentage
 to one decimal place?
 
 *** .hint

@@ -87,7 +87,7 @@ $$
 
 ---
 
-## Correlation
+## Covariance
 
 - The **covariance** between two random variables $X$ and $Y$ is defined as 
 $$

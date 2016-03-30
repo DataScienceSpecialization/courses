@@ -18,7 +18,7 @@ mode        : selfcontained # {standalone, draft}
 Statistical inference is the process of drawing formal conclusions from
 data. 
 
-In our class, we wil define formal statistical inference as settings where one wants to infer facts about a population using noisy
+In our class, we will define formal statistical inference as settings where one wants to infer facts about a population using noisy
 statistical data where uncertainty must be accounted for.
 
 ---
@@ -146,7 +146,7 @@ on "finite population statistics". Used heavily in polling and
 sample surveys.
 2. Explicit use of randomization in inferences: look in references
 on "causal inference" especially in clinical trials.
-3. Bayesian probability and Bayesian statistics: look for basic itroductory books (there are many).
+3. Bayesian probability and Bayesian statistics: look for basic introductory books (there are many).
 4. Missing data: well covered in biostatistics and econometric
 references; look for references to "multiple imputation", a popular tool for
 addressing missing data.

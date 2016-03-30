@@ -1,0 +1,334 @@
+Searching for help - 2
+========================================================
+
+Cleanning
+---------
+Before start coding let's clean our Global environment.
+```{r}
+rm(list=ls());
+```
+Working directory
+-----------------
+For readiness let's pass the directory path to a variable
+```{r}
+mylocal.path <- "C:/Users/Diego/Documents/GitHub/R-Notes";
+```
+Now let's set our working directory
+```{r}
+setwd(mylocal.path);
+```
+
+```{r}
+# House Keeping -----------------------------------------------------------
+rm(mylocal.path)
+```
+Download
+--------
+Let's create a variable that contains the dataset url:
+```{r}
+dataset.url  <- 
+       "http://d396qusza40orc.cloudfront.net/rprog%2Fdata%2Fspecdata.zip";
+```
+Note that I changed the **https** for **http**.  
+
+While **https** works great on **Windows**, **Mac** and **Linux** users would need to use the **method** `method = curl` of the function **download.file()** in order to avoid errors.  
+
+Also **knitr** doesn't like the use of **https** without that method.  
+
+So for demonstration purposes it's easier to use **http**.
+
+Now let's create a variable with the local name we will assign to that file.
+```{r}
+localpath.file <- "./rprog%2Fdata%2Fspecdata.zip";
+```
+Note the **./** This implies I'm using the working directory.  
+
+Finally let's download the dataset.
+```{r}
+if(file.exists(localpath.file)==F){
+  download.file(dataset.url, localpath.file, mode = "wb");
+}
+```
+I use a conditional for checking for the existence of the file in my working directory because I don't want to keep downloading over and over the same file.  
+
+Note that I use the **mode** `mode = "wb"` (binary) in order to avoid corruption.
+
+Unzip
+-----
+Let's unzip the file.
+```{r}
+if(file_test("-d", "specdata")==F){
+  unzip(localpath.file);
+}
+```
+Here again I use a conditional, this time for checking for the existence of the directory "specdata" since I don't want to rewrite it if it already exists.  
+```{r}
+# House Keeping -----------------------------------------------------------
+rm(list=c("dataset.url","localpath.file"))
+```
+Double-check the contents of the working directory.
+
+List the Files in a Directory/Folder
+------------------------------------
+```{r}
+dir(); # AKA list.files()
+```
+Note **specdata** has no extension. This is because it is a folder.
+```{r}
+list.dirs();
+```
+Interestingly, **list.dirs()** prints also hidden folders (all **git** folder and subfolders are hidden).  
+
+Let's take a look at what is contained at the spectdata folder:
+```{r}
+dir("./specdata");
+```
+I would like to know the file extensions of the files at the extracted folder in order to get an idea about what I'm dealing with.  
+
+Sure, we can do this by "eye" or by using Regular Expressions.  
+
+But I'm lazy and I think R should have a function for doing that.  
+
+However, if that function exists it is not contained at the **'base'** packages.
+
+By the way, base packages are:
+  1. stats
+  2. graphics
+  3. grDevices
+  4. utils
+  5. datasets
+  6. methods
+  7. base
+
+Is not that I know them by heart; I just ran the function **sessionInfo()**
+### Collect Information About the Current R Session
+
+```{r}
+sessionInfo();
+```
+Now let's see if we can find a function for getting only the file extensions.
+
+Search through all CRAN packages with the 'sos' package
+-------------------------------------------------------
+From the vignette of the package **"sos"**:  
+ ---
+> The sos package provides a means
+to quickly and flexibly search the help pages
+of contributed packages, finding functions and
+datasets in seconds or minutes that could not
+be found in hours or days by any other means
+we know. 
+ 
+ ---
+
+### Installing packages:
+Install the **"sos"** package
+```{r}
+if("sos" %in% rownames(installed.packages()) == F){
+  install.packages("sos", repos="http://cran.rstudio.com/");
+}
+```
+Here I first check if the package "sos" is already installed, and if not I install it.
+### Loading packages:
+Load the **"sos"** package
+```{r}
+library(sos); # Review the use of the require() function.
+```
+Let's find in the help pages for a function that includes the **keywords**
+*file* AND *extensions* using the function **findFn()**. Note the use of **{}**. They are useful for searching for an exact string.
+```{r}
+cran.help <- findFn("{file extensions}",sortby="MaxScore");
+```
+### Getting the class of an object
+Well, I just passed "whatever" was returned by the **findFn()** function to a new variable.  
+However I don't know what kind of object it is. So let's find it.
+```{risclass}
+is(cran.help)
+class(cran.help)
+```
+So it seems the newly created object belongs to a data.frame superclass.
+### Test if an object can be treated as from a superclass.
+```{robjectsuper}
+is(cran.help, "data.frame")
+```
+Perfect. My object *cran.help* can use data.frame methods!
+### Getting the methods of a class
+```{rmethClass}
+methods(class="data.frame")
+```
+Well, we have several methods for working with data frames.  
+
+Let's take a look at the packages returned by using the **summary()** function first and then using the **PackageSummary()** function.
+```{r}
+summary(cran.help, minPackages = 20);
+```
+The response from the **summary()** call seems different from the one we usually see when using the **base** package.  
+Let's see if there is an specific method **summary** for the **findFn** object created by the **findFn()** function:
+```{rsummary.findFn,tidy=FALSE}
+?summary.findFn
+```
+Effectively the **findFn()** has a method **summary** and the help page explains which information is returned when using it.  
+
+Now let's compare these results with the ones returned by the **PackageSummary()** function.
+```{r}
+PackageSummary(cran.help);
+```
+With a few differences, results are pretty similar, so we can use any of them for reviewing the results.
+
+By inspecting the names of the packages returned there is one that calls my attention: **'tools'**.
+
+It would be great if that package had a vignette, so let's see how we can query for that.
+
+### Finding vignettes with the "sos" package:
+The **"sos"** package has also a nice function called **PackageSum2()**.  
+
+From the vignette: 
+> The PackageSum2 function,(...) adds information from installed packages not obtained by `findFn`. The extended summary includes the package title and date, plus the names of the author and the maintainer, the number of help pages in the package, and the name(s) of any vignettes.
+
+This is cool, since the names of the vignettes are not always easy to find, and as I previously said, not all packages have a vignette.
+
+So let's create a data frame for storing the results of **PackageSum2()** and then subset that data frame for keeping only the results of the packages that contain a vignette and get their actual names:
+
+```{r}
+expanded.cran.help <- PackageSum2(cran.help);
+```
+### Subsetting
+Now let's extract the columns "Packages" and "Vignettes" for which the result is not a zero length string (ZLS).  
+
+I would like to highlight that a ZLS is not the same as NA, and this is something you need to consider when cleaning a data set, because functions intended to remove NA's won't work with ZLS's.
+```{rstrsplitsub, tidy=FALSE}
+b <- expanded.cran.help[expanded.cran.help$vignette != "", 1];
+d <- strsplit(sub("^[0-9]?\\: ", "",
+                  expanded.cran.help[expanded.cran.help$vignette != "", 11],
+                  ","),
+              ", ");
+```
+Ok, this seems complex, so let me explain a bit what I did.   
+
+First I subset the *expanded.cran.help* data frame for getting only the rows from the columns **Package** (column number = 1) and **Vignette** (column number = 11) that contain vignettes:  
+
+`expanded.cran.help[expanded.cran.help$vignette != "", column number]`.  
+
+In the case of the column **Package** that's the only thing I had to do.  
+
+On the other hand, the column **Vignette** needs further processing.  
+
+That column returns the results showing first the number of vignettes in a package, then a colon and a space, and finally the names of the vignettes.  
+
+So the first thing I want to do is to remove that.  
+
+### Using Regular Expresions for replacement
+For that I use the function **sub()** that uses a Regular Expression (RegExp) for replacing the first occurrence of a pattern. My patern in this case is `^.: `, where:  
+
+   1. The caret ^ is an anchor element that matches the **position before the first character** in the string.  
+   2. [0-9] means **any digit**.  
+   3. The question mark ? is used here to find **any number of digits**.  
+   4. Finally since the colon : has a special meaning in RegExp it needs to be **escaped** with the backslah. However in RStudio one needs to use a double backslash for those purposes.  
+
+### Splitting a string
+After removing that part of the string, I used the **strsplit()** function for splitting each record of that column anywhere a **comma and a space** appear.  
+
+The reason for this, is all vignettes appear in a single cell separated by commas. A convenient but ugly presentation.
+
+As a result we end up with two different objects: a character vector, and a list.
+
+### Getting the class of an object
+You can corroborate this by using the **class()** function:
+```{r classobject}
+class(b);
+class(d);
+```
+Now we need to put both objects together!
+
+### Initialize a data frame.
+So, let's **initialize** an empty data frame for storing the results:
+```{r}
+df <- data.frame(Packages         = character(0),
+                 Vignettes        = character(0),
+                 stringsAsFactors = F);
+```
+### Appending rows to an existing data frame.
+And finally let's **append** the filtered and processed columns into our new data frame for easier visualization by using the function **rbind()**:
+```{rmergedf}
+for (i in 1:length(b)){
+  df <- rbind(df,
+              merge(setNames(as.data.frame(b[i]),"Packages"),
+                    setNames(as.data.frame(d[[i]]),"Vignettes")));
+};
+```
+Here I used a simple loop for **merging** the values of the character vector and the list according to their indexes.  
+
+I would like to highlight that is more efficient to **preallocate** objects and filling them when needed than appending rows and/or columns each time. However this is not always possible.   
+
+### Coercing objects as data frames:
+Note that as soon I capture every index I transform it into a data frame using the **as.data.frame()** function and assign the column names with the **setNames()** function.  
+
+Also note the different way indexes are used at the character vector and at the list.  
+
+### Merging data:
+After that I merge both data frames without specifying any kind of join using the **merge()** function.  
+
+By doing this I'm creating a **cartesian product**.  **<- Homework** :)
+
+Finally I append to my data frame the results of this catesian product at every cycle of the loop.  
+
+Here is the final result:
+```{r}
+df;
+```
+Unfortunately, the library **"tools"** does not contain a vignette. Too bad.
+
+### Reviewing the functions of a package returned by "sos":
+Not everything is lost if our interesting package doesn't contain a vignette.  
+
+Let's explore the functions that matched our search.
+
+For that, subset the original data frame into another with only the packages we want to review, and ...
+```{rToolsEx,eval=TRUE}
+filtered.results <- cran.help[cran.help$Package=="tools",];
+```
+... open the filtered HTML page and check the results
+```{r}
+filtered.results;
+```
+By looking at the 'fileutils' page, there's a function that seems to do exactly what I'm looking for: **'file_ext()'**  
+
+So, let's test it.
+
+### Testing the file_ext() function:
+Load the library
+```{r}
+library(tools);
+```
+Get the extension of the files in my specdata folder
+```{r}
+ file_ext(dir("./specdata"));
+```
+Great! It returns only the extension of the files.  
+
+So let's find the unique extensions at that folder:
+```{r}
+unique(file_ext(dir("./specdata")));
+```
+All files at the specdata folder have a csv extension.  
+
+So most probably we can read all those files by simply using the **read.csv()** function!
+
+### Why to stay away from csv files (personal opinion):
+I said most probably because remember csv files are just text files with "columns" separated by a comma.
+
+Using a comma or a semicolon as a column separator is a call for disaster. I really don't like to work with that format because fields are separated by commas!
+
+So if I have a string that contains a comma, or a number coming from a country that uses comma as decimal separator, etc, data will be messed-up.
+
+### Final cleaning:
+Since I don't need some objects anymore, a wise thing is to remove them from R.  
+
+Remember R keeps everything in memory, so if you don't clean regularly your environment you are wasting important resources.
+
+Additionally, I'm kind of impatient so I call the garbage collector **gc()** right away.
+
+```{r}
+rm(list=ls());
+gc();
+```

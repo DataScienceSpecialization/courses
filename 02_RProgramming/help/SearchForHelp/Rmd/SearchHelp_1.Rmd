@@ -1,0 +1,151 @@
+Searching for help - 1
+========================================================
+
+Using the local help
+--------------------
+### Searching for functions:
+First and foremost we should be able to handle the **base** library.  
+
+I encourage you to review its documentation by running the next command,
+```{r}
+library(help=base)
+```
+and checking each of the functions contained in it by using the **help()** function or the question operator **?**, for example:
+```{r}
+help("Control")
+```
+
+Since usually the name of a function is closely related to the action it performs, it's useful to try to find functions either by a keyword which can be a whole word, an abbreviation, or an acronym, for example:
+
+```{rdir}
+apropos("help")
+```
+Let's type:
+```{r localhelp,tidy=FALSE,echo=TRUE}
+?help.search;
+```
+We see the function **help.search()** can take several *parameters*.  
+
+We will use by now only the arguments *pattern* and *package*.
+
+Also note that in the section **See Also** appear links to other functions.  Particularly look at this line:
+
+ ---
+> RSiteSearch to access an on-line search of R resources.
+
+ ---
+The function **RSiteSearch()** uses an on-line search engine for finding keywords and phrases through the R documentation.  Very powerful but you need to learn how to use it in order to get the results you want otherwise you can end up with thousand documents not related with what you were looking for.
+
+Type for example:
+```{rRsiteSearch}
+RSiteSearch("help")
+```
+The search returned 4027 documents.
+
+So a better search will look like this:
+```{r}
+RSiteSearch("{remove objects}", restrict = "function")
+```
+Now our search returned 79 documents, and the second one listed is the one we were looking for.
+
+Let's back to our local search, and see what the **help.search()** function can do.
+
+```{r localhelpex}
+help.search("remove objects", package = "base");
+```
+The help page returns:  
+ ----
+>    **base::rm**      Remove Objects from a Specified Environment  
+
+ ----
+If we go to the end of the help page we'll see the following example:  
+ ----
+>  **rm**(**list** = **ls**())  
+
+ ----  
+
+So, list is one of the arguments of the **rm()** AKA **remove()** function.  
+
+In order to see what the function **ls()** does, type:
+```{rls,tidy=FALSE}
+?ls();
+```
+
+### Find the package a function belongs to:
+We can double-check **rm()** really belongs to the base package by using the function **find()**
+```{rfind}
+find("rm")
+```
+### Run examples:
+You can also run the existing examples for a particular function by using the **example()** function.
+```{r examples}
+example(rm);
+```
+Vignettes
+---------
+A "vignette" is a special type of **documentation** that several but not all packages have included.  
+
+When it exists, is the most important source of help for dealing with a particular package.  
+
+You can browse all the vignettes you have at your local R installation the following way:  
+### Browse local vignnetes:
+```{r browsevignettes}
+browseVignettes(all=T);
+```
+The **browseVignettes()** function opens your default web browser and displays a list of the available vignettes at your computer and hyperlinks to open them.  
+
+### Review local vignette:
+For viewing the vignette for a particular library you can use the **vignette()** function, or via the the **browseVignettes()**:
+```{r vignette}
+vignette("Sweave");
+```
+This will open (usually) a **.pdf** or an **.html** file with the required vignette.
+
+### Review local vignette:
+```{r vigbrowser}
+browseVignettes("knitr");
+```
+The Rdocumentation page
+-----------------------
+A very nice tool for searching and reading the documentation has been built by the rdocumentation.org.  
+
+From the web page:
+ ---
+> Rdocumentation is a tool that helps you easily find and browse the documentation of all current and some past packages on CRAN.
+
+ ---
+```{r rdocumentation}
+# Uncomment if you want to go to the web page
+browseURL("http://www.rdocumentation.org/")
+```
+### The Rdocumentation package:
+There is also a package for using the "rdocumentation" tool inside R.  
+
+It can be found on GitHub.
+```{r rdocumentationgit}
+# Uncomment if you want to go to the web page
+browseURL("https://github.com/Data-Camp/Rdocumentation")
+```
+
+So let's install it:
+
+### Installing from GitHub:
+```{rdevtools}
+library(devtools)
+install_github("Rdocumentation","Data-Camp")
+```
+### Using the Rdocumentation package
+```{rRdocEx, tidy=FALSE}
+library(Rdocumentation)
+?rm
+```
+Note Rdocumentation masks the help, so you are redirected to the Rdocumentation web page for reading the help.  
+
+I found it very handy, mostly due the way the help is displayed, because let's face it, the local R documentation is plain, ugly, and difficult to read.
+
+Now that you know this option exists, let's keep using the local help for the rest of this mini-tutorial.
+
+### Unloading a library from a session:
+```{r}
+detach("package:Rdocumentation", unload=TRUE)
+```

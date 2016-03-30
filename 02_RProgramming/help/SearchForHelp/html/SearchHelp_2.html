@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Searching for help - 2</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<h1>Searching for help - 2</h1>
+
+<h2>Cleanning</h2>
+
+<p>Before start coding let&#39;s clean our Global environment.</p>
+
+<pre><code class="r">rm(list = ls())
+</code></pre>
+
+<h2>Working directory</h2>
+
+<p>For readiness let&#39;s pass the directory path to a variable</p>
+
+<pre><code class="r">mylocal.path &lt;- &quot;C:/Users/Diego/Documents/GitHub/R-Notes&quot;
+</code></pre>
+
+<p>Now let&#39;s set our working directory</p>
+
+<pre><code class="r">setwd(mylocal.path)
+</code></pre>
+
+<pre><code class="r"># House Keeping -----------------------------------------------------------
+rm(mylocal.path)
+</code></pre>
+
+<h2>Download</h2>
+
+<p>Let&#39;s create a variable that contains the dataset url:</p>
+
+<pre><code class="r">dataset.url &lt;- &quot;http://d396qusza40orc.cloudfront.net/rprog%2Fdata%2Fspecdata.zip&quot;
+</code></pre>
+
+<p>Note that I changed the <strong>https</strong> for <strong>http</strong>.  </p>
+
+<p>While <strong>https</strong> works great on <strong>Windows</strong>, <strong>Mac</strong> and <strong>Linux</strong> users would need to use the <strong>method</strong> <code>method = curl</code> of the function <strong>download.file()</strong> in order to avoid errors.  </p>
+
+<p>Also <strong>knitr</strong> doesn&#39;t like the use of <strong>https</strong> without that method.  </p>
+
+<p>So for demonstration purposes it&#39;s easier to use <strong>http</strong>.</p>
+
+<p>Now let&#39;s create a variable with the local name we will assign to that file.</p>
+
+<pre><code class="r">localpath.file &lt;- &quot;./rprog%2Fdata%2Fspecdata.zip&quot;
+</code></pre>
+
+<p>Note the <strong>./</strong> This implies I&#39;m using the working directory.  </p>
+
+<p>Finally let&#39;s download the dataset.</p>
+
+<pre><code class="r">if (file.exists(localpath.file) == F) {
+    download.file(dataset.url, localpath.file, mode = &quot;wb&quot;)
+}
+</code></pre>
+
+<p>I use a conditional for checking for the existence of the file in my working directory because I don&#39;t want to keep downloading over and over the same file.  </p>
+
+<p>Note that I use the <strong>mode</strong> <code>mode = &quot;wb&quot;</code> (binary) in order to avoid corruption.</p>
+
+<h2>Unzip</h2>
+
+<p>Let&#39;s unzip the file.</p>
+
+<pre><code class="r">if (file_test(&quot;-d&quot;, &quot;specdata&quot;) == F) {
+    unzip(localpath.file)
+}
+</code></pre>
+
+<p>Here again I use a conditional, this time for checking for the existence of the directory &ldquo;specdata&rdquo; since I don&#39;t want to rewrite it if it already exists.  </p>
+
+<pre><code class="r"># House Keeping -----------------------------------------------------------
+rm(list = c(&quot;dataset.url&quot;, &quot;localpath.file&quot;))
+</code></pre>
+
+<p>Double-check the contents of the working directory.</p>
+
+<h2>List the Files in a Directory/Folder</h2>
+
+<pre><code class="r">dir(); # AKA list.files()
+</code></pre>
+
+<pre><code>##  [1] &quot;index.html&quot;                  &quot;index.md&quot;                   
+##  [3] &quot;index.Rmd&quot;                   &quot;rprog%2Fdata%2Fspecdata.zip&quot;
+##  [5] &quot;run_analysis_working.R&quot;      &quot;SearchHelp_1.html&quot;          
+##  [7] &quot;SearchHelp_1.md&quot;             &quot;SearchHelp_1.R&quot;             
+##  [9] &quot;SearchHelp_1.Rmd&quot;            &quot;SearchHelp_2.html&quot;          
+## [11] &quot;SearchHelp_2.md&quot;             &quot;SearchHelp_2.R&quot;             
+## [13] &quot;SearchHelp_2.Rmd&quot;            &quot;slides&quot;                     
+## [15] &quot;specdata&quot;
+</code></pre>
+
+<p>Note <strong>specdata</strong> has no extension. This is because it is a folder.</p>
+
+<pre><code class="r">list.dirs()
+</code></pre>
+
+<pre><code>## [1] &quot;.&quot;          &quot;./slides&quot;   &quot;./specdata&quot;
+</code></pre>
+
+<p>Interestingly, <strong>list.dirs()</strong> prints also hidden folders (all <strong>git</strong> folder and subfolders are hidden).  </p>
+
+<p>Let&#39;s take a look at what is contained at the spectdata folder:</p>
+
+<pre><code class="r">dir(&quot;./specdata&quot;)
+</code></pre>
+
+<pre><code>##   [1] &quot;001.csv&quot; &quot;002.csv&quot; &quot;003.csv&quot; &quot;004.csv&quot; &quot;005.csv&quot; &quot;006.csv&quot; &quot;007.csv&quot;
+##   [8] &quot;008.csv&quot; &quot;009.csv&quot; &quot;010.csv&quot; &quot;011.csv&quot; &quot;012.csv&quot; &quot;013.csv&quot; &quot;014.csv&quot;
+##  [15] &quot;015.csv&quot; &quot;016.csv&quot; &quot;017.csv&quot; &quot;018.csv&quot; &quot;019.csv&quot; &quot;020.csv&quot; &quot;021.csv&quot;
+##  [22] &quot;022.csv&quot; &quot;023.csv&quot; &quot;024.csv&quot; &quot;025.csv&quot; &quot;026.csv&quot; &quot;027.csv&quot; &quot;028.csv&quot;
+##  [29] &quot;029.csv&quot; &quot;030.csv&quot; &quot;031.csv&quot; &quot;032.csv&quot; &quot;033.csv&quot; &quot;034.csv&quot; &quot;035.csv&quot;
+##  [36] &quot;036.csv&quot; &quot;037.csv&quot; &quot;038.csv&quot; &quot;039.csv&quot; &quot;040.csv&quot; &quot;041.csv&quot; &quot;042.csv&quot;
+##  [43] &quot;043.csv&quot; &quot;044.csv&quot; &quot;045.csv&quot; &quot;046.csv&quot; &quot;047.csv&quot; &quot;048.csv&quot; &quot;049.csv&quot;
+##  [50] &quot;050.csv&quot; &quot;051.csv&quot; &quot;052.csv&quot; &quot;053.csv&quot; &quot;054.csv&quot; &quot;055.csv&quot; &quot;056.csv&quot;
+##  [57] &quot;057.csv&quot; &quot;058.csv&quot; &quot;059.csv&quot; &quot;060.csv&quot; &quot;061.csv&quot; &quot;062.csv&quot; &quot;063.csv&quot;
+##  [64] &quot;064.csv&quot; &quot;065.csv&quot; &quot;066.csv&quot; &quot;067.csv&quot; &quot;068.csv&quot; &quot;069.csv&quot; &quot;070.csv&quot;
+##  [71] &quot;071.csv&quot; &quot;072.csv&quot; &quot;073.csv&quot; &quot;074.csv&quot; &quot;075.csv&quot; &quot;076.csv&quot; &quot;077.csv&quot;
+##  [78] &quot;078.csv&quot; &quot;079.csv&quot; &quot;080.csv&quot; &quot;081.csv&quot; &quot;082.csv&quot; &quot;083.csv&quot; &quot;084.csv&quot;
+##  [85] &quot;085.csv&quot; &quot;086.csv&quot; &quot;087.csv&quot; &quot;088.csv&quot; &quot;089.csv&quot; &quot;090.csv&quot; &quot;091.csv&quot;
+##  [92] &quot;092.csv&quot; &quot;093.csv&quot; &quot;094.csv&quot; &quot;095.csv&quot; &quot;096.csv&quot; &quot;097.csv&quot; &quot;098.csv&quot;
+##  [99] &quot;099.csv&quot; &quot;100.csv&quot; &quot;101.csv&quot; &quot;102.csv&quot; &quot;103.csv&quot; &quot;104.csv&quot; &quot;105.csv&quot;
+## [106] &quot;106.csv&quot; &quot;107.csv&quot; &quot;108.csv&quot; &quot;109.csv&quot; &quot;110.csv&quot; &quot;111.csv&quot; &quot;112.csv&quot;
+## [113] &quot;113.csv&quot; &quot;114.csv&quot; &quot;115.csv&quot; &quot;116.csv&quot; &quot;117.csv&quot; &quot;118.csv&quot; &quot;119.csv&quot;
+## [120] &quot;120.csv&quot; &quot;121.csv&quot; &quot;122.csv&quot; &quot;123.csv&quot; &quot;124.csv&quot; &quot;125.csv&quot; &quot;126.csv&quot;
+## [127] &quot;127.csv&quot; &quot;128.csv&quot; &quot;129.csv&quot; &quot;130.csv&quot; &quot;131.csv&quot; &quot;132.csv&quot; &quot;133.csv&quot;
+## [134] &quot;134.csv&quot; &quot;135.csv&quot; &quot;136.csv&quot; &quot;137.csv&quot; &quot;138.csv&quot; &quot;139.csv&quot; &quot;140.csv&quot;
+## [141] &quot;141.csv&quot; &quot;142.csv&quot; &quot;143.csv&quot; &quot;144.csv&quot; &quot;145.csv&quot; &quot;146.csv&quot; &quot;147.csv&quot;
+## [148] &quot;148.csv&quot; &quot;149.csv&quot; &quot;150.csv&quot; &quot;151.csv&quot; &quot;152.csv&quot; &quot;153.csv&quot; &quot;154.csv&quot;
+## [155] &quot;155.csv&quot; &quot;156.csv&quot; &quot;157.csv&quot; &quot;158.csv&quot; &quot;159.csv&quot; &quot;160.csv&quot; &quot;161.csv&quot;
+## [162] &quot;162.csv&quot; &quot;163.csv&quot; &quot;164.csv&quot; &quot;165.csv&quot; &quot;166.csv&quot; &quot;167.csv&quot; &quot;168.csv&quot;
+## [169] &quot;169.csv&quot; &quot;170.csv&quot; &quot;171.csv&quot; &quot;172.csv&quot; &quot;173.csv&quot; &quot;174.csv&quot; &quot;175.csv&quot;
+## [176] &quot;176.csv&quot; &quot;177.csv&quot; &quot;178.csv&quot; &quot;179.csv&quot; &quot;180.csv&quot; &quot;181.csv&quot; &quot;182.csv&quot;
+## [183] &quot;183.csv&quot; &quot;184.csv&quot; &quot;185.csv&quot; &quot;186.csv&quot; &quot;187.csv&quot; &quot;188.csv&quot; &quot;189.csv&quot;
+## [190] &quot;190.csv&quot; &quot;191.csv&quot; &quot;192.csv&quot; &quot;193.csv&quot; &quot;194.csv&quot; &quot;195.csv&quot; &quot;196.csv&quot;
+## [197] &quot;197.csv&quot; &quot;198.csv&quot; &quot;199.csv&quot; &quot;200.csv&quot; &quot;201.csv&quot; &quot;202.csv&quot; &quot;203.csv&quot;
+## [204] &quot;204.csv&quot; &quot;205.csv&quot; &quot;206.csv&quot; &quot;207.csv&quot; &quot;208.csv&quot; &quot;209.csv&quot; &quot;210.csv&quot;
+## [211] &quot;211.csv&quot; &quot;212.csv&quot; &quot;213.csv&quot; &quot;214.csv&quot; &quot;215.csv&quot; &quot;216.csv&quot; &quot;217.csv&quot;
+## [218] &quot;218.csv&quot; &quot;219.csv&quot; &quot;220.csv&quot; &quot;221.csv&quot; &quot;222.csv&quot; &quot;223.csv&quot; &quot;224.csv&quot;
+## [225] &quot;225.csv&quot; &quot;226.csv&quot; &quot;227.csv&quot; &quot;228.csv&quot; &quot;229.csv&quot; &quot;230.csv&quot; &quot;231.csv&quot;
+## [232] &quot;232.csv&quot; &quot;233.csv&quot; &quot;234.csv&quot; &quot;235.csv&quot; &quot;236.csv&quot; &quot;237.csv&quot; &quot;238.csv&quot;
+## [239] &quot;239.csv&quot; &quot;240.csv&quot; &quot;241.csv&quot; &quot;242.csv&quot; &quot;243.csv&quot; &quot;244.csv&quot; &quot;245.csv&quot;
+## [246] &quot;246.csv&quot; &quot;247.csv&quot; &quot;248.csv&quot; &quot;249.csv&quot; &quot;250.csv&quot; &quot;251.csv&quot; &quot;252.csv&quot;
+## [253] &quot;253.csv&quot; &quot;254.csv&quot; &quot;255.csv&quot; &quot;256.csv&quot; &quot;257.csv&quot; &quot;258.csv&quot; &quot;259.csv&quot;
+## [260] &quot;260.csv&quot; &quot;261.csv&quot; &quot;262.csv&quot; &quot;263.csv&quot; &quot;264.csv&quot; &quot;265.csv&quot; &quot;266.csv&quot;
+## [267] &quot;267.csv&quot; &quot;268.csv&quot; &quot;269.csv&quot; &quot;270.csv&quot; &quot;271.csv&quot; &quot;272.csv&quot; &quot;273.csv&quot;
+## [274] &quot;274.csv&quot; &quot;275.csv&quot; &quot;276.csv&quot; &quot;277.csv&quot; &quot;278.csv&quot; &quot;279.csv&quot; &quot;280.csv&quot;
+## [281] &quot;281.csv&quot; &quot;282.csv&quot; &quot;283.csv&quot; &quot;284.csv&quot; &quot;285.csv&quot; &quot;286.csv&quot; &quot;287.csv&quot;
+## [288] &quot;288.csv&quot; &quot;289.csv&quot; &quot;290.csv&quot; &quot;291.csv&quot; &quot;292.csv&quot; &quot;293.csv&quot; &quot;294.csv&quot;
+## [295] &quot;295.csv&quot; &quot;296.csv&quot; &quot;297.csv&quot; &quot;298.csv&quot; &quot;299.csv&quot; &quot;300.csv&quot; &quot;301.csv&quot;
+## [302] &quot;302.csv&quot; &quot;303.csv&quot; &quot;304.csv&quot; &quot;305.csv&quot; &quot;306.csv&quot; &quot;307.csv&quot; &quot;308.csv&quot;
+## [309] &quot;309.csv&quot; &quot;310.csv&quot; &quot;311.csv&quot; &quot;312.csv&quot; &quot;313.csv&quot; &quot;314.csv&quot; &quot;315.csv&quot;
+## [316] &quot;316.csv&quot; &quot;317.csv&quot; &quot;318.csv&quot; &quot;319.csv&quot; &quot;320.csv&quot; &quot;321.csv&quot; &quot;322.csv&quot;
+## [323] &quot;323.csv&quot; &quot;324.csv&quot; &quot;325.csv&quot; &quot;326.csv&quot; &quot;327.csv&quot; &quot;328.csv&quot; &quot;329.csv&quot;
+## [330] &quot;330.csv&quot; &quot;331.csv&quot; &quot;332.csv&quot;
+</code></pre>
+
+<p>I would like to know the file extensions of the files at the extracted folder in order to get an idea about what I&#39;m dealing with.  </p>
+
+<p>Sure, we can do this by &ldquo;eye&rdquo; or by using Regular Expressions.  </p>
+
+<p>But I&#39;m lazy and I think R should have a function for doing that.  </p>
+
+<p>However, if that function exists it is not contained at the <strong>&#39;base&#39;</strong> packages.</p>
+
+<p>By the way, base packages are:</p>
+
+<ol>
+<li>stats</li>
+<li>graphics</li>
+<li>grDevices</li>
+<li>utils</li>
+<li>datasets</li>
+<li>methods</li>
+<li>base</li>
+</ol>
+
+<p>Is not that I know them by heart; I just ran the function <strong>sessionInfo()</strong></p>
+
+<h3>Collect Information About the Current R Session</h3>
+
+<pre><code class="r">sessionInfo()
+</code></pre>
+
+<pre><code>## R version 3.1.0 (2014-04-10)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## 
+## locale:
+## [1] LC_COLLATE=English_United States.1252 
+## [2] LC_CTYPE=English_United States.1252   
+## [3] LC_MONETARY=English_United States.1252
+## [4] LC_NUMERIC=C                          
+## [5] LC_TIME=English_United States.1252    
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] knitr_1.5
+## 
+## loaded via a namespace (and not attached):
+## [1] evaluate_0.5.5 formatR_0.10   stringr_0.6.2  tools_3.1.0
+</code></pre>
+
+<p>Now let&#39;s see if we can find a function for getting only the file extensions.</p>
+
+<h2>Search through all CRAN packages with the &#39;sos&#39; package</h2>
+
+<p>From the vignette of the package <strong>&ldquo;sos&rdquo;</strong>:  </p>
+
+<hr/>
+
+<blockquote>
+<p>The sos package provides a means
+to quickly and flexibly search the help pages
+of contributed packages, finding functions and
+datasets in seconds or minutes that could not
+be found in hours or days by any other means
+we know. </p>
+</blockquote>
+
+<hr/>
+
+<h3>Installing packages:</h3>
+
+<p>Install the <strong>&ldquo;sos&rdquo;</strong> package</p>
+
+<pre><code class="r">if (&quot;sos&quot; %in% rownames(installed.packages()) == F) {
+    install.packages(&quot;sos&quot;, repos = &quot;http://cran.rstudio.com/&quot;)
+}
+</code></pre>
+
+<p>Here I first check if the package &ldquo;sos&rdquo; is already installed, and if not I install it.</p>
+
+<h3>Loading packages:</h3>
+
+<p>Load the <strong>&ldquo;sos&rdquo;</strong> package</p>
+
+<pre><code class="r">library(sos); # Review the use of the require() function.
+</code></pre>
+
+<pre><code>## Loading required package: brew
+## 
+## Attaching package: &#39;sos&#39;
+## 
+## The following object is masked from &#39;package:utils&#39;:
+## 
+##     ?
+</code></pre>
+
+<p>Let&#39;s find in the help pages for a function that includes the <strong>keywords</strong>
+<em>file</em> AND <em>extensions</em> using the function <strong>findFn()</strong>. Note the use of <strong>{}</strong>. They are useful for searching for an exact string.</p>
+
+<pre><code class="r">cran.help &lt;- findFn(&quot;{file extensions}&quot;, sortby = &quot;MaxScore&quot;)
+</code></pre>
+
+<pre><code>## found 66 matches;  retrieving 4 pages
+## 2 3 4 
+## Downloaded 39 links in 29 packages.
+</code></pre>
+
+<h3>Getting the class of an object</h3>
+
+<p>Well, I just passed &ldquo;whatever&rdquo; was returned by the <strong>findFn()</strong> function to a new variable.<br/>
+However I don&#39;t know what kind of object it is. So let&#39;s find it.</p>
+
+<pre><code class="r">is(cran.help)
+</code></pre>
+
+<pre><code>## [1] &quot;findFn&quot;
+</code></pre>
+
+<pre><code class="r">class(cran.help)
+</code></pre>
+
+<pre><code>## [1] &quot;findFn&quot;     &quot;data.frame&quot;
+</code></pre>
+
+<p>So it seems the newly created object belongs to a data.frame superclass.</p>
+
+<h3>Test if an object can be treated as from a superclass.</h3>
+
+<pre><code class="r">is(cran.help, &quot;data.frame&quot;)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<p>Perfect. My object <em>cran.help</em> can use data.frame methods!</p>
+
+<h3>Getting the methods of a class</h3>
+
+<pre><code class="r">methods(class = &quot;data.frame&quot;)
+</code></pre>
+
+<pre><code>##  [1] $.data.frame             $&lt;-.data.frame          
+##  [3] [.data.frame             [[.data.frame           
+##  [5] [[&lt;-.data.frame          [&lt;-.data.frame          
+##  [7] aggregate.data.frame     anyDuplicated.data.frame
+##  [9] as.data.frame.data.frame as.list.data.frame      
+## [11] as.matrix.data.frame     by.data.frame           
+## [13] cbind.data.frame         dim.data.frame          
+## [15] dimnames.data.frame      dimnames&lt;-.data.frame   
+## [17] droplevels.data.frame    duplicated.data.frame   
+## [19] edit.data.frame*         format.data.frame       
+## [21] formula.data.frame*      head.data.frame*        
+## [23] is.na.data.frame         Math.data.frame         
+## [25] merge.data.frame         na.exclude.data.frame*  
+## [27] na.omit.data.frame*      Ops.data.frame          
+## [29] PackageSum2.data.frame*  plot.data.frame*        
+## [31] print.data.frame         prompt.data.frame*      
+## [33] rbind.data.frame         row.names.data.frame    
+## [35] row.names&lt;-.data.frame   rowsum.data.frame       
+## [37] split.data.frame         split&lt;-.data.frame      
+## [39] stack.data.frame*        str.data.frame*         
+## [41] subset.data.frame        summary.data.frame      
+## [43] Summary.data.frame       t.data.frame            
+## [45] tail.data.frame*         transform.data.frame    
+## [47] unique.data.frame        unstack.data.frame*     
+## [49] within.data.frame       
+## 
+##    Non-visible functions are asterisked
+</code></pre>
+
+<p>Well, we have several methods for working with data frames.  </p>
+
+<p>Let&#39;s take a look at the packages returned by using the <strong>summary()</strong> function first and then using the <strong>PackageSummary()</strong> function.</p>
+
+<pre><code class="r">summary(cran.help, minPackages = 20)
+</code></pre>
+
+<pre><code>## 
+## Call:
+## findFn(string = &quot;{file extensions}&quot;, sortby = &quot;MaxScore&quot;)
+## 
+## Total number of matches: 66
+## Downloaded 39 links in 29 packages.
+## 
+## Packages with at least 1 match using pattern
+##   &#39;{file%20extensions}&#39;
+##              Package Count MaxScore TotalScore       Date
+## 1                opm     5        5         13 2014-04-22
+## 2          oro.nifti     2       24         31 2014-01-09
+## 3                emu     2       24         25 2012-07-16
+## 4             reader     2        5          8 2014-03-04
+## 5                nat     2        2          3 2014-05-16
+## 6       PBSmodelling     2        2          3 2014-04-22
+## 7           pkgutils     2        1          2 2014-01-23
+## 8              tools     1        7          7 2013-10-17
+## 9    ProjectTemplate     1        5          5 2014-03-20
+## 10          markdown     1        4          4 2014-05-16
+## 11          metrumrg     1        3          3 2014-03-04
+## 12             plink     1        2          2 2012-02-22
+## 13             RCurl     1        2          2 2013-03-08
+## 14             RSAGA     1        2          2 2013-08-03
+## 15      tractor.base     1        2          2 2014-03-20
+## 16            DynDoc     1        1          1 2013-10-29
+## 17              fail     1        1          1 2013-09-21
+## 18         gWidgets2     1        1          1 2014-03-20
+## 19    gWidgets2RGtk2     1        1          1 2013-10-29
+## 20    gWidgets2tcltk     1        1          1 2013-11-20
+## 21             knitr     1        1          1 2013-10-06
+## 22        likelihood     1        1          1 2012-02-22
+## 23 MALDIquantForeign     1        1          1 2014-04-22
+## 24           monitoR     1        1          1 2014-05-16
+## 25           openair     1        1          1 2014-02-16
+## 26            QCGWAS     1        1          1 2014-02-16
+## 27              Rook     1        1          1 2013-01-11
+## 28           RSurvey     1        1          1 2014-01-09
+## 29         subselect     1        1          1 2013-07-18
+</code></pre>
+
+<p>The response from the <strong>summary()</strong> call seems different from the one we usually see when using the <strong>base</strong> package.<br/>
+Let&#39;s see if there is an specific method <strong>summary</strong> for the <strong>findFn</strong> object created by the <strong>findFn()</strong> function:</p>
+
+<pre><code class="r">?summary.findFn
+</code></pre>
+
+<pre><code>## starting httpd help server ... done
+</code></pre>
+
+<p>Effectively the <strong>findFn()</strong> has a method <strong>summary</strong> and the help page explains which information is returned when using it.  </p>
+
+<p>Now let&#39;s compare these results with the ones returned by the <strong>PackageSummary()</strong> function.</p>
+
+<pre><code class="r">PackageSummary(cran.help)
+</code></pre>
+
+<pre><code>##              Package Count MaxScore TotalScore                Date
+## 15               opm     5        5         13 2014-04-22 06:30:23
+## 16         oro.nifti     2       24         31 2014-01-09 08:06:51
+## 2                emu     2       24         25 2012-07-16 08:23:06
+## 23            reader     2        5          8 2014-03-04 10:44:29
+## 13               nat     2        2          3 2014-05-16 16:30:06
+## 17      PBSmodelling     2        2          3 2014-04-22 06:30:45
+## 18          pkgutils     2        1          2 2013-04-29 17:00:02
+## 28             tools     1        7          7 2013-10-17 20:30:04
+## 20   ProjectTemplate     1        5          5 2014-03-20 07:22:47
+## 10          markdown     1        4          4 2014-05-16 16:29:29
+## 11          metrumrg     1        3          3 2014-03-04 10:28:01
+## 19             plink     1        2          2 2012-02-22 19:28:11
+## 22             RCurl     1        2          2 2013-03-08 15:47:59
+## 25             RSAGA     1        2          2 2013-08-03 04:45:48
+## 29      tractor.base     1        2          2 2014-03-20 07:32:40
+## 1             DynDoc     1        1          1 2013-10-29 16:45:34
+## 3               fail     1        1          1 2013-09-21 14:58:16
+## 4          gWidgets2     1        1          1 2014-03-20 07:17:33
+## 5     gWidgets2RGtk2     1        1          1 2013-10-29 17:30:08
+## 6     gWidgets2tcltk     1        1          1 2013-11-20 10:56:46
+## 7              knitr     1        1          1 2013-10-06 06:59:17
+## 8         likelihood     1        1          1 2012-02-22 19:33:10
+## 9  MALDIquantForeign     1        1          1 2014-04-22 06:35:57
+## 12           monitoR     1        1          1 2014-05-16 16:15:04
+## 14           openair     1        1          1 2014-02-16 10:22:19
+## 21            QCGWAS     1        1          1 2014-02-16 10:12:47
+## 24              Rook     1        1          1 2013-01-11 07:06:43
+## 26           RSurvey     1        1          1 2014-01-09 08:09:38
+## 27         subselect     1        1          1 2013-07-18 08:06:36
+</code></pre>
+
+<p>With a few differences, results are pretty similar, so we can use any of them for reviewing the results.</p>
+
+<p>By inspecting the names of the packages returned there is one that calls my attention: <strong>&#39;tools&#39;</strong>.</p>
+
+<p>It would be great if that package had a vignette, so let&#39;s see how we can query for that.</p>
+
+<h3>Finding vignettes with the &ldquo;sos&rdquo; package:</h3>
+
+<p>The <strong>&ldquo;sos&rdquo;</strong> package has also a nice function called <strong>PackageSum2()</strong>.  </p>
+
+<p>From the vignette: </p>
+
+<blockquote>
+<p>The PackageSum2 function,(&hellip;) adds information from installed packages not obtained by <code>findFn</code>. The extended summary includes the package title and date, plus the names of the author and the maintainer, the number of help pages in the package, and the name(s) of any vignettes.</p>
+</blockquote>
+
+<p>This is cool, since the names of the vignettes are not always easy to find, and as I previously said, not all packages have a vignette.</p>
+
+<p>So let&#39;s create a data frame for storing the results of <strong>PackageSum2()</strong> and then subset that data frame for keeping only the results of the packages that contain a vignette and get their actual names:</p>
+
+<pre><code class="r">expanded.cran.help &lt;- PackageSum2(cran.help)
+</code></pre>
+
+<h3>Subsetting</h3>
+
+<p>Now let&#39;s extract the columns &ldquo;Packages&rdquo; and &ldquo;Vignettes&rdquo; for which the result is not a zero length string (ZLS).  </p>
+
+<p>I would like to highlight that a ZLS is not the same as NA, and this is something you need to consider when cleaning a data set, because functions intended to remove NA&#39;s won&#39;t work with ZLS&#39;s.</p>
+
+<pre><code class="r">b &lt;- expanded.cran.help[expanded.cran.help$vignette != &quot;&quot;, 1];
+d &lt;- strsplit(sub(&quot;^[0-9]?\\: &quot;, &quot;&quot;,
+                  expanded.cran.help[expanded.cran.help$vignette != &quot;&quot;, 11],
+                  &quot;,&quot;),
+              &quot;, &quot;);
+</code></pre>
+
+<p>Ok, this seems complex, so let me explain a bit what I did.   </p>
+
+<p>First I subset the <em>expanded.cran.help</em> data frame for getting only the rows from the columns <strong>Package</strong> (column number = 1) and <strong>Vignette</strong> (column number = 11) that contain vignettes:  </p>
+
+<p><code>expanded.cran.help[expanded.cran.help$vignette != &quot;&quot;, column number]</code>.  </p>
+
+<p>In the case of the column <strong>Package</strong> that&#39;s the only thing I had to do.  </p>
+
+<p>On the other hand, the column <strong>Vignette</strong> needs further processing.  </p>
+
+<p>That column returns the results showing first the number of vignettes in a package, then a colon and a space, and finally the names of the vignettes.  </p>
+
+<p>So the first thing I want to do is to remove that.  </p>
+
+<h3>Using Regular Expresions for replacement</h3>
+
+<p>For that I use the function <strong>sub()</strong> that uses a Regular Expression (RegExp) for replacing the first occurrence of a pattern. My patern in this case is <code>^.:</code>, where:  </p>
+
+<ol>
+<li>The caret ^ is an anchor element that matches the <strong>position before the first character</strong> in the string.<br/></li>
+<li>[0-9] means <strong>any digit</strong>.<br/></li>
+<li>The question mark ? is used here to find <strong>any number of digits</strong>.<br/></li>
+<li>Finally since the colon : has a special meaning in RegExp it needs to be <strong>escaped</strong> with the backslah. However in RStudio one needs to use a double backslash for those purposes.<br/></li>
+</ol>
+
+<h3>Splitting a string</h3>
+
+<p>After removing that part of the string, I used the <strong>strsplit()</strong> function for splitting each record of that column anywhere a <strong>comma and a space</strong> appear.  </p>
+
+<p>The reason for this, is all vignettes appear in a single cell separated by commas. A convenient but ugly presentation.</p>
+
+<p>As a result we end up with two different objects: a character vector, and a list.</p>
+
+<h3>Getting the class of an object</h3>
+
+<p>You can corroborate this by using the <strong>class()</strong> function:</p>
+
+<pre><code class="r">class(b)
+</code></pre>
+
+<pre><code>## [1] &quot;character&quot;
+</code></pre>
+
+<pre><code class="r">class(d)
+</code></pre>
+
+<pre><code>## [1] &quot;list&quot;
+</code></pre>
+
+<p>Now we need to put both objects together!</p>
+
+<h3>Initialize a data frame.</h3>
+
+<p>So, let&#39;s <strong>initialize</strong> an empty data frame for storing the results:</p>
+
+<pre><code class="r">df &lt;- data.frame(Packages = character(0), Vignettes = character(0), stringsAsFactors = F)
+</code></pre>
+
+<h3>Appending rows to an existing data frame.</h3>
+
+<p>And finally let&#39;s <strong>append</strong> the filtered and processed columns into our new data frame for easier visualization by using the function <strong>rbind()</strong>:</p>
+
+<pre><code class="r">for (i in 1:length(b)) {
+    df &lt;- rbind(df, merge(setNames(as.data.frame(b[i]), &quot;Packages&quot;), setNames(as.data.frame(d[[i]]), 
+        &quot;Vignettes&quot;)))
+}
+</code></pre>
+
+<p>Here I used a simple loop for <strong>merging</strong> the values of the character vector and the list according to their indexes.  </p>
+
+<p>I would like to highlight that is more efficient to <strong>preallocate</strong> objects and filling them when needed than appending rows and/or columns each time. However this is not always possible.   </p>
+
+<h3>Coercing objects as data frames:</h3>
+
+<p>Note that as soon I capture every index I transform it into a data frame using the <strong>as.data.frame()</strong> function and assign the column names with the <strong>setNames()</strong> function.  </p>
+
+<p>Also note the different way indexes are used at the character vector and at the list.  </p>
+
+<h3>Merging data:</h3>
+
+<p>After that I merge both data frames without specifying any kind of join using the <strong>merge()</strong> function.  </p>
+
+<p>By doing this I&#39;m creating a <strong>cartesian product</strong>.  <strong>&lt;- Homework</strong> :)</p>
+
+<p>Finally I append to my data frame the results of this catesian product at every cycle of the loop.  </p>
+
+<p>Here is the final result:</p>
+
+<pre><code class="r">df
+</code></pre>
+
+<pre><code>##    Packages         Vignettes
+## 1  markdown   markdown-output
+## 2  markdown markdown-examples
+## 3     knitr       knitr-intro
+## 4     knitr        knitr-html
+## 5     knitr    knitr-markdown
+## 6     knitr        datatables
+## 7     knitr     knitr-refcard
+## 8     knitr     docco-classic
+## 9     knitr      docco-linear
+## 10    knitr       knit_expand
+</code></pre>
+
+<p>Unfortunately, the library <strong>&ldquo;tools&rdquo;</strong> does not contain a vignette. Too bad.</p>
+
+<h3>Reviewing the functions of a package returned by &ldquo;sos&rdquo;:</h3>
+
+<p>Not everything is lost if our interesting package doesn&#39;t contain a vignette.  </p>
+
+<p>Let&#39;s explore the functions that matched our search.</p>
+
+<p>For that, subset the original data frame into another with only the packages we want to review, and &hellip;</p>
+
+<pre><code class="r">filtered.results &lt;- cran.help[cran.help$Package == &quot;tools&quot;, ]
+</code></pre>
+
+<p>&hellip; open the filtered HTML page and check the results</p>
+
+<pre><code class="r">filtered.results
+</code></pre>
+
+<p>By looking at the &#39;fileutils&#39; page, there&#39;s a function that seems to do exactly what I&#39;m looking for: <strong>&#39;file_ext()&#39;</strong>  </p>
+
+<p>So, let&#39;s test it.</p>
+
+<h3>Testing the file_ext() function:</h3>
+
+<p>Load the library</p>
+
+<pre><code class="r">library(tools)
+</code></pre>
+
+<p>Get the extension of the files in my specdata folder</p>
+
+<pre><code class="r">file_ext(dir(&quot;./specdata&quot;))
+</code></pre>
+
+<pre><code>##   [1] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+##  [12] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+##  [23] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+##  [34] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+##  [45] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+##  [56] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+##  [67] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+##  [78] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+##  [89] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [100] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [111] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [122] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [133] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [144] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [155] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [166] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [177] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [188] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [199] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [210] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [221] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [232] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [243] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [254] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [265] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [276] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [287] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [298] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [309] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [320] &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot; &quot;csv&quot;
+## [331] &quot;csv&quot; &quot;csv&quot;
+</code></pre>
+
+<p>Great! It returns only the extension of the files.  </p>
+
+<p>So let&#39;s find the unique extensions at that folder:</p>
+
+<pre><code class="r">unique(file_ext(dir(&quot;./specdata&quot;)))
+</code></pre>
+
+<pre><code>## [1] &quot;csv&quot;
+</code></pre>
+
+<p>All files at the specdata folder have a csv extension.  </p>
+
+<p>So most probably we can read all those files by simply using the <strong>read.csv()</strong> function!</p>
+
+<h3>Why to stay away from csv files (personal opinion):</h3>
+
+<p>I said most probably because remember csv files are just text files with &ldquo;columns&rdquo; separated by a comma.</p>
+
+<p>Using a comma or a semicolon as a column separator is a call for disaster. I really don&#39;t like to work with that format because fields are separated by commas!</p>
+
+<p>So if I have a string that contains a comma, or a number coming from a country that uses comma as decimal separator, etc, data will be messed-up.</p>
+
+<h3>Final cleaning:</h3>
+
+<p>Since I don&#39;t need some objects anymore, a wise thing is to remove them from R.  </p>
+
+<p>Remember R keeps everything in memory, so if you don&#39;t clean regularly your environment you are wasting important resources.</p>
+
+<p>Additionally, I&#39;m kind of impatient so I call the garbage collector <strong>gc()</strong> right away.</p>
+
+<pre><code class="r">rm(list = ls())
+gc()
+</code></pre>
+
+<pre><code>##          used (Mb) gc trigger (Mb) max used (Mb)
+## Ncells 310735 16.6     467875 25.0   407500 21.8
+## Vcells 555886  4.3    1031040  7.9   859060  6.6
+</code></pre>
+
+</body>
+
+</html>
+

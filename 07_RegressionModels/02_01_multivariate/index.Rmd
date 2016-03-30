@@ -268,7 +268,7 @@ follows a $T$ distribution with $n-p$ degrees of freedom.
 
 ---
 ## Linear models
-* Linear models are the single most important applied statistical and machine learning techniqe, *by far*.
+* Linear models are the single most important applied statistical and machine learning technique, *by far*.
 * Some amazing things that you can accomplish with linear models
   * Decompose a signal into its harmonics.
   * Flexibly fit complicated functions.

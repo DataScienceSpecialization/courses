@@ -228,6 +228,6 @@ teams
 
 ## Notes and further resources
 
-* Official XML tutorials [short](http://www.omegahat.org/RSXML/shortIntro.pdf), [long](http://www.omegahat.org/RSXML/Tour.pdf)
+* Official XML tutorials [short](https://web.archive.org/web/20140906181450/http://www.omegahat.org/RSXML/shortIntro.pdf), [long](https://web.archive.org/web/20141113153333/http://www.omegahat.org/RSXML/Tour.pdf)
 * [An outstanding guide to the XML package](http://www.stat.berkeley.edu/~statcur/Workshop2/Presentations/XML.pdf)
 

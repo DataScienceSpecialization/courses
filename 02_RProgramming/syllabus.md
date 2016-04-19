@@ -115,7 +115,7 @@ Johns Hopkins University defines plagiarism as "...taking for one's own use the 
 
 We recognize that many students may not have a clear understanding of what plagiarism is or why it is wrong. Please see the following guide for more information on plagiarism:
 
-[http://www.jhsph.edu/academics/degree-programs/master-of-public-health/current-students/JHSPH-Refere...](http://www.jhsph.edu/academics/degree-programs/master-of-public-health/current-students/JHSPH-ReferencingHandbook.pdf)
+[JSHPH Student Handbook on Referencing](http://www.jhsph.edu/academics/degree-programs/master-of-public-health/current-students/JHSPH-StudentReferencing_handbook.pdf)
 
 It is critically important that you give people/sources credit when you use their words or ideas. If you do not give proper credit -- particularly when quoting directly from a source -- you violate the trust of your fellow students.
 

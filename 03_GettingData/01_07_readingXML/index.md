@@ -117,7 +117,7 @@ rootNode[[1]][[1]]
 
 ---
 
-## Programatically extract parts of the file
+## Programmatically extract parts of the file
 
 
 ```r

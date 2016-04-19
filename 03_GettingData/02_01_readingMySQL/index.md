@@ -441,7 +441,7 @@ dbDisconnect(hg19)
 
 * RMySQL vignette [http://cran.r-project.org/web/packages/RMySQL/RMySQL.pdf](http://cran.r-project.org/web/packages/RMySQL/RMySQL.pdf)
 * List of commands [http://www.pantz.org/software/mysql/mysqlcommands.html](http://www.pantz.org/software/mysql/mysqlcommands.html)
-  * __Do not, do not, delete, add or join things from ensembl. Only select.__
-  * In general be careful with mysql commands
+  * __Do not, do not, delete, add or join things from ensemble. Only select.__
+  * In general be careful with MySQL commands
 * A nice blog post summarizing some other commands [http://www.r-bloggers.com/mysql-and-r/](http://www.r-bloggers.com/mysql-and-r/)
   

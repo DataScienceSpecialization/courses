@@ -74,7 +74,7 @@ X[1:2,"var2"]
 
 ---
 
-## Logicals ands and ors
+## Logical ands and ors
 
 
 ```r

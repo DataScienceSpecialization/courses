@@ -68,7 +68,7 @@ homeTL = GET("https://api.twitter.com/1.1/statuses/home_timeline.json", sig)
 
 ---
 
-## Converting the json object
+## Converting the JSON object
 
 
 ```r
@@ -88,7 +88,7 @@ json2[1,1:4]
 
 ---
 
-## How did I know what url to use?
+## How did I know what URL to use?
 
 
 <img class=center src=../../assets/img/03_ObtainingData/twitterurl.png height= 450/>
@@ -114,4 +114,4 @@ json2[1,1:4]
 * httr allows `GET`, `POST`, `PUT`, `DELETE` requests if you are authorized
 * You can authenticate with a user name or a password
 * Most modern APIs use something like oauth
-* httr works well with Facebook, Google, Twitter, Githb, etc. 
+* httr works well with Facebook, Google, Twitter, Github, etc. 

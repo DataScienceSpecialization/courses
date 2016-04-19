@@ -20,7 +20,7 @@ mode        : selfcontained # {standalone, draft}
 
 ## data.table
 
-* Inherets from data.frame
+* Inherits from data.frame
   * All functions that accept data.frame work on data.table
 * Written in C so it is much faster
 * Much, much faster at subsetting, group, and updating
@@ -138,7 +138,7 @@ DT[,c(2,3)]
 
 * The subsetting function is modified for data.table
 * The argument you pass after the comma is called an "expression"
-* In R an expression is a collection of statements enclosed in curley brackets 
+* In R an expression is a collection of statements enclosed in curly brackets 
 
 ```r
 {

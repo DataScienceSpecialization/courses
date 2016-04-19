@@ -23,7 +23,7 @@ mode        : selfcontained # {standalone, draft}
 
 * Used for storing large data sets
 * Supports storing a range of data types
-* Heirarchical data format
+* Hierarchical data format
 * _groups_ containing zero or more data sets and metadata
   * Have a _group header_ with group name and list of attributes
   * Have a _group symbol table_ with a list of objects in group
@@ -182,4 +182,4 @@ h5read("example.h5","foo/A")
 * hdf5 can be used to optimize reading/writing from disc in R
 * The rhdf5 tutorial: 
   * [http://www.bioconductor.org/packages/release/bioc/vignettes/rhdf5/inst/doc/rhdf5.pdf](http://www.bioconductor.org/packages/release/bioc/vignettes/rhdf5/inst/doc/rhdf5.pdf)
-* The HDF group has informaton on HDF5 in general [http://www.hdfgroup.org/HDF5/](http://www.hdfgroup.org/HDF5/)
+* The HDF group has information on HDF5 in general [http://www.hdfgroup.org/HDF5/](http://www.hdfgroup.org/HDF5/)

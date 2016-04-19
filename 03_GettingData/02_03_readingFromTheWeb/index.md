@@ -21,10 +21,10 @@ mode        : selfcontained # {standalone, draft}
 
 ## Webscraping
 
-__Webscraping__: Programatically extracting data from the HTML code of websites. 
+__Webscraping__: Programmatically extracting data from the HTML code of websites. 
 
 * It can be a great way to get data [How Netflix reverse engineered Hollywood](http://www.theatlantic.com/technology/archive/2014/01/how-netflix-reverse-engineered-hollywood/282679/)
-* Many websites have information you may want to programaticaly read
+* Many websites have information you may want to programmatically read
 * In some cases this is against the terms of service for the website
 * Attempting to read too many pages too quickly can get your IP address blocked
 

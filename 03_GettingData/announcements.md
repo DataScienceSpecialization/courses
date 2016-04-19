@@ -13,7 +13,7 @@ of formats including JSON, XML, and flat files (.csv, .txt).
 The emphasis of this course is on creating tidy data sets that can be used in downstream analyses. Once you have mastered the material in this course you will be ready to learn about the techniques for exploring, analyzing, and summarizing data
 offered through our courses track or other Statistics, Data Science, or Machine Learning MOOCs. 
 
-Please see the course syllabus for information about the quizes, the project, due dates, and grading. Don't forget to say hi on the message boards. The community developed around these courses is one of the best places to learn and the best things about taking a MOOC!
+Please see the course syllabus for information about the quizzes, the project, due dates, and grading. Don't forget to say hi on the message boards. The community developed around these courses is one of the best places to learn and the best things about taking a MOOC!
 
 Jeff Leek and the Data Science Track Team
 
@@ -54,7 +54,7 @@ Jeff Leek and the Data Science Track Team
 
 Welcome to Week 4 of Obtaining Data! In this final week we will focus on peer grading of assignments. 
 
-Participating in peer grading is an amazing learning opportunity. It gives you a chance to learn things from your fellow students, pick up tips for explaning key ideas, and helping others to learn as well. We have focused our effort on making the rubric as objective and straightforward to implement as possible. If you have any issues please report them in the forums as described in the syllabus. 
+Participating in peer grading is an amazing learning opportunity. It gives you a chance to learn things from your fellow students, pick up tips for explaining key ideas, and helping others to learn as well. We have focused our effort on making the rubric as objective and straightforward to implement as possible. If you have any issues please report them in the forums as described in the syllabus. 
 
 Thanks again for all of your efforts in the course, we are in the last stretch. Good luck and have a great week!
 

@@ -68,7 +68,7 @@ class(d2)
 ## Formatting dates
 
 `%d` = day as number (0-31), `%a` = abbreviated weekday,`%A` = unabbreviated weekday, `%m` = month (00-12), `%b` = abbreviated month,
-`%B` = unabbrevidated month, `%y` = 2 digit year, `%Y` = four digit year
+`%B` = unabbreviated month, `%y` = 2 digit year, `%Y` = four digit year
 
 
 ```r

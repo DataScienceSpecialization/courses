@@ -31,7 +31,7 @@ mode        : selfcontained # {standalone, draft}
   * Strings (double quoted)
   * Boolean (_true_ or _false_)
   * Array (ordered, comma separated enclosed in square brackets _[]_)
-  * Object (unorderd, comma separated collection of key:value pairs in curley brackets _{}_)
+  * Object (unordered, comma separated collection of key:value pairs in curly brackets _{}_)
 
 
 [http://en.wikipedia.org/wiki/JSON](http://en.wikipedia.org/wiki/JSON)

@@ -84,7 +84,7 @@ mode        : selfcontained # {standalone, draft}
 
 * [Stanford Large Network Data](http://snap.stanford.edu/data/)
 * [UCI Machine Learning](http://archive.ics.uci.edu/ml/)
-* [KDD Nugets Datasets](http://www.kdnuggets.com/datasets/index.html)
+* [KDD Nuggets Datasets](http://www.kdnuggets.com/datasets/index.html)
 * [CMU Statlib](http://lib.stat.cmu.edu/datasets/)
 * [Gene expression omnibus](http://www.ncbi.nlm.nih.gov/geo/)
 * [ArXiv Data](http://arxiv.org/help/bulk_data)

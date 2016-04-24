@@ -42,8 +42,8 @@ library(devtools)
 - Second, install Slidify
 
 ```r
-install_github('slidify', 'ramnathv')
-install_github('slidifyLibraries', 'ramnathv')
+install_github('ramnathv/slidify')
+install_github('ramnathv/slidifyLibraries')
 ```
 
 - Third, load Slidify

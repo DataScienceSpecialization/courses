@@ -1,4 +1,4 @@
-# devtools::install_github('rCharts', 'bbest') # tweak to make var geojsonLayer available
+# devtools::install_github('bbest/rCharts') # tweak to make var geojsonLayer available
 require(rCharts)
 
 json = '{"type":"FeatureCollection","features":[

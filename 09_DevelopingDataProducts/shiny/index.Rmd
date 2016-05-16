@@ -60,7 +60,7 @@ diabetesRisk <- function(glucose) glucose / 200
 [http://rstudio.github.io/shiny/tutorial/](http://rstudio.github.io/shiny/tutorial/)
 - Basically, this lecture is walking through that tutorial offering some of our insights
 - Note, some of the proposed interactive plotting uses of Shiny could be handled by the very simple `manipulate` function [rstudio manipulate](http://www.rstudio.com/ide/docs/advanced/manipulate)
-- Also, `rCharts` is will be covered in a different lecture.
+- Also, `rCharts` will be covered in a different lecture.
 
 ---
 ## A Shiny project

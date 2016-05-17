@@ -296,4 +296,4 @@ table(restData2$zipGroups)
 
 * A tutorial from the developer of plyr - [http://plyr.had.co.nz/09-user/](http://plyr.had.co.nz/09-user/)
 * Andrew Jaffe's R notes [http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%202.pdf](http://www.biostat.jhsph.edu/~ajaffe/lec_winterR/Lecture%202.pdf)
-* A nice lecture on categorical and factor variables [http://www.stat.berkeley.edu/classes/s133/factors.html](http://www.stat.berkeley.edu/classes/s133/factors.html)
+* A nice lecture on categorical and factor variables [http://www.stat.berkeley.edu/~s133/factors.html](http://www.stat.berkeley.edu/~s133/factors.html)

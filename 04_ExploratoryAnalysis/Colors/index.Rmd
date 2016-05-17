@@ -34,7 +34,7 @@ mode        : selfcontained # {standalone, draft}
 
 ---
 
-## Color U1li1es in R
+## Color Utilities in R
 
 - The `grDevices` package has two functions 
   - `colorRamp`

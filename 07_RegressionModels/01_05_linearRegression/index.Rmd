@@ -15,6 +15,8 @@ mode        : selfcontained # {standalone, draft}
 
 ---
 ```{r setup, cache = FALSE, echo = FALSE, message = FALSE, warning = FALSE, tidy = FALSE}
+# Must explicitly include knitr or the chunks will fail, at least in Linux
+library(knitr)
 # make this an external chunk that can be included in any file
 options(width = 100)
 opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
@@ -40,7 +42,7 @@ $$
 * Note, $Var(Y_i ~|~ X_i = x_i) = \sigma^2$.
 * Likelihood equivalent model specification is that the $Y_i$ are independent $N(\mu_i, \sigma^2)$.
 
----
+
 ## Likelihood
 $$
 {\cal L}(\beta, \sigma)
@@ -55,7 +57,7 @@ Discussion
 * Maximizing the likelihood is the same as minimizing -2 log likelihood
 * The least squares estimate for $\mu_i = \beta_0 + \beta_1 x_i$ is exactly the maximimum likelihood estimate (regardless of $\sigma$)
 
----
+
 ## Recap
 * Model $Y_i =  \mu_i + \epsilon_i = \beta_0 + \beta_1 X_i + \epsilon_i$ where $\epsilon_i$ are iid $N(0, \sigma^2)$
 * ML estimates of $\beta_0$ and $\beta_1$ are the least squares estimates
@@ -63,7 +65,7 @@ Discussion
 * $E[Y ~|~ X = x] = \beta_0 + \beta_1 x$
 * $Var(Y ~|~ X = x) = \sigma^2$
 
----
+
 ## Interpretting regression coefficients, the itc
 * $\beta_0$ is the expected value of the response when the predictor is 0
 $$
@@ -79,7 +81,7 @@ $$
 So, shifting you $X$ values by value $a$ changes the intercept, but not the slope. 
 * Often $a$ is set to $\bar X$ so that the intercept is interpretted as the expected response at the average $X$ value.
 
----
+
 ## Interpretting regression coefficients, the slope
 * $\beta_1$ is the expected change in response for a 1 unit change in the predictor
 $$
@@ -101,7 +103,7 @@ X m \times \frac{100cm}{m} = (100 X) cm
 \left(\frac{\beta_1}{100}\right)\frac{kg}{cm}
 $$
 
----
+
 ## Using regression coeficients for prediction
 * If we would like to guess the outcome at a particular
   value of the predictor, say $X$, the regression model guesses
@@ -119,14 +121,15 @@ $$
 $$
 for $\mu_i$ expressed as points on a line
 
----
+
 ## Example
 ### `diamond` data set from `UsingR` 
 Data is diamond prices (Signapore dollars) and diamond weight
 in carats (standard measure of diamond mass, 0.2 $g$). To get the data use `library(UsingR); data(diamond)`
 
 Plotting the fitted regression line and data
-```
+```{r}
+library(UsingR)
 data(diamond)
 plot(diamond$carat, diamond$price,  
      xlab = "Mass (carats)", 
@@ -136,7 +139,7 @@ plot(diamond$carat, diamond$price,
 abline(lm(price ~ carat, data = diamond), lwd = 2)
 ```
 
----
+
 ## The plot
 ```{r, echo = FALSE, fig.height=5,fig.width=5}
 data(diamond)
@@ -148,7 +151,7 @@ plot(diamond$carat, diamond$price,
 abline(lm(price ~ carat, data = diamond), lwd = 2)
 ```
 
----
+
 ## Fitting the linear regression model
 ```{r}
 fit <- lm(price ~ carat, data = diamond)
@@ -159,7 +162,7 @@ coef(fit)
 * The intercept `r round(coef(fit)[1], 2)` is the expected price
   of a 0 carat diamond.
 
----
+
 ## Getting a more interpretable intercept
 ```{r, echo = TRUE}
 fit2 <- lm(price ~ I(carat - mean(carat)), data = diamond)
@@ -169,7 +172,7 @@ coef(fit2)
 Thus $`r round(coef(fit2)[1], 1)` is the expected price for 
 the average sized diamond of the data (`r mean(diamond$carat)` carats).
 
----
+
 ## Changing scale
 * A one carat increase in a diamond is pretty big, what about
   changing units to 1/10th of a carat? 
@@ -181,7 +184,7 @@ fit3 <- lm(price ~ I(carat * 10), data = diamond)
 coef(fit3)
 ```
 
----
+
 ## Predicting the price of a diamond
 ```{r, echo = TRUE}
 newx <- c(0.16, 0.27, 0.34)
@@ -189,7 +192,7 @@ coef(fit)[1] + coef(fit)[2] * newx
 predict(fit, newdata = data.frame(carat = newx))
 ```
 
----
+
 Predicted values at the observed Xs (red)
 and at the new Xs (lines)
 ```{r, echo = FALSE, fig.height=5,fig.width=5}

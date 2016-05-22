@@ -14,6 +14,8 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 ```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F, results='hide'}
+# Must explicitly include knitr or the chunks will fail, at least in Linux
+library(knitr)
 # make this an external chunk that can be included in any file
 options(width = 100)
 opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
@@ -36,13 +38,13 @@ runif(1)
 $e_i = Y_i -  \hat Y_i =  Y_i - \sum_{k=1}^p X_{ik} \hat \beta_j$
 * Our estimate of residual variation is $\hat \sigma^2 = \frac{\sum_{i=1}^n e_i^2}{n-p}$, the $n-p$ so that $E[\hat \sigma^2] = \sigma^2$
 
----
+
 ```{r, fig.height = 5, fig.width = 5}
 data(swiss); par(mfrow = c(2, 2))
 fit <- lm(Fertility ~ . , data = swiss); plot(fit)
 ```
 
----
+
 ## Influential, high leverage and outlying points
 ```{r, fig.height = 5, fig.width=5, echo = FALSE, results='hide'}
 n <- 100; x <- rnorm(n); y <- x + rnorm(n, sd = .3)
@@ -55,7 +57,7 @@ points(5, 5, cex = 2, bg = "darkorange", col = "black", pch = 21)
 points(5, 0, cex = 2, bg = "darkorange", col = "black", pch = 21)
 ```
 
----
+
 ## Summary of the plot
 Calling a point an outlier is vague. 
   * Outliers can be the result of spurious or real processes.
@@ -66,7 +68,7 @@ Calling a point an outlier is vague.
 * Upper right hand point has high leverage, but chooses not to extert it and thus would have low actual influence by conforming to the regresison relationship of the other points.
 * Lower right hand point has high leverage and would exert it if it were included in the fit.
 
----
+
 ## Influence measures
 * Do `?influence.measures` to see the full suite of influence measures in stats. The measures include
   * `rstandard` - standardized residuals, residuals divided by their standard deviations)
@@ -78,7 +80,7 @@ Calling a point an outlier is vague.
   * `resid` - returns the ordinary residuals
   * `resid(fit) / (1 - hatvalues(fit))` where `fit` is the linear model fit returns the PRESS residuals, i.e. the leave one out cross validation residuals - the difference in the response and the predicted response at data point $i$, where it was not included in the model fitting.
 
----
+
 ## How do I use all of these things?
 * Be wary of simplistic rules for diagnostic plots and measures. The use of these tools is context specific. It's better to understand what they are trying to accomplish and use them judiciously.
 * Not all of the measures have meaningful absolute scales. You can look at them relative to the values across the data.
@@ -91,7 +93,7 @@ Calling a point an outlier is vague.
 * Leverage measures (hat values) can be useful for diagnosing data entry errors.
 * Influence measures get to the bottom line, 'how does deleting or including this point impact a particular aspect of the model'.
 
----
+
 ## Case 1
 ```{r, fig.height=5, fig.width=5, echo=FALSE}
 x <- c(10, rnorm(n)); y <- c(10, c(rnorm(n)))
@@ -99,7 +101,7 @@ plot(x, y, frame = FALSE, cex = 2, pch = 21, bg = "lightblue", col = "black")
 abline(lm(y ~ x))            
 ```
 
----
+
 ## The code
 ```
 n <- 100; x <- c(10, rnorm(n)); y <- c(10, c(rnorm(n)))
@@ -108,7 +110,7 @@ abline(lm(y ~ x))
 ```
 * The point `c(10, 10)` has created a strong regression relationship where there shouldn't be one.
 
----
+
 ## Showing a couple of the diagnostic values
 ```{r}
 fit <- lm(y ~ x)
@@ -116,7 +118,7 @@ round(dfbetas(fit)[1 : 10, 2], 3)
 round(hatvalues(fit)[1 : 10], 3)
 ```
 
----
+
 ## Case 2
 ```{r, fig.height=5, fig.width=5, echo=FALSE}
 x <- rnorm(n); y <- x + rnorm(n, sd = .3)
@@ -126,14 +128,14 @@ fit2 <- lm(y ~ x)
 abline(fit2)            
 ```
 
----
+
 ## Looking at some of the diagnostics
 ```{r, echo = TRUE}
 round(dfbetas(fit2)[1 : 10, 2], 3)
 round(hatvalues(fit2)[1 : 10], 3)
 ```
 
----
+
 ## Example described by Stefanski TAS 2007 Vol 61.
 ```{r, fig.height=4, fig.width=4}
 ## Don't everyone hit this server at once.  Read the paper first.
@@ -141,20 +143,20 @@ dat <- read.table('http://www4.stat.ncsu.edu/~stefanski/NSF_Supported/Hidden_Ima
 pairs(dat)
 ```
 
----
+
 ## Got our P-values, should we bother to do a residual plot?
 ```{r}
 summary(lm(V1 ~ . -1, data = dat))$coef
 ```
 
----
+
 ## Residual plot
 ### P-values significant, O RLY?
 ```{r, fig.height=4, fig.width=4, echo = TRUE}
 fit <- lm(V1 ~ . - 1, data = dat); plot(predict(fit), resid(fit), pch = '.')
 ```
 
----
+
 ## Back to the Swiss data
 ```{r, fig.height = 5, fig.width = 5, echo=FALSE}
 data(swiss); par(mfrow = c(2, 2))

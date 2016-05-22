@@ -16,6 +16,8 @@ mode        : selfcontained # {standalone, draft}
 
 
 ```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# Must explicitly include knitr or the chunks will fail, at least in Linux
+library(knitr)
 # make this an external chunk that can be included in any file
 options(width = 100)
 opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
@@ -42,7 +44,7 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
   * Percent of hits to a website from a country
 * Linear regression with transformation is an option
 
----
+
 
 ## Poisson distribution
 - The Poisson distribution is a useful model for counts and rates
@@ -53,7 +55,7 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
     - Approximating binomial probabilities with small $p$ and large $n$
     - Analyzing contigency table data
 
----
+
 ## The Poisson mass function
 - $X \sim Poisson(t\lambda)$ if
 $$
@@ -64,7 +66,7 @@ For $x = 0, 1, \ldots$.
 - The variance of the Poisson is $Var(X) = t\lambda$.
 - The Poisson tends to a normal as $t\lambda$ gets large.
 
----
+
 
 ```{r simPois,fig.height=4,fig.width=8, cache=TRUE}
 par(mfrow = c(1, 3))
@@ -73,7 +75,7 @@ plot(0 : 20, dpois(0 : 20, lambda = 10), type = "h", frame = FALSE)
 plot(0 : 200, dpois(0 : 200, lambda = 100), type = "h", frame = FALSE) 
 ```
 
----
+
 
 ## Poisson distribution
 ### Sort of, showing that the mean and variance are equal
@@ -84,7 +86,7 @@ sigmasq <- sum((x - mu)^2 * dpois(x, lambda = lambda))
 c(mu, sigmasq)
 ```
 
----
+
 
 ## Example: Leek Group Website Traffic
 * Consider the daily counts to Jeff Leek's web site
@@ -95,7 +97,7 @@ c(mu, sigmasq)
 the Poisson mean is interpretted as web hits per day. (If we set $t = 24$, it would
 be web hits per hour).
 
----
+
 
 ## Website data
 
@@ -109,7 +111,7 @@ head(gaData)
 [http://skardhamar.github.com/rga/](http://skardhamar.github.com/rga/)
 
 
----
+
 
 ## Plot data
 
@@ -118,7 +120,7 @@ plot(gaData$julian,gaData$visits,pch=19,col="darkgrey",xlab="Julian",ylab="Visit
 ```
 
 
----
+
 
 ## Linear regression
 
@@ -135,7 +137,7 @@ $b_1$ - increase in number of hits per unit day
 $e_i$ - variation due to everything we didn't measure
 
 
----
+
 
 ## Linear regression line
 
@@ -144,7 +146,7 @@ plot(gaData$julian,gaData$visits,pch=19,col="darkgrey",xlab="Julian",ylab="Visit
 lm1 <- lm(gaData$visits ~ gaData$julian)
 abline(lm1,col="red",lwd=3)
 ```
----
+
 
 ## Aside, taking the log of the outcome
 - Taking the natural log of the outcome has a specific interpretation.
@@ -162,7 +164,7 @@ $b_1$ - increase in log number of hits per unit day
 
 $e_i$ - variation due to everything we didn't measure
 
----
+
 ## Exponentiating coefficients
 - $e^{E[\log(Y)]}$ geometric mean of $Y$. 
     - With no covariates, this is estimated by $e^{\frac{1}{n}\sum_{i=1}^n \log(y_i)} = (\prod_{i=1}^n y_i)^{1/n}$
@@ -175,7 +177,7 @@ estimate things about geometric means.
 round(exp(coef(lm(I(log(gaData$visits + 1)) ~ gaData$julian))), 5)
 ```
 
----
+
 
 ## Linear vs. Poisson regression
 
@@ -196,7 +198,7 @@ or
 $$ E[NH_i | JD_i, b_0, b_1] = \exp\left(b_0 + b_1 JD_i\right) $$
 
 
----
+
 
 ## Multiplicative differences
 
@@ -211,7 +213,7 @@ $$ E[NH_i | JD_i, b_0, b_1] = \exp\left(b_0 \right)\exp\left(b_1 JD_i\right) $$
 
 If $JD_i$ is increased by one unit, $E[NH_i | JD_i, b_0, b_1]$ is multiplied by $\exp\left(b_1\right)$
 
----
+
 
 ## Poisson regression in R
 
@@ -222,7 +224,7 @@ abline(lm1,col="red",lwd=3); lines(gaData$julian,glm1$fitted,col="blue",lwd=3)
 ```
 
 
----
+
 
 ## Mean-variance relationship?
 
@@ -230,7 +232,7 @@ abline(lm1,col="red",lwd=3); lines(gaData$julian,glm1$fitted,col="blue",lwd=3)
 plot(glm1$fitted,glm1$residuals,pch=19,col="grey",ylab="Residuals",xlab="Fitted")
 ```
 
----
+
 
 ## Model agnostic standard errors 
 
@@ -255,7 +257,7 @@ confint.agnostic <- function (object, parm, level = 0.95, ...)
 ```
 [http://stackoverflow.com/questions/3817182/vcovhc-and-confidence-interval](http://stackoverflow.com/questions/3817182/vcovhc-and-confidence-interval)
 
----
+
 
 ## Estimating confidence intervals
 
@@ -265,7 +267,7 @@ confint.agnostic(glm1)
 ```
 
 
----
+
 
 ## Rates 
 
@@ -283,7 +285,7 @@ $$ \log\left(E[NHSS_i | JD_i, b_0, b_1]\right) - \log(NH_i)  =  b_0 + b_1 JD_i $
 
 $$ \log\left(E[NHSS_i | JD_i, b_0, b_1]\right) = \log(NH_i) + b_0 + b_1 JD_i $$
 
----
+
 
 ## Fitting rates in R 
 
@@ -294,7 +296,7 @@ plot(julian(gaData$date),glm2$fitted,col="blue",pch=19,xlab="Date",ylab="Fitted 
 points(julian(gaData$date),glm1$fitted,col="red",pch=19)
 ```
 
----
+
 
 ## Fitting rates in R 
 
@@ -306,7 +308,7 @@ plot(julian(gaData$date),gaData$simplystats/(gaData$visits+1),col="grey",xlab="D
 lines(julian(gaData$date),glm2$fitted/(gaData$visits+1),col="blue",lwd=3)
 ```
 
----
+
 
 ## More information
 

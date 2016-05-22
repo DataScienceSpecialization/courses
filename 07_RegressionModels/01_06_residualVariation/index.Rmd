@@ -15,6 +15,8 @@ mode        : selfcontained # {standalone, draft}
 
 ---
 ```{r setup, cache = FALSE, echo = FALSE, message = FALSE, warning = FALSE, tidy = FALSE}
+# Must explicitly include knitr or the chunks will fail, at least in Linux
+library(knitr)
 # make this an external chunk that can be included in any file
 options(width = 100)
 opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
@@ -44,7 +46,7 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 * Least squares minimizes $\sum_{i=1}^n e_i^2$
 * The $e_i$ can be thought of as estimates of the $\epsilon_i$.
 
----
+
 ## Properties of the residuals
 * $E[e_i] = 0$.
 * If an intercept is included, $\sum_{i=1}^n e_i = 0$
@@ -57,10 +59,11 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 the predictor) from systematic variation (variation explained by the regression model).
 * Residual plots highlight poor model fit.
 
----
+
 ## Code
 
 ```{r}
+library(UsingR)
 data(diamond)
 y <- diamond$price; x <- diamond$carat; n <- length(y)
 fit <- lm(y ~ x)
@@ -70,7 +73,7 @@ max(abs(e -(y - yhat)))
 max(abs(e - (y - coef(fit)[1] - coef(fit)[2] * x)))
 ```
 
----
+
 ## Residuals are the signed length of the red lines
 ```{r, echo = FALSE, fig.height=5, fig.width=5}
 plot(diamond$carat, diamond$price,  
@@ -83,7 +86,7 @@ for (i in 1 : n)
   lines(c(x[i], x[i]), c(y[i], yhat[i]), col = "red" , lwd = 2)
 ```
 
----
+
 ## Residuals versus X
 ```{r, echo = FALSE, fig.height=5, fig.width=5}
 plot(diamond$carat, e,  
@@ -96,34 +99,34 @@ for (i in 1 : n)
   lines(c(x[i], x[i]), c(e[i], 0), col = "red" , lwd = 2)
 ```
 
----
+
 ## Non-linear data
 ```{r, echo = TRUE, fig.height=5, fig.width=5}
 x <- runif(100, -3, 3); y <- x + sin(x) + rnorm(100, sd = .2); 
 plot(x, y); abline(lm(y ~ x))
 ```
 
----
+
 ```{r, echo = TRUE, fig.height=5, fig.width=5}
 plot(x, resid(lm(y ~ x))); 
 abline(h = 0)
 ```
 
----
+
 ## Heteroskedasticity
 ```{r, echo = TRUE, fig.height=4.5, fig.width=4.5}
 x <- runif(100, 0, 6); y <- x + rnorm(100,  mean = 0, sd = .001 * x); 
 plot(x, y); abline(lm(y ~ x))
 ```
 
----
+
 ## Getting rid of the blank space can be helpful
 ```{r, echo = TRUE, fig.height=4.5, fig.width=4.5}
 plot(x, resid(lm(y ~ x))); 
 abline(h = 0)
 ```
 
----
+
 ## Estimating residual variation
 * Model $Y_i = \beta_0 + \beta_1 X_i + \epsilon_i$ where $\epsilon_i \sim N(0, \sigma^2)$.
 * The ML estimate of $\sigma^2$ is $\frac{1}{n}\sum_{i=1}^n e_i^2$,
@@ -134,7 +137,7 @@ the average squared residual.
   $$
 * The $n-2$ instead of $n$ is so that $E[\hat \sigma^2] = \sigma^2$
 
----
+
 ## Diamond example
 ```{r, echo = TRUE}
 y <- diamond$price; x <- diamond$carat; n <- length(y)
@@ -143,7 +146,7 @@ summary(fit)$sigma
 sqrt(sum(resid(fit)^2) / (n - 2))
 ```
 
----
+
 ## Summarizing variation
 $$
 \begin{align}
@@ -169,7 +172,7 @@ $=\hat \beta_1 \sum_{i=1}^n (Y_i - \bar Y)(X_i - \bar X) -\hat\beta_1^2\sum_{i=1
 
 $= \hat \beta_1^2 \sum_{i=1}^n (X_i - \bar X)^2-\hat\beta_1^2\sum_{i=1}^n (X_i - \bar X)^2 = 0$
 
----
+
 ## Summarizing variation
 $$
 \sum_{i=1}^n (Y_i - \bar Y)^2 
@@ -186,7 +189,7 @@ R^2 = \frac{\sum_{i=1}^n  (\hat Y_i - \bar Y)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
 = 1 - \frac{\sum_{i=1}^n  (Y_i - \hat Y_i)^2}{\sum_{i=1}^n (Y_i - \bar Y)^2}
 $$
 
----
+
 ## Relation between $R^2$ and $r$ (the corrrelation)
 Recall that $(\hat Y_i - \bar Y) = \hat \beta_1  (X_i - \bar X)$
 so that
@@ -201,7 +204,7 @@ $$
 $$
 So, $R^2$ is literally $r$ squared.
 
----
+
 ## Some facts about $R^2$
 * $R^2$ is the percentage of variation explained by the regression model.
 * $0 \leq R^2 \leq 1$
@@ -214,7 +217,7 @@ So, $R^2$ is literally $r$ squared.
   * Identical correlations (hence same $R^2$ ).
   * Same linear regression relationship.
 
----
+
 ## `data(anscombe);example(anscombe)`
 ```{r, echo = FALSE, fig.height=5, fig.width=5, results='hide'}
 require(stats); require(graphics); data(anscombe)

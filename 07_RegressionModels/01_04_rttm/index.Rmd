@@ -16,6 +16,8 @@ mode        : selfcontained # {standalone, draft}
 ---
 
 ```{r setup, cache = FALSE, echo = FALSE, message = FALSE, warning = FALSE, tidy = FALSE}
+# Must explicitly include knitr or the chunks will fail, at least in Linux
+library(knitr)
 # make this an external chunk that can be included in any file
 options(width = 100)
 opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
@@ -37,7 +39,7 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 * Why do parents of very short children, tend to be short, but not a short as their child? And the same with parents of very tall children?
 * Why do the best performing athletes this year tend to do a little worse the following?
 
----
+
 ## Regression to the mean
 * These phenomena are all examples of so-called regression to the mean
 * Invented by Francis Galton in the paper "Regression towards mediocrity in hereditary stature" The Journal of the Anthropological Institute of Great Britain and Ireland , Vol. 15, (1886).
@@ -48,14 +50,14 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 * Think of the regression line as the intrisic part.
   * Unless $Cor(Y, X) = 1$ the intrinsic part isn't perfect
 
----
+
 ## Regression to the mean
 * Suppose that we normalize $X$ (child's height) and $Y$ (parent's height) so that they both have mean 0 and variance 1. 
 * Then, recall, our regression line passes through $(0, 0)$ (the mean of the X and Y).
 * If the slope of the regression line is $Cor(Y,X)$, regardless of which variable is the outcome (recall, both standard deviations are 1).
 * Notice if $X$ is the outcome and you create a plot where $X$ is the horizontal axis, the slope of the least squares line that you plot is $1/Cor(Y, X)$. 
 
----
+
 ## Normalizing the data and setting plotting parameters
 ```{r, echo = TRUE}
 library(UsingR)
@@ -73,7 +75,7 @@ myPlot <- function(x, y) {
 }
 ```
 
----
+
 ## Plot the data, code
 ```
 myPlot(x, y)
@@ -83,7 +85,7 @@ abline(0, 1 / rho, lwd = 2) # son predicts father, son on vertical axis
 abline(h = 0); abline(v = 0) # reference lines for no relathionship
 ```
 
----
+
 ## Plot the data, results
 ```{r, fig.height=6,fig.width=6,echo=FALSE}
 myPlot(x, y)
@@ -93,7 +95,7 @@ abline(0, 1 / rho, lwd = 2)
 abline(h = 0); abline(v = 0) 
 ```
 
----
+
 ## Discussion
 * If you had to predict a son's normalized height, it would be
   $Cor(Y, X) * X_i$ 

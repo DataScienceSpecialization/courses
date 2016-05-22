@@ -14,6 +14,8 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 ```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# Must explicitly include knitr or the chunks will fail, at least in Linux
+library(knitr)
 # make this an external chunk that can be included in any file
 options(width = 100)
 opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
@@ -39,7 +41,7 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 * Called binary, Bernoulli or 0/1 outcomes 
 * Collection of exchangeable binary outcomes for the same covariate data are called binomial outcomes.
 
----
+
 
 ## Example Baltimore Ravens win/loss
 ### Ravens Data
@@ -51,7 +53,7 @@ load("./data/ravensData.rda")
 head(ravensData)
 ```
 
----
+
 
 ## Linear regression
 
@@ -67,7 +69,7 @@ $b_1$ - increase in probability of a Ravens win for each additional point
 
 $e_i$ - residual variation due 
 
----
+
 
 ## Linear regression in R
 
@@ -75,7 +77,7 @@ $e_i$ - residual variation due
 lmRavens <- lm(ravensData$ravenWinNum ~ ravensData$ravenScore)
 summary(lmRavens)$coef
 ```
----
+
 
 ## Odds
 
@@ -96,7 +98,7 @@ __Log odds $(-\infty,\infty)$__
 $$\log\left(\frac{\rm{Pr}(RW_i | RS_i, b_0, b_1 )}{1-\rm{Pr}(RW_i | RS_i, b_0, b_1)}\right)$$ 
 
 
----
+
 
 ## Linear vs. logistic regression
 
@@ -116,7 +118,7 @@ or
 
 $$ \log\left(\frac{\rm{Pr}(RW_i | RS_i, b_0, b_1 )}{1-\rm{Pr}(RW_i | RS_i, b_0, b_1)}\right) = b_0 + b_1 RS_i $$
 
----
+
 
 ## Interpreting Logistic Regression
 
@@ -129,7 +131,7 @@ $b_1$ - Log odds ratio of win probability for each point scored (compared to zer
 
 $\exp(b_1)$ - Odds ratio of win probability for each point scored (compared to zero points)
 
----
+
 ## Odds
 - Imagine that you are playing a game where you flip a coin with success probability $p$.
 - If it comes up heads, you win $X$. If it comes up tails, you lose $Y$.
@@ -142,7 +144,7 @@ $\exp(b_1)$ - Odds ratio of win probability for each point scored (compared to z
     - (If $p > 0.5$ you have to pay more if you lose than you get if you win.)
     - (If $p < 0.5$ you have to pay less if you lose than you get if you win.)
 
----
+
 ## Visualizing fitting logistic regression curves
 ```
 x <- seq(-10, 10, length = 1000)
@@ -154,7 +156,7 @@ manipulate(
     )
 ```
 
----
+
 
 ## Ravens logistic regression
 
@@ -164,7 +166,7 @@ summary(logRegRavens)
 ```
 
 
----
+
 
 ## Ravens fitted values
 
@@ -173,7 +175,7 @@ plot(ravensData$ravenScore,logRegRavens$fitted,pch=19,col="blue",xlab="Score",yl
 ```
 
 
----
+
 
 ## Odds ratios and confidence intervals
 
@@ -183,7 +185,7 @@ exp(confint(logRegRavens))
 ```
 
 
----
+
 
 ## ANOVA for logistic regression
 
@@ -193,7 +195,7 @@ anova(logRegRavens,test="Chisq")
 
 
 
----
+
 
 ## Interpreting Odds Ratios
 
@@ -207,7 +209,7 @@ anova(logRegRavens,test="Chisq")
 [Wikipedia on Odds Ratio](http://en.wikipedia.org/wiki/Odds_ratio)
 
 
----
+
 
 ## Further resources
 

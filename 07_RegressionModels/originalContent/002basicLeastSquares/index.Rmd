@@ -16,6 +16,8 @@ mode        : selfcontained # {standalone, draft}
 
 
 ```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F}
+# Must explicitly include knitr or the chunks will fail, at least in Linux
+library(knitr)
 # make this an external chunk that can be included in any file
 options(width = 100)
 opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
@@ -38,7 +40,7 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 * Make inferences about distributions or relationships
 
 
----
+
 
 ## Example: Average parent and child heights
 
@@ -49,7 +51,7 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 [http://www.nature.com/ejhg/journal/v17/n8/full/ejhg20095a.html](http://www.nature.com/ejhg/journal/v17/n8/full/ejhg20095a.html)
 
 
----
+
 
 
 ## Still relevant
@@ -62,7 +64,7 @@ knit_hooks$set(plot = knitr:::hook_plot_html)
 [Predicting height: the Victorian approach beats modern genomics](http://www.wired.com/wiredscience/2009/03/predicting-height-the-victorian-approach-beats-modern-genomics/)
 
 
----
+
 
 ## Load Galton Data
 
@@ -75,7 +77,7 @@ hist(galton$child,col="blue",breaks=100)
 hist(galton$parent,col="blue",breaks=100)
 ```
 
----
+
 
 ## The distribution of child heights
 
@@ -84,7 +86,7 @@ hist(galton$child,col="blue",breaks=100)
 ```
 
 
----
+
 
 ## Only know the child  - average height
 
@@ -94,7 +96,7 @@ meanChild <- mean(galton$child)
 lines(rep(meanChild,100),seq(0,150,length=100),col="red",lwd=5)
 ```
 
----
+
 
 ## Only know the child  - why average?
 
@@ -102,7 +104,7 @@ If $C_i$ is the height of child $i$ then the average is the value of $\mu$ that 
 
 $$ \sum_{i=1}^{928}(C_i - \mu)^2 $$
 
----
+
 
 ## What if we plot child versus average parent
 
@@ -110,7 +112,7 @@ $$ \sum_{i=1}^{928}(C_i - \mu)^2 $$
 plot(galton$parent,galton$child,pch=19,col="blue")
 ```
 
----
+
 
 ## Jittered plot
 
@@ -119,7 +121,7 @@ set.seed(1234)
 plot(jitter(galton$parent,factor=2),jitter(galton$child,factor=2),pch=19,col="blue")
 ```
 
----
+
 
 ## Average parent = 65 inches tall
 
@@ -130,7 +132,7 @@ points(near65$parent,near65$child,pch=19,col="red")
 lines(seq(64,66,length=100),rep(mean(near65$child),100),col="red",lwd=4)
 ```
 
----
+
 
 ## Average parent = 71 inches tall
 
@@ -142,7 +144,7 @@ lines(seq(70,72,length=100),rep(mean(near71$child),100),col="red",lwd=4)
 ```
 
 
----
+
 
 ## Fitting a line
 
@@ -154,7 +156,7 @@ lm1 <- lm(galton$child ~ galton$parent)
 lines(galton$parent,lm1$fitted,col="red",lwd=3)
 ```
 
----
+
 
 ## Why not this line?
 
@@ -164,7 +166,7 @@ plot(galton$parent,galton$child,pch=19,col="blue")
 lines(galton$parent, 26 + 0.646*galton$parent)
 ```
 
----
+
 
 ## The equation for a line
 
@@ -173,7 +175,7 @@ If $C_i$ is the height of child $i$ and $P_i$ is the height of the average paren
 $$C_i = b_0 + b_1 P_i$$
 
 
----
+
 
 ## Not all points are on the line
 
@@ -183,7 +185,7 @@ lines(galton$parent,lm1$fitted,col="red",lwd=3)
 ```
 
 
----
+
 
 ## Allowing for variation
 
@@ -193,7 +195,7 @@ $$C_i = b_0 + b_1 P_i + e_i$$
 
 $e_i$ is everything we didn't measure (how much they eat, where they live, do they stretch in the morning...)
 
----
+
 
 ## How do we pick best?
 
@@ -202,7 +204,7 @@ If $C_i$ is the height of child $i$ and $P_i$ is the height of the average paren
 $$ \sum_{i=1}^{928}(C_i - \{b_0 + b_1 P_i\})^2 $$
 
 
----
+
 
 ## Plot what is leftover
 

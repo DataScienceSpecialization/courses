@@ -20,7 +20,7 @@ mode        : selfcontained # {standalone, draft}
 * We will try to minimize the amount of mathematics required for this class.
 * No caclculus is required. 
 
----
+
 
 ## Notation for data
 
@@ -35,7 +35,7 @@ mode        : selfcontained # {standalone, draft}
   * $X_i$ is a conceptual random variable.
   * $x$ is a number that we plug into.
 
----
+
 ## The empirical mean 
 
 * Define the empirical mean as
@@ -55,7 +55,7 @@ The the mean of the $\tilde X_i$ is 0.
   \sum_{i=1}^n (X_i - \mu)^2
   $$
 
----
+
 
 ## The emprical standard deviation and variance
 
@@ -71,7 +71,7 @@ $S = \sqrt{S^2}$. Notice that the standard deviation has the same units as the d
 * Sometimes people divide by $n$ rather than $n-1$ (the latter
 produces an unbiased estimate.)
 
----
+
 ## Normalization
 
 * The the data defined by
@@ -84,7 +84,7 @@ have empirical mean zero and empirical standard deviation 1.
 * Example, a value of 2 form normalized data means that data point
 was two standard deviations larger than the mean.
 
----
+
 ## The empirical covariance
 * Consider now when we have pairs of data, $(X_i, Y_i)$.
 * Their empirical covariance is 
@@ -102,7 +102,7 @@ $$
 where $S_x$ and $S_y$ are the estimates of standard deviations 
 for the $X$ observations and $Y$ observations, respectively.
 
----
+
 ## Some facts about correlation
 * $Cor(X, Y) = Cor(Y, X)$
 * $-1 \leq Cor(X, Y) \leq 1$

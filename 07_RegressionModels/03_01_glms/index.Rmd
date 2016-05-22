@@ -14,6 +14,8 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 ```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F, results='hide'}
+# Must explicitly include knitr or the chunks will fail, at least in Linux
+library(knitr)
 # make this an external chunk that can be included in any file
 options(width = 100)
 opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
@@ -39,7 +41,7 @@ runif(1)
 
 
 
----
+
 ## Generalized linear models
 * Introduced in a 1972 RSSB paper by Nelder and Wedderburn. 
 * Involves three components
@@ -48,7 +50,7 @@ runif(1)
   * A link function that connects the means of the response to the linear predictor.
   
 
----
+
 ## Example, linear models
 * Assume that $Y_i \sim N(\mu_i, \sigma^2)$ (the Gaussian distribution is an exponential family distribution.)
 * Define the linear predictor to be $\eta_i = \sum_{k=1}^p X_{ik} \beta_k$.
@@ -60,7 +62,7 @@ Y_i = \sum_{k=1}^p X_{ik} \beta_k + \epsilon_{i}
 $$
 where $\epsilon_i \stackrel{iid}{\sim} N(0, \sigma^2)$
 
----
+
 ## Example, logistic regression
 * Assume that $Y_i \sim Bernoulli(\mu_i)$ so that $E[Y_i] = \mu_i$ where $0\leq \mu_i \leq 1$.
 * Linear predictor $\eta_i = \sum_{k=1}^p X_{ik} \beta_k$
@@ -79,7 +81,7 @@ $$
 \prod_{i=1}^n (1 + \eta_i)^{-1}
 $$
 
----
+
 ## Example, Poisson regression
 * Assume that $Y_i \sim Poisson(\mu_i)$ so that $E[Y_i] = \mu_i$ where $0\leq \mu_i$
 * Linear predictor $\eta_i = \sum_{k=1}^p X_{ik} \beta_k$
@@ -95,7 +97,7 @@ $$
 \propto \exp\left(\sum_{i=1}^n y_i \eta_i - \sum_{i=1}^n \mu_i\right)
 $$
 
----
+
 ## Some things to note
 * In each case, the only way in which the likelihood depends on the data is through 
 $$\sum_{i=1}^n y_i \eta_i =
@@ -109,7 +111,7 @@ $$
 $$
 where $W_i$ are the derivative of the inverse of the link function.
 
----
+
 ## About variances
 $$
 0=\sum_{i=1}^n \frac{(Y_i - \mu_i)}{Var(Y_i)}W_i
@@ -124,7 +126,7 @@ $$
 $$
 * These are called 'quasi-likelihood' normal equations 
 
----
+
 ## Odds and ends
 * The normal equations have to be solved iteratively. Resulting in 
 $\hat \beta_k$ and, if included, $\hat \phi$.

@@ -14,6 +14,8 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 ```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F, results='hide'}
+# Must explicitly include knitr or the chunks will fail, at least in Linux
+library(knitr)
 # make this an external chunk that can be included in any file
 options(width = 100)
 opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
@@ -33,13 +35,13 @@ runif(1)
 * We have an entire class on prediction and machine learning, so we'll focus on modeling.
   * Prediction has a different set of criteria, needs for interpretability and standards for generalizability.
   * In modeling, our interest lies in parsimonious, interpretable representations of the data that enhance our understanding of the phenomena under study.
-  * A model is a lense through which to look at your data. (I attribute this quote to Scott Zeger)
+  * A model is a lens through which to look at your data. (I attribute this quote to Scott Zeger)
   * Under this philosophy, what's the right model? Whatever model connects the data to a true, parsimonious statement about what you're studying.
 * There are nearly uncontable ways that a model can be wrong, in this lecture, we'll focus on variable inclusion and exclusion.
 * Like nearly all aspects of statistics, good modeling decisions are context dependent.
   * A good model for prediction versus one for studying mechanisms versus one for trying to establish causal effects may not be the same.
 
----
+
 ## The Rumsfeldian triplet
 
 *There are known knowns. These are things we know that we know. There are known unknowns. That is to say, there are things that we know we don't know. But there are also unknown unknowns. There are things we don't know we don't know.* Donald Rumsfeld
@@ -49,18 +51,18 @@ In our context
 * (Known Unknowns) Regressors that we would like to include in the model, but don't have.
 * (Unknown Unknowns) Regressors that we don't even know about that we should have included in the model.
 
----
+
 ## General rules
 * Omitting variables results in bias in the coeficients of interest - unless their regressors are uncorrelated with the omitted ones.
   * This is why we randomize treatments, it attempts to uncorrelate our treatment indicator with variables that we don't have to put in the model. 
   * (If there's too many unobserved confounding variables, even randomization won't help you.)
 * Including variables that we shouldn't have increases standard errors of the regression variables.
-  * Actually, including any new variables increasese (actual, not estimated) standard errors of other regressors. So we don't want to idly throw variables into the model.
+  * Actually, including any new variables increases (actual, not estimated) standard errors of other regressors. So we don't want to idly throw variables into the model.
 * The model must tend toward perfect fit as the number of non-redundant regressors approaches $n$.
 * $R^2$ increases monotonically as more regressors are included.
 * The SSE decreases monotonically as more regressors are included.
 
----
+
 ## Plot of $R^2$ versus $n$
 For simulations as the number of variables included equals increases to $n=100$. 
 No actual regression relationship exist in any simulation
@@ -77,7 +79,7 @@ lines(1 : n, r, lwd = 2)
 abline(h = 1)
 ```
 
----
+
 ## Variance inflation
 ```{r, echo = TRUE}
 n <- 100; nosim <- 1000
@@ -91,7 +93,7 @@ betas <- sapply(1 : nosim, function(i){
 round(apply(betas, 1, sd), 5)
 ```
 
----
+
 ## Variance inflation
 ```{r, echo = TRUE}
 n <- 100; nosim <- 1000
@@ -107,7 +109,7 @@ round(apply(betas, 1, sd), 5)
 ```
 
 
----
+
 ## Variance inflation factors
 * Notice variance inflation was much worse when we included a variable that
 was highly related to `x1`. 
@@ -118,7 +120,7 @@ was highly related to `x1`.
   * (The square root of the VIF is the increase in the sd ...)
 * Remember, variance inflation is only part of the picture. We want to include certain variables, even if they dramatically inflate our variance. 
 
----
+
 ## Revisting our previous simulation
 ```{r, echo = TRUE}
 ##doesn't depend on which y you use,
@@ -128,11 +130,11 @@ c(summary(lm(y ~ x1 + x2))$cov.unscaled[2,2],
   summary(lm(y~ x1 + x2 + x3))$cov.unscaled[2,2]) / a
 temp <- apply(betas, 1, var); temp[2 : 3] / temp[1]
 ```
----
+
 ## Swiss data
 ```{r}
 data(swiss); 
-fit1 <- lm(Fertility ~ Agriculture, data = swiss)
+fit <- fit1 <- lm(Fertility ~ Agriculture, data = swiss)
 a <- summary(fit1)$cov.unscaled[2,2]
 fit2 <- update(fit, Fertility ~ Agriculture + Examination)
 fit3 <- update(fit, Fertility ~ Agriculture + Examination + Education)
@@ -140,7 +142,7 @@ fit3 <- update(fit, Fertility ~ Agriculture + Examination + Education)
     summary(fit3)$cov.unscaled[2,2]) / a 
 ```
 
----
+
 ## Swiss data VIFs, 
 ```{r}
 library(car)
@@ -149,14 +151,14 @@ vif(fit)
 sqrt(vif(fit)) #I prefer sd 
 ```
 
----
+
 ## What about residual variance estimation?
 * Assuming that the model is linear with additive iid errors (with finite variance), we can mathematically describe the impact of omitting necessary variables or including unnecessary ones.
   * If we underfit the model, the variance estimate is biased. 
   * If we correctly or overfit the model, including all necessary covariates and/or unnecessary covariates, the variance estimate is unbiased.
     * However, the variance of the variance is larger if we include unnecessary variables.
 
----
+
 ## Covariate model selection
 * Automated covariate selection is a difficult topic. It depends heavily on how rich of a covariate space one wants to explore. 
   * The space of models explodes quickly as you add interactions and polynomial terms. 
@@ -166,7 +168,7 @@ sqrt(vif(fit)) #I prefer sd
 * If the models of interest are nested and without lots of parameters differentiating them, it's fairly uncontroversial to use nested likelihood ratio tests. (Example to follow.)
 * My favoriate approach is as follows. Given a coefficient that I'm interested in, I like to use covariate adjustment and multiple models to probe that effect to evaluate it for robustness and to see what other covariates knock it out.  This isn't a terribly systematic approach, but it tends to teach you a lot about the the data as you get your hands dirty.
 
----
+
 ## How to do nested model testing in R
 ```{r}
 fit1 <- lm(Fertility ~ Agriculture, data = swiss)

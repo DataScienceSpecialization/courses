@@ -14,6 +14,8 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 ```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F, results='hide'}
+# Must explicitly include knitr or the chunks will fail, at least in Linux
+library(knitr)
 # make this an external chunk that can be included in any file
 options(width = 100)
 opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
@@ -35,7 +37,6 @@ library(datasets); data(swiss); require(stats); require(graphics)
 pairs(swiss, panel = panel.smooth, main = "Swiss data", col = 3 + (swiss$Catholic > 50))
 ```
 
----
 ## `?swiss`
 ### Description
 Standardized fertility measure and socio-economic indicators for each of 47 French-speaking provinces of Switzerland at about 1888.
@@ -52,14 +53,12 @@ A data frame with 47 observations on 6 variables, each of which is in percent, i
 All variables but ‘Fertility’ give proportions of the population.
 
 
----
 ## Calling `lm`
 `summary(lm(Fertility ~ . , data = swiss))`
 ```{r, echo = FALSE}
 summary(lm(Fertility ~ . , data = swiss))$coefficients
 ```
 
----
 ## Example interpretation
 * Agriculture is expressed in percentages (0 - 100)
 * Estimate is -0.1721.
@@ -70,7 +69,6 @@ summary(lm(Fertility ~ . , data = swiss))$coefficients
 summary(lm(Fertility ~ Agriculture, data = swiss))$coefficients
 ```
 
----
 How can adjustment reverse the sign of an effect? Let's try a simulation.
 ```{r, echo = TRUE}
 n <- 100; x2 <- 1 : n; x1 <- .01 * x2 + runif(n, -.1, .1); y = -x1 + x2 + rnorm(n, sd = .01)
@@ -78,7 +76,6 @@ summary(lm(y ~ x1))$coef
 summary(lm(y ~ x1 + x2))$coef
 ```
 
----
 ```{r, echo = FALSE, fig.height=5, fig.width=10, results = 'show'}
 par(mfrow = c(1, 2))
 plot(x1, y, pch=21,col="black",bg=topo.colors(n)[x2], frame = FALSE, cex = 1.5)
@@ -89,14 +86,12 @@ title('Adjusted')
 abline(0, coef(lm(y ~ x1 + x2))[2], lwd = 2)
 ```
 
----
 ## Back to this data set
-* The sign reverses itself with the inclusion of Examination and Education, but of which are negatively correlated with Agriculture.
+* The sign reverses itself with the inclusion of Examination and Education, both of which are negatively correlated with Agriculture.
 * The percent of males in the province working in agriculture is negatively related to educational attainment (correlation of `r cor(swiss$Agriculture, swiss$Education)`) and Education and Examination (correlation of `r cor(swiss$Education, swiss$Examination)`) are obviously measuring similar things. 
   * Is the positive marginal an artifact for not having accounted for, say, Education level? (Education does have a stronger effect, by the way.)
 * At the minimum, anyone claiming that provinces that are more agricultural have higher fertility rates would immediately be open to criticism.
 
----
 ## What if we include an unnecessary variable?
 z adds no new linear information, since it's a linear
 combination of variables already included. R just drops 
@@ -107,7 +102,6 @@ lm(Fertility ~ . + z, data = swiss)
 ```
 
 
----
 ## Dummy variables are smart
 * Consider the linear model
 $$
@@ -120,7 +114,6 @@ where each $X_{i1}$ is binary so that it is a 1 if measurement $i$ is in a group
 * $\beta_1$ is interpretted as the increase or decrease in the mean comparing those in the group to those not.
 * Note including a binary variable that is 1 for those not in the group would be redundant. It would create three parameters to describe two means.
 
----
 ## More than 2 levels
 * Consider a multilevel factor level. For didactic reasons, let's say a three level factor (example, US political party affiliation: Republican, Democrat, Independent)
 * $Y_i = \beta_0 + X_{i1} \beta_1 + X_{i2} \beta_2 + \epsilon_i$.
@@ -134,7 +127,6 @@ where each $X_{i1}$ is binary so that it is a 1 if measurement $i$ is in a group
 * $\beta_1 - \beta_2$ compares Republicans to Democrats.
 * (Choice of reference category changes the interpretation.)
 
----
 ## Insect Sprays
 ```{r, echo = FALSE, fig.height=5, fig.width=5}
 require(datasets);data(InsectSprays)
@@ -144,13 +136,11 @@ boxplot(count ~ spray, data = InsectSprays,
         main = "InsectSprays data", varwidth = TRUE, col = "lightgray")
 ```
 
----
 ## Linear model fit, group A is the reference
 ```{r, echo= TRUE}
 summary(lm(count ~ spray, data = InsectSprays))$coef
 ```
 
----
 ## Hard coding the dummy variables
 ```{r, echo= TRUE}
 summary(lm(count ~ 
@@ -160,7 +150,6 @@ summary(lm(count ~
            , data = InsectSprays))$coef
 ```
 
----
 ## What if we include all 6?
 ```{r, echo= TRUE}
 lm(count ~ 
@@ -169,14 +158,12 @@ lm(count ~
    I(1 * (spray == 'F')) + I(1 * (spray == 'A')), data = InsectSprays)
 ```
 
----
 ## What if we omit the intercept?
 ```{r, echo= TRUE}
 summary(lm(count ~ spray - 1, data = InsectSprays))$coef
 unique(ave(InsectSprays$count, InsectSprays$spray))
 ```
 
----
 ## Summary
 * If we treat Spray as a factor, R includes an intercept and omits the alphabetically first level of the factor.
   * All t-tests are for comparisons of Sprays versus Spray A.
@@ -187,14 +174,12 @@ unique(ave(InsectSprays$count, InsectSprays$spray))
   * Tests are tests of whether the groups are different than zero. (Are the expected counts zero for that spray.)
 * If we want comparisons between, Spray B and C, say we could refit the model with C (or B) as the reference level. 
 
----
 ## Reordering the levels
 ```{r}
 spray2 <- relevel(InsectSprays$spray, "C")
 summary(lm(count ~ spray2, data = InsectSprays))$coef
 ```
 
----
 ## Doing it manually
 Equivalently 
 $$Var(\hat \beta_B - \hat \beta_C) = Var(\hat \beta_B) + Var(\hat \beta_C) - 2 Cov(\hat \beta_B, \hat \beta_C)$$
@@ -210,7 +195,6 @@ names(out) <- c("B - C", "SE", "T", "P")
 round(out, 3)
 ```
 
----
 ## Other thoughts on this data
 * Counts are bounded from below by 0, violates the assumption of normality of the errors. 
   * Also there are counts near zero, so both the actual assumption and the intent of the assumption are violated.
@@ -219,7 +203,6 @@ round(out, 3)
   * There are 0 counts, so maybe log(Count + 1)
 * Also, we'll cover Poisson GLMs for fitting count data.
 
----
 
 ## Example - Millenium Development Goal 1
 
@@ -227,7 +210,6 @@ round(out, 3)
 
 [http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*](http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv?profile=text&filter=COUNTRY:*;SEX:*)
 
----
 
 ## WHO childhood hunger data
 
@@ -239,7 +221,6 @@ hunger <- hunger[hunger$Sex!="Both sexes",]
 head(hunger)
 ```
 
----
 
 ## Plot percent hungry versus time
 
@@ -248,7 +229,6 @@ lm1 <- lm(hunger$Numeric ~ hunger$Year)
 plot(hunger$Year,hunger$Numeric,pch=19,col="blue")
 ```
 
----
 
 ## Remember the linear model
 
@@ -260,7 +240,6 @@ $b_1$ = decrease in percent hungry per year
 
 $e_i$ = everything we didn't measure
 
----
 
 ## Add the linear model
 
@@ -271,7 +250,6 @@ lines(hunger$Year,lm1$fitted,lwd=3,col="darkgrey")
 ```
 
 
----
 
 ## Color by male/female
 
@@ -280,7 +258,6 @@ plot(hunger$Year,hunger$Numeric,pch=19)
 points(hunger$Year,hunger$Numeric,pch=19,col=((hunger$Sex=="Male")*1+1))
 ```
 
----
  
 ## Now two lines
 
@@ -303,7 +280,6 @@ $em_i$ = everything we didn't measure
 
 
 
----
 
 ## Color by male/female
 
@@ -317,7 +293,6 @@ lines(hunger$Year[hunger$Sex=="Female"],lmF$fitted,col="red",lwd=3)
 ```
 
 
----
 
 ## Two lines, same slope
 
@@ -331,7 +306,6 @@ $b_2$ - change in percent hungry (for either males or females) in one year
 
 $e^*_i$ - everything we didn't measure
 
----
 
 ## Two lines, same slope in R
 
@@ -344,7 +318,6 @@ abline(c(lmBoth$coeff[1],lmBoth$coeff[2]),col="red",lwd=3)
 abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] ),col="black",lwd=3)
 ```
 
----
 
 ## Two lines, different slopes (interactions)
 
@@ -360,7 +333,6 @@ $b_2 + b_3$ - change in percent hungry (males) in one year
 
 $e^+_i$ - everything we didn't measure
 
----
 
 ## Two lines, different slopes in R
 
@@ -374,7 +346,6 @@ abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] +lmBoth$coeff[4]),col
 ```
 
 
----
 
 ## Two lines, different slopes in R
 
@@ -383,7 +354,6 @@ abline(c(lmBoth$coeff[1] + lmBoth$coeff[3],lmBoth$coeff[2] +lmBoth$coeff[4]),col
 summary(lmBoth)
 ```
 
----
 ## Interpretting a continuous interaction
 $$
 E[Y_i | X_{1i}=x_1, X_{2i}=x_2] = \beta_0 + \beta_1 x_{1} + \beta_2 x_{2} + \beta_3 x_{1}x_{2}
@@ -407,7 +377,6 @@ Thus, $\beta_3$ is the change in the expected change in $Y$ per unit change in $
 
 Or, the change in the slope relating $X_1$ and $Y$ per unit change in $X_2$.
 
----
 
 ## Example
 

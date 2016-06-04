@@ -110,7 +110,7 @@ mode        : selfcontained # {standalone, draft}
 
 * Not necessary if you use R markdown
 * Should contain step-by-step instructions for analysis
-* Here is an example [https://github.com/jtleek/swfdr/blob/master/README](https://github.com/jtleek/swfdr/blob/master/README)
+* Here is an example [https://github.com/jtleek/swfdr/blob/master/README.md](https://github.com/jtleek/swfdr/blob/master/README.md)
 
 ---
 

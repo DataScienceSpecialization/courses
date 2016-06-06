@@ -67,7 +67,7 @@ BellKor = Combination of 107 predictors
 Suppose we have 5 completely independent classifiers
 
 If accuracy is 70% for each:
-  * $10\times(0.7)^3(0.3)^2 + 5\times(0.7)^4(0.3)^2 + (0.7)^5$
+  * $10\times(0.7)^3(0.3)^2 + 5\times(0.7)^4(0.3) + (0.7)^5$
   * 83.7% majority vote accuracy
 
 With 101 independent classifiers

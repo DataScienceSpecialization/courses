@@ -18,7 +18,7 @@ mode        : selfcontained # {standalone, draft}
 Statistical inference is the process of drawing formal conclusions from
 data. 
 
-In our class, we wil define formal statistical inference as settings where one wants to infer facts about a population using noisy
+In our class, we will define formal statistical inference as settings where one wants to infer facts about a population using noisy
 statistical data where uncertainty must be accounted for.
 
 ---
@@ -65,16 +65,17 @@ For a review and statistical discussion, see Royall Statistical Science 1991, Vo
 - These examples illustrate many of the difficulties of trying
 to use data to create general conclusions about a population.
 - Paramount among our concerns are:
-  - Is the sample representative of the population that we'd like to draw inferences about?
-  - Are there known and observed, known and unobserved or unknown and unobserved variables that contaminate our conclusions?
-  - Is there systematic bias created by missing data or the design or conduct of the study?
-  - What randomness exists in the data and how do we use or adjust for it? Here randomness can either be explicit via randomization
+    - Is the sample representative of the population that we'd like to draw inferences about?
+    - Are there known and observed, known and unobserved or unknown and unobserved variables that contaminate our conclusions?
+    - Is there systematic bias created by missing data or the design or conduct of the study?
+    - What randomness exists in the data and how do we use or adjust for it? Here randomness can either be explicit via randomization
 or random sampling, or implicit as the aggregation of many complex uknown processes.
-  - Are we trying to estimate an underlying mechanistic model of phenomena under study?
+    - Are we trying to estimate an underlying mechanistic model of phenomena under study?
 - Statistical inference requires navigating the set of assumptions and
 tools and subsequently thinking about how to draw conclusions from data.
 
 --- 
+
 ## Example goals of inference
 
 1. Estimate and quantify the uncertainty of an estimate of 
@@ -89,6 +90,7 @@ a population quantity (the proportion of people who will
 
 
 ---
+
 ## Example tools of the trade 
 
 1. Randomization: concerned with balancing unobserved variables that may confound inferences of interest
@@ -108,6 +110,7 @@ approximated.
 of using data permutations to perform inferences.
 
 ---
+
 ## Different thinking about probability leads to different styles of inference
 
 We won't spend too much time talking about this, but there are several different
@@ -128,6 +131,7 @@ should I believe now?"
 Data scientists tend to fall within shades of gray of these and various other schools of inference. 
 
 ---
+
 ## In this class
 
 * In this class, we will primarily focus on basic sampling models, 
@@ -139,6 +143,7 @@ and bootstrapping.
 up basic probability.
 
 ---
+
 ## Where to learn more on the topics not covered
 
 1. Explicit use of random sampling in inferences: look in references

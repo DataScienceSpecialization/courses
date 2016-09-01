@@ -35,6 +35,7 @@ hist(galton$parent,col="blue",breaks=100)
 ```
 
 ---
+
 ## Using manipulate
 ```
 library(manipulate)
@@ -49,6 +50,7 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 ```
 
 ---
+
 ## The center of mass is the empirical mean
 ```{r lsm, dependson="galton",fig.height=4,fig.width=4, fig.align='center'}
   hist(galton$child,col="blue",breaks=100)
@@ -57,6 +59,7 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 ```
 
 ---
+
 ## Example
 
 - Suppose a coin is flipped and $X$ is declared $0$ or $1$ corresponding to a head or a tail, respectively
@@ -112,8 +115,8 @@ plot(c(-0.25, 0, 1, 1, 1.25), c(0, 0, 1, 0, 0), type = "l", lwd = 3, frame = FAL
 
 - The expected value is a linear operator 
 - If $a$ and $b$ are not random and $X$ and $Y$ are two random variables then
-  - $E[aX + b] = a E[X] + b$
-  - $E[X + Y] = E[X] + E[Y]$
+    - $E[aX + b] = a E[X] + b$
+    - $E[X + Y] = E[X] + E[Y]$
 
 ---
 
@@ -157,16 +160,16 @@ $$
 ## The variance
 
 - The variance of a random variable is a measure of *spread*
-- If $X$ is a random variable with mean $\mu$, the variance of $X$ is defined as
-
+- If $X$ is a random variable with mean $\mu$, the **variance** of $X$ is defined as
+the expected (squared) distance from the mean
 $$
 Var(X) = E[(X - \mu)^2]
 $$
-    
-the expected (squared) distance from the mean
 - Densities with a higher variance are more spread out than densities with a lower variance
 
 ---
+
+## The variance continued
 
 - Convenient computational form
 $$
@@ -182,9 +185,9 @@ $$
 
 - What's the sample variance from the result of a toss of a die? 
 
-  - $E[X] = 3.5$ 
-  - $E[X^2] = 1 ^ 2 \times \frac{1}{6} + 2 ^ 2 \times \frac{1}{6} + 3 ^ 2 \times \frac{1}{6} + 4 ^ 2 \times \frac{1}{6} + 5 ^ 2 \times \frac{1}{6} + 6 ^ 2 \times \frac{1}{6} = 15.17$ 
-
+    - $E[X] = 3.5$ 
+    - $E[X^2] = 1 ^ 2 \times \frac{1}{6} + 2 ^ 2 \times \frac{1}{6} + 3 ^ 2 \times \frac{1}{6} + 4 ^ 2 \times \frac{1}{6} + 5 ^ 2 \times \frac{1}{6} + 6 ^ 2 \times \frac{1}{6} = 15.17$ 
+    
 - $Var(X) = E[X^2] - E[X]^2 \approx 2.92$
 
 ---
@@ -193,8 +196,8 @@ $$
 
 - What's the sample variance from the result of the toss of a coin with probability of heads (1) of $p$? 
 
-  - $E[X] = 0 \times (1 - p) + 1 \times p = p$
-  - $E[X^2] = E[X] = p$ 
+    - $E[X] = 0 \times (1 - p) + 1 \times p = p$
+    - $E[X^2] = E[X] = p$ 
 
 - $Var(X) = E[X^2] - E[X]^2 = p - p^2 = p(1 - p)$
 
@@ -225,14 +228,5 @@ $$
 - What is the probability of a randomly drawn person having an IQ higher than $160$ or below $40$?
 - Thus we want to know the probability of a person being more than $4$ standard deviations from the mean
 - Thus Chebyshev's inequality suggests that this will be no larger than 6\%
-- IQs distributions are often cited as being bell shaped, in which case this bound is very conservative
+- IQ distributions are often cited as being bell shaped, in which case this bound is very conservative
 - The probability of a random draw from a bell curve being $4$ standard deviations from the mean is on the order of $10^{-5}$ (one thousandth of one percent)
-
----
-
-## Example
-
-- A former buzz phrase in industrial quality control is Motorola's "Six Sigma" whereby businesses are suggested to control extreme events or rare defective parts
-- Chebyshev's inequality states that the probability of a "Six Sigma" event is less than $1/6^2 \approx 3\%$
-- If a bell curve is assumed, the probability of a "six sigma" event is on the order of $10^{-9}$ (one ten millionth of a percent)
-

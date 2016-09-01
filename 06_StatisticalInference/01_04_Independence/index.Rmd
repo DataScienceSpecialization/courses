@@ -19,10 +19,9 @@ mode        : selfcontained # {standalone, draft}
 - Two events $A$ and $B$ are **independent** if $$P(A \cap B) = P(A)P(B)$$
 - Two random variables, $X$ and $Y$ are independent if for any two sets $A$ and $B$ $$P([X \in A] \cap [Y \in B]) = P(X\in A)P(Y\in B)$$
 - If $A$ is independent of $B$ then 
-
-  - $A^c$ is independent of $B$ 
-  - $A$ is independent of $B^c$
-  - $A^c$ is independent of $B^c$
+    - $A^c$ is independent of $B$ 
+    - $A$ is independent of $B^c$
+    - $A^c$ is independent of $B^c$
 
 
 ---
@@ -49,7 +48,7 @@ mode        : selfcontained # {standalone, draft}
 
 - For the purposes of this class, the principal mistake was to *assume* that the probabilities of having SIDs within a family are independent
 - That is, $P(A_1 \cap A_2)$ is not necessarily equal to $P(A_1)P(A_2)$
-- Biological processes that have a believed genetic or familiar environmental component, of course, tend to be dependent within families
+- Biological processes that have a believed genetic or familial environmental component, of course, tend to be dependent within families
 - (There are many other statistical points of discussion for this case.)
 
 ---
@@ -69,7 +68,7 @@ $$
 
 ## IID random variables
 
-- Random variables are said to be iid if they are independent and identically distributed
+- Random variables are said to be **iid** if they are independent and identically distributed
 - iid random variables are the default model for random samples
 - Many of the important theories of statistics are founded on assuming that variables are iid
 
@@ -78,7 +77,7 @@ $$
 
 ## Example
 
-- Suppose that we flip a biased coin with success probability $p$ $n$ times, what is the join density of the collection of outcomes?
+- If a biased coin has success probability $p$, and we flip it $n$ times, what is the join density of the collection of outcomes?
 - These random variables are iid with densities $p^{x_i} (1 - p)^{1-x_i}$ 
 - Therefore
   $$
@@ -87,7 +86,7 @@ $$
 
 ---
 
-## Correlation
+## Covariance
 
 - The **covariance** between two random variables $X$ and $Y$ is defined as 
 $$
@@ -194,6 +193,7 @@ $$
 ---
 ## Example
 ```{r}
+library(UsingR)
 data(father.son); 
 x <- father.son$sheight
 n<-length(x)

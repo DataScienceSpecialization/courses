@@ -45,16 +45,16 @@ runif(1)
 ---
 ## Questions for this class
 * Consider trying to answer the following kinds of questions:
-  * To use the parents' heights to predict childrens' heights.
+  * To use the parents' heights to predict children's heights.
   * To try to find a parsimonious, easily described mean 
-    relationship between parent and children's heights.
-  * To investigate the variation in childrens' heights that appears 
+    relationship between parents' and children's heights.
+  * To investigate the variation in children's heights that appears 
   unrelated to parents' heights (residual variation).
   * To quantify what impact genotype information has beyond parental height in explaining child height.
   * To figure out how/whether and what assumptions are needed to
     generalize findings beyond the data in question.  
   * Why do children of very tall parents tend to be 
-    tall, but a little shorter than their parents and why children of very short parents tend to be short, but a little taller than their parents? (This is a famous question called 'Regression to the mean'.)
+    tall, but a little shorter than their parents and why do children of very short parents tend to be short, but a little taller than their parents? (This is a famous question called 'Regression to the mean'.)
 
 ---
 ## Galton's Data
@@ -85,8 +85,8 @@ hist(galton$parent,col="blue",breaks=100)
   * How could one describe the "middle"?
   * One definition, let $Y_i$ be the height of child $i$ for $i = 1, \ldots, n = 928$, then define the middle as the value of $\mu$
   that minimizes $$\sum_{i=1}^n (Y_i - \mu)^2$$
-* This is physical center of mass of the histrogram.
-* You might have guessed that the answer $\mu = \bar X$.
+* This is the physical center of mass of the histogram.
+* You might have guessed that the answer $\mu = \bar Y$.
 
 
 ---

@@ -120,7 +120,7 @@ $$
 
 ---
 
-## Note's about the $t$ interval
+## Notes about the $t$ interval
 
 - The $t$ interval technically assumes that the data are iid normal, though it is robust to this assumption
 - It works well whenever the distribution of the data is roughly symmetric and mound shaped

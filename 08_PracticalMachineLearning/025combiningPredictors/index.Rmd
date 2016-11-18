@@ -196,7 +196,7 @@ sqrt(sum((combPredV-validation$wage)^2))
   * Predict the class by majority vote
 * This can get dramatically more complicated
   * Simple blending in caret: [caretEnsemble](https://github.com/zachmayer/caretEnsemble) (use at your own risk!)
-  * Wikipedia [ensemlbe learning](http://en.wikipedia.org/wiki/Ensemble_learning)
+  * Wikipedia [ensemble learning](http://en.wikipedia.org/wiki/Ensemble_learning)
 
 ---
 

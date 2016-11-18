@@ -84,7 +84,7 @@ shinyServer(
 ---
 ## Try it
 * type `runApp()` 
-* Notice hitting refresh incriments `y` but enterting values in the textbox does not
+* Notice hitting refresh increments `y` but enterting values in the textbox does not
 * Notice `x` is always 1
 * Watch how it updated `text1` and `text2` as needed.
 * Doesn't add 1 to text1 every time a new `text2` is input.
@@ -92,7 +92,7 @@ shinyServer(
 
 ---
 ## Reactive expressions
-* Sometimes to speed up your app, you want reactive operations (those operations that depend on widget input values) to be performed outside of a `render*`1 statement
+* Sometimes to speed up your app, you want reactive operations (those operations that depend on widget input values) to be performed outside of a `render*` statement
 * For example, you want to do some code that gets reused in several 
 `render*` statements and don't want to recalculate it for each
 * The `reactive` function is made for this purpose

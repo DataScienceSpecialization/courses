@@ -139,7 +139,7 @@ points(training$age,predict(lm1,newdata=training),col="red",pch=19,cex=0.5)
 ## Splines on the test set
 
 ```{r ,dependson="splines",fig.height=4,fig.width=4}
-predict(bsBasis,age=testing$age)
+predict(bsBasis,newx=testing$age)
 ```
 
 

@@ -170,7 +170,7 @@ myPlot <- function(beta){
   y <- galton$child - mean(galton$child)
   x <- galton$parent - mean(galton$parent)
   freqData <- as.data.frame(table(x, y))
-  names(freqData) <- c("child", "parent", "freq")
+  names(freqData) <- c("parent", "child", "freq")
   plot(
     as.numeric(as.vector(freqData$parent)), 
     as.numeric(as.vector(freqData$child)),

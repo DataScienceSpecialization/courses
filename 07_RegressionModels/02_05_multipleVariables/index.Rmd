@@ -134,8 +134,8 @@ temp <- apply(betas, 1, var); temp[2 : 3] / temp[1]
 data(swiss); 
 fit1 <- lm(Fertility ~ Agriculture, data = swiss)
 a <- summary(fit1)$cov.unscaled[2,2]
-fit2 <- update(fit, Fertility ~ Agriculture + Examination)
-fit3 <- update(fit, Fertility ~ Agriculture + Examination + Education)
+fit2 <- update(fit1, Fertility ~ Agriculture + Examination)
+fit3 <- update(fit1, Fertility ~ Agriculture + Examination + Education)
   c(summary(fit2)$cov.unscaled[2,2],
     summary(fit3)$cov.unscaled[2,2]) / a 
 ```
@@ -170,7 +170,7 @@ sqrt(vif(fit)) #I prefer sd
 ## How to do nested model testing in R
 ```{r}
 fit1 <- lm(Fertility ~ Agriculture, data = swiss)
-fit3 <- update(fit, Fertility ~ Agriculture + Examination + Education)
-fit5 <- update(fit, Fertility ~ Agriculture + Examination + Education + Catholic + Infant.Mortality)
+fit3 <- update(fit1, Fertility ~ Agriculture + Examination + Education)
+fit5 <- update(fit1, Fertility ~ Agriculture + Examination + Education + Catholic + Infant.Mortality)
 anova(fit1, fit3, fit5)
 ```

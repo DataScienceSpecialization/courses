@@ -242,12 +242,12 @@ coef(lm(y ~ x + x2 + x3 - 1)) #the -1 removes the intercept term
 
 
 ---
-## Interpretation of the coeficient
+## Interpretation of the coefficient
 $$E[Y | X_1 = x_1, \ldots, X_p = x_p] = \sum_{k=1}^p x_{k} \beta_k$$
 So that
 $$
 E[Y | X_1 = x_1 + 1, \ldots, X_p = x_p]  - E[Y | X_1 = x_1, \ldots, X_p = x_p]$$
-$$= (x_1 + 1) \beta_1 + \sum_{k=2}^p x_{k}+ \sum_{k=1}^p x_{k} \beta_k = \beta_1 $$
+$$= (x_1 + 1) \beta_1 + \sum_{k=2}^p x_{k} - \sum_{k=1}^p x_{k} \beta_k = \beta_1 $$
 So that the interpretation of a multivariate regression coefficient is the expected change in the response per unit change in the regressor, holding all of the other regressors fixed.
 
 In the next lecture, we'll do examples and go over context-specific

@@ -70,6 +70,7 @@ xyplot(y ~ x | f * g, data)
 - If no other arguments are passed, there are defaults that can be used.
 
 ---
+
 ## Simple Lattice Plot
 
 ```{r,fig.height=5}

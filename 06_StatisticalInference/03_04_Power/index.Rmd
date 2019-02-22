@@ -37,6 +37,7 @@ runif(1)
 - Note Power  $= 1 - \beta$
 
 ---
+
 ## Notes
 - Consider our previous example involving RDI
 - $H_0: \mu = 30$ versus $H_a: \mu > 30$
@@ -47,6 +48,7 @@ $$P\left(\frac{\bar X - 30}{s /\sqrt{n}} > t_{1-\alpha,n-1} ~|~ \mu = \mu_a \rig
 
 
 ---
+
 ## Calculating power for Gaussian data
 Assume that $n$ is large and that we know $\sigma$
 $$
@@ -60,6 +62,7 @@ P\left(\frac{\bar X - 30}{\sigma /\sqrt{n}} > z_{1-\alpha} ~|~ \mu = \mu_a \righ
 $$
 
 ---
+
 ## Example continued
 -  Suppose that we wanted to detect a increase in mean RDI
   of at least 2 events / hour (above 30). 
@@ -73,6 +76,7 @@ pnorm(-0.355, lower.tail = FALSE)
 ```
 
 ---
+
 ## Note
 - Consider $H_0 : \mu = \mu_0$ and $H_a : \mu > \mu_0$ with $\mu = \mu_a$ under $H_a$.
 - Under $H_0$ the statistic $Z = \frac{\sqrt{n}(\bar X - \mu_0)}{\sigma}$ is $N(0, 1)$
@@ -91,7 +95,7 @@ abline(v = qnorm(1 - alpha))
 ---
 ```{r, fig.height=5, fig.width=5, echo = FALSE}
 sigma <- 10; mu_0 = 0; mu_a = 2; n <- 100; alpha = .05
-plot(c(-3, 6),c(0, dnorm(0)), type = "n", frame = false, xlab = "Z value", ylab = "")
+plot(c(-3, 6),c(0, dnorm(0)), type = "n", frame.plot = F, xlab = "Z value", ylab = "")
 xvals <- seq(-3, 6, length = 1000)
 lines(xvals, dnorm(xvals), type = "l", lwd = 3)
 lines(xvals, dnorm(xvals, mean = sqrt(n) * (mu_a - mu_0) / sigma), lwd =3)
@@ -100,6 +104,7 @@ abline(v = qnorm(1 - alpha))
 
 
 ---
+
 ## Question
 - When testing $H_a : \mu > \mu_0$, notice if power is $1 - \beta$, then 
 $$1 - \beta = P\left(Z > z_{1-\alpha} - \frac{\mu_a - \mu_0}{\sigma /\sqrt{n}} ~|~ \mu = \mu_a \right) = P(Z > z_{\beta})$$
@@ -110,6 +115,7 @@ $$z_{1-\alpha} - \frac{\sqrt{n}(\mu_a - \mu_0)}{\sigma} = z_{\beta}$$
 - Specify any 3 of the unknowns and you can solve for the remainder
 
 ---
+
 ## Notes
 - The calculation for $H_a:\mu < \mu_0$ is similar
 - For $H_a: \mu \neq \mu_0$ calculate the one sided power using
@@ -125,6 +131,7 @@ $$z_{1-\alpha} - \frac{\sqrt{n}(\mu_a - \mu_0)}{\sigma} = z_{\beta}$$
   - Being unit free, it has some hope of interpretability across settings
 
 ---
+
 ## T-test power
 -  Consider calculating power for a Gossett's $T$ test for our example
 -  The power is
@@ -136,6 +143,7 @@ $$z_{1-\alpha} - \frac{\sqrt{n}(\mu_a - \mu_0)}{\sigma} = z_{\beta}$$
   - Omit one of the arguments and it solves for it
 
 ---
+
 ## Example
 ```{r}
 power.t.test(n = 16, delta = 2 / 4, sd=1, type = "one.sample",  alt = "one.sided")$power
@@ -144,6 +152,7 @@ power.t.test(n = 16, delta = 100, sd=200, type = "one.sample", alt = "one.sided"
 ```
 
 ---
+
 ## Example
 ```{r}
 power.t.test(power = .8, delta = 2 / 4, sd=1, type = "one.sample",  alt = "one.sided")$n

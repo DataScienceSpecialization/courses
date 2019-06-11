@@ -37,7 +37,6 @@ Creating Data Products
 - Please help improve this with pull requests here
 (https://github.com/bcaffo/courses)
 
-
 --- &radio
 
 Consider influenza epidemics for two parent heterosexual families. Suppose that the probability is 15% that at least one of the parents has contracted the disease. The probability that the father has contracted influenza is 10% and the propability that the mother contracted the disease is 9%. What is the probability that both contracted influenza expressed as a whole number percentage?
